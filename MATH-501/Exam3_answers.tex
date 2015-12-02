@@ -1,0 +1,481 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+
+\title{MATH 501: Exam 3}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+{\bf 1.} Determine the radius of the convergence $R$ of the following series and
+discuss whether or not they converge at $x = R$ and $x = -R$:
+
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) $S_{1}(x) = \sum_{n=1}^{\infty}\frac{n!}{\sqrt{(2n-1)!}}x^{n}$ 
+
+  {\bf Solution:}
+
+  Consider the ratio test, where 
+  \begin{align*}
+    r_{n} = \left|\frac{(n+1)!x^{n+1}}{\sqrt{(2n+1)!}}\times
+    \frac{\sqrt{(2n-1)!}}{n!x^{n}}\right| = \left|
+    \frac{(n+1)x}{\sqrt{(2n+1)(2n)}}\right| & =
+    \left|\frac{(n+1)x}{2\sqrt{(n+1/2)n}}\right| \stackrel{n\rightarrow
+    \infty}{\longrightarrow}
+    \left|\frac{x}{2}\right|.
+  \end{align*}
+  So $\lim_{n\rightarrow \infty}r_{n} < 1$ if $|x| <
+  2$. Thus $R = 2$. To determine whether the series converges at the $x = 2$ and
+  $x = -2$,
+  consider again the ratio of successive terms:
+  \[ r_{n} = \left|\frac{a_{n+1}}{a_{n}}\right| =
+  \frac{2(n+1)}{\sqrt{(2n+1)(2n)}} > 1 \qquad \forall n \in \mathbb{N}, \]
+  since $[2(n+1)]^{2} = 4n^{2} + 8n + 4 > 4n^{2} + 2n = 2n(2n+1)$. Thus, since
+  the absolute value of successive terms is increasing for both $x = 2$ and $x =
+  -2$, $a_{n}$ does not
+  converge to 0, and therefore the series does not converge at $x = 2$ or $x =
+  -2$.
+
+  \item (b) $S_{2}(x) = \sum_{n=1}^{\infty}\frac{(n!)^{2}}{(2n)!}x^{n}$
+
+  {\bf Solution:}
+
+  Again consider the ratio test, where 
+  \[ r_{n} =
+    \left|\frac{[(n+1)!]^{2}x^{n+1}}{(2n+2)!}\times\frac{(2n)!}{(n!)^{2}x^{n}}\right|
+    = \left|\frac{x(n+1)^{2}}{(2n+2)(2n+1)}\right| \rightarrow
+  \left|\frac{x}{4}\right|, \text{ as } n\rightarrow \infty. \]
+  Thus $\lim_{n\rightarrow\infty}r_{n} < 1$ if $|x| <
+  4$. So $R = 4$. To determine convergence at the boundaries, let's examine the
+  ratio of successive terms once more. For $x = 4$ and $x = -4$, we have 
+  \[ r_{n} = \left|\frac{a_{n+1}}{a_{n}}\right| =
+  \frac{4(n+1)^{2}}{(2n+2)(2n+1)} > 1 \qquad \forall n \in \mathbb{N}, \]
+  since $4(n+1)^{2} = 4n^{2}+8n+4>4n^{2} + 6n+2$. So $|a_{n}|$ is increasing and
+  therefore does not converge to 0. Thus $S_{2}(-4)$ and $S_{2}(4)$ do not
+  converge.
+
+  \item (c) $S_{3}(x) = \sum_{n=1}^{\infty}\frac{n^{n}}{n!}x^{n}$ 
+
+  {\bf Solution:}
+
+  Once again we revert to the ratio test. We have
+  \begin{align*}
+    r_{n} = \left| \frac{x^{n+1}(n+1)^{n+1}}{(n+1)!}\times
+    \frac{n!}{x^{n}n^{n}}\right| = \left| \frac{x}{n+1}\times
+    \frac{(n+1)^{n+1}}{n}\right| & = \left| x\left(\frac{n+1}{n}\right)^{n}\right| \\
+    & = \left| x\left(1+\frac{1}{n}\right)^{n}\right| \rightarrow |xe|, \text{
+    as } n\rightarrow \infty.
+  \end{align*}
+  Thus $\lim_{n\rightarrow \infty}r_{n} < 1$ if $|x| <
+  e^{-1}$. Now consider what happens when $x = -e^{-1}$. From the ratio test,
+  \[ r_{n} = \left|\frac{a_{n+1}}{a_{n}}\right| =
+  e^{-1}\left(1+\frac{1}{n}\right)^{n} < 1 \qquad \forall n \in \mathbb{N},\]
+  since $\left(1+\frac{1}{n}\right)^{n} < e$. So, since $S_{3}(-e^{-1})$ is an
+  alternating series in which $|a_{n}|$ is decreasing, $S_{3}(e^{-1})$
+  converges. I am not sure what happens when $x = e^{-1}$.
+
+  \item (d) $S_{4}(x) = \sum_{n=1}^{\infty}\left(\frac{n-4}{n}\right)^{n}x^{n}$
+
+  {\bf Solution:}
+
+  Let $c_{n} = \left(\frac{n-4}{n}\right)^{n} = \left(1 -
+  \frac{4}{n}\right)^{n}$. Then
+  \[ |c_{n}|^{1/n} = \left|1 - \frac{4}{n}\right|\rightarrow 1 \text{ as }
+  n\rightarrow \infty.\]
+  So $R = 1$. At $x = -1$, 
+  \[ S_{4}(-1) = \sum_{n=1}^{\infty}\left(\frac{n-4}{n}\right)^{n}(-1)^{n}, \]
+  which does not converge since
+  \[\left|\left(\frac{n-4}{n}\right)^{n}(-1)^{n}\right| =
+  \left(\frac{n-4}{n}\right)^{n} \rightarrow e^{-4}, \text{ as } n\rightarrow \infty.\]
+  Therefore $S_{4}(1)$ does not converge either.
+\end{itemize}
+
+{\bf 2.} Let $f(x) = \sum_{n=1}^{\infty}\frac{1}{(n+1)(n+2)}\sin nx$.
+
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) For what values of $x\in \mathbb{R}$ is $f(x)$ well-defined?
+
+  {\bf Solution:} $f$ is well defined over all $x\in \mathbb{R}$ by the
+  Comparison Test, since 
+  \begin{align*}
+    f(x) = \sum_{n=1}^{\infty}\frac{1}{(n+1)(n+2)}\sin nx \leq
+    \sum_{n=1}^{\infty}\left|\frac{1}{(n+1)(n+2)}\sin nx\right| & \leq
+  \sum_{n=1}^{\infty}\frac{1}{(n+1)(n+2)} \\
+  & < \sum_{n=1}^{\infty}\frac{1}{n^{2}},
+  \end{align*}
+  where $\sum_{n=1}^{\infty}\frac{1}{n^{2}} < +\infty$.
+
+  \item (b) Explain why $\int_{0}^{\infty}f(x)dx$ exists.
+
+  {\bf Solution:} Define $f_{n}(x) = \frac{1}{(n+1)(n+2)}\sin nx$. From (a) and Theorem 4.5 (Weierstrass M-test),
+  $f(x) = \sum f_{n}(x)$ converges uniformly. Further, since $f_{n}(x)$ is
+  integrable for every $n \in \mathbb{N}$, $f(x)$ can be integrated term-by-term
+  according to Theorem 4.8.
+
+  \item (c) Compute $\int_{0}^{\pi}f(x)dx$.
+  
+  {\bf Solution:}
+
+  By Theorem 4.8,
+  \begin{align*}
+    \int_{0}^{\pi}f(x)dx = \int_{0}^{\pi}\sum_{n=1}^{\infty}f_{n}(x)dx &
+    \stackrel{4.8}{=}
+    \sum_{n=1}^{\infty}\int_{0}^{\pi}f_{n}(x)dx \\
+    & = \sum_{n=1}^{\infty}\int_{0}^{\pi}\frac{1}{(n+1)(n+2)}\sin nx dx \\
+    & = \sum_{n=1}^{\infty}\left[ \frac{1}{n(n+1)(n+2)}\left(-\cos nx
+    \bigg|_{0}^{\pi}\right)\right] \\
+    & = \sum_{n=1}^{\infty}\left[ \frac{1}{n(n+1)(n+2)}\left(1 -
+    (-1)^{n}\right)\right] \qquad \text{even terms are 0} \\
+    & = \sum_{k=1}^{\infty}\frac{1}{k(2k-1)(2k+1)}.
+  \end{align*}
+\end{itemize}
+
+{\bf 3.}
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) Prove that the sequence $a_{n} = \sum_{k=1}^{n}\frac{1}{k} -
+    \int_{1}^{n}\frac{1}{x}dx$ converges as $n\rightarrow \infty$.
+
+  {\bf Solution:} First, note that 
+  \begin{align*}
+    a_{n} = \sum_{k=1}^{n}\frac{1}{k} - \int_{1}^{n}\frac{1}{x}dx & =
+    \sum_{k=1}^{n}\frac{1}{k} - \int_{0}^{n-1}\frac{1}{x+1}dx \\
+    & \geq \sum_{1}^{n}\frac{1}{k} - \int_{0}^{n}\frac{1}{x+1}dx \\
+    & = \sum_{k=1}^{n}\left[ \frac{1}{k} - \int_{k-1}^{k}\frac{1}{x+1}dx\right]
+    \geq 0,
+  \end{align*}
+  since $\frac{1}{k} \geq \frac{1}{x+1}$ for $x \in (k-1, k]$. Further, 
+  \[ a_{n} - a_{n-1} = \frac{1}{n} - \int_{n-1}^{n}\frac{1}{x}dx \leq 0, \]
+  since $\frac{1}{n} \leq \frac{1}{x}$ for $x\in(n-1,n]$. Therefore $a_{n}$
+  converges since it is monotone decreasing and bounded below.
+
+\item (b) Compute $\lim_{n\rightarrow\infty}\frac{1}{n^{5}}\sum_{k=1}^{n}k^{4}$.
+    
+  {\bf Solution:} We have the following theorem from class:
+  
+  \begin{Theorem}
+    If $\alpha > 0$, then 
+    \[ \lim_{n\rightarrow \infty} \frac{1+\alpha}{n^{1+\alpha}}\sum_{k=1}^{n}k^{\alpha} = 1.\]
+  \end{Theorem}
+
+  Thus,
+  \[ \lim_{n\rightarrow \infty}\frac{1}{n^{1+\alpha}}\sum_{k=1}^{n}k^{\alpha} =
+  \frac{1}{1+\alpha}. \]
+  So,
+  \[ \lim_{n\rightarrow \infty}\frac{1}{n^{5}}\sum_{k=1}^{n}k^{4} = \frac{1}{5}.
+  \]
+
+  \item (c) Let $a_{n}$ be a sequence of reals such that
+  $\sum_{n=1}^{\infty}a_{n}$ converges. Prove that the series $F(x) =
+  \sum_{n=1}^{\infty}a_{n}x^{n}$ are convergent for $x \in [0,1]$. Is $F(x)$
+  continuous on $[0,1]$? 
+
+  {\bf Solution:} Since $\sum a_{n}$ converges,
+  ${\lim\sup}_{n\rightarrow\infty}|a_{n+1}/a_{n}| \leq 1$ by the ratio test.
+  Now, if $x = 1$ then $F(x) = \sum a_{n}1^{n} = \sum a_{n}$, so $F(1)$
+  converges. If $x \in [0,1)$, then 
+  \[
+    {\lim\sup}_{n\rightarrow\infty}\left|\frac{a_{n+1}x^{n+1}}{a_{n}x^{n}}\right|
+    = x\left|\frac{a_{n+1}}{a_{n}}\right| < \left|\frac{a_{n+1}}{a_{n}}\right|
+  \leq 1. \]
+  So by the ratio test, $F(x)$ converges. It also follows that $F(x)$ is continuous on
+  $[0,1]$. To see why, realize that $F(x)$ is a power series, and since $F(x)$
+  converges for $x \in [0,1]$, it must be that $[0,1] \subset (-R, R)$ where $R$
+  is the radius of convergence of $F(x)$. Theorem 4.12 states that a power
+  series can be differentiated on its interval of convergence, and since
+  differentiability implies continuity, $F(x)$ must be continuous on its radius
+  of convergence, and is therefore continuous on $[0,1]$.
+\end{itemize}
+
+{\bf 4.} Consider 
+\[ f(x) = \sum_{n=1}^{\infty}\frac{1}{1+n^{2}x}. \]
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) For what values of $x$ does the series converge absolutely?
+
+  {\bf Solution:} There are certain values of $x$ that we can rule-out
+  immediately as candidates for absolute convergence. Namely, $x = 0$ and $x =
+  -1/n^{2}$ for all $n \in \mathbb{N}$. At these points $1 / [1 + n^{2}x]$ will
+  be undefined. Now consider $x > 0$. Well,
+  \[ \sum_{n=1}^{\infty}\frac{1}{1+n^{2}x} \leq
+    \sum_{n=1}^{\infty}\frac{1}{n^{2}x} =
+  \frac{1}{x}\sum_{n=1}^{\infty}\frac{1}{n^{2}} < +\infty. \]
+  Therefore $f(x)$ converges for every $x > 0$. Now consider $x < 0$ and $x
+  \notin \{-1/n^{2} : n \in \mathbb{N}\}$. Consider the following:
+  \begin{align*}
+    |1 + n^{2}x| > n^{2} & \text{ iff } 1 + n^{2}x < -n^{2} \\
+    & \text{ iff } \frac{1+n^{2}x}{n^{2}} < -1 \\
+    & \text{ iff } 1/n^{2} + x < -1 \\
+    & \text{ iff } n^{2} > 1 / |x + 1|.
+  \end{align*}
+  Thus, when $n > 1 / \sqrt{|x+1|}$, we have 
+  \[ \left| \frac{1}{1+n^{2}x}\right| < \frac{1}{n^{2}}. \]
+  So by the comparison test, $f(x)$ converges absolutely.
+
+  \item (b) On what intervals does it converge uniformly? On what intervals does
+    it fail to converge uniformly?
+
+  {\bf Solution:} $f(x)$ converges over any interval $[a,b]$ where $a,b \notin
+  \{-1/n^{2} : n \in \mathbb{N}\} \cup \{0\}$. To see why, first consider $x \in
+  [a,b]$ where $a > 0$. We have 
+  \[ \frac{1}{1+n^{2}x} \leq \frac{1}{1+n^{2}a} < \frac{1}{n^{2}a}. \]
+  Since $\sum_{n=1}^{\infty}\frac{1}{n^{2}a}$ converges, $f(x)$ converges
+  uniformly by Theorem 4.5. Similary, when $[a,b] \subset (-\infty, 0)$ and
+  $a,b\notin \{-1/n^{2} : n\in\mathbb{N}\}$, then 
+  \[ \left| \frac{1}{1+n^{2}x}\right| < \frac{1}{n^{2}} \qquad \text{ for large
+  }n, \]
+  so $f(x)$ converges uniformly. Now consider an interval of the form $(a,b)$
+  where either $a$ or $b$ is in the set $\{-1/n^{2} : n\in\mathbb{N}\} \cup
+  \{0\}$. Denote $f_{n}(x) = \sum_{k=1}^{n}1 / [1+k^{2}x]$. First assume $a =
+  0$. Then as $x
+  \rightarrow 0$, $1 / [1 + n^{2}x] \rightarrow 1$, so $|f_{n}(x) - f(x)|
+  \rightarrow \infty$. Thus $f_{n}$ does not converge uniformly. Now consider
+  $(a,b)$ where $a = -1/n^{2}$ and $b = -1/(n+1)^{2}$. As $x \rightarrow
+  -1/n^{2}$, $1 / |1+n^{2}x| \rightarrow \infty$, so $|f_{n}(x) - f(x)|
+  \rightarrow \infty$. So $f_{n}$ does not converge uniformly.
+
+  \item (c) Is $f$ continuous wherever the series converges?
+
+  {\bf Solution:} Yes. On the intervals where $f$ converges, $1 / [1+n^{2}x]$ is
+  a continuous function. Thus $f_{n}(x) = \sum_{k=1}^{n}1 / [1+k^{2}x]$ is a
+  continuous function. Therefore $f$ is continuous over all intervals where
+  $f_{n}\rightrightarrows f$. But this includes all points where $f_{n}$ converges,
+  including those close to $0$ or $-1/n^{2}$. For example, let $y$ be any point
+  close to 0. Well $y \in [y/2, b]$ for some $b > y$, and as we have shown, $f$
+  is continuous over this interval. Thus $f$ is continuous at $y$.
+
+  \item (d) Is $f$ bounded?
+
+  {\bf Solution:} No. As shown in part (b), $|f_{n}(x) - f(x)| \rightarrow
+  \infty$ as $x \rightarrow 0$, thus $f(x) \rightarrow \infty$ since $f(x) >
+  f_{n}(x)$ for all $n\in\mathbb{N}, x > 0$.
+\end{itemize}
+
+{\bf 5.} For $n \in \mathbb{N}$, let 
+\[ f_{n}(x) = \frac{x}{1+nx^{2}}. \]
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) Show that $f_{n}$ converges uniformly to a function $f$.
+
+  {\bf Solution:} 
+  
+  \begin{proof}
+    By examination it is clear that $f_{n}(x) \rightarrow 0$ for all $x \in
+    \mathbb{R}$. 
+    Thus we will show that $f_{n}(x)$ converges uniformly to $f(x) = 0$. First let's
+    find where $|f_{n}(x)|$ takes on a maximum value. The derivative of
+    $f_{n}(x)$ is given by 
+    \[ f_{n}'(x) = \frac{(1+nx^{2}) - 2nx^{2}}{(1+nx^{2})^{2}} =
+    \frac{1-nx^{2}}{(1+nx^{2})^{2}}. \]
+    Setting the derivative to 0 and solving for $x$, we get $x = \pm 1 /
+    \sqrt{n}$. Further, the second derivative of $f_{n}(x)$ is 
+    \[ f_{n}''(x) = \frac{-2nx(1+nx^{2})^{2} -
+    4nx^{2}(1-nx^{2})}{(1+nx^{2})^{4}}, \]
+    which is less than 0 when $x = 1/\sqrt{n}$ and greater than 0 when $x =
+    -1/\sqrt{n}$. Therefore $1/\sqrt{n}$ is a local maximum and $x =
+    -1/\sqrt{n}$ is a local minimum. But, $f_{n}(x) > 0$ for all $x > 0$,
+    $f_{n}(x) < 0$ for all $x < 0$, and $f_{n}(x)$ is monotone decreasing for $x
+    > 1/\sqrt{n}$ and $x < -1/\sqrt{n}$. Thus $1/\sqrt{n}$ is a global maximum
+    and $-1/\sqrt{n}$ is a global minimum. Further,
+    \[ |f_{n}(1/\sqrt{n})| = |f_{n}(-1/\sqrt{n})| = \frac{1/\sqrt{n}}{1+1} =
+    \frac{1}{2\sqrt{n}}. \]
+    Hence $|f_{n}(x)| \leq \frac{1}{2\sqrt{n}}$ for all $x \in \mathbb{R}$. Now,
+    let $\epsilon > 0$ and $N > 1 / (2\epsilon)^{2}$. Then for $n > N$,
+    \[ |f_{n}(x) - f(x)| = |f_{n}(x)| \leq \frac{1}{2\sqrt{n}} < \epsilon,
+    \qquad \forall x \in \mathbb{R}. \]
+    So $f_{n}$ converges uniformly to $f(x) = 0$.
+  \end{proof}
+
+  \item (b) Prove that the equation $f'(x) = \lim_{n\rightarrow
+    \infty}f'_{n}(x)$ is correct if $x\neq 0$ but false if $x = 0$.
+
+  {\bf Solution:}
+
+  \begin{proof}
+    From the work done in part (a), the derivative of $f_{n}(x)$ is given by 
+    \[ f_{n}'(x) = \frac{1-nx^{2}}{(1+nx^{2})^{2}}. \]
+    For $x \neq 0$, we have 
+    \begin{align*}
+      f_{n}'(x) = \frac{1-nx^{2}}{(1+nx^{2})^{2}} & =
+      \frac{1-nx^{2}}{1+2nx^{2}+n^{2}x^{4}} \\
+      & = \frac{n^{2}}{n^{2}}\times \frac{\frac{1}{n^{2}} -
+      \frac{x^{2}}{n}}{\frac{1}{n^{2}} + \frac{2x^{2}}{n}+x^{4}} \rightarrow
+    \frac{0}{x^{4}} = 0.
+    \end{align*}
+    However, if $x = 1$, then $f_{n}'(x) = 1 \nrightarrow 0$.
+  \end{proof}
+\end{itemize}
+
+{\bf 6. [Bonus]} Let $C[0,\infty)$ be the set of all real-valued functions continuous on
+$[0,\infty)$. For each $n \in \mathbb{N}$, let 
+\[ \|f\|_{n} = \max\{|f(x)| : 0 \leq x \leq n\} \qquad \text{and}\qquad
+\rho_{n}(f,g) = \frac{\|f-g\|_{n}}{1+\|f-g\|_{n}}. \]
+Define 
+\[ \rho(f,g) = \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f,g). \]
+
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) Show that $\rho$ is a metric on $[0,\infty)$.
+
+  {\bf Solution:}
+
+  \begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+    \item (i) Positve definiteness.
+
+    Note that $\rho(f,g) = \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f,g)
+    \geq 0$ since $\rho_{n}(f,g) \geq 0$, since $\|f-g\|_{n} \geq 0$ for all
+    $n\in\mathbb{N}$. Further $\rho(f,g) = 0$ if and only if $\rho_{n}(f,g) = 0$
+    for all $n\in\mathbb{N}$, if and only if 
+    \[ \max\{|f(x) - g(x)|:0\leq x \leq n\} = 0 \qquad \forall n \in\mathbb{N},
+    \]
+    if and only if $f(x) = g(x)$ for every $x > 0$.
+
+    \item (ii) Symmetry.
+
+    We have 
+    \[ \rho_{n}(f,g) = \frac{\|f-g\|_{n}}{1+\|f-g\|_{n}} =
+    \frac{\|g-f\|_{n}}{1+\|g-f\|_{n}}, \]
+    for all $n\in \mathbb{N}$, so 
+    \[ \rho(f,g) = \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f,g) =
+    \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(g,f) = \rho(g,f). \]
+
+    \item (iii) Triangle inequality.
+
+    Denote $x^{*} = \arg\max \{|f(x) - g(x)| : 0 \leq x \leq n\}$. Then,
+    \begin{align*}
+      \|f-g\|_{n} & = \max\{|f(x) - g(x)| : 0 \leq x \leq n\} \\
+      & = |f(x^{*}) -
+      g(x^{*}) \\
+      & \leq |f(x^{*}) - h(x^{*})| + |h(x^{*}) - g(x^{*})| \\
+      & \leq \max\{|f(x) - h(x)| : 0 \leq x \leq n\} + \max\{|h(x) - g(x)| : 0
+      \leq x \leq n\} \\
+      & = \|f-h\|_{n} + \|h-g\|_{n}.
+    \end{align*}
+    Therefore,
+    \begin{align*}
+      \rho_{n}(f,g) & = \frac{\|f-g\|_{n}}{1+\|f-g\|_{n}} \\
+      & \leq \frac{\|f-h\|_{n} + \|h-g\|_{n}}{1+\|f-h\|_{n} + \|h-g\|_{n}} \\
+      & = \frac{\|f-h\|_{n}}{1 + \|f-h\|_{n} + \|h-g\|_{n}} +
+      \frac{\|h-g\|_{n}}{1+\|f-h\|_{n} + \|h-g\|_{n}} \\
+      & \leq \frac{\|f-h\|_{n}}{1+\|f-h\|_{n}} +
+      \frac{\|h-g\|_{n}}{1+\|h-g\|_{n}} = \rho_{n}(f,g) + \rho_{n}(h,g). 
+    \end{align*}
+    Hence,
+    \begin{align*}
+      \rho(f,g) = \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f,g) & \leq
+      \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\left[ \rho_{n}(f,h) +
+      \rho_{n}(h,g)\right] \\
+      & = \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f,h) +
+      \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(h,g) \\
+      & = \rho(f,h) + \rho(h,g).
+    \end{align*}
+  \end{itemize}
+
+
+  \item (b) Let $(f_{k})_{k\in\mathbb{N}}$ be a sequence of functions in
+  $C[0,\infty)$. Show that $\lim_{k\rightarrow\infty}f_{k} = f$ in the metric
+  space $\left(C[0,\infty),\rho\right)$ if and only if
+  $\lim_{k\rightarrow\infty}f_{k}(x) = f(x)$ uniformly on every finite
+  subinterval of $[0,\infty)$.
+
+  {\bf Solution:}
+
+  \begin{proof}
+    $(\Leftarrow)$ Assume $\lim_{k\rightarrow \infty}f_{k}(x) = f(x)$ uniformly
+    on every finite subinterval of $[0,\infty)$. Let $\epsilon > 0$. Since
+    $\sum_{n=1}^{\infty}\frac{1}{2^{n-1}}$ converges to 2, there exists some
+    $N_{\rho} \in \mathbb{N}$ such that
+    $\sum_{n=N_{\rho}}^{\infty}\frac{1}{2^{n-1}} < \epsilon / 2$. From now on,
+    denote $S = \sum_{n=1}^{N_{\rho}-1}\frac{1}{2^{n-1}}$. By assumption,
+    $f_{k}(x)$ converges uniformly on the interval $[0,N_{\rho}-1]$. Thus there
+    exists some $N_{\epsilon} \in \mathbb{N}$ such that $k > N_{\epsilon}$
+    implies 
+    \begin{align*}
+      |f_{k}(x) - f(x)| & \leq \max\{|f_{k}(x) - f(x)| : 0 \leq x \leq
+      N_{\rho}-1\} = \|f_{k}(x) - f(x)\|_{N_{\rho}-1} < \frac{\frac{\epsilon}{2S}}{1 - \frac{\epsilon}{2S}}.
+    \end{align*}
+    Then 
+    \[ \rho_{N_{\rho}-1}(f_{k}, f) = \frac{\|f_{k} - f\|_{N_{\rho}-1}}{1 +
+    \|f_{k} - f\|_{N_{\rho}-1}} < \frac{\epsilon}{2S}. \]
+    Hence, for $k > N_{\epsilon}$,
+    \begin{align*}
+      \rho(f_{k}, f) = \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f_{k},f)
+      & = \sum_{n=1}^{N_{\rho}-1}\frac{1}{2^{n-1}}\rho_{n}(f_{k},f) +
+      \sum_{n=N_{\rho}}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f_{k},f) \\
+      & \leq \sum_{n=1}^{N_{\rho}-1}\frac{1}{2^{n-1}}\rho_{N_{\rho}-1}(f_{k}, f)
+      + \sum_{n=N_{\rho}}^{\infty}\frac{1}{2^{n-1}} \times 1 \\
+      & = \rho_{N_{\rho}-1}(f_{k},f)S + \sum_{n=1}^{\infty}\frac{1}{2^{n-1}} \\
+      & < \epsilon / 2 + \epsilon / 2 = \epsilon.
+    \end{align*}
+    Thus $\lim_{k\rightarrow \infty}f_{k} = f$ in the metric space
+    $(C[0,\infty), \rho)$.
+
+    $(\Rightarrow)$ For the second part, we will prove the contrapositive. So assume
+    that $f_{k}$ does not converge uniformly over some finite subinterval of
+    $[0,\infty)$. That is, there exists an $\epsilon > 0$, such that for all $N \in \mathbb{N}$, 
+    there exists a $k' > N$ and $x'$ within some subinterval $[a,b] \subset [0,\infty)$ such that 
+    \begin{equation}
+      |f_{k'}(x') - f(x')| \geq \epsilon.
+    \end{equation}
+    Note that since $x' \in [a,b]$, $x'\in[0,n]$ for all $n \geq b$. Let $n_{b}$
+    be the first $n \in \mathbb{N}$ such that $n \geq b$. Thus,
+    \begin{align*}
+      \rho(f_{k'}, f) & = \sum_{n=1}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f_{k'},f)
+      \\
+      & = \sum_{n=1}^{n_{b}-1}\frac{1}{2^{n-1}}\rho_{n}(f_{k'},f) +
+      \sum_{n=n_{b}}^{\infty}\frac{1}{2^{n-1}}\rho_{n}(f_{k'},f) \\
+      & \stackrel{(1)}{\geq}
+      \sum_{n=1}^{n_{b}-1}\frac{1}{2^{n-1}}\rho_{n}(f_{k'},g) +
+      \sum_{n=n_{b}}^{\infty}\frac{1}{2^{n-1}}\frac{\epsilon}{1+\epsilon} \\
+      & \geq
+      \frac{\epsilon}{1+\epsilon}\sum_{n=n_{b}}^{\infty}\frac{1}{2^{n-1}}.
+    \end{align*}
+    To summarize, we have found that there exists an $\epsilon > 0$ such that for every $N\in \mathbb{N}$, 
+    there exists a $k' > N, n_{b}\in \mathbb{N}$ such that $\rho(f_{k'},f)$ is bounded below by 
+    \[ \frac{\epsilon}{1+\epsilon}\sum_{n=n_{b}}^{\infty}\frac{1}{2^{n-1}} > 0. \]
+    Therefore $\rho(f_{k},f)\nrightarrow 0$ as $k\rightarrow \infty$, so
+    $\lim_{k\rightarrow \infty}f_{k}\nrightarrow f$ in the metric space
+    $(C[0,\infty), \rho)$.
+  \end{proof}
+\end{itemize}
+
+\vspace{20mm}
+
+\hrulefill
+
+Alex,
+
+Thank you for the great semester. I hope to take another class with you in the
+future.
+
+Enjoy the rest of your summer.
+
+Best,\\
+Pete
+
+\hrulefill
+
+
+
+\end{document}

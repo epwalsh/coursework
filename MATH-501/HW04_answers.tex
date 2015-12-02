@@ -1,0 +1,113 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}
+\geometry{a4paper, left=30mm, right=30mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+
+\newtheorem*{prop}{Proposition}
+\newtheorem*{Def}{Definition}
+
+\begin{document}
+\title{MATH 501: HW 4}
+\author{Evan ``Pete'' Walsh}
+\today
+\maketitle
+
+\section*{Chapter 2}
+
+
+\subsection*{39} Assume that the Cartesian product of two non-empty sets $A\subset M$ and $B\subset N$ is compact in $M\times N$. Then $A$ and $B$ are compact. 
+
+\begin{proof}
+  Assume that we are using one of the standard metrics for $M\times N$, either $d_{E}, d_{\text{max}},$ or $d_{\text{sum}}$. Let $(a_{n})$ be a sequence in $A$, $(b_{n})$ a sequence in $B$. Define $(z_{n}) = (a_{n}, b_{n}) \in A\times B$. By the compactness of $A\times B$, there exists some subsequence of $(z_{n})$, denote it $(z_{n_{k}}) = (a_{n_{k}}, b_{n_{k}})$, that converges in $A\times B$. Yet by Theorem 21, the convergence of $(z_{n_{k}})$ in $A\times B$ is equivalent to the convergence of $(a_{n_{k}})$ in $A$ and $(b_{n_{k}})$ in $B$. Thus $A$ and $B$ are both compact.
+\end{proof}
+
+\subsection*{40} Let $f: M\rightarrow \mathbb{R}$ be a function. Define its graph $G = \{(p,y)\in M\times \mathbb{R} : y = f(p)\}$.
+
+(a) If $f$ is continuous then its graph is closed in $M\times \mathbb{R}$.
+
+\begin{proof}
+  Let $g = (p,y)$ be a limit point of the graph, $G$. We need to show that $g$ is in $G$. Well, since $g$ is a limit point of $G$, there exists a sequence $(g_{n}) = (p_{n}, y_{n}) \in G$ such that $g_{n}\rightarrow G$ as $n\rightarrow \infty$. But since $f$ is continuous, limits are preserved across the mapping in the sense that $\lim_{n\rightarrow\infty}p_{n} = p$ implies $\lim_{n\rightarrow\infty}f(p_{n}) = \lim_{n\rightarrow\infty}y_{n} = f(p) = y$. So, since $y = f(p)$, the limit point of $g$ is in the graph. Hence the graph is closed.
+\end{proof}
+
+(b) If $f$ is continuous and $M$ is compact, then the graph is compact.
+
+\begin{proof}
+  Let $(g_{n}) = (p_{n}, y_{n})$ be a sequence in the graph of $f$, $G$. We need to show that there exists a subsequence of $(g_{n})$, denote it $(g_{n_{k}}) = (p_{n_{k}}, y_{n_{k}})$, that converges in $G$. Well, since $M$ is compact, $(p_{n})$ has a subsequence $(p_{n_{k}})$ that converges to some point $p\in M$. But since limits are preserved under the mapping of continuous functions, $\lim_{n_{k}\rightarrow \infty}f(p_{n_{k}}) = \lim_{n_{k}\rightarrow\infty}y_{n_{k}} = f(p)$. So $y_{n_{k}}\rightarrow f(p)\in \mathbb{R}$. But by Theorem 21, the convergence of $p_{n_{k}}$ in $M$ and $y_{n_{k}}$ in $\mathbb{R}$ implies the convergence of $g_{n_{k}} = (p_{n_{k}}, y_{n_{k}}) \in M\times \mathbb{R}$. So $G$ is compact.
+\end{proof}
+
+\subsection*{62} (a) False. Consider the open starlike set in $\mathbb{R}^{2}$
+\[ \{(x,y): \sqrt{x^{2} + y^{2}} < 2\} \setminus \{ (x,y) : |x| = |y|, |x| \geq 1\}.\]
+Upon examination it is clear that the only center is the point $(0,0)$.
+
+(b) True, the set of centers is always convex.
+
+\begin{proof}
+  If there is only one center, then the set of centers is convex. Now assume that there is more than one center. We show by contradition that the set of centers is convex. So assume that it is not convex. That means that there exists two centers $p_{1}, p_{2}$ such that some point $x_{0}$ on the segment between $p_{1}, p_{2}$ is not a center. Then there exists some $x_{1} \in E$ such that the segment connecting $x_{0}, x_{1}$ has some point on it, call it $y$, that is not in $E$. But since $p_{1}, p_{2}, x_{0}, x_{1}$ all lay on a plane, there exists some $x_{2}$ on the segment between $p_{1}, x_{1}$ such that the segment crosses through $y$. Now, $x_{2} \in E$ since $x_{2}$ is on the segment from $p_{1}$ to $x_{1}$, and the segment between $p_{2}$ and $x_{2}$ must be completely in $E$ because $p_{2}$ is a center. But $y$ is on the segment from $p_{2}$ to $x_{2}$, and $y$ is not in $E$. So this is a contradiction. Thus the set of centers must be convex.
+\end{proof}
+
+(c) False, it can be open. Consider the open starlike in $\mathbb{R}^{2}$ that is the unit circle: $\{(x,y):\sqrt{x^{2} + y^{2}} < 1\}$. The center is the whole set which is open.
+
+(d) True, it can be a single point. See the example in (a).
+
+\subsection*{74} (a) The intersection of the connected sets $(0,1/n)$ for $ n\in\mathbb{N}$, $\bigcap_{n\in\mathbb{N}}(0,1/n) = \emptyset$ is not connected since the empty set is not connected.
+
+
+\subsection*{89} Denote $S'$ as the set of cluster points of $S$. 
+
+(a) If $S\subset T$, then $S' \subset T'$.
+
+\begin{proof}
+  We do a proof by contradiction. Assume that there exists a cluster point $p\in S'$ such that $p\notin T'$. So if $p$ is not a cluster point of $T$, then there exists some $\epsilon > 0$ such that $M_{\epsilon}(p)$ contains only a finite amount of points of $T$. But that means that $M_{\epsilon}(p)$ contains only a finite amount of points of $S$ since $S \subset T$. So $p$ could not be a cluster point of $S$. This is a contradiction. Hence $p\in S'$ implies $p\in T'$, so $S' \subset T'$.
+\end{proof}
+
+(b) $(S\cup T)' = S' \cup T'$.
+
+\begin{proof}
+  $(\Rightarrow)$ Let $p\in (S\cup T)'$. Then for each $\epsilon > 0$, $M_{\epsilon}(p)$ contains infinitely many points in $S\cup T$. Thus $M_{\epsilon}(p)$ contains infinitely many points in either $S$, $T$, or both $S$ and $T$. So $p\in S' \cup T'$. Hence $(S\cup T)' \subset S' \cup T'$.
+
+  $(\Leftarrow)$ Now assume that $p\in S' \cup T'$. Then for each $\epsilon > 0$, $M_{\epsilon}(p)$ either contains infinitely many points in $S$, $T$, or both $S$ and $T$. WLOG\footnote{without loss of generality} assume $M_{\epsilon}(p)$ contains infinitely many points in $S$. Then $M_{\epsilon}(p)$ has infinitely many points in $S\cup T$. So $p\in (S\cup T)'$. Thus $S'\cup T' \subset (S\cup T)'$.
+\end{proof}
+
+(c) $S' = (\bar{S})'$.
+
+\begin{proof}
+  By Proposition 18, $\bar{S} = S\cup S'$, and by part (b) $(\bar{S})' = (S\cup S') = S' \cup (S')'$. Thus, to prove that $S' = (\bar{S})' = S' \cup (S')'$, we just need to show that $(S')' \subset S'$. So, let $p \in (S')'$. Then for each $\epsilon > 0$, the neighborhood $M_{\epsilon/2}(p)$ contains some point $q \in S'$. Further $M_{\epsilon/2}(q)$ contains some point $s \in S$. But that means that 
+  \[ d_{M}(p,s) \leq d_{M}(p,q) + d_{M}(q,s) \leq \epsilon/2 + \epsilon/2 = \epsilon. \]
+  Therefore $s \in M_{\epsilon}(p)$, so $p$ is a cluster point of $S$, i.e. $p\in S'$. Hence $(S')' \subset S'$. Finally we have that 
+  \[ S' = S' \cup (S')' = (\bar{S})'. \]
+\end{proof}
+
+(d) See the argument above.
+
+(e) 
+\begin{align*}
+  \mathbb{N}' & = \emptyset \\
+  \mathbb{Q}' & = \mathbb{R}, \text{ because }\mathbb{Q}\text{ is dense in }\mathbb{R} \\
+  \mathbb{R}' & = \mathbb{R} \\
+  (\mathbb{R} \setminus \mathbb{Q})' & = \mathbb{R}, \text{ because the irrationals are dense in }\mathbb{R} \\
+  \mathbb{Q}'' & = \mathbb{R}' = \mathbb{R}
+\end{align*}
+
+(f) 
+\begin{align*}
+  T & = \left\{ 1/n : n \in \mathbb{N} \right\} \\
+  T' & = \left\{ 0 \right\} \\
+  T'' & = \emptyset 
+\end{align*}
+
+(g) Let $S = [1,2] \cup \{1/n : n\in\mathbb{N}\}$. Then $S' = [1,2] \cup \{0\}$, and $S'' = [1,2]$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

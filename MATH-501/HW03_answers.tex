@@ -1,0 +1,172 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}
+\geometry{a4paper, left=30mm, right=30mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+
+\newtheorem*{prop}{Proposition}
+\newtheorem*{Def}{Definition}
+
+\begin{document}
+\title{MATH 501: HW 3}
+\author{Evan ``Pete'' Walsh}
+\today
+\maketitle
+
+\section*{Chapter 2}
+
+\subsection*{10} (a) A discrete metric space would satisfy this property. For example, the metric space $\mathbb{Z}$. Consider $M_{2}p$ for any $p\in\mathbb{Z}$. The boundary of $M_{2}p$ is $p-1$ and $p+1$, yet the sphere of radius $2$ at $p$ is $(p-2, p+2)$. \\
+
+(b) For such a set the boundary must always be contained in the sphere. If the boundary were not contained in the sphere, and instead the sphere was contained within the boundary, then the points on the sphere, $x$, would satisfy $d(x,p) < r$. But this is a contradiction since for each $x$, $d(x,p) = r$. 
+
+
+
+\subsection*{13} Every subset of $\mathbb{N}$ is clopen.
+
+\begin{proof}
+  Since $\mathbb{N}$ is discrete, the limit, $s$, of any sequence $(s_{n}) \in A\subseteq \mathbb{N}$ must also be contained in $A$. If this were not the case, the there would exist some $a \in A$ such that $s - \epsilon < a < s$. However this is clearly impossible if you consider any $\epsilon < 1$. Therefore every subset $A$ of $\mathbb{N}$ is closed. Yet, by Theorem 4, the complement of any closed set is an open set. Considering that any subset, B, of $\mathbb{N}$ can be expressed as the complement of another subset, $A$ (which we just showed is closed), $B$ is open. Since subsets of $\mathbb{N}$ are both closed and open, we say they are clopen.
+\end{proof}
+
+Consider a function $f:\mathbb{N}\rightarrow M$, where $M$ is a metric space. For any closed set in $M$, its pre-image is closed since every subset of $\mathbb{N}$ is open. Similarly, the pre-image of any open set in $M$ is open. Hence by Theorem 10 $f$ is continuous. 
+
+
+
+
+\subsection*{14} Define $\text{dist}(p,S) = \inf\{d(p,s):s\in S\}$. \\
+
+(a) $p\in M$ is a limit point of $S$ iff $\text{dist}(p,S) = 0$.
+
+\begin{proof}
+  $(\Rightarrow)$ Assume $p$ is a limit point of $S$. Note that $\text{dist}(p,S)\geq 0$ since $d(p,s) \geq 0$ for each $p\in S$. Now assume for a moment that $\text{dist}(p,S) = \epsilon > 0$. Then $d(p,s) \geq \epsilon$ for each $s\in S$ since $\epsilon$ is a lower bound. Thus $S\cap M_{\epsilon}p = \emptyset$. Yet this contradicts the fact that $p$ is a limit point of $S$. Thus $\text{dist}(p,S) = 0$. \\
+  $(\Leftarrow)$ Now assume $\text{dist}(p,S) = 0$. If $p$ were not a limit point of $S$, then there would exist some $\epsilon > 0$ such that $M_{\epsilon}p\cap S = \emptyset$, or $d(p,s)\geq \epsilon$ for each $s\in S$. Then $\epsilon$ would be a lower bound for $\{d(p,s):s\in S\}$, but this a contradiction since $\epsilon > 0 = \inf\{d(p,s) : s\in S\}$. Thus $p$ is a limit point of $S$.
+\end{proof}
+
+(b) $p \mapsto \text{dist}(p,S)$ is a uniformly continuous function of $p\in M$.
+
+\begin{proof}
+  To show that $p \mapsto \text{dist}(p,S)$ is uniformly continuous, we need to show that for any $\epsilon > 0$, there exists some $\delta > 0$ such that $p_{1},p_{2}\in M$ and $d(p_{1},p_{2}) < \delta$ implies $|\text{dist}(p_{1},S) - \text{dist}(p_{2},S)| < \epsilon$. We claim that $|\text{dist}(p_{1}, S) - \text{dist}(p_{2}, S)| \leq d(p_{1}, p_{2})$ for each $p_{1}, p_{2} \in M$, in which case choosing $\delta = \epsilon$ will suffice. To show that this is in fact the case, realize that for any $\epsilon > 0$, there exists some $s^{*}\in S$ such that $d(p_{1}, s^{*}) \leq \text{dist}(p_{1}, S) + \epsilon$ since $\text{dist}(p_{1}, S)$ is the infimum of $\{d(p_{1}, s) : s\in S\}$. Therefore,
+  \[ d(p_{2}, s^{*}) \leq d(p_{1},p_{2}) + d(p_{1}, s^{*}) \leq d(p_{1},p_{2}) + \text{dist}(p_{1},S) + \epsilon \]
+  which implies 
+  \[ \text{dist}(p_{2},S) \leq d(p_{1},p_{2}) + \text{dist}(p_{1},S) + \epsilon \]
+  since $\text{dist}(p_{2},S) \leq d(p_{2},s^{*})$. Rearranging, we get 
+  \[ \text{dist}(p_{2}, S) - \text{dist}(p_{1},S) \leq d(p_{1}, p_{2}) + \epsilon. \]
+  But since $\epsilon > 0$ was arbitrary, 
+  \[ \text{dist}(p_{2}, S) - \text{dist}(p_{1}, S) \leq d(p_{1}, p_{2}). \]
+  Similarly, we get 
+  \[ \text{dist}(p_{1},S) - \text{dist}(p_{2}, S) \leq d(p_{1}, p_{2}), \]
+  so $|\text{dist}(p_{1},S) - \text{dist}(p_{2},S)| \leq d(p_{1},p_{2})$.
+\end{proof}
+
+
+
+\subsection*{27} Let $(A_{n})$ be a nested decreasing sequence of non-empty closed sets in the metric space $M$.
+
+(a) Assume that $M$ is complete and diam $A_{n}\rightarrow 0$ as $n\rightarrow \infty$. Then $\bigcap A_{n}$ is exactly one point.
+\begin{proof}
+  Let $(a_{n}) \in M$ be a sequence such that $a_{n} \in A_{n}$. Since diam $A_{n}\rightarrow 0$ as $n\rightarrow \infty$, for each $\epsilon > 0$ there exists some $N_{\epsilon}\in \mathbb{N}$ such that $m,n > N_{\epsilon}$ implies $d(a_{m}, a_{n}) < \epsilon$. Therefore $(a_{n})$ is Cauchy, and since $M$ is complete, $(a_{n})\rightarrow a\in M$. Further, since $(a_{k})_{k\geq n} \subseteq A_{n}$, where $A_{n}$ is closed and $(a_{k})_{k\geq n} \rightarrow a$, it must be that $a \in A_{n}$ for all $n\in\mathbb{N}$. Thus $a \in \bigcap A_{n}$, and since diam $A_{n} \rightarrow 0$, $\bigcap A_{n}$ can only contain this single point since $d(a,x) > 0$ for any $x\in M$, where $x \neq a$.
+\end{proof}
+
+(b) First off, $[n, \infty)$ is closed since $(-\infty, n)$ is open and $[n, \infty) = (-\infty, n)^{c}$. Thus the set $[n,\infty)$ provides a counter-example to the claim that ``a decreasing sequene of non-empty closed sets is non-empty.''
+
+
+
+\subsection*{33} If $f : A \rightarrow B$ and $g : C \rightarrow B$ such that $A \subseteq C$ and for each $a \in A, f(a) = g(a)$ then $f$ extends to $g$. Assume that $f : S\rightarrow N$ is a uniformly continuous function defined on a subset $S$ of a metric space $M$ and that $N$ is some complete metric space. We will prove in this general case that $f$ extends to a unique uniformly continuous function $\bar{f} : \bar{S} \rightarrow N$ where $\bar{f}(x) = f(x)$ for all $x \in S$. From that point we can infer that holds for the case when $N = \mathbb{R}$, since $\mathbb{R}$ is complete.
+
+\begin{proof}
+  Define $\bar{f}$ as stated above. First we will show that $\bar{f}$ is uniformly continuous, and then we show that it is unique uniformly continuous function such that $\bar{f}(x) = f(x)$ for all $x \in S$.
+  Let $\epsilon > 0$. Since $f$ is uniformly continuous, there exists some $\delta > 0$ such that $d(x,y) < \delta$, for $x,y \in S$, implies $d(f(x), f(y)) = d(\bar{f}(x),\bar{f}(y) < \epsilon$. Thus $\bar{f}$ is uniformly continuous over $S$. If $S$ is closed, then $\bar{S} = S$ and we are done. 
+  If $f$ is not closed then we need to consider points on the boundary of $S$ since these points are potentially not in $S$, and thus the function $\bar{f}$ is not explicitly defined for them. So, let $b \in \partial S$. Since $\partial S \subseteq \bar{S}$, $b \in \bar{S}$ and so $b \in \lim S$. Because $b$ is a limit point of $S$, we can defined a sequence $(x_{n})\in S$ such that $d(x_{n}, b) < 1/n$ for all $n\in\mathbb{N}$. In other words, $x_{n} \rightarrow b$. 
+  Hence, for every $\epsilon > 0$, there exists some $N_{\epsilon} \in \mathbb{N}$ such that $m,n > N_{\epsilon}$ implies 
+  \[ d(f(x_{m}), f(x_{n})) = d(\bar{f}(x_{m}), \bar{f}(x_{n})) < \epsilon, \]
+  since $f$ is uniformly continuous. But this implies that $\bar{f}(x_{n}) \in N$ for $n\in\mathbb{N}$ is a Cauchy sequence, and since $N$ is complete, $\bar{f}(x_{n})\rightarrow y\in N$. So, define $\bar{f}(b) = y$. Since $x_{n}\rightarrow b$ and $\bar{f}(x_{n}) \rightarrow \bar{f}(b)$, $\bar{f}$ is continuous. But since $\bar{f}$ is continuous over a closed set $\bar{S}$, $\bar{f}$ is actually uniformly continuous. \\
+  To show that $\bar{f}$ is the unique uniformly continuous function such that $\bar{f}(x) = f(x)$ for each $x \in S$, we do a proof by contradiction. The question of uniqueness arises only at the boundary points, since these points are potentially not in $S$, and therefore $\bar{f}$ is not explicitly defined for them. Of course this is only an issue when $S$ is not closed. If $S$ were closed then $S = \bar{S}$ so $\bar{f}$ would be explicitly defined for every $x \in \bar{S}$. So consider the case where $S$ is not closed and assume that for some point $b\in \partial S \setminus S$, $\bar{f}(b) \neq \bar{f}'(b)$ where $\bar{f}'$ is also uniformly continuous and defined in the same way as $\bar{f}$.
+  Let's say that $d(\bar{f}(b), \bar{f}'(b)) \geq r$, for some $r > 0$. Now, let $\epsilon = r/2$. Since $\bar{f}$ and $\bar{f}'$ are both uniformly continuous, there exists some $\delta_{1}, \delta_{2} > 0$ such that $x\in \bar{S}$ with $d(x,b) < \delta_{1}$ implies $d(\bar{f}(x), \bar{f}(b)) < \epsilon$ and $d(x,b) < \delta_{2}$ implies $d(\bar{f}'(x), \bar{f}'(b)) < \epsilon$. So now let $\delta = \min\{\delta_{1}, \delta_{2}\}$. Then $d(x,b) < \delta$ implies $d(\bar{f}(x), \bar{f}(b)) < r/2$ and $d(\bar{f}'(x),\bar{f}'(b)) < r/2$. But,
+  \[ d(\bar{f}(b), \bar{f}'(b)) \leq d(\bar{f}(x),\bar{f}(b)) + d(\bar{f}'(x), \bar{f}'(b)) < r, \]
+  for $x\in S$ such that $d(x,b) < \delta$. But this is a contradiction since we assumed 
+  \[ d(\bar{f}(b), \bar{f}'(b)) \geq r. \]
+  Thus $\bar{f}$ is the unique uniformly continuous function such that $\bar{f}(x) = f(x)$ for every $x \in S$.
+\end{proof}
+
+
+
+
+\subsection*{91} (a) int $S = S \setminus \partial S$
+\begin{proof}
+  Let $x\in \text{inf} S$. Then $x \in U$ for some open $U \subset S$. So $x \in S$. Now assume that $x \in \bar{S^{c}}$. Then $x\in \lim S^{c}$. Thus, for each $\epsilon > 0$, $M_{\epsilon}(x) \cap S^{c} \neq \emptyset$. But this is a contradiction since $x\in U$, where $U$ is open and $U \subset S$. Therefore $x\notin \bar{S^{c}}$, so $x\notin \bar{S}\cap \bar{S^{C}} = \partial S$. Hence int $S \subseteq S\setminus \partial S$. \\
+  Now assume that $x\in S\setminus \partial S$. Then $x\notin \bar{S}\cap \bar{S^{c}}$, but since $x\in S$, $x \in \bar{S}$, so $x\notin \bar{S^{c}}$. Thus $x\notin \lim S^{c}$, which means that there exists some $\epsilon > 0$ such that $M_{\epsilon}(x) \cap S^{c} = \emptyset$, and therefore $U = M_{\epsilon}(x) \subseteq S$. Thus $x\in \text{int } S$. Hence $S\setminus \partial S \subseteq \text{int } S$.
+\end{proof}
+
+(b) int $S = (\bar{S^{c}})^{c}$
+\begin{proof}
+  Let $x\in \text{int } S$. So $x \in U$ for some open $U\subset S$. Thus $x\notin \lim S^{c}$, so $x\notin \bar{S^{c}}$, which implies $x\in (\bar{S^{c}})^{c}$. So int $S \subseteq (\bar{S^{c}})^{c}$. \\
+  Now let $x \in (\bar{S^{c}})^{c}$. Then $x\in \lim S^{c}$. So there exists some $\epsilon > 0$ such that $M_{\epsilon}(x) \cap S^{c} = \emptyset$. Thus $U = M_{\epsilon}(x) \subseteq S$. So $(\bar{S^{c}})^{c} \subseteq \text{int } S$.
+\end{proof}
+
+(c) $\text{int }(\text{int }S) = \text{ int }S$
+\begin{proof}
+  int $S$ is open, so 
+  \[ \text{int} (\text{int }S) = \left\{ x \in M : \text{ for some open } U \subset \text{ int } S, x \in U\right\}  = \text{ int } S \]
+\end{proof}
+
+(d) int $(S\cap T) = \text{ int } S \cap \text{ int } T$
+\begin{proof}
+  Let $x\in \text{ int }(S\cap T)$. Then $x\in U$ for some open $U \subset S\cap T$. That is, $U\subset S$ and $U\subset T$. So $x\in \text{ int }S$ and $x\in \text{ int }T$, which implies $x\in \text{ int } S \cap \text{ int }T$. Thus int $(S\cap T) \subseteq \text{ int }S \cap \text{ int }T$. \\
+  Now, let $x \in \text{ int } S \cap \text{ int }T$. Then $x\in U$ for some open $U \subset S$ and $x\in V$ for some open $V\subset T$. Thus $x\in U\cap T$, which is open and $U\cap V \subset S\cap T$. Hence $x \in \text{ int }(S\cap T)$. So $\text{int } S\cap \text{ int }T \subseteq \text{ int }(S\cap T)$.
+\end{proof}
+
+(e) The dual equations for the closure are 
+\[ \overline{(S\cup T)} = \bar{S} \cup \bar{T} \text{  and  } \overline{(S\cap T)} \subseteq \bar{S} \cap \bar{T} \]
+A counter-example to equality in the second expression can be seen if we let $S = (0,1)$ and $T = (1,2)$. Then $\overline{(S\cap T)} = \bar{\emptyset} = \emptyset$, yet $\bar{S} \cap \bar{T} = \{1\}$.
+
+(f) int $(S\cup T) \supseteq (\text{int }S\cup \text{ int }T)$
+\begin{proof}
+  Let $x \in (\text{int } S \cup \text{ int }T)$. Then either $x \in U$ for some open $U \subset S$ or $x\in V$ for some open $V\subset T$. Either way $x$ is in some open subset of $S\cup T$, so $x\in \text{ int }(S\cup T)$. Thus $(\text{int }S\cup \text{ int }T) \subseteq \text{ int }(S\cup T)$.
+\end{proof}
+
+As a counter-example to equality, consider $S = [0,1]$ and $T = [1,2] \in \mathbb{R}$. Then int $(S\cup T) = (0,2)$ but
+\[ (\text{int }S\cup \text{ int }T) = (0,1)\cup (1,2) = \text{ int }(S\cup T)\setminus \{1\} \]
+
+
+
+
+\section*{Bonus}
+
+\begin{prop}
+  (i) $\sup_{n}(x_{n} + y_{n}) \leq \sup_{n}x_{n} + \sup_{n}y_{n}$ and \\
+  (ii) $\inf_{n}(x_{n} + y_{n}) \geq \inf_{n}x_{n} + \inf_{n}y_{n}$.
+\end{prop}
+
+\begin{proof}
+  (i) For each $n in \mathbb{N}$, $x_{n} \leq \sup_{n}x_{n}$ and $y_{n} \leq \sup_{n}y_{n}$. Therefore $x_{n} + y_{n} \leq \sup_{n}x_{n} + \sup_{n}y_{n}$. Since this is true for all $n \in \mathbb{N}$,
+  \[ \sup_{n}(x_{n} + y_{n}) \leq \sup_{n}x_{n} + \sup_{n}y_{n}. \]
+  (ii) By a similar argument $x_{n} + y_{n} \geq \inf_{n}x_{n} + \inf_{n}y_{n}$ for every $n\in\mathbb{N}$. Thus 
+  \[ \inf_{n}(x_{n} + y_{n}) \geq \inf_{n}x_{n} + \inf_{n}y_{n}.\]
+\end{proof}
+
+\begin{prop}
+  (i) $\limsup_{\rightarrow\infty}(x_{n} + y_{n}) \leq \limsup_{n\rightarrow\infty}x_{n} + \limsup_{n\rightarrow\infty}y_{n}$ and \\
+  (ii) $\liminf_{n\rightarrow\infty}(x_{n} + y_{n}) \geq \liminf_{n\rightarrow\infty}x_{n} + \liminf_{n\rightarrow\infty}y_{n}$.
+\end{prop}
+
+\begin{proof}
+  By definition $\limsup_{n\rightarrow\infty}x_{n} = \lim_{n\rightarrow\infty}\sup(x_{k})_{k\geq n}$. By the previous proof, we know that 
+  \[\sup_{k\geq n}(x_{k} + y_{k}) \leq \sup_{k\geq n}x_{k} + \sup_{k\geq n}y_{k},\]
+  since $(x_{k})_{k\geq n}$ and $(y_{k})_{k\geq n}$ are sequences just like any other. Since this is true for arbitrary $n\in\mathbb{N}$,
+  \[ \lim_{n\rightarrow\infty}\sup_{k\geq n}(x_{k} + y_{k}) \leq \lim_{n\rightarrow \infty}\sup_{k\geq n}x_{k} + \lim_{n\rightarrow\infty}\sup_{k\geq n}y_{k}, \]
+  and so 
+  \[ \limsup_{n\rightarrow\infty}(x_{n} + y_{n}) \leq \limsup_{n\rightarrow\infty}x_{n} + \limsup_{n\rightarrow\infty}y_{n}.\]
+  A similar argument shows that $\liminf_{n\rightarrow\infty}(x_{n}+y_{n}) \geq \liminf_{n\rightarrow\infty}x_{n} + \liminf_{n\rightarrow\infty}y_{n}$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

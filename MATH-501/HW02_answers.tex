@@ -1,0 +1,163 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}
+\geometry{a4paper, left=30mm, right=30mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+
+\newtheorem*{prop}{Proposition}
+\newtheorem*{Def}{Definition}
+
+\begin{document}
+\title{MATH 501: HW 2}
+\author{Evan ``Pete'' Walsh}
+\today
+\maketitle
+
+\section*{Chapter 1}
+
+\subsection*{39} (a)
+\begin{prop} 
+	A uniformly continuous function is continuous.
+\end{prop}
+
+\begin{proof}
+	Let $f:[a,b] \longrightarrow \mathbb{R}$ be a uniformly continuous function. Let $\epsilon > 0$. Since $f$ is uniformly continuous, there exists a $\delta > 0$ such that $|x - t| < \delta$ implies $|f(x) - f(t)| < \epsilon$. Thus $f$ is continuous by definition. The same argument holds for the case when the domain of $f$ is an open set $(a,b)$.
+\end{proof}
+
+\begin{prop}
+	A continuous function is not necessarily uniformly continuous.
+\end{prop}
+
+\begin{proof}
+        Consider the function $f:(0,1) \longrightarrow [-1,1]$ defined by $f(x) = \sin(1/x)$. As $x\longrightarrow 0$, $f(x)$ oscillates infinitely many times between $-1$ and $1$. This is what ``'' the uniform continuity. First we will show that $f$ is command. So, let $\epsilon > 0$. Then for each $x,t\in (0,1)$, let $\delta = \epsilon x t$. Then if $|x-t| < \delta$ implies 
+	\begin{align*}
+	        \epsilon x t & > |x - t| \\
+		\Rightarrow \epsilon & > \frac{|x-t|}{xt} \\
+		& = |1/x - 1/t| \\
+		& \geq 2\bigg| \sin\left(\frac{1}{2x} - \frac{1}{2t}\right)\bigg| \\
+		& \geq \bigg| 2\cos\left(\frac{1}{2x} - \frac{1}{2t}\right)\sin\left(\frac{1}{2x} - \frac{1}{2t}\right)\bigg| \\
+		& = \bigg|\sin\left(\frac{1}{x}\right) - \sin\left(\frac{1}{t}\right)\bigg|
+	\end{align*}
+	Thus $f$ is continuous. Now to show that $f$ is not uniformly continuous, we need to show that there exists an $\epsilon > 0$ such that for each $\delta > 0$, there exists $x,t\in (0,1)$ such that $|x-t| < \delta$ implies $|\sin(1/x) - \sin(1/t)| \geq \epsilon$. Well, choose $\epsilon = 2$, and define $x_{k} = 1 / 2\pi k$ and $t_{k} = 2 / 3\pi k$, for $k\in \mathbb{N}$. Then,
+	\[ \bigg|\sin\left(\frac{1}{x_{k}}\right) - \sin\left(\frac{1}{t_{k}}\right)\bigg| = \bigg|\sin\left(2\pi k\right) - \sin\left(\frac{3\pi k}{2}\right)\bigg| = |1 - (-1)| = 2 \]
+	Yet
+	\[ |x_{k} - t_{k}| = \bigg|\frac{1}{2\pi k} - \frac{2}{3\pi k}\bigg| \stackrel{k\rightarrow \infty}{\longrightarrow} 0
+	\]
+	So $|x_{k} - t_{k}|$ can be arbitrarily small, yet $|f(x_{k}) - f(t_{k})| = 2 \geq \epsilon$ for each $k\in \mathbb{N}$. This completes the proof.
+\end{proof}
+
+(b) 
+\begin{prop}
+	Let $f: \mathbb{R} \longrightarrow \mathbb{R}$ be defined by $f(x) = 2x$. Then $f$ is uniformly continuous.
+\end{prop}
+
+\begin{proof}
+	Let $\delta = \epsilon / 2$. Then for each $x,t\in\mathbb{R}$, if $|x - t| < \delta$, then 
+	\begin{align*}
+		\epsilon  2 & > |x-t| \\
+		\Rightarrow \epsilon & > 2|x-t| \\
+		& = |2x - 2t| \\
+		& = |f(x) - f(t)|
+	\end{align*}
+\end{proof}
+
+(c)
+\begin{prop}
+	Let $f:\mathbb{R} \longrightarrow [0,\infty)$ be defined by $f(x) = x^{2}$. Then $f$ is not uniformly continuous.
+\end{prop}
+
+\begin{proof}
+	Let $\epsilon = 2$. Let $x_{k} = k, t_{k} = k + 1/k$ for $k \in \mathbb{N}$. Then 
+	\begin{align*}
+		|f(x_{k}) - f(t_{k})| & = |k^{2} - (k+1/k)^{2}| \\
+		& = |k^{2} - (k^{2} + 2 + 1/k^{2})| \\
+		& = 2 + 1/k^{2} \geq \epsilon = 2 \forall k \in \mathbb{N}
+	\end{align*}
+	yet $|x_{k} - t_{k}| = 1/k \stackrel{k\rightarrow \infty}{\longrightarrow} 0$.
+\end{proof}
+
+
+\section*{Chapter 2}
+
+\subsection*{18} 
+\begin{Def}
+  An isometry is a bijection $f: M \longrightarrow N$, from one metric space to another, that preserves distance.
+\end{Def}
+
+(a) 
+\begin{prop}
+  Every isometry is continuous.
+\end{prop}
+
+\begin{proof}
+  Let $\epsilon > 0$ and let $\delta = \epsilon$. Then for each $p,q\in M$, 
+  \[ d_{M}(p,q) < \delta \Rightarrow d_{N}(fp, fq) < \delta = \epsilon \]
+\end{proof}
+
+(b) 
+\begin{prop} 
+  Every isometry is a homeomorphism.
+\end{prop}
+
+\begin{proof}
+  Let $f: N\longrightarrow N$ be an isometry. Let $\epsilon > 0$ and let $\delta = \epsilon$. Since $f$ is a bijection, $f^{-1}: N\longrightarrow M$ is also a bijection. Now, by the proporties of an isometry, for each $p,q \in N$,
+  \[ d_{N}(p,q) < \delta \Rightarrow d_{M}(f^{-1}(p), f^{-1}(q)) < \delta = \epsilon \]
+  Therefore $f^{-1}$ is a continuous bijection so $f$ is a homeomorphism.
+\end{proof}
+
+(c) 
+\begin{prop}
+  $[0,1]$ is not isometric to $[0,2]$.
+\end{prop}
+
+Note: This statement is true as long as we assume that the metric $d$ is the usual metric for $\mathbb{R}$, $d = |x-y|$. However, this statement is not true in general for arbitrary metric such as the discrete metric.
+
+\begin{proof}
+  We will assume that $d = |x-y|$. Let $f:[0,1] \longrightarrow [0,2]$ be a bijection. Then $f$ must be monotone strictly increasing or strictly decreasing. Without loss of generality assume that $f$ is strictly increasing. Then $f(0) = 0$ and $f(1) = 2$. Yet $d(0,1) = 1$ while $d(0,2) = 2$. Therefore $[0,1]$ is not isometric to $[0,2]$.
+\end{proof}
+
+
+
+\subsection*{84} Define 
+\[ \rho(p,q) = \frac{d(p,q)}{1 + d(p,q)} \]
+
+(a) To verify that $\rho$ is a metric, we need to verify that the 3 proporties hold. Namely, positive definiteness, symmetry, and the triangle inequality. Well, clearly if $d(x,y) \in [0,\infty)$ then $\rho(x,y) \in [0,1)$. This shows positive definitness. For symmetry, note that 
+\[ \rho(x,y) = \frac{d(x,y)}{1+d(x,y)} = \frac{d(y,x)}{1+d(y,x)} = \rho(y,x) \]
+Lastly,
+\begin{align*}
+  \rho(x,z) = \frac{d(x,z)}{1+d(x,z)} & \leq \frac{d(x,y) + d(y,z)}{1 + d(x,y) + d(y,z)} \\
+  & \leq \frac{d(x,y) + d(y,z) + 2d(x,y)d(y,z)}{1 + d(x,y) + d(y,z) + d(x,y)d(y,z)} \\
+  & = \frac{d(x,y)(1 + d(y,z)) + (1 + d(x,y))d(y,z)}{(1 + d(x,y))(1 + d(y,z))} \\
+  & = \frac{d(x,y)}{1 + d(x,y)} + \frac{d(y,z)}{1 + d(y,z)} = \rho(x,y) + \rho(y,z) \\ 
+\end{align*}
+This shows that $\rho$ is indeed a metric. Also, $\rho$ is clearly bounded since $\rho \in [0,1)$ and if $d(p,q) \longrightarrow \infty$ then $\rho(p,q) \longrightarrow 1$. 
+
+(b) 
+\begin{prop}
+  Let $f: M\longrightarrow M$ be the identity map from $M$ with $d$ metric to $M$ with $\rho$ metric. Then $f$ is a homeomorphism.
+\end{prop}
+
+\begin{proof}
+  First we will show that $f$ is continuous and then that $f^{-1}$ is continuous. Let $\epsilon_{1} > 0$ and let $\delta_{1} = \epsilon_{1} / (1 - \epsilon_{1})$. Then, for each $p,q\in M$, if $d(p,q) < \delta_{1}$,
+  \begin{align*}
+    \rho(p,q) = \frac{d(p,q)}{1 + d(p,q)} & < \frac{\delta_{1}}{1 + \delta_{1}} \\
+    & = \frac{\frac{\epsilon_{1}}{1 - \epsilon_{1}}}{1 + \frac{\epsilon_{1}}{1 - \epsilon_{1}}} = \epsilon_{1}
+  \end{align*}
+  So $f$ is continuous. Now, let $\epsilon_{2} > 0$ and let $\delta_{2} = \epsilon_{2} / (1 + \epsilon_{2})$. Then, for each $p,q\in M$, if $\rho(p,q) < \delta_{2}$, then,
+  \begin{align*}
+    d(p,q) = \frac{\rho(p,q)}{1 - \rho(p,q)} & < \frac{\delta_{2}}{1 - \delta_{2}} \\
+    & = \frac{ \frac{\epsilon_{2}}{1 + \epsilon_{2}}}{ 1 - \frac{\epsilon_{2}}{1 + \epsilon_{2}}} = \epsilon_{2}
+  \end{align*}
+  So $f^{-1}$ is continuous.
+\end{proof}
+
+(c) Boundedness relies on the metric. Fore example, $(\mathbb{R}, d)$ is unbounded when $d = |x-y|$, yet is unbounded when 
+\[ d = \left\{ \begin{array}{cl}
+    1 & x \neq y \\
+    0 & \text{o.w.} \\
+\end{array} \right. \]
+
+(d) There are many examples. One would be $(0,1)$ and $\mathbb{R}$.
+
+
+\end{document}

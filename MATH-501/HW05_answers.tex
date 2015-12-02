@@ -1,0 +1,451 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=14pt]{geometry}
+\geometry{a4paper, left=30mm, right=30mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+
+\title{MATH 501: HW 5}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+{\bf 1.} Let $\alpha$ and $c$ be real numbers, $c > 0$, and $f$ is
+defined on $[-1,1]$ by 
+\[ f(x) = \left\{ \begin{array}{cl}
+    x^{\alpha}\sin(x^{c}) & \text{ if } x \neq 0 \\
+  0 & \text{ if } x = 0. \end{array} \right. \]
+Find all values of the parameters $\alpha$ and $c$ such that:
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) $f$ is continuous. 
+
+    {\bf Solution:} To ensure that $f(x)$ is continuous we need $\lim_{x\rightarrow 0}f(x) = 0$
+    and of course $f(x)$ needs to be defined for $x < 0$. For
+    $\lim_{x\rightarrow 0}f(x)$ to be 0, we need either $\alpha$ and $c$ both
+    greater than 0 or $\alpha < 0$ and $c > |\alpha|$, since L'Hopital's rule
+    tells us 
+    \[ \lim_{x\rightarrow 0}\frac{\sin(x^{c})}{x^{|\alpha|}} =
+      \lim_{x\rightarrow 0} \frac{cx^{c-1}\cos(x^{c})}{|\alpha|x^{|\alpha|-1}}
+    \rightarrow 0 \]
+    when $c > |\alpha|$, for $\alpha < 0$. Further, for $f(x)$ to be defined for
+    $x < 0$, we need to make sure $\alpha$ and $c$ are members of $\mathbb{Q}$
+    and that the denominators are not multiples of 2.
+
+  \item (b) $f'(0)$ exists. 
+
+    {\bf Solution:} We have $f'(x) = \alpha x^{\alpha - 1}\sin(x^{c}) +
+    cx^{\alpha + c - 1}\cos(x^{c})$. So in addition to the constraints in (a),
+    we need $\alpha \geq 1$. This will ensure that the derivative is defined at
+    0.
+
+  \item (c) $f'$ is continuous.
+
+    {\bf Solution:} The conditions needed are the same as in part (b).
+
+  \item (d) $f''(0)$ exists.
+
+    {\bf Solution:} We have 
+    \begin{align*}
+      f''(0) & = \alpha(\alpha-1)x^{\alpha-2}\sin(x^{c}) + \alpha c x^{\alpha +
+      c - 2}\cos(x^{c}) \\
+      & \qquad + c(\alpha + c - 1)x^{\alpha + c - 2}\cos(x^{c}) - c^{2}x^{\alpha + 2c -
+      2}\sin(x^{c}). 
+    \end{align*}
+    So we need $\alpha > 2$ for the derivative to be defined at 0.
+\end{itemize}
+
+{\bf 2.} Let $a \in \mathbb{R}$ be a given real number. Suppose that a
+function $f: \mathbb{R}\rightarrow \mathbb{R}$ satisfies
+\[ f'(x) < 0 < f''(x) \text{ if } x < a,\]
+and 
+\[ f'(x) > 0 > f''(x) \text{ if } x > a. \]
+Prove that $f'(a)$ does not exist.
+
+{\bf Solution:}
+\begin{proof}
+We will do a proof by contradiction. Assume that $f'(a)$ exists. Then $f$ is
+continuous over all $\mathbb{R}$ by Theorem 3.1. Thus, by the mean value
+theorem, for each $x\neq a$, there exists some $y_{x}$ where $x < y_{x} < a$ or
+$a < y_{x} < x$ such that 
+\[ \frac{f(x) - f(a)}{x-a} = f'(y_{x}). \]
+This, together with the fact that $f'(x)$ is monotone decreasing for $x < a$ and
+monotone increasing for $x > a$, implies that 
+\[ f'(a) = \lim_{x\rightarrow a}f'(y_{x}) = \sup_{x < a}f'(x) = \inf_{x >
+a}f'(x) = 0.\]
+Now, since we have assumed that $f'(x)$ is differentiable for each $x < a$ and
+$x > a$, and we have established that $\lim_{x\rightarrow a}f'(x) = 0 = f'(a)$,
+it must be that $f'(x)$ is continuous over all $x \in \mathbb{R}$. Hence we can
+apply the mean value theorem on $f'(x)$ over the interval $[a,x]$, for some $x >
+a$. That is, there exists some $z_{x}$ where $a < z_{x} < x$ such that 
+\[ \frac{f'(a) - f'(x)}{x - a} = f''(z_{x}). \]
+However, $f'(x) > f'(a)$ when $x > a$, so $[f'(a) - f'(x)] / (x - a) > 0$. This
+is a contradiction since no such $z_{x}$ can exist because $f''(x) < 0$ for each
+$x > a$. Thus $f'(a)$ does not exist.
+\end{proof}
+ 
+{\bf 3.} 
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) Let $g(y) = \arcsin y^{3}$. Compute $g'(y)$ for $y\in (0,1)$.
+
+  {\bf Solution:} Let $u = y^{3}$. By definition, for $u \in (0,1)$, if $x =
+  \arcsin u$, then $\sin x = u$, where $x \in (0, \pi / 2)$. Now, by Theorem 3.1 (f),
+  \[ \frac{d}{dy}g(y) = 3y^{2}\arcsin'(y^{3}). \]
+  Thus it remains to derive $\arcsin'$. First note that since $\cos^{2}x = 1 -
+  \sin^{2}x$,
+  \begin{equation}
+    \cos x = \pm \sqrt{1 - \sin^{2}x} = \sqrt{1 - \sin^{2}x},
+  \end{equation}
+  since $x\in (0,\pi/2)$.
+  Therefore, by Theorem 3.13,
+  \begin{align*}
+    \frac{d}{du}\arcsin u = \frac{1}{\sin'x} & = \frac{1}{\cos x} \\
+    & \stackrel{(1)}{=} \frac{1}{\sqrt{1 - \sin^{2}x}} \\
+    & = \frac{1}{\sqrt{1 - u^{2}}} \text{ by definition}\\
+    & = \frac{1}{\sqrt{1 - y^{6}}} \text{ by substitution}.
+  \end{align*}
+  Thus $g'(y) = \dfrac{3y^{2}}{\sqrt{1-y^{6}}}$.
+
+  \item (b) Suppose that $f:\mathbb{R} \rightarrow \mathbb{R}$ is differentiable
+    and that there exists some $n\in \mathbb{N}$ such that 
+    \[ f(tx) = t^{n}f(x) \]
+    for any $t > 0$ and $x \in \mathbb{R}$. Show that $xf'(x) = nf(x)$ for each
+    $x \in \mathbb{R}$.
+
+  {\bf Solution:}
+  \begin{proof}
+    By assumption, $f(x) = \frac{1}{t^{n}}f(tx)$. Thus,
+    \begin{equation}
+      f'(x) = \frac{1}{t^{n-1}}f'(tx).
+    \end{equation}
+    Thus, with $t = x^{-1}$, 
+    \begin{equation}
+      f'(x^{2}) \stackrel{(2)}{=} x^{n-1}f'(x^{-1}x^{2}) = x^{n-1}f'(x).
+    \end{equation}
+    Now, let $t = x$. Then 
+    \[ f(tx) = f(x^{2}) = x^{n}f(x). \]
+    Taking the derivative of both sides, 
+    \[ \frac{d}{dx}f(x^{2}) = \underbrace{2xf'(x^{2})}_{\text{chain rule}} =
+    \underbrace{nx^{n-1}f(x) + x^{n}f'(x)}_{\text{product rule}}. \]
+    Thus,
+    \begin{align*}
+      2xf'(x^{2}) & = nx^{n-1}f(x) + x^{n}f'(x) \\
+      2x^{n}f'(x) & \stackrel{(3)}{=} nx^{n-1}f(x) + x^{n}f'(x) \\
+      x^{n}f'(x) & = nx^{n-1}f(x) \\
+      xf'(x) & = nf(x).
+    \end{align*}
+  \end{proof}
+\end{itemize}
+
+{\bf 4.} Solve Exercise 80 in Chapter 2 of the textbook.
+
+The graph of $f: M \rightarrow \mathbb{R}$ is the set $\{(x,y) \in M\times
+  \mathbb{R} : y  = f(x) \}$. Since $M\times \mathbb{R}$ is a Cartesian product
+  of two metric spaces it has a natural metric.
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) If $M$ is connected and $f$ is continuous, prove that the graph of
+    $f$ is connected.
+
+  {\bf Solution:} 
+  \begin{proof}
+    From now on we will refer to the graph of $f$ as $G$. 
+    We will do a proof by contradiction. Assume that $G$ is disconnected. Then
+    $G = A \sqcup B$ for some sets $A, B \subset M\times \mathbb{R}$, 
+    where $A \cap \overline{B} = \emptyset = \overline{A} \cap B$. Now,
+    denote $A_{M} = \{ x \in M : (x, f(x)) \in A\}$ and $B_{M} = \{x \in M :
+    (x,f(x)) \in B\}$. Clearly $A_{M}\cap B_{M} = \emptyset$ and $M = A_{M}\cup
+    B_{M}$, but even though $A$ and $B$ are clopen as subsets of $G$, $A_{M}$
+    and $B_{M}$ cannot be clopen as subsets of $M$ because $M$ is connected. Thus,
+    either $A_{M} \cap \overline{B}_{M} = \emptyset$ or $\overline{A}_{M}\cap
+    B_{M} = \emptyset$. Without loss of generality, assume the former. Then
+    there exists some $x^{*} \in M$ such that $x^{*} \in A_{M}\cap \overline{B}_{M}$. Let
+    $(x_{n}) \in B_{M}$ be a sequence such that $x_{n}\rightarrow x^{*}$. Then
+    $(x_{n}, f(x_{n})) \rightarrow (x^{*}, y^{*})\in \overline{B}$ for some $y^{*}\in
+    \mathbb{R}$, where $(x^{*}, y^{*}) \notin A$ since $G$ is disconnected. This
+    means that $y^{*} \neq f(x^{*})$. But this implies that $f$ is not
+    continuous, which is a contradiction. Thus $G$ is connected.
+  \end{proof}
+
+  \item (b) Give an example to show that the converse is false.
+
+  {\bf Solution:} Consider a modified version of the topologist's sine curve,
+  given by the function $f : [0,\infty) \rightarrow \mathbb{R}$, where 
+  \[ f(x) = \left\{ \begin{array}{cl}
+      \sin 1 / x & \text{ if } x > 0 \\
+      0 & \text{ if } x = 0 \\
+  \end{array}. \right. \]
+  The graph of $f$ is connected yet $f$ is not continuous over its domain.
+
+  \item (c) If $M$ is path-connected and $f$ is continuous, show that the graph
+    of $f$ is path-connected.
+
+  {\bf Solution:}
+  \begin{proof}
+    Let $p,q \in M$. Since $M$ is path-connected, there exists a continuous
+    function $g : [a,b]\rightarrow M$ such that $g(a) = p$ and $g(b) = q$. Now
+    consider the function $h : [a,b] \rightarrow G$ where $h(x) = (g(x),
+    (f\circ g)(x))$ for every $x \in [a,b]$. Thus $h(a) = (p, f(p))$ and $h(b) =
+    (q, f(q))$. We need to show that $h$ is continuous. WLOG we
+    will hence forth use $d_{\text{sum}}$ as the product metric for $G$. Let
+    $(u, f(u)) = h(x)$ for some $x \in [a,b]$ and let $\epsilon > 0$. We must
+    show that there exists some $\delta > 0$ such that $y\in [a,b]$ and $d(y,x)
+    < \delta$ implies that $d_{\text{sum}}(h(y), h(x)) < \epsilon$. Well, let $y
+    = (w, f(w))$. Since $f$ is continuous, there exists some $\delta_{1} > 0$
+    such that $d_{M}(w,u) < \delta_{1}$ implies $d(f(w), f(u)) < \epsilon / 2$.
+    Further, since $g$ is continuous, there exists some $\delta_{2} > 0$ such that 
+    $d(y,x) < \delta_{2}$ implies $d_{M}(w,u) < \min\{\epsilon / 2,
+      \delta_{1}\}$. Therefore $d(y,x) < \delta_{2}$ implies 
+    \[ d_{\text{sum}}(h(y), h(x)) = d_{M}(w,u) + d(f(w), f(u)) < \epsilon / 2 +
+    \epsilon / 2 = \epsilon. \]
+    Hence $h$ is continuous, so $G$ is path-connected.
+  \end{proof}
+
+  \item (d) What about the converse?
+
+  {\bf Solution:} The converse of the statement in part (c) is also true.
+
+  Outline of proof: Assume $G$ is connected. Let $p, q \in G$. Then there exists some continuous function
+  $h: [a,b] \rightarrow G$ such that $h(a) = p$ and $h(b) = q$. Continuity of
+  $h$ implies that for any sequence $x_{n} \in [a,b]$ where $x_{n}\rightarrow
+  x$, $h(x_{n}) = (y_{n}, f(y_{n})) \rightarrow h(x) = (y, f(y))$. But by
+  Theorem 2.21, convergence of $(y_{n}, f(y_{n}))$ implies convergence of
+  $y_{n}$ and $f(y_{n})$. Thus $y_{n} \rightarrow y$ and $f(y_{n})\rightarrow
+  f(y)$. This means that $f$ is continuous. Further, since $x_{n}\rightarrow
+  x$ implies $y_{n}\rightarrow y$, the function $h\circ g : [a,b] \rightarrow
+  M$ defined by $(g\circ h)(x) = y$ is continuous. Thus $M$ is path connected.
+\end{itemize}
+
+{\bf 5.} Consider a function $f:\mathbb{R} \rightarrow \mathbb{R}$. Suppose that 
+\begin{itemize}[label={},leftmargin=4mm, itemsep=0.5em, parsep=1em]
+  \item (i) $f$ is continuous for $x \geq 0$.
+  \item (ii) $f'(x)$ exists for $x > 0$.
+  \item (iii) $f(0) = 0$.
+  \item (iv) $f'$ is monotonically increasing.
+\end{itemize}
+Let 
+\[ g(x) = \frac{f(x)}{x}, \]
+for $x > 0$. Prove that $g$ is monotonically increasing.
+
+{\bf Solution:} 
+\begin{proof}
+  Let $0 < x_{1} < x_{2}$. We need to show that $g(x_{2}) > g(x_{1})$. Since $f$
+  is continuous over the interval $[0, \infty)$ and differentiable on $(0,
+    \infty)$, we can apply to mean value theorem to $f$. That is,
+  \[ f(x_{1}) - f(0) = f'(\theta_{1})(x_{1} - 0), \]
+  for some $\theta_{1} \in (0, x_{1})$, so 
+  \begin{equation}
+    \frac{f(x_{1})}{x_{1}} = f'(\theta_{1}).
+  \end{equation}
+  Further,
+  \[ f(x_{2}) - f(x_{1}) = f'(\theta_{2})(x_{2} - x_{1}), \text{ for some
+  }\theta_{2} \in (x_{1}, x_{2}) \]
+  so 
+  \begin{equation}
+    \frac{f(x_{2}) - f(x_{1})}{x_{2} - x_{1}} = f'(\theta_{2}).
+  \end{equation}
+  Now, since $\theta_{2} > \theta_{1}$ and $f'$ is monotonically increasing, 
+  $f'(\theta_{2}) > f'(\theta_{1})$. Thus,
+  \begin{align*}
+    (4), (5) \Rightarrow \qquad \frac{f(x_{2}) - f(x_{1})}{x_{2} - x_{1}} & >
+    \frac{f(x_{1})}{x_{1}} \\
+    \frac{x_{1}f(x_{2}) - x_{1}f(x_{1})}{x_{1}(x_{2} - x_{1})} -
+    \frac{x_{2}f(x_{1}) - x_{1}f(x_{1})}{x_{1}(x_{2} - x_{1})} & > 0 \\
+    x_{1}f(x_{2}) - x_{2}f(x_{1}) & > 0 \\ 
+    \frac{f(x_{2})}{x_{2}} - \frac{f(x_{1})}{x_{1}} & > 0 \\
+    g(x_{2}) - g(x_{1}) & > 0.
+  \end{align*}
+\end{proof}
+
+{\bf 6.} Let $X$ be the set of all bounded real-valued functions on a non-empty
+set $S$.
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) For $x,y \in X$ set $d(x,y) = \sup_{t\in S}|x(t) - y(t)|$. Show that
+    $d$ is a metric on $X$.
+
+  {\bf Solution:}
+  let $x,y,z \in X$.
+  \begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+    \item (i) Positive definiteness:
+
+    $d(x,y) = \sup_{t\in S}|x(t) - y(t)| \geq 0$ since $|x(t) - y(t)| \geq 0$
+    for each $t \in S$, and $\sup_{t\in S}|x(t) - y(t)| = 0$ iff $|x(t) - y(t)|
+    = 0$ for each $t \in S$ iff $x(t) = y(t)$ for each $t \in S$.
+
+    \item (ii) Symmetry:
+
+    \[ d(x,y) = \sup_{t\in S}|x(t) - y(t)| = \sup_{t\in S}|y(t) - x(t)| =
+    d(y,x). \]
+
+    \item (iii) Triangle inequality:
+
+    \begin{align*}
+      d(x,z) = \sup_{t\in S}|x(t) - z(t)| & = \sup_{t\in S}|x(t) - y(t) + y(t) -
+      z(t)| \\
+      & \leq \sup_{t\in S}\bigg[ |x(t) - y(t)| + |y(t) - z(t)| \bigg] \\
+      & \leq \sup_{t\in S}|x(t) - y(t)| + \sup_{t\in S}|y(t) - z(t)| \\
+      & = d(x,y) + d(y,z).
+    \end{align*}
+  \end{itemize}
+ 
+
+  \item (b) For $x \in X$, let 
+    \[ f(x) = \inf_{t\in S}x(t) \qquad \text{and} \qquad g(x) = \sup_{t\in
+    S}x(t). \]
+  Show that $f$ and $g$ are uniformly continuous functions from $(X,d)$ to $R$.
+
+  {\bf Solution:}
+
+  \begin{proof}
+    First we will show that 
+    \begin{equation}
+      |\inf_{t\in S}x(t) - \inf_{t\in S}y(t)| \leq \sup_{t\in S}|x(t) - y(t)|,
+    \end{equation}
+    and 
+    \begin{equation}
+      |\sup_{t\in S}x(t) - \sup_{t\in S}y(t)| \leq \sup_{t\in S}|x(t) - y(t)|.
+    \end{equation}
+    Proof of (6):
+
+    We will do a proof by contradiction. Assume 
+    \begin{equation}
+      |\inf_{t\in S}x(t) - \inf_{t\in S}y(t)| > \sup_{t\in S}|x(t) -y(t)|.
+    \end{equation}
+    To simplify notation, denote $t_{x} \in S$ such that $\inf_{t\in
+    S}x(t) = x(t_{x})$ and $t_{y} \in S$ such that $\inf_{t\in S}y(t) =
+    y(t_{y})$. There are two cases to consider. Either (i) $t_{x} = t_{y}$ or
+    (ii) $t_{x} \neq t_{y}$.
+    \begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+      \item (i) If $t_{x} = t_{y}$, then $|x(t_{x}) - y(t_{y})|= |x(t_{x}) -
+        y(t_{x})| = \sup_{t\in
+        S}|x(t) - y(t)|$. This is a contradiction.
+
+      \item (ii) If $t_{x} \neq t_{y}$, then either $x(t_{x}) = y(t_{y})$,
+        $x(t_{x}) < y(t_{y})$, or $x(t_{x}) > y(t_{y})$. Well, if $x(t_{x}) =
+        y(t_{y})$, then $|x(t_{x}) - y(t_{y})| = 0 \stackrel{(8)}{>} \sup|x(t) -
+        y(t)|$. This is a contradiction since $\sup_{t\in S}|x(t) - y(t)| \geq
+        0$. So either $x(t_{x}) < y(t_{y})$ or $x(t_{x}) > y(t_{y})$. WLOG,
+        assume $x(t_{x}) < y(t_{y})$. Then 
+        \[ \sup_{t\in S}|x(t) - y(t)| \stackrel{(8)}{<} |x(t_{x}) - y(t_{y})|
+        \leq |x(t_{x}) - y(t_{x})| \leq \sup_{t\in S}|x(t) - y(t)|, \]
+        which is nonsense.
+    \end{itemize}
+    Therefore $|\inf_{t\in S}x(t) - \inf_{t\in S}y(t)| \leq \sup_{t\in S}|x(t) -
+    y(t)|$.
+
+    Proof of (7):
+
+    (Much like the proof of (6)). Assume 
+    \begin{equation}
+      |\sup_{t\in S}x(t) - \sup_{t\in S}y(t)| > \sup_{t\in S}|x(t) -y(t)|.
+    \end{equation}
+    To simplify notation, denote $t_{x} \in S$ such that $\sup_{t\in
+    S}x(t) = x(t_{x})$ and $t_{y} \in S$ such that $\sup_{t\in S}y(t) =
+    y(t_{y})$. There are two cases to consider. Either (i) $t_{x} = t_{y}$ or
+    (ii) $t_{x} \neq t_{y}$.
+    \begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+      \item (i) If $t_{x} = t_{y}$, then $|x(t_{x}) - y(t_{y})|= |x(t_{x}) -
+        y(t_{x})| = \sup_{t\in
+        S}|x(t) - y(t)|$. This is a contradiction.
+
+      \item (ii) If $t_{x} \neq t_{y}$, then either $x(t_{x}) = y(t_{y})$,
+        $x(t_{x}) < y(t_{y})$, or $x(t_{x}) > y(t_{y})$. Well, if $x(t_{x}) =
+        y(t_{y})$, then $|x(t_{x}) - y(t_{y})| = 0 \stackrel{(9)}{>} \sup|x(t) -
+        y(t)|$. This is a contradiction since $\sup_{t\in S}|x(t) - y(t)| \geq
+        0$. So either $x(t_{x}) < y(t_{y})$ or $x(t_{x}) > y(t_{y})$. WLOG,
+        assume $x(t_{x}) > y(t_{y})$. Then 
+        \[ \sup_{t\in S}|x(t) - y(t)| \stackrel{(9)}{<} |x(t_{x}) - y(t_{y})|
+        \leq |x(t_{x}) - y(t_{x})| \leq \sup_{t\in S}|x(t) - y(t)|, \]
+        which is nonsense.
+    \end{itemize}
+    Therefore $|\sup_{t\in S}x(t) - \sup_{t\in S}y(t)| \leq \sup_{t\in S}|x(t) -
+    y(t)|$.
+
+    Now, let $\epsilon > 0$ and choose $\delta = \epsilon$. Then by (6) and (7),
+    \[ d(x,y) = \sup_{t\in S}|x(t) - y(t)| < \delta \]
+    implies 
+    \[ d(f(x), f(y)) = |\inf_{t\in S}x(t) - \inf_{t\in S}y(t)|
+      \stackrel{(6)}{\leq} d(x,y) < \delta = \epsilon, \]
+    and 
+    \[ d(g(x), g(y)) = |\sup_{t\in S}x(t) - \sup_{t\in S}y(t)|
+    \stackrel{(7)}{\leq} d(x,y) < \delta = \epsilon. \]
+    Since the choice of $\delta$ is independent of $x$, $f$ and $g$ are
+    uniformly continuous.
+  \end{proof}
+\end{itemize}
+
+\section*{Bonus}
+
+\begin{Proposition}
+  If a metric space $M$ is compact, then $M$ is complete.
+\end{Proposition}
+
+\begin{proof}
+  Assume $M$ is compact and let $(x_{n}) \in M$ be a Cauchy sequence and let
+  $\epsilon > 0$. Then
+  $(x_{n})$ has a subsequence $(x_{n_{k}})$ that converges to some $x\in M$
+  since $M$ is compact. Therefore there exists some $K \in \mathbb{N}$ such that
+  $k > K$ implies $d(x_{n_{k}}, x) < \epsilon / 2$. Further, since $(x_{n})$ is Cauchy,
+  there exists some $N \in \mathbb{N}$ such that $n,m > N$ implies $d(x_{n},
+  x_{m}) < \epsilon / 2$. Now, take $N_{\epsilon} = \max\{N, n_{K}\}$. Then $n,
+  m_{k} > N_{\epsilon}$, where $x_{m_{k}} \in (x_{n_{k}})$, implies 
+  \[ d(x_{n}, x) \leq d(x_{n}, x_{m_{k}}) + d(x_{m_{k}}, x) < \epsilon / 2 +
+  \epsilon / 2 = \epsilon. \]
+  Therefore $x_{n}\rightarrow x$ as $n \rightarrow \infty$. Hence $M$ is complete.
+\end{proof}
+
+\begin{Proposition}
+  The metric space $(\ell^{2}, \|\cdot\|_{2})$ is complete.
+\end{Proposition}
+
+\begin{proof}
+  Let $(x^{n})$ be a Cauchy sequence of real numbers in $\ell^{2}$. Then
+  $(x^{n})$ is a sequence of sequences such that if $x\in (x^{n})$ then $x =
+  (x_{k})$ and $\|x\|_{\ell^{2}}^{2} = \sum_{k=1}^{\infty}|x_{k}|^{2} < \infty$. Let $\epsilon > 0$.
+  Since $(x^{n})$ is Cauchy, there exists an $N \in \mathbb{N}$ such that $n,m >
+  N$ implies 
+  \[ d(x^{n}, x^{m}) = \|x^{n} - x^{m}\|_{\ell^{2}} = \left(\sum_{k=1}^{\infty}|x_{k}^{n}
+  - x_{k}^{m}|^{2}\right)^{1/2} < \epsilon, \]
+  or, equivalently,
+  \begin{equation}
+    \sum_{i=1}^{\infty}|x_{k}^{n} - x_{k}^{m}| < \epsilon^{2}. 
+  \end{equation}
+  Now, fix $k_{0} \in \mathbb{N}$ and consider the sequence $(x_{k_{0}}^{n})$ over
+  all $n \in \mathbb{N}$. From (10) it is obvious that 
+  \[ |x_{k_{0}}^{n} - x_{k_{0}}^{m}| < \epsilon^{2} \]
+  for every $n, m > N$. Thus $(x_{k_{0}}^{n})$ is a Cauchy sequence in
+  $\mathbb{R}$ and therefore converges to some $y_{k_{0}} \in \mathbb{R}$. Let
+  $y = (y_{k})$ be the sequence of all such limit points. Now consider what
+  happens to
+  $d(x^{n}, x^{m})$ for $n,m > N$ as we take $m$ to infinity. We get
+  \begin{equation}
+    \lim_{m\rightarrow \infty} d(x^{n}, x^{m}) = \lim_{m\rightarrow \infty} 
+    \left(\sum_{k=1}^{\infty}|x_{k}^{n} - x_{k}^{m}|^{2}\right)^{1/2} =
+    \left(\sum_{k=1}^{\infty}|x_{k}^{n} - y_{k}|^{2}\right)^{1/2} \leq \epsilon.
+  \end{equation}
+  Therefore $(x^{n})$ converges to $y$. We just need to show that $y \in \ell^{2}$, i.e.
+  $\|y\|_{\ell^{2}}^{2} < \infty$. Well, (11) implies 
+  \[ \|y\|_{\ell^{2}} = \|y - x^{n} + x^{n}\|_{\ell^{2}} \leq \|y - x^{n}\|_{\ell^{2}} +
+  \|x^{n}\|_{\ell^{2}} \leq \epsilon + \|x^{n}\|_{\ell^{2}} < \infty, \]
+  for $n > N$. Hence $y \in \ell^{2}$.
+\end{proof}
+
+\end{document}

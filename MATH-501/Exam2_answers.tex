@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{geometry}
+\geometry{a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{amsthm}
+\usepackage{thmtools}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+
+\begin{document}
+\title{MATH 501: Exam 2}
+\author{Evan ``Pete'' Walsh}
+\maketitle
+
+\subsection*{1 Ch. 2 Question 92}
+
+(a) 
+\begin{Proposition}
+  $S$ is clopen iff $\partial S = \emptyset$.
+\end{Proposition}
+
+\begin{proof}
+  $(\Rightarrow)$ Assume $S$ is clopen. Then $S = \overline{S}$, and being that $S^{c}$ is also clopen,
+  $S^{c} = \overline{S^{c}}$. Thus $\partial S = \overline{S}\cap \overline{S^{c}} = S\cap S^{c} = \emptyset$. \\ \\
+  $(\Leftarrow)$ Now assume that $\partial S = \emptyset$. To say that $S$ has no boundary points implies 
+  that for each $s \in S$, there exists some $\epsilon > 0$ such that $M_{\epsilon}(p) \cap S^{c} = \emptyset$.
+  But then $S$ is open by definition. Further, 
+  \[ \partial S = \overline{S} \cap \overline{S^{c}} = \partial S^{c} \text{ (see part (c))}, \]
+  so $\partial S^{c} = \emptyset$. So by the same reasoning, $S^{c}$ must also be open.
+  But since the complement of an open set is closed, $S$ must be closed. So $S$ is clopen.
+\end{proof}
+
+(b) Note that $\partial S = \overline{S} \cap \overline{S^{c}}$, while 
+\[ \partial S^{c} = \overline{S^{c}} \cap \overline{(S^{c})^{c}} = \overline{S^{c}} \cap \overline{S}. \]
+Therefore $\partial S = \partial S^{c}$.
+
+(c) \begin{Proposition}
+$\partial \partial S \subset \partial S$.
+\end{Proposition}
+
+\begin{proof}
+  Let $x\in \partial\partial S$ and let $\epsilon > 0$. Then there exists some $y\in \partial S$ such that 
+  $d_{M}(x,y) < \epsilon / 2$ ($y\in M_{\epsilon/2}(x)$). But since $y \in \partial S$, there exists some 
+  $s \in S$ such that $d_{M}(y,s) < \epsilon / 2$, and $s' \in S^{c}$ such that $d_{M}(y,s') < \epsilon / 2$. Hence,
+  \[ d_{M}(x, s) \leq d_{M}(x,y) + d_{M}(y,s) < \epsilon / 2 + \epsilon / 2 = \epsilon, \]
+  and 
+  \[ d_{M}(x,s') \leq d_{M}(x,y) + d_{M}(y,s') < \epsilon / 2 + \epsilon / 2 = \epsilon. \]
+  Therefore $s$ and $s'$ are in $M_{\epsilon}(x)$. Thus $x \in \partial S$, so $\partial\partial S \subset \partial S$.
+\end{proof}
+
+(d) 
+\begin{Proposition}
+$\partial \partial \partial S = \partial \partial S$.
+\end{Proposition}
+Before proving the proposition above, we will prove the following lemma:
+
+\begin{Lemma} $\text{int}(\partial\partial S) = \emptyset$.
+\end{Lemma}
+
+\begin{proof}
+  By definition, a point $x\in M$ is in $\partial \partial S$ if for each $\epsilon > 0$, $M_{\epsilon}(x)$ contains points in $\partial S$ and $(\partial S)^{c}$. 
+  However, from part (c), $\partial \partial S \subset \partial S$, so $\partial\partial S \cap (\partial S)^{c} = \emptyset$. In other words,
+  $(\partial S)^{c} \subset \partial \partial S$.
+  Therefore $M_{\epsilon}(x) \cap (\partial \partial S)^{c} \neq \emptyset$. Thus there are no open sets 
+  that are subsets of $\partial \partial S$. So int$(\partial\partial S) = \emptyset$.
+\end{proof}
+
+Now to prove proposition 3.
+
+\begin{proof}
+  First note that since $\partial \partial S$ is closed, $\overline{\partial \partial S} = \partial\partial S$. Now,  
+  \begin{align*}
+    \partial \partial \partial S & = \overline{\partial \partial S} \setminus\text{int}(\partial\partial S) \\
+    & = \partial \partial S \setminus \emptyset \\
+    & = \partial \partial S.
+  \end{align*}
+\end{proof}
+
+(e) \begin{Proposition}
+  $\partial(S\cup T) \subset \partial S \cup \partial T$.
+\end{Proposition}
+
+\begin{proof}
+  Note that $\partial(S\cup T) = (\overline{S\cup T}) \setminus \text{int}(S\cup T)$, and 
+  \[ \partial S \cup \partial T = \bar{S} \setminus \text{int}S \cup \bar{T}\setminus \text{int}T = (\bar{S} \cup \bar{T}) \setminus (\text{int}S\cup\text{int}T).\]
+  Now, by Question 91 part (f) (P. 127), $(\text{int}S\cup\text{int}T) \subset \text{int}(S\cup T)$.
+  Therefore to show that 
+  \[ \overline{S\cup T} \setminus \text{int}(S\cup T) \subset (\bar{S} \cup \bar{T}) \setminus (\text{int}S \cup \text{int}T),\]
+  it will suffice to show that $\overline{S\cup T} \subset \bar{S}\cup \bar{T}$.
+  Well, $S\subset \bar{S}$ and $T\subset \bar{T}$, so $S\cup T \subset \bar{S}\cup\bar{T}$, and $\overline{S\cup T} \subset \overline{(\bar{S}\cup\bar{T})} = \bar{S}\cup \bar{T}$,
+  since $\bar{S}$ and $\bar{T}$ are closed, meaning $\bar{S}\cup \bar{T}$ is closed. (In fact,
+  $\overline{S\cup T} = \bar{S}\cup \bar{T}$, but I will not prove it here.)
+  Therefore 
+  \[ \partial (S\cup T) = (\overline{S\cup T})\setminus \text{int}(S\cup T) \subset \bar{S}\cup \bar{T}\setminus (\text{int}S\cup\text{int}T) = \partial S\cup\partial T.\]
+\end{proof}
+
+(f) Consider $\mathbb{Q} \subset \mathbb{R}$. Well $\partial \mathbb{Q} = \mathbb{R}$ and $\partial\partial \mathbb{Q} = \partial \mathbb{R} = \emptyset$. So $\partial\partial \mathbb{Q} \neq \partial \mathbb{Q}$.
+
+(g) Let $S = \mathbb{Q}, T = \mathbb{Q}^{c}$. Then $\partial(S\cup T) = \partial\mathbb{R} = \emptyset$, yet 
+$\partial S \cup \partial T = \partial \mathbb{Q} \cup \partial \mathbb{Q}^{c} = \mathbb{R}\cup \mathbb{R} = \mathbb{R}$.
+
+
+\subsection*{2}
+
+(a) Ch. 2 Question 11. Define $f:\mathcal{T}\rightarrow \mathcal{K}$ by $f(T) = T^{c}$ for each $T\in\mathcal{T}$. This is a 
+legimate mapping from $\mathcal{T}\rightarrow \mathcal{K}$ since the complement of an open set is closed.
+Thus for each $K\in \mathcal{K}$, there exists some $T\in\mathcal{T}$ such that $f(T) = K$, namely $T = K^{c}$. Thus $f$ is onto.
+To show that $f$ is one-to-one, let $T_{1}$ and $T_{2}$ be unique open sets in $M$. Then $T_{1}^{c} \neq T_{2}^{c}$, so $f(T_{1})\neq f(T_{2})$. Thus
+$f$ is injective. Since $f$ is one-to-one and onto, $f$ is a bijection.
+
+(b) Ch. 2 Question 12. Consider $M$ under the discrete metric.
+
+\begin{enumerate}
+    \item Every subset of $M$ is clopen.
+      \begin{proof}
+        Let $S$ be any subset of $M$. If $S = \emptyset$ or $S = M$ then it is trivial that $S$ is clopen. Now consider 
+        when $S$ is a proper subset of $M$. A point $p$ is a limit point of $S$ if for each $\epsilon > 0$, $M_{\epsilon}(p)\cap S \neq \emptyset$.
+        However, for $\epsilon < 1$, $M_{\epsilon}(p) \cap S$ is just $p$ when $p\in S$ and is the empty set when $p\notin S$. Thus 
+        the only limit points of $S$ are points contained in $S$. So $S$ is open. But if we just replace $S$ with $S^{c}$, the same argument shows 
+        that $S^{c}$ is open. Therefore $(S^{c})^{c} = S$ must be closed. So $S$ is clopen.
+      \end{proof}
+    \item $f: M \rightarrow N$, for some metric space $N$ is continuous.
+      \begin{proof}
+        Let $\epsilon > 0$ and $p\in M$. Then choosing $0 < \delta < 1$ ensures that for $q\in M$ with $d_{M}(p,q) < \delta$, this implies $d_{N}(f(p),f(q)) < \epsilon$, for 
+        it must be that $p = q$. Therefore $f$ is continuous.
+      \end{proof}
+    \item The only sequences that converge in $M$ are sequences that just become a single point for every $n > N$, for some fixed $N \in \mathbb{N}$.
+\end{enumerate}
+
+
+\subsection*{3}
+
+(a) Ch. 2 Qustion 78 (b)
+\begin{Proposition} If $M$ is compact and chain-connected then it is connected.
+\end{Proposition}
+
+\begin{proof}
+  Assume $M$ is chain-connected and compact. We will do a proof by contradiction. So assume that 
+  $M$ is disconnected. Then $M = A\sqcup A^{c}$ for some proper clopen subset $A \subset M$. 
+  First, define the sequence $(\epsilon_{n})_{n\in \mathbb{N}}$ by $\epsilon_{i} = 1/i$. 
+  Since $M$ is chain-connected, for any point $p \in A $ and $q \in A^{c}$, there exists 
+  an $\epsilon_{1}$-chain from $p$ to $q$, denote it $(x_{1,1}, x_{1,2}, \dots , x_{1,k})$, for $k\in\mathbb{N}$.
+  Further, since $p \in A$ and $q \in A^{c}$, there must be some $1\leq i \leq k$ such that 
+  $x_{1,i} \in A$ and $x_{1,i+1} \in A^{c}$. Let's denote $p_{1} = x_{1,i}$ and $q_{1} = x_{1,i+1}$. 
+  Because $p_{1}$ and $q_{1}$ are consecutive elements in the $\epsilon_{1}$-chain, $d_{M}(p_{1}, q_{1}) < \epsilon_{1}$.
+  Now define an $\epsilon_{2}$-chain from $p_{1}$ to $q_{1}$, call it $(x_{2,1}, \dots, x_{2,k})$, $k\in \mathbb{N}$.
+  Continue recursively defining $p_{j}$, $q_{j}$ for corresponding $\epsilon_{j}$, $1\leq j \leq n$. Then 
+  $d_{M}(p_{j}, q_{j}) < \epsilon_{j}$. Now 
+  define the sequence $(z_{n})_{n\in\mathbb{N}}$ by $z_{1} = p_{1}, z_{2} = q_{1}, z_{3} = p_{2}, z_{4} = q_{2}, \dots$.
+  Note that for any $\delta > 0$, we can choose $N_{\delta}\in\mathbb{N}$ such that $1/N_{\delta} < \delta$. Therefore, 
+  by the construction of $(z_{n})$, choosing any $n,m > N_{\delta}$ implies $d_{M}(z_{n}, z_{m}) < 1/N_{\delta} < \delta$.
+  Hence $(z_{n})$ is a Cauchy sequence. But since $M$ is compact and compactness implies completeness, 
+  $(z_{n})$ converges to some point $y \in M$. Further, since $z_{n}\rightarrow y$ as $n\rightarrow \infty$,
+  any subsequence of $(z_{n})$ also converges to $y$. Specifically the subsequences $(p_{n})$ and $(q_{n})$ converge to $y$.
+  But since $(p_{n}) \in A$ and $(q_{n})\in A^{c}$, $y$ is a limit point of both $A$ and $A^{c}$. This contradicts 
+  the assumption that $A$ is clopen. Hence $M$ is connected.
+\end{proof}
+
+
+(b) Ch. 2 Question 78 (d) The proof in 3 (a) only used the definition of chain-connected and that 
+in any compact space (and therefore in any complete space) all Cauchy sequences converge. Thus 
+the exact same proof applies to the statement ``If $M$ is complete and chain-connected then it is connected.''
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

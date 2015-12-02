@@ -1,0 +1,302 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+
+\title{MATH 501: HW 6}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+{\bf 1.} Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ is continuous on $[a,b]$
+and $P$ is a partition of $[a,b]$. Show that there exists a Riemann sum of $f$
+over $P$ that equals $\int_{a}^{b}f(x)dx$.
+
+{\bf Solution:}
+
+\begin{proof}
+  Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ is continuous on $[a,b]$ and let
+  $P = \{x_{0}, \dots, x_{n}\}$ be a partition on $[a,b]$. Pick any $i\in
+  \{1,\dots, n\}$ and consider the subinterval $[x_{i-1}, x_{i}]$. Since $f$ is
+  bounded over $[a,b]$, $f$ is bounded over $[x_{i-1},x_{i}] \subset [a,b]$.
+  Therefore, by the extreme value theorem, we can define $N = \min_{x\in
+    [x_{i-1},x_{i}]}f(x)$ and $M = \max_{x\in [x_{i-1},x_{i}]}f(x)$. By theorems
+  3.16 and 3.17, 
+  \[ N(x_{i} - x_{i-1}) \leq \int_{x_{i-1}}^{x_{i}}f(x)dx \leq M(x_{i}-x_{i-1}).
+  \]
+  Now define $g : [N,M] \rightarrow \mathbb{R}$ by $g(y) = y(x_{i} - x_{i-1})$.
+  Since $g$ is continuous over $[N,M]$, there exists some $y\in [N,M]$ such that
+  $g(y) = \int_{x_{i-1}}^{x_{i}}f(x)dx$, by the intermediate value theorem.
+  Further, since $f$ is continuous over $[x_{i-1}, x_{i}]$, we can apply the
+  intermediate value theorem again to conclude that there exists some $t_{i}\in
+  [x_{i-1},x_{i}]$ such that $f(t_{i}) = y$, since $y \in [N, M]$. Thus,
+  \[ f(t_{i})\cdot \triangle x_{i} = y(x_{i}-x_{i-1}) =
+  \int_{x_{i-1}}^{x_{i}}f(x)dx. \]
+  Continue choosing every $t_{i}$ this way for $i = 1,\dots, n$ and let $T =
+  \{t_{1},\dots, t_{n}\}$. Then the Reimann sum of $f$ over $P$ and $T$ is 
+  \begin{align*}
+    R(f,P,T) = \sum_{i=1}^{n}f(t_{i})\triangle x_{i} & =
+    \sum_{i=1}^{n}t_{i}(x_{i} - x_{i-1}) \\
+    & = \sum_{i=1}^{n}\int_{x_{i-1}}^{x_{i}} f(x) dx \\
+    & = \int_{a}^{b}f(x)dx,
+  \end{align*}
+  by Corollary 3.28.
+\end{proof}
+
+{\bf 2.} Compute $\sup_{P}L(P, f_{i})$ and $\inf_{P}U(P,f_{i})$ on $[0,1]$ for
+$i = 1,2$, and the following functions defined on $[0,1]$:
+\[ f_{1}(x) = \left\{\begin{array}{cl}
+    x & \text{ if } x \in \mathbb{Q} \\
+    -x & \text{ if } x \notin \mathbb{Q} 
+  \end{array} \right. \qquad \text{and} \qquad f_{2}(x) = \left\{
+    \begin{array}{cl}
+      1 & \text{ if }x \in \mathbb{Q} \\
+      x & \text{ if }x \notin \mathbb{Q}.
+  \end{array} \right. \]
+
+{\bf Solution:}
+
+Consider $L(P, f_{1}) = \sum_{k=1}^{n}-x_{k}(x_{k} - x_{k-1}) \leq
+\int_{0}^{1}(-x)dx = -1/2$. Now let $x_{k} = k / n$. Then 
+\begin{align*} \lim_{n\rightarrow \infty}\sum_{k=1}^{n}-x_{k}(x_{k}-x_{k-1}) =
+  \lim_{n\rightarrow\infty}\sum_{k=1}^{n}-\frac{k}{n}\left(\frac{k}{n}-\frac{k-1}{n}\right)
+  & = \lim_{n\rightarrow\infty}-\frac{1}{n^{2}}\sum_{k=1}^{n}k \\
+  & = \lim_{n\rightarrow\infty}-\frac{1}{n^{2}}\frac{n(n+1)}{2}\\
+  & = -\frac{1}{2}.
+\end{align*}
+Therefore $\sup_{P}L(P,f_{1}) = -1/2$. Similarly, $\inf_{P}U(P, f_{1}) = 1/2$.
+
+Now consider $L(P, f_{2}) = \sum_{k=1}^{n}x_{k-1}(x_{k} - x_{k-1}) \leq
+\int_{0}^{1}xdx = 1/2$. Now let $x_{k} = k/n$. Then
+\begin{align*} \lim_{n\rightarrow \infty}\sum_{k=1}^{n}x_{k}(x_{k}-x_{k-1}) =
+  \lim_{n\rightarrow\infty}\sum_{k=1}^{n}\frac{k}{n}\left(\frac{k}{n}-\frac{k-1}{n}\right)
+  & = \lim_{n\rightarrow\infty}\frac{1}{n^{2}}\sum_{k=1}^{n}k \\
+  & = \lim_{n\rightarrow\infty}\frac{1}{n^{2}}\frac{n(n+1)}{2}\\
+  & = \frac{1}{2}.
+\end{align*}
+So $\sup_{P}L(P, f_{2}) = 1/2$. On the other hand, it easy to see that $U(P,
+f_{2}) = 1$ for every partition $P$. Thus $\inf_{P}U(P, f_{2}) = 1$. To
+summarize the results, we have
+
+\[ \sup_{P}L(P, f_{1}) = -1/2 \qquad \inf_{P}U(P, f_{1}) = 1/2, \]
+and 
+\[ \sup_{P}L(P, f_{2}) = 1/2 \qquad \inf_{P}U(P, f_{2}) = 1. \]
+
+{\bf 3.} 
+
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (a) Prove that if $f:\mathbb{R} \rightarrow \mathbb{R}$ is absolutely
+    integrable on $[0, +\infty)$ then 
+    \[ \lim_{n\rightarrow \infty}\int_{1}^{\infty}f(x^{n})dx = 0. \]
+
+  {\bf Solution:}
+  \begin{proof}
+    Let $a > 1$ and define $g:[1, a^{1/n}]\rightarrow [1,a]$ by $g(x) = x^{n}$.
+    Since $g$ is a $C^{1}$ diffeomorphism,
+    \[ \int_{1}^{a}|f(y)|dy = \int_{1}^{a^{1/n}}|f(g(x))|g'(x)dx =
+    \int_{1}^{a^{1/n}}|f(x^{n})|nx^{n-1}dx, \]
+    by Theorem 3.38 (Integration by Substitution). But since $f$ is absolutely
+    integrable on $[0, \infty)$, $f$ is absolutely integrable on $[1,\infty)$,
+    so 
+    \begin{align*}
+      \int_{1}^{\infty}|f(y)|dy = \lim_{a\rightarrow \infty}\int_{1}^{a}|f(y)|dy & =
+      \lim_{a\rightarrow \infty}\int_{1}^{a^{1/n}}|f(x^{n})|nx^{n-1}dx \\
+      & = \int_{1}^{\infty}|f(x^{n})|nx^{n-1}dx.
+    \end{align*}
+    Hence,
+    \begin{equation}
+      \frac{1}{n}\int_{1}^{\infty}|f(y)|dy = \int_{1}^{\infty}|f(x^{n})|x^{n-1}dx.
+    \end{equation}
+    Now, since $f(x^{n}) \leq |f(x^{n})| \leq |f(x^{n})|x^{n-1}$ for $x \geq 1$,
+    \begin{align*}
+      \int_{1}^{\infty}f(x^{n})dx \leq \int_{1}^{\infty}|f(x^{n})|dx & \leq
+      \int_{1}^{\infty}|f(x^{n})|x^{n-1}dx \\
+      & \stackrel{(1)}{=} \frac{1}{n}\int_{1}^{\infty}|f(y)|dy,
+    \end{align*}
+    by Theorem 3.17.
+    Thus,
+    \[ \lim_{n\rightarrow\infty}\int_{1}^{\infty}f(x^{n})dx \leq
+    \lim_{n\rightarrow \infty}\frac{1}{n}\int_{1}^{\infty}|f(y)|dy = 0, \]
+    since $\int_{1}^{\infty}|f(y)|dy < \infty$. Similarly,
+    \begin{align*}
+      \int_{1}^{\infty}f(x^{n})dx \geq -\int_{1}^{\infty}|f(x^{n})|dx & \geq -
+      \int_{1}^{\infty}|f(x^{n})|x^{n-1}dx \\
+      & = -\frac{1}{n}\int_{1}^{\infty}|f(y)|dy.
+    \end{align*}
+    So,
+    \[ \lim_{n\rightarrow \infty}\int_{1}^{\infty}f(x^{n})dx \geq
+    \lim_{n\rightarrow \infty}-\frac{1}{n}\int_{1}^{\infty}|f(y)|dy = 0.\]
+    Therefore $\lim_{n\rightarrow \infty}\int_{1}^{\infty}f(x^{n})dx = 0$.
+  \end{proof}
+
+  \item (b) Suppose that $f:\mathbb{R} \rightarrow \mathbb{R}$ is continuously
+    differentiable and one-to-one on $[a,b]$. Prove that 
+    \[ \int_{a}^{b} f(x)dx + \int_{f(a)}^{f(b)}f^{-1}(x)dx = bf(b) - af(a),\]
+    where $f^{-1}$ is the inverse function of $f$.
+
+  {\bf Solution:}
+  \begin{proof}
+    By Theorem 3.38,
+    \begin{equation}
+      \int_{f(a)}^{f(b)}f^{-1}(y)dy = \int_{a}^{b}f^{-1}(f(x))f'(x)dx, 
+    \end{equation}
+    assuming $f' > 0$. Now, using Theorem 3.39 (Integration by Parts) on the right hand side of
+    (2), we get
+    \begin{align*}
+      \int_{a}^{b}f^{-1}(f(x))f'(x)dx & = f^{-1}(f(b))f(b) - f^{-1}(f(a))f(a) -
+      \int_{a}^{b}\left[\frac{d}{dx}f^{-1}(f(x))\right]f(x)dx \\
+      & = bf(b) - af(a) - \int_{a}^{b}\left[\frac{d}{dx}x\right]f(x)dx \\
+      & = bf(b) - af(a) - \int_{a}^{b}f(x)dx.
+    \end{align*}
+    Thus, by rearranging the above and substituting (2), we have 
+    \[ \int_{a}^{b} f(x)dx + \int_{f(a)}^{f(b)}f^{-1}(x)dx = bf(b) - af(a). \]
+  \end{proof}
+\end{itemize}
+
+{\bf 4.} Suppose that $f:\mathbb{R} \rightarrow \mathbb{R}$ is bounded and
+$f^{2}$ is integrable on $[a,b]$. Does it follow that $f$ is integrable on
+$[a,b]$?
+
+{\bf Solution:}
+
+No. $f$ is not necessarily integrable on $[a,b]$. Consider the function $f_{1}$
+over $[0,1]$, defined in Question 2. $f^{2}_{1}(x) = x^{2}$ which is clearly
+integrable over $[0,1]$, but 
+\[ \sup_{P}L(P,f_{1}) = -1/2 \neq 1/2 = \inf_{P}U(P,f_{1}). \]
+Hence by Theorem 19, $f_{1}$ is not integrable.
+
+{\bf 5.} Suppose that $f:\mathbb{R}\rightarrow \mathbb{R}$ is continuous and
+non-negative on $[0,1]$. Show that if $\int_{0}^{1}f(x) = 0$, then $f(x) = 0$
+for every $x\in [0,1]$.
+
+{\bf Solution:}
+
+\begin{proof}
+  We will do a proof by contradiction. Suppose there exists some $x \in (0,1)$
+  such that $f(x) = \epsilon$, where $\epsilon > 0$. The case for when $x = 0$
+  or $x = 1$ follows from the nearly the same argument, as I will make clear at
+  the end of the proof. Now, since $f$ is continuous, there exists some $\delta
+  > 0$ such that $d(y,x) \leq \delta$ implies $d(f(y), f(x)) < \epsilon / 2$.
+  For simplicity, we will use $\delta = \min\{\delta, d(x,0), d(x,1)\}$ as the
+  final choice for $\delta$ to ensure that $[x-\delta, x+\delta] \subset [0,1]$.
+  So, for each $y \in [x - \delta, x+\delta]$,
+  \[ \epsilon = f(x) = d(f(x),0) \leq d(f(x),f(y)) + d(f(y),0) = \epsilon/2 +
+  f(y).\]
+  Thus,
+  \begin{equation}
+    f(y) \geq \epsilon - \epsilon / 2 = \epsilon / 2.
+  \end{equation}
+  Now consider any partition $P = \{x_{0}, x_{1}, \dots, x_{n}\}$ of the form
+  $x_{0} = 0$, $x_{n} = 1$, and $x_{i-1} = x - \delta$, $x_{i} = x + \delta$ for
+  some $i \in \{1, \dots, n\}$. Then,
+  \begin{align*}
+    L(f,P) & = \sum_{i=1}^{n}(x_{i} - x_{i-1})f(t_{i}) \\
+    & = (x_{1} - 0)f(t_{1}) + \dots + (x + \delta - (x - \delta))f(t_{i}) +
+    \dots + (x_{n} - x_{n-1})f(t_{n}) \\
+    & \stackrel{(3)}{\geq} 0 + \dots + 2\delta \times \frac{\epsilon}{2} + \dots
+    + 0.
+  \end{align*}
+  So $L(f,P) \geq \epsilon \times \delta > 0$. But this is a contradiction since
+  $L(f,P) \leq \int_{0}^{1}f(x)dx = 0$.
+
+  Now, we still haven't considered the case where $x = 0$ or $x = 1$. But the argument is
+  the same except we choose the interval to be $[x, x+\delta]$ or $[x-\delta,
+  x]$ for $x=0$ or $x=1$, respectively. This leads to the same contradiction.
+  Thus $f(x) = 0$ for every $x \in [0,1]$.
+\end{proof}
+
+{\bf 6.} Solve Exercise 37 in Chapter 2 of the textbook.
+
+Consider the identity map $id:C_{\max}\rightarrow C_{\text{int}}$ where
+$C_{\max}$ is the metric space $C([a,b], \mathbb{R})$ of continuous real valued
+functions defined on $[a,b]$, equipped with the max metric $d_{\max}(f,g) =
+\max|f(x)-g(x)|$, and $C_{\text{int}}$ is $C([a,b], \mathbb{R})$ equipped with
+the integral metric,
+\[ d_{\text{int}}(f,g) = \int_{a}^{b}|f(x) - g(x)|dx.\]
+Show that $id$ is a continuous linear bijection (an isomorphism) but its inverse
+is not continuous.
+
+{\bf Solution:}
+
+\begin{proof}
+  The fact that $id$ is a bijection is obvious from the fact that it is the
+  identity mapping. Linearity follows just as easily, as 
+  \[ id(f(x) + cg(x)) = f(x) + cg(x) = id(f(x)) + c\times id(g(x)), \]
+  for any $c \in \mathbb{R}$ and real valued functions $f,g$ on $[a,b]$. Now we
+  will show continuity of $id : C_{\max}\rightarrow C_{\text{int}}$. So, let
+  $\epsilon > 0$. First note that since $|f(x) - g(x)| \leq \max|f(x) - g(x)|$
+  for all $x \in [a,b]$, we have 
+  \begin{align*}
+    \int_{a}^{b}|f(x) - g(x)| dx & \leq \int_{a}^{b}[\max|f(x) - g(x)|]dx \\
+    & = \max |f(x) - g(x)|\times(b-a).
+  \end{align*}
+  Thus, choose $\delta = \epsilon / (b-a)$. Then $d_{\max}(f,g) < \delta$ implies 
+  \begin{align*}
+    d_{\text{int}}(f,g) = \int_{a}^{b}|f(x) - g(x)|dx & \leq \max|f(x) - g(x)|
+    \times (b-a) \\
+    & < \frac{\epsilon}{b-a} \times (b-a) = \epsilon.
+  \end{align*}
+  Therefore $id$ is continuous. Now consider the inverse
+  $id^{-1}:C_{\text{int}}\rightarrow C_{\max}$. Let $\epsilon > 0$. Is there a
+  $\delta > 0$ such that $d_{\text{int}}(f,g) < \delta$ implies $d_{\max}(f,g) <
+  \epsilon$? No. Consider the functions $g : [a,b] \rightarrow
+  \mathbb{R}$ defined by $g(x) = 0$ for each $x \in [a,b]$ and $f : [a,b]
+  \rightarrow \mathbb{R}$ defined by 
+  \[ f(x) = \left\{ \begin{array}{cl}
+      \epsilon & \text{ if } x = a \\
+      \epsilon - \frac{x-a}{\gamma}\times \epsilon & \text{ if }a < x \leq a +
+      \gamma \\
+      0 & \text{ if } a + \gamma < x \leq b,
+  \end{array} \right. \]
+  where $0 < \gamma < b - a$. Then,
+  \[ \int_{a}^{b}|f(x) - g(x)|dx = \int_{a}^{b}f(x)dx = \frac{1}{2}\gamma\times
+  \epsilon \stackrel{\gamma\rightarrow 0}{\longrightarrow} 0. \]
+  So $d_{\text{int}}(f,g)$ can be arbitrarily small while $d_{\max}(f,g) =
+  \epsilon$ for all $\gamma > 0$. Thus $id^{-1}$ is not continuous.
+\end{proof}
+
+\newpage
+
+\section*{Bonus}
+
+\begin{Proposition}
+  Assume $f$ is a monotone increasing real-valued function that is discontinuous at some
+  point $x$. Define $\underline{f} = \sup\{f(y) : y < x\}$ and $\overline{f} =
+  \inf\{f(y) : y > x\}$. Then $\underline{f} \neq \overline{f}$.
+\end{Proposition}
+\begin{proof}
+  Note that $\underline{f} = \lim_{y\rightarrow x^{-}}f(y)$ and $\overline{f} =
+  \lim_{y\rightarrow x^{+}}f(y)$. Since $f$ is discontinuous at $x$, either
+  $\lim_{y\rightarrow x^{-}}f(y) \neq f(y)$, $\lim_{y\rightarrow x^{+}}f(y) \neq
+  f(y)$, or both. Without loss of generality, assume $\lim_{y\rightarrow
+  x^{+}}\neq f(y)$. Now, since $f$ is monotone increasing, $f(y) \leq f(x)$
+  for every $y < x$, so $\underline{f} \leq f(x)$. Similarly, $\overline{f} \geq
+  f(x)$, but by assumption, this inequality is actually strict. So $\overline{f}
+  > f(x)$, which means that there exists some $\epsilon > 0$ such that
+  $\overline{f} = f(x) + \epsilon$. But that implies $d(\overline{f},
+  \underline{f}) \geq \epsilon$. So $\overline{f} \neq \underline{f}$.
+\end{proof}
+
+\end{document}

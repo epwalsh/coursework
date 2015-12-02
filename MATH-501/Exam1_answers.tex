@@ -1,0 +1,284 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}
+\geometry{a4paper, left=30mm, right=30mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+
+\newtheorem*{prop}{Proposition}
+\newtheorem*{Def}{Definition}
+
+\begin{document}
+\title{MATH 501: Exam 1}
+\author{Evan ``Pete'' Walsh}
+\today
+\maketitle
+
+\subsection*{1} Let $w = \frac{1}{3}(4v - u)$ and let $r = \frac{2}{3}||v - u||$. Then,
+\begin{align*}
+  ||x - u|| & = 2||x - v|| \text{ iff} \\
+  ||x - u||^{2} & = 4||x - v||^{2} \text{ iff} \\
+  \langle x - u, x - u \rangle & = 4 \langle x - v, x - v\rangle \text{ iff} \\
+  \langle x, x \rangle - 2\langle x,u \rangle + \langle u,u\rangle & = 4 \langle x,x \rangle - 8\langle x,v\rangle + 4\langle v,v\rangle \text{ iff} \\
+  3\langle x,x \rangle - 8\langle x,v \rangle + 2\langle x,u\rangle - \langle u,u\rangle - 4\langle v,v\rangle & = 0 \text{ iff} \\
+  \langle x,x \rangle - \frac{8}{3}\langle x,v \rangle + \frac{2}{3}\langle x,u \rangle  - \frac{1}{3}\langle u,u\rangle + \frac{4}{3}\langle v,v \rangle & = 0 \text{ iff} \\
+  \langle x,x\rangle - \frac{2}{3}\langle x,4v\rangle + \frac{2}{3}\langle x,u\rangle + \frac{1}{9}\left(\langle 4v,4v\rangle - 2\langle 4v, u\rangle + \langle u,u\rangle \right) & = \frac{4}{9} \left( \langle v,v \rangle - 2\langle v,u\rangle + \langle u,u\rangle\right) \text{ iff} \\
+  \langle x,x \rangle - \frac{2}{3}\langle x, (4v-u)\rangle + \frac{1}{9}\langle 4v - u, 4v - u\rangle & = \frac{4}{9}\left(\langle v,v \rangle - 2\langle v,u\rangle + \langle u,u\rangle \right) \text{ iff} \\
+  \left\langle x - \frac{1}{3}(4v - u), x - \frac{1}{3}(4v - u)\right\rangle & = \frac{4}{9}\langle v - u, v - u\rangle \text{ iff} \\
+  \left\|x - \frac{1}{3}(4v - u)\right\|^{2} & = \frac{4}{9}\left\|v - u\right\|^{2} \text{ iff} \\
+  \left\|x - \frac{1}{3}(4v - u)\right\| & = \frac{2}{3}\left\|v - u\right\| \text{ iff} \\
+  \left\|x - w\right\| & = r
+\end{align*}
+
+\subsection*{2} Exercise 35 in Chapter 1. \\
+
+(a) Define $g: \mathcal{F} \longrightarrow \mathcal{P}$ by the mapping $g(f) = \{ s\in S : f(s) = 1\}$. To see that $g$ is an injection, let $f_{1}$ and $f_{2}$ be unique functions in $\mathcal{F}$ that differ for at least one element in $S$, call it $s^{*}$. Then either $f_{1}(s^{*}) = 1$ and $f_{2}(s^{*}) = 0$ or $f_{1}(s^{*}) = 0$ and $f_{2}(s^{*}) = 1$. Without loss of generality, assume the latter. Then $f_{1}$ maps to a subset of $S$ that does not contain $s^{*}$, while $f_{2}$ maps to a subset of $S$ that does contain $s^{*}$. Therefore $g(f_{1})$ and $g(f_{2})$ differ by at least one element, $s^{*}$, so $g(f_{1}) \neq g(f_{2})$. The surjectivity of $g$ is clear by its construction. Hence $g$ is a bijection. \\
+
+(b)
+\begin{prop}
+  The cardinality of $\mathcal{P}$ is greater than the cardinality of $S$.
+\end{prop}
+\begin{proof}
+  If $S = \emptyset$, then $\#S = 0$ and $S$ has one subset: itself. Therefore $\#\mathcal{P} = 1$. So $\#S < \#\mathcal{P}$. Now assume that $S\neq \emptyset$. We will do proof by contradiction. So assume $\#S = \#\mathcal{P}$. Then there exists a bijection from $S$ onto $\mathcal{P}$. Thus, by part (a), there is a bijection $\beta:S\longrightarrow \mathcal{F}$. That is, for each $s\in S$, $\beta(s)$ is a function $f_{s}: S\longrightarrow \{0,1\}$. Now define a new function $f^{*}$ such that for each $s\in S$, $f^{*}(s) \neq f_{s}(s)$. Then this function cannot be in the image of $\beta$ since it differs from each $f_{s}$ for at least one point, $s$. Thus $\beta$ is not a bijection and in fact $\beta$ is ``missing'' many functions in $\mathcal{F}$. Thus $\#S < \#\mathcal{P}$.
+\end{proof}
+
+\subsection*{3} Let $E$ be the set of all real numbers $x \in [0,1]$ whose decimal expansion contains only the digits 4 and 7. Then $E$ is not countable.
+
+\begin{proof}
+  Assume for a moment that $E$ is, in fact, countable. Then we could list each element of $E$ as 
+  \begin{align*}
+    e_{1} & = 0.e_{11}e_{12}e_{13}\hdots \\
+    e_{2} & = 0.e_{21}e_{22}e_{23}\hdots \\
+    e_{3} & = 0.e_{31}e_{32}e_{33}\hdots \\
+    \vdots & \\
+  \end{align*}
+  where $e_{ij}\in \{4,7\}$ for each $i,j\in\mathbb{N}$. Using Cantor's argument, create an element $x\in E$, where $x = 0.x_{1}x_{2}x_{3}\hdots$ for $x_{i}\in \{4,7\}$ for each $i \in \mathbb{N}$ such that $x_{i}\neq e_{ii}$. Then contrary to our assumption $x$ is not an element of $\{e_{1}, e_{2}, e_{3}, \hdots\}$. So $E$ is not countable.
+\end{proof}
+
+\subsection*{4} Fix a real number $\alpha > 1$ and take $x_{1} > \sqrt{\alpha}$, and define recursively
+\[ x_{n+1} = \frac{\alpha + x_{n}}{1 + x_{n}} , n\in \mathbb{N}. \]
+(a) We will show that $x_{1} > x_{3} > x_{5} \hdots > \sqrt{\alpha}$.
+\begin{proof}
+  We will do a proof by induction. We aim to show that $x_{i-1} > x_{i+1} > \sqrt{\alpha}$ for each even $i\in \mathbb{N}$. For the base case, consider $x_{3}$. We have
+  \[ x_{3} = \frac{\alpha + x_{2}}{1 + x_{2}} = \frac{\alpha + \left(\frac{\alpha + x_{1}}{1 + x_{1}}\right)}{1 + \left(\frac{\alpha + x_{1}}{1 + x_{1}}\right)} = \frac{2\alpha + (1+\alpha)x_{1}}{1 + \alpha + 2x_{1}} \]
+  Now, $x_{3} < x_{1}$ iff 
+  \begin{align*}
+    x_{3} - x_{1} & < 0 \text{ iff} \\
+    \frac{2\alpha + (1+\alpha)x_{1}}{1 + \alpha + 2x_{1}} - x_{1} & < 0 \text{ iff} \\
+    2\alpha + (1+\alpha)x_{1} - x_{1} - \alpha x_{1} - 2x_{1}^{2} & < 0 \text{ iff} \\
+    2\alpha - 2x_{1}^{2} & < 0 \text{ iff} \\
+    \alpha & < x_{1}^{2},
+  \end{align*}
+  which is true by the construction of $x_{1}$. Thus $x_{3} < x_{1}$. Now we just need to show that $x_{3} > \sqrt{\alpha}$, or $x_{3}^{2} > \alpha$. Well,
+  \[ x_{3}^{2} = \frac{(2\alpha + (1+\alpha)x_{1})^{2}}{(1 + \alpha + 2x_{1})^{2}} = \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{1} + (1+\alpha)^{2}x_{1}^{2}}{(1+\alpha)^{2} + 4x_{1}(1+\alpha) + 4x_{1}^{2}}, \]
+  So,
+  \begin{align*}
+    x_{3}^{2} & > \alpha \text{ iff} \\
+    x_{3}^{2} - \alpha & > 0 \text{ iff} \\
+    \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{1} + (1+\alpha)^{2}x_{1}^{2}}{(1+\alpha)^{2} + 4x_{1}(1+\alpha) + 4x_{1}^{2}} - \alpha & > 0 \text{ iff} \\
+    4\alpha^{2} + 4\alpha(1+\alpha)x_{1} + (1+\alpha)^{2}x_{1}^{2} - \alpha(1+\alpha)^{2} - 4\alpha(1+\alpha)x_{1} - 4\alpha x_{1}^{2} & > 0\text{ iff} \\
+    4\alpha^{2} - 4\alpha x_{1}^{2} + x_{1}^{2}(1+\alpha)^{2} - \alpha(1+\alpha)^{2} & > 0 \text{ iff} \\
+    (x_{1}^{2} - \alpha)(1+\alpha)^{2} + 4\alpha(\alpha - x_{1}^{2}) & > 0 \text{ iff} \\
+    (1 + \alpha)^{2} - 4\alpha & > 0 \text{ iff} \\
+    1 - 2\alpha + \alpha^{2} & > 0 \text{ iff} \\
+    (1 - \alpha)^{2} & > 0,
+  \end{align*}
+  which is true when $\alpha > 1$ (more specifically, when $\alpha \neq 1$), which is how we constructed $\alpha$. Thus $x_{1} > x_{3} > \sqrt{\alpha}$. Now for the inductive step. Assume that our proposition holds for an arbitrary $x_{k-1}$ where $k \in \mathbb{N}$ is even. That is, assume $x_{k-3} > x_{k-1} > \alpha$. We wish to show that $x_{k-1} > x_{k+1} > \alpha$. Using the same argument as above, $x_{k+1} < x_{k-1}$ iff 
+  \begin{align*}
+    x_{k+1} - x_{k-1} & < 0 \text{ iff} \\
+    \frac{2\alpha + (1+\alpha)x_{k-1}}{1 + \alpha + 2x_{k-1}} - x_{k-1} & < 0 \text{ iff} \\
+    2\alpha + (1+\alpha)x_{k-1} - x_{k-1} - \alpha x_{k-1} - 2x_{k-1}^{2} & < 0 \text{ iff} \\
+    2\alpha - 2x_{k-1}^{2} & < 0 \text{ iff} \\
+    \alpha & < x_{k-1}^{2},
+  \end{align*}
+  which is true by the inductive assumption. Thus $x_{k+1} < x_{k-1}$. It remains to show that $x_{k+1} > \sqrt{\alpha}$, or $x_{k+1}^{2} > \alpha$. Well,
+  \[ x_{k+1}^{2} = \frac{(2\alpha + (1+\alpha)x_{k-1})^{2}}{(1 + \alpha + 2x_{k-1})^{2}} = \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{k-1} + (1+\alpha)^{2}x_{k-1}^{2}}{(1+\alpha)^{2} + 4x_{k-1}(1+\alpha) + 4x_{k-1}^{2}}, \]
+  Therefore,
+  \begin{align*}
+    x_{k+1}^{2} & > \alpha \text{ iff} \\
+    x_{k+1}^{2} - \alpha & > 0 \text{ iff} \\
+    \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{k-1} + (1+\alpha)^{2}x_{k-1}^{2}}{(1+\alpha)^{2} + 4x_{k-1}(1+\alpha) + 4x_{k-1}^{2}} - \alpha & > 0 \text{ iff} \\
+    4\alpha^{2} + 4\alpha(1+\alpha)x_{k-1} + (1+\alpha)^{2}x_{k-1}^{2} - \alpha(1+\alpha)^{2} - 4\alpha(1+\alpha)x_{k-1} - 4\alpha x_{k-1}^{2} & > 0\text{ iff} \\
+    4\alpha^{2} - 4\alpha x_{k-1}^{2} + x_{k-1}^{2}(1+\alpha)^{2} - \alpha(1+\alpha)^{2} & > 0 \text{ iff} \\
+    (x_{k-1}^{2} - \alpha)(1+\alpha)^{2} + 4\alpha(\alpha - x_{k-1}^{2}) & > 0 \text{ iff} \\
+    (1 + \alpha)^{2} - 4\alpha & > 0 \text{ iff} \\
+    1 - 2\alpha + \alpha^{2} & > 0 \text{ iff} \\
+    (1 - \alpha)^{2} & > 0,
+  \end{align*}
+  which again is true when $\alpha > 1$, which of course is how we constructed $\alpha$.
+\end{proof}
+
+(b) We will now show that $x_{2} < x_{4} < x_{6} \hdots < \sqrt{\alpha}$.
+\begin{proof}
+  Just as in part (a), we will do a proof by induction. We aim to show that $x_{i-1} < x_{i+1} < \sqrt{\alpha}$ for each odd $i\in \mathbb{N}$. For the base case, consider $x_{4}$. We have
+  \[ x_{4} = \frac{\alpha + x_{3}}{1 + x_{3}} = \frac{\alpha + \left(\frac{\alpha + x_{2}}{1 + x_{2}}\right)}{1 + \left(\frac{\alpha + x_{2}}{1 + x_{2}}\right)} = \frac{2\alpha + (1+\alpha)x_{2}}{1 + \alpha + 2x_{2}} \]
+  Now, $x_{4} > x_{2}$ iff 
+  \begin{align*}
+    x_{4} - x_{2} & > 0 \text{ iff} \\
+    \frac{2\alpha + (1+\alpha)x_{2}}{1 + \alpha + 2x_{2}} - x_{2} & > 0 \text{ iff} \\
+    2\alpha + (1+\alpha)x_{2} - x_{2} - \alpha x_{2} - 2x_{2}^{2} & > 0 \text{ iff} \\
+    2\alpha - 2x_{2}^{2} & > 0 \text{ iff} \\
+    \alpha & > x_{2}^{2},
+  \end{align*}
+  which is true by the construction of the sequence. Thus $x_{4} > x_{2}$. Now we just need to show that $x_{4} < \sqrt{\alpha}$, or $x_{4}^{2} < \alpha$. Well,
+  \[ x_{4}^{2} = \frac{(2\alpha + (1+\alpha)x_{2})^{2}}{(1 + \alpha + 2x_{2})^{2}} = \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{2} + (1+\alpha)^{2}x_{2}^{2}}{(1+\alpha)^{2} + 4x_{2}(1+\alpha) + 4x_{2}^{2}}, \]
+  So,
+  \begin{align*}
+    x_{4}^{2} & < \alpha \text{ iff} \\
+    x_{4}^{2} - \alpha & < 0 \text{ iff} \\
+    \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{2} + (1+\alpha)^{2}x_{2}^{2}}{(1+\alpha)^{2} + 4x_{2}(1+\alpha) + 4x_{2}^{2}} - \alpha & < 0 \text{ iff} \\
+    4\alpha^{2} + 4\alpha(1+\alpha)x_{2} + (1+\alpha)^{2}x_{2}^{2} - \alpha(1+\alpha)^{2} - 4\alpha(1+\alpha)x_{2} - 4\alpha x_{2}^{2} & < 0\text{ iff} \\
+    4\alpha^{2} - 4\alpha x_{2}^{2} + x_{2}^{2}(1+\alpha)^{2} - \alpha(1+\alpha)^{2} & < 0 \text{ iff} \\
+    (x_{2}^{2} - \alpha)(1+\alpha)^{2} + 4\alpha(\alpha - x_{2}^{2}) & < 0 \text{ iff} \\
+    (1 + \alpha)^{2} - 4\alpha & > 0 \text{ iff} \\
+    1 - 2\alpha + \alpha^{2} & > 0 \text{ iff} \\
+    (1 - \alpha)^{2} & > 0,
+  \end{align*}
+  which is true when $\alpha > 1$, which is how we constructed $\alpha$. Thus $x_{2} < x_{4} < \sqrt{\alpha}$. Now for the inductive step. Assume that our proposition holds for an arbitrary $x_{k-1}$ where $k \in \mathbb{N}$ is odd. That is, assume $x_{k-3} < x_{k-1} < \alpha$. We wish to show that $x_{k-1} < x_{k+1} < \alpha$. Using the same argument as above, $x_{k+1} > x_{k-1}$ iff 
+  \begin{align*}
+    x_{k+1} - x_{k-1} & > 0 \text{ iff} \\
+    \frac{2\alpha + (1+\alpha)x_{k-1}}{1 + \alpha + 2x_{k-1}} - x_{k-1} & > 0 \text{ iff} \\
+    2\alpha + (1+\alpha)x_{k-1} - x_{k-1} - \alpha x_{k-1} - 2x_{k-1}^{2} & > 0 \text{ iff} \\
+    2\alpha - 2x_{k-1}^{2} & > 0 \text{ iff} \\
+    \alpha & > x_{k-1}^{2},
+  \end{align*}
+  which is true by the inductive assumption. Thus $x_{k+1} > x_{k-1}$. It remains to show that $x_{k+1} < \sqrt{\alpha}$, or $x_{k+1}^{2} < \alpha$. Well,
+  \[ x_{k+1}^{2} = \frac{(2\alpha + (1+\alpha)x_{k-1})^{2}}{(1 + \alpha + 2x_{k-1})^{2}} = \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{k-1} + (1+\alpha)^{2}x_{k-1}^{2}}{(1+\alpha)^{2} + 4x_{k-1}(1+\alpha) + 4x_{k-1}^{2}}, \]
+  Therefore,
+  \begin{align*}
+    x_{k+1}^{2} & < \alpha \text{ iff} \\
+    x_{k+1}^{2} - \alpha & < 0 \text{ iff} \\
+    \frac{4\alpha^{2} + 4\alpha(1+\alpha)x_{k-1} + (1+\alpha)^{2}x_{k-1}^{2}}{(1+\alpha)^{2} + 4x_{k-1}(1+\alpha) + 4x_{k-1}^{2}} - \alpha & < 0 \text{ iff} \\
+    4\alpha^{2} + 4\alpha(1+\alpha)x_{k-1} + (1+\alpha)^{2}x_{k-1}^{2} - \alpha(1+\alpha)^{2} - 4\alpha(1+\alpha)x_{k-1} - 4\alpha x_{k-1}^{2} & < 0\text{ iff} \\
+    4\alpha^{2} - 4\alpha x_{k-1}^{2} + x_{k-1}^{2}(1+\alpha)^{2} - \alpha(1+\alpha)^{2} & < 0 \text{ iff} \\
+    (x_{k-1}^{2} - \alpha)(1+\alpha)^{2} + 4\alpha(\alpha - x_{k-1}^{2}) & < 0 \text{ iff} \\
+    (1 + \alpha)^{2} - 4\alpha & > 0 \text{ iff} \\
+    1 - 2\alpha + \alpha^{2} & > 0 \text{ iff} \\
+    (1 - \alpha)^{2} & > 0,
+  \end{align*}
+  which again is true when $\alpha > 1$, which of course is how we constructed $\alpha$.
+\end{proof}
+
+
+(c) Note that 
+\[ L = \lim_{n\rightarrow \infty} x_{n} = \frac{\alpha + L}{1 + L} \]
+Solving for $L$ we get $L = \sqrt{\alpha}$. \\
+
+(d) Let $\epsilon_{n} = |x_{n} - \sqrt{\alpha}|$. Then we can write 
+\begin{align*}
+  \epsilon_{n} = |x_{n} - \alpha| & = \left| \frac{\alpha + x_{n-1}}{1 + x_{n-1}} - \sqrt{\alpha}\right| \\
+  & = \left| \frac{\alpha + x_{n-1} - \sqrt{\alpha} - \sqrt{\alpha}x_{n-1}}{1 + x_{n-1}}\right| \\
+  & = \left| \frac{x_{n-1} - \sqrt{\alpha} + \sqrt{\alpha}(\sqrt{\alpha} - x_{n-1})}{1 + x_{n-1}}\right| \\
+  & = \left| \frac{x_{n-1} - \sqrt{\alpha} - \sqrt{\alpha}(x_{n-1} - \sqrt{\alpha})}{1 + x_{n-1}}\right| \\
+  & = \left| \frac{(x_{n-1} - \sqrt{\alpha})(1 - \sqrt{\alpha})}{1 + x_{n-1}}\right| \\
+  & = \frac{ |x_{n-1} - \sqrt{\alpha}||1 - \sqrt{\alpha}|}{1 + x_{n-1}} \\
+  & = \epsilon_{n-1}\left(\frac{\sqrt{\alpha} - 1}{1 + x_{n-1}}\right) \\
+  & \leq \epsilon_{n-1}\left(\frac{\sqrt{\alpha} - 1}{1 + x_{2}}\right), \text{ since }x_{2}\text{ is the smallest element.}
+\end{align*}
+
+Now,
+\begin{align*}
+  \epsilon_{2} & = \epsilon_{1}\left(\frac{\sqrt{\alpha} - 1}{1+x_{1}}\right) \\
+  & < \epsilon_{1}\left(\frac{\sqrt{\alpha}-1}{1+\sqrt{\alpha}}\right) \text{ since } x_{1} > \sqrt{\alpha} 
+\end{align*}
+\begin{align*}
+  \epsilon_{3} & = \epsilon_{2}\left(\frac{\sqrt{\alpha}-1}{1+x_{3}}\right)  \\
+  & = \epsilon_{1}\left(\frac{\sqrt{\alpha}-1}{1+x_{1}}\right)\left(\frac{\sqrt{\alpha}-1}{1+x_{2}}\right) \\
+  & = \epsilon_{1}\frac{(\sqrt{\alpha}-1)^{2}}{1 + \alpha + 2x_{1}}, \text{ since } 1+x_{2} = 1 + \frac{\alpha + x_{1}}{1 + x_{1}} = \frac{1 + \alpha + 2x_{1}}{1 + x_{1}} \\ 
+  & < \epsilon_{1}\frac{(\sqrt{\alpha}-1)^{2}}{1 + \alpha + 2\alpha} \\
+  & = \epsilon_{1}\left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^{2}, 
+\end{align*}
+and
+\begin{align*}
+  \epsilon_{4} & = \epsilon_{3}\left(\frac{\sqrt{\alpha}-1}{1+x_{3}}\right) \\
+  & = \epsilon_{1} \left(\frac{\sqrt{\alpha}-1}{1+x_{1}}\right)\left(\frac{\sqrt{\alpha}-1}{1+x_{2}}\right)\left(\frac{\sqrt{\alpha}-1}{1+x_{3}}\right) \\
+  & < \epsilon_{1} \left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^{2}\left(\frac{\sqrt{\alpha}-1}{1+\sqrt{\alpha}}\right) \\
+  & = \epsilon_{1}\left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^{3} \\
+  & \vdots \\
+  \text{In general }\epsilon_{n} & < \epsilon_{1}\left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^{n-1}
+\end{align*}
+Therefore $c = \epsilon_{1}\left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^{-1} > 0$ and $\beta = \left(\frac{\sqrt{\alpha}-1}{\sqrt{\alpha}+1}\right)^{n} \in (0,1)$.
+
+
+\subsection*{5} Let $X = (x_{n})_{n\in\mathbb{N}}, Y = (y_{n})_{n\in\mathbb{N}},$ and $Z = (z_{n})_{n\in\mathbb{N}}$ be sequences in $\mathbb{R}^{d}$. We say that $X\sim Y$ if $\lim_{n\rightarrow \infty}\|x_{n} - y_{n}\| = 0$. We want to show that $\sim$ is an equivalence relation. That is, we need to verify that (a) $X\sim X$, (b) $X\sim Y$ implies $Y\sim X$, and (c) $X\sim Y\sim Z$ implies $X\sim Z$. For (a), note that 
+\[ \lim_{n\rightarrow \infty}\|x_{n} - x_{n}\| = \lim_{n\rightarrow\infty} 0 = 0,\]
+so $X \sim X$. For (b), assume that $X\sim Y$. Then
+\[ \lim_{n\rightarrow \infty}\|x_{n} - y_{n}\| = \lim_{n\rightarrow \infty}\|y_{n} - x_{n}\| = 0,\]
+so $Y\sim X$. Finally, for (c), assume $X\sim Y\sim Z$. Then 
+\begin{align*}
+  \lim_{n\rightarrow\infty}\|x_{n} - z_{n}\| & = \lim_{n\rightarrow\infty}\|x_{n} - y_{n} + y_{n} - z_{n}\| \\
+  & \leq \lim_{n\rightarrow \infty}\left(\|x_{n} - y_{n}\| + \|y_{n} - z_{n}\|\right) \\
+  & = \lim_{n\rightarrow\infty}\|x_{n} - y_{n}\| + \lim_{n\rightarrow\infty}\|y_{n} - z_{n}\| = 0
+\end{align*}
+Hence $X\sim Z$.
+
+\subsection*{6} (a) Let $(s_{n})$ be a sequence of reals such that 
+\[ s_{n+1} = \frac{s_{n} + s_{n-1}}{2}.\]
+Note that 
+\begin{align*}
+  s_{m} - s_{m-1} & = \frac{s_{m-1} - s_{m-2}}{2} - \frac{s_{m-2} - s_{m-3}}{2} \\
+  & = \frac{s_{m-1} - s_{m-3}}{2} \\
+  & = \frac{s_{m-2} - s_{m-3}}{4} \\
+  & = \frac{s_{m-3} - s_{m-5}}{8} \\
+  & = \frac{s_{m-4} - s_{m-5}}{16} \\
+  & = \frac{s_{m-5} - s_{m-6}}{32} \\
+  & = \cdots = \left\{ \begin{array}{cl} \frac{s_{3} - s_{2}}{2^{m-3}} & \text{ if } m \text{ odd} \\ \\
+    \frac{s_{2} - s_{1}}{2^{m-2}} & \text{ if } m \text{ even }
+  \end{array} \right.
+\end{align*}
+Now, we need to show that for any $\epsilon > 0$, there exists an $N_{\epsilon} \in \mathbb{N}$ such that $n,m > N_{\epsilon}$ implies $|s_{n} - s_{m}| < \epsilon$. Without loss of generality, assume $n \geq m$ and where $n$ is even and $m = n - k$ is odd. Then,
+\begin{align*}
+  |s_{n} - s_{m}| = |s_{n} - s_{n-k}| & = |(s_{n} - s_{n-1}) + (s_{n-1} - s_{n-2}) + (s_{n-2} - s_{n-3}) + \cdots + (s_{n-k+1} - s_{n-k})| \\
+  & \leq |s_{n} - s_{n-1}| + |s_{n-1} - s_{n-2}| + \cdots + |s_{n-k+1} - s_{n-k}| \\
+  & = \left| \frac{s_{2} - s_{1}}{2^{n-2}}\right| + \left| \frac{s_{3} - s_{2}}{2^{n-4}}\right| + \cdots + \left| \frac{s_{2} - s_{1}}{2^{n-k-1}}\right| \\
+  & \leq (k) \left| \frac{s_{2} - s_{1}}{2^{n-k-1}}\right| = (k) \left| \frac{s_{2} - s_{1}}{2^{m-1}}\right| \stackrel{n\rightarrow \infty}{\longrightarrow} 0
+\end{align*}
+Thus $|s_{n} - s_{m}|$ can be arbitrarily small for large $n$ and $m$. Thus $(s_{n})$ is a Cauchy sequence and hence converges. \\
+
+(b) Let $(s_{n})$ be a sequence of reals defined recursively by $s_{1} = 0$, $s_{2} = s_{2n-1} / 2$, and $s_{2n+1} = 1/2 + s_{2n}$. Define $u_{n} = s_{2n}$ and $v_{n} = s_{2n-1}$. Clearly $s_{2n} \leq s_{2n-1}$ for each $n\in \mathbb{N}$. Thus $\lim_{n\rightarrow \infty}\sup s_{n} = \lim_{n\rightarrow \infty}\sup v_{n}$ and $\lim_{n\rightarrow\infty}\inf s_{n} = \lim_{n\rightarrow \infty}\inf u_{n}$. It is easy so see that 
+\[ (u_{n}) = \left( 0, \frac{1}{4}, \frac{3}{8}, \frac{7}{16}, \frac{15}{32}, \hdots \right) \]
+In general, $u_{n} = \frac{2^{n-1} - 1}{2^{n}}$. Since $(u_{n})$ is monotone increasing, 
+\[ \lim\inf u_{n} = \lim u_{n} = \lim \frac{2^{n-1} - 1}{2^{n}} = \lim \frac{1}{2}\left( \frac{2^{n-1} - 1}{2^{n-1}}\right) = \frac{1}{2} \]
+Furthermore,
+\[ (v_{n}) = \left( 0, \frac{1}{2}, \frac{3}{4}, \frac{7}{8}, \frac{15}{16}, \hdots \right) \]
+In general, $v_{n} = \frac{2^{n-1} - 1}{2^{n-1}}$. Since $(v_{n})$ is monotone increasing, 
+\[ \lim\sup v_{n} = \lim v_{n} = \lim \frac{2^{n-1} - 1}{2^{n-1}} = 1 \]
+
+\subsection*{7} Let $(s_{n})$ be a sequence of reals and define 
+\[ t_{n} = \frac{1}{n}\sum_{i=1}^{n} s_{i}.\]
+(a) If $\lim_{n\rightarrow\infty}s_{n} = s$, then $\lim_{n\rightarrow\infty}t_{n} = s$.
+\begin{proof}
+  Let $\epsilon > 0$. Since $s_{n}$ converges to $s$, then there exists some $N_{\epsilon} \in \mathbb{N}$ such that $n > N_{\epsilon}$ implies $|s_{n} - s| < \epsilon$. Therefore $|s_{n} - s| > epsilon$ for a finite number of terms: $s_{1}, \hdots, s_{N_{\epsilon}}$. Now,
+  \begin{align*}
+    |t_{n} - s| & = \left| \frac{1}{n}\sum_{i=1}^{n}s_{i} - s\right| \\
+    & = \left| \frac{1}{n}\sum_{i=1}^{n}(s_{i} - s)\right| \\
+    & = \frac{1}{n}\left| s_{1} - s + s_{2} - s + \cdots s_{n} - s\right| \\
+    & \leq \frac{1}{n}| s_{1} - s| + \frac{1}{n}|s_{2} - s| + \cdots + \frac{1}{n}|s_{N_{\epsilon}} - s| + \frac{1}{n}|s_{N_{\epsilon} + 1} - s| + \cdots + \frac{1}{n}|s_{n} - s| \\
+    & < \frac{1}{n}|s_{1} - s| + \cdots + \frac{1}{n}|s_{N_{\epsilon}} - s| + \frac{1}{n}(n - N_{\epsilon}) \epsilon \stackrel{n\rightarrow\infty}{\longrightarrow} \epsilon.
+  \end{align*}
+  Since $\epsilon > 0$ was arbitrary, $|t_{n} - s| \longrightarrow 0$.
+\end{proof}
+
+(b) Let $(x_{n}) = (0, 1, 0, 1, 0, 1, 0, 1, \hdots)$. Then $(x_{n})$ does not converge yet $t_{n} = \frac{1}{n}\sum_{i=1}^{n}x_{n}$ does converge, namely to $1/2$.
+
+\subsection*{8} (a)
+\begin{prop} 
+  If $(x + 1/x)$ is an integer, then $(x^{n} + 1/x^{n})$ is also an integer.
+\end{prop}
+\begin{proof}
+  We will do a proof by induction. Assume $(x + 1/x) \in \mathbb{Z}$. For the base case we must show that $(x^{2} + 1/x^{2}) \in \mathbb{Z}$. Well,
+  \[ (x^{2} + 1/x^{2}) = x^{2} + 1/x^{2} + 2 - 2 = (x + 1/x)^{2} - 2 \in \mathbb{Z} \]
+  since $(x + 1/x) \in \mathbb{Z}$ and $\mathbb{Z}$ is closed under multiplication and addition/subtraction. For the inductive step, assume that our proposition holds for each $k\leq K\in \mathbb{N}$. That is, assume $(x^{k} + 1/x^{k})\in \mathbb{Z}$ for $1\leq k \leq K$. We want to show that $(x^{K+1} + 1/x^{K+1})\in\mathbb{Z}$. Well,
+  \[ (x^{K+1} + 1/x^{K+1}) = (x + 1/x)(x^{K} + 1/x^{K}) - (x^{K-1} + 1/x^{K-1}) \in\mathbb{Z} \]
+  since $(x + 1/x), (x^{K} + 1/x^{K}), (x^{K-1}+1/x^{K-1})\in\mathbb{Z}$ by assumption. 
+\end{proof}
+
+(b)
+\begin{prop}
+  $\sup(A\cup B) = \max\{\sup A, \sup B\}$
+\end{prop}
+\begin{proof}
+  Let $a = \sup A$ and $b = \sup B$. Without loss of generality, assume $a \leq b$. Then clearly $\max\{\sup A, \sup B\} = b$ is an upper bound for $A\cup B$ since for each $x\in A\cup B$, either $x \in A$ or $x\in B$. If $x\in A$, then $x\leq a \leq b$. If $x\in B$, then $x\leq b$. We now need to show that $\max\{\sup A, \sup B\}$ is the least upper bound. We will show this by contradiction. That is, assume that $\sup(A\cup B) = s = \max\{a,b\} - \epsilon$, for some $\epsilon > 0$. Again, we will assume without loss of generality that $a \leq b$. So $s = b - \epsilon$. Therefore for each $x\in A\cup B$, $x \leq b - \epsilon$. But that means that $x\leq b- \epsilon$ $\forall$ $x \in B$. This contradicts the fact that $b = \sup B$. 
+\end{proof}
+
+
+\end{document}
