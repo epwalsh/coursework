@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\usepackage{color, soul}
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\stepcounter{ClaimCounter}\par\noindent\underline{Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter\vspace{5mm}}
+
+\title{MATH 515: HW 10}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+% \maketitle
+
+\section*{1 [Lemma (IV)(6)(i)]}
+Suppose $f : [a,b] \rightarrow \mathbb{R}$ is Riemann integrable. Then there is a non-decreasing sequence of step functions $\left\{ s_{1,n}
+\right\}_{n=0}^{\infty}$ and a non-increasing sequence sequence of step functions $\left\{ s_{2,n} \right\}_{n=0}^{\infty}$ such that for all $n \in
+\mathbb{N}$, $s_{1,n} \leq f \leq s_{2,n}$ and $\int_{a}^{b}(s_{2,n} - s_{1,n}) < 2^{-n}$.
+
+\subsection*{Solution}
+\begin{Proof}
+By Theorem (I)(1)(xii), for all $n \in \mathbb{N}$, there exists step functions $s_{1,n}^{*}$ and $s_{2,n}^{*}$ such that $s_{1,n}^{*} \leq f \leq
+s_{2,n}^{*}$ and 
+\begin{equation}
+\int_{a}^{b}(s_{2,n}^{*} - s_{1,n}^{*}) < 2^{-n}.
+\label{1.1}
+\end{equation}
+Let $s_{1,1} := s_{1,1}^{*}$ and $s_{2,1} := s_{2,1}^{*}$. For each $n\geq 1$, recursively define $s_{1,n} := \max\left\{ s_{1,n}^{*}, s_{1,n-1}
+\right\}$ and $s_{2,n} := \min\left\{ s_{2,n}^{*}, s_{2,n-1} \right\}$.
+\begin{claim}
+For each $n \in \mathbb{N}$, $s_{1,n}$ is a step function.
+\end{claim}
+\begin{claimproof}
+We will proceed by induction. For $n = 0$, this is trivial from the definition. Now let $n \geq 1$ and suppose $s_{1,n-1}$ is a step function. Let
+$P_{1,n-1}, P_{1,n}^{*}$ be partitions of $[a,b]$ such that $s_{1,n-1}$ and $s_{1,n}^{*}$ are constant over each open subinterval from $P_{1,n-1}$ and
+$P_{1,n}^{*}$, respectively. Let $P_{1,n} := P_{1,n-1} \cup P_{1,n}^{*}$. Clearly $P_{1,n}$ is also a partition of $[a,b]$, and each open subinterval
+from $P_{1,n}$ is the intersection of an open subinterval from $P_{1,n-1}$ and an open subinterval from $P_{1,n}^{*}$. Therefore, if $(a,b)$ is any
+open subinterval from $P_{1,n}$, then $s_{1,n-1}(x)$ and $s_{1,n}^{*}(x)$ are constant for all $a < x < b$. Hence $\max\left\{ s_{1,n-1}(x), 
+s_{1,n}^{*} \right\}$ is constant over $(a,b)$. Thus $P_{1,n}$ is a partition of $[a,b]$ such that $s_{1,n}$ is constant over each open subinterval
+from $P_{1,n}$. So $s_{1,n}$ is by definition a step function.
+\end{claimproof}
+
+\begin{claim}
+For each $n \in \mathbb{N}$, $s_{2,n}$ is a step function.
+\end{claim}
+\begin{claimproof}
+Follow same steps as in the proof of claim 1.
+\end{claimproof}
+
+\begin{claim}
+For each $n \in \mathbb{N}$, $s_{1,n} \geq s_{1,n-1}, \ s_{1,n}^{*}$ and $s_{2,n} \leq s_{2,n-1}, \ s_{2,n}^{*}$.
+\end{claim}
+\begin{claimproof}
+By construction, we have $s_{1,n} = \max\left\{ s_{1,n}^{*}, s_{1,n-1} \right\} \geq s_{1,n-1}, \ s_{1,n}^{*}$ and \\ 
+$s_{2,n} = \min\left\{ s_{2,n}^{*}, s_{2,n-1} \right\} \leq s_{2,n-1}, \ s_{2,n}^{*}$.
+\end{claimproof}
+
+\begin{claim}
+For all $n \in \mathbb{N}$, $\int_{a}^{b}(s_{2,n} - s_{1,n}) < 2^{-n}$.
+\end{claim}
+\begin{claimproof}
+By claim 3, $s_{2,n} - s_{1,n} \leq s_{2,n}^{*} - s_{1,n}^{*}$. Thus, by \eqref{1.1}
+\[ \int_{a}^{b}(s_{2,n} - s_{1,n}) \leq \int_{a}^{b}(s_{2,n}^{*} - s_{1,n}^{*}) < 2^{-n}. \]
+\end{claimproof}
+
+\vspace{-5mm}
+So by claims 1 - 4, we are done.
+\end{Proof}
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section*{2}
+Suppose $f: \mathbb{R} \rightarrow [-\infty, \infty]$ is integrable. Set $E_{n} := \left\{ x \in \mathbb{R} : |f(x)| \geq n \right\}$ for each $n \in
+\mathbb{N}$. Does it follow that $\lim_{n\rightarrow\infty}n\mu(E_{n}) = 0$?
+
+\subsection*{Solution}
+\hl{YES}
+
+\begin{Proof}
+
+\begin{claim}
+$\mu(E_{n}) \rightarrow 0$ as $n \rightarrow \infty$.
+\end{claim}
+\begin{claimproof}
+By way of contradiction, suppose $\mu(E_{n}) \rightarrow \epsilon > 0$. Then since $E_{n} \supseteq E_{n + 1}$ for all $n \in \mathbb{N}$, $\mu(E_{n}) \geq
+\epsilon$ for all $n \in \mathbb{N}$. Therefore 
+\[ \infty > \int_{\mathbb{R}}|f|dm\mu \geq \int_{E_{n}}|f|d\mu \geq \int_{E_{n}}nd\mu = n\mu(E_{n}) \geq n\epsilon \rightarrow \infty \text{ as } n\rightarrow \infty. \]
+This is a contradiction.
+\end{claimproof}
+
+\begin{claim}
+$\int_{E_{n}}|f|d\mu \rightarrow 0$ as $n \rightarrow \infty$.
+\end{claim}
+\begin{claimproof}
+Let $\epsilon > 0$. By problem 3 on homework 9, there exists $\delta > 0$ such that whenever $E \subseteq \mathbb{R}$ so that $\mu(E) < \delta$, 
+\[ \int_{E}|f|d\mu < \epsilon. \]
+Now, by claim 1 there exists $N \in \mathbb{N}$ such that $n \geq N$ implies $\mu(E_{n}) < \delta$. Therefore, 
+\[ \int_{E_{n}}|f|d\mu < \epsilon \]
+for all $n \geq N$. Hence $\int_{E_{n}}|f|d\mu \rightarrow 0$.
+\end{claimproof}
+
+By claim 2,
+\[ \int_{E_{n}}|f|d\mu \geq \int_{E_{n}}nd\mu = n\mu(E_{n}) \rightarrow 0 \text{ as } n\rightarrow \infty. \]
+\end{Proof}
+
+
+
+
+
+
+\newpage 
+\section*{3 [RF 6.11]}
+For real numbers $\alpha < \beta$ and $\gamma > 0$, show that if $g$ is integrable over $[\alpha + \gamma, \beta + \gamma]$, then 
+\begin{equation}
+\int_{\alpha}^{\beta}g(t + \gamma)d\mu(t) = \int_{\alpha + \gamma}^{\beta + \gamma}g(t)d\mu(t). 
+\label{3.1}
+\end{equation}
+
+\subsection*{Solution}
+\begin{Proof}
+Define $h : [\alpha, \beta] \rightarrow \mathbb{R}$ by $g(t) := (t + \gamma)$.
+
+\begin{claim}
+If $g : [\alpha + \gamma, \beta + \gamma] \rightarrow \mathbb{R}$ is a characteristic function, then \eqref{3.1} holds.
+\end{claim}
+\begin{claimproof}
+Suppose $g : [\alpha + \gamma, \beta + \gamma] \rightarrow \mathbb{R}$ is a characteristic function, i.e. $g := \chi_{E}$ for some $E \in
+\mathcal{B}(\mathbb{R})$. Since $h$ is continuous, $g \circ h$ is measurable by Proposition (III)(2)(v). Also,
+$\text{ran}(g\circ h) = g[\text{ran}(h)] = g\big[ [\alpha + \gamma, \beta + \gamma]\big] = \text{ran}(g)$, 
+and so ran$(g\circ h) = \{0, 1\}$, and therefore is finite. Thus $g\circ h$ is simple. Therefore,
+\begin{align*}
+\int_{[\alpha, \beta]} g\circ hd\mu = \sum_{s\in \text{ran}(g\circ h)}s\cdot \mu\left( (g\circ h)^{-1}[\{s\}]\cap [\alpha, \beta] \right) & =
+\sum_{s\in\{0,1\}}s\cdot \mu\left( h^{-1}\circ g^{-1}[\{s\}]\cap [\alpha, \beta] \right) \\
+& = 1\cdot\mu\left( [g^{-1}[\{1\}] - \gamma] \cap [\alpha, \beta] \right) \\
+& = 1\cdot\mu\left( [E - \gamma] \cap [\alpha, \beta] \right) \\
+& = \mu\left( [E - \gamma + \gamma] \cap [\alpha + \gamma, \beta + \gamma] \right) \\
+& = \mu\left( E \cap[\alpha + \gamma, \beta + \gamma] \right) = \int_{[\alpha + \gamma, \beta + \gamma]} g d\mu.
+\end{align*}
+\end{claimproof}
+
+\vspace{-5mm}
+\begin{claim}
+If $g : [\alpha + \gamma, \beta + \gamma] \rightarrow \mathbb{R}$ is simple then \eqref{3.1} holds.
+\end{claim}
+\begin{claimproof}
+Note that a simple function is just a linear combination of characteristic functions. Thus, by claim 1 and the linearity of the Lebesgue integral,
+\eqref{3.1} holds for any simple $g : [\alpha + \gamma, \beta + \gamma] \rightarrow \mathbb{R}$.
+\end{claimproof}
+
+\begin{claim}
+If $g : [\alpha + \gamma, \beta + \gamma] \rightarrow [-\infty, \infty]$ is integrable, then \eqref{3.1} still holds.
+\end{claim}
+\begin{claimproof}
+Suppose $g : [\alpha + \gamma, \beta + \gamma] \rightarrow [-\infty, \infty]$ is integrable. By Theorem (III)(3)(ix),\footnote{Note that Theorem
+(III)(3)(ix) actually only states that $g_{n} \rightarrow g$ a.e. However, we can drop the a.e. as we actually proved that $g_{n} \rightarrow g$ 
+EVERYWHERE on the domain.} there exists a sequence of
+simple functions on $[\alpha + \gamma, \beta + \gamma]$, $\left\{ g_{n} \right\}_{n=0}^{\infty}$, such that $g_{n}\rightarrow g$ and $|g_{n}|
+\leq |g|$ for all $n \in \mathbb{N}$. Then clearly $g_{n} \circ h \rightarrow g\circ h$ and $|g_{n}\circ h| \leq |g\circ h|$ for all $n \in
+\mathbb{N}$. Thus, by claim 2 and the Dominated Convergence Theorem,
+\[ \int_{[\alpha,\beta]} g\circ hd\mu \stackrel{\text{DCT}}{=} \lim_{n\rightarrow\infty}\int_{[\alpha,\beta]}g_{n}\circ hd\mu \stackrel{\text{claim
+2}}{=} \lim_{n\rightarrow\infty}\int_{[\alpha + \gamma, \beta + \gamma]}g_{n}d\mu \stackrel{\text{DCT}}{=}\int_{[\alpha + \gamma, \beta + \gamma]}gd\mu. \]
+\end{claimproof}
+
+\vspace{-5mm}
+\end{Proof}
+
+
+
+
+
+\newpage 
+\section*{4}
+Suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is integrable. Prove 
+\[ \int_{\mathbb{R}}fd\mu = \lim_{n\rightarrow\infty}\int_{-\infty}^{\infty}f(x-n)\frac{x}{1 + |x|}d\mu(x). \]
+
+\subsection*{Solution}
+\begin{Proof}
+For each $n \in \mathbb{N}$, let $h_{n} : \mathbb{R} \rightarrow \mathbb{R}$ be defined by $h_{n}(x) := x - n$.
+
+\begin{claim}
+Suppose $g : \mathbb{R} \rightarrow \mathbb{R}$ is a characteristic function, i.e. $g := \chi_{E}$ for some $E \in \mathcal{B}(\mathbb{R})$. Then, for 
+each $n \in \mathbb{N}$, 
+\begin{equation}
+\int_{\mathbb{R}}gd\mu = \int_{\mathbb{R}}g\circ hd\mu.
+\label{4.1}
+\end{equation}
+\end{claim}
+\begin{claimproof}
+Let $n \in \mathbb{N}$. By the same argument as in claim 1 of problem 3, $g \circ h_{n}$ is a simple function with the same range as $g$. Thus,
+\begin{align*}
+\int_{\mathbb{R}}g\circ h_{n}d\mu = \int_{\mathbb{R}}\chi_{E}\circ h_{n}d\mu = \sum_{s \in \{0,1\}}s\cdot \mu\left( (g\circ h_{n})^{-1}[\{s\}] \right) 
+& = \mu\left( h_{n}^{-1}\circ \chi_{E}^{-1}[\{1\}] \right) \\
+& = \mu\left( \chi_{E}^{-1}[\{1\}] + n \right) \\
+& = \mu(E + n) \\
+& = \mu(E) \\
+& = \int_{\mathbb{R}}\chi_{E}d\mu  = \int_{\mathbb{R}}gd\mu.
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+Suppose $g : \mathbb{R} \rightarrow \mathbb{R}$ is a simple function. Then \eqref{4.1} holds for each $n \in \mathbb{N}$.
+\end{claim}
+\begin{claimproof}
+Note that a simple function is just a linear combination of characteristic functions. Thus, by claim 1 and the linearity of the Lebesgue integral, \eqref{4.1} holds
+for any simple $g : \mathbb{R} \rightarrow \mathbb{R}$ and $n \in \mathbb{N}$.
+\end{claimproof}
+
+\begin{claim}
+If $g : \mathbb{R} \rightarrow \mathbb{R}$ is integrable, then \eqref{4.1} holds for each $n \in \mathbb{N}$.
+\end{claim}
+\begin{claimproof}
+Let $n \in \mathbb{N}$. By Theorem (III)(3)(ix),\footnote{See footnote 1.} there exists a sequence of simple functions on $\mathbb{R}$, $\left\{ g_{k} \right\}_{k=0}^{\infty}$
+such that $g_{k} \rightarrow g$ and $|g_{k}| \leq |g|$ for all $k \in \mathbb{N}$. Thus, by the DCT and claim 2,
+\[ \int_{\mathbb{R}}gd\mu \stackrel{\text{DCT}}{=} \lim_{k\rightarrow\infty}\int_{\mathbb{R}}g_{k}d\mu \stackrel{\text{claim 2}}{=} 
+\lim_{k\rightarrow\infty}\int_{\mathbb{R}}g_{k}\circ h_{n}d\mu \stackrel{\text{DCT}}{=} \int_{\mathbb{R}}g\circ h_{n}d\mu. \]
+\end{claimproof}
+
+Now, note that for all $x \in \mathbb{R}$, $1 \geq |\frac{x + n}{1 + |x + n|}| \rightarrow 1$ as $n \rightarrow \infty$. Therefore, for each $x \in
+\mathbb{R}$, $|f(x)\frac{x + n}{1
++ |x + n|}| \leq |f(x)|$ and $f(x)\frac{x + n}{1 + |x + n|} \rightarrow f(x)$ as $n \rightarrow \infty$. Thus, by the DCT and claim 3,
+\[ \int_{\mathbb{R}}fd\mu \stackrel{\text{DCT}}{=} \lim_{n\rightarrow\infty}\int_{-\infty}^{\infty}f(x)\frac{x + n}{1 + |x + n|}d\mu(x) 
+\stackrel{\text{claim 3}}{=} \lim_{n\rightarrow\infty}\int_{-\infty}^{\infty}f(x - n)\frac{x}{1 + |x|}d\mu(x). \]
+\end{Proof}
+
+
+
+\end{document}
+

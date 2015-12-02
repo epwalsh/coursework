@@ -1,0 +1,305 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{3mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{STAT 641: HW 9}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{5.1}
+Suppose $\mu_{1}$ and $\mu_{2}$ are finite measures\footnote{Actually we don't need this assumption. In fact, even the assumption that $\mu_{1},
+\mu_{2}$ are $\sigma$-finite is not necessary.} on $(\Omega_{1}, \mathcal{F}_{1})$ and $(\Omega_{2}, \mathcal{F}_{2})$, respectively. Then
+$\mu_{12}(\cdot)$ and $\mu_{21}(\cdot)$, defined on page 149, are measures on $(\Omega_{1}\times \Omega_{2}, \mathcal{F}_{1}\otimes \mathcal{F}_{2})$.
+
+\subsection*{Solution}
+\begin{Proof}
+Suppose $\mu_{1}$ and $\mu_{2}$ are as above.
+
+\begin{claim}
+$\mu_{12}, \mu_{21} \geq 0$.
+\end{claim}
+\begin{claimproof}
+Since $\mu_{1}, \mu_{2} \geq 0$, 
+\begin{align*}
+\mu_{12}(A) & = \int_{\Omega_{1}}\mu_{2}(A_{1\omega_{1}})d\mu_{\omega_{1}} \geq 0 \text{ and } \\
+\mu_{21}(A) & = \int_{\Omega_{2}}\mu_{1}(A_{2\omega_{2}})d\mu_{\omega_{2}} \geq 0 \ \forall \ A \in \mathcal{F}_{1} \otimes \mathcal{F}_{2}.
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+$\mu_{12}(\emptyset) = \mu_{21}(\emptyset) = 0$.
+\end{claim}
+\begin{claimproof}
+Let $A := \emptyset$. Clearly $A_{1\omega_{1}} = \emptyset$ for all $\omega_{1} \in \Omega_{1}$ and $A_{2\omega_{2}} = \emptyset$ for all $\omega_{2}
+\in \Omega_{2}$. Therefore $\mu_{2}(A_{1\omega_{1}}) = 0 = \mu_{1}(A_{2\omega_{2}})$. Thus,
+\begin{align*}
+\mu_{12}(A) & = \int_{\Omega_{1}}\mu_{2}(A_{1\omega_{1}})d\mu_{1}(\omega_{1}) = \int_{\Omega_{1}}0d\mu_{1} = 0, \text{ and } \\
+\mu_{21}(A) & = \int_{\Omega_{2}}\mu_{1}(A_{2\omega_{2}})d\mu_{2}(\omega_{2}) = \int_{\Omega_{2}}0d\mu_{2} = 0. 
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+If $A := \cup_{n=0}^{\infty}A_{n}$, where $\left\{ A_{n} \right\}_{n=0}^{\infty} \subseteq \mathcal{F}_{1} \otimes \mathcal{F}_{2}$ is pairwise
+disjoint, then 
+\[ \mu_{12}\left( \cup_{n=0}^{\infty}A_{n} \right) = \sum_{n=0}^{\infty}\mu_{12}(A_{n})\qquad \text{ and } \qquad \mu_{21}\left( \cup_{n=0}^{\infty}A_{n}
+\right) = \sum_{n=0}^{\infty}\mu_{21}(A_{n}). \]
+\end{claim}
+\begin{claimproof}
+Fix $\omega_{1} \in \Omega_{1}$. Let $A_{1\omega_{1}}^{(n)} := \left\{ \omega_{2} \in \Omega_{2} : (\omega_{1}, \omega_{2}) \in A_{n} \right\}$. Then,
+\begin{align}
+A_{1\omega} := \left\{ \omega_{2} \in \Omega_{2} : (\omega_{1}, \omega_{2}) \in A \right\} & = \left\{ \omega_{2} \in \Omega_{2} : (\omega_{1}, \omega_{2}) \in \cup_{n=0}^{\infty}A_{n} \right\} \nonumber \\
+& = \bigcup_{n=0}^{\infty}\left\{ \omega_{2} \in \Omega_{2} : (\omega_{1}, \omega_{2}) \in A_{n} \right\} \nonumber \\
+& = \bigcup_{n=0}^{\infty}A_{1\omega_{1}}^{(n)}.
+\label{1.1}
+\end{align}
+Similarly, for a fixed $\omega_{2} \in \Omega_{2}$, define $A_{2\omega_{2}}^{(n)} := \left\{ \omega_{1} \in \Omega_{1} : (\omega_{1}, \omega_{2} \in A
+\right\}$. Then,
+\begin{equation}
+A_{2\omega_{2}} = \bigcup_{n=0}^{\infty}A_{2\omega_{2}}^{(n)}.
+\label{1.2}
+\end{equation}
+
+\begin{subclaim}
+$\left\{ A_{1\omega_{1}}^{(n)} \right\}_{n=0}^{\infty}$ and $\left\{ A_{2\omega_{2}}^{(n)} \right\}_{n=0}^{\infty}$ are pairwise disjoint sequences
+for all $\omega_{1} \in \Omega_{1}$, $\omega_{2} \in \Omega_{2}$, respectively.
+\end{subclaim}
+\begin{subclaimproof}
+By way of contradiction, suppose there exists $\omega_{1}' \in \Omega_{1}$ such that $\left\{ A_{1\omega_{1}'}^{(n)} \right\}_{n=0}^{\infty}$ is not pairwise disjoint. Then there exists $i,j \in
+\mathbb{N}$, with $i \neq j$, such that $A_{1\omega_{1}'}^{(i)} \cap A_{1\omega_{1}'}^{(j)} \neq \emptyset$. Then there exists $\omega_{2}' \in
+A_{1\omega_{1}'}^{(i)} \cap A_{1\omega_{1}'}^{(j)}$. But then $(\omega_{1}', \omega_{2}') \in A_{i}$ and $(\omega_{1}', \omega_{2}') \in A_{j}$. So
+$A_{i}\cap A_{j} \neq \emptyset$. This is a contradiction. By the same argument, we see that $\left\{ A_{2\omega_{2}}^{(n)} \right\}_{n=0}^{\infty}$ must be
+pairwise disjoint.
+\end{subclaimproof}
+
+Therefore, 
+\begin{align*}
+\mu_{12}(A) = \int_{\Omega_{1}}\mu_{2}(A_{1\omega_{1}})d\mu_{1}(\omega_{1}) & \stackrel{\eqref{1.1}}{=} \int_{\Omega_{1}}\mu_{2}\left(
+\cup_{n=0}^{\infty}A_{1\omega_{1}}^{(n)} \right)d\mu_{1}(\omega_{1}) \\
+\text{(subclaim 3.1 and since $\mu_{2}$ is a measure) } & = \int_{\Omega_{1}}\left[ \sum_{n=0}^{\infty}\mu_{2}\left( A_{1\omega_{1}}^{(n)}
+\right) \right]d\mu_{1}(\omega_{1}) \\
+\text{(Corollary 2.3.5) } & = \sum_{n=0}^{\infty}\int_{\Omega_{1}}\mu_{2}\left( A_{1\omega_{1}}^{(n)} \right)d\mu_{1}(\omega_{1}) \\
+& = \sum_{n=0}^{\infty}\mu_{12}(A_{n}).
+\end{align*}
+Similarly, $\mu_{21}(A) = \sum_{n=0}^{\infty}\mu_{21}(A_{n})$.
+\end{claimproof}
+
+\end{Proof}
+
+
+
+\newpage 
+\section*{5.6}
+Suppose $f$ is a non-negative measurable function over the $\sigma$-finite measure space $(\Omega, \mathcal{F}, \mu)$. Then 
+\[ \int_{\Omega}fd\mu = \int_{[0,\infty)}\mu\left( \left\{ f\geq t \right\} \right)dm(t), \]
+where $m$ is the Lebesgue measure.
+
+\subsection*{Solution}
+\begin{Proof}
+Let $\bm{C} := \left\{ A_{1} \times A_{2} : A_{1} \in \mathcal{F}, A_{2} \in \mathcal{B}(\mathbb{R}_+) \right\}$. Let $\phi, \psi, g : \Omega\times
+\mathbb{R}_{+} \rightarrow \mathbb{R}$ be defined by $\phi(\omega, t) := f(\omega)$, $\psi(\omega, t) := t$, and $g(\omega, t) := 
+\mathbb{I}(\phi(\omega, t) \geq \psi(\omega, t))$ for all $(\omega, t) \in \Omega \times
+\mathbb{R}_{+}$.
+
+\begin{claim}
+$g$ is $(\mathcal{F}\otimes \mathcal{B}(\mathbb{R}_{+}), \mathcal{B}(\mathbb{R}))$-measurable.
+\end{claim}
+\begin{claimproof}
+\begin{subclaim}
+$\phi$ is measurable.
+\end{subclaim}
+\begin{subclaimproof}
+Let $A \in \mathcal{B}(\mathbb{R})$. Then 
+\begin{align*}
+\phi^{-1}[A] = \left\{ (\omega, t) \in \Omega\times \mathbb{R}_{+} : \phi(\omega, t) \in A \right\} & = \left\{ (\omega, t) \in \Omega\times
+\mathbb{R}_{+} : f(\omega) \in A \wedge t \in \mathbb{R}_{+} \right\} \\
+\text{(since $f$ is measurable) } & = f^{-1}[A] \times \mathbb{R}_{+} \in \bm{C} \subseteq \sigma\langle\bm{C}\rangle = \mathcal{F}\otimes
+\mathcal{B}(\mathbb{R}_{+}).
+\end{align*}
+\end{subclaimproof}
+
+\begin{subclaim}
+$\psi$ is measurable.
+\end{subclaim}
+\begin{subclaimproof}
+Let $A \in \mathcal{B}(\mathbb{R})$. Then 
+\begin{align*}
+\psi^{-1}[A] = \left\{ (\omega, t) \in \Omega \times \mathbb{R}_{+}  :\psi(\omega, t) \in A \right\} & = \left\{ 
+(\omega, t) \in \Omega\times \mathbb{R}_{+} : \omega \in \Omega \wedge t \in A \right\} \\
+& = \Omega \times [0,\infty) \in \bm{C} \subseteq \sigma\langle\bm{C}\rangle = \mathcal{F}\otimes\mathcal{B}(\mathbb{R}_{+}).
+\end{align*}
+\end{subclaimproof}
+
+From subclaims 1.1 and 1.2 it follows that $\phi - \psi$ is measurable, and therefore $g = \mathbb{I}(\phi - \psi \geq 0)$ is measurable.
+\end{claimproof}
+
+By claim 1, we can integrate $g$. Thus, note that 
+\begin{equation}
+\int_{\mathbb{R}_{+}} g(\omega, t)dm(t) = \int_{\mathbb{R}_{+}}\mathbb{I}(t \leq f(\omega))dm(t) = m([0, f(\omega)]) = f(\omega),
+\label{2.1}
+\end{equation}
+and 
+\begin{equation}
+\int_{\Omega}g(\omega, t)d\mu(\omega) = \int_{\Omega}\mathbb{I}(f(\omega) \geq t)d\mu(\omega) = \mu(\left\{ \omega \in \Omega : f(\omega) \geq t
+\right\}).
+\label{2.2}
+\end{equation}
+Now, clearly $g \geq 0$, so we can apply Tonelli's Theorem to \eqref{2.1} and \eqref{2.2}. Therefore 
+\[ \int_{\mathbb{R}_{+}}\mu\left( \left\{ \omega \in \Omega : f(\omega) \geq t \right\} \right)dm(t) = \int_{\Omega}f(\omega)d\mu(\omega). \]
+\end{Proof}
+
+
+\newpage 
+\section*{5.10}
+Show that $\mathcal{I} := \int_{0}^{\infty}e^{-x^{2}/ 2}dm(x) = \sqrt{\frac{\pi}{2}}$.
+
+\subsection*{Solution}
+\begin{Proof}
+By Tonelli's Theorem,
+\begin{align*}
+\mathcal{I}^{2} = \left( \int_{\mathbb{R}_{+}}e^{-x^{2}/2}dm(x) \right)\left( \int_{\mathbb{R}_{+}}e^{-y^{2}/2}dm(y) \right) 
+& = \int_{\mathbb{R}_{+}}\int_{\mathbb{R}_{+}}e^{-(x^{2} + y^{2}) / 2}dm(x)dm(y) \\
+& = \int_{\mathbb{R}_{+}\times \mathbb{R}_{+}}e^{-(x^{2} + y^{2})/2}d(m\times m).
+\end{align*}
+Now we will use the change of variables $x := r\cos \theta, y := r\sin \theta$, for $0 < r < \infty$ and $0 < \theta < \frac{\pi}{2}$. Thus 
+\[ J = \det \begin{bmatrix}
+\cos \theta & -r\sin \theta \\
+\sin \theta & r\cos \theta \\ 
+\end{bmatrix} = r\cos^{2}\theta + r\sin^{2}\theta = r. \]
+Hence, by Theorem 4.4.6,
+\begin{align*}
+\int_{\mathbb{R}_{+} \times \mathbb{R}_{+}}e^{-(x^{2} + y^{2})/2}d(m\times m) & = \int_{(0,\pi/2)\times \mathbb{R}_{+}} re^{-r^{2}/2}d(m\times m) \\
+\text{(Tonelli's) } & = \int_{(0,\pi/2)}\int_{\mathbb{R}_{+}}re^{-r^{2}/2}dm(r)dm(\theta)  \\
+& = \int_{0}^{\pi/2}1 dm(\theta) \\
+& = \frac{\pi}{2}.
+\end{align*}
+Therefore $\mathcal{I} = \sqrt{\frac{\pi}{2}}$.
+
+\end{Proof}
+
+
+
+\newpage 
+\section*{5.11}
+Suppose $\mu$ is a finite measure of $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ and $f,g : \mathbb{R} \rightarrow \mathbb{R}_{+}$ are nondecreasing and
+$\mathcal{B}(\mathbb{R})$ measurable. Show that 
+\[ \mu(\mathbb{R}) \int fgd\mu \geq \left( \int fd\mu \right)\left( \int gd\mu \right). \]
+
+\subsection*{Solution}
+\begin{Proof}
+Let $h(x_{1}, x_{2}) := [f(x_{1} - f(x_{2})][g(x_{1}) - g(x_{2})]$, for all $(x_{1}, x_{2}) \in \mathbb{R}^{2}$.
+
+\begin{claim}
+$h(\cdot, \cdot) \geq 0$.
+\end{claim}
+\begin{claimproof}
+Let $(x_{1}, x_{2}) \in \mathbb{R}^{2}$. If $x_{1} < x_{2}$, then $f(x_{1}) \leq f(x_{2})$ and $g(x_{1}) \leq g(x_{2})$. Therefore $f(x_{1}) -
+f(x_{2}), g(x_{1}) - g(x_{2}) \leq 0$. Thus $h(x_{1}, x_{2}) \geq 0$. On the other hand, if $x_{1} \geq x_{2}$, then $f(x_{1}) - f(x_{2}), g(x_{1}) -
+g(x_{2}) \geq 0$. So $h(x_{1}, x_{2}) \geq 0$.
+\end{claimproof}
+
+By claim 1 and Tonelli's Theorem,
+\begin{align*}
+0 & \leq \int_{\mathbb{R}^{2}}h(x_{1}, x_{2})d(\mu\times\mu) \\
+& = \int_{\mathbb{R}^{2}}\left[ f(x_{1})g(x_{1}) - f(x_{1})g(x_{2}) - f(x_{2})g(x_{1}) + f(x_{2})g(x_{2}) \right]d(\mu(x_{1})\times\mu(x_{2})) \\
+& = \int_{\mathbb{R}}\int_{\mathbb{R}} \left[ f(x_{1})g(x_{1}) - f(x_{1})g(x_{2}) - f(x_{2})g(x_{1}) + f(x_{2})g(x_{2})
+\right] d\mu(x_{1})d\mu(x_{2}) \\
+& = 2\mu(\mathbb{R})\int_{\mathbb{R}}fgd\mu - 2\left( \int_{\mathbb{R}}fd\mu \right)\left( \int_{\mathbb{R}}gd\mu \right)
+\end{align*}
+Therefore 
+\[ \left( \int_{\mathbb{R}}fd\mu \right)\left( \int_{\mathbb{R}}gd\mu \right) \leq \mu(\mathbb{R})\int_{\mathbb{R}}fgd\mu. \]
+\end{Proof}
+
+
+\newpage 
+\section*{Problem A}
+Consider the following measure spaces
+\[ (\Omega_{i} := \mathbb{N}, \mathcal{F}_{i} := \mathcal{P}(\mathbb{N}), \mu_{i} := \text{ counting measure}),\  i = 1, 2. \]
+Define $f : (\Omega_{1} \times \Omega_{2}) \rightarrow \mathbb{R}$ by 
+\[ f(\omega_{1}, \omega_{2}) := \mathbb{I}_{\{(n,n) : n\in \mathbb{N}\}}(\omega_{1}, \omega_{2}) - \mathbb{I}_{\{(n,n+1) : n \in
+\mathbb{N}\}}(\omega_{1}, \omega_{2}). \]
+Then,
+\begin{enumerate}[label=(\roman*)]
+\item Prove $\mathcal{F}_{1} \otimes \mathcal{F}_{2} = \mathcal{P}(\mathbb{N} \times \mathbb{N})$.
+\item Is $f$ an $(\mathcal{F}_{1} \otimes \mathcal{F}_{2})$ measurable function?
+\item Is $f$ integrable with respect to $\mu_{1} \times \mu_{2}$?
+\item Compute the two iterated integrals:
+\[ \int_{\Omega_{1}}\int_{\Omega_{2}}f(\omega_{1},\omega_{2})d\mu_{2}(\omega_{2})d\mu(\omega_{1}),\ \ 
+\int_{\Omega_{2}}\int_{\Omega_{1}}f(\omega_{1},\omega_{2})d\mu_{1}(\omega_{1})d\mu_{2}(\omega_{2}). \]
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[label=(\roman*)]
+\item Let $C := \left\{ A_{1} \times A_{2} : A_{1} \in \mathcal{F}_{1}, A_{2} \in \mathcal{F}_{2} \right\}$. 
+Clearly $\mathcal{P}(\mathbb{N} \times \mathbb{N}) \supseteq \mathcal{F}_{1} \otimes \mathcal{F}_{2}$. Now let $A \in \mathcal{P}(\mathbb{N}
+\times \mathbb{N})$. Let $A_{1\omega_{1}}$ be defined as in Definition 5.1.2. Then $A = \cup_{\omega_{1} \in \mathbb{N}}A_{1\omega_{1}}$. Since
+$A_{1\omega_{1}} \in \mathcal{C}$ for all $\omega_{1} \in \mathbb{N}$, and $\mathbb{N}$ is countable, $A \in \sigma\langle\mathcal{C}\rangle =
+\mathcal{F}_{1} \otimes \mathcal{F}_{2}$. Therefore $\mathcal{P}(\mathbb{N} \times \mathbb{N}) \subseteq \mathcal{F}_{1} \otimes \mathcal{F}_{2}$.
+
+\item $f$ is clearly measurable since for all $E \in \mathcal{B}(\mathbb{R})$, $f^{-1}[E] \in \mathcal{P}(\mathbb{N} \times \mathbb{N}) =
+\mathcal{F}_{1} \otimes \mathcal{F}_{2}$.
+
+\item Since $|f(\omega_{1}, \omega_{2})| \geq 0$, we can apply Tonelli's Theorem. First note that for each $\omega_{1}' \in \Omega_{1}$,
+\[ \int_{\Omega_{2}}|f(\omega_{1}', \omega_{2})|d\mu_{2}(\omega_{2}) = \sum_{\omega_{2}=1}^{\infty}|\mathbb{I}_{\{(\omega_{1}',
+\omega_{1}')\}}(\omega_{1}', \omega_{2}) - \mathbb{I}_{\{(\omega_{1}', \omega_{1}' + 1)\}}(\omega_{1}', \omega_{2})| = 2. \]
+Thus, by Tonelli's Theorem,
+\[ \int_{\Omega_{1}\times \Omega_{2}}|f(\omega_{1}, \omega_{2})|d(\mu_{1}\times\mu_{2}) = \int_{\Omega_{1}}2 d\mu_{1} = \infty. \]
+So $f$ is not integrable.
+
+\item For each $\omega_{1}' \in \Omega_{1}$,
+\[ \int_{\Omega_{2}}f(\omega_{1}', \omega_{2})d\mu_{2}(\omega_{2}) = \sum_{\omega_{2}=1}^{\infty}\big[\mathbb{I}_{\{(\omega_{1}',
+\omega_{1}')\}}(\omega_{1}', \omega_{2}) - \mathbb{I}_{\{(\omega_{1}', \omega_{1}' + 1)\}}(\omega_{1}', \omega_{2})\big] = 1 - 1 = 0. \]
+So 
+\[ \int_{\Omega_{1}}\int_{\Omega_{2}}f(\omega_{1},\omega_{2})d\mu_{2}(\omega_{2})d\mu(\omega_{1}) = \int_{\Omega_{1}}0d\mu_{1} = 0. \]
+On the other hand, if $\omega_{2}' = 1$,
+\[ \int_{\Omega_{1}}f(\omega_{1}, \omega_{2}')d\mu_{1}(\omega_{1}) = \sum_{\omega_{1} = 1}^{\infty}\left[\mathbb{I}_{\{(1,1)\}}(\omega_{1}, 1) -
+\mathbb{I}_{\{(0,1)\}}(\omega_{1}, 1)\right] = 1. \]
+But if $\omega_{2}' > 1$,
+\[ \int_{\Omega_{1}}f(\omega_{1}, \omega_{2}')d\mu_{1}(\omega_{1}) = \sum_{\omega_{1} = 1}^{\infty}\left[\mathbb{I}_{\{(\omega_{2}',\omega_{2}')\}}(\omega_{1},
+\omega_{2}') - \mathbb{I}_{\{(\omega_{2}' - 1, \omega_{2}')\}}(\omega_{1}, \omega_{2}')\right] = 1 - 1 = 0. \]
+Therefore, 
+\[ \int_{\Omega_{2}}\int_{\Omega_{1}}f(\omega_{1},\omega_{2})d\mu_{1}(\omega_{1})d\mu_{2}(\omega_{2}) = \int_{\{1\}}1d\mu_{2} +
+\int_{\mathbb{N}\setminus \{1\}}0d\mu_{2} = 1. \]
+\end{enumerate}
+
+
+\end{document}
+

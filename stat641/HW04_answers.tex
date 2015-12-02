@@ -1,0 +1,343 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$}
+
+\title{STAT 641: HW 4}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{2.1}
+Let $\Omega_{i}$, $i = 1,2$ be two non-empty sets and $T : \Omega_{1} \rightarrow \Omega_{2}$ be a map. Let $\left\{ A_{\alpha} : \alpha \in I
+\right\}$ be any collection of subsets of $\Omega_{2}$. Show that
+
+(i) $T^{-1}\left( \bigcup_{\alpha \in I}A_{\alpha} \right) = \bigcup_{\alpha\in I}T^{-1}(A_{\alpha})$,
+
+(ii) $T^{-1}\left( \bigcap_{\alpha \in I} A_\alpha \right) = \bigcap_{\alpha \in I}T^{-1}(A_\alpha)$, and 
+
+(iii) $\left( T^{-1}(A) \right)^{c} = T^{-1}(A^{c})$ for every $A \in \Omega_2$.
+
+\section*{Solution}
+
+{\bf (i)}
+\begin{proof}
+Let $\omega_0 \in T^{-1}(\cup_{\alpha \in I}A_{\alpha}) = \left\{ \omega \in \Omega_{1} : T(\omega) \in \cup_{\alpha \in I}A_{\alpha} \right\}$. Then
+$T(\omega_0) \in \cup_{\alpha \in I}A_{\alpha}$, so $T(\omega_{0}) \in A_{\alpha_0}$ for some $\alpha_{0} \in I$. Thus, $w_0 \in T^{-1}(A_{\alpha_{0}})$, so
+$w_{0} \in \cup_{\alpha \in I}T^{-1}(A_\alpha)$. Hence 
+\begin{equation}
+T^{-1}\left( \bigcup_{\alpha\in I}A_{\alpha} \right) \subseteq \bigcup_{\alpha\in I}T^{-1}(A_\alpha).
+\label{1}
+\end{equation}
+Now, let 
+\begin{align*}
+\omega_{1} \in \cup_{\alpha \in I}T^{-1}(A_\alpha) & = \cup_{\alpha\in I}\left\{ \omega \in \Omega_{1} : T(\omega) \in A_\alpha \right\} \\
+& = \left\{ \omega \in \Omega_{1} : T(\omega) \in A_{\alpha}, \text{ for some }\alpha \in I \right\} \\
+& = \left\{ \omega \in \Omega_1 : T(\omega) \in \cup_{\alpha \in I}A_{\alpha} \right\} \\
+& = T^{-1}\left( \bigcup_{\alpha \in I}A_{\alpha} \right).
+\end{align*}
+Therefore 
+\begin{equation}
+\bigcup_{\alpha \in I}T^{-1}(A_{\alpha}) \subseteq T^{-1}\left( \bigcup_{\alpha \in I}A_{\alpha} \right).
+\label{2}
+\end{equation}
+By \ref{1} and \ref{2} we have equality.
+\end{proof}
+
+{\bf (ii)}
+\begin{proof}
+Let $\omega_{0} \in T^{-1}\left( \cap_{\alpha \in I}A_{\alpha} \right) = \left\{ \omega \in \Omega_{1} : T(\omega) \in \cap_{\alpha \in I}A_{\alpha}
+\right\}$. Then $T(\omega_0) \in \cap_{\alpha \in I}A_\alpha$, so $T(\omega_0) \in A_{\alpha}$ for every $\alpha \in I$. Thus $\omega_0 \in
+T^{-1}(A_\alpha)$ for every $\alpha \in I$. Hence $\omega_0 \in \cap_{\alpha\in I}T^{-1}(A_\alpha)$. So 
+\begin{equation}
+T^{-1}\left( \bigcap_{\alpha\in I}A_{\alpha} \right) \subseteq \bigcap_{\alpha\in I}T^{-1}(A_\alpha).
+\label{3}
+\end{equation}
+Now, let $\omega_{1} \in \cap_{\alpha\in I}T^{-1}(A_\alpha)$. Then $\omega_1 \in T^{-1}(A_\alpha) = \left\{ \omega \in \Omega_1 : T(\omega) \in
+A_\alpha \right\}$ for each $\alpha \in I$. So $\omega_1 \in \left\{ \omega \in \Omega_1 : T(\omega) \in \cap_{\alpha \in I}A_\alpha \right\} =
+T^{-1}\left( \cap_{\alpha \in I}A_\alpha \right)$. Thus 
+\begin{equation}
+\bigcap_{\alpha \in I}T^{-1}(A_\alpha) \subseteq T^{-1}\left( \bigcap_{\alpha\in I}A_\alpha \right).
+\label{4}
+\end{equation}
+So by \ref{3} and \ref{4} we have equality.
+\end{proof}
+
+{\bf (iii)}
+\begin{proof}
+Let $\omega_0 \in \left( T^{-1}(A) \right)^{c}$. Then $\omega_0 \notin T^{-1}(A)$. So 
+\[ \omega_0 \in \left\{ \omega \in \Omega_1 : T(\omega) \notin A \right\} =  \left\{ \omega \in \Omega_1 : T(\omega) \in A^{c} \right\} =
+T^{-1}(A^{c}). \]
+Hence 
+\begin{equation}
+\left( T^{-1}(A) \right)^{c} \subseteq T^{-1}(A^{c}).
+\label{5}
+\end{equation}
+Now, let $\omega_1 \in T^{-1}(A^{c}) = \left\{ \omega\in \Omega_1 : T(\omega) \in A^{c} \right\} = \left\{ \omega \in \Omega_1 : T(\omega) \notin A
+\right\}$. Then $\omega_1 \notin T^{-1}(A)$, so $\omega_1 \in \left( T^{-1}(A) \right)^{c}$. Hence 
+\begin{equation}
+T^{-1}(A^{c}) \subseteq \left( T^{-1}(A) \right)^{c}.
+\label{6}
+\end{equation}
+So by \ref{5} and \ref{6} we have equality.
+\end{proof}
+
+
+
+\newpage
+\section*{2.3}
+Let $f, g : \Omega \rightarrow \mathbb{R}$ be $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable. Set 
+\[ h(\omega) = \frac{f(\omega)}{g(\omega)}I(g(\omega)\neq 0), \omega \in \Omega. \]
+Verify that $h$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\section*{Solution}
+
+\begin{proof}
+Define $g_1 : \mathbb{R} \rightarrow \mathbb{R}$ by $g_1(x) = x^{-1}I(x \neq 0)$.
+
+\underline{Claim 1:} $g_1$ is $\langle\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\begin{claimproof}
+Let $\mathcal{A} = \left\{ A\subseteq \mathbb{R} : A \text{ open} \right\}$, and let $A \in \mathcal{A}$. There are two cases to consider: either $0
+\notin A$ or $0 \in A$.
+
+{\bf Case 1:} First let us consider the case where $0 \notin A$. Note that $g_1^{-1}(\left\{ 0 \right\}) = \left\{ 0 \right\}$, so $g_1(0) \notin A$.
+Thus, since $g_1$ is continuous everywhere except at $x = 0$, $g_1$ is continouos over $g_{1}^{-1}(A)$. Hence $g_1^{-1}(A)$ is open, so $g_1^{-1}(A) \in
+\mathcal{B}(\mathbb{R})$.
+
+{\bf Case 2:} Now assume that $0 \in A$. Then $A = (A \setminus \left\{ 0 \right\}) \cup \left\{ 0 \right\}$. Since $A$ is open, $A \setminus \left\{
+0 \right\} = A \cap \left\{ 0 \right\}^{c}$ is still open. Also, $g_{1}^{-1}(\left\{ 0 \right\}) = \left\{ 0 \right\}$. Therefore $g_{1}^{-1}(A\setminus \left\{ 0 \right\})$ 
+is open since $g_{1}$ is continuous every except at $x = 0$. So $g_{1}^{-1}(A\setminus \left\{ 0 \right\}), g_{1}^{-1}(\left\{ 0 \right\}) \in
+\mathcal{B}(\mathbb{R})$. Hence, by Exercise 2.1 and the fact that $\mathcal{B}(\mathbb{R})$ is closed under finite unions,
+\[ g_{1}^{-1}(A) = g_{1}^{-1}\bigg( (A\setminus \left\{ 0 \right\}) \cup \left\{ 0 \right\}\bigg) = g_{1}^{-1}(A\setminus \left\{ 0 \right\}) \cup
+g_{1}^{-1}(\left\{ 0 \right\}) \in \mathcal{B}(\mathbb{R}). \]
+
+In both cases $g_{1}^{-1}(A) \in \mathcal{B}(\mathbb{R})$. Hence, by Proposition 2.1.1(i), $g_{1}$ is $\langle\mathcal{B}(\mathbb{R}),
+\mathcal{B}(\mathbb{R})\rangle$-measurable since $\sigma\langle\mathcal{A}\rangle = \mathcal{B}(\mathbb{R})$.
+\end{claimproof}
+
+\underline{Claim 2:} $g_{2} \equiv g_{1} \circ g$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\begin{claimproof}
+Follows immediately from Proposition 2.1.1 (ii).
+\end{claimproof}
+
+\underline{Claim 3:} $h$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\begin{claimproof}
+Note that 
+\[ h(\omega) = \frac{f(\omega)}{g(\omega)}I(g(\omega)\neq 0) = f(\omega)\times g_{2}(\omega), \omega \in \Omega. \]
+So, since $f$ and $g_{2}$ are $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable, $f\times g_{2}$ is $\langle\mathcal{F},
+\mathcal{B}(\mathbb{R})\rangle$-measurable by Proposition 2.1.3 (iii).
+\end{claimproof}
+
+\end{proof}
+
+\newpage
+\section*{2.6}
+Let $X_{i}, i = 1,2,3$ be random variables on a probability space $(\Omega, \mathcal{F}, P)$. Consider the random equation (in $t \in \mathbb{R}$):
+\begin{equation}
+X_{1}(\omega)t^{2} + X_{2}(\omega)t + X_{3}(\omega) = 0. 
+\label{2.6.1}
+\end{equation}
+(a) Show that $A \equiv \left\{ \omega \in \Omega : \text{ Equation \ref{2.6.1} has 2 distinct real roots} \right\} \in \mathcal{F}$.
+
+(b) Let $T_{1}(\omega)$ and $T_{2}(\omega)$ denote the two roots of \ref{2.6.1} on $A$. Let 
+\[ f_{i}(\omega) = \left\{ \begin{array}{cl}
+T_{i}(\omega) & \text{ on } A \\
+0 & \text{ on }A^{c} \\
+\end{array} \right., \]
+$i = 1,2$. Show that $(f_{1}, f_{2})$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R}^{2})\rangle$-measurable.
+
+\section*{Solution}
+{\bf (a)}
+\begin{proof}
+Note that 
+\begin{align*}
+A & = \left\{ \omega \in \Omega : X_{2}(\omega)^{2} - 4X_{1}(\omega)X_{3}(\omega) > 0, X_{1}(\omega) \neq 0 \right\} \\
+& = \left\{ \omega \in \Omega : X_{2}(\omega)^{2} - 4X_{1}(\omega)X_{3}(\omega) > 0 \right\} \cap \left\{ \omega \in \Omega : X_{1}(\omega) \neq 0
+\right\} \\
+& = g^{-1}\bigg(\left( 0, \infty \right)\bigg) \cap X_{1}^{-1}(\mathbb{R}\setminus \left\{ 0 \right\}),
+\end{align*}
+where $g : \Omega \rightarrow\mathbb{R}$ is defined by $g(\omega) = X_{2}(\omega)^{2} - 4X_{1}(\omega)X_{3}(\omega)$. However, since $X_{1}$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable,
+$X_{1}^{-1}(\mathbb{R}\setminus \left\{ 0 \right\}) \in \mathcal{F}$ because $\mathbb{R}\setminus \left\{ 0 \right\} \in \mathcal{B}(\mathbb{R})$.
+Thus, we just need to show that $g^{-1}\bigg( (0,\infty) \bigg) \in \mathcal{F}$.
+
+\underline{Claim:} $f(\omega) \equiv -4$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\begin{claimproof}
+Let $X \in \mathcal{B}(\mathbb{R})$. If $-4 \in X$, then $f^{-1}(X) = \Omega \in \mathcal{F}$. If $-4 \notin X$, then $f^{-1}(X) = \emptyset \in
+\mathcal{F}$. Thus $f$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable.
+\end{claimproof}
+
+Thus, since $X_{1}, X_{2}, X_{3}$, and $f$ are all $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable, 
+\[ g(\omega) = X_{2}(\omega)X_{2}(\omega) + f(\omega)X_{1}(\omega)X_{3}(\omega) \]
+is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable by Proposition 2.1.3. So $g^{-1}\bigg( (0, \infty) \bigg) \in \mathcal{F}$ since
+$(0, \infty) \in \mathcal{B}(\mathbb{R})$. Hence $A = g^{-1}\bigg( (0,\infty) \bigg) \cap X_{1}^{-1}(\mathbb{R}\setminus \left\{ 0 \right\}) \in
+\mathcal{F}$.
+\end{proof}
+
+{\bf (b)} 
+\begin{proof}
+Note that 
+\begin{align*}
+f_{1}(\omega) & = T_{1}(\omega)I(\omega \in A) \\
+& = \frac{-X_{2}(\omega) + \sqrt{X_{2}(\omega)^{2} - 4X_{1}(\omega)X_{3}(\omega)}}{2X_{1}(\omega)}\times I(X_{1}(\omega)\neq 0, X_{2}(\omega)^{2} -
+4X_{1}(\omega)X_{3}(\omega) > 0) \\
+& = \frac{I(X_{1}(\omega) \neq 0)}{2X_{1}(\omega)} \times \bigg[ \sqrt{X_{2}(\omega)^{2} - 4X_{1}(\omega)X_{3}(\omega)}I\big(X_{2}(\omega)^{2} -
+4X_{1}(\omega)X_{3}(\omega) > 0\big) - \\
+& \qquad X_{2}(\omega)I\big(X_{2}(\omega)^{2} - 4X_{1}(\omega)X_{3}(\omega) > 0\big) \bigg].
+\end{align*}
+We will show that each part of the above function is measurable and then tie that all together with Proposition 2.1.1 (ii) and Corollary 2.1.4. First,
+let $g_{1} : \mathbb{R} \rightarrow \mathbb{R}$ be defined by $g_{1}(x) = \frac{I(x \neq 0)}{2x}$.
+
+\underline{Claim 1:} $g_{1}$ is $\langle\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\begin{claimproof}
+Let $(a,b) \in \mathcal{B}(\mathbb{R})$ be an open interval. There are two cases to consider: either $0 \in (a,b)$ or $0 \notin (a,b)$.
+
+{\bf Case 1:} First assume that $0 \in (a,b)$. Then 
+\begin{align*}
+g_{1}^{-1}\big( (a,b) \big) & = \left\{ x \in \mathbb{R} : g_{1}(x) \in (a,b) \right\} \\
+& = \left\{ x \in \mathbb{R} : g_{1}(x) \in (a,0) \cup \left\{ 0 \right\} \cup (0, b) \right\} \\
+& = \left\{ x \in \mathbb{R} : g_{1}(x) \in (a,0) \right\} \cup \left\{ x \in \mathbb{R} : g_{1}(x) = 0 \right\} \cup \left\{ x \in \mathbb{R} :
+g_{1}(x) \in (0,b) \right\} \\
+& = g_{1}^{-1}\big( (a,0) \big) \cup \left\{ 0 \right\} \cup g_{1}^{-1}\big( (0,b) \big).
+\end{align*}
+But since $g_{1}$ is only discontinuous at $g_{1}^{-1}(\left\{ 0 \right\}) = \left\{ 0 \right\}$, $g_{1}^{-1}\big( (a,0)\big)$ and $g_{1}^{-1}\big(
+(0,b)\big)$ are both open, and hence are in $\mathcal{B}(\mathbb{R})$. So $g_{1}^{-1}\big( (a,b)\big) \in \mathcal{B}(\mathbb{R})$ by closure under
+finite unions.
+
+{\bf Case 2:} Now assume that $0 \notin (a,b)$. Then $g_{1}^{-1}\big( (a,b) \big) \in \mathcal{B}(\mathbb{R})$ since $g_{1}$ is continuous over
+$g_{1}^{-1}\big( (a,b)\big)$.
+
+In both cases $g_{1}^{-1}\big( (a,b)\big) \in \mathcal{B}(\mathbb{R})$. Thus, by Proposition 2.1.1(i), $g_{1}$ is $\langle\mathcal{B}(\mathbb{R}),
+\mathcal{B}(\mathbb{R})\rangle$-measurable since $\sigma\langle (a,b)\rangle = \mathcal{B}(\mathbb{R})$.
+\end{claimproof}
+
+Now, since $X_{1} : \Omega \rightarrow \mathbb{R}$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable, $g_{1}\circ X_{1}$
+is $\langle\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable by Proposition 2.1.1(ii). Now, let 
+$g_{2}, g_{3} : \mathbb{R}^{3} \rightarrow \mathbb{R}$ be defined by $g_{2}(x_{1}, x_{2}, x_3) = \sqrt{x_2^2 - 4x_1x_3}\times
+I(x_2^2 - 4x_1x_3 > 0)$ and $g_3(x_1, x_2, x_3) = -x_2\times I(x_2^2 - 4x_1x_3 > 0)$. 
+
+\underline{Claim 2:} $g_2$ and $g_3$ are 
+$\langle\mathcal{B}(\mathbb{R}^3), \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\begin{claimproof}
+Since $g_{2}$ is continouous everywhere on $\mathbb{R}^{3}$, $g_{2}$ is $\langle\mathcal{B}(\mathbb{R}^{3}),
+\mathcal{B}(\mathbb{R})\rangle$-measurable by Prop 2.1.2. Let $\psi_{1} :
+\mathbb{R} \rightarrow \mathbb{R}$ be defined by $\psi_{1}(x) = I(x > 0)$, and $\psi_{2} : \mathbb{R}^{3} \rightarrow \mathbb{R}$ be defined by
+$\psi_{2}(x_{1}, x_{2}, x_{3}) = x_{2}^{2} - 4x_1x_3$.  Since $\psi_2$ is continuous, it is $\langle\mathcal{B}(\mathbb{R}^{3}),
+\mathcal{B}(\mathbb{R})\rangle$-measurable. Now, we want to show that $\psi_1$ is $\langle\mathcal{B}(\mathbb{R}),
+\mathcal{B}(\mathbb{R})\rangle$-measurable. So, let $(a,b) \in \mathcal{B}(\mathbb{R})$ be an open interval. There are 4 cases to consider: either (i)
+$0,1 \notin (a,b)$, (ii) $0 \in (a,b)$ and $1 \notin (a,b)$, (iii) $0 \notin (a,b)$ and $1 \in (a,b)$, or (iv) $0,1 \in (a,b)$.
+
+{\bf Case (i)} $\psi_{1}^{-1}\big( (a,b)\big) = \emptyset \in \mathcal{B}(\mathbb{R})$.
+
+{\bf Case (ii)} $\psi_{1}^{-1}\big( (a,b) \big) = \left\{ x \in \mathbb{R} : x \leq 0 \right\} = (-\infty, 0] \in \mathbb{R}$.
+
+{\bf Case (iii)} $\psi_{1}^{-1}\big( (a,b) \big) = \left\{ x \in \mathbb{R} : x > 0 \right\} = (0,\infty) \in \mathcal{B}(\mathbb{R})$.
+
+{\bf Case (iv)} $\psi_{1}^{-1}\big( (a,b) \big) = \mathbb{R} \in \mathcal{B}(\mathbb{R})$.
+
+Thus, by Proposition 2.1.1(i), $\psi_{1}$ is $\langle\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable. Now, let $\phi_{1}(x_1, x_2, x_3) = -x_2$. 
+Since $\phi_1$ is continuous, $\phi_1$ is $\langle\mathcal{B}(\mathbb{R}^{3}), \mathcal{B}(\mathbb{R})\rangle$-measurable. Hence, by Propositions
+2.1.1(ii) and 2.1.3(iii),
+\begin{align*}
+g_{3}(x_1, x_2, x_3) & = -x_2 I(x_2^2 - 4x_1 x_3 > 0) \\
+& = \phi_1(x_1,x_2,x_3)\psi_{1}(\psi_{2}(x_1,x_2,x_3))
+\end{align*}
+is $\langle\mathcal{B}(\mathbb{R}^{3}), \mathcal{B}(\mathbb{R})\rangle$-measurable.
+\end{claimproof}
+
+Thus, by Proposition 2.1.1(ii) and Corollary 2.1.4, 
+\[ f_{1}(\omega) = g_{1}(X_{1}(\omega))\times \left[ g_{2}\left( X_{1}(\omega), X_{2}(\omega), X_{2}(\omega) \right) + g_{3}\left( X_{1}(\omega),
+X_{2}(\omega), X_{2}(\omega) \right) \right] \]
+is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable. By a similar argument, $f_{2}$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable.
+So by Proposition 2.1.3(i), $(f_{1}, f_{2})$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R}^{2})\rangle$-measurable.
+\end{proof}
+
+
+\newpage
+\section*{(A)}
+Let $X : \Omega_{1} \rightarrow \Omega_{2}$ be a $\langle\mathcal{F}_{1}, \mathcal{F}_{2}\rangle$-measurable transformation. Consider the collection
+(of subsets of $\Omega_{1}$) defined by $\sigma\langle X\rangle = \left\{ X^{-1}(B) : B \in \mathcal{F}_{2} \right\}$. Then show that 
+
+(a) $\sigma\langle X\rangle$ is a $\sigma$-algebra, and 
+
+(b) $\sigma\langle X\rangle$ is the smallest $\sigma$-algebra that makes $X$ measurable.
+
+\section*{Solution}
+{\bf (a)} 
+\begin{proof}
+First note that $\Omega_{2} \in \mathcal{F}_{2}$ and $X^{-1}(\Omega_{2}) = \Omega_{1}$. So $\Omega_{1} \in \sigma \langle X \rangle$. Now let $A \in
+\sigma \langle X \rangle$. Then $A = X^{-1}(B)$ for some $B \in \mathcal{F}_{2}$. Thus,
+\begin{align*}
+A^{c} = \left( X^{-1}(B) \right)^{c} & = \left( \left\{ a \in \Omega_1 : X(a) \in B \right\} \right)^{c} \\
+& = \left\{ a \in \Omega_1 : X(a) \notin B \right\} \\
+& = \left\{ a \in \Omega_1 : X(a) \in B^{c} \right\} \\
+& = X^{-1}(B^{c}).
+\end{align*}
+Thus $A^{c} \in \sigma\langle X\rangle$ since $B^{c} \in \mathcal{F}_{2}$. Now, let $\left\{ A_{n} \right\}_{n\geq 1} \subseteq \sigma\langle
+X\rangle$. Then for each $n \in \mathbb{R}$, $A_{n} = X^{-1}(B_{n})$ for some $B_{n} \in \mathcal{F}_{2}$. So,
+\begin{align*}
+\bigcup_{n=1}^{\infty}A_{n} = \bigcup_{n=1}^{\infty}X^{-1}(B_{n}) & = \bigcup_{n=1}^{\infty}\left\{ a \in \Omega_{1} : X(a) \in B_{n} \right\} \\
+& = \left\{ a \in \Omega_{1} : X(a) \in \cup_{n=1}^{\infty}B_{n} \right\} \\
+& = X^{-1}\left( \bigcup_{n=1}^{\infty}B_{n} \right).
+\end{align*}
+Thus, since $\bigcup_{n=1}^{\infty}B_n \in \mathcal{F}_{2}$, $\bigcup_{n=1}^{\infty}A_{n} \in \sigma\langle X\rangle$.
+\end{proof}
+
+{\bf (b)}
+\begin{proof}
+Let $\mathcal{G}$ be a $\sigma$-algebra such that $X$ is $\langle \mathcal{G}, \mathcal{F}_{2}\rangle$-measurable. Let $A \in \sigma\langle X\rangle$.
+Then $A = X^{-1}(B)$ for some $B\in \mathcal{F}_{2}$. Then by the $\langle \mathcal{G}, \mathcal{F}_{2}\rangle$-measurability of $X$, $X^{-1}(B) = A
+\in \mathcal{G}$. So $\sigma\langle X\rangle \subseteq \mathcal{G}$.
+\end{proof}
+
+
+\newpage
+\section*{(B)}
+Give an example of a function $f$ that is not $\langle\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable.
+
+\section*{Solution}
+Let $x,y \in \mathbb{R}$. Then say $x \sim_{\mathbb{Q}} y$ if $x - y \in \mathbb{Q}$. It is not hard to see that $\sim_{\mathbb{Q}}$ forms an
+equivalence relation on $\mathbb{R}$. Then let $R$ be any system of representatives (choice set) on the set of equivalence classes of
+$\sim_{\mathbb{Q}}$. That is,
+every equivalence class of $\sim_{\mathbb{Q}}$ contains exactly one element of $R$ (which is possible provided we accept the Axiom of Choice). It turns out that $R$ is not Lebesgue measurable, and so is not
+Borel (see \emph{Real Analysis} by Royden and Fitzpatrick for a proof). Thus, we can define a function $f : \mathbb{R} \rightarrow \mathbb{R}$ by 
+\[ f(x) = \left\{ \begin{array}{cl}
+1 & \text{ if } x \in R \\
+0 & \text{ if } x \notin R \\
+\end{array} \right. \]
+Then $f^{-1}(\left\{ 1 \right\}) = R \notin \mathcal{B}(\mathbb{R})$. So $f$ is not measurable.
+
+
+
+\end{document}
+

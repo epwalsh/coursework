@@ -1,0 +1,279 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$}
+
+\title{MATH 515: HW 4}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{1}
+
+Give an example of a Borel set of reals that is neither $F_{\sigma}$ or $G_{\delta}$.
+
+\section*{Solution}
+
+We will show that the set $X \equiv \left( (0,1)\cap \mathbb{Q} \right)\cup \left( [2,3]\cap \mathbb{Q}^{c} \right)$ is a Borel set of reals that is not
+$F_{\sigma}$ or $G_{\delta}$.
+
+{\bf Claim 1:} Let $a,b \in \mathbb{R}$ with $a < b$. Then $(a,b) \cap \mathbb{Q}$ is not $G_{\delta}$.
+\begin{claimproof}
+By way of contradiction, suppose $(a,b) \cap \mathbb{Q}$ is $G_{\delta}$. Then there exists a countable family of open subsets of reals $\left\{ U_{n}
+\right\}_{n=0}^{\infty}$ such that $(a,b) \cap \mathbb{Q} = \cap_{n=0}^{\infty}U_{n}$. Therefore $(a,b)\cap\mathbb{Q} \subseteq U_{n}$ for every $n\in \mathbb{N}$. 
+Thus, since $(a,b)\cap\mathbb{Q}$ is dense, each $U_{n}$ is dense. Now, let $\left\{ q_{n} \right\}_{n=0}^{\infty}$ be an enumeration of $(a,b)\cap\mathbb{Q}$.
+Then $U_{n} \setminus \left\{ q_{n} \right\}$ is dense for each $n\in \mathbb{N}$. Therefore $\cap_{n=0}^{\infty}(U_{n}\setminus\left\{ q_{n}
+\right\})$ is dense by the Baire Category Theorem. But $\cap_{n=0}^{\infty}(U_{n} - \left\{ q_{n} \right\}) = \emptyset$. This is a contradiction
+since the empty set is not dense.
+\end{claimproof}
+
+{\bf Claim 2:} Let $a, b \in \mathbb{R}$ with $a < b$. Then $[a,b] \cap \mathbb{Q}^{c}$ is not $F_{\sigma}$.
+\begin{claimproof}
+By way of contradiction, assume that there exists $a,b\in\mathbb{R}$ with $a < b$ such that $A \equiv [a,b] \cap \mathbb{Q}^{c}$ is $F_{\sigma}$. Then $A =
+\cup_{k=0}^{\infty}A_{k}$, where $\left\{ A_{k} \right\}_{k=0}^{\infty}$ is a countable collection of closed sets. But then 
+\[ 
+(a,b)^{c} \cup A = (a, b)^{c} \cup \bigcup_{k=0}^{\infty}A_{k} \]
+is also $F_{\sigma}$. So,
+\[ \left( (a,b)^{c} \cup A \right)^{c} = (a,b) \cap  A^{c} = (a, b) \cap \mathbb{Q} \]
+is $G_{\delta}$. This contradicts claim 1. Hence for all $a,b\in\mathbb{R}$ with $a < b$, $[a,b] \cap \mathbb{Q}^{c}$ is not $F_{\sigma}$.
+\end{claimproof}
+
+{\bf Claim 3:} $X$ is not $F_{\sigma}$.
+\begin{claimproof}
+By way of contradiction, assume $X$ is $F_{\sigma}$. Then $X = \cup_{k=0}^{\infty}E_{k}$ where $E_{k} \subseteq \mathbb{R}$ is closed for all $k \in
+\mathbb{N}$. Therefore $[2,3] \cap \mathbb{Q}^{c}$ is $F_{\sigma}$ since
+\[ [2,3]\cap\mathbb{Q}^{c} = [2,3]\cap X = [2,3]\cap\left( \bigcup_{k=0}^{\infty}E_{k} \right) = \bigcup_{k=0}^{\infty}[2,3]\cap E_{k}, \]
+where $[2,3]\cap E_{k}$ is a closed set. This contradicts claim 2. Thus $X$ is not $F_{\sigma}$.
+\end{claimproof}
+
+{\bf Claim 4:} $X$ is not $G_{\delta}$.
+\begin{claimproof}
+By way of contradiction, assume $X$ is $G_{\delta}$. Then $X \cap (0,1) = (0,1)\cap\mathbb{Q}$ is also $G_{\delta}$. This contradicts claim 1.
+Therefore $X$ is not $G_{\delta}$.
+\end{claimproof}
+
+{\bf Claim 5:} $X$ is Borel.
+\begin{claimproof}
+Let $a \in \mathbb{R}$. Then $a = (-\infty, a)^{c} \cap (a, \infty)^{c} \in \mathcal{B}(\mathbb{R})$. Therefore every singleton is Borel. Thus
+$\mathbb{Q}$ is Borel since it is the countable union of singletons. This implies that $\mathbb{Q}^{c}$ is Borel. Further, since all open 
+and all closed sets are also Borel, $(0,1)$ and $[2,3]$ are Borel. Therefore $X = \left((0,1)\cap\mathbb{Q} \right) \cup \left( [2,3]\cap\mathbb{Q}^{c} 
+\right)$ is Borel since $\mathcal{B}(\mathbb{R})$ is closed under complementation and finite unions and intersections.
+\end{claimproof}
+
+
+\newpage
+\section*{2 [RF 2.12]}
+Show that every interval is a Borel set.
+
+\section*{Solution}
+\begin{proof}
+Let $a \in \mathbb{R}$. Then $(a, \infty)$ is an open set, so $(a,\infty) \in \mathcal{B}(\mathbb{R})$ by definition. Therefore, by Question (1) of
+Homework 3, all intervals are Borel since $\mathcal{B}(\mathbb{R})$ is a $\sigma$-algebra.
+\end{proof}
+
+
+
+
+
+
+\newpage
+\section*{3 [RF 2.13]}
+Show that (i) the translate of an $F_{\sigma}$ is also $F_{\sigma}$, (ii) the translate of a $G_{\delta}$ is also $G_{\delta}$, and (iii) the
+translate of a set of measure zero also has measure zero.
+
+\section*{Solution}
+{\bf (i)}
+\begin{proof}
+Let $F\subseteq \mathbb{R}$ be $F_{\sigma}$. Let $x\in\mathbb{R}$. By definition of $F_{\sigma}$, $F = \cup_{k=0}^{\infty}E_{k}$, where
+$E_{k}\subseteq \mathbb{R}$ is closed. Denote $F + x = \left\{ y + x : y \in F \right\}$.
+
+\underline{Claim 1:} For each $k \in \mathbb{N}$, $E_{k} + x = \left\{ y + x : y \in E_{k} \right\}$ is closed.
+
+\begin{claimproof}
+Let $k \in \mathbb{N}$ and $y \in (E_{k} + x)^{c} = \left\{ y + x : y \in E_{k}^{c} \right\}$. Then $y - x \in E_{k}^{c}$. Since $E_{k}^{c}$ is open,
+there exists an $\epsilon > 0$ such that $(y - x - \epsilon, y - x + \epsilon) \subseteq E_{k}^{c}$. Therefore $(y - \epsilon, y + \epsilon) \subseteq
+(E_{k} + x)^{c}$ by definition. So $(E_{k} + x)^{c}$ is open. Hence $E_{k} + x$ is closed.
+\end{claimproof}
+
+By claim 1, 
+\[ F + x = \left( \bigcup_{k=0}^{\infty}E_{k} \right) + x = \bigcup_{k=0}^{\infty}(E_{k} + x) \] 
+is the countable union of closed sets. Thus $F + x$ is $F_{\sigma}$.
+\end{proof}
+
+{\bf (ii)}
+\begin{proof}
+Let $G \subseteq \mathbb{R}$ be $G_{\delta}$. Let $x \in \mathbb{R}$. By definition of $G_{\delta}$, $G = \cap_{k=0}^{\infty}\mathcal{O}_{k}$ where
+$\mathcal{O}_{k} \subseteq \mathbb{R}$ is open for each $k \in \mathbb{N}$. Denote $G + x + \left\{ y + x : y \in G \right\}$.
+
+\underline{Claim 1:} For each $k \in \mathbb{N}$, $\mathcal{O}_{k} + x = \left\{ y + x : y \in \mathcal{O}_{k} \right\}$ is open.
+
+\begin{claimproof}
+Let $k\in\mathbb{N}$ and $y \in \mathcal{O}_{k}$. Then $y - x \in \mathcal{O}_{k}$. Since $\mathcal{O}_{k}$ is open, there exists an $\epsilon > 0$
+such that $(y - x - \epsilon, y - x + \epsilon) \subseteq \mathcal{O}_{k}$. Hence $(y - \epsilon, y + \epsilon) \subseteq \mathcal{O}_{k} + x$ by
+definition. Thus $\mathcal{O}_{k} + x$ is open.
+\end{claimproof}
+
+By claim 1,
+\[ G + x = \left( \bigcap_{k=0}^{\infty}\mathcal{O}_{k} \right) + x = \bigcap_{k=0}^{\infty}(\mathcal{O}_{k} + x) \]
+is the countable intersection of open sets. Therefore $G + x$ is $G_{\delta}$.
+\end{proof}
+
+{\bf (iii)}
+\begin{proof}
+Let $\subseteq \mathbb{R}$ have measure 0. Let $x \in \mathbb{R}$. Denote 
+\[ S = \left\{ \sum_{k=0}^{\infty}\ell(I_{k}) : I_{k} \neq \emptyset\text{ is
+open, bounded interval for each }k \in \mathbb{N}, \text{ and }\bigcup_{\mathbb{N}}I_{k}\supseteq E + x \right\}. \]
+Let $\epsilon > 0$. By Royden and Fitzpatrick's definition of outer measure, we can choose a family $\left\{ I_{k} \right\}_{k=0}^{\infty}$ of
+non-empty, open, bounded intervals such that $\cup_{k=0}^{\infty}I_{k}\supseteq E$ and $\sum_{k=0}^{\infty}\ell(I_{k}) < \epsilon$.
+
+\underline{Claim 1:} Denote $I_{k} + x = \left\{ y + x : y \in I_{k} \right\}$ for each $k \in \mathbb{N}$. Then $\sum_{k=0}^{\infty}\ell(I_{k} + x) \in S$.
+
+\begin{claimproof}
+Since $E\subseteq \cup_{k=0}^{\infty}I_{k}$, 
+\[ E + x \subseteq \left( \bigcup_{k=0}^{\infty} I_{k}\right) + x = \bigcup_{k=0}^{\infty}(I_{k} + x). \]
+Now, let $k \in \mathbb{N}$. Then $I_{k} + x \neq \emptyset$ since $I_{k} \neq \emptyset$. Since $I_{k}$ is bounded, 
+there exists some $M_{k} \in [0, \infty)$ such that $x < M_{k}$ for all $x \in I_{k}$. Thus $I_{k} + x$ is bounded by $M_{k} + x$. 
+Further, by claim 1 in the proof of part (ii), $I_{k} + x$ is open. Lastly, since the translate of an interval is still an interval, $I_{k} + x$ is an interval. 
+Therefore all of the criteria for membership in $S$ are satisfied, so $\sum_{k=0}^{\infty}\ell(I_{k} + x) \in S$.
+\end{claimproof}
+
+\underline{Claim 2:} $\ell(I_{k} + x) = \ell(I_{k})$ for each $k \in \mathbb{N}$.
+
+\begin{claimproof}
+Let $k\in\mathbb{N}$. Let $a$ and $b$ denote the left and right endpoints of $I_{k}$, respectively. Then $a + x$ and $b + x$ are the left and right
+endpoints of $I_{k} + x$. So 
+\[ \ell(I_{k} + x) = |(a + x) - (b + x)| = |a - b| = \ell(I_{k}). \]
+\end{claimproof}
+
+By claim 2,
+\[ \sum_{k=0}^{\infty}\ell(I_{k} + x) = \sum_{k=0}^{\infty}\ell(I_{k}) < \epsilon. \]
+Therefore, by claim 1, 
+\[ \inf S = \mu^{*}(E + x) < \epsilon. \]
+Since $\epsilon > 0$ was arbitrary, $\mu^{*}(E + x) = 0$.
+\end{proof}
+
+
+
+
+
+
+
+
+\newpage
+\section*{4 [RF 2.17]}
+Show that a set $E$ is measurable if and only if for each $\epsilon > 0$, there is a closed set $F$ and open set $\mathcal{O}$ for which $F \subseteq E\subseteq
+\mathcal{O}$ and $\mu^{*}(\mathcal{O}\setminus F) < \epsilon$.
+
+\section*{Solution}
+\begin{proof}
+Let $E \subseteq \mathbb{R}$.
+
+$(\Rightarrow)$ Assume $E$ is measurable. Let $\epsilon > 0$. By Theorem (II)(3)(viii), there exists an open set $\mathcal{O}$ such that $\mathbb{R}
+\supseteq \mathcal{O} \supseteq E$ and $\mu^{*}(\mathcal{O} \setminus E) < \epsilon / 2$, and a closed set $F$ such that $F \subseteq E$ and $\mu^{*}(E\setminus F) <
+\epsilon / 2$. Now, since $\mathcal{O} \supseteq E \supseteq F$, 
+\begin{align*}
+\mathcal{O} \setminus F = \mathcal{O}\cap F^{c} & = (\mathcal{O}\cap F^{c} \cap E^{c}) \cup (\mathcal{O}\cap F^{c} \cap E) \\
+& = \left( \mathcal{O}\cap E^{c} \right)\cup \left( E\cap F^{c} \right) \\
+& = (\mathcal{O} \setminus E) \cup (E\setminus F). 
+\end{align*}
+Thus, by the subadditivity of outer measure,
+\[ \mu^{*}(\mathcal{O}\setminus F) \leq \mu^{*}(\mathcal{O}\setminus E) + \mu^{*}(E\setminus F) < \epsilon / 2  + \epsilon / 2 = \epsilon. \]
+
+$(\Leftarrow)$ Now assume the converse. Let $\epsilon > 0$. By assumption, we can choose a closed set $F$ and open set $\mathcal{O}$ such that $F\subseteq E
+\subseteq \mathcal{O}$, where $\mu^{*}(\mathcal{O}\setminus F) < \epsilon$. Then, by the monotonicity of outer measure,
+\[ \epsilon > \mu^{*}(\mathcal{O} \setminus F) \geq \mu^{*}(\mathcal{O} \setminus E). \]
+Therefore, by Theorem (II)(3)(viii), $E$ is measurable.
+\end{proof}
+
+
+
+
+
+
+\newpage
+\section*{5 [RF 2.20]}
+(Legesgue) Let $E$ have finite outer measure. Show that $E$ is measurable if and only if for each open, bounded interval $(a,b)$,
+\[ b - a = \mu^{*}\left( (a,b) \cap E \right) + \mu^{*}\left( (a,b) \setminus E \right). \]
+
+\section*{Solution}
+\begin{proof}
+Let $E\subset \mathbb{R}$ have finite measure. We need to show that $\mu^{*}(X) \geq \mu^{*}(X\cap E) + \mu^{*}(X\cap E^{c})$ (The ``$\leq$'' direction
+is trivial due to the subadditivity of outer measure).
+
+$(\Rightarrow)$ Assume $E$ is measurable. Let $(a,b) \subseteq \mathbb{R}$ be a bounded, open
+interval. Then by Proposition (II)(1)(viii), and because $(a,b)$ bounded, $\mu^{*}\left( (a,b) \right) = b - a$. Thus, by the measurability of $E$,
+\[ b - a = \mu^{*}\left( (a,b) \cap E \right) + \mu^{*}\left( (a,b) \cap E^{c} \right) = \mu^{*}\left( (a,b) \cap E \right) + \mu^{*}\left(
+(a,b)\setminus E \right). \]
+
+$(\Leftarrow)$ Assume that for each open, bounded interval $(a,b)$, 
+\begin{equation}
+b - a = \mu^{*}\left( (a,b) \cap E \right) + \mu^{*}\left( (a,b) \setminus E
+\right).
+\label{eqn:5.0}
+\end{equation}
+Let $X \subseteq \mathbb{R}$.
+
+\underline{Case 1:} $\mu^{*}(X) = \infty$.
+
+Trivial. If $\mu^{*}(X) = \infty$, then $\mu^{*}(X) \geq \mu^{*}(X\cap E) + \mu^{*}(X\cap E^{c})$. Hence $E$ is measurable.
+
+\underline{Case 2:} $\mu^{*}(X) < \infty$.
+
+Assume $\mu^{*}(X) < \infty$. Let $\epsilon > 0$. Then by Royden and Fitzpatrick's definition of outer measure, we can choose a family $\left\{ I_{k}
+\right\}_{k=0}^{\infty}$ of non-empty, open, bounded intervals such that $\cup_{k=0}^{\infty}I_{k} \supseteq X$ and 
+\begin{equation}
+\sum_{k=0}^{\infty}\ell(I_{k}) < \mu^{*}(X) + \epsilon.
+\label{eqn:5.1}
+\end{equation}
+Since $\cup_{k=0}^{\infty}I_{k} \supseteq X$,
+\[ E\cap \left( \bigcup_{k=0}^{\infty}I_{k} \right) \supseteq E \cap X  \qquad \text{and}\qquad E^{c} \cap \left( \bigcup_{k=0}^{\infty}I_{k} \right)
+\supseteq E^{c} \cap X. \]
+Thus, by the monotonicity and countable subadditivity of outer measure, 
+\begin{align}
+\mu^{*}\left( E \cap X \right) & \leq \mu^{*}\left( E\cap \bigcup_{k=0}^{\infty}I_{k} \right) = \mu^{*}\left( \bigcup_{k=0}^{\infty}I_{k}\cap E
+\right) \leq \sum_{k=0}^{\infty}\mu^{*}(I_{k}\cap E), \text{ and } \label{eqn:5.2} \\
+\mu^{*}\left( E^{c} \cap X \right) & \leq \mu^{*}\left( E^{c}\cap \bigcup_{k=0}^{\infty}I_{k} \right) = \mu^{*}\left( \bigcup_{k=0}^{\infty}I_{k}\cap
+E^{c} \right) \leq \sum_{k=0}^{\infty}\mu^{*}(I_{k}\cap E^{c}).
+\label{eqn:5.3}
+\end{align}
+Putting it all together, we have 
+\begin{align*}
+\mu^{*}(E\cap X) + \mu^{*}(E^{c} \cap X) & \stackrel{\ref{eqn:5.2},\ref{eqn:5.3}}{\leq} \sum_{k=0}^{\infty}\mu^{*}(I_{k}\cap E) + \sum_{k=0}^{\infty}\mu^{*}(I_{k}\cap E^{c}) \\
+& = \sum_{k=0}^{\infty}\left[ \mu^{*}(I_{k}\cap E) + \mu^{*}(I_{k}\cap E^{c}) \right] \\
+& \stackrel{\ref{eqn:5.0}}{=} \sum_{k=0}^{\infty}\ell(I_{k}) \\
+& \stackrel{\ref{eqn:5.1}}{<} \mu^{*}(X) + \epsilon.
+\end{align*}
+Since $\epsilon > 0$ was arbitrary,
+\[ \mu^{*}(E\cap X) + \mu^{*}(E^{c} \cap X) \leq \mu^{*}(X). \]
+\end{proof}
+
+
+
+
+\end{document}
+

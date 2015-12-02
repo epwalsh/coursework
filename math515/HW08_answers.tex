@@ -1,0 +1,148 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$\vspace{5mm}}
+
+\title{MATH 515: HW 8}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+%\maketitle
+
+\section*{1 [Example (IV)(1)(ii)(a)]}
+If $s$ is a step function on $[a,b]$, then 
+\[ \int_{a}^{b} s = \int_{[a,b]}sd\mu. \]
+
+\subsection*{Solution}
+\begin{proof}
+Let $s : [a,b] \rightarrow \mathbb{R}$ be a step function. Let $(x_{0}, \hdots, x_{n})$ be a partition of $[a,b]$ such that $f$ is constant with value
+$c_j$ on each subinterval $(x_{j-1},x_{j})$ for $j = 1,\hdots, n$. By HW 6 Question 1, $s$ is also a simple function on $[a,b]$. Let $\text{ran}(s) = \left\{
+a_{1}, \hdots, a_{m} \right\}$. Now, for $i = 1,\hdots, m$, let $F_{i} = \left\{ j : c_{j} = a_{i} \right\}$. 
+
+\underline{Claim 1:} $\left\{ F_{i} \right\}_{i=1}^{m}$ is a pairwise disjoint sequence of sets such that $\cup_{i=1}^{m}F_{i} = \left\{ 1,\hdots,
+n \right\}$.
+\begin{claimproof}
+Suppose $i_{0},i_{1} \in \left\{ 1,\hdots, m \right\}$ such that $i_{0}\neq i_{1}$. Since $a_{i_{0}} \neq a_{i_{1}}$,
+\[ \left\{ j : c_{j} = a_{i_{0}} \right\} \cap \left\{ j : c_{j} = a_{i_{1}} \right\} = \emptyset. \]
+Thus $\left\{ F_{i} \right\}_{i=1}^{m}$ is pairwise disjoint. Now, clearly $\cup_{i=1}^{m}F_{i} \subseteq \left\{ 1,\hdots, n \right\}$ by construction. Further,
+for all $1\leq j \leq n$, $c_{j} = s(x)$ for all $x \in (x_{j-1},x_{j})$. Therefore $c_{j} \in ran(s)$, and so $c_{j} = a_{i'}$ for some $i' \in 
+\left\{ 1,\hdots, m \right\}$. Therefore $j \in F_{i'}$. Hence $\left\{ 1,\hdots, n \right\} \subseteq \cup_{i=1}^{m}F_{i}$.
+\end{claimproof}
+
+By Proposition (I)(1)(xi) and claim 1,
+\begin{equation}
+\int_{a}^{b}s = \sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1}) = \sum_{i=1}^{m}\sum_{j\in F_{i}}c_{j}(x_{j} - x_{j-1}) = \sum_{i=1}^{m}\sum_{j\in
+F_{i}}a_{i}\mu\left( (x_{j-1},x_{j}) \right).
+\label{1.1}
+\end{equation}
+Further, by the construction of $F_{i}$,
+\begin{equation}
+\bigcup_{j\in F_{i}}(x_{j-1},x_{j}) = s^{-1}[\{a_{i}\}] - s^{-1}[\{a_{i}\}]\cap \bigcup_{j\in F_{j}}\{x_{j-1},x_{j}\},
+\label{1.3}
+\end{equation}
+for each $i \in \left\{ 1,\hdots, m \right\}$. Thus, using finite additivity and the excision property,
+\begin{align}
+\sum_{i=1}^{m}a_{i}\sum_{j\in F_{i}} \mu\left( (x_{j-1},x_{j}) \right) & = \sum_{i=1}^{m}a_{i}\mu\left( \bigcup_{j\in F_{i}}(x_{j-1},x_{j}) \right) \nonumber \\
+& \stackrel{\eqref{1.3}}{=} \sum_{i=1}^{m}a_{i}\mu\left( s^{-1}[\{a_{i}\}] - s^{-1}[\{a_{i}\}]\cap \bigcup_{j\in F_{i}}\{x_{j-1},x_{j}\} \right) \nonumber \\
+& = \sum_{i=1}^{m}a_{i}\left[ \mu\left( s^{-1}[\{a_{i}\}] \right)- \mu\left( s^{-1}[\{a_{i}\}]\cap\bigcup_{j\in F_{i}}\{x_{j-1},x_{j}\} \right)  \right] \nonumber \\
+& = \sum_{i=1}^{m}a_{i}\mu\left( s^{-1}[\{a_{i}\}] \right) = \int_{[a,b]}sd\mu. \label{1.2}
+\end{align}
+
+Thus by \eqref{1.1} and \eqref{1.2} we have the equality.
+\end{proof}
+
+
+\newpage 
+\section*{2 [RF 4.16]}
+Let $f$ be a non-negatvie, bounded, measurable function on a set of finite measure $E$.\footnote{We actually don't need the assumptions that $f$ is
+bounded and $\mu(E) < \infty$.} Assume 
+\[ \int_{E}fd\mu = 0.\] 
+Show that $f = 0$ a.e. on $E$.
+
+\subsection*{Solution}
+\begin{proof}
+Let $A = \left\{ x \in E : f(x) > 0 \right\}$. We want to show that $\mu(A) = 0$. Let $n \in \mathbb{N}$. Define $A_{n} = \left\{ x \in E : f(x) >
+2^{-n} \right\}$. Since $f$ is measurable, $A_{n}$ is measurable. Thus,
+\[ 0 = \int_{E}fd\mu \geq \int_{E}f\chi_{A_{n}}d\mu = \int_{A_{n}}fd\mu \geq \int_{A_{n}}2^{-n}d\mu = 2^{-n}\mu(A_{n}), \]
+which implies $\mu(A_{n}) = 0$. Now, 
+\[ A = \bigcup_{n=0}^{\infty}A_{n}, \]
+so by the continuity of measure, $\mu(A) = \lim_{n\rightarrow\infty}\mu(A_{n}) = 0$. Therefore $f = 0$ a.e. on $E$.
+\end{proof}
+
+
+\newpage 
+\section*{3 [RF 4.17]}
+Let $E$ be a set of measure zero and define $f \equiv \infty$ on $E$. Show that $\int_{E}fd\mu = 0$.
+
+\subsection*{Solution}
+\begin{proof}
+For each $n \in \mathbb{N}$, let $s_{n} : E \rightarrow [0,\infty)$ be defined by $s_{n}(x) = n$ for all $x \in E$. Then 
+\[ \int_{E} s_{n}d\mu = n\cdot \mu(E) = 0, \ \text{ for all } n \in \mathbb{N}. \]
+Now, since $\left\{ s_{n} \right\}_{n \in \mathbb{N}}$ is a sequence of measurable increasing functions and $s_{n}\rightarrow f$ on $E$,
+\[ \int_{E}fd\mu = \lim_{n\rightarrow\infty}\int_{E}s_{n}d\mu = 0, \]
+by the MCT.
+\end{proof}
+
+
+
+\newpage 
+\section*{4 [RF 4.25]}
+Let $\left\{ f_{n} \right\}_{n\in\mathbb{N}}$ be a sequence of non-negative, measurable functions on $E$ that converges pointwise on $E$ to $f$.
+Suppose $f_{n} \leq f$ on $E$ for each $n \in \mathbb{N}$. Show that 
+\[ \lim_{n\rightarrow\infty}\int_{E}f_{n}d\mu = \int_{E}fd\mu. \]
+
+\subsection*{Solution} 
+\begin{proof}
+By Fatou's Lemma,
+\begin{equation}
+\int_{E}fd\mu = \int_{E}\liminf_{n\rightarrow\infty}f_{n}d\mu \leq \liminf_{n\rightarrow\infty}\int_{E}f_{n}d\mu.
+\label{4.1}
+\end{equation}
+Further, since $f_{n} \leq f$ for each $n \in \mathbb{N}$,
+\[ \int_{E}f_{n}d\mu \leq \int_{E}fd\mu,\]
+by Proposition (IV)(2)(vi). Thus,
+\begin{equation}
+\limsup_{n\rightarrow\infty}\int_{E}f_{n}d\mu \leq \int_{E}fd\mu.
+\label{4.2}
+\end{equation}
+So by \eqref{4.1} and \eqref{4.2} we have
+\[ \lim_{n\rightarrow\infty}\int_{E}f_{n}d\mu = \int_{E}fd\mu. \]
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

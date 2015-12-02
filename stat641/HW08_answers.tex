@@ -1,0 +1,388 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\bf]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\stepcounter{ClaimCounter}\par\noindent\underline{Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter\vspace{5mm}}
+
+\title{STAT 641: HW 8}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{4.3}
+Let $\nu$ be the counting measure on $[0,1]$ and $\int_{[0,1]}hd\mu < \infty$ for some non-negative function $h$. Show that $B = \left\{ x : h(x) > 0
+\right\}$ is countable.
+
+\subsection*{Solution}
+\begin{Proof}
+For $n \geq 1$, define $B_{n} = \left\{ x \in [0,1] : h(x) > 1/n \right\}$. Then 
+\[ \infty > \int_{[0,1]}hd\nu \geq \int_{B_{n}}hd\nu \geq \int_{B_{n}}\frac{1}{n}d\nu = \frac{1}{n}\nu(B_{n}). \]
+Therefore $\nu(B_{n}) < \infty$, so $B_{n}$ is finite since $\nu$ is the counting measure. Thus $B = \cup_{n\geq 1}B_{n}$ is the countable union of
+finite sets, and so $B$ is countable.
+\end{Proof}
+
+
+\newpage 
+\section*{4.4}
+{\bf Proposition 4.1.2.} Let $\nu, \mu, \mu_{1}, \mu_{2}, \hdots$ be $\sigma$-finite measures on a measurable space $(\Omega, \mathcal{F})$.
+\begin{enumerate}[label=(\roman*)]
+\item If $\mu_{1} \ll \mu_{2}$ and $\mu_{2} \ll \mu_{3}$, then $\mu_{1} \ll \mu_{3}$ and $\frac{d\mu_{1}}{d\mu_{2}} =
+\frac{d\mu_{1}}{d\mu_{2}}\frac{d\mu_{2}}{d\mu_{3}} \ \ \text{a.e.}\  (\mu_{3})$. 
+\item Suppose that $\mu_{1}$ and $\mu_{2}$ are dominated by $\mu_{3}$. Then for any $\alpha, \beta \geq 0$, $\alpha\mu_{1} + \beta\mu_{2}$ is
+dominated by $\mu_{3}$ and $\frac{d(\alpha\mu_{1} + \beta\mu_{2})}{d\mu_{3}} = \alpha\frac{d\mu_{1}}{d\mu_{3}} + \beta\frac{d\mu_{2}}{d\mu_{3}} \ \
+\text{a.e.}\ (\mu_{3})$.
+\item If $\mu \ll \nu$ and $\frac{d\mu}{d\nu} > 0$ a.e. ($\nu$), then $\nu \ll \mu$ and $\frac{d\nu}{d\mu} = \left( \frac{d\mu}{d\nu} \right)^{-1}\ \
+\text{a.e.}\ (\mu)$. 
+\item Let $\left\{ \mu_{n} \right\}_{n\geq 1}$ be a sequence of measures are $\left\{ \alpha_{n} \right\}_{n\geq 1}$ be a sequence of positive real
+numbers. Define $\mu = \sum_{n=1}^{\infty}\alpha_{n}\mu_{n}$.
+\begin{enumerate}[label=(\alph*)]
+\item Then, $\mu \ll \nu$ if and only if $\mu_{n} \ll \nu$ for each $n\geq 1$, and in this case,
+\[ \frac{d\mu}{d\nu} = \sum_{n=1}^{\infty}\alpha_{n}\frac{d\mu_{n}}{d\nu}\ \ a.e. \ (\nu). \]
+\item $\mu \perp \nu$ if and only if $\mu_{n} \perp \nu$ for all $n\geq 1$.
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Solution}
+First we will prove the following lemma.
+
+\begin{Lemma}
+Suppose $\mu, \nu$ are measures on a measurable space $(\Omega, \mathcal{F})$ and $h : \Omega \rightarrow [0,\infty]$ is measurable such that $\mu(A) =
+\int_{A}hd\nu$ for all $A \in \mathcal{F}$. If $f : \Omega \rightarrow [0,\infty]$ is measurable, then 
+\[ \int_{A}fd\mu = \int_{A}fhd\nu\ \   \forall A \in \mathcal{F}. \]
+\end{Lemma}
+\begin{Proof}
+Let $A \in \mathcal{F}$.
+
+\begin{claim}
+If $f \equiv 1_{B}$ for some $B \in \mathcal{F}$, then $\int_{A}fd\mu = \int_{A}fhd\nu$.
+\end{claim}
+\begin{claimproof}
+Note that $1_{A}1_{B} = 1_{A\cap B}$. Thus,
+\begin{align*}
+\int_{A}fd\mu = \int_{A}1_{B}d\mu = \int 1_{A}1_{B}d\mu = \int 1_{A\cap B}d\mu = \mu(A\cap B) = \int_{A\cap B} hd\nu & = \int 1_{A\cap B}hd\nu \\
+& = \int 1_{A}1_{B}hd\nu \\
+& = \int_{A}1_{B}hd\nu = \int_{A}fhd\nu.
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+If $f$ is a non-negative simple function on $\Omega$ then $\int_{A}fd\mu = \int_{A}fhd\nu$.
+\end{claim}
+\begin{claimproof}
+Follows from the linearity of the integral and claim 1.
+\end{claimproof}
+
+\begin{claim}
+If $f$ is any non-negative measurable function on $\Omega$, then $\int_{A}fd\mu = \int_{A}fhd\nu$.
+\end{claim}
+\begin{claimproof}
+Suppose $\left\{ f_{n} \right\}_{n\geq 1}$ is an increasing sequence of non-negative simple functions such that $f_{n}\rightarrow f$. By definition,
+\begin{equation}
+\int_{A}fd\mu = \lim_{n\rightarrow\infty}\int_{A} f_{n}d\mu,
+\label{2.1}
+\end{equation}
+and by claim 2,
+\begin{equation}
+\lim_{n\rightarrow\infty}\int_{A}f_{n}d\mu = \lim_{n\rightarrow\infty}\int_{A}f_{n}hd\nu.
+\label{2.2}
+\end{equation}
+Further, since $f_{n} \leq f_{n+1}$, $f_{n}h \leq f_{n+1}h$ for all $n \geq 1$. Thus, by MCT,
+\begin{equation}
+\lim_{n\rightarrow\infty}\int_{A}f_{n}hd\nu = \int_{A}\lim_{n\rightarrow\infty}f_{n}hd\nu = \int_{A}fhd\nu.
+\label{2.3}
+\end{equation}
+So by \eqref{2.1}, \eqref{2.2} and \eqref{2.3}, we are done.
+\end{claimproof}
+
+\vspace{-5mm}
+\end{Proof}
+
+Now we will prove Proposition 4.1.2.
+
+{\bf Part (i)}
+
+\begin{Proof}
+Let $h_{12} := \frac{d\mu_{1}}{d\mu_{2}}$, $h_{23} := \frac{d\mu_{2}}{d\mu_{3}}$. Let $A \in \mathcal{F}$. Then, by Lemma 1,
+\[ \mu_{1}(A) = \int_{A}h_{12}d\mu_{2} = \int_{A}h_{12}h_{23}d\mu_{3}. \]
+By uniqueness, $\frac{d\mu_{1}}{d\mu_{3}} = h_{12}h_{23}$ a.e. ($\mu_{3}$). This also implies $\mu_{1} \ll \mu_{3}$.
+\end{Proof}
+
+{\bf Part (ii)}
+
+\begin{Proof}
+Let $h_{13} := \frac{d\mu_{1}}{d\mu_{3}}$ and $h_{23} := \frac{d\mu_{2}}{d\mu_{3}}$. Let $A \in \mathcal{F}$ and $\alpha,\beta \geq 0$. Then 
+\[ \alpha\mu_{1}(A) + \beta\mu_{2}(A) = \alpha\int_{A}h_{13}d\mu_{3}  +\beta\int_{A}h_{23}d\mu_{3} = \int_{A}(\alpha h_{13} + \beta h_{23})d\mu_{3}.\]
+Thus, by uniqueness, $\frac{d(\alpha\mu_{1} + \beta\mu_{2})}{d\mu_{3}} = \alpha h_{13} + \beta h_{23}$ a.e. ($\mu_{3}$). This also implies $\alpha
+\mu_{1} + \beta \mu_{2} \ll \mu_{3}$.
+\end{Proof}
+
+{\bf Part (iii)}
+
+\begin{Proof}
+Suppose $\mu \ll \nu$ and suppose $h := \frac{d\mu}{d\nu} > 0$ a.e. ($\nu$). Let $A \in \mathcal{F}$. Then 
+\[ \nu(A) = \int_{A}1d\nu = \int_{A}\frac{1}{h}hd\nu = \int_{A}\frac{1}{h}d\mu, \]
+by Lemma 1. Therefore $\frac{d\nu}{d\mu} = \frac{1}{h}$ a.e. ($\mu$) by uniqueness. This also implies $\nu \ll \mu$.
+\end{Proof}
+
+{\bf Part (iv)}
+\begin{Proof}
+Let $A, B \in \mathcal{F}$ such that $\nu(B) = 0$. Let $h_{n} := \frac{d\mu_{n}}{d\nu}$ for all $n\geq 1$.
+\begin{enumerate}[label=(\alph*)]
+\item Note that $\mu(B) = 0$ if and only if $\sum_{n=1}^{\infty}\alpha_{n}\mu_{n}(B) = 0$ if and only if $\mu_{n}(B) = 0$ for all $n\geq 1$, since all
+$\alpha_{n}$'s are positive. Hence
+$\mu \ll \nu$ if and only if $\mu_{n} \ll \nu$ for all $n \geq 1$. Further, by Corollary 2.3.5,
+\[ \mu(A) = \sum_{n=1}^{\infty}\alpha_{n}\mu_{n}(A) = \sum_{n=1}^{\infty}\alpha_{n}\int_{A}h_{n}d\nu = \int_{A}\left( \sum_{n=1}^{\infty}\alpha_{n}h_{n}
+\right)d\nu. \]
+Thus, by uniqueness, $\frac{d\mu}{d\nu} = \sum_{n=1}^{\infty}\alpha_{n}h_{n}$ a.e. ($\nu$).
+\item By the same reasoning as in (a), $\mu(B^{c}) = 0$ if and only if $\sum_{n=1}^{\infty}\alpha_{n}\mu_{n}(B^{c}) = 0$ if and only if $\mu_{n}(B^{c}) = 0$ for all $n\geq
+1$. Hence $\mu \perp \nu$ if and only if $\mu_{n} \perp \nu$ for all $n \geq 1$.
+\end{enumerate}
+\end{Proof}
+
+
+
+\newpage 
+\section*{4.5}
+Find the Legesgue decomposition of $\mu$ w.r.t. $\nu$ and the Radon-Nikodym derivate $\frac{d\mu_{a}}{d\nu}$ in the following cases where $\mu_{a}$ is
+the absolutely continuous component of $\mu$ w.r.t. $\nu$.
+\begin{enumerate}[label=(\alph*)]
+\item $\mu = \text{N}(0,1)$ and $\nu = \text{Exponential}(1)$.
+\item $\mu = \text{Exponential}(1)$ and $\nu = \text{N}(0,1)$.
+\item $\mu = \mu_{1} + \mu_{2}$, where $\mu_{1} = \text{N}(0,1)$, $\mu_{2} = \text{Poisson}(1)$, and $\nu = \text{Cauchy}(0,1)$.
+\item $\mu = \mu_{1} + \mu_{2}$, $\nu = \text{Geometric}(p)$, for $0 < p < 1$, where $\mu_{1} = \text{N}(0,1)$ and $\mu_{2} = \text{Poisson}(1)$.
+\item $\mu = \mu_{1} + \mu_{2}$, $\nu = \nu_{1} + \nu_{2}$, where $\mu_{1} = \text{N}(0,1)$, $\mu_{2} = \text{Poisson}(1)$, $\nu_{1} =
+\text{Cauchy}(0,1)$, and $\nu_{2} = \text{Geometric}(p)$, for $0 < p < 1$.
+\item $\mu = \text{Binomial}(10, 1/2)$, $\nu = \text{Poisson}(1)$.
+\end{enumerate}
+
+\subsection*{Solution}
+For the extend of this problem, let $\phi(x) := \frac{1}{\sqrt{2\pi}}e^{-x^{2}}{2}$ for all $x \in \mathbb{R}$. Also, define the natural numbers
+$\mathbb{N} := \left\{ 0, 1, \hdots \right\}$.
+
+{\bf (a)}
+For $A \in \mathcal{B}(\mathbb{R})$, define $m^{*}(A) := m(A\cap (0,\infty))$. Then $m^{*}(A) = \int_{A}1_{(0,\infty)}dm$. Then let
+\[ \mu_{a}(A) := \int_{A}\phi(x)1_{(0,\infty)}(x)dm \stackrel{\text{Lemma 1}}{=} \int_{A}\phi(x)dm^{*} \qquad \text{and} \qquad \mu_{s}(A) := \int_{A}\phi(x)1_{(-\infty,0]}(x)dm. \]
+Clearly $\mu = \mu_{a} + \mu_s$. Also note that 
+\[ \nu(A) = \int_{A}f_{\nu}dm = \int_{A}e^{-x}1_{(0,\infty)}dm = \int_{A}e^{-x}dm^{*},\]  
+by Lemma 1.
+\begin{claim}
+$\mu_{a} \ll \nu$.
+\end{claim}
+\begin{claimproof}
+Let $A \in \mathcal{B}(\mathbb{R})$. Then $\nu(A) = 0$ implies $\int_{A}e^{-x}m^{*} = \int e^{-x}1_{A}(x)dm^{*} = 0$,
+which implies $e^{-x}1_{A} = 0$ a.e. ($m^{*}$). Thus $1_{A} = 0$ a.e. ($m^*$) since $e^{-x} > 0$ a.e. ($m^*$). So 
+\[ \mu_{a}(A) = \int \phi(x)1_{A}dm^{*} = 0. \]
+\end{claimproof}
+
+\begin{claim}
+$\mu_{s} \perp \nu$.
+\end{claim}
+\begin{claimproof}
+Take $B := (-\infty, 0]$. Then $\nu(B) = 0$ and $\mu_{s}(B^{c}) = 0$. 
+\end{claimproof}
+
+\begin{claim}
+$\frac{d\mu_{a}}{d\nu}(x) = \frac{\phi(x)}{e^{-x}}$ a.e. $(\nu)$.
+\end{claim}
+\begin{claimproof}
+By Proposition 4.1.2 (iii), $\frac{dm^{*}}{d\nu}(x) = \frac{1}{e^{-x}}$ and $m^{*} \ll \nu$. Thus, since $\mu_{a} \ll m^* \ll \nu$,
+\[ \frac{d\mu_{a}}{d\nu}(x) = \frac{d\mu_{a}}{dm^{*}}(x) \cdot \frac{dm^*}{d\nu}(x) = \frac{\phi(x) }{e^{-x}} \text{ a.e. }(\nu) \]
+by Proposition 4.1.2 (i).
+\end{claimproof}
+
+
+
+{\bf (b)} 
+For $A \in \mathcal{B}(\mathbb{R})$, define 
+\[ \mu_{a}(A) := \mu(A) \qquad \text{and}\qquad \mu_{s}(A) \equiv 0. \]
+\begin{claim}
+$\mu_{a} \ll \nu$.
+\end{claim}
+\begin{claimproof}
+Similar to claim 1, we have 
+\[ \mu(A) = 0 \Rightarrow 1_{A}(x) = 0\text{ a.e. }(m) \Rightarrow \mu_{a}(A) = 0. \]
+\end{claimproof}
+
+\begin{claim}
+$\mu_{s} \perp \nu$.
+\end{claim}
+\begin{claimproof}
+Choose any $B \in \mathcal{B}(\mathbb{R})$ such that $\nu(B) = 0$.
+\end{claimproof}
+
+\begin{claim}
+$\frac{d\mu_{a}}{d\nu}(x) = \frac{e^{-x}1_{(0,\infty)}(x)}{\phi(x)}$.
+\end{claim}
+\begin{claimproof}
+Proceed as in claim 3, using Proposition 4.1.2 and $m$ as the reference measure to derive the fact that 
+\[ \frac{d\mu_{a}}{d\nu} = \frac{d\mu_{a}}{dm} \cdot \frac{dm}{d\nu} = \frac{f_{\mu_{a}}}{f_{\nu}}. \]
+\end{claimproof}
+
+
+
+{\bf (c)}
+Let $\mu_{a} := \mu_{1}$ and $\mu_{s} := \mu_{2}$.
+
+\begin{claim}
+$\mu_{a} \ll \nu$.
+\end{claim}
+\begin{claimproof}
+Obvious since $f_{\mu_{a}}, f_{\nu} > 0$ a.e. ($m$) and $\mu_{a}, \nu \ll m$.
+\end{claimproof}
+
+\begin{claim}
+$\mu_{2} \perp \nu$.
+\end{claim}
+\begin{claimproof}
+Take $B := \mathbb{N}$.
+\end{claimproof}
+
+\begin{claim}
+$\frac{d\mu_{a}}{d\nu}(x) = \phi(x)\cdot \pi(1 + x^{2})$.
+\end{claim}
+\begin{claimproof}
+Proceed as in claim 3 using $m$ as the reference measure.
+\end{claimproof}
+
+
+
+{\bf (d)}
+Let $\mu_{c}$ be the counting measure and define the measure $\mu_{c}^*(A) := \mu_{c}(A\cap\mathbb{N})$, for all $A \in \mathcal{B}(\mathbb{R})$. 
+Then let $\mu_{a} := \mu_{2}$ and $\mu_{s} := \mu_{1}$.
+
+\begin{claim}
+$\mu_{a} \ll \nu$
+\end{claim}
+\begin{claimproof}
+Suppose $A \in \mathcal{B}(\mathbb{R})$ such that $\nu(A) = \sum_{i=0}^{\infty}p(1-p)^{i-1}1_{A}(i) = 0$. Then $1_{A}(i) = 0$ for all $i \in
+\mathbb{N}$. Thus $\mu_{a} = \sum_{i=0}^{\infty}\frac{1}{ei!}1_{A}(i) = 0$.
+\end{claimproof}
+
+\begin{claim}
+$\mu_{s} \perp \nu$.
+\end{claim}
+\begin{claimproof}
+Take $B = \mathbb{N}$.
+\end{claimproof}
+
+\begin{claim}
+$\frac{d\mu_{a}}{d\nu}(x) = \sum_{i=0}^{\infty}\frac{1}{p(1-p)^{i-1}ei!}1_{\{i\}}(x)$ a.e. $(\nu)$.
+\end{claim}
+\begin{claimproof}
+Let $A \in \mathcal{B}(\mathbb{R})$. Then, using Lemma 1,
+\[ \nu(A) = \sum_{i=0}^{\infty}p(1-p)^{i-1}1_{A}(i) = \int_{A}\sum_{i=0}^{\infty}p(1-p)^{i-1}1_{\{i\}}d\mu_{c} =
+\int_{A}\sum_{i=0}^{\infty}p(1-p)^{i-1}1_{\{i\}}d\mu_{c}^{*}. \]
+Therefore, since $\frac{d\nu}{d\mu_{c}^{*}} = \sum_{i=0}^{\infty}p(1-p)^{i-1}1_{\{i\}} > 0$ a.e. $(\mu_{c}^{*})$, $\mu_{c}^{*} \ll \nu$ and 
+\[ \frac{d\mu_{c}^{*}}{d\nu} = \frac{1}{\sum_{i=0}^{\infty}p(1-p)^{i-1}1_{\{i\}}} \ \text{ a.e. } (\mu_{c}^{*}), \]
+by Proposition 4.1.2 (iii). Further, using Lemma 1 again,
+\[ \mu_{a}(A) = \sum_{i=0}^{\infty}\frac{1}{ei!}1_{A}(i) = \int_{A}\sum_{i=0}^{\infty}\frac{1}{ei!}1_{\{i\}}d\mu_{c} =
+\int_{A}\sum_{i=0}^{\infty}\frac{1}{ei!}1_{\{i\}}d\mu_{c}^{*}. \]
+So $\frac{d\mu_{a}}{d\mu_{c}^{*}} = \sum_{i=0}^{\infty}\frac{1}{ei!}1_{\{i\}}$ a.e. $(\mu_{c}^{*})$. Now by applying Proposition 4.1.2 (i),
+\begin{align*}
+\frac{d\mu_{a}}{d\nu}(x) \stackrel{a.e.}{=} \frac{d\mu_{a}}{d\mu_{c}^{*}}(x)\cdot \frac{d\mu_{c}^{*}}{d\nu}(x) & \stackrel{a.e.}{=} 
+\left( \sum_{i=0}^{\infty}\frac{1}{ei!}1_{\{i\}}(x) \right)\cdot \left( \frac{1}{\sum_{i=0}^{\infty}p(1-p)^{i-1}1_{\{i\}}(x)} \right) \\
+& \stackrel{a.e.}{=} \sum_{i=0}^{\infty}\frac{1}{p(1-p)^{i-1}ei!}1_{\{i\}}(x).
+\end{align*}
+\end{claimproof}
+
+
+{\bf (e)}
+Let $\mu_{a} := \mu = \mu_{1} + \mu_{2}$ and $\mu_{s}(A) \equiv 0$ for all $A \in \mathcal{B}(\mathbb{R})$.
+
+\begin{claim}
+$\mu_{a} \ll \nu$.
+\end{claim}
+\begin{claimproof}
+Follows from the fact that $\mu_{1} \ll \nu_{1}$ and $\mu_{2} \ll \nu_{2}$.
+\end{claimproof}
+
+\begin{claim}
+$\mu_{s} \perp \nu$.
+\end{claim}
+\begin{claimproof}
+Choose any $B \in \mathcal{B}(\mathbb{R})$ such that $\nu(B) = 0$.
+\end{claimproof}
+
+\begin{claim}
+\[ \frac{d\mu_{a}}{d\nu} = \frac{\phi(x)1_{\mathbb{N}^{c}}(x) + \sum_{i=0}^{\infty}\frac{1}{ei!}1_{\{i\}}(x)}{\frac{1}{\pi(1+x^{2})}
+1_{\mathbb{N}^{c}}(x) + \sum_{i=1}^{\infty}p(1-p)^{i-1}1_{\{i\}}(x)}. \]
+\end{claim}
+\vspace{-10mm}
+\begin{claimproof}
+Let $\mu_{c}^{*}$ be defined as in (d). Suppose $A \in \mathcal{B}(\mathbb{R})$. First note that 
+\begin{align}
+m(A) & = m(A\setminus \mathbb{N}) = m(A\setminus \mathbb{N}) + \mu_{c}^{*}(A\setminus \mathbb{N}) = \int_{A}1_{\mathbb{N}^{c}}d(m + \mu_{c}^{*})
+\label{3.1} \\
+\mu_{c}^{*}(A) & = \mu_{c}^{*}(A\cap \mathbb{N}) = \mu_{c}^{*}(A\cap \mathbb{N}) + m(A\cap \mathbb{N}) = \int_{A}1_{\mathbb{N}}d(m + \mu_{c}^{*}).
+\label{3.2}
+\end{align}
+Then, by \eqref{3.1}, \eqref{3.2} and Lemma 1, we have
+\begin{align*}
+\mu_{1}(A) & = \int_{A}f_{\mu_{1}}dm = \int_{A}f_{\mu_{1}}1_{\mathbb{N}^{c}}d(m + \mu_{c}^{*}), \text{ and}\\
+\mu_{2}(A) & = \int_{A}f_{\mu_{2}}d\mu_{c}^{*} = \int_{A}f_{\mu_{2}}1_{\mathbb{N}}d(m + \mu_{c}^{*}),
+\end{align*}
+Thus, by Proposition 4.1.2 (ii), 
+\[ \frac{d(\mu_{1} + \mu_{2})}{d(m + \mu_{c}^{*})} = f_{\mu_{1}}1_{\mathbb{N}^{c}} + f_{\mu_{2}}1_{\mathbb{N}} \ \text{ a.e. }(m + \mu_{c}^{*}). \]
+Similarly, we see that 
+\[ \frac{d(\nu_{1} + \nu_{2})}{d(m + \mu_{c}^{*})} = f_{\nu_{1}}1_{\mathbb{N}^{c}} + f_{\nu_{2}}1_{\mathbb{N}} > 0 \text{ a.e. }(m + \mu_{c}^{*}). \]
+So, by Proposition 4.1.2 (iii), 
+\[ \frac{d(m+\mu_{c}^{*})}{d(\nu_{1} + \nu_{2})} = \frac{1}{f_{\nu_{1}}1_{\mathbb{N}^{c}} + f_{\nu_{2}}1_{\mathbb{N}}} \ \text{ a.e. }(\nu_{1} + \nu_{2}), \]
+and $m + \mu_{c}^{*} \ll \nu_{1} + \nu_{2}$. Now we can apply Proposition 4.1.2 (i) since $\mu_{1} + \mu_{2} \ll m + \mu_{c}^{*} \ll \nu_{1} + \nu_{2}$.
+
+\end{claimproof}
+
+
+{\bf (f)}
+Let $\mu_{a} := \mu$ and $\mu_{s}(A) \equiv 0$ for all $A \in \mathcal{B}(\mathbb{R})$.
+
+\begin{claim}
+$\mu_{a} \ll \nu$.
+\end{claim}
+\begin{claimproof}
+Trivial.
+\end{claimproof}
+
+\begin{claim}
+$\mu_{s} \perp \nu$.
+\end{claim}
+\begin{claimproof}
+Pick any $B \in \mathcal{B}(\mathbb{R})$ such that $\nu(B) = 0$.
+\end{claimproof}
+
+\begin{claim}
+\[ \frac{d\mu}{d\nu}(x) = \sum_{i=0}^{10}\binom{10}{i}\left( \frac{1}{2} \right)^{10}ex!I_{\{0,\hdots, 10\}}(x). \]
+\end{claim}
+\begin{claimproof}
+As usual, apply Proposition 4.1.2 (iii) and then (i).
+\end{claimproof}
+
+\end{document}
+

@@ -1,0 +1,258 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\title{STAT 641: HW 2}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+{\bf A.29}
+
+{\bf Solution:}
+
+(a) First we compute $d_{p}(f_{n}, f)$.
+\begin{align*}
+d_{p}(f_{n}, f) & = \left( \int_{0}^{1}|f_{n}(t) - f(t)|^{p}dt \right)^{1/p} \\
+& = \left( \int_{0}^{1-1/n}|1-1|^{p}dt + \int_{1-1/n}^{1}|1-n(1-t)|^{p}dt \right)^{1/p} \\
+& = \left( \int_{1-1/n}^{1}[1-n(1-t)]^{p}dt \right)^{1/p} \\
+& = \left( \frac{[1-n(1-t)]^{p+1}}{n(p+1)}\bigg|_{1-1/n}^{1} \right)^{1/p} \\
+& = \left( \frac{1}{n(p+1)} - 0 \right)^{1/p} \\
+& = \left( \frac{1}{n(p+1)} \right)^{1/p} \rightarrow 0 \text{ as } n \rightarrow \infty.
+\end{align*}
+
+However,
+\begin{align*}
+d_{\infty}(f_{n},f) = \sup\{|f_{n}(t) - f(t)| : t \in [0,1]\} & = \left( f(t) - f_{n}(t) \right)\bigg|_{t=1} \\
+& = 1 - 0 = 1.
+\end{align*}
+Since the right-hand-side is independent of $n$, $d_{\infty}(f_{n}, f) = 1$ for every $n \in \mathbb{N}$, so 
+\[ \lim_{n\rightarrow \infty}d_{\infty}(f_{n}, f) = 1. \]
+
+(b) Let $p \in [1, \infty)$ and $f$ and $g$ be functions in $C[0,1]$. Note that 
+\begin{align*}
+d_{p}(f,g) \equiv \left( \int_{0}^{1}|f(t) - g(t)|^{p}dt \right)^{1/p} & \leq \left( \int_{0}^{\infty}|\sup\left\{ |f(t) - g(t)| : t \in [0,1]
+\right\}|^{p}dt \right)^{1/p} \\
+& = \left( |\sup\left\{ |f(t) - g(t)| : t \in [0,1] \right\}|^{p}\times (1 - 0) \right)^{1/p} \\
+& = \sup\left\{ |f(t) - g(t)| : t \in [0,1] \right\} = d_{\infty}(f,g).
+\end{align*}
+Thus, it will suffice to show that $d_{\infty}(g_{n}, f) \rightarrow 0$. So,
+\begin{align*}
+\lim_{n\rightarrow\infty}d_{\infty}(g_{n},f) & = \lim_{n\rightarrow\infty}\sup\big\{ |f(t) - f(1-1/n) - f(1)(nt + 1 - n) + \\
+& \qquad + f(1-1/n)(nt + 1 -n)| : t \in [1-1/n, 1] \big\} \\
+& = \lim_{n\rightarrow \infty}\sup \big\{ |f(t) - f(1-1/n) - f(1)n(t-1) + f(1) + \\
+& \qquad + f(1-1/n)n(t-1) + f(1-1/n)| : t \in [1-1/n, 1]\big\} \\
+& = \lim_{n\rightarrow \infty}\sup \big\{ |f(t) - f(1) + n(t-1)[f(1-1/n) - f(1)]| : t \in [1-1/n, 1]\big\} \\
+& \leq \lim_{n\rightarrow \infty}\sup\big\{|f(t) - f(1)| + |n(t-1)[f(1-1/n)-f(1)]| : t \in [1-1/n, 1]\big\} \\
+& = \lim_{n\rightarrow\infty}\sup\big\{|f(t) - f(1)| + n(1-t)|f(1-1/n) - f(1)| : t \in [1-1/n, 1]\big\} \\
+& \leq \lim_{n\rightarrow\infty}\sup\big\{|f(t) - f(1)| + n(1-(1-1/n))|f(1-1/n) - f(1)| : t \in [1-1/n, 1]\big\} \\
+& = \lim_{n\rightarrow\infty}\sup\big\{|f(t) - f(1)| + |f(1-1/n) - f(1)| : t \in [1-1/n, 1]\big\} \\
+& = \lim_{n\rightarrow\infty}\sup_{t\in [1-1/n,1]}\big\{|f(t) - f(1)|\big\} + \lim_{n\rightarrow\infty}|f(1-1/n) - f(1)| \\
+& = \sup_{t\in \{1\}}\big\{|f(t) - f(1)|\big\} + |f(1) - f(1)| \\
+& = 0 + 0 = 0.
+\end{align*}
+Therefore,
+\[ \lim_{n\rightarrow\infty}d_{p}(g_{n},f) \leq \lim_{n\rightarrow\infty}d_{\infty}(g_{n},f) = 0. \]
+
+% Let $f \in C[0,1]$. By the Extreme Value Theorem (or the Bounded Theorem), $f$ is bounded, so $|f|$ is bounded (and continuous), and therefore $|f|^{p}$ is bounded (and
+% continuous) for every $p \geq 1$. Hence,
+% \begin{equation}
+% F^{p}(x) = \int_{0}^{x}|f(t)|^{p}dt = M, \qquad \text{for some } M < \infty.
+% \label{eq:1}
+% \end{equation}
+% Also note the following inequality:
+% \begin{equation}
+% |a+b|^{p} \leq 2^{p}(|a|^{p} + |b|^{p})
+% \label{eq:2}
+% \end{equation}
+% Now, first we will evaluate $d_{p}(g_{n},f)$ for $1\leq p \leq \infty$.
+% \begin{align*}
+% d_{p}(g_{n},f) & = \left( \int_{0}^{1}|g_{n}(t) - f(t)|^{p}dt \right)^{1/p} \\
+% & = \left( \int_{0}^{1-1/n}|f(t) - f(t)|^{p} + \int_{1-1/n}^{1}|g_{n}(t) - f(t)|^{p}dt \right)^{1/p} \\
+% & = \left( \int_{1-1/n}^{1}|f(t) - f(1-1/n) - [f(1) - f(1-1/n)]n(t+1/n-1)|^{p}dt \right)^{1/p} \\
+% & = \left( \int_{1-1/n}^{1}|f(t) - f(1) + f(1-1/n)[nt+1 - 1/n]|^{p}dt \right)^{1/p} \\
+% & \leq \left( \underbrace{2^{p}\int_{1-1/n}^{1}|f(t) - f(1)|^{p}dt + 2^{p}\int_{1-1/n}^{1}|f(1-1/n)[nt+1-1/n]|^{p}dt}_\text{inequality \ref{eq:2}}
+% \right)^{1/p} \\
+% & \leq 2\left( \underbrace{ 2^{p}\int_{1-1/n}^{1}|f(t)|^{p}dt + 2^{p}\int_{1-1/n}^{1}|f(1)|^{p}dt}_\text{inequality \ref{eq:2}} + 
+% \int_{1-1/n}^{1}|f(1-1/n)[nt+1-1/n]|^{p}dt \right)^{1/p} \\
+% & \leq 2\Bigg( 2^{p}\int_{1-1/n}^{1}|f(t)|^{p}dt + 2^{p}\int_{1-1/n}^{1}|f(1)|^{p}dt \ + \\
+% & \qquad + \underbrace{2^{p}\int_{1-1/n}^{1}|f(1-1/n)nt|^{p}dt + 2^{p}\int_{1-1/n}^{1}|f(1-1/n)(1-1/n)|^{p}dt}_\text{inequality \ref{eq:2}}
+% \Bigg)^{1/p} \\
+% & = 4 \Bigg( [F^{p}(1) - F^{p}(1-1/n)] + \frac{|f(1)|^{p}}{n} + \frac{|f(1-1/n)nt|^{p+1}}{(p+1)|f(1-1/n)n|}\Bigg|_{1-1/n}^{1} \ + \\
+% & \qquad + \frac{|(1-1/n)f(1-1/n)|^{p}}{n}\Bigg)^{1/p} \\
+% & = 4 \Bigg( F^{p}(1) - F^{p}(1-1/n) + \frac{|f(1)|^{p}}{n} + \frac{(1-1/n)|f(1-1/n)|^{p}}{n} \ + \\
+% & \qquad + \frac{|f(1-1/n)|^{p+1}}{(p+1)n|f(1-1/n)|}[n^{p+1}-(n-1)^{p+1}] \Bigg)^{1/p} \\
+% & \stackrel{n\rightarrow \infty}{\longrightarrow} \bigg( F^{p}(1) - F^{p}(1) + 0 + 0 + 0 \bigg)^{1/p} = 0. 
+% \end{align*}
+% 
+% Now consider $d_{\infty}(g_{n},f)$:
+% \begin{align*}
+% d_{\infty}(g_{n},f) & = \sup\left\{ |f(t) - g_{n}(t)| : t \in [0,1] \right\} \\
+% & = \sup\left\{ |f(t) - g_{n}(t)| : t \in \left[ 1-\frac{1}{n}, 1 \right] \right\} \\
+% & = \sup\left\{ \bigg|f(t) - f\left( 1-\frac{1}{n} \right) - \left[f(1) - f\left( 1-\frac{1}{n} \right)\right]n\left( 
+% t+\frac{1}{n}-1 \right)\bigg| : t \in \left[ 1-\frac{1}{n},1 \right] \right\}
+% \\
+% & \stackrel{n\rightarrow \infty}{\longrightarrow}  \sup\left\{ |f(t) - f(1) - 0| : t \in \left\{ 1 \right\} \right\} = |f(t) - f(1)|\bigg|_{t=1} = 0.
+% \end{align*}
+
+
+{\bf A.34}
+
+{\bf Solution:}
+
+\begin{Proposition}
+Let $\left\{ A_{\omega} \right\}_{\omega \in \Omega}$ be a collection of open sets. Then $\cup_{\omega\in\Omega}A_{\omega}$ is open.
+\end{Proposition}
+\begin{proof}
+Let $x \in \cup_{\Omega}A_{\omega}$. Then $x \in A_{\omega_{0}}$ for some $\omega_{0} \in \Omega$. Since $A_{\omega_{0}}$ is open, there exists an
+$\epsilon > 0$ such that $d(x,y) < \epsilon$ implies $y \in A_{\omega_{0}}$. But if $y \in A_{\omega_{0}}$ then $y \in \cup_{\Omega}A_{\omega}$. Thus
+$d(x,y) < \epsilon$ implies $y \in \cup_{\Omega}A_{\omega}$, so $\cup_{\Omega}A_{\omega}$ is open by definition.
+\end{proof}
+
+\begin{Proposition}
+If $A$ and $B$ are open, then $A\cap B$ is open.
+\end{Proposition}
+\begin{proof}
+Let $x \in A\cap B$. Then there exist some $\epsilon_{1}, \epsilon_{2} > 0$ such that $d(x,y) < \epsilon_{1}$ implies $y \in A$ and $d(x,y) <
+\epsilon_{2}$ implies $y \in B$ since $A$ and $B$ are open. Then let $\epsilon = \min\left\{ \epsilon_{1}, \epsilon_{2} \right\}$. Thus, $d(x,y) <
+\epsilon$ implies $d(x,y) < \epsilon_{1}$, so $y \in A$, and $d(x,y) < \epsilon_{2}$, so $y \in B$. Hence $y \in A\cap B$, so $A \cap B$ is open.
+\end{proof}
+
+\begin{Proposition}
+The intersection of an arbitrary collection of open sets in not necessarily open.
+\end{Proposition}
+\begin{proof}
+Define $A_{n} \subset \mathbb{R}$ by $A_{n} = (0-1/n, 0 +1/n)$ for each $n \in \mathbb{N}$. Then each $A_{n}$ is open since it is an open interval but 
+\[ \cap_{n=1}^{\infty}A_{n} = \left\{ 0 \right\}, \]
+which is not an open set.
+\end{proof}
+
+
+{\bf A.36}
+
+{\bf Solution:}
+
+To see that $\left\{ f_{n} \right\}_{n\geq 1}$ converges pointwise to $g$ on $(-1,1)$, note that $f_{n}(x) = x^{n} \leq |x|^{n} \rightarrow 0$ as
+$n\rightarrow \infty$ when $|x| < 1$, i.e. for $x \in (-1, 1)$.
+
+Now, let $-1 < a < b < 1$ and let $\epsilon > 0$ (but assume $\epsilon < 1$). Choose $N_{\epsilon}$ such that $\max\left\{ |a|^{n}, |b|^{n} \right\} < \epsilon$. Then $n \geq
+N_{\epsilon}$ implies 
+\[ |f_{n}(x) - g(x)| = |f_{n}(x)| \leq \max\left\{ |a|^{n}, |b|^{n} \right\} < \epsilon, \]
+for each $x \in [a,b]$. Hence $\left\{ f_{n} \right\}_{n\geq 1}$ converges to $g$ uniformly on $[a,b]$. However, if we consider $\left\{ f_{n}
+\right\}_{n\geq 1}$ on $(0,1)$ and let $x_{n} = \epsilon^{1/2n}$ (again, assume $0 < \epsilon < 1$), then for every $n \geq 1$,
+\[ |f_{n}(x_{n}) - g(x_{n})| = f_{n}(x_{n}) = f_{n}(\epsilon^{1/2n}) = \epsilon^{1/2} > \epsilon. \]
+Thus $\left\{ f_{n} \right\}_{n\geq 1}$ does not converge uniformly to $g$ on $(0, 1)$.
+
+
+{\bf 1.2}
+
+{\bf Solution:}
+
+\begin{proof}
+Since $\Omega$ is finite, the power set $\mathcal{P}(\Omega)$ of $\Omega$ is finite with $2^{|\Omega|}$ elements. Therefore $\mathcal{F} \subseteq \mathcal{P}(\Omega)$ is
+finite. To show that $\mathcal{F}$ is a $\sigma$-algebra, we need to show that $\mathcal{F}$ is closed under countable unions. So, let $A_{n} \in
+\mathcal{F}$ for each $n \in \mathbb{N}$. Since $\mathcal{F}$ is finite, there can only be a finite number $N$ of distinct $A_{n}$, where $N \leq
+|\mathcal{F}|$. Denote the distinct elements of $\left\{ A_{n}
+\right\}_{n\in\mathbb{N}}$ by $\left\{ A_{n_{k}} \right\}_{1\leq k \leq N}$. Therefore,
+\[ \cup_{n=1}^{\infty}A_{n} = \cup_{k=1}^{N}A_{n_{k}} \in \mathcal{F}, \]
+since $\mathcal{F}$ is closed under finite unions. Thus $\mathcal{F}$ is a $\sigma$-algebra.
+\end{proof}
+
+{\bf 1.4}
+
+{\bf Solution:}
+
+\begin{proof}
+Since $\Omega \in \mathcal{F}_{\theta}$ for every $\theta \in \Theta$, $\Omega \in \cap_{\theta \in \Theta}\mathcal{F}_{\theta}$. Now, let $A \in
+\cap_{\theta \in \Theta}\mathcal{F}_{\theta}$. Then $A \in \mathcal{F}_{\theta}$ for each $\theta \in \Theta$, and therefore $A^{c} \in
+\mathcal{F}_{\theta}$ for each $\theta \in \Theta$. Hence $A^{c} \in \cap_{\theta \in \Theta}\mathcal{F}_{\theta}$. Now assume $\left\{ A_{n}
+\right\}_{n\geq 1}$ is a collection of sets where $A_{n} \in \cap_{\theta \in \Theta}\mathcal{F}_{\theta}$ for every $n \geq 1$. Thus $A_{n}
+\in \mathcal{F}_{\theta}$ for every $n \geq 1, \theta \in \Theta$, so $\cup_{n\geq 1}A_{n} \in \mathcal{F}_{\theta}$ for each $\theta \in \Theta$. Hence,
+\[ \cup_{n \geq 1}A_{n} \in \cap_{\theta\in\Theta}\mathcal{F}_{\theta}. \]
+So $\cap_{\theta \in \Theta}\mathcal{F}_{\theta}$ contains $\Omega$ and is closed under compliments and countable unions. Therefore
+$\cap_{\theta\in\Theta}\mathcal{F}_{\theta}$ is a $\sigma$-algebra.
+\end{proof}
+
+{\bf 1.6}
+
+{\bf Solution:}
+
+\begin{proof}
+First note that since $\mathbb{N} \subseteq \mathbb{N}$, $\Omega = \cup_{i\in\mathbb{N}}A_{i} \in \mathcal{F}$. Also $\emptyset \subseteq \mathbb{N}$,
+so by definition $\emptyset = \cup_{i \in \emptyset}A_{i} \in \mathcal{F}$. Therefore $\Omega^{c} = \emptyset \in \mathcal{F}$ and $(\emptyset)^{c} =
+\Omega \in \mathcal{F}$. Now, let $X \in \mathcal{F}$ where $X \neq \emptyset$. Then $X = \cup_{i\in J}A_{i}$ for some $J \subseteq \mathbb{N}$, $J
+\neq \emptyset$. Let $I = \mathbb{N} \setminus J$. Then 
+
+\[ X^{c} = \left( \bigcup_{i\in J}A_{i} \right)^{c} = \bigcap_{i\in J}A_{i}^{c} = \bigcap_{i\in J}\left( \bigcup_{j\in \mathbb{N}\setminus \left\{ i
+\right\}} A_{j} \right) = \bigcup_{i \in \mathbb{N}\setminus J}A_{i} = \bigcup_{i \in I}A_{i} \in \mathcal{F}, \]
+
+since $I \subset \mathbb{N}$. So $\mathcal{F}$ is closed under complimentation. It remains to show that $\mathcal{F}$ is closed with respect to
+countable unions. Let $\left\{ X_{k} \right\}_{k \in \mathbb{N}}$ be a collection of sets such that $X_{k} \in \mathcal{F}$ for each $k \in
+\mathbb{N}$. Then $X_{k} = \cup_{i\in J_{k}}A_{i}$ for some $J_{k} \subseteq \mathbb{N}$. Define $J = \cup_{k\in\mathbb{N}}J_{k}$. Then,
+
+\[ \bigcup_{k\in\mathbb{N}}X_{k} = \bigcup_{k\in\mathbb{N}}\left( \bigcap_{i\in J_{k}}A_{i} \right) = \bigcup_{i \in \cup_{k \in \mathbb{N}}}A_{i} = \bigcup_{i
+\in J}A_{i} \in \mathcal{F}, \]
+
+since $J = \cup_{k \in \mathbb{N}} \subseteq \mathbb{N}$.
+\end{proof}
+
+
+{\bf Problem A} Let $\Omega$ be an uncountable set and $\mathcal{C} = \left\{ \left\{ \omega \right\} : \omega \in \Omega \right\}$ be the collection
+of all singleton sets. Find the smallest $\sigma$-algebra generated by $\mathcal{C}$.
+
+{\bf Solution:}
+
+Let $\mathcal{F} = \left\{ A \in \Omega : A \text{ is countable or } A^{c} \text{ is countable} \right\}$.
+
+\underline{Claim:} $\sigma \langle\mathcal{C}\rangle = \mathcal{F}$.
+
+\begin{proof}
+Let $\mathcal{G}$ be any $\sigma$-algebra containing $\mathcal{C}$. We need to show that $\mathcal{F} \subseteq \mathcal{G}$. Let $A \in \mathcal{F}$.
+There are two cases: either $A$ is countable or $A^{c}$ is countable.
+
+{\bf Case 1:} Assume $A$ is countable.
+
+Thus, $A = \left\{ \omega_{i} \right\}_{i\in\mathbb{N}} = \cup_{i\in\mathbb{N}}\left\{ \omega_{i} \right\}$, where $\omega_{i} \in \Omega$ for each $i
+\in \mathbb{N}$. Therefore $\cup_{i\in\mathbb{N}}\left\{ \omega_{i} \right\} \in \mathcal{G}$ since each $\left\{ \omega_{i} \right\} \in \mathcal{C}
+\subseteq \mathcal{G}$ for every $i \in \mathbb{N}$ and $\mathcal{G}$ is closed uner countable unions. Hence $A \in \mathcal{G}$.
+
+{\bf Case 2:} Now assume $A^{c}$ is countable.
+
+If $A^{c}$ is countable then by the same argument as in case 1, $A^{c} \in \mathcal{G}$ But since $\mathcal{G}$ is closed with respect to
+complimentation, $A = (A^{c})^{c} \in \mathcal{G}$. 
+
+In both cases the result is that for any $A \in \mathcal{F}$, $A \in \mathcal{G}$. Thus $\mathcal{F} \subseteq \mathcal{G}$. So $\sigma\langle
+\mathcal{C} \rangle = \mathcal{F}$.
+\end{proof}
+
+
+
+
+\end{document}
+

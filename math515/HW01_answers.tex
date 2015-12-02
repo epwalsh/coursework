@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows
+\pagestyle{fancy}
+
+% This rule is for making an integral with a bar above it or below it.
+\makeatletter
+\newcommand\tint{\mathop{\mathpalette\tb@int{t}}\!\int}
+\newcommand\bint{\mathop{\mathpalette\tb@int{b}}\!\int}
+\newcommand\tb@int[2]{%
+  \sbox\z@{$\m@th#1\int$}%
+  \if#2t%
+    \rlap{\hbox to\wd\z@{%
+      \hfil
+      \vrule width .35em height \dimexpr\ht\z@+1.4pt\relax depth -\dimexpr\ht\z@+1pt\relax
+      \kern.05em % a small correction on the top
+    }}
+  \else
+    \rlap{\hbox to\wd\z@{%
+      \vrule width .35em height -\dimexpr\dp\z@+1pt\relax depth \dimexpr\dp\z@+1.4pt\relax
+      \hfil
+    }}
+  \fi
+}
+\makeatother
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+
+\title{MATH 515: HW 1}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+{\bf (1) [Royden/Fitzpatrick (RF) 1.31]} Show that if a set $E$ consists only of
+isolated points then it is countable.
+
+{\bf Solution:}
+
+\begin{proof}
+  By construction, for every point $x \in E$, there exists an $r > 0$ such that
+  $(x-r, x+r) \cap E = \{x\}$. Now, since $\mathbb{Q}$ is dense in $\mathbb{R}$,
+  there exists some $y \in \mathbb{Q}$ such that $x-r < y < x+r$. Therefore
+  there is a natural bijection between a subset of $\mathbb{Q}$ and $E$ by
+  choosing such a $y \in \mathbb{Q}$ for every $x \in E$. Further, since any
+  subset of $\mathbb{Q}$ is countable, $E$ must be countable.
+\end{proof}
+
+{\bf (2) [RF 1.32]} Show that 
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+  \item (i) $E$ is open iff $E = \text{int} E$.
+
+  {\bf Solution:}
+  \begin{proof}
+    $(\Rightarrow)$ Assume $E$ is open. Let $x\in E$. Since $E$ is open, there
+    exists some $r > 0$ such that $(x-r, x+r) \subseteq E$. Thus $x$ is an
+    interior point of $E$ by definition, so $E \subseteq \text{int} E$. Clearly
+    any point $y \in \text{int} E$ is also in $E$, so $\text{int} E \subseteq
+    E$. Hence $E = \text{int}E$.
+
+    $(\Leftarrow)$ Assume $E = \text{int}E$. Let $x \in E$. Then $x \in
+    \text{int} E$, so there exists some $r > 0$ such that $(x-r, x+r) \subseteq
+    E$. Thus $E$ is open by definition.
+  \end{proof}
+
+  \item (ii) $E$ is dense iff $\text{int} (\mathbb{R} \sim E) = \emptyset$.
+
+  {\bf Solution:}
+  \begin{proof}
+    $(\Rightarrow)$ Assume $E$ is dense. If $\text{int}(\mathbb{R} \sim E) \neq
+    \emptyset$, then there exists some point $x\in \mathbb{R} \sim E$ and some
+    $r > 0$ such that $(x-r, x+r) \cap E = \emptyset$. But this is a
+    contradiction since $E$ being dense implies that there exists some $y \in E$
+    such that $x-r < y < x+r$, for any $x \in \mathbb{R}$, $r > 0$. Hence
+    $\text{int}(\mathbb{R} \sim E) = \emptyset$.
+
+    $(\Leftarrow)$ Assume $\text{int}(\mathbb{R}\sim E) = \emptyset$. Then for
+    all $x \in \mathbb{R}$ and $r > 0$, $(x - r, x+r) \cap E \neq \emptyset$.
+    So, let $a, b \in \mathbb{R}$ with $a < b$. Choose some $x \in \mathbb{R}$
+    and $r > 0$ such that $a < x-r < x+r < b$. Since $(x-r, x+r)\cap E \neq
+    \emptyset$, there exists some $y \in E$ such that $a < x-r < y < x+r < b$.
+    Therefore $a < y < b$, so $E$ is dense.
+  \end{proof}
+\end{itemize}
+
+{\bf (3) [RF 1.52]} Show that a non-empty set of real numbers $E$ is closed and
+bounded iff every continuous real-valued function on $E$ takes a maximum value.
+
+{\bf Solution:}
+
+\begin{proof}
+$(\Rightarrow)$ Assume $E$ is closed and bounded. Then by the Extreme Value
+Theorem, every continuous real-valued function defined on $E$ must take a
+maximum value.
+
+$(\Leftarrow)$ Assume that every continuous real-valued function defined on
+a non-empty set of reals $E$ takes on a maximum value. We will show by
+contradiction that $E$ must be closed and bounded. First, assume that $E$ is
+unbounded. Let $f : E \rightarrow \mathbb{R}$ be defined by $f(x) = |x|$. Then $f$ is continuous and since $E$ is unbounded,
+for every $M > 0$, there exists some $x' \in E$ such that $|x'| > M$. Therefore
+$f(x') > M$. Since $M$ was arbitrary, $f$ has no maximum value. This is a
+contradiction, thus $E$ must be bounded.
+
+Now, assume that $E$ is bounded but not closed. Then there exists some point
+$x_{0} \in \mathbb{R} \sim E$ such that $x_{0}$ is a limit point of $E$. Define
+$f : E \rightarrow \mathbb{R}$ by
+\[ f(x) = \frac{1}{|x_{0} - x|}. \]
+Then $f$ is continuous and if $(x_{n})_{n\in\mathbb{N}}\subset E$ is a sequence
+in $E$ such that $\lim_{n\rightarrow \infty}x_{n} = x_{0}$, then 
+\[ \lim_{n\rightarrow\infty} f(x_{n}) = \lim_{n\rightarrow\infty}
+\frac{1}{|x_{0} - x_{n}|} = +\infty. \]
+Therefore $f$ has no maximum, which is a contradiction. Thus $E$ must be closed
+and bounded.
+\end{proof}
+
+{\bf (4) [RF 1.59]} Let $\{f_{n}\}$ be a sequence of real-valued continuous
+functions defined on a set $E$. Show that if $\{f_{n}\}$ converges uniformly to $f$ on
+$E$, then $f$ is continuous.
+
+{\bf Solution:}
+
+\begin{proof} Let $\epsilon > 0$ and $x \in E$. We need to show that there
+  exists a $\delta > 0$ such that $y \in E$ and $|x-y| < \delta$ implies $|f(x)
+  - f(y)| < \epsilon$. We first note that by repeated use of the Triangle Inequality,
+  \[ |f(x) - f(y)| \leq |f(x) - f_{n}(x)| + |f_{n}(x) - f(y)| \leq |f(x) -
+  f_{n}(x)| + |f_{n}(x) - f_{n}(y)| + |f_{n}(y) - f(y)|, \]
+  for any $y \in E$. Now, since $\{f_{n}\}$ converges uniformly to $f$, we
+  can choose some $N\in\mathbb{N}$ such that $n > N$ implies $|f_{n}(z) - f(z)|
+  < \epsilon / 3$ for every $z \in E$. Further, for any particular choice of
+  $n > N$, there exists a $\delta_{n} > 0$ such that $|x-y| < \delta_{n}$ implies
+  $|f_{n}(x) - f_{n}(y)| < \epsilon / 3$ since $f_{n}$ is
+  continuous. Therefore $|x - y| < \delta_{n}$ implies 
+  \[ |f(x) - f(y)| \leq |f(x) - f_{n}(x)| + |f_{n}(x) - f_{n}(y)| +
+    |f_{n}(y) - f(y)| < \frac{\epsilon}{3}+\frac{\epsilon}{3} +
+  \frac{\epsilon}{3} = \epsilon. \]
+  Thus $f$ is continuous.
+\end{proof}
+
+{\bf (5) [Proposition (I).(1).(xi)]} Suppose $f$ is a step function on $[a,b]$.
+Then $f$ is integrable. Furthermore, if $(x_{0}, \dots, x_{n})$ is a partition
+of $[a,b]$ so that $f$ is constant on each open subinterval $(x_{0}, x_{1}),
+\dots, (x_{n-1}, x_{n})$, and if $c_{j}$ is the value of $f$ on $(x_{j-1},
+x_{j})$ whenever $1 \leq j \leq n$, then 
+\[ \int_{a}^{b} f = \sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1}). \]
+
+{\bf Solution:}
+
+\begin{proof}
+  By definition $\sum_{j=1}^{n}c_{j}(x_{j}- x_{j-1})$ is a lower Reimann
+  (Darboux) sum since $c_{j} \leq f(x)$ for each $x \in (x_{j-1}, x_{j})$.
+  Similary, $\sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1})$ is also an upper Riemann sum.
+  Thus, 
+  \[ \bint_{a}^{b} = \sup\{L(f,P) | P \text{ a partition of
+  }[a,b]\} \geq \sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1}), \]
+  and
+  \[ \tint_{a}^{b} = \inf\{U(f,P) | P \text{ a partition of }[a,b]\}
+\leq \sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1}). \]
+  We claim that $\bint_{a}^{b}f = \tint_{a}^{b}f =
+  \sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1})$. If we assume that this equality does
+  not hold, say that $\bint_{a}^{b}f >
+  \sum_{j=1}^{n}c_{j}(x_{j}-x_{j-1})$, then that means that there exists a lower
+  Riemann sum that is greater than an upper Riemann sum, which is impossible.
+  Similarly, $\tint_{a}^{b} f$ cannot be less than
+  $\sum_{j=1}^{n}c_{j}(x_{j}- x_{j-1})$. Therefore the equality holds. Hence,
+  since the lower and upper Riemann integrals are equal, $f$ is integrable and 
+  \[ \int_{a}^{b}f = \sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1}). \]
+\end{proof}
+
+{\bf (6) [RF 2.6]} Let $A$ be the set of irrational numbers in $[0,1]$. Show
+that $m^{*}(A) = 1$.
+
+{\bf Solution:}
+
+Before proving the result we will have to prove one lemma.
+\begin{Lemma}
+If $A \subset \mathbb{R}$ is countably infinite, then $m^{*}(A) = 0$.
+\end{Lemma}
+\begin{proof}
+Let $A = \{a_{n}\}_{n\in\mathbb{N}} \subset \mathbb{R}$ be a countably infinite
+set. Since outer measure is always non-negative, $m^{*}(A) \geq 0$. Thus it
+suffices to show that $m^{*}(A) \leq 0$. Now, from a theorem proved in class, we
+know that $m^{*}(\{a_{n}\}) = 0$ for every $n \in \mathbb{N}$. Thus, by the
+countable additivity of outer measure (RF Proposition 2.3), we have 
+\[ m^{*}(A) = m^{*}(\cup_{n=1}^{\infty}\{a_{n}\}) \leq
+\sum_{n=1}^{\infty}m^{*}(\{a_{n}\}) = \sum_{n=1}^{\infty}0 = 0.\]
+Thus $m^{*}(A) = 0$.
+\end{proof}
+
+\begin{proof}
+  Let $B$ be the set of rationals in $[0,1]$. So $A\cup B = [0,1]$. By RF
+  Proposition 2.1, $m^{*}([0,1]) = 1$, and $m^{*}(B) = 0$ since $B$ is countably
+infinite (Lemma 1). Thus, by the subadditivity of outer
+  measure,
+  \[ 1 = m^{*}(A\cup B) \leq m^{*}(A) + m^{*}(B) = m^{*}(A) + 0 = m^{*}(A). \]
+  So $m^{*}(A) \geq 1$. However, since $A\subset A \cup B$, $m^{*}(A) \leq
+  m^{*}(A\cup B) = 1$ by the monotonicity of outer measure. Thus $m^{*}(A) = 1$.
+\end{proof}
+
+{\bf (7) [RF 2.10]} Let $A,B$ be bounded sets for which there is an $\alpha > 0$
+such that $|a-b| \geq \alpha$ for every $a\in A$ and $b \in B$. Show that
+$m^{*}(A\cup B) = m^{*}(A) + m^{*}(B)$.
+
+{\bf Solution:}
+
+\begin{proof}
+Let $A,B$ be bounded sets for which there is an $\alpha > 0$
+such that $|a-b| \geq \alpha$ for every $a\in A$ and $b \in B$.
+First note that by finite subadditivity, $m^{*}(A\cup B) \leq m^{*}(A) +
+m^{*}(B)$. Thus, to show equality it remains to argue that $m^{*}(A) +
+m^{*}(B) \leq m^{*}(A\cup B)$. Now, let $\{E_{k}\}_{k\in\mathbb{N}}$ be a
+countable collection of bounded, open sets such that $A\cup B \subseteq
+\cup_{k=1}^{\infty}E_{k}$ and 
+\begin{equation}
+\sum_{k=1}^{\infty}l(E_{k}) < m^{*}(A\cup B) + \epsilon.
+\end{equation}
+Further, since $|a-b| \geq \alpha$ for every $a \in A$ and $b \in B$, we can
+assure that each $E_{k}$ contains either $A$ or $B$, but not both, by
+stipulating that $l(E_{k}) < \alpha$ for every $k \in \mathbb{N}$. In other
+words, if $A \cap E_{k} \neq \emptyset$, then $B\cap E_{k} = \emptyset$, and if
+$B\cap E_{k} \neq \emptyset$, then $A\cap E_{k} = \emptyset$ for every $k \in
+\mathbb{N}$. Now, let $I_{A}$ be the set of indices of
+$\{E_{k}\}_{k\in\mathbb{N}}$ for which $A\cap E_{k} \neq \emptyset$, and $I_{B}$
+the set of indices for which $B\cap E_{k} \neq \emptyset$. Then 
+$A \subseteq \cup_{i\in I_{A}} E_{i} \subseteq \mathbb{R}$, $B \subseteq \cup_{j\in I_{B}}
+E_{j} \subseteq \mathbb{R}$. Futher, since $\cup_{i \in I_{A}}E_{i}, \cup_{j\in I_{B}}E_{j} \neq \emptyset$ and open,
+\begin{equation}
+m^{*}(A) + m^{*}(B) \leq \sum_{i \in I_{A}}l(E_{i}) + \sum_{j\in I_{B}}l(E_{j})
+\end{equation}
+by the definition of outer measure. Also,
+\begin{equation}
+\sum_{i \in I_{A}}l(E_{i}) + \sum_{j\in I_{B}}l(E_{j}) \leq
+\sum_{k=1}^{\infty}l(E_{k}) \stackrel{(1)}{<} m^{*}(A\cup B) + \epsilon.
+\end{equation}
+Putting (2) and (3) together, we have $m^{*}(A) + m^{*}(B) < m^{*}(A\cup B) +
+\epsilon$. But since $\epsilon > 0$ was completely arbitrary, 
+\[ m^{*}(A) + m^{*}(B) \leq m^{*}(A\cup B). \]
+Therefore $m^{*}(A) + m^{*}(B) = m^{*}(A\cup B)$.
+\end{proof}
+
+\end{document}
+

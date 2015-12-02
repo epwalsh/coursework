@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$}
+
+\title{MATH 515: HW 5}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{1 [Lemma (II)(6)iv Claim 1]}
+Suppose $E\subset \mathbb{R}$ and $\mu^*(E) < \infty$. Suppose $\mathcal{F}$ is a Vitali covering of $E$. Let $U \supseteq E$ such that $\ell(U) <
+\infty$. Set $\mathcal{F}' = \left\{ I \in \mathcal{F} : I \subseteq U \right\}$.
+
+\underline{Claim 1:} $\mathcal{F}'$ is a Vitali covering of $E$.
+
+\subsection*{Solution}
+
+\begin{claimproof}
+Let $x \in E$ and $\epsilon > 0$. We need to show that there exists an $I \in \mathcal{F}'$ such that $x \in I$ and $\ell(I) < \epsilon$. Well, since
+$U$ is open, $U = \cup_{k \in G}J_{k}$, where $\left\{ J_{k} \right\}_{k \in G}$ is a countable, disjoint family of open intervals. Then $x \in
+J_{k_{0}}$ for some $k_{0} \in G$. Let $a, b$ be the left and right endpoints of $J_{k_{0}}$, respectively. Let $\epsilon_{0} = \min\left\{ \epsilon, x - a, b - x
+\right\}$. Since $\mathcal{F}$ is a Vitali covering of $E$, there exists some $I \in \mathcal{F}$ such that $x \in I$ and $\ell(I) < \epsilon_{0}$.
+Let $c,d$ be the left and right endpoints of $I$, respectively. Then, since $c < x < d$ and $d - c < \epsilon_{0}$, 
+\[ x - c < \epsilon_{0} \leq x - a. \]
+So $a < c$. Similarly, we see that $d < b$. Hence $I \subset J_{k_{0}}$, so $I \subset \cup_{k \in G}J_{k}$. Thus $I \in \mathcal{F}'$ and $\ell(I) <
+\epsilon_{0} \leq \epsilon$.
+\end{claimproof}
+
+
+\newpage
+\section*{2 [Lemma (II)(6)iv Claim 2]}
+Suppose $E\subset \mathbb{R}$ and $\mu^*(E) < \infty$. Suppose $\mathcal{F}$ is a Vitali covering of $E$. Let $U \supseteq E$ such that $\ell(U) <
+\infty$. Set $\mathcal{F}' = \left\{ I \in \mathcal{F} : I \subseteq U \right\}$.
+
+By assumption of case 2, assume that for every pairwise disjoint sequence $\left( I_{0}, \hdots, I_{n} \right) \subseteq \mathcal{F}$, 
+\[ E \nsubseteq \bigcup_{k=0}^{n}I_{k}.\]
+
+\underline{Claim 2:} If $I_{0}, \hdots, I_{n} \in \mathcal{F}'$ and if $\left( I_{0}, \hdots, I_{n} \right)$ is pairwise disjoint, then there exists
+some $I \in \mathcal{F}'$ such that $I \cap \bigcup_{k=0}^{n}I_{k} = \emptyset$.
+
+\subsection*{Solution}
+
+\begin{claimproof}
+Assume $I_{0}, \hdots, I_{n} \in \mathcal{F}'$ such that $(I_{0}, \hdots, I_{n})$ is pairwise disjoint. By definition of $\mathcal{F}'$, $(I_{0}, \hdots, I_{n}) \subseteq
+\mathcal{F}$. Thus, by assumption of case 2, $E \nsubseteq \cup_{k=0}^{n} I_{k}$. Therefore there exists an $x \in E$ such that $x \in \left(
+\cup_{k=0}^{n}I_{k} \right)^{c}$. Now, since $I_{k}$ is closed for each $k \in \left\{ 0, \hdots, n \right\}$, $\left( \cup_{k=0}^{n}I_{k}
+\right)^{c}$ is open. Thus, there exists an $\epsilon > 0$ such that $(x - \epsilon, x + \epsilon) \subseteq \left( \cup_{k=0}^{n}I_k \right)^{c}$. By
+claim 1, $\mathcal{F}'$ is a Vitali covering of $E$, so there exists an $I \in \mathcal{F}'$ such that $x \in I$ and $\ell(I) < \epsilon$. Then 
+\[ I \subseteq (x - \epsilon, x + \epsilon) \subseteq \left( \bigcup_{k=0}^{n}I_{k} \right)^{c}, \]
+so $I \cap \bigcup_{k=0}^{n}I_{k} = \emptyset$.
+\end{claimproof}
+
+
+\newpage
+\section*{3}
+Let $n$ be a positive integer. Let $X_{n}$ be the set of all $x \in [0,1]$ such that the $n$-th digit in the non-terminating decimal expansion of $x$
+is 5. Prove that $X_{n}$ is measurable.
+
+\subsection*{Solution}
+
+\begin{proof}
+Let $n$ be a positive integer. Define $Y_{n}$ as the set of all $x \in [0,1]$ such that the $n$-th digit in the decimal expansion of $x$ is 5. In this
+case, we treat numbers with terminating decimals such as
+\[ y = 0.\underbrace{65534\dots 325}_{n}0\dots, \text{ where $0$ repeats to infinity,} \] 
+as members of $Y_{n}$. With this construction, clearly $Y_{n} \supset X_{n}$.
+
+\underline{Claim:} $Y_{n}$ is measurable. 
+\begin{claimproof}
+We will proceed by showing that $Y_{n}$ is the finite sum of closed intervals. Then it follows that $Y_{n}$ is Borel and therefore is measurable.
+
+First note that every $y \in Y_{n}$ is of the form $0.c_{1}c_2c_3\cdots c_{n-1}5c_{n+1}c_{n+2}\cdots$, where $c_{i} \in \left\{ 0, \hdots, 9 \right\}$
+for each $i \geq 1, i \neq n$. Thus, there are only $10^{n-1}$ possibilities for the first $n-1$ terms in the non-terminating decimal expansion of
+every $y \in Y_{n}$. Let $\left\{ S_{k} \right\}_{k=1}^{10^{n-1}}$, where $S_{k} = \left( c_{k,1}, c_{k,2}, \hdots, c_{k,n-1} \right)$, denote the
+possible unique $(n-1)$-digit sequences of preceding terms in the non-terminating decimal expansion of every $y \in Y_{n}$. Let 
+\[ I_{k} = \left\{ y \in Y_{n} : \text{ the first $n-1$ digits in the decimal expansion of $y$ are $S_{k}$} \right\}, \]
+for $k = 1, \hdots, 10^{n-1}$. Note that 
+\[ a_{k} = c_{k,1}c_{k,2}\cdots c_{k,n-1}5\bar{0} \] 
+is the smallest real in $I_{k}$, and 
+\[ b_{k} = c_{k,1}c_{k,2}\cdots c_{k,n-1}5\bar{9} \equiv c_{k,1}c_{k,2}\cdots c_{k,n-1}6\bar{0} \]
+is the largest real in $I_{k}$.\footnote{The notation $\bar{d}$, where $d \in \left\{ 0, \hdots, 9 \right\}$, means $d$ repeated to infinity.} So
+$I_{k} = [a_{k}, b_{k}]$ is a closed interval for each $k \in \left\{ 1, \hdots, 10^{n-1} \right\}$, and 
+\[ Y_{n} = \bigcup_{k=1}^{10^{n-1}} I_{k}. \]
+Hence $Y_{n}$ is Borel, and therefore is measurable.
+\end{claimproof}
+
+Let $A = \left\{ a \in [0,1] : a\text{ has a terminating decimal expansion} \right\}$. Since $A \subset \mathbb{Q}$, $\mu^{*}(A) = 0$. Thus $A$ is
+measurable and therefore $A^{c}$ is measurable. Thus,
+\[ Y_{n} \cap A^{c} = X_{n} \]
+is measurable.
+\end{proof}
+
+
+\newpage
+\section*{4 [RF 2.33]}
+Let $E$ be a non-measurable set of finite outer measure. Show that there exists a $G_{\delta}$ set $G \supseteq E$ for which $\mu^*(E) = \mu^*(G)$ but
+$\mu^{*}(G\setminus E) > 0$.
+
+\subsection*{Solution}
+
+\begin{proof}
+By the definition of outer measure and since $\mu^{*}(E) < \infty$, for each $n \in \mathbb{N}$, there is an open set $U_{n}$ such that $U_{n}
+\supseteq E$ and $\ell(U_{n}) < \mu^{*}(E) + 2^{-n}$. Let $G = \bigcap_{n=0}^{\infty}U_{n}$.
+
+\underline{Claim 1:} $\mu^{*}(G) = \mu^{*}(E)$.
+
+\begin{claimproof}
+Since $U_{n} \supseteq E$ for every $n \in \mathbb{N}$, $G \supseteq E$. Hence $\mu^{*}(G) \geq \mu^{*}(E)$. Using monotonicity again,
+\[ \mu^{*}(G) \leq \mu^{*}(U_{n}) = \ell(U_{n}) < \mu^{*}(E) + 2^{-n}, \]
+for any $n \in \mathbb{N}$. Therefore $\mu^{*}(G) \leq \lim_{n\rightarrow\infty}\mu^{*}(E) + 2^{-n} = \mu^{*}(E)$. So $\mu^{*}(G) = \mu^{*}(E)$.
+\end{claimproof}
+
+\underline{Claim 2:} $\mu^{*}(G \setminus E) > 0$.
+
+\begin{claimproof}
+We will proceed by way of contradiction. Assume that 
+\[ \mu^{*}(G\setminus E) = \mu^{*}(G\cap E^{c}) = 0.\] 
+Then by Theorem (II)(3)viii, $E$ is
+measurable since $G$ is $G_{\delta}$. This is a contradiction. Thus $\mu^{*}(G \setminus E) > 0$.
+\end{claimproof}
+
+\end{proof}
+
+
+
+
+
+
+
+\end{document}
+

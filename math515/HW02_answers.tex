@@ -1,0 +1,444 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\title{MATH 515: HW 2}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+{\bf (1) [Lemma (II)(1)(xvi)]} If $J_{0}, \dots, J_{n}$ are open intervals, and
+if $(J_{0}, \dots, J_{n})$ is a simple chain, then $\cup_{k=1}^{n}J_{k}$ is an
+open interval.
+
+{\bf Solution:}
+
+\begin{proof} Assume $J_{0}, \dots, J_{n}$ are open intervals and $(J_{0},
+\dots, J_{n})$ is a simple chain. First we will show that $\cup_{k=0}^{n}J_{k}$
+is open. Let $x \in \cup_{k=0}^{n}J_{k}$. Then $x\in J_{i}$ for some $i \in
+\{0,\dots, n\}$. Since $x\in J_{i}$ and $J_{i}$ is open, there exists an
+$\epsilon > 0$ such that $(x-\epsilon, x+\epsilon) \subseteq J_{i}$. Therefore
+$(x-\epsilon, x+\epsilon) \subseteq \cup_{k=0}^{n}J_{k}$, so
+$\cup_{k=0}^{n}J_{k}$ is open. Now we will show that $\cup_{k=0}^{n}J_{k}$ is an
+interval. We will do a proof by contradiction. That is, assume that
+$\cup_{k=0}^{n}J_{k}$ is not an interval. Then there exists $x_{0}, x_{1} \in
+\cup_{k=0}^{n}J_{k}$ and $y \in (\mathbb{R}\setminus \cup_{k=0}^{n}J_{k})$ such that
+$x_{0} < y < x_{1}$. There are two cases to consider: either $x_{0}$ and $x_{1}$
+are members of the same $J_{k}$ or they are not.
+
+{\bf Case 1:} Assume $x_{0}, x_{1} \in J_{i'}$ for some $i' \in \{0, \dots,
+n\}$. Well, since $J_{i'}$ is an interval, $y \in J_{i'}$ for every $y \in
+(x_{0}, x_{1})$. This contradicts our assumption.
+
+{\bf Case 2:} Assume $x_{0} \in J_{i_{0}}$ and $x_{1} \in J_{i_{1}}$ where
+$i_{0}, i_{1} \in \{0, \dots, n\}$ and $i_{0} \neq i_{1}$. We will also assume
+that $x_{1} \notin J_{i_{0}}$ and $x_{0} \notin J_{i_{1}}$, as the case where $x_{0}$ and $x_{1}$ are both members of the same $J_{i}$ has
+already been considered in case 1. Now, let 
+
+\[ I_{0} = \{i : \exists x \in J_{i} \text{ s.t. } x < y\}, \text{ and } I_{1} =
+\{ i : \exists x \in J_{i} \text{ s.t. } x > y\}. \] 
+
+We know that $I_{0}$ and $I_{1}$ are not empty because $I_{0}$ contains $i_{0}$
+and $I_{1}$ contains $i_{1}$ by assumption. Further, $I_{0} \cap I_{1} =
+\emptyset$, for if this was not the case and $I_{0} \cap I_{1} \neq \emptyset$,
+then there would exist $x_{0}'$ and $x_{1}'$ such that $x_{0}' < y < x_{1}'$,
+where $x_{0}'$ and $x_{1}'$ are both in the same $J_{i}$. But we have already
+argued in case 1 that this cannot happen. Thus $I_{0} \cap I_{1} = \emptyset$.
+Also, $I_{0} \cup I_{1} = \{0, \dots, n\}$ since for every $x \in
+\cup_{k=0}^{n}J_{k}$, either $x < y$ or $x > y$ because $x$ cannot be equal to
+$y$. So every $i \in \{0, \dots, n\}$ must fall into either $I_{0}$ or $I_{1}$.
+Hence, $n \in I_{0}$ or $n \in I_{1}$. Without loss of generality, assume that
+$n \in I_{1}$ from now on. Then, set $i^{*} = n$ and recursively check if $i^{*}
+- 1 \in I_{1}$. If $i^{*} - 1 \in I_{1}$, then set $i^{*} = i^{*} - 1$ and repeat. 
+Since $i_{0} \notin I_{1}$, at some point $i^{*} - 1 \notin I_{1}$ for $i^{*}
+\geq i_{0} + 1$. When this occurs, we have $i^{*} \in I_{1}$ and $i^{*} - 1 \in
+I_{0}$. So $x > y$ for every $x \in J_{i^{*}}$ and $x < y$ for every $x \in
+J_{i^{*} - 1}$. Thus, since $J_{i^{*}}$ and $J_{i^{*}-1}$ are intervals and
+$y\notin J_{i^{*}} \cup J_{i^{*}-1}$, $J_{i^{*}}\cap J_{i^{*}-1} = \emptyset$.
+However, since $J_{i^{*}}$ and $J_{i^{*}-1}$ are in the simple chain $(J_{0},
+\dots, J_{n})$ and $|i^{*} - (i^{*}-1)| = 1 \leq 1$, $J_{i^{*}} \cap J_{i^{*}-1}
+\neq \emptyset$. This is a contradiction.
+
+Since both cases lead to a contradiction, no such $y$ can exist. Hence, for all
+$x_{0}, x_{1} \in \cup_{k=0}^{n}J_{k}$, with $x_{0} < x_{1}$, there is no $y\in
+(\mathbb{R}\setminus \cup_{k=0}^{n}J_{k})$ such that $x_{0} < y < x_{1}$. So
+$\cup_{k=0}^{n}J_{k}$ is an open interval.
+\end{proof}
+
+{\bf (2) [Lemma (II)(1)(xviii)]} If $J_{0}, \dots, J_{n}$ are open intervals,
+then $\ell(\cup_{k=0}^{n}J_{k}) \leq \sum_{k=0}^{n}\ell(J_{k})$.
+
+{\bf Solution:}
+
+\begin{proof} 
+Assume $J_{0}, \dots, J_{n}$ are open intervals. There are two cases to
+consider. Either none of the $J_{i}$'s are unbounded or at least one of them is.
+
+{\bf Case 1:} Assume that $J_{i^{*}}$ is unbounded for some $i^{*} \in \{0,\dots, n\}$.
+
+Let $M > 0$. Then there exists some $a$ and $b$ such that $a < b$ and $(a,b)
+\subseteq J_{i^{*}}$, where $b - a > M$. Thus,
+\[ M < \ell\left( (a,b) \right) < \ell(J_{i^{*}}) < \sum_{k=0}^{n}\ell(J_{k}).
+\]
+Since $M$ was arbitrary, $\sum_{k=0}^{n}\ell(J_{k}) = \infty$. Thus 
+\[ \ell\left( \cup_{k=0}^{n}J_{k} \right) \leq \sum_{k=0}^{n}\ell(J_{k}), \]
+and we are done.
+
+{\bf Case 2:} Now consider the case where $J_{i}$ is bounded for every $i \in \{0, \dots, n\}$.
+
+We will consider two subcases separately: either all of the $J_{i}$'s are
+pairwise disjoint, or not all $J_{i}$'s are pairwise disjoint.
+\begin{itemize}[label={},leftmargin=8mm, itemsep=1em, parsep=1em]
+\item {\bf Case 2 (i):} First assume that all $J_{i}$'s are pairwise disjoint.
+
+Then, by definition, 
+\[ \ell\left(\cup_{k=0}^{n}J_{k}\right) = \sum_{k=0}^{n}\ell(J_{k}), \]
+and equality is established, so we are done.
+
+\item {\bf Case 2 (ii):} Now assume that not all $J_{i}$'s are disjoint.
+
+Define the relation $R$ on $\{0, \dots, n\}$ by $i_{0}\  R\  i_{1}$ if and only if
+for some $x_{0} \in J_{i_{0}}$ and $x_{1} \in J_{i_{1}}$, there exists a simple
+chain $(J_{k_{0}}, \dots, J_{k_{m}})$ from $x_{0}$ to $x_{1}$, where $k_{i} \in
+\{0, \dots, n\}$ for $0\leq i \leq m \leq n$.
+
+\underline{Claim 1:} $R$ is an equivalence relation on $\{0,\dots, n\}$.
+
+\begin{claimproof}
+To prove that $R$ is an equivalence relation, we need to show that $R$ is
+symmetric, reflexive, and transitive.
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+\item {\bf Symmetry:} If $x_{0}, x_{1} \in J_{i_{0}}$, then $(J_{i_{0}})$ is a
+simple chain from $x_{0}$ to $x_{1}$, so $i_{0}\ R\ i_{0}$.
+
+\item {\bf Reflexivity:} If $i_{0}\ R\ i_{1}$, then there is a simple chain from
+$x_{0}\in J_{i_{0}}$ to $x_{1} \in J_{i_{1}}$. But by definition of simple chain
+from $a$ to $b$, this is also a simple chain from $x_{1}$ to $x_{0}$. Thus
+$i_{1}\ R\ i_{0}$.
+
+\item {\bf Transitivity:} Assume $i_{0}\ R\ i_{1}$ and $i_{1}\ R\ i_{2}$, where
+$i_{0}\neq i_{1}, i_{0} \neq i_{2}, i_{1}\neq i_{2}$. Let $x_{0} \in J_{i_{0}}$, $x_{1} \in J_{i_{1}}$,
+and $x_{2} \in J_{i_{2}}$. Further, let $a_{0}, a_{1}$ and $a_{2}$ denote the
+left endpoints of $J_{i_{0}}, J_{i_{1}}$, and $J_{i_{2}}$ respectively. Without
+loss of generality we can assume that $a_{0} \leq a_{1}$. Then there are three
+possibilities: either (a) $a_{2} < a_{0}$, (b) $a_{0} \leq a_{2} \leq a_{1}$, or
+(c) $a_{2} > a_{1}$.
+
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+\item {\bf Case 2 (ii) (a):} Assume $a_{2} < a_{0}$.
+
+Since $i_{0}\ R\ i_{1}$, $i_{2}\ R\ i_{1}$ by reflexivity. Thus, there is a
+simple chain $(J_{i_{2}} = J_{k_{0}}, \dots, J_{i_{1}} = J_{k_{m}})$ from some
+$x_{2} \in J_{i_{2}}$ to some $x_{1} \in J_{i_{1}}$. But since $a_{2} < a_{0}
+\leq a_{1}$, there exists some $x_{0} \in
+\left(\cup_{l=0}^{m}J_{k_{l}}\right)\cap \left(J_{i_{0}}\right)$. So $x_{0}$ is
+in the simple chain from $x_{2}$ to $x_{1}$, and therefore there is a simple
+chain from $x_{2}$ to $x_{0}$, so $i_{2}\ R\ i_{0}$, and thus $i_{0}\ R\ i_{2}$.
+
+\item {\bf Case 2 (ii) (b):} Assume $a_{0} \leq a_{2} \leq a_{1}$.
+
+Since there is a simple chain $(J_{i_{0}} = J_{k_{0}}, \dots, J_{i_{1}} =
+J_{k_{m}})$ from some $x_{0} \in J_{i_{0}}$ to some $x_{1} \in J_{i_{1}}$, and
+$a_{0} \leq a_{2} \leq a_{1}$, there exists some $x_{2} \in
+\left(\cup_{l=0}^{n}J_{k_{l}}\right)\cap\left(J_{i_{2}}\right)$. So $x_{2}$ is
+in the simple chain from $x_{0}$ to $x_{1}$, and therefore there is a simple
+chain from $x_{0}$ to $x_{2}$. So $i_{0}\ R\ i_{2}$.
+
+\item {\bf Case 2 (ii) (c):} Assume $a_{2} > a_{1}$.
+
+By assumption, there are simple chains $(J_{i_{0}} = J_{k_{0}}, J_{k_{1}}, \dots, J_{k_{m}} = J_{i_{1}})$ from $x_{0} \in J_{i_{0}}$ to $x_{1} \in J_{i_{1}}$ and
+$(J_{i_{1}} = J_{k_{0}}', J_{k_{1}}', \dots, J_{k_{l}}' = J_{i_{2}})$ from $x_{1}$ to $x_{2}
+\in J_{i_{2}}$. Now, let 
+\[ m^{*} = \min\left\{i : 0\leq i\leq m \text{ and }
+J_{k_{i}}\cap\left(\cup_{j=0}^{l}J_{k_{j}}'\right)\neq \emptyset\right\}, \footnote{We
+know that this set is non-empty since $J_{k_{m}} \cap J_{k_{1}}' = J_{i_{1}}
+\cap J_{k_{1}}' \neq \emptyset$.} \text{ and } \]
+\[ p^{*} = \max\left\{ i : 0 \leq i \leq l \text{ and } J_{k_{i}}' \cap J_{k_{m^{*}}} \neq
+\emptyset\right\}. \]
+Thus $(J_{i_{0}} = J_{k_{0}}, \dots, J_{k_{m^{*}}}, J_{k_{p^{*}}}',
+J_{k_{p^{*}+1}}', \dots, J_{k_{l}}' = J_{i_{2}})$ is a simple chain from $x_{0}$
+to $x_{2}$, so $i_{0}\ R\ i_{2}$.
+\end{itemize}
+\end{itemize}
+\end{claimproof}
+
+Since $R$ is an equivalence relation on $\{0, \dots, n\}$, the collection of
+equivalence classes is a disjoint collection of non-empty subsets of $\{0,\dots,
+n\}$ whose union is $\{0, \dots, n\}$. Let's say there are $q + 1$ equivalence
+classes denoted by $E_{0}, \dots, E_{q}$. It will be clear from the next claim
+and the assumption of case 2 that $q < n$. 
+
+\underline{Claim 2:} $\left(\cup_{k\in E_{i}}J_{k}\right) \cap \left( \cup_{k\in
+E_{j}} J_{k}\right) = \emptyset$ for all $i,j \in \{0, \dots, q\}$ where $i \neq
+j$.
+
+\begin{claimproof}
+We will prove this by contradiction. So assume that $\left(\cup_{k \in
+E_{i}}J_{k}\right)\cap \left(\cup_{k=\in E_{j}}J_{k}\right) \neq \emptyset$ for
+some $i,j \in \{0, \dots, q\}$ with $i\neq j$. Then $J_{k} \cap J_{l} \neq
+\emptyset$ for some $k \in E_{i}$ and $l \in E_{j}$. Thus $(J_{k}, J_{l})$ is a
+simple chain from any $x_{0} \in J_{k}$ to $x_{1} \in J_{l}$. So $k\ R\ l$, and
+thus $l \in E_{i}$. This is a contradiction since equivalence classes are disjoint.
+\end{claimproof}
+
+By claim 2 and our definition of length,
+\begin{equation}
+\ell\left(\bigcup_{k=0}^{n}J_{k}\right) = \sum_{i=0}^{q}\ell\left(\bigcup_{k\in
+E_{i}}J_{k}\right).
+\end{equation}
+Now, for each $E_{i}$, $0 \leq i \leq q$, let $i_{\min}\in E_{i}$ be the index
+of the set whose left endpoint $a_{i_{\min}}$, is the smallest out of all sets
+whose index is in $E_{i}$. Similarly, let $i_{\max}$ be the index of the set
+with the largest right endpoint, $b_{i_{\max}}$, out of all sets whose index is
+in $E_{i}$. Then,
+\begin{equation}
+\ell\left(\bigcup_{k\in E_{i}}J_{k}\right) = b_{i_{\max}} - a_{i_{\min}} =
+|a_{i_{\min}} - b_{i_{\max}}|.
+\end{equation}
+Further, since $i_{\min}\ R\ i_{\max}$, there is a simple chain $(J_{i_{\min}} =
+J_{i_{0}}, J_{i_{1}}, \dots, J_{i_{p}} = J_{i_{\max}})$, with $p \leq |E_{i}|$,
+from $x_{0} \in J_{i_{\min}}$ to $x_{1} \in J_{i_{\max}}$. Since this is a
+simple chain and each $J_{i}$ is an open interval, $a_{i_{j+1}} < b_{i_{j}}$,
+where $a_{i_{j+1}}$ is the left endpoint of $J_{i_{j+1}}$ and $b_{i_{j}}$ is the
+right endpoint for $J_{i_{j}}$, for $0 \leq j < p$ (assuming $p > 0$). Thus,
+\begin{align*}
+\ell\left(\bigcup_{k\in E_{i}}J_{k}\right) \stackrel{(2)}{=} |a_{i_{\min}} -
+b_{i_{\max}}| & = |a_{i_{0}} - b_{i_{p}}| \\
+& = |a_{i_{0}} - a_{i_{1}} + a_{i_{1}} - a_{i_{2}} + a_{i_{2}} - \dots +
+a_{i_{p}} - b_{i_{p}}| \\
+& \leq |a_{i_{0}} - a_{i_{1}}| + |a_{i_{1}} - a_{i_{2}}| + \dots + |a_{i_{p}} -
+b_{i_{p}}| \\
+& \leq |a_{i_{0}} - b_{i_{0}}| + |a_{i_{1}} - b_{i_{1}}| + \dots + |a_{i_{p}} -
+b_{i_{p}}| \\
+& = \sum_{j=0}^{p}\ell(J_{i_{0}}) \\
+& \leq \sum_{k\in E_{i}}\ell(J_{k}).
+\end{align*}
+So,
+\begin{equation}
+\ell\left(\bigcup_{k\in E_{i}}J_{k}\right) \leq \sum_{k\in E_{i}}\ell(J_{k}).
+\end{equation}
+Thus,
+\[ \ell\left(\bigcup_{k=0}^{n}J_{k}\right) \stackrel{(1)}{=}
+\sum_{i=0}^{q}\ell\left(\bigcup_{k\in E_{i}}J_{k}\right) \stackrel{(3)}{\leq}
+\sum_{i=0}^{q}\sum_{k\in E_{i}}\ell(J_{k}) = \sum_{k=0}^{n}\ell(J_{k}). \]
+
+\end{itemize}
+\end{proof}
+
+{\bf (3)} Consider the two definitions of outer measure for a set $A \subseteq
+\mathbb{R}$:
+\[ \mu^{*}(A) = \inf\{\ell(U) : A \subseteq U \subseteq \mathbb{R}, U \neq
+\emptyset, U \text{ open}\}, \text{ and } \]
+\[ m^{*}(A) = \inf\left\{\sum_{k=1}^{\infty}\ell(I_{k}) : A \subseteq
+\cup_{k=1}^{\infty}I_{k} \subseteq \mathbb{R}, I_{k} \neq \emptyset, I_{k}
+\text{ an open interval}\right\}. \]
+Show that these two definitions are equivalent.
+
+{\bf Solution:}
+
+\begin{proof}
+Let $A \subseteq \mathbb{R}$. 
+
+$(\Rightarrow)$ First we will show that $m^{*}(A) \leq \mu^{*}(A)$.
+
+For each $U \in \{U:A \subseteq U \neq \emptyset, U \text{ open}\}$, we have $U = \cup_{k=1}^{n}E_{k}$, where
+the $E_{k}$'s are non-empty, disjoint, open intervals. Therefore
+$\cup_{k=1}^{n}E_{k}
+\subseteq \cup_{k=1}^{\infty}E_{k}$ where, for $k > n$, $E_{k}$ is an arbitrary
+non-empty open interval such that $\ell(E_{k}) \leq \frac{\epsilon}{2^{k-n}}$
+for some $\epsilon > 0$.
+Denote $\left\{\cup_{k=1}^{\infty}E_{k}:A\subseteq U = \cup_{k=1}^{n}E_{k}\right\}$ as the collection of all
+such sets that satisfy these conditions for every $U \in \{U:A \subseteq U \neq \emptyset, U \text{ open}\}$.
+Thus, 
+\[ \left\{ \cup_{k=1}^{\infty}E_{k}:A\subseteq U = \cup_{k=1}^{n}E_{k}\right\} \subseteq
+\left\{\cup_{k=1}^{\infty}I_{k}: A \subseteq
+\cup_{k=1}^{\infty}I_{k}, I_{k} \neq \emptyset, I_{k}
+\text{ an open interval}\right\}, \]
+ and so 
+\[ \left\{\sum_{k=1}^{\infty}\ell(E_{k}):A\subseteq U = \cup_{k=1}^{n}E_{k}\right\} \subseteq
+\left\{\sum_{k=1}^{\infty}\ell(I_{k}): A \subseteq
+\cup_{k=1}^{\infty}I_{k}, I_{k}\neq \emptyset, I_{k}\text{ open interval}\right\}, \]
+since there is a one-to-one (injective) correspondence between an interval and its length. Hence, 
+\begin{align*}
+\inf\left\{\sum_{k=1}^{\infty}\ell(I_{k}): A \subseteq
+\cup_{k=1}^{\infty}I_{k}\right\} & \leq
+\inf\left\{\sum_{k=1}^{\infty}\ell(E_{k}):A\subseteq U = \cup_{k=1}^{n}E_{k}\right\} \\
+& = \inf\bigg\{\ell(U) +
+\sum_{k=1}^{\infty}\ell(E_{k}):A \subseteq U \neq \emptyset, U \text{ open}, \\
+& \qquad E_{k}\text{ open interval s.t. } \ell(E_{k}) \leq \epsilon / 2^{k-n}\bigg\} \\
+& = \inf\left\{\ell(U) +
+\sum_{K=1}^{\infty}\frac{\epsilon}{2^{k-n}}:A \subseteq U \neq \emptyset, U \text{ open}\right\} \\
+& = \inf\left\{\ell(U) + \epsilon :A \subseteq U \neq \emptyset, U \text{ open}\right\} \\
+& = \inf\left\{\ell(U):A \subseteq U \neq \emptyset, U \text{ open}\right\} + \epsilon. 
+\end{align*}
+Since $\epsilon > 0$ was arbitrary,
+$\inf\left\{\sum_{k=1}^{\infty}\ell(I_{k}): A \subseteq
+\cup_{k=1}^{\infty}I_{k}\right\} \leq \inf\{\ell(U):A
+\subseteq U \neq \emptyset, U \text{ open}\}$.
+Therefore $m^{*}(A) \leq \mu^{*}(A)$.
+
+$(\Leftarrow)$ Now we will show that $m^{*}(A) \geq \mu^{*}(A)$.
+
+First note that each $\cup_{k=1}^{\infty}I_{k}$ in
+$\{\cup_{k=1}^{\infty}I_{k}: A \subseteq
+\cup_{k=1}^{\infty}I_{k}, I_{k}\text{ open non-empty interval}\}$ is open and non-empty, and so 
+\[ \{\cup_{k=1}^{\infty}I_{k}: A \subseteq \cup_{k=1}^{\infty}I_{k}\}
+\subseteq \{U:A \subseteq U \neq \emptyset, U \text{ open}\},\]
+since $\{U:A \subseteq U \neq \emptyset, U \text{ open}\}$ is more generally the collection of all
+non-empty open sets that cover $A$. Therefore,
+\[ \left\{\ell\left(\cup_{k=1}^{\infty}I_{k}\right): A \subseteq
+\cup_{k=1}^{\infty}I_{k}\right\} \subseteq \{\ell(U):A \subseteq U \neq \emptyset, U \text{ open}\}.\]
+Hence,
+\begin{align*}
+\inf\{\ell(U):A \subseteq U \neq \emptyset, U \text{ open}\} & \leq 
+\inf\left\{\ell\left(\cup_{k=1}^{\infty}I_{k}\right): A \subseteq
+\cup_{k=1}^{\infty}I_{k}\right\} \\
+\text{Lemma
+(II)(1)(xviii)}\Rightarrow\qquad & \leq \inf\left\{ \sum_{k=1}^{\infty}\ell(I_{k}) : A \subseteq
+\cup_{k=1}^{\infty}I_{k}\right\}. 
+\end{align*}
+So $\mu^{*}(A) \leq m^{*}(A)$.
+
+Thus we have shown $\mu^{*}(A) = m^{*}(A)$, and therefore the definitions are equivalent.
+\end{proof}
+
+{\bf (4) [RF 2.7]} A set of real numbers is said to be a $G_{\delta}$ set
+provided it is the intersection of a countable collection of open sets. Show
+that for any bounded set $E$, there is a $G_{\delta}$ set $G$ for which 
+\[ E \subseteq G \text{ and } m^{*}(G) = m^{*}(E). \]
+
+{\bf Solution:}
+
+\begin{proof}
+Let $E \subset \mathbb{R}$ be bounded. Let $\epsilon > 0$. For each $n \in
+\mathbb{N}$, let $G_{n}$ be an open set such that 
+
+\begin{itemize}[label={},leftmargin=8mm, itemsep=1em, parsep=0em]
+\item (i) $G_{n} = \cup_{k=1}^{\infty}I_{n,k}$, where $I_{n,k}$ is an open,
+non-empty interval for each $k \in \mathbb{N}$,
+\item (ii) $E \subseteq G_{n}$, and 
+\item (iii) $\sum_{k=1}^{\infty}\ell(I_{n,k}) \leq m^{*}(E) +
+\frac{\epsilon}{n}$.
+\end{itemize}
+Now define $G = \cap_{k=1}^{\infty}G_{n}$. Then $G$ is a $G_{\delta}$ set by
+contruction and, for each $n\in\mathbb{N}$,
+\begin{align*}
+m^{*}(G) \stackrel{\text{monotonicity}}{\leq} m^{*}(G_{n}) & =
+m^{*}\left(\cup_{k=1}^{\infty}I_{n,k}\right) \\
+\text{(subadditivity)} \qquad & \leq \sum_{k=1}^{\infty}\ell(I_{n,k}) \\
+& \leq m^{*}(E) + \frac{\epsilon}{n}.
+\end{align*}
+So $m^{*}(G) \leq m^{*}(E) + \epsilon / n$, and since the left side of the
+inequality does not depend on $n$, 
+\begin{equation}
+m^{*}(G) \leq m^{*}(E).
+\end{equation}
+
+Now, since $E \subseteq G_{n}$ for every $n \in \mathbb{N}$, $E \subseteq G =
+\cap_{n=1}^{\infty}G_{n}$. Therefore, 
+\begin{equation}
+m^{*}(E) \leq m^{*}(G)
+\end{equation} 
+by monotonicity. Therefore $m^{*}(E) = m^{*}(G)$ by (4) and (5).
+\end{proof}
+
+{\bf (5) [RF 2.9]} If $m^{*}(A) = 0$, then $m^{*}(A\cup B) = m^{*}(B)$.
+
+{\bf Solution:}
+
+\begin{proof}
+Let $A$ and $B$ be subsets of $\mathbb{R}$ such that $m^{*}(A) = 0$. Now denote
+$A_{1} = A$, $A_{2} = B$, and $A_{n} = \emptyset$ for all $n > 2$. Thus,
+\[ m^{*}(A\cup B) = m^{*}\left( \cup_{n=1}^{\infty}A_{n} \right)
+\stackrel{\text{Thm (II)(1)(xxiv)}}{\leq} \sum_{n=1}^{\infty}m^{*}(A_{n}) =
+m^{*}(A) + m^{*}(B) + \sum_{n=2}^{\infty} 0, \]
+so 
+\begin{equation}
+m^{*}(A \cup B) \leq m^{*}(B).
+\end{equation}
+Further, since $B \subseteq A\cup B$, 
+\begin{equation}
+m^{*}(B) \leq m^{*}(A\cup B),
+\end{equation}
+by monotonicity. Therefore (6) and (7) imply that $m^{*}(A\cup B) = m^{*}(B)$.
+\end{proof}
+
+
+{\bf (6) [Claim 1 in the proof of Thm (II)(1)(xxiv)]} $\cup_{(n,j')\in
+G_{j}}I_{n,j'} = I_{j}$.
+
+{\bf Solution:}
+
+\begin{proof}
+$(\Rightarrow)$ Let $x \in \cup_{(n,j')\in G_{j}}I_{n,j'}$. Then $x \in I_{n_{0},j_{0}}$ for
+some $(n_{0},j_{0}) \in G_{j}$. Thus $x \in I_{j}$ since $I_{n_{0},j_{0}}
+\subseteq I_{j}$. So,
+\begin{equation}
+\cup_{(n,j')\in G_{j}}I_{n,j'} \subseteq I_{j}.
+\end{equation}
+$(\Leftarrow)$ We now need to show that $I_{j} \subseteq \cup_{(n,j')\in
+G_{j}}I_{n,j'}$. We will show by contradiction. Thus, assume $I_{j} \supset
+\cup_{(n,j')\in G_{j}}I_{n,j'}$. Then there exists some $x \in I_{j}$ such that
+$x \notin \cup_{(n,j')\in G_{j}}I_{n,j'}$. But since 
+\begin{equation}
+\cup_{j\in F}I_{j} = V = \cup_{n=0}^{\infty}U_{n} =
+\cup_{n=0}^{\infty}\left(\cup_{j\in F_{n}}I_{n,j}\right),
+\end{equation}
+$x\in I_{n_{0},j_{0}}$ for some $n_{0} \geq 0$ and $j_{0} \in F_{n_{0}}$, where
+$(n_{0}, j_{0}) \notin G_{j}$. Thus $I_{n_{0},j_{0}} \nsubseteq I_{j}$, so 
+\begin{equation}
+I_{n_{0},j_{0}} \cap \left(\cup_{j^{*}\in F\setminus \{j\}}I_{j^{*}}\right) \neq
+\emptyset.
+\end{equation}
+Further, since $x \in I_{n_{0},j_{0}}$ and $x\in I_{j}$, $x \in
+I_{n_{0},j_{0}}\cap I_{j}$, so $I_{n_{0},j_{0}}\cap I_{j}\neq \emptyset$.
+Therefore, since $I_{n_{0},j_{0}} \subseteq \cup_{j\in F}I_{j}$, we have
+\begin{equation}
+I_{n_{0},j_{0}} = \left( I_{n_{0},j_{0}} \cap I_{j} \right) \cup \left(
+I_{n_{0},j_{0}} \cap \bigcup_{j^{*}\in F\setminus \{j\}}I_{j^{*}}
+\right).
+\end{equation}
+So $I_{n_{0},j_{0}}$ must be disconnected since $I_{j} \cap \left(
+\cup_{j^{*}\in F\setminus \{j\}}I_{j^{*}}
+\right) \neq \emptyset$. But this is a contradiction since $I_{n_{0},j_{0}}$ is
+an interval. Thus 
+\begin{equation}
+I_{j} \subseteq \cup_{(n,j')\in G_{j}}I_{n,j'}.
+\end{equation}
+So (8) and (12) imply that $\cup_{(n,j')\in G_{j}}I_{n,j'} = I_{j}$.
+\end{proof}
+
+
+
+
+
+\end{document}
+

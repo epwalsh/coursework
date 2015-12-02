@@ -1,0 +1,405 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+% This rule is for making an integral with a bar above it or below it.
+\makeatletter
+\newcommand\tint{\mathop{\mathpalette\tb@int{t}}\!\int}
+\newcommand\bint{\mathop{\mathpalette\tb@int{b}}\!\int}
+\newcommand\tb@int[2]{%
+  \sbox\z@{$\m@th#1\int$}%
+  \if#2t%
+    \rlap{\hbox to\wd\z@{%
+      \hfil
+      \vrule width .35em height \dimexpr\ht\z@+1.4pt\relax depth -\dimexpr\ht\z@+1pt\relax
+      \kern.05em % a small correction on the top
+    }}
+  \else
+    \rlap{\hbox to\wd\z@{%
+      \vrule width .35em height -\dimexpr\dp\z@+1pt\relax depth \dimexpr\dp\z@+1.4pt\relax
+      \hfil
+    }}
+  \fi
+}
+\makeatother
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$\vspace{5mm}}
+
+\title{STAT 641: HW 5}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{2.15 (c)}
+Consider the probability space $\big( (0,1), \mathcal{B}\left( (0,1) \right), m\big)$, where $m(\cdot)$ is the Lebesgue measure. Let $F : \mathbb{R}
+\rightarrow \mathbb{R}$ be a cdf. For $0 < x < 1$, let 
+\begin{align*}
+F_{1}^{-1}(x) & = \inf\left\{ y \in \mathbb{R} : F(y) \geq x \right\} \\
+F_{2}^{-1}(x) & = \sup\left\{ y \in \mathbb{R} : F(y) \leq x \right\}
+\end{align*}
+Let $Z_{i}$ be the random variable defined by 
+\[ Z_{i} = F_{i}^{-1}(x), 0 < x < 1, i = 1,2. \]
+(i) Find the cdf of $Z_{i}$, $i = 1,2$.
+
+(ii) Show also that $F_{1}^{-1}(\cdot)$ is left-continuous and $F_{2}^{-1}(\cdot)$ is right-continuous.
+
+\subsection*{Solution}
+
+{\bf (i)} Let $t \in \mathbb{R}$ and $x \in (0,1)$. First we will show that $F_{Z_{1}}(t) = F(t)$.
+
+\underline{Claim 1:} If $F(t) \geq x$, then $F_{1}^{-1}(x) \leq t$.
+\begin{claimproof}
+Assume $F(t) \geq x$. Then $t \in \left\{ y \in \mathbb{R} : F(y) \geq x \right\}$. Let $\left\{ y_{n} \right\}_{n=0}^{\infty}$ be a decreasing
+sequence of reals such that $y_{n} \in \left\{ y \in \mathbb{R} : F(y) \geq x \right\}$ for each $n \in \mathbb{N}$ and 
+\[ \lim_{n\rightarrow \infty} y_{n} = \inf\left\{ y \in \mathbb{R} : F(y) \geq x \right\} = F_{1}^{-1}(x).\] 
+Since $F$ is right-continuous, 
+\[ \lim_{n\rightarrow\infty}F(y_{n}) = F(F_{1}^{-1}(x)) \geq x. \]
+Thus, $\left\{ y \in \mathbb{R} : F(y) \geq x \right\} = [F_{1}^{-1}(x), \infty)$. So $t \geq F_{1}^{-1}(x)$.
+\end{claimproof}
+
+\underline{Claim 2:} If $F_{1}^{-1}(x) \leq t$, then $F(t) \geq x$.
+\begin{claimproof}
+Assume $t \geq F_{1}^{-1}(x) = \inf\left\{ y \in \mathbb{R} : F(y) \geq x \right\}$. Clearly if $t > F_{1}^{-1}(x)$ then $F(t) \geq x$. But by
+right-continuity of $F$ as in claim 1, $F(F_{1}^{-1}(x)) \geq x$. So $t = F_{1}^{-1}(x)$ implies $F(t) \geq x$. Thus $F(t) \geq x$ for all $x$ such
+that $F_{1}^{-1}(x) \leq t$.
+\end{claimproof}
+
+By claims 1 and 2, $F(t) \geq x$ iff $F_{1}^{-1}(x) \leq t$. Thus,
+\begin{align*}
+F_{Z_{1}}(t) = P_{Z_{1}}(Z_{1} \leq t) & = P_{X}(F_{1}^{-1}(X) \leq t) \\
+& = P_{X}(X \leq F(t)) \\
+& = m\left( \left\{ x \in (0,1) : x \leq F(t) \right\} \right) \\
+& = m\left( (0, F(t)] \right) = F(t).
+\end{align*}
+
+Now we will show that $F_{Z_{2}}(t) = F(t)$ as well. 
+
+\underline{Claim 3:} $F^{-1}(x) = \left\{ y \in \mathbb{R} : F(y) = x \right\}$ is a non-degenerate and non-empty interval iff 
+\[ F_{1}^{-1}(x) < F_{2}^{-1}(x). \]
+\begin{claimproof}
+Let $x \in (0,1)$. Since $F$ is non-decreasing, 
+\[ F^{-1}(x) = \left\{ y \in \mathbb{R} : F(y) = x \right\} \] 
+must be an interval. 
+
+$(\Rightarrow)$ Assume there is more than one point in $F^{-1}(x)$, then 
+\begin{align*}
+F_{1}^{-1}(x_{0}) & = \inf\left\{ y \in \mathbb{R} : F(y) \geq x_{0} \right\} \\
+&  = \inf\left\{ y \in \mathbb{R} : F(y) = x_{0} \right\} \\
+& < \sup\left\{ y \in \mathbb{R} : F(y) = x_{0} \right\} \\
+& = \sup\left\{ y \in \mathbb{R} : F(y) \leq x_{0} \right\} = F_{2}^{-1}(x_{0}).
+\end{align*}
+$(\Leftarrow)$ On the other hand, if $F_{1}^{-1}(x) < F_{2}^{-1}(x)$, then 
+\[ \inf\left\{ y \in \mathbb{R} : F(y) \geq x \right\} < \sup\left\{ y \in \mathbb{R} : F(y) \leq x \right\}. \]
+Thus there exists $y_{0} < y_{1}$ such that $F(y_{0}) \geq x$ and $F(y_{1}) \leq x$. But since $F$ is non-decreasing, $F(y_{0}) \leq F(y_{1})$. So 
+\[ x \geq F(y_{0}) \leq F(y_{1}) \leq x, \]
+and so $F(y) = x$ for all $y \in [y_{0}, y_{1}] \subseteq F^{-1}(x)$. Hence $F^{-1}(x)$ is a non-degenerate, non-empty interval.
+\end{claimproof}
+
+Let 
+\[ D = \left\{ x \in (0,1) : F_{1}^{-1}(x) < F_{2}^{-1}(x) \right\}. \]
+Then $F_{1}^{-1}(x) = F_{2}^{-1}(x)$ for all $x \in D^{c}$.
+
+\underline{Claim 4:} $D$ is measurable and $m(D) = 0$.
+\begin{claimproof}
+By claim 3, $F_{1}^{-1}(x) < F_{2}^{-1}(x)$ if and only if $F^{-1}(x)$ is a non-degenerate interval. 
+Then for each $x \in D$ there is a rational number $q_{x} \in F^{-1}(x)$. Thus there is a natural bijection between $D$
+and a subset of the rational numbers. So $D$ is at most countable. Therefore $m(D) = 0$, which
+also implies that $D$ is measurable with respect to $m(\cdot)$.
+\end{claimproof}
+
+Thus,
+\begin{align*}
+F_{Z_{1}}(t) = P_{Z_{1}}(Z_{1} \leq t) & = P_{X}(F_{1}^{-1}(X) \leq t) \\
+& = m\left( \left\{ x \in (0,1) : F_{1}^{-1}(x) \leq t \right\} \right) \\
+& = m\left( \left\{ x \in (0,1) : F_{1}^{-1}(x) \leq t, x \notin D \right\}\cup\left\{ x \in (0,1) : F_{1}^{1}(x) \leq t, x \in D \right\} \right) \\
+\text{$D$ measurable $\Rightarrow$} & = m\left( \left\{ x \in (0,1) : F_{1}^{-1}(x) \leq t, x \notin D \right\} \right) \\
+& \qquad + m\left( \left\{ x \in (0,1) : F_{1}^{-1}(x) \leq t, x \in D \right\} \right) \\
+& = m\left( \left\{ x \in (0,1) : F_{1}^{-1}(x) \leq t, x \notin D \right\} \right) \\
+& = m\left( \left\{ x \in (0,1) : F_{2}^{-1}(x) \leq t, x \notin D \right\} \right) \\
+& = m\left( \left\{ x \in (0,1) : F_{2}^{-1}(x) \leq t, x \notin D \right\} \right) \\
+\text{measure $0 \Rightarrow$} & \qquad + m\left( \left\{ x \in (0,1) : F_{2}^{-1}(x) \leq t, x \in D \right\} \right) \\
+& = m\left( \left\{ x \in (0,1) : F_{2}^{-1}(x) \leq t, x \notin D \right\} \cup \left\{ x \in (0,1) : F_{2}^{-1}(x) \leq t, x \in D \right\} \right)
+\\
+& = m\left( \left\{ x \in (0,1) : F_{2}^{-1}(x) \leq t \right\} \right) \\
+& = P_{X}(F_{2}^{-1}(X) \leq t) = F_{Z_{2}}(t).
+\end{align*}
+Therefore $F_{Z_{2}}(t) = F_{Z_{1}}(t) = F(t)$.
+
+
+{\bf (ii)}
+\begin{proof}
+Let $\epsilon > 0$. First we will show that $F_{1}^{-1}(\cdot)$ is left-continuous. Since $F_{1}^{-1}(\cdot)$ is non-decreasing, we need to show 
+that there exists some $\delta_{1} > 0$ such that for all $y\in [x - \delta_{1}, x]$,
+\[ F_{1}^{-1}(y) \in \left[ F_{1}^{-1}(x) - \epsilon, F_{1}^{-1}(x) \right]. \]
+
+Note that by claims 1 and 2, $F(t) \geq x$ iff $F_{1}^{-1}(x) \leq t$. This implies that $F(t) < x$ iff $F_{1}^{-1}(x) > t$. 
+Now, since $F_{1}^{-1}(x) = \inf\left\{ y \in \mathbb{R} : F(y) \geq x \right\}$, $F(F_{1}^{-1}(x) - \epsilon) < x$. Therefore there exists some
+$\delta_{1} > 0$ such that $F(F_{1}^{-1}(x) - \epsilon) < x - \delta_{1}$. Then this implies that 
+\[ F_{1}^{-1}(x) - \epsilon < F_{1}^{-1}(x - \delta_{1}) \leq F_{1}^{-1}(x). \]
+Hence $F_{1}^{-1}(\cdot)$ is left-continuous.
+
+Now we will show that $F_{2}^{-1}(\cdot)$ is right-continuous. Since $F_{2}^{-1}(\cdot)$ is non-decreasing, we need to show that there exists some
+$\delta_{2} > 0$ such that for all $y \in [x, x + \delta_{2}]$,
+\[ F_{2}^{-1}(y) \in \left[ F_{2}^{-1}(x), F_{2}^{-1}(x) + \epsilon \right].\] 
+First note the following claim.
+
+\underline{Claim 5:} If $F(t) > x$, then $F_{2}^{-1}(x) \leq t$.
+\begin{claimproof}
+Assume $F(t) > x$. Then $t \in \left\{ y \in \mathbb{R} : F(y) > x \right\}$. Since $F$ is non-decreasing, $t > y$ for every $y \in \left\{ y \in
+\mathbb{R} : F(y) \leq x \right\}$. Therefore $t \geq \sup\left\{ y \in \mathbb{R} : F(y) \leq x \right\} = F_{2}^{-1}(x)$.
+\end{claimproof}
+
+Since $F_{2}^{-1}(x) = \sup\left\{ y \in \mathbb{R} : F(y) \leq x \right\}$, $F(F_{2}^{-1}(x) + \epsilon) > x$. Thus, there exists some $\delta_{2} >
+0$ such that $F(F_{2}^{-1}(x) + \epsilon) > x + \delta_{2}$. So by claim 5,
+\[ F_{2}^{-1}(x) \leq F_{2}^{-1}(x + \delta_{2}) \leq F_{2}^{-1}(x) + \epsilon. \]
+Hence $F_{2}^{-1}(\cdot)$ is right-continuous.
+\end{proof}
+
+\newpage
+\section*{2.20}
+Apply Corollary 2.3.5 to show that for any collection $\left\{ a_{ij} : i, j \in \mathbb{N} \right\}$ of nonnegative numbers,
+\[ \sum_{i=1}^{\infty}\left(\sum_{j=1}^{\infty}a_{ij}\right) = \sum_{j=1}^{\infty}\left(\sum_{i=1}^{\infty}a_{ij}\right). \]
+
+\subsection*{Solution}
+\begin{proof}
+Let $\left\{ a_{ij} : i, j \in \mathbb{N} \right\}$ be a collection of nonnegative reals.
+
+\underline{Claim 1:} For each $x \in \mathbb{R}$, 
+\[ \sum_{i=1}^{\infty}\left( \sum_{j=1}^{\infty}a_{ij}I_{[j,j+1)}(x) \right) = \sum_{j=1}^{\infty}\left( \sum_{i=1}^{\infty}a_{ij}I_{[j,j+1)}(x)
+\right). \]
+\begin{claimproof}
+Let $x \in \mathbb{R}$. If $x < 1$ then the equality is trivial. Assume $x \geq 1$. Then $x \in [j^{*}, j^{*} + 1)$ for some $j^{*} \in \mathbb{N}$.
+Thus,
+\begin{align*}
+\sum_{i=1}^{\infty}\left( \sum_{j=1}^{\infty}a_{ij}I_{[j,j+1)}(x) \right) = \sum_{i=1}^{\infty}a_{ij^{*}}I_{[j^{*},j^{*}+1)}(x) & =
+\sum_{i=1}^{\infty}a_{ij^{*}}I_{[j^{*},j^{*}+1)}(x) + \sum_{j\neq j^{*}}\sum_{i=1}^{\infty}a_{ij}I_{[j, j+1)}(x) \\
+& = \sum_{j=1}^{\infty}\left( \sum_{i=1}^{\infty}a_{ij}I_{[j,j+1)}(x) \right).
+\end{align*}
+\end{claimproof}
+
+As a direct result of claim 1,
+\begin{equation}
+\int\left[ \sum_{i=1}^{\infty}\left( \sum_{j=1}^{\infty}a_{ij}I_{[j,j+1)} \right) \right]dm = \int\left[ \sum_{j=1}^{\infty}\left( \sum_{i=1}^{\infty}
+a_{ij}I_{[j,j+1)} \right) \right]dm,
+\label{2.1}
+\end{equation}
+where $m(\cdot)$ is the Lebesgue measure. Now, for each $i_{0}, j_{0} \in \mathbb{N}$, $a_{i_{0}j_{0}}I_{[j_{0},j_0 + 1)}(x)$ is a simple,
+non-negative, measurable function over $\left( \mathbb{R}, \mathcal{B}(\mathbb{R}), m \right)$. By definition,
+\[ \int a_{i_{0}j_{0}}I_{[j_{0},j_{0}+1)} = a_{i_{0}j_0}m\left( [j_{0},j_{0}+1) \right) = a_{i_{0}j_{0}}. \]
+Thus, by Corollary 2.3.5,
+\begin{equation}
+\int\left( \sum_{j=1}^{\infty}a_{i_{0}j}I_{[j,j+1)} \right)dm = \sum_{j=1}^{\infty}\int a_{i_{0}j}I_{[j,j+1)}dm = \sum_{j=1}^{\infty}a_{i_{0}j},
+\label{2.2}
+\end{equation}
+and 
+\begin{equation}
+\int\left( \sum_{i=1}^{\infty}a_{ij_{0}}I_{[j_{0},j_{0}+1)} \right)dm = \sum_{i=1}^{\infty} \int a_{ij_{0}}I_{[j_{0},j_{0}+1)} =
+\sum_{i=1}^{\infty}a_{ij_{0}}.
+\label{2.3}
+\end{equation}
+Further, $\sum_{j=1}^{\infty}a_{i_{0}j}I_{[j,j+1)}(x)$ and $\sum_{i=1}^{\infty}a_{ij_{0}}I_{[j_0,j_0+1)}(x)$ are nonnegative and measurable over
+$\left( \mathbb{R}, \mathcal{B}(\mathbb{R}), m \right)$, so using Corollary 2.3.5 again, we have 
+\begin{equation}
+\int\left[ \sum_{i=1}^{\infty}\left( \sum_{j=1}^{\infty}a_{ij}I_{[j,j+1)} \right) \right]dm = \sum_{i=1}^{\infty}\int \left(
+\sum_{j=1}^{\infty}a_{ij}I_{[j,j+1)} \right)dm \stackrel{\ref{2.2}}{=} \sum_{i=1}^{\infty}\left( \sum_{j=1}^{\infty}a_{ij} \right),
+\label{2.4}
+\end{equation}
+and
+\begin{equation}
+\int\left[ \sum_{j=1}^{\infty}\left( \sum_{i=1}^{\infty}a_{ij}I_{[j,j+1)} \right) \right]dm = \sum_{j=1}^{\infty}\int\left(
+\sum_{i=1}^{\infty}a_{ij}I_{[j,j+1)} \right)dm \stackrel{\ref{2.3}}{=} \sum_{j=1}^{\infty}\left( \sum_{i=1}^{\infty}a_{ij} \right).
+\label{2.5}
+\end{equation}
+Thus by \ref{2.1}, \ref{2.4}, and \ref{2.5} we are done.
+\end{proof}
+
+
+\newpage
+\section*{2.25}
+Let $f:[0,1] \rightarrow \mathbb{R}$ be defined by 
+\[ f(x) = \left\{ \begin{array}{cl}
+1 & : x \in \mathbb{Q} \\
+0 & : x \notin \mathbb{Q}. \\
+\end{array} \right. \]
+Show that for any partition $P$, $U(f,P) = 1$ and $L(f,P) = 0$.
+
+\subsection*{Solution}
+\begin{proof}
+Let $P = (x_{0}, x_{1}, \hdots, x_{n})$, where $x_{0} = 0 < x_{1} < \dots < x_{n} = 1$, be a partition of $[0,1]$. Let $\mathcal{F}_{i} = \left\{
+f(x) : x_{i-1} \leq x \leq  x_{i} \right\}$, for $i \in \left\{ 1, \hdots, n \right\}$. Let $i_{0} \in \left\{ 1, \hdots, n \right\}$.
+Since $\mathbb{Q}$ is dense in $\mathbb{R}$, there exists $q \in \mathbb{Q}$ such that $x_{i_{0}-1} < q < x_{i_{0}}$. Similarly, there exists $r \in \mathbb{Q}^{c}$ such that
+$x_{i_{0}-1} < r < x_{i_0}$. Hence $\mathcal{F}_{i_0} = \left\{ 0,1 \right\}$. So $M_{i} = \sup \mathcal{F}_{i} = 1$ and $m_{i} = \inf \mathcal{F}_{i} = 0$ for
+every $i \in \left\{ 1, \hdots, n \right\}$. Therefore,
+\[ U(f,P) = \sum_{i=1}^{n}M_{i}(x_{i} - x_{i-1}) = \sum_{i=1}^{n}(x_{i} - x_{i-1}) = x_{n} - x_{0} = 1, \] 
+and 
+\[ L(f,P) = \sum_{i=1}^{n}m_{i}(x_{i}-x_{i-1}) = 0. \]
+\end{proof}
+Since the lower sum of $f$ is 0 and every upper sum is 1 for every partition of $[0,1]$,
+\[ \bint f = \sup_{P} L(f,P) = 0 \text{ and } \tint f = \inf_{P} U(f,P) = 1. \]
+Therefore $f$ is not Reimann integrable. On the other hand, the Lebesgue integral of $f$ is 
+\[ \int f dm = 1 \times m(\mathbb{Q} \cap [0,1]) + 0\times m([0,1] \setminus \mathbb{Q}]) = 0. \]
+
+
+\newpage 
+\section*{(A)}
+Let $f:\Omega \rightarrow \mathbb{R}$ be $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable nonnegative function. Define for $n \geq 1$
+and $x \in \Omega$ 
+\[ f_{n}(x) = \left\{ \begin{array}{cl} \frac{(i-1)}{2^{n}}, & \text{ if } \frac{(i-1)}{2^{n}} \leq f(x) < \frac{i}{2^{n}} \text{ for }i = 1, \hdots ,
+n2^{n} \\
+n, & \text{ if } f(x) \geq n
+\end{array} \right. \]
+Then prove the following:
+
+(i) For each $n\geq 1$, $f_{n}(x)$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable. 
+
+(ii) For each $x \in \Omega$, $f_{n}(x)$ is increasing with $n$.
+
+(iii) $f_{n}(x) \rightarrow f(x)$ pointwise.
+
+\subsection*{Solution}
+{\bf (i)} For each $n\geq 1$, $f_{n}(x)$ is $\langle\mathcal{F}, \mathcal{B}(\mathbb{R})\rangle$-measurable. 
+\begin{proof}
+Let $n \in \mathbb{N}$ and $a \in \mathbb{R}$. We need to show that $f_{n}^{-1}\left( (-\infty, a) \right) \in \mathcal{F}$.
+
+{\bf Case 1:} If $a < 0$, then $f_{n}^{-1}\left( (-\infty, a) \right) = \emptyset \in \mathcal{F}$ since $f_{n}$ is nonnegative.
+
+{\bf Case 2:} If $a > n$, then 
+\begin{align*}
+f_{n}^{-1}\left( (-\infty, a) \right) & = \left\{ x \in \Omega : f_{n}(x) < a \right\} \\
+& = \left\{ x \in \Omega : f_{n}(x) \leq n \right\} \\
+& = \left\{ x \in \Omega : f(x) \in \mathbb{R} \right\} = f^{-1}(\mathbb{R}) = \Omega \in \mathcal{F}.
+\end{align*}
+
+{\bf Case 3:} If $0 \leq a < n$, then there exists some $i \in \left\{ 1, \hdots, n2^{n} \right\}$ such that 
+\[ \frac{(i-1)}{2^{n}} \leq a < \frac{i}{2^{n}}. \]
+Then 
+\begin{align*}
+f_{n}^{-1}\left( (-\infty, a) \right) & = \left\{ x \in \Omega : f_{n}(x) < a \right\} \\
+& = \left\{ x \in \Omega : f_{n}(x) \leq \frac{(i-1)}{2^{n}} \right\} \\
+& = \left\{ x \in \Omega : f(x) < \frac{i}{2^{n}} \right\} \\
+& = f^{-1}\left( \left(-\infty, \frac{i}{2^{n}}\right) \right) \in \mathcal{F},
+\end{align*}
+since $\left(-\infty, \frac{i}{2^{n}}\right) \in \mathcal{B}(\mathbb{R})$.
+\end{proof}
+
+\vspace{10mm}
+
+
+
+{\bf (ii)} For each $x \in \Omega$, $f_{n}(x)$ is increasing with $n$.
+\begin{proof}
+Let $x \in \Omega$. Then there exists a minimum $N_{0} \in \mathbb{N}$ such that $f(x) < N_{0}$. If $N_{0} > 1$, then $f_{n}(x) = n$ for all $1 \leq n
+< N_{0}$. Thus $f_{n}$ is increasing with respect to $n$ over $1 \leq n < N_{0}$. Now assume that $n \geq N_{0}$. Then there exists some $i \in
+\left\{ 1, \hdots, n2^{n} \right\}$ such that 
+\[ \frac{(i-1)}{2^{n}} \leq f(x) < \frac{i}{2^{n}}. \]
+So $f_{n}(x) = \frac{(i-1)}{2^{n}}$. Now, either 
+\begin{align*}
+(a) \qquad & \frac{(i-1)}{2^{n}} = \frac{(2i - 2)}{2^{n+1}} \leq f(x) < \frac{(2i-1)}{2^{n+1}}, \text{ or } \\
+(b) \qquad & \frac{(2i-1)}{2^{n}} \leq f(x) < \frac{2i}{2^{n+1}} = \frac{i}{2^{n}}.
+\end{align*}
+If (a) then 
+\[ f_{n+1}(x) = \frac{(2i-2)}{2^{n+1}} = \frac{(i-1)}{2^{n}} = f_{n}(x). \]
+If (b) then 
+\[ f_{n+1}(x) = \frac{(2i-1)}{2^{n+1}} > \frac{(2i-2)}{2^{n+1}} = f_{n}(x). \]
+So $f_{n+1}(x) \geq f_{n}(x)$ for all $n \in \mathbb{N}$.
+\end{proof}
+
+\vspace{10mm}
+
+
+
+{\bf (iii)} $f_{n}(x) \rightarrow f(x)$ pointwise.
+\begin{proof}
+By definition of $f_{n}$, $f_{n}(x)$ is bounded above by $f(x)$, and from part (ii), 
+$f_{n}(x)$ is nondecreasing with respect to $n$. Thus $\left\{ f_{n}(x) \right\}_{n\geq 1}$ converges.
+By way of contradiction, assume that there exists an $x \in \Omega$ such that $y \equiv \lim_{n\rightarrow \infty}f_{n}(x) < f(x)$. 
+Now, there exists some $N_{0},N_{1} \in \mathbb{N}$ such that $f(x) < N_{0}$ and $f(x) - y > 2^{-N_{1}}$. Let $N =
+\max\left\{ N_{0}, N_{1} \right\}$. Thus $f(x) < N$, so there exists some $i \in \left\{ 1, \hdots, N2^{N} \right\}$ such that 
+\[ \frac{(i-1)}{2^{N}} \leq y < \frac{i}{2^{N}}. \]
+But then 
+\[ y < \frac{i}{2^{N}} \leq y + \frac{1}{2^{N}} < f(x) \]
+by choice of $N$. So by definition of $f_{N}$, $f_{N}(x) \geq \frac{i}{2^{N}} > y$. This is a contradiction since $f_{n}(x)$ should be nondecreasing with respect to $n$.
+Therefore $y = f(x)$.
+\end{proof}
+
+
+
+\newpage 
+\section*{(B)}
+Let $f,g \in L_{1}\left( \Omega, \mathcal{F}, \mu \right)$. Then 
+\[ \min (f,g) \in L_{1}\left( \Omega, \mathcal{F}, \mu \right), \]
+and 
+\[ \min\left( \int fd\mu, \int gd\mu \right). \]
+
+\subsection*{Solution}
+\begin{proof}
+Let $h = \min(f,g)$.
+
+\underline{Claim 1:} $h$ is measurable.
+\begin{claimproof}
+Let $a \in \mathbb{R}$. It suffices to show that $h^{-1}\left( (a,\infty] \right) \in \mathcal{F}$.
+Well, since $f$ and $g$ are measurable,
+\begin{align*}
+h^{-1}\left( (a,\infty] \right) = \left\{ \omega \in \Omega : h(\omega) > a \right\} & = \left\{ \omega \in \Omega : \min\left\{ f(\omega),g(\omega)
+\right\} > a \right\} \\
+& = \left\{ \omega \in \Omega : f(\omega) > a, g(\omega) > a \right\} \\
+& = \underbrace{ \left\{ \omega \in \Omega : f(\omega) > a \right\} }_{\in \mathcal{F}} \cap \underbrace{ \left\{ \omega \in \Omega : g(\omega) > a
+\right\} }_{\in \mathcal{F}} \in \mathcal{F}.
+\end{align*}
+Therefore $h$ is measurable.
+\end{claimproof}
+
+Thus, to show that $h \in L_{1}\left( \Omega, \mathcal{F}, \mu \right)$ we need to show that $\int |h|d\mu < \infty$. Note that 
+\[ |h| \leq \max(|f|, |g|) \leq |f| + |g|. \]
+Therefore, by Corollary 2.3.3, 
+\[ \int |h| d\mu \leq \int |f| d\mu + \int |g| d\mu < \infty. \]
+Hence $h \in L_{1}\left( \Omega, \mathcal{F}, \mu \right)$. Further, since $h \leq f$ and $h \leq g$,
+\[ \int hd\mu \leq \int fd\mu, \]
+and 
+\[ \int hd\mu \leq \int gd\mu. \]
+So, 
+\[ \int hd\mu \leq \min\left( \int fd\mu, \int hd\mu \right). \]
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

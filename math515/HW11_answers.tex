@@ -1,0 +1,283 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+% sans serif font
+% \renewcommand{\familydefault}{\sfdefault}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{3mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{MATH 515: HW 11}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{1 [RF 6.55]}
+Let $f$ be of bounded variation on $[a,b]$, and define $\nu(x) := TV(f_{[a,x]})$ for all $x \in [a,b]$.
+\begin{enumerate}[label=(\roman*)]
+\item Show that $|f'| \leq \nu'$ a.e. on $[a,b]$, and infer from this that 
+\[ \int_{[a,b]}|f'|d\mu \leq TV(f). \]
+\item Show that the above is an equality if and only if $f$ is absolutely continuous on $[a,b]$.
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[label=(\roman*)]
+\item 
+\begin{Proof}
+Since $f$ is of bounded variation, $f'$ exists a.e. on $[a,b]$ because $f$ can be expressed as the difference of two nondecreasing functions. Also,
+since $\nu$ is nondecreasing, $\nu'$ exists a.e. on $[a,b]$ as well. Let $E := \left\{ x \in [a,b] : f'(x) \text{ and } \nu'(x) \text{ exists}
+\right\}$. Therefore $\mu([a,b] - E) = 0$. Let $x_{0} \in E$ and $n \in \mathbb{N}$. Since $|f(x_{0} + 2^{-n}) - f(x_{0})| \leq TV(f_{[x_{0}, x_0 +
+2^{-n}]})$,
+\begin{align*}
+|\text{Diff}_{2^{-n}}(f)(x_{0})| = \left| \frac{f(x_{0} + 2^{-n}) - f(x_{0})}{2^{-n}}\right| \leq \frac{TV(f_{[x_{0},x_{0} + 2^{-n}]})}{2^{-n}} & =
+\frac{TV(f_{[a,x_{0}+2^{-n}]}) - TV(f_{[a,x_0]})}{2^{-n}} \\
+& = \frac{\nu(x_{0} + 2^{-n}) - \nu(x_{0})}{2^{-n}} \\
+& = \text{Diff}_{2^{-n}}(\nu)(x_{0}).
+\end{align*}
+Hence
+\[ |f'(x_{0})| = |\lim_{n\rightarrow\infty}\text{Diff}_{2^{-n}}(f)(x_{0})| = \lim_{n\rightarrow\infty}|\text{Diff}_{2^{-n}}(f)(x_{0})| \leq
+\lim_{n\rightarrow\infty}\text{Diff}_{2^{-n}}(\nu)(x_{0}) = \nu'(x_{0}). \]
+Thus, by Proposition (V)(3)(viii),
+\[ \int_{E}|f'|d\mu \leq \int_{E}\nu'd\mu \leq \nu(b) - \nu(a) = TV(f_{[a,b]}) - TV(f_{[a,a]}) = TV(f). \]
+\end{Proof}
+
+\item 
+\begin{Proof} \\
+$(\Rightarrow)$ Suppose $\int_{a}^{b}|f'|d\mu = TV(f)$. Let $\epsilon > 0$. Note that $TV(f) = TV(f_{[a,b]}) - TV(f_{[a,a]}) = \nu(b) - \nu(a)$.
+Therefore $\int_{a}^{b}|f'|d\mu = \nu(b) - \nu(a)$. So $\nu$ is the indefinite integral of $|f'|$ over $[a,b]$. Thus, by Theorem (V)(6)(xii), $\nu$ is
+absolutely continuous. Hence there exists $\delta > 0$ such that $\sum_{i=0}^{n}|\nu(y_{i}) - \nu(x_{i})| < \epsilon$ whenever $[x_{0},y_{0}], \hdots,
+[x_{n}, y_{n}]$ are non-overlapping subintervals of $[a,b]$ so that $\sum_{i=0}^{n}(y_{i} - x_{i}) < \delta$. However, 
+\[ |f(x_{i}) - f(y_{i})| \leq TV(f_{[x_{0},y_{0}]}) = TV(f_{[a,y_{0}]}) - TV(f_{[a,x_{0}]}) = \nu(y_{i}) - \nu(x_{i}). \]
+Therefore the above choice of $\delta$ suffices to show that $f$ is absolutely continuous.
+
+$(\Leftarrow)$ Now suppose $f$ is absolutely continuous. By part (i), $\int_{a}^{b}|f'|d\mu \leq TV(f)$. Suppose $P = (x_{0}, x_{1}, \hdots, x_{n})$
+is a partition of $[a,b]$. Since $f$ is absolutely continuous on $[a,b]$, $f$ is absolutely continuous over 
+$[x_{i-1}, x_{i}]$ for all $i \in \left\{ 1, \hdots, n \right\}$. Thus, by Theorem (V)(6)(ix), 
+$\int_{x_{i-1}}^{x_{i}}f'd\mu = f(x_{i}) - f(x_{i-1})$ for all $i \in \{1, \hdots, n\}$. Hence,
+\[ V(f,P) = \sum_{i=1}^{n}|f(x_{i}) - f(x_{i-1})| = \sum_{i=1}^{n}\left| \int_{x_{i-1}}^{x_{i}}f'd\mu \right| \leq
+\sum_{i=1}^{n}\int_{x_{i-1}}^{x_{i}}|f'|d\mu = \int_{a}^{b}|f'|d\mu. \]
+Therefore $TV(f) \leq \int_{a}^{b}|f'|d\mu$.
+\end{Proof}
+\end{enumerate}
+
+
+
+\newpage
+\section*{2}
+Let $f : [0,1] \rightarrow \mathbb{R}$ be a monotone increasing function so that $f(0) = \lim_{x \rightarrow 0^{+}}f(x) = 0$ and $f(1) =
+\lim_{x\rightarrow 1^{-}}f(x) = 1$. Suppose $\int_{0}^{1}f'd\mu = 1$. Prove that 
+\begin{enumerate}[label=(\alph*)]
+\item $\int_{a}^{b}f' d\mu = f(b) - f(a)$ whenever $0 \leq a < b \leq 1$, and 
+\item $f$ is absolutely continuous.
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{Proof}
+By assumption $\int_{0}^{1}f' d\mu = 1 = f(1) - f(0)$. Thus, by Theorem (V)(6)(xiv), $f$ is absolutely continuous on $[0,1]$. But then $f$ is absolutely
+continuous on $[a,b]$ for any $0 \leq a < b \leq 1$. Hence, by Theorem (V)(6)(xiv) once again, $\int_{a}^{b}f'd\mu = f(b) - f(a)$ whenever $0 \leq a
+< b \leq 1$.
+\end{Proof}
+
+\newpage
+\section*{3}
+Suppose $f : [0,1] \rightarrow \mathbb{R}$ is absolutely continuous.
+\begin{enumerate}[label=(\roman*)]
+\item Prove that $f$ is Lipschitz continuous on $[0,1]$ if and only if $\sup_{x \in [0,1]}|f'(x)| < \infty$.
+\item Does (i) still hold if we assume $f$ has bounded variation instead?
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[label=(\roman*)]
+\item 
+\begin{Proof}
+
+$(\Rightarrow)$ Suppose $f$ is Lipschitz continuous on $[0,1]$. Then there exists $c > 0$ such that $|f(a) - f(b)| < c|a - b|$ whenever $a,b \in
+[0,1]$. Therefore 
+\[ |\text{Diff}_{h}(f)(x)| = \left| \frac{f(x + h) - f(x)}{(x + h) - x}\right| < c, \]
+for all $h > 0, x \in [0,1]$. Hence $|f'(x)| \leq c$ for all $x \in [0,1]$, and so $\sup_{x \in [0,1]}|f'(x)| \leq c$.
+
+$(\Leftarrow)$ Now suppose $\sup_{x \in [0,1]}|f'(x)| < \infty$. Then there exists $c > 0$ such that $|f'| < c$. Now let $a,b \in [0,1]$. Without loss
+of generality, suppose $a < b$. Since $f$ is absolutely continuous, $\int_{a}^{b}f'd\mu = f(b) - f(a)$ by Theorem (V)(6)(ix). Thus,
+\[ |f(b) - f(a)| = \left| \int_{a}^{b}f'd\mu \right| \leq \int_{a}^{b}|f'|d\mu \leq \int_{a}^{b}cd\mu = c(b - a). \]
+Hence $f$ is Lipschitz continuous.
+\end{Proof}
+
+\item No, (i) does not remain true. For example, consider the Cantor-Lebesgue function, $\varphi$, which has bounded variation but is not absolutely continuous,
+and therefore is not Lipschitz continuous. However, $\varphi' \equiv 0$ wherever $\varphi'$ exists (see the proposition below), so $\sup_{x\in [0,1]}|f'(x)| = 0$. 
+
+\vspace{5mm}
+{\bf Proposition.} $\varphi'(x) = 0$ for all $x \in [0,1]$ at which $\varphi'(x)$ is defined.
+
+\begin{Proof}
+Let $\bm{C}$ denote the Cantor set. We know that $\varphi'(x) = 0$ for all $x \in [0,1] - \bm{C}$. We will show that $\varphi'$ is undefined over $\bm{C}$. Thus, suppose $x' \in \bm{C}$.
+For $n \geq 1$, let $x_{n} \in \bm{C}$ such that only the $n$-th number in the ternary expansion of $x_{n}$ consisting of 0's and 2's is
+different from the ternary expansion of $x'$ which consists only of 0's and 2's. That is, if the $n$-th digit in the ternary expansion of $x'$ is 2,
+then the $n$-th digit in the ternary expansion of $x_{n}$ is 0, and vice versa. Then $|x_{n} - x'| = \frac{2}{3^{n + 1}}$ and $|\varphi(x_{n}) -
+\varphi(x')| = \frac{1}{2^{n+1}}$. Therefore, since $x_{n} \rightarrow x'$,
+\[ |\bar{D}(\varphi)(x')| \geq \lim_{n\rightarrow\infty}\left|\frac{\varphi(x_{n}) - \varphi(x')}{x_{n} - x'}\right| =
+\lim_{n\rightarrow\infty}\frac{3^{n+1}}{2^{n+2}} = \lim_{n\rightarrow\infty}\frac{3}{4}\left( \frac{3}{2} \right)^{n} = \infty. \]
+So $\varphi'$ is undefined at $x'$.
+\end{Proof}
+\end{enumerate}
+
+
+\newpage 
+\section*{4 [RF 6.62]}
+Show that a continuous function $f$ on $(a,b)$ is convex if and only if 
+\[ f\left( \frac{x_{1} + x_{2}}{2} \right) \leq \frac{f(x_{1}) + f(x_{2})}{2}, \ \forall \ x_{1}, x_{2} \in (a,b), \]
+i.e. $f$ is midpoint convex.
+
+\subsection*{Solution}
+\begin{Proof}
+
+$(\Rightarrow)$ Trivial (use the definition of convex and set $\lambda := 1/2$).
+
+$(\Leftarrow)$ Suppose $f$ is midpoint convex. By way of contradiction, suppose there exists $x_{0}, x_{1} \in (a,b)$ and $\lambda \in [0,1]$ such that 
+$f(\lambda x_{0} + (1-\lambda)x_{1}) > \lambda f(x_{0}) + (1-\lambda)f(x_{1})$. Now define $g : [0,1] \rightarrow \mathbb{R}$ by 
+\[ g(t) := f\big(tx_{0} + (1-t)x_{1}\big) - [t f(x_{0}) + (1-t)f(x_{1})], \ \forall \ t \in [0,1]. \]
+
+\begin{claim}
+$g\left( \frac{t_{0} + t_{1}}{2}\right) \leq \frac{g(t_{0}) + g(t_{1})}{2}$ for all $t_{0}, t_{1} \in [0,1]$.
+\end{claim}
+\begin{claimproof}
+Let $t_{0}, t_{1} \in [0,1]$. Then,
+\begin{align*}
+g\left( \frac{t_{0} + t_{1}}{2} \right) & = f\left( \frac{t_{0} + t_{1}}{2}x_{0} + \frac{2 - t_{0} - t_{1}}{2}x_{1} \right) - \left[ 
+\left( \frac{t_{0} + t_{1}}{2} \right)f(x_{0}) + \left( \frac{2 - t_{0} - t_{1}}{2} \right)f(x_{1}) \right] \\
+& = f\left( \frac{t_{0}x_{0} + (1-t_{0})x_{1} + t_{1}x_{1} + (1-t_{1})x_{2}}{2} \right) - \left[ \left( \frac{t_{0} + t_{1}}{2} \right)f(x_{0}) + 
+\left( \frac{2 - t_{0} - t_{1}}{2} \right)f(x_{1}) \right] \\
+\text{(since $f$ } & \text{is midpoint convex)} \\
+& \leq \frac{f(t_{0}x_{0} + (1-t_{0})x_{1}) + f(t_{1}x_{1} + (1-t_{1})x_{1})}{2} - \left[ \left( \frac{t_{0} +
+t_{1}}{2} \right)f(x_{0}) + 
+\left( \frac{2 - t_{0} - t_{1}}{2} \right)f(x_{1}) \right] \\
+& = \frac{1}{2}\bigg(f\big(t_{0}x_{0} + (1-t_{0})x_{1}\big) - [t_{0}f(x_{0}) + (1-t_{0})f(x_{1})] \\
+& \qquad + f\big(t_{1}x_{1} + (1-t_{1})x_{2}\big) - [t_{1}f(x_{0}) +
+(1-t_{0})f(x_{1})]\bigg) \\
+& = \frac{g(t_{0}) + g(t_{1})}{2}.
+\end{align*}
+\end{claimproof}
+
+Now, since $f$ is continuous, $g$ is continuous. Therefore, since $g$ is continuous over the closed interval $[0,1]$, $g$ takes a maximum value, call
+it $m$. By assumption, 
+\[ m \geq f(\lambda x_{0} + (1-\lambda) x_{1}) - [\lambda f(x_{0}) + (1-\lambda)f(x_{1})] > 0. \]
+Now define $t^{*} := \max\left\{ t \in [0,1] : g(t) = m \right\}$. Note that $t^{*}$ is well-defined since $g$ is
+continuous and $t^{*} \in (0,1)$ since $g(0) = g(1) = 0$.
+
+\begin{description}
+\item[Case 1:] $1 > t^{*} \geq 0.5$.
+
+Set $t_{0} := t^{*} - (1-t^{*}) = 2t^{*} - 1$ and $t_{1} := 1$. Note that $t_{0}, t_{1} \in [0,1]$ and $g(t_{1}) = 0 < m$, while $t(t_{0}) \leq m$.
+Thus,
+\[ m = g(t^{*}) = g\left( \frac{t_{0} + t_{1}}{2} \right) \stackrel{\text{claim 1}}{\leq} \frac{g(t_{0}) + g(t_{1})}{2} < \frac{m + m}{2} = m. \]
+This is a contradiction. \#
+
+\item[Case 2:] $0 < t^{*} < 0.5$.
+
+Set $t_{0} := 0$ and $t_{1} := 2t^{*}$. Again, we have $t_{0}, t_{1} \in [0,1]$, while $t_{0} = 0 < m$ and $t_{1} \leq m$. Thus, just as in case 1,
+\[ m = g(t^{*}) = g\left( \frac{t_{0} + t_{1}}{2} \right) \stackrel{\text{claim 1}}{\leq} \frac{g(t_{0}) + g(t_{1})}{2} < \frac{m + m}{2} = m. \]
+Yet again we arrive at a contradiction. \#
+\end{description}
+\end{Proof}
+
+\newpage 
+\section*{5 [RF 6.69]}
+Let $\left\{ \alpha_{n} \right\}_{n=0}^{\infty}$ be a sequence of nonnegative reals whose sum is 1 and $\left\{ \zeta_{n} \right\}_{n=0}^{\infty}$ be
+a sequence of positive reals. Show that $\Pi_{n=0}^{\infty}\zeta_{n}^{\alpha_{n}} \leq \sum_{n=0}^{\infty}\alpha_{n}\zeta_{n}$.
+
+\subsection*{Solution}
+\begin{Proof}
+Define $E_{0} := [0, \alpha_{0})$, and for each $n \geq 1$, let $E_{n} := \big[ \sum_{k=0}^{n-1}\alpha_{k}, \sum_{k=0}^{n}\alpha_{k}\big)$. Let $E :=
+\cup_{n=0}^{\infty}E_{n}$. By construction, $(E_{0}, E_{1}, \hdots)$ is pairwise disjoint and $E = [0,1)$. Let $f : E \rightarrow \mathbb{R}$ be
+defined by $f(x) := \sum_{n=0}^{\infty}\chi_{E_{n}}(x)\cdot \log\zeta_{n}$ and let $\varphi(x) := e^{x}$.
+
+\begin{claim}
+$\varphi\circ f = \sum_{n=0}^{\infty}\chi_{E_{n}}\cdot \zeta_{n}$ a.e. on $E$.
+\end{claim}
+\begin{claimproof}
+Let $x \in E$. Then there exists $n_{0} \in \mathbb{N}$ such that $x \in E_{n_{0}}$. Since $(E_{0}, E_{1}, \hdots)$ pairwise disjoint, 
+\[ \varphi(f(x)) = \exp\left( \sum_{n=0}^{\infty}\chi_{E_{n}}(x)\cdot \log\zeta_{n} \right) = \exp\left( \log\zeta_{n_{0}} \right) = \zeta_{n_{0}} = 
+\sum_{n=0}^{\infty}\chi_{E_{n}}(x)\cdot \zeta_{n}. \]
+\end{claimproof}
+
+\begin{claim}
+$\varphi\left( \int_{E}fd\mu \right) = \Pi_{n=0}^{\infty}\zeta_{n}^{\alpha_{n}}$ and $\int_{E}\varphi\circ fd\mu = \sum_{n=0}^{\infty}\alpha_{n}\zeta_{n}$.
+\end{claim}
+\begin{claimproof}
+\begin{subclaim}
+$\int_{E}fd\mu = \sum_{n=0}^{\infty}\alpha_{n}\log\zeta_{n}$
+\end{subclaim}
+\begin{subclaimproof}
+Since $f \geq 0$, we may apply Corollary (IV)(2)(xii). Thus, 
+\[ \int_{E}fd\mu = \int_{E}\left( \sum_{n=0}^{\infty}\chi_{E_{n}}\cdot \log\zeta_{n} \right)d\mu = \sum_{n=0}^{\infty}\int_{E}\chi_{E_{n}}\cdot
+\log\zeta_{n}d\mu = \sum_{n=0}^{\infty}\mu(E_{n})\cdot \log\zeta_{n} = \sum_{n=0}^{\infty}\alpha_{n}\log\zeta_{n}. \]
+\end{subclaimproof}
+
+By subclaim 2.1,
+\[ \varphi\left( \int_{E}fd\mu \right) = \varphi\left( \sum_{n=0}^{\infty}\alpha_{n}\log\zeta_{n} \right) = \exp\left( \sum_{n=0}^{\infty}\alpha_{n}\log\zeta_{n} \right)
+= \Pi_{n=0}^{\infty}e^{\alpha_{n}\log\zeta_{n}} = \Pi_{n=0}^{\infty}\zeta_{n}^{\alpha_{n}}. \]
+Now, using Corollary (IV)(2)(xii) once again and claim 1,
+\[ \int_{E}\varphi\circ fd\mu \stackrel{\text{claim 1}}{=} \int_{E}\left(\sum_{n=0}^{\infty}\chi_{E_{n}}\zeta_{n}\right)d\mu 
+= \sum_{n=0}^{\infty}\int_{E}\chi_{E_{n}}\cdot \zeta_{n}d\mu = \sum_{n=0}^{\infty}\alpha_{n}\zeta_{n}. \]
+\end{claimproof}
+
+Now there are two cases to consider.
+
+\begin{description}
+\item[Case 1:] $\int_{E}|\varphi\circ f|d\mu = \int_{E}\varphi\circ fd\mu = \infty$.
+
+By claim 2, $\infty = \int_{E}\varphi\circ fd\mu = \sum_{n=0}^{\infty}\alpha_{n}\zeta_{n}$. Thus the inequality holds trivially.
+
+\item[Case 2:] $\int_{E}\varphi\circ fd\mu < \infty$.
+
+Note that since $f(x) \geq 0$ for all $x \in E$, $e^{f(x)} > f(x)$. Hence $f < \varphi\circ f$, and so $f$ is also integrable by monotonicity. Thus,
+since (i) $\varphi$ is convex,  (ii) $f$ and $\varphi\circ f$ are integrable, and (iii) $\mu(E) = 1$, we can apply Jensen's inequality. So, by claim 2 and Theorem
+(VI)(3)(iii),
+\[ \Pi_{n=0}^{\infty}\zeta_{n}^{\alpha_{n}} = \varphi\left( \int_{E}fd\mu \right) \leq \int_{E}\varphi\circ fd\mu = \sum_{n=0}^{\infty}\alpha_{n}\zeta_{n}.
+\]
+\end{description}
+\end{Proof}
+
+
+
+
+
+
+
+
+\end{document}

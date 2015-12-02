@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+% \begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+
+\title{MATH 515: HW 3}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+{\bf (1) [RF 2.11]} If a $\sigma$-algebra of $\mathbb{R}$ contains intervals of the form $(a, \infty)$, then it contains all intervals.
+
+{\bf Solution:}
+
+\begin{proof}
+Let $\mathcal{F} \subseteq \mathcal{P}(\mathbb{R})$ be a $\sigma$-algebra. Assume $\mathcal{F}$ contains all intervals of the form $(x, \infty)$. We
+need to show that $\mathcal{F}$ contains all sets of the following forms:
+
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=0em]
+\item (i) $(-\infty, a)$,
+\item (ii) $(-\infty, a]$, 
+\item (iii) $[a, \infty)$,
+\item (iv) $[a, b)$,
+\item (v) $[a,b]$,
+\item (vi) $(a, b]$, and 
+\item (vii) $(a, b)$, where $a, b \in \mathbb{R}$ and $a < b$.
+\end{itemize}
+
+So, let $a, b \in \mathbb{R}$ with $a < b$.
+
+(i) Define $I_{n} = (a - 1/n, \infty)$ for each $n \in \mathbb{N}$. By assumption, $I_{n} \in \mathcal{F}$. Thus $(I_{n})^{c} = (-\infty, a - 1/n] \in
+\mathcal{F}$ since $\mathcal{F}$ is closed under complimentation by definition of a $\sigma$-algebra. Further, 
+\[ \cup_{n\in\mathbb{N}}(I_{n})^{c} = \cup_{n\in\mathbb{N}}(-\infty, a - 1/n] = (-\infty, a) \in \mathcal{F}, \]
+since $\mathcal{F}$ is closed under countable unions. Hence sets of form $(i)$ are in $\mathcal{F}$.
+
+(ii) Next, we know $(a, \infty) \in \mathcal{F}$ by assumption, so $(a, \infty)^{c} = (-\infty, a] \in \mathcal{F}$ by closure of compliments.
+
+(iii) Since $(-\infty, a) \in \mathcal{F}$ by $(i)$, $(-\infty, a)^{c} = [a, \infty) \in \mathcal{F}$ by closure of compliments.
+
+(iv) By (iii), $[b, \infty) \in \mathcal{F}$ and $[a,\infty) \in \mathcal{F}$, so $[a,\infty)\setminus [b,\infty) = [a,b] \in \mathcal{F}$ by Lemma
+(II)(2)(xvi).
+
+(v) By (iii), $[a, \infty) \in \mathcal{F}$ and $(b,\infty) \in \mathcal{F}$ by assumption, so $[a,\infty) \setminus (b,\infty) = [a,b] \in
+\mathcal{F}$ by Lemma (II)(2)(xvi).
+
+(vi) By (ii), $(-\infty, b] \in \mathcal{F}$ and $(-\infty, a] \in \mathcal{F}$, so $(-\infty, b] \setminus (-\infty, a] = (a,b] \in \mathcal{F}$ by
+Lemma (II)(2)(xvi).
+
+(vii) By (i), $(-\infty, b) \in \mathcal{F}$ and by (ii) $(-\infty, a] \in \mathcal{F}$. So $(-\infty, b) \setminus (-\infty, a] = (a,b) \in
+\mathcal{F}$.
+\end{proof}
+
+
+
+{\bf (2) [RF 2.14]} If a set $E$ has positive outer measure, then there is a bounded subset of $E$ that also has positive outer measure.
+
+{\bf Solution:}
+
+\begin{proof}
+Let $E$ be a set with positive outer measure. There are two cases to consider: either $E$ is bounded or $E$ is not bounded. If $E$ is bounded then the
+proof is trivial since $E \subseteq E$ is bounded with positive outer measure by assumption. Now assume that $E$ is unbounded. We will do a proof by
+contradiction. So assume that there is no subset of $E$ that has positive outer measure. Since outer measure is always non-negative, this means that
+every subset of $E$ has measure 0. Define $A_{n} = E \cap [-n, n]$ for every $n \in \mathbb{N}$. Note that each $A_{n}$ is a subset of $E$ and is bounded since $|x| \leq n$
+for every $x \in A_{n}$. Therefore $\mu^{*}(A_{n}) = 0$ for all $n \in \mathbb{N}$ by assumption. Further, $E = \cup_{n=1}^{\infty}A_{n}$, so by the countable subadditivity of outer measure,
+\[ \mu^{*}(E) = \mu^{*}\left( \cup_{n=1}^{\infty}A_{n} \right) \leq \sum_{n=1}^{\infty}\mu^{*}(A_{n}) = \sum_{n=1}^{\infty} 0 = 0. \]
+This is a contradiction since $\mu^{*}(E) > 0$.  
+\end{proof}
+
+{\bf (3) [RF 2.15]} If $E$ has finite measure and $\epsilon > 0$, then $E$ is the disjoint union of a finite number of measurable sets, each of which
+has measure at most $\epsilon$.
+
+{\bf Solution:} First we will have to prove the following lemma.
+
+\begin{proof}
+Note from question (3) on homework 2, the definition from the book of outer measure is equivalent to our definition. For the convenience of this
+proof, we will use the definition from the book. So, assume $E \subset \mathbb{R}$ has finite measure, i.e. $E$ is measurable and $m^{*}(E) <
+\infty$, and let $\epsilon > 0$ and $\delta > 0$. It follows from
+the definition of [outer] measure that we can choose a collection of non-empty, bounded, open intervals $\left\{ J_{k} \right\}_{k\in\mathbb{N}}$ such that 
+\[ \sum_{k=1}^{\infty}\ell(J_{k}) \leq m(E) + \delta. \]
+Since $m(E) + \delta < \infty$, $\sum_{k=1}^{\infty}\ell(J_{k})$ converges. Thus, there exists some $N \in \mathbb{N}$ such that
+$\sum_{k=N}^{\infty}\ell(J_{k}) < \epsilon$. Now, define $E_{1} = E\cap \left( \cup_{k=N}^{\infty}J_{k} \right)$. Since $\cup_{k=N}^{\infty}J_{k}$ is
+a countable union of open intervals, each of which is measurable by RF Proposition 2.8, $\cup_{k=N}^{\infty}J_{k}$ is also measurable since the measurable
+sets form a $\sigma$-algebra by Theorem (II)(2)(xviii) which, by definition, is closed under countable unions. Hence, by Corollary (II)(2)(xii), $E_{1}$ 
+is measurable because it is the intersection of two measurable sets. So, by monotonicity and countable subadditivity,
+\begin{equation}
+m(E_{1}) \leq m\left( \cup_{k=N}^{\infty}J_{k} \right) \leq \sum_{k=N}^{\infty}\ell(J_{k}) < \epsilon.
+\label{eqn:3-0}
+\end{equation}
+Now, since
+$\cup_{k=1}^{N-1}J_{k}$ is a finite union of bounded intervals, $\cup_{k=1}^{N-1}J_{k}$ is bounded as well. Thus there exists some $M \in \mathbb{R}$ 
+such that $2 < M < \infty$ and
+$|x| < M/2 - 1/2$ for all $x \in \cup_{k=1}^{N-1}J_{k}$. Now, let $b = \sup\left\{ x : x \in \cup_{k=1}^{N-1}J_{k} \right\}$ and $a = \inf\left\{
+x : x \in \cup_{k=1}^{N-1}J_{k} \right\}$. Then,
+\[ |b -a | \leq |b| + |a| \leq \left( \frac{M}{2} - \frac{1}{2} \right) + \left( \frac{M}{2} - \frac{1}{2} \right) = M - 1 < M. \]
+So $|b - a|$ is bounded. Hence we can choose a finite sequence $(a_{1}, a_{2}, \dots, a_{p})$ in $\mathbb{R}$ such that $a = a_{1} < a_{2} < \dots <
+a_{p} = b$, where $a_{k} - a_{k-1} < \epsilon$ for all $k \in \left\{ 2, 3, \dots, p \right\}$. Now define $E_{k} = \left( E\setminus E_{1}
+\right)\cap [a_{k-1}, a_{k})$ for $k \in \left\{ 2, \dots, p \right\}$. Using Corollary (II)(2)(xii) again, each $E_{k}$ is measurable, and by monotonicity 
+% Further, 
+\begin{equation}
+m(E_{k}) \leq m([a_{k-1}, a_{k}))  = a_{k} - a_{k-1} < \epsilon,
+\label{eqn:3-1}
+\end{equation}
+since $E_{k} \subseteq [a_{k-1}, a_{k})$ for each $k \in \left\{ 2, \dots, p \right\}$. 
+Further, 
+\[ E \setminus E_{1} = E \setminus \left( E\cap \bigcup_{k=N}^{\infty}J_{k} \right) \subseteq \cup_{k=1}^{N-1}J_{k} \subseteq (a, b) \subseteq [a,b)
+ = \cup_{k=2}^{p}[a_{k-1}, a_{k}), \]
+so 
+\begin{equation}
+E\setminus E_{1} = E\setminus E_{1} \cap \left( \cup_{k=2}^{p}[a_{k-1},a_{k}) \right) = \bigcup_{k=2}^{p}\bigg((E\setminus E_{1})\cap [a_{k-1},
+a_{k})\bigg) = \cup_{k=2}^{p}E_{k}. 
+\label{eqn:3-2}
+\end{equation}
+In addition, it follows from the fact that $[a_{k-1}, a_{k}) \cap [a_{j-1}, a_{j}) = \emptyset$ when $j,k \in \left\{ 2,\dots, p \right\}$ with $j
+\neq p$, that each $E_{k}$ is disjoint. Thus, by construction $\left\{ E_{k} \right\}_{k=1}^{p}$ is a pairwise disjoint collection of measurable sets such that 
+\[ \cup_{k=1}^{p}E_{k} = E_{1}\cup \left( \cup_{k=1}^{p}E_{k} \right) \stackrel{(\ref{eqn:3-2})}{=} E_{1} \cup \left( E\setminus
+E_{1} \right) = E\cup E_{1} = E, \]
+and $m(E_{k}) < \epsilon$ for each $1 \leq k \leq p$ by equations \ref{eqn:3-0} and \ref{eqn:3-1}.
+\end{proof}
+
+{\bf (4)} 
+
+{\bf Solution}
+
+
+{\bf (5)}
+
+
+\end{document}
+

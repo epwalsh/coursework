@@ -1,0 +1,283 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$\vspace{3mm}}
+
+\title{STAT 641: HW 6}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{2.28}
+Let $\mu$ be the Lebesgue measure on $\left( [-1,1], \mathcal{B}([-1,1]) \right)$. For $n \geq 1$, define $f_{n}(x) = nI_{(0,n^{-1})}(x) -
+nI_{(-n^{-1},0)}(x)$ and $f(x) = 0$ for $x \in [-1,1]$. Show that $f_{n} \rightarrow f$ a.e. ($\mu$) and $\int f_{n}d\mu \rightarrow \int fd\mu$, but
+$\left\{ f_{n} \right\}_{n\geq 1}$ is not uniformly integrable.
+
+\subsection*{Solution}
+\begin{proof}
+$\ $
+
+\underline{Claim 1:} $f_{n} \rightarrow f$ a.e. ($\mu$).
+\begin{claimproof}
+Let $x \in [-1,1]$. If $x = 0$, then $f_{n}(x) = 0$ for all $n \in \mathbb{N}$. If $x \neq 0$, then there exists $N \in \mathbb{N}$ such that $|x| >
+N^{-1}$. Therefore $x \notin (0,n^{-1}) \cup (-n^{-1},0)$, so $f_{n}(x) = 0$ for all $n \geq N$. Thus $f_{n}(x) \rightarrow 0$ as $n \rightarrow
+\infty$ for all $x \in [-1,1]$.
+\end{claimproof}
+
+\underline{Claim 2:} $\int f_{n}d\mu \rightarrow \int fd\mu$.
+\begin{claimproof}
+Let $n \geq 1$. Then 
+\begin{align*}
+\int f_{n}d\mu & = 0\cdot \mu\left( [-1,-n^{-1}] \right) -n\cdot \mu\left( (-n^{-1},0) \right) + 0\cdot \mu\left( \{0\} \right) + 
+n\cdot \mu\left( (0,n^{-1}) \right) + 0\cdot \mu\left( [n^{-1},1] \right) \\
+& = -n(1/n) + n(1/n) = 0.
+\end{align*}
+Therefore $\int f_{n}d\mu \rightarrow 0 = \int fd\mu$.
+\end{claimproof}
+
+\underline{Claim 3:} $\left\{ f_{n} \right\}_{n\geq 1}$ is not uniformly integrable.
+\begin{claimproof}
+Let $t > 0$. Then there exists $N \in \mathbb{N}$ such that $N > t$. Therefore 
+\[ A_{n,t} = \left\{ x \in [-1,1] : |f_{n}(x)| > t \right\} = (-1/n, 0) \cup (0, 1/n), \ \forall \ n \geq N. \]
+Thus,
+\[ a_{n}(t) = \int_{A_{n,t}} |f_{n}|d\mu = n\cdot \mu\left( (-n^{-1},0) \right) + n\cdot \mu\left( (0,n^{-1} \right) = 1 + 1 = 2, \]
+for all $n \geq N$. Hence, $\sup_{n\geq 1}a_{n}(t) = 2$ for all $t > 0$, so $\sup_{n\geq 1}a_{n}(t) \rightarrow 2$ as $t\rightarrow \infty$.
+\end{claimproof}
+
+\vspace{-5mm}
+\end{proof}
+
+
+\newpage 
+\section*{2.30}
+For $n \geq 1$, let $f_{n}(x) = n^{-1/2}I_{(0,n)}(x)$ and $f(x) = 0$ for $x \in \mathbb{R}$. Let $m$ denote the Lebesgue measure on 
+$\left( \mathbb{R}, \mathcal{B}(\mathbb{R}) \right)$. Show that $f_{n} \rightarrow f$ a.e. ($m$) and $\left\{ f_{n} \right\}_{n\geq 1}$ is UI, but
+$\int f_{n}dm \nrightarrow \int fdm$.
+
+\subsection*{Solution}
+\begin{proof}
+$\ $
+
+\underline{Claim 1:} $f_{n} \rightarrow f$ a.e. ($m$).
+\begin{claimproof}
+Let $x \in \mathbb{R}$. If $x \leq 0$, then $f_{n}(x) = 0$ for all $n \in \mathbb{N}$. Suppose $x > 0$. Then there exists $N\in\mathbb{N}$ such that $N >
+x$. Thus $f_{n}(x) = n^{-1/2}$ for all $n \geq N$. Hence $f_{n}(x) \rightarrow 0$.
+\end{claimproof}
+
+\underline{Claim 2:} $\left\{ f_{n} \right\}_{n\geq 1}$ is UI.
+\begin{claimproof}
+Let $A_{n,t} = \left\{ x \in \mathbb{R} : |f_{n}(x)| > t \right\}$, for all $t \in \mathbb{R}$ and $n\geq 1$. Thus, if $t \geq 1$, then $A_{n,t} =
+\emptyset$ for all $n \geq 1$ since $\sup_{x}\left\{ |f_{n}(x)| \right\} = n^{-1/2} \leq 1$. Therefore 
+\[ a_{n}(t) = \int_{A_{n,t}}|f_{n}|dm = 0, \]
+for all $t \geq 1$ and $n \geq 1$. So $\sup_{n\geq 1}a_{n}(t) \rightarrow 0$ as $t\rightarrow \infty$.
+\end{claimproof}
+
+\underline{Claim 3:} $\int f_{n} dm \nrightarrow \int fdm$.
+\begin{claimproof}
+Let $n \in \mathbb{N}$. Then 
+\[ \int f_{n}dm  = \frac{1}{\sqrt{n}}\cdot \mu\left( (0,n) \right) = \frac{n}{\sqrt{n}} = \sqrt{n}. \]
+Thus $\int f_{n}dm \rightarrow \infty$ as $n\rightarrow \infty$.
+\end{claimproof}
+
+\vspace{-5mm}
+\end{proof}
+
+
+\newpage 
+\section*{2.36}
+
+\begin{itemize}[label={}, leftmargin=7mm]
+\item[(a)] Let $\left\{ f_{n} \right\}_{n\geq 1} \subseteq \mathcal{L}^{1}\left( \Omega, \mathcal{F}, \mu \right)$ such that $f_{n} \rightarrow 0$ in
+$\mathcal{L}^{1}(\mu)$. Show that $\left\{ f_{n} \right\}_{n\geq 1}$ is UI.
+
+\item[(b)] Let $\left\{ f_{n} \right\}_{n\geq 1} \subseteq \mathcal{L}^{p}\left( \Omega, \mathcal{F}, \mu \right)$, $0 < p < \infty$, such that
+$\mu(\Omega) < \infty$, $\left\{ |f_{n}|^{p} \right\}_{n\geq 1}$ is UI and $f_{n} \rightarrow^{m} f$. Show that $f \in \mathcal{L}^{p}(\mu)$ and
+$f_{n} \rightarrow f$ in $\mathcal{L}^{p}(\mu)$.
+\end{itemize}
+
+\subsection*{Solution}
+{\bf (a)}
+\begin{proof}
+Let $\epsilon > 0$. We need to show that there exists $t \in \mathbb{R}$ such that $a_{n}(t) = \int_{\{|f_{n}|>t\}}|f_{n}|d\mu < \epsilon$ for all $n
+\in \mathbb{N}$. Now, since $f_{n}\rightarrow 0$ in $\mathcal{L}^{1}(\mu)$, there exists $N \in \mathbb{N}$ such that $\int|f_n|d\mu < \epsilon$ for
+all $n > N$. Thus,
+\[ a_{n}(t) = \int_{\{|f_{n}| > t\}}|f_{n}|d\mu \leq \int|f_{n}|d\mu < \epsilon, \  \text{ for all }n > N, t\in\mathbb{R}. \]
+It remains to show that we can find a $t\in\mathbb{R}$ such that $a_{n}(t) < \epsilon$ for $n \in \left\{ 1,\hdots, N \right\}$. But since $\left\{
+f_{n} : 1\leq n \leq N \right\}$ is a finite collection of functions in $\mathcal{L}^{1}(\mu)$, $\left\{ f_{n} : 1\leq n \leq N \right\}$ is UI by
+Proposition 2.5.7(ii). This guarantees that there exists a $t \in \mathbb{R}$ such that $a_{n}(t) < \epsilon$ whenever $1 \leq n \leq N$.
+\end{proof}
+
+\vspace{5mm}
+{\bf (b)}
+\begin{proof}
+$\ $
+
+\underline{Claim 1:} $f \in \mathcal{L}^{p}(\mu)$.
+\begin{claimproof}
+Since $\left\{ |f_{n}|^{p} \right\}_{n\geq 1}$ is UI and $\mu(\Omega) < \infty$,
+\begin{equation}
+\sup_{n\geq 1}\int |f_{n}|^{p}d\mu < \infty,
+\label{3.1}
+\end{equation}
+by Proposition 2.5.7(v). Further, since $f_{n} \rightarrow^{m} f$, there exists a subsequence $\left\{ n_{k} \right\}_{k\geq 1}$ such that $f_{n_{k}}
+\rightarrow f$ a.e.($\mu$) by Theorem 2.5.2. Therefore $|f_{n_{k}}|^{p} \rightarrow |f|^{p}$ a.e.($\mu$). So, by Fatou's Lemma,
+\begin{align*} \int |f|^{p} d\mu = \int \lim_{k\rightarrow\infty}|f_{n_k}|^{p}d\mu = \int \liminf_{k\rightarrow\infty} |f_{n_{k}}|^{p}d\mu & \leq
+\liminf_{k\rightarrow\infty} \int |f_{n_{k}}|^{p}d\mu \\
+& \leq \sup_{n\geq 1}\int |f_{n}|^{p}d\mu \\
+& \stackrel{\eqref{3.1}}{<}\infty.
+\end{align*}
+So $f \in \mathcal{L}^{p}(\mu)$.
+\end{claimproof}
+
+\underline{Claim 2:} $f_{n} \rightarrow f$ in $\mathcal{L}^{p}(\mu)$.
+\begin{claimproof}
+Let $\epsilon > 0$ and $n\geq 1$. Define $A_{n} = \left\{ |f_{n} - f| > \epsilon \right\}$. Since $f_{n} \rightarrow^{m} f$, $\mu(A_{n}) \rightarrow 0$. Further,
+since $\left\{ |f_{n}|^{p} \right\}_{n\geq 1}$ is UI, there exists $t > 0$ such that 
+\[ \int_{B_{n}}|f_{n}|^{p}d\mu \leq \epsilon, \]
+where $B_{n} = \left\{ |f_{n}|^{p} > t \right\}$. Therefore 
+\begin{equation}
+\int_{A_{n}} |f_{n}|^{p}d\mu = \int_{A_{n}\cap B_{n}}|f_{n}|^{p}d\mu + \int_{A_{n}\cap B_{n}^{c}}|f_{n}|^{p}d\mu \leq \int_{B_{n}}|f_{n}|^{p}d\mu 
++ \int_{A_{n}}td\mu \leq \epsilon + t\mu(A_{n}).
+\label{3.2}
+\end{equation}
+Thus,
+\begin{align*}
+\int |f_{n} - f|^{p} d\mu & \leq \int_{A_{n}}|f_{n} - f|^{p}d\mu + \int_{A_{n}^{c}}\epsilon^{p} d\mu \\
+& = \int_{A_{n}}|f_{n}- f|^{p}d\mu + \epsilon^{p}\mu(A_{n}^{c}) \\
+& \leq \int_{A_{n}}|f_{n} - f|^{p}d\mu + \epsilon^{p}\mu(\Omega) \qquad \Rightarrow |a+b|^{p} \leq 2^{p}(|a|^{p} + |b|^{p}) \\
+& \leq 2^{p} \int_{A_{n}}|f_{n}|^{p}d\mu + 2^{p}\int_{A_{n}}|f|^{p}d\mu + \epsilon^{p}\mu(\Omega) \\
+& \stackrel{\eqref{3.2}}{\leq} 2^{p}\epsilon + 2^{p}t\mu(A_{n}) + 2^{p}\int_{A_{n}}|f|^{p}d\mu + \epsilon^{p}\mu(\Omega).
+\end{align*}
+Since $\epsilon > 0$ was arbitrary and $\mu(\Omega) < \infty$,
+\[ \int |f_{n} - f|^{p}d\mu \leq 2^{p}t\mu(A_{n}) + 2^{p}\int_{A_{n}}|f|^{p}d\mu. \]
+Therefore 
+\[ \limsup_{n\rightarrow\infty}\int |f_{n} - f|^{p}d\mu \leq \limsup_{n\rightarrow\infty}\left( 2^{p}t\mu(A_{n}) + 2^{p}\int_{A_{n}}|f|^{p}d\mu \right) = 0. \]
+So $\lim_{n\rightarrow \infty}\int|f_{n} - f|^{p}d\mu = 0$.
+\end{claimproof}
+
+\end{proof}
+
+
+
+\newpage 
+\section*{2.42}
+(Change of variables formula). Let $(\Omega_{i},\mathcal{F}_{i})$, $i = 1,2$ be two measurable spaces. Let $f : \Omega_{1} \rightarrow \Omega_{2}$ be
+$\langle \mathcal{F}_{1},\mathcal{F}_{2}\rangle$-measurable, $h : \Omega_{2}\rightarrow \mathbb{R}$ be
+$\langle\mathcal{F}_{2},\mathcal{B}(\mathbb{R})\rangle$-measurable, and $\mu_{1}$ be a measure on $(\Omega_{1}, \mathcal{F}_{1})$. Let $g = h\circ f$,
+$\mu_{2} = \mu_{1}f^{-1}$, and $\mu_{3} = \mu_{2}h^{-1}$. Then 
+\[ \int_{\Omega_{1}}gd\mu_{1} = \int_{\Omega_{2}}hd\mu_{2} = \int_{\mathbb{R}}xd\mu_{3}, \]
+and 
+\[ \int_{\Omega_{1}}|g|d\mu_{1} = \int_{\Omega_{2}}|h|d\mu_{2} = \int_{\mathbb{R}}|x|d\mu_{3}, \]
+
+
+A note on notation: Let $I$ denote the identity function and let 
+\[ \chi_{A} = \left\{ \begin{array}{cl}
+1 & \omega \in A \\
+0 & \omega \notin A.
+\end{array}\right. \]
+
+\subsection*{Solution}
+\begin{proof} 
+We will start by assuming that $h$ is a non-negative, simple function.
+
+\underline{Claim 1:} If $h$ is non-negative and simple, then 
+\[ \int_{\Omega_{1}}gd\mu_{1} = \int_{\Omega_{2}}hd\mu_{2}. \]
+\begin{claimproof}
+Assume $h$ takes the value real value $a_{i}$ over $A_{i} \subseteq \Omega_{2}$, for $i = 1,\hdots, n$. Thus,
+\begin{align*}
+\int_{\Omega_{1}}gd\mu_{1} = \int_{\Omega_{1}}h\circ fd\mu_{1} & = \int_{\Omega_{1}}\left( \sum_{i=1}^{n}a_{i}\chi_{A_{i}}\circ f \right)d\mu_{1} \\
+\text{Corollary 2.3.5} \rightarrow \qquad & = \sum_{i=1}^{n}\int_{\Omega_{1}}a_{i}\chi_{A_{i}}\circ f d\mu_{1} \\
+& = \sum_{i=1}^{n}\int_{\Omega_{1}}a_{i}\chi_{f^{-1}[A_{i}]}d\mu_{1} \\
+& = \sum_{i=1}^{n}a_{i}\mu_{1}\left( f^{-1}[A_{i}] \right) \\
+& = \sum_{i=1}^{n}a_{i}\mu_{2}\left( A_{i} \right) = \int_{\Omega_{2}}hd\mu_{2}.
+\end{align*}
+
+\vspace{-10mm}
+\end{claimproof}
+
+\underline{Claim 2:} If $h$ is non-negative, then 
+\[ \int_{\Omega_{1}}gd\mu_{1} = \int_{\Omega_{2}}hd\mu_{2}. \]
+\begin{claimproof}
+Let $\left\{ h_{n} \right\}_{n\geq 1}$ be a sequence of non-negative, simple functions such that $h_{n}(\omega)\uparrow h(\omega)$ for all $\omega \in
+\Omega_{2}$. Let $g_{n} = h_{n} \circ f$. Then $\left\{ g_{n} \right\}_{n\geq 1}$ is a sequence of non-negative, simple functions such that
+$g_{n}(\omega) \uparrow g(\omega)$ for all $\omega \in \Omega_{1}$. Therefore, by claim 1,
+\[ \int_{\Omega_{2}}hd\mu_{2} = \lim_{n\rightarrow\infty}\int_{\Omega_{2}}h_{n}d\mu_{2} = \lim_{n\rightarrow\infty}\int_{\Omega_{1}}g_{n}d\mu_{1} =
+\int_{\Omega_{1}}gd\mu_{1}. \]
+
+\vspace{-10mm}
+\end{claimproof}
+
+\underline{Claim 3:} If $h$ is any $\langle\mathcal{F}_{2},\mathcal{B}(\mathbb{R})\rangle$-measurable function, then 
+\[ \int_{\Omega_{1}}gd\mu_{1} = \int_{\Omega_{2}}hd\mu_{2} \qquad \text{and} \qquad \int_{\Omega_{1}}|g|d\mu_{1} = \int_{\Omega_{2}}|h|d\mu_{2}. \]
+\begin{claimproof}
+Note that for each $\omega \in \Omega_{1}$, $g(\omega) > 0$ if and only if $h(f(\omega)) > 0$. It follows that $g^{+} = h^{+}\circ f$. 
+Likewise, $g^{-} = h^{-}\circ f$. Therefore, by applying claim 2,
+\begin{align*}
+\int_{\Omega_{1}}gd\mu_{1} = \int_{\Omega_{1}}g^{+}d\mu_{1} - \int_{\Omega_{1}}g^{-}d\mu_{1} & = \int_{\Omega_{1}}h^{+}\circ fd\mu_{1} -
+\int_{\Omega_{1}}h^{-}\circ fd\mu_{1} \\
+& = \int_{\Omega_{2}}h^{+}d\mu_{2} - \int_{\Omega_{2}}h^{-}d\mu_{2} \\
+& = \int_{\Omega_{2}}hd\mu_{1}.
+\end{align*}
+Similarly,
+\begin{align*}
+\int_{\Omega_{1}}|g|d\mu_{1} = \int_{\Omega_{1}}g^{+}d\mu_{1} + \int_{\Omega_{1}}g^{-}d\mu_{1} & = \int_{\Omega_{1}}h^{+}\circ fd\mu_{1} +
+\int_{\Omega_{1}}h^{-}\circ fd\mu_{1} \\
+& = \int_{\Omega_{2}}h^{+}d\mu_{2} + \int_{\Omega_{2}}h^{-}d\mu_{2} \\
+& = \int_{\Omega_{2}}|h|d\mu_{1}.
+\end{align*}
+
+\vspace{-10mm}
+\end{claimproof}
+
+\underline{Claim 4:} For any $h$ that is $\langle\mathcal{F}_{2},\mathcal{B}(\mathbb{R})\rangle$-measurable, 
+\[ \int_{\Omega_{2}}hd\mu_{2} = \int_{\mathbb{R}}xd\mu_{3} \qquad \text{and} \qquad \int_{\Omega_{2}}|h|d\mu_{2} = \int_{\mathbb{R}}|x|d\mu_{3}. \]
+\begin{claimproof}
+Set $\Omega_{2}' = \mathbb{R}$, $\mathcal{F}_{2}' = \mathcal{B}(\mathbb{R})$. Then let $f' \equiv h$, $h' \equiv I$, and $g' \equiv h'\circ f' = I\circ
+h$, $\mu_{1}' = \mu_{2}$, and $\mu_{2}' = \mu_{3}$. Since the indentity function $I = h'$ is $\langle \mathcal{F}_{2}', \mathcal{B}(\mathbb{R})\rangle$-measurable, we can apply claim 3 to $h'$
+and $g'$. Thus,
+\[ \int_{\Omega_{2}}hd\mu_{2} = \int_{\Omega_{2}}I\circ hd\mu_{2} = \int_{\Omega_{1}'}g'd\mu_{1}' \stackrel{\text{claim 3}}{=} \int_{\Omega_{2}'}h'd\mu_{2}' = 
+\int_{\mathbb{R}}Id\mu_{3} = \int_{\mathbb{R}}xd\mu_{3}. \]
+Similarly, we see that 
+\[ \int_{\Omega_{2}}|h|d\mu_{2} = \int_{\mathbb{R}}|I|d\mu_{3} = \int_{\mathbb{R}}|x|d\mu_{3}. \]
+
+\vspace{-10mm}
+\end{claimproof}
+
+Thus, by claims 3 and 4, we are done.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\end{document}
+

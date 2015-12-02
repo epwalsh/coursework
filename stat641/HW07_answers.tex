@@ -1,0 +1,241 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$\vspace{5mm}}
+
+\title{STAT 641: HW 7}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{3.8}
+Let $(\Omega, \mathcal{F}, P)$ be a probability space and $X$ a random variable on $\Omega$ such that $X > 0$ a.e.($P$)
+\begin{enumerate}[label=(\alph*)]
+\item Show that $(EX)(EX^{-1}) \geq 1$. What does this say about the correlation between $X$ and $X^{-1}$?
+
+\item Let $f,g : \mathbb{R}_{+}\rightarrow \mathbb{R}_{+}$ be Borel measurable such that $f(x)g(x) \geq 1$ for all $x \in \mathbb{R}_{+}$. Show
+that $Ef(X)Eg(X) \geq 1$.
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{proof} By assumption, $X > 0$ a.e.($P$), so $P(X > 0) = 1$.\footnote{Actually lets just assume that $X(\omega) > 0$ for all $\omega \in
+\Omega$, otherwise $1/X$ is not defined, so why are we even talking about this?} Therefore
+\[ \int_{\Omega}|X|dP = \int_{\Omega}XdP > 0 \qquad \text{and} \qquad \int_{\Omega}|1/X|dP = \int_{\Omega}[1/X]dP > 0. \]
+
+{\bf Case 1:} $X$ or $1/X \notin \mathcal{L}^{1}(P)$.
+
+Then either $\int_{\Omega}XdP = \infty$ or $\int_{\Omega}1/XdP = \infty$, so the inequality holds trivially. 
+
+{\bf Case 2:} $X, X^{-1} \in \mathcal{L}^{1}(P)$.
+
+Then $X^{1/2}, [1/X]^{1/2} \in \mathcal{L}^{2}(P)$. Hence, by Corollary 3.1.12,
+\[ 1 = \int_{\Omega}X^{1/2}\cdot [1/X]^{1/2}dP \leq \left( \int_{\Omega}(X^{1/2})^{2}dP \right)^{1/2}\left( \int_{\Omega}([1/X]^{1/2})^{2} dP \right)^{1/2}.\]
+So by squaring both sides we have the result.
+\end{proof}
+
+\vspace{5mm}
+{\bf Remark:} The result above implies that 
+\[ Cov(X, [1/X]) = E(X\cdot 1/X) - (EX)(E[1/X]) \leq 1 - 1 = 0.\] 
+
+\newpage
+\item 
+\begin{proof}
+From the assumptions, we know that $f,g > 0$ a.e.($P$). Now, by applying part (a),
+\begin{equation}
+1 \leq \left( \int_{\mathbb{R}_{+}}fdP \right)\left( \int_{\mathbb{R}_{+}}[1/f]dP \right).
+\label{1.1}
+\end{equation}
+Further, since $f(x)g(x) \geq 1 = f(x)\cdot [1/f(x)]$ for all $x \in \mathbb{R}_{+}$, $g \geq 1/f$. Thus,
+\begin{equation}
+\int_{\mathbb{R}_{+}}gdP \geq \int_{\mathbb{R}_{+}}[1/f]dP.
+\label{1.2}
+\end{equation}
+So by \eqref{1.1} and \eqref{1.2},
+\[ \left( \int_{\mathbb{R}_{+}}fdP \right)\left( \int_{\mathbb{R}_{+}}gdP \right) \geq \left( \int_{\mathbb{R}_{+}}fdP \right)\left( 
+\int_{\mathbb{R}_{+}}[1/f]dP \right) \geq 1. \]
+\end{proof}
+\end{enumerate}
+
+
+\newpage 
+\section*{3.9}
+Prove Corollary 3.1.13 using H{\"o}lder's inequality applied to an appropriate measure space.
+
+\subsection*{Solution}
+\begin{proof}
+Let $k \in \mathbb{N}$, and let $a_{1}, a_{2}, \hdots a_{k}, b_{1}, b_{2}, \hdots, b_{k}$ be real numbers and $c_{1}, c_{2}, \hdots, c_{k}$ be
+positive real numbers.
+
+\underline{Claim 1:} For any $1 < p < \infty$ with $q = p / (p-1)$,
+\[ \sum_{i=1}^{k}|a_{i}b_{i}|c_{i} \leq \left( \sum_{i=1}^{k}|a_{i}|^{p}c_{i} \right)^{1/p}\left( \sum_{i=1}^{k}|b_{i}|^{q}c_{i} \right)^{1/q}. \]
+\begin{claimproof}
+Suppose $1 < p < \infty$ and $q = p / (p-1)$. Let $E := [0,k)$, and define the measure space $(E, \mathcal{B}(E), m)$, where $m(\cdot)$ is the
+Lebesgue measure. Now, let $f,g : E\rightarrow \mathbb{R}$ be defined by 
+\[ f(x) := \sum_{i=1}^{k}a_{i}c_{i}^{1/p}\cdot \chi_{[i-1,i)}(x) \qquad g(x) := \sum_{i=1}^{k}b_{i}c_{i}^{1/q}\cdot \chi_{[i-1,i)}(x),\]
+where $\chi_{[i-1,i)}(x) = 1$ if $x \in [i-1,i)$ and 0 otherwise. By construction, $f$ and $g$ are simple and since $a_{i}, b_{i}, c_{i} \in
+\mathbb{R}$ for all $i \in \left\{ 1,\hdots, k \right\}$,
+\[ \int_{E}|f|^{p}dm = \sum_{i=1}^{k}\big|a_{i}c_{i}^{1/p}\big|^{p}\cdot m([i-1,i)) = \sum_{i=1}^{k}|a_{i}|^{p}c_{i} < \infty, \]
+\[ \int_{E}|g|^{p}dm = \sum_{i=1}^{k}\big|b_{i}c_{i}^{1/q}\big|^{q}\cdot m([i-1,i)) = \sum_{i=1}^{k}|b_{i}|^{q}c_{i} < \infty. \]
+Further, 
+\[ \int_{E}|fg|dm = \sum_{i=1}^{k}\big|a_{i}b_{i}c_{i}^{1/p + 1/q}\big|\cdot m([i-1,i)) = \sum_{i=1}^{k}|a_{i}b_{i}|c_{i}. \]
+Therefore the result follows by applying H{\"o}lder's inequality to $f$ and $g$.
+\end{claimproof}
+
+\underline{Claim 2:}
+\[ \sum_{i=1}^{k}|a_{i}b_{i}|c_{i} \leq \left( \sum_{i=1}^{k}|a_{i}|^{2}c_{i} \right)^{1/2}\left( \sum_{i=1}^{k}|b_{i}|^{2}c_{i} \right)^{1/2}. \]
+\begin{claimproof}
+Apply claim 1 with $p = 2$.
+\end{claimproof}
+
+\end{proof}
+
+
+\newpage 
+\section*{3.17}
+Let $X$ be a random variable on a probability space $(\Omega, \mathcal{F}, \mu)$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $(E|X|^{p_{1}}) \leq (E|X|^{p_{2}})^{p_{1}/p_{2}}$ for any $0 < p_{1} < p_{2} < \infty$.
+\item Show that equality holds in (a) if and only if $|X|$ is constant a.e.($\mu$).
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{proof}
+Let $0 < p_{1} < p_{2} < \infty$ and suppose $X \in \mathcal{L}^{p_{2}}(\mu)$. Then $X \in \mathcal{L}^{p_{1}}(\mu)$ as well. 
+Define $\phi : [0,\infty) \rightarrow \mathbb{R}$ by 
+$\phi(y) := -y^{p_{1}/p_{2}}$ for all $y \in [0,\infty)$. Thus, since $\phi$ is convex and $\int_{\Omega}|X|^{p_{2}}d\mu < \infty$, 
+$\int_{\Omega}|X|^{p_{1}}d\mu  = \int_{\Omega}|\phi(-|X|^{p_{2}})|d\mu < \infty$,
+\[ -\left(E|X|^{p_{2}}\right)^{p_{1}/p_{2}} = \phi\left( \int_{\Omega}|X|^{p_{2}}d\mu \right) \leq \int_{\Omega}\phi\left(-|X|^{p_{2}} \right)d\mu = 
+E\left( -|X|^{p_{1}} \right), \]
+by Jensen's inequality. So by multiplying both sides of the above inequality by $-1$, we are done.
+\end{proof}
+
+\vspace{8mm}
+\item Following the argument in Remark 3.1.3, we have equality in (a) if and only if 
+\[ \phi(|X|^{p_{2}}) - \phi(c) = \phi'_{+}(c)(|X|^{p_{2}} - c) \ \text{ a.e. ($\mu$)}, \]
+where $c = \int_{\Omega}|X|^{p_{2}}d\mu$. But, since $\phi(y) = -y^{p_{1}/p_{2}}$ is strictly convex over $[0,\infty)$,
+\[ \phi(a) - \phi(b) = \phi'_{+}(b)(a - b) \]
+for $a,b \in [0,\infty)$ if and only if $a = b$. Thus $|X|^{p_{2}} = c = \int_{\Omega}|X|^{p_{2}}d\mu$ a.e. ($\mu$). Therefore $X$ must be constant
+a.e. ($\mu$).
+
+\end{enumerate}
+
+
+\newpage 
+\section*{3.18}
+Let $X$ be a nonnegative random variable.
+\begin{enumerate}[label=(\alph*)]
+\item Show that $EX\log X \geq (EX)(E\log X)$.
+\item Show that $\sqrt{1 + (EX)^{2}} \leq E(\sqrt{1 + X^{2}}) \leq 1 + EX$.
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[label=(\alph*)]
+\item
+\begin{proof}
+Assume that $X(\omega) > 0$ for all $\omega \in \Omega$, otherwise $\log X$ would be undefined. 
+
+{\bf Case 1:} $\int_{\Omega}|X\log X|dP = \infty$.
+
+Then the inequality holds trivially.
+
+{\bf Case 2:} $\int_{\Omega}|X\log X|dP < \infty$.
+
+\underline{Claim 1:} $\int_{\Omega}|X| dP < \infty$.
+\begin{claimproof}
+Note that $|X| < |X\log X|$ whenever $X > e$. Thus, 
+\begin{align*}
+\int_{\Omega}|X|dP = \int_{\{X \leq e\}}|X|dP + \int_{\{X > e\}}|X|dP & \leq e + \int_{\{X > e\}}|X\log X|dP \\
+& \leq e + \int_{\Omega}|X\log X|dP < \infty,
+\end{align*}
+by assumption of case 2.
+\end{claimproof}
+
+\underline{Claim 2:} $E(X\log X) \geq (EX)\log(EX)$.
+\begin{claimproof}
+Let $\phi_{1} : (0,\infty) \rightarrow \mathbb{R}$ be defined by $\phi_{1}(y) := y\log y$ for all $y \in (0,\infty)$. Since $\phi_{1}$ is convex on
+$(0,\infty)$ and $X, \phi_{1}\circ X \in \mathcal{L}^{1}(P)$ by assumption of case 2 and claim 1,
+\[ E(X\log X) = \int_{\Omega}\phi_{1}\circ XdP \geq \phi_{1}\left( \int_{\Omega}XdP \right) = (EX)\log(EX),\]
+by Jensen's inequality.
+\end{claimproof}
+
+\underline{Claim 3:} $\log(EX) \geq E(\log X)$.
+\begin{claimproof}
+Let $\phi_{2}:(0,\infty) \rightarrow\mathbb{R}$ be defined by $\phi_{2}(y) := -\log y$ for all $y \in (0,\infty)$. Now, when $X \geq 1$,
+$|\phi_{2}\circ X| = |-\log X| < |X|$. So 
+\begin{equation} 
+\int_{\{X \geq 1\}}|-\log X|dP \leq \int_{\{X \geq 1\}}|X| dP < \infty,
+\label{4.1}
+\end{equation}
+since $X \in \mathcal{L}^{1}(P)$.
+
+{\bf Subcase 2.1:} $\int_{\{X < 1\}}|\phi_{2}\circ X|dP = \infty$.
+
+Since $\phi_{2}(X) = -\log X > 0$ when $X < 1$, this implies 
+\[ \int_{\{X < 1\}}-\log X = \infty, \qquad \text{ and so }\qquad \int_{\{X < 1\}}\log X = -\infty. \]
+Thus, by \eqref{4.1} $E(\log X) = -\infty$. Hence claim 3 holds trivially.
+
+{\bf Subcase 2.2:} $\int_{\{X < 1\}}|\phi_{2}\circ X|dP < \infty$.
+
+Thus, by \eqref{4.1}, $\phi_{2} \circ X \in \mathcal{L}^{1}(P)$. So, since $\phi_{2}$ is convex over $(0,\infty)$,
+\[ -\log(EX) = \phi_{2}\left( \int_{\Omega}XdP \right) \leq \int_{\Omega}\phi_{2}\circ XdP = E(-\log X). \]
+By multiplying both sides by $-1$, we are done.
+\end{claimproof}
+
+Hence, by claims 2 and 3 we are done.
+\end{proof}
+
+\vspace{8mm}
+\item
+\begin{proof}
+First note that $\sqrt{1 + X^{2}} \leq 1 + X$ whenever $X \geq 0$. Thus,
+\begin{equation}
+E(\sqrt{1+X^{2}}) = \int_{\Omega}\sqrt{1 + X^{2}}dP \leq \int_{\Omega}(1 + X)dP = 1 + \int_{\Omega}XdP = 1 + EX.
+\label{4.2}
+\end{equation}
+If $E(\sqrt{1 + X^{2}}) = \infty$, then the rest of the proof is trivial. Thus, assume 
+\[ E(\sqrt{1 + X^{2}}) = E|\sqrt{1 + X^{2}}| < \infty.\] 
+Therefore $EX = E|X| < \infty$ since $X \leq \sqrt{1 + X^{2}}$.
+Let $\phi : [0,\infty) \rightarrow \mathbb{R}$ be defined by $\phi(y) := \sqrt{1 + y^{2}}$ for all $y \geq 0$. $\phi$ is convex over $[0,\infty)$,
+and by assumption $X, \phi\circ X \in \mathcal{L}^{1}(P)$. Thus, by Jensen's inequality,
+\begin{equation}
+\sqrt{1 + (EX)^{2}} = \phi\left( \int_{\Omega}XdP \right) \leq \int_{\Omega}\phi(X) dP = E(\sqrt{1 + X^{2}}).
+\label{4.3}
+\end{equation}
+So by \eqref{4.2} and \eqref{4.3} we are done.
+\end{proof}
+\end{enumerate}
+
+
+
+
+\end{document}
+

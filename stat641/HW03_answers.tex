@@ -1,0 +1,493 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Claim Proof:}\space#1}{\hfill $\blacksquare$}
+
+\title{STAT 641: HW 3}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{1.3}
+Let $\Omega$ be a nonempty set and let 
+\[ \mathcal{F}_{6} \equiv \mathcal{F}  = \left\{ A \subseteq \Omega : A\text{ is countable or }A^{c}\text{ is countable} \right\}. \]
+(a) Show that $\mathcal{F}$ is a $\sigma$-algebra.
+
+(b) Define $\mu$ on $\mathcal{F}$ as $\mu(A) = 1$ if $A$ is uncountable and $\mu(A) = 0$ is $A$ is countable. Is $\mu$ a measure of $\mathcal{F}$?
+
+\section*{Solution}
+
+{\bf (a)}
+\begin{proof}
+The empty set is countable, so $\emptyset^{c} = \Omega \in \mathcal{F}$. Now let $A \in \mathcal{F}$. If $A$ is countable, then $(A^{c})^{c}$ is
+countable, so $A^{c} \in \mathcal{F}$. If $A^{c}$ is countable, then $A^{c} \in \mathcal{F}$. Hence $\mathcal{F}$ is closed under complementation. It
+remains to verify that $\mathcal{F}$ is closed under countable unions. So, let $\left\{ A_{n} \right\}_{n\geq 1} \subseteq \mathcal{F}$. Then for each $n \in
+\mathbb{N}$, either $A$ is countable or $A^{c}$ is countable. Let 
+\[ I_{0} = \left\{ n : A_{n} \text{ is countable} \right\} \qquad \text{and} \qquad I_{1} = \left\{ n : A_{n}^{c}\text{ is countable} \right\}. \]
+Note that clearly $I_{0} \cup I_{1} = \mathbb{N}$. Now, the intersection of countable sets is countable, so 
+\[ \bigcap_{k \in I_{1}}A_{k}^{c} \in \mathcal{F}. \]
+Therefore 
+\[ \bigcap_{k \in I_{1}}A_{k}^{c} \supseteq \left( \bigcup_{k \in I_{0}}A_{k} \right)^{c} \cap \left( \bigcap_{k\in I_{1}}A_{k}^{c} \right) =
+\bigcap_{k \in \mathbb{N}}A_{k}^{c} \in \mathcal{F}, \]
+since the subset of a countable set is countable. Thus, by closure under complementation, 
+\[ \left( \bigcap_{k\in\mathbb{N}}A_{k}^{c} \right)^{c} = \bigcup_{k\in\mathbb{N}}A_{k} \in \mathcal{F}. \]
+\end{proof}
+
+{\bf (b)} $\mu$ is a measure.
+
+By definition, $\mu(\cdot) \in \left\{ 0, 1 \right\} \subset [0, \infty]$. Further, since $\emptyset$ is countable, $\mu(\emptyset) = 0$. Then it just
+remains to show that countable additivity holds. Thus, let $\left\{ A_{n} \right\}_{n\in\mathbb{N}}$ be a family of disjoint sets where $A_{n} \in
+\mathcal{F}$ for each $n \in \mathbb{N}$.
+
+\underline{Claim:} At most one $A_{n}$ is uncountable.
+\begin{claimproof}
+By way of contradiction, assume not. That is, assume at least two sets in the family $\left\{ A_{n} \right\}_{n\in\mathbb{N}}$ are uncountable, call
+them $A_{1}$ and $A_{2}$. However, since $A_{1} \in \mathcal{F}$, $A_{1}^{c}$ is countable. Thus, since $A_{1} \cap A_{2} = \emptyset$, $A_{1}^{c}
+\supseteq A_{2}$. Therefore $A_{2}$ must be countable. This is a contradiction.
+\end{claimproof}
+
+By the above claim, there are two cases to consider.
+
+{\bf Case 1:} There is one $A_{k^{*}} \in \left\{ A_{n} \right\}_{n\in\mathbb{N}}$ that is uncountable. Then
+\[ \sum_{n=1}^{\infty}\mu(A_{n}) = \mu(A_{k^{*}}) + \sum_{n \neq k^{*}}\mu(A_{n}) = 1 + 0 = 1. \]
+Further $\cup_{n\in\mathbb{N}}A_{n}$ is uncountable since $A_{k^{*}}$ is uncountable, so 
+\[ \mu^{*}\left( \bigcup_{n\in\mathbb{N}}A_{n} \right) = 1. \]
+
+
+{\bf Case 2:} Every $A_{n}$ is countable for each $n \in \mathbb{N}$. Thus, since the countable union of countable sets is countable,
+$\cup_{n\in\mathbb{N}}A_{n}$ is countable. Hence 
+\[ \mu\left( \bigcup_{n\in\mathbb{N}}A_{n} \right) = 0. \]
+Further, since each $A_{n}$ is countable,
+\[ \sum_{n=1}^{\infty}\mu(A_{n}) = \sum_{n=1}^{\infty}0 = 0. \]
+
+In each case, countable additivity is satisfied. Therefore $\mu$ is a measure on $\mathcal{F}$.
+
+
+
+
+\newpage
+\section*{1.8}
+
+Let $\Omega = \left\{ 1, 2, \dots \right\} = \mathbb{N}$ and $A_{i} = \left\{ j : j \in \mathbb{N}, j \geq i \right\}, i \in \mathbb{N}$. Show that
+$\sigma \langle \mathcal{A} \rangle = \mathcal{P}(\Omega)$, where $\mathcal{A} = \left\{ A_{i} : i \in \mathbb{N} \right\}$.
+
+\section*{Solution:}
+
+\begin{proof}
+Since $\mathcal{P}(\Omega)$ is a $\sigma$-algebra that contains $\mathcal{A}$, 
+\begin{equation}
+\sigma\langle \mathcal{A}\rangle \subseteq \mathcal{P}(\Omega).
+\label{eqn:1.8a}
+\end{equation}
+Therefore it remains to show that $\mathcal{P}(\Omega) \subseteq \sigma \langle \mathcal{A} \rangle$. Let $i \in \mathcal{N}$. Since
+$\sigma\langle\mathcal{A}\rangle$ is closed under finite unions and complements, 
+\[ i = \left( A_{i}^{c} \cup A_{i+1} \right)^{c} \in \sigma\langle\mathcal{A}\rangle. \]
+So every singleton set is in $\sigma\langle\mathcal{A}\rangle$.
+Now, let $\emptyset \neq B \subseteq \Omega$. $B$ must be countable since it is the subset of a countable set. Thus, 
+\[ B = \bigcup_{i\in B}\{i\} \in \sigma\langle\mathcal{A}\rangle, \]
+since $\sigma\langle\mathcal{A}\rangle$ is closed under countable unions. Hence every subset of $\Omega$ is in $\sigma\langle\mathcal{A}\rangle$, so
+\begin{equation}
+\mathcal{P}(\Omega) \subseteq \sigma\langle\mathcal{A}\rangle.
+\label{eqn:1.8b}
+\end{equation}
+So by \ref{eqn:1.8a} and \ref{eqn:1.8b}, we have equality.
+\end{proof}
+
+\newpage
+\section*{1.10}
+
+Show that in Example 1.1.6, $\mathcal{O}_{j} \subseteq \sigma\langle\mathcal{O}_{i}\rangle$ for all $1 \leq i,j \leq 4$.
+
+\section*{Solution}
+
+\begin{proof}
+Clearly $\mathcal{O}_{j} \subseteq \sigma \langle \mathcal{O}_{j}\rangle$ for all $1 \leq j \leq 4$. Also, by definition,
+\[ \mathcal{O}_{3} \subseteq \mathcal{O}_{1} \subseteq \sigma\langle \mathcal{O}_{1}\rangle \qquad \text{and} \qquad \mathcal{O}_{4} \subseteq
+\mathcal{O}_{2} \subseteq \sigma\langle \mathcal{O}_{2}\rangle. \]
+This implies that 
+\begin{equation}
+\sigma\langle\mathcal{O}_{3}\rangle \subseteq \sigma\langle\mathcal{O}_{1}\rangle \qquad \text{and} \qquad \sigma\langle\mathcal{O}_{4}\rangle
+\subseteq \sigma\langle \mathcal{O}_{2}\rangle. 
+\label{eqn:10.1}
+\end{equation}
+We will proceed by showing that $\sigma\langle\mathcal{O}_{j}\rangle = \sigma\langle\mathcal{O}_{i}\rangle$ for all $1 \leq i,j\leq 4$.
+
+{\bf Claim 1:} $\mathcal{O}_{2} \subseteq \sigma\langle\mathcal{O}_{3}\rangle$.
+
+\begin{claimproof}
+Let $x_{1}, x_{2} \in \mathbb{R}$. We need to show that $(-\infty, x_{1}) \times (-\infty, x_{2}) \in \sigma\langle\mathcal{O}_{3}\rangle$. Without
+loss of generality, assume $x_{1}, x_{2} \geq 0$. Now, for each $n \in \mathbb{N}$, define $a_{1n}, a_{2n} \in \mathbb{Q}$ such that $x - 1/n < a_{1n}
+\leq x_{1}$, and $x_{2} - 1/n < a_{2n} \leq x_{2}$. It is possible to define $a_{1n}, a_{2n}$ this way since $\mathbb{Q}$ is dense in $\mathbb{R}$.
+Then, let
+\[ A_{n} = (-n, a_{1n}) \times (-n, a_{2n}) \in \mathcal{O}_{3} \text{ for all } n \in \mathbb{N}. \]
+Hence,
+\[ \bigcup_{n=1}^{\infty}A_{n} = (-\infty, x_{1}) \times (-\infty, x_{2}) \in \sigma\langle \mathcal{O}_{3}\rangle. \]
+So $\mathcal{O}_{2} \subseteq \sigma\langle\mathcal{O}_{3}\rangle$.
+\end{claimproof}
+
+It follows directly from claim 1 that 
+\begin{equation}
+\sigma\langle\mathcal{O}_{2}\rangle \subseteq \sigma\langle\mathcal{O}_{3}\rangle.
+\label{eqn:10.2}
+\end{equation}
+
+{\bf Claim 2:} $\mathcal{O}_{1} \subseteq \sigma\langle\mathcal{O}_{4}\rangle$.
+
+\begin{claimproof}
+Let $a_{1}, b_{1}, a_{2}, b_{2} \in \mathbb{R}$ such that $a_{1}, b_{1}$ and $a_{2} < b_{2}$. We need to show that $(a_{1}, b_{1}) \times (a_{2},
+b_{2}) \in \sigma\langle\mathcal{O}_{4}\rangle$. Now, for each $n \in \mathbb{N}$, define $c_{1n}, c_{2n} \in \mathbb{Q}$ such that $b_{1} - 1/n <
+c_{1n} \leq b_{1}$ and $b_{2} - 1/n < c_{2n} \leq b_{2}$. Then define $C_{n} = (-\infty, c_{1n})\times (-\infty, c_{2n}) \in \mathcal{O}_{4}$ for each
+$n \in \mathbb{N}$. Then,
+\[ C \equiv \bigcup_{n=1}^{\infty}C_{n} = (-\infty, b_{1}) \times (-\infty, b_{2}) \in \sigma\langle\mathcal{O}_{4}\rangle. \]
+Further, for each $n \in \mathbb{N}$, define $a_{1n}, a_{2n} \in \mathbb{Q}$ such that $a_{1} \leq a_{1n} < a_{1} + 1/n$ and $a_{2} \leq a_{2n} <
+a_{2} + 1/n$. Also, let $b_{1}^{*}, b_{2}^{*} \in \mathbb{Q}$ such that $b_{1}^{*} > b_{1}$ and $b_{2}^{*} > b_{2}$. Then, let
+\begin{align*}
+& A_{n} = (-\infty, b_{1}^{*}) \times (-\infty, a_{2n}) \in \mathcal{O}_{4} \text{ and } \\
+& B_{n} = (-\infty, a_{1n}) \times (-\infty, b_{2}^{*}) \in \mathcal{O}_{4}.
+\end{align*}
+Thus,
+\begin{align*}
+& A = \bigcap_{n=1}^{\infty}A_{n} = (-\infty, b_{1}^{*}) \times (-\infty, a_{2}] \in \sigma \langle \mathcal{O}_{4}\rangle, \text{ and } \\
+& B = \bigcap_{n=1}^{\infty}B_{n} = (-\infty, a_{1}] \times (-\infty, b_{2}^{*}) \in \sigma \langle \mathcal{O}_{4}\rangle.
+\end{align*}
+Hence 
+\[ C \cap (A\cup B)^{c} = C \setminus (A\cup B) = (a_{1}, b_{1}) \times (a_{2}, b_{2}) \in \sigma\langle\mathcal{O}_{4}\rangle. \]
+So $\mathcal{O}_{1} \subseteq \sigma\langle\mathcal{O}_{4}\rangle$.
+\end{claimproof}
+
+It follows from claim 2 that 
+\begin{equation}
+\sigma\langle\mathcal{O}_{1}\rangle \subseteq \sigma\langle\mathcal{O}_{4}\rangle.
+\label{eqn:10.3}
+\end{equation}
+Therefore, by equations \ref{eqn:10.1}, \ref{eqn:10.2}, and \ref{eqn:10.3}, 
+\[ \sigma\langle\mathcal{O}_{3}\rangle \subseteq \sigma\langle\mathcal{O}_{1}\rangle \subseteq \sigma\langle\mathcal{O}_{4}\rangle \subseteq
+\sigma\langle\mathcal{O}_{2}\rangle \subseteq \sigma\langle\mathcal{O}_{3}\rangle. \]
+So $\sigma\langle\mathcal{O}_{j}\rangle = \sigma\langle\mathcal{O}_{i}\rangle$ for each $1 \leq i,j\leq 4$. Therefore $\mathcal{O}_{j} \subseteq
+\sigma\langle\mathcal{O}_{i}\rangle$ for each $1 \leq i,j \leq 4$.
+\end{proof}
+
+\newpage
+\section*{1.18}
+
+Let $\Omega \equiv \mathbb{N}$, $\mathcal{F} = \mathcal{P}(\Omega)$, and $A_{n} = \left\{ j : j \in \mathbb{N}, j \geq n \right\}$, for each $n \in
+\mathbb{N}$. Let $\mu$ be the counting measure on $(\Omega, \mathcal{F})$. Verify that $\lim_{n\rightarrow\infty}\mu(A_{n}) \neq \mu\left( \cap_{n\geq
+1}A_{n} \right)$.
+
+\section*{Solution}
+
+\begin{proof}
+Since $\mu(A_{n}) = |A_{n}| = \infty$ for each $n \in \mathbb{N}$, $\lim_{n\rightarrow\infty}\mu(A_{n}) = \infty$. However, we will show that
+$\cap_{n\geq 1}A_{n} = \emptyset$. By way of contradiction, assume that $\cap_{n\geq 1}A_{n} \neq \emptyset$. Then there exists $k^{*} \in
+\cap_{n\geq 1}A_{n}$. But $k^{*} \notin A_{k^{*}+1}$. This is a contradiction. Thus $\cap_{n\geq 1}A_{n} = \emptyset$. Hence, by definition of measure,
+\[ \mu\left( \bigcap_{n\geq 1}A_{n} \right) = \mu(\emptyset) = 0, \]
+So,
+\[ \lim_{n\rightarrow \infty}\mu(A_{n}) \neq \mu\left( \bigcap_{n\geq 1}A_{n} \right). \]
+\end{proof}
+
+
+
+\newpage
+\section*{1.19}
+
+Let $\Omega$ be nonempty and $\mathcal{C} \subseteq \mathcal{P}(\Omega)$ be a semialgebra. Let 
+\[ \mathcal{A}(\mathcal{C}) = \left\{ A : A = \cup_{i=1}^{k}B_{i} : B_{i} \in \mathcal{C}, i = 1, \dots, k \in \mathbb{N} \right\}. \]
+(a) Show that $\mathcal{A}(\mathcal{C})$ is the smallest algebra containing $\mathcal{C}$.
+
+(b) Show that $\sigma\langle\mathcal{C}\rangle = \sigma\langle\mathcal{A}(\mathcal{C})\rangle$.
+
+\section*{Solution}
+
+{\bf (a)} 
+\begin{proof}
+First we will verify that $\mathcal{A}(\mathcal{C})$ is, in fact, an algebra. Well, it follows from the definition of semialgebra that $\emptyset \in
+\mathcal{C}$. Therefore $\Omega = (\emptyset)^{c} = \cup_{i=1}^{k}B_{i}$, where $\left\{ B_{i} \right\}_{i=1}^{k}$, is a disjoint collection of sets
+in $\mathcal{C}$. Thus $\Omega \in \mathcal{A}(\mathcal{C})$ by definition. Now, let $X, Y \in \mathcal{A}(\mathcal{C})$. Then $X =
+\cup_{i=1}^{m}A_{i}$ and $Y = \cup_{i=1}^{n}B_{i}$ where $A_{1}, \dots, A_{m} \in \mathcal{C}$ and $B_{1}, \dots, B_{n} \in \mathcal{C}$. 
+We will show that $\mathcal{A}(\mathcal{C})$ is closed under finite unions and use that to show closure under finite intersections. We will then use
+closure under finite intersections to show closure under complementation. Closer under finite unions is trivial, for
+\[ X\cup Y = \left( \cup_{i=1}^{m}A_{i} \right) \cap \left( \cup_{j=1}^{n}B_{j} \right) = A_{1} \cup A_{2} \cup \dots \cup A_{m} \cup B_{1} \cup B_{2}
+\cup \dots \cup B_{n} \in \mathcal{A}(\mathcal{C}), \]
+by definition. Now,
+\begin{align*}
+X \cap Y & = \left( \cup_{i=1}^{m}A_{i} \right) \cap \left( \cup_{j=1}^{n}B_{j} \right) \\
+& = \cup_{i=1}^{m}A_{i} \cap \left( \cup_{j=1}^{n}B_{j} \right) \\
+& = \cup_{i=1}^{m}\cup_{j=1}^{n}A_{i}\cap B_{j} \in \mathcal{A}(\mathcal{C}),
+\end{align*}
+since $A_{i}\cap B_{j} \in \mathcal{C}$ for each $1\leq i \leq m, 1\leq j \leq n$ and $\mathcal{A}(\mathcal{C})$ is closed under finite unions. So
+$\mathcal{A}(\mathcal{C})$ is closed under finite intersections. It just remains to show that $\mathcal{A}(\mathcal{C})$ is closed under
+complementation to verify that it is an algebra. Well, it follows from the definition of $\mathcal{A}(\mathcal{C})$ that $A_{i}^{c} \in \mathcal{A}(\mathcal{C})$ since $A_{i} \in \mathcal{C}$ for each $1 \leq i \leq
+m$. Thus,
+\[ X^{c} = \left( \cup_{i=1}^{m}A_{i} \right)^{c} = \cap_{i=1}^{m}A_{i}^{c} \in \mathcal{A}(\mathcal{C}), \]
+since $\mathcal{A}(\mathcal{C})$ is closed under finite intersections. Hence $\mathcal{A}(\mathcal{C})$ is indeed an algebra.
+
+Now let $\mathcal{F} \supseteq \mathcal{C}$ be an algebra, and let $A \in \mathcal{A}(\mathcal{C})$. Then $A = \cup_{i=1}^{n}A_{i}$, where $A_{1},
+\dots, A_{n} \in \mathcal{C}$, for each $n \in \mathbb{N}$. But therefore $A \in \mathcal{F}$ since $\mathcal{F}$ is closed under finite unions. So
+$\mathcal{A}(\mathcal{C}) \subseteq \mathcal{F}$. Since $\mathcal{F} \supseteq \mathcal{C}$ was arbitrary, $\mathcal{A}(\mathcal{C})$ is the smallest
+algebra containing $\mathcal{C}$.
+\end{proof}
+
+{\bf (b)}
+
+\begin{proof}
+Since $\mathcal{C} \subseteq \mathcal{A}(\mathcal{C})$, $\sigma\langle\mathcal{C}\rangle \subseteq \sigma\langle\mathcal{A}(\mathcal{C})\rangle$. Now,
+let $A \in \mathcal{A}(\mathcal{C})$. Then $A = \cup_{i=1}^{n}A_{i}$, where $A_{i} \in \mathcal{C}$ for each $1\leq i \leq n \in \mathbb{N}$. But then
+$A \in \sigma\langle\mathcal{C}\rangle$ since $\sigma\langle\mathcal{C}\rangle$ is closed under finite unions. Therefore $\mathcal{A}(\mathcal{C})
+\subseteq \sigma\langle\mathcal{C}\rangle$. Thus $\sigma\langle\mathcal{A}(\mathcal{C})\rangle \subseteq \sigma\langle\mathcal{C}\rangle$. So 
+\[ \sigma\langle\mathcal{C}\rangle = \sigma\langle\mathcal{A}(\mathcal{C})\rangle. \]
+\end{proof}
+
+
+
+
+
+
+\newpage
+\section*{1.20}
+
+Let $\mu$ be a measure on a semialgebra $\mathcal{C}$. Let $A \in \mathcal{P}(\Omega)$. Define
+\[ \mu^{*}(A) = \inf\left\{ \sum_{n=1}^{\infty}\mu(A_{n}) : \left\{ A_{n} \right\}_{n\geq 1} \subseteq \mathcal{C}, A \subseteq \cup_{n\geq 1}A_{n}
+\right\}. \]
+Verify (3.4) - (3.6).
+
+\section*{Solution}
+
+(3.4) $\mu^{*}(\emptyset) = 0$.
+
+\begin{proof}
+First note that 
+\[ \mu^{*}(\emptyset) = \inf\left\{ \sum_{n=1}^{\infty}\mu(A_{n}) : \left\{ A_{n} \right\}_{n\geq 1}\subseteq \mathcal{C}, A\subseteq\cup_{n\geq
+1}A_{n} \right\} \geq 0 \]
+since $\mu$ only takes on values in $[0,\infty]$.
+Now, it follows from the definition of semialgebra that $\emptyset \in \mathcal{C}$. Thus, let $A_{n} = \emptyset$ for each $n \in \mathbb{N}$. Then
+$\emptyset \subseteq \cup_{n\geq 1}A_{n} = \emptyset$ and $\sum_{n=1}^{\infty}\mu(A_{n}) = \sum_{n=1}^{\infty}\mu(\emptyset) = 0$.
+Therefore 
+\[ \mu^{*}(\emptyset) = \inf\left\{ \sum_{n=1}^{\infty}\mu(A_{n}) : \left\{ A_{n} \right\}_{n\geq 1}\subseteq \mathcal{C}, A\subseteq\cup_{n\geq 1}A_{n} \right\} \leq 0,
+\]
+so $\mu^{*}(\emptyset) = 0$.
+\end{proof}
+
+(3.5) $A \subseteq B \Rightarrow \mu^{*}(A) \leq \mu^{*}(B)$.
+
+\begin{proof}
+Let $A, B \in \mathcal{P}(\Omega)$. Let 
+\begin{align*}
+S_{A} & = \left\{ \sum_{n=1}^{\infty}\mu(A_{n}) : \left\{ A_{n} \right\}_{n\geq 1}\subseteq \mathcal{C}, A\subseteq\cup_{n\geq 1}A_{n} \right\}, \text{
+and } \\
+S_{B} & = \left\{ \sum_{n=1}^{\infty}\mu(A_{n}) : \left\{ A_{n} \right\}_{n\geq 1}\subseteq \mathcal{C}, B\subseteq\cup_{n\geq 1}A_{n} \right\}.
+\end{align*}
+Now, let $\left\{ B_{n} \right\}_{n\geq 1} \subseteq \mathcal{C}$ such that $A\subseteq B\subseteq \cup_{n\geq 1}B_{n}$. Then
+$\sum_{n=1}^{\infty}\mu(B_{n}) \in S_{A}$. Hence $S_{B} \subseteq S_{A}$. Therefore 
+\[ \inf S_{A} \leq \inf S_{B}. \]
+Thus $\mu^{*}(A) \leq \mu^{*}(B)$.
+\end{proof}
+
+(3.6) Let $\left\{ A_{n} \right\}_{n\geq 1} \subseteq \mathcal{P}(\Omega)$. Then 
+\[ \mu^{*}\left( \cup_{n\geq 1}A_{n} \right) \leq \sum_{n=1}^{\infty}\mu^{*}(A_{n}). \]
+
+\begin{proof}
+Let $\left\{ A_{n} \right\}_{n\geq 1} \subseteq \mathcal{P}(\Omega)$. If $\mu^{*}(A_{n}) = \infty$ for any $n \in \mathbb{N}$, then the inequality
+holds trivially. Thus, assume that $\mu^{*}(A_{n}) < \infty$ for each $n \in \mathbb{N}$. Let $\epsilon > 0$. For each $n \in \mathbb{N}$, choose a
+cover $\left\{ A_{nj} \right\}_{j \geq 1} \subseteq \mathcal{C}$ such that $A_{n}\subseteq \cup_{j\geq 1}A_{nj}$ and 
+\begin{equation}
+\sum_{j=1}^{\infty}\mu(A_{nj}) < \mu^{*}(A_{n}) + \epsilon / 2^{n}. 
+\label{eqn:1.20a}
+\end{equation}
+Therefore $\left\{ A_{nj} \right\}_{n,j\geq 1}\subseteq \mathcal{C}$ is a cover of $\cup_{n\geq 1}A_{n}$, so by definition of outer measure,
+\begin{equation}
+\mu^{*}\left( \bigcup_{n\geq 1} A_{n}\right) \leq \sum_{n,j\geq 1}\mu(A_{nj})
+\label{eqn:1.20b}
+\end{equation}
+Further,
+\begin{equation}
+\sum_{n,j\geq 1}\mu(A_{nj}) = \sum_{n=1}^{\infty}\sum_{j=1}^{\infty}\mu(A_{nj}) \stackrel{\ref{eqn:1.20a}}{<} \sum_{n=1}^{\infty}\left( \mu^{*}(A_{n}) + \epsilon / 2^{n} \right)
+ = \sum_{n=1}^{\infty}\mu^{*}(A_{n}) + \epsilon.
+\label{eqn:1.20c}
+\end{equation}
+(Note that we don't have to worry about the order of terms in the summation since all terms are positive)
+
+So by \ref{eqn:1.20b} and \ref{eqn:1.20c}, 
+\[ \mu^{*}\left( \bigcup_{n\geq 1}A_{n} \right) \leq \sum_{n=1}^{\infty}\mu^{*}(A_{n}) + \epsilon. \]
+Since the inequality holds for all $\epsilon > 0$, 
+\[ \mu^{*}\left( \bigcup_{n\geq 1}A_{n} \right) \leq \sum_{n=1}^{\infty}\mu^{*}(A_{n}). \]
+\end{proof}
+
+
+\newpage
+\section*{1.24}
+
+Let $\mathcal{C}_{2} = \left\{ I_{1} \times I_{2} : I_{1}, I_{2} \in \mathcal{C} \right\}$, where 
+\[ C \equiv \left\{ (a,b] : -\infty \leq a \leq b < \infty \right\} \cup \left\{ (a,\infty) : -\infty  \leq a < \infty \right\}. \]
+Verify that $C_{2}$ is a semialgebra.
+
+\section*{Solution}
+
+\begin{proof}
+First we will verify the following claim.
+
+{\bf Claim 1:} If $I_{1}, I_{2} \in \mathcal{C}$, then $I_{1}\cap I_{2} \in \mathcal{C}$.
+
+\begin{claimproof}
+There are three cases to consider.
+
+Case 1: $I_{1} = (a_{1}, b_{1}], I_{2} = (a_{2}, b_{2}]$, where $-\infty \leq a_{1}\leq b_{1} < \infty$, and $-\infty \leq a_{2} \leq b_{2}] <
+\infty$.
+
+If $a_{1} = b_{1}$ or $a_{2} = b_{2}$, then $I_{1} = \emptyset$ or $I_{2} = \emptyset$, so $I_{1}\cap I_{2} = \emptyset \in \mathcal{C}$. Now assume
+that $a_{1} < b_{1}, a_{2} < b_{2}$.
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+\item Case 1.1: If $a_{2} \leq a_{1} < b_{1} \leq b_{2}$, then $I_{1} \subseteq I_{2}$, so $I_{1} \cap I_{2} = I_{1} \in \mathcal{C}$, and vica-versa.
+
+\item Case 1.2: If $a_{2} \leq a_{1} \leq b_{2} \leq b_{1}$, then $I_{1} \cap I_{2} = (a_{1}, b_{2}] \in \mathcal{C}$. Similarly, if $a_{1} \leq a_{2}
+\leq b_{1} \leq b_{2}$, then $I_{1}\cap I_{2} = (a_{2},b_{1}] \in \mathcal{C}$.
+
+\item Case 1.3: If $a_{1} < b_{1} < a_{2} < b_{2}$, or if $a_{2} < b_{2} < a_{1} < b_{1}$, then $I_{1} \cap I_{2} = \emptyset \in \mathcal{C}$. 
+\end{itemize}
+
+Case 2: Now let $I_{1} = (a_{1}, b_{1}]$, $I_{2} = (a_{2}, \infty)$, where $-\infty \leq a_{1} \leq b_{1} < \infty$, and $-\infty \leq a_{2} <
+\infty$.
+
+If $b_{1} < a_{2}$, then $I_{1}\cap I_{2} = \emptyset \in \mathcal{C}$. But if $a_{2} < b_{1}$, then 
+\[ I_{1} \cap I_{2} = (\max\left\{ a_{1},a_{2} \right\}, b_{1}] \in \mathcal{C}. \]
+
+Case 3: Let $I_{1} = (a, \infty), I_{2} = (a_{2}, \infty)$, where $-\infty \leq a_{1},a_{2} < \infty$. Then 
+\[ I_{1} \cap I_{2} = (\max \left\{ a_{1},a_{2} \right\}, \infty) \in \mathcal{C}. \]
+\end{claimproof} 
+
+{\bf Claim 2:} If $A,B \in \mathcal{C}_{2}$, then $A\cap B \in \mathcal{C}_{2}$.
+
+\begin{claimproof}
+Let $A = I_{A1} \times I_{A2} \in \mathcal{C}_{2}, B = I_{B1}\times I_{B2} \in \mathcal{C}_{2}$. Then 
+\[ A\cap B = (I_{A1} \times I_{A2}) \cap (I_{B1}\times I_{B2}) = (I_{A1}\cap I_{B1}) \times (I_{A2}\cap I_{B2}) \in \mathcal{C} \]
+by claim 1.
+\end{claimproof}
+
+{\bf Claim 3:} If $A \in \mathcal{C}_{2}$, then $A^{c} = \cup_{i=1}^{k}B_{i}$, wher $B_{i} \in \mathcal{C}_{2}$ and $B_{i} \cap B_{j} = \emptyset$ for
+all $i,j \in \left\{ 1, \dots, k \right\}$ with $i \neq j$.
+
+\begin{claimproof}
+There are 4 cases to consider.
+
+Case 1: Let $A = (a_{1}, b_{1}] \times (a_{2}, b_{2}]$, where $-\infty \leq a_{1} \leq b_{1} < \infty$ and $-\infty \leq a_{2} \leq b_{2} < \infty$.
+Then,
+\begin{align*}
+A^{c} = & (-\infty, a_{1}] \times (-\infty, a_{2}] \cup (a_{1},b_{1}] \times (-\infty, a_{2}]\ \cup \\
+& (-\infty, a_{1}] \times (a_{2}, b_{2}] \cup (-\infty, b_{1}] \times (b_{2}, \infty)\ \cup \\
+& (b_{1}, \infty) \times (-\infty, b_{2}] \cup (b_{1}, \infty) \times (b_{2}, \infty),
+\end{align*}
+which are all disjoint sets in $\mathcal{C}_{2}$.
+
+Case 2: Let $A = (a_{1}, b_{1}] \times (a_{2}, \infty)$, where $-\infty \leq a_{1} \leq b_{1} < \infty$ and $-\infty \leq a_{2} < \infty$. Then 
+\begin{align*}
+A^{c} = & (-\infty, a_{1}] \times (-\infty, a_{2}] \cup (a_{1}, b_{1}] \times (-\infty, a_{2}]\ \cup \\
+& (-\infty, a_{1}] \times (a_{2}, \infty) \cup (b_{1}, \infty) \times (a_{2}, \infty),
+\end{align*}
+which are all disjoint sets in $\mathcal{C}_{2}$.
+
+Case 3: Let $A = (a_{1}, \infty) \times (a_{2}, b_{2}]$, where $-\infty \leq a_{1} < \infty$ and $-\infty \leq a_{2} \leq b_{2} < \infty$. Then the
+result follows from case 2 by switching the coordinates.
+
+Case 4: Let $A = (a_{1}, \infty) \times (a_{2}, \infty)$, where $-\infty \leq a_{1}, a_{2} < \infty$. Then
+\begin{align*}
+A^{c} = & (-\infty, a_{1}] \times (-\infty, a_{2}] \cup (a_{1},\infty) \times (-\infty, a_{2}]\ \cup \\
+& (-\infty, a_{1}] \times (a_{2}, \infty),
+\end{align*}
+which are all disjoint sets in $\mathcal{C}_{2}$.
+\end{claimproof}
+
+Hence, by claims 2 and 3, $\mathcal{C}_{2}$ is a semialgebra.
+\end{proof}
+
+
+\newpage 
+\section*{Additional Problem}
+
+Let $F(x) = xI\left\{ 0 < x < 1 \right\} + I\left\{ x \geq 1 \right\}, x \in \mathbb{R}$.
+
+\section*{Solution}
+
+{\bf (i)} There are three cases to consider.
+
+Case 1: $x \leq 0$.
+
+Let $x < 0$. Then $F(x) = x(0) + 0 \equiv 0$. So $F(\cdot)$ s non-decreasing for all $x \leq 0$, and right-continuous for all $x < 0$. Further, 
+\[ \lim_{y\downarrow 0}F(y) = \lim_{y\downarrow 0}y(1) = 0 = F(0), \]
+so $F(\cdot)$ is right-continouos over all $x \leq 0$.
+
+Case 2: $0 < x < 1$.
+
+Let $0 < x < y < 1$. Then $F(x) = x(1) + 0 = x < y = y(1) + 0 = F(y)$. So $F(\cdot)$ is non-decreasing over $(0,1)$. Further, 
+\[ \lim_{y\downarrow x}F(y) = \lim_{y\downarrow x}y(1) = x. \]
+So $F(\cdot)$ is right-continuous over $(0,1)$.
+
+Case 3: $x \geq 1$.
+
+Let $x \geq 1$. Then $F(x) = x(0) + 1 \equiv 1$. So $F(\cdot)$ is non-decreasing and right-continuous for all $x \geq 1$.
+
+{\bf (ii)} Using the same definitions as on page 25, let $C = \left\{ (a,b], (a, \infty) : -\infty \leq a \leq b < \infty \right\}$. Then
+\begin{align*}
+& \mu\left( (a,b] \right) = F(b+) - F(a+) = F(b) - F(a) \\
+& \mu\left( (a, \infty) \right) = F(\infty) - F(a+) = 1 - F(a),
+\end{align*}
+since $F(\cdot)$ is right-continouos and $F(\infty) = \lim_{x\rightarrow\infty}F(x) = \lim_{x\rightarrow \infty} 1 = 1$.
+
+{\bf (iii)} We will prove that $\sigma\langle C\rangle = \mathcal{B}(\mathbb{R})$.
+
+\begin{proof}
+First we will show that $\sigma \langle \mathcal{C}\rangle \subseteq \mathcal{B}(\mathbb{R})$. Let $A \in \mathcal{C}$. Then either (1) $A = (a,b]$ for $-\infty \leq a \leq b < \infty$, or (2) $A = (a, \infty)$ for $-\infty \leq a < \infty$.
+
+Case 1: Let $A = (a,b]$ where $-\infty \leq a \leq b < \infty$. Then 
+\[ A = \cap_{n=1}^{\infty}(a, ,b + 1/n) \in \mathcal{B}(\mathbb{R}). \]
+
+Case 2: Let $A = (a, \infty)$ where $-\infty \leq a < \infty$. Then 
+\[ A = \cup_{n=1}^{\infty}[a + 1/n, \infty) = \left( \bigcap_{n=1}^{\infty}(-\infty, a + 1/n) \right)^{c} \in \mathcal{B}(\mathbb{R}), \]
+since $\left( \cap_{n=1}^{\infty}(-\infty, a + 1/n) \right)^{c} \in \sigma\langle \mathcal{O}_{2}\rangle = \mathcal{B}(\mathbb{R})$.
+
+Therefore $C \subseteq \mathcal{B}(\mathbb{R})$, so $\sigma\langle \mathcal{C}\rangle \subseteq \mathcal{B}(\mathbb{R})$. We will now show that
+$\mathcal{B}(\mathbb{R}) \subseteq \sigma \langle \mathcal{C}\rangle$ using the fact that $\mathcal{B}(\mathbb{R}) = \sigma \langle
+\mathcal{O}_{1}\rangle$. So, let $A = (a,b) \in \mathcal{O}_{1}$, where $-\infty \leq a \leq b \leq \infty$. If $a = b$ then $(a,b) = \emptyset \in
+\langle \mathcal{C} \rangle$. Also, if $b = \infty$, then $(a, \infty) \in \mathcal{C} \subseteq \sigma \langle \mathcal{C}\rangle$. If $b < \infty$,
+then 
+\[ A = \bigcup_{n=1}^{\infty}(a, b - 1/n] \in \sigma \langle \mathcal{C}\rangle. \]
+Hence $\mathcal{O}_{1} \subseteq \sigma \langle \mathcal{C}\rangle$, so $\mathcal{B}(\mathbb{R}) = \sigma\langle \mathcal{O}_{1}\rangle \subseteq
+\sigma\langle \mathcal{C} \rangle$.
+
+Thus $\sigma\langle \mathcal{C} \rangle = \mathcal{B}(\mathbb{R})$.
+\end{proof}
+
+{\bf (iv)} Define $\mu^{*}(A) = \inf\left\{ \sum_{n=1}^{\infty}\mu(A_{n}) : \left\{ A_{n} \right\}_{n\geq 1}\subseteq \mathcal{C}, A \subseteq
+\cup_{n\geq 1}A_{n} \right\}$. By Theorem 1.3.3,
+\[ C \subseteq M_{\mu^{*}} \equiv \left\{ A : A \text{ is $\mu^{*}$-measurable} \right\}. \]
+Further, by Theorem 1.3.2, $M_{\mu^{*}}$ is a $\sigma$-algebra. Thus $\mathcal{B}(\mathbb{R}) = \sigma\langle\mathcal{C}\rangle \subseteq
+M_{\mu^{*}}$. Hence every set $A \subseteq \mathcal{B}(\mathbb{R})$ is measurable with respect to $\mu^{*}$.
+
+{\bf (v)} Let $\mu'$ be another extension of $\mu$ that is a measure on $\mathcal{B}(\mathbb{R})$. Since $\mu^{*}$ is finite, 
+$\mu' = \mu^{*}$ on all of $\sigma\langle\mathcal{C}\rangle = \mathcal{B}(\mathbb{R})$ by Theorem 1.2.4. Thus the extension is unique.
+The common name for this measure is the uniform (0,1) cdf.
+\end{document}
+

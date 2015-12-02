@@ -1,0 +1,271 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$\vspace{5mm}}
+
+\title{MATH 515: HW 6}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\section*{1}
+Prove that every step function is a simple function.
+
+\subsection*{Solution}
+\begin{proof}
+Let $f : [a,b] \rightarrow \mathbb{R}$ be a step function. Then there is a partition $(x_{0}, \cdots, x_{n})$ of $[a,b]$ such that $f$ is constant on
+each open subinterval $(x_{0}, x_{1}), \cdots, (x_{n-1}, x_{n})$. Let $E_{i} = (x_{i-1},x_{i})$ for $i = 1,\cdots, n$ and $c_{i}$ be the value of $f$
+over each interval $E_{i}$. Further, for $i = n+1, \cdots, 2n+1$, let $E_{i} = \{x_{i-n-1}\}$ and $c_{i} = f(x_{i-n-1})$. Let 
+\[ f' = \sum_{i=1}^{2n+1} c_{i}\cdot \chi_{E_{i}}. \]
+Since $E_{i}$ is either an interval or a single point, $\left\{ E_{i} \right\}_{i=1}^{2n+1}$ is a collection of measurable sets. Thus, by Proposition
+(III)(3)(iii), $f'$ is a simple function and by construction, $f(x) = f'(x)$ for all $x \in [a,b]$. Hence 
+\[ f = f' \big|_{[a,b]}. \]
+
+\underline{Claim:} $f$ is a simple function.
+\begin{claimproof}
+Clearly $f$ is real-valued with a finite number of elements in ran($f$). So we just need to show that $f$ is measurable. Let $U \subseteq [-\infty,
+\infty]$ be open. Then,
+\begin{align*}
+f^{-1}(U) = \left\{ x \in [a,b] : f(x) \in U \right\} & = \left\{ x \in [a,b] : f'(x) \in U \right\} \\
+& = \left\{ x \in \mathbb{R} : f'(x) \in U \wedge x \in [a,b] \right\} \\
+& = (f')^{-1}[U] \cap [a,b],
+\end{align*}
+which is measurable since $f'$ is measurable.
+\end{claimproof}
+
+\end{proof}
+
+
+\newpage 
+\section*{2 [RF 3.1]}
+Suppose $f$ and $g$ are continuous over $[a,b]$. If $f = g$ a.e. on $[a,b]$, then $f = g$ on $[a,b]$.
+
+\subsection*{Solution}
+\begin{proof}
+We will proceed by contradiction. So, assume that there exists $x' \in [a,b]$ such that $f(x') \neq g(x')$. By the Extreme Value Theorem, $|f(x')|,
+|g(x')| < \infty$. Therefore $f(x') - g(x') \neq 0$. Thus, there exists $\epsilon > 0$ such that 
+\begin{equation}
+|f(x') - g(x')| = \epsilon.
+\label{2.1}
+\end{equation} 
+Now, since $f$ is
+continuous over $[a,b]$, there exists $\delta_{1} > 0$ such that for all $y \in [a,b]$ so that $|y - x'| < \delta_{1}$, 
+\[ |f(y) - f(x')| < \epsilon /2. \]
+Similarly, there exists $\delta_{2} > 0$ such that for all $y \in [a,b]$ so that $|y - x'| < \delta_{2}$,
+\[ |g(y) - g(x')| < \epsilon / 2. \]
+Let $\delta = \min\left\{ \delta_{1}, \delta_{2} \right\}$. Now, since $(x'  - \delta, x' + \delta)$ and $[a,b]$ are intervals, 
+\[ I = (x' -\delta, x' + \delta) \cap [a,b] \]
+is an interval. Further, since $a \leq x' \leq b$, $0 < \ell(I) = \mu(I)$. Hence, since $f = g$ a.e. on $[a,b]$ and $I$ has positive measure, there exists $x_{0} \in I$ such that
+$f(x_{0}) = g(x_{0})$. Since $x_{0} \in [a,b]$ and $|x_{0} - x'| < \ell(I) / 2 = \delta \leq \delta_{1}, \delta_{2}$,
+\[ |f(x_{0}) - f(x')| < \epsilon / 2 \qquad \text{and} \qquad |g(x_{0}) - g(x')| < \epsilon / 2. \]
+Therefore,
+\begin{align*}
+|f(x') - g(x')| & \leq |f(x') - f(x_{0})| + |f(x_{0}) - g(x')| \\
+& \leq |f(x') - f(x_{0})| + |f(x_{0}) - g(x_{0})| + |g(x_{0}) - g(x')| \\
+& < \epsilon / 2 + 0  + \epsilon / 2 = \epsilon.
+\end{align*}
+This contradicts equation \ref{2.1}. Thus $f = g$ on $[a,b]$.
+\end{proof}
+If $[a,b]$ is replaced by a general measurable set $E$, the assertion does not remain true. For example, let $E = \mathbb{N}$ and let $f$ and $g$ be
+real-valued functions on $E$ such that 
+\[ f(n) = n \qquad \text{ and } \qquad g(n) = n+1, \]
+for all $n \in E$. $f$ and $g$ are continuous since for any open $U \subseteq [-\infty, \infty]$,
+\[ f^{-1}(U) = \mathbb{N} \cap U = E \cap U, \text{ and } g^{-1}(U) = \mathbb{N} \cap (U - 1) = E \cap (U - 1). \]
+Further $\mu\left( \{n \in E : f(n) \neq g(n)\} \right) = \mu(E) = \mu(\mathbb{N}) = 0$, so $f = g$ a.e. on $E$. But $f(n) \neq g(n)$ for every $n \in E$.
+
+
+\newpage 
+\section*{3}
+For every positive integer $n$, let $S_{n}(x)$ denote the number of 5's in the first $n$ digits of the non-terminating decimal expansion of $x$.
+Prove that $\left\{ x \in [0,1] : \lim_{n\rightarrow\infty}\frac{S_{n}(x)}{n}\text{ exists} \right\}$ is measurable.
+
+\subsection*{Solution}
+
+\begin{proof}
+Let $n \in \mathbb{N}$.
+
+\underline{Claim 1:} $S_{n} : [0,1] \rightarrow [-\infty, \infty]$ is measurable.
+\begin{claimproof}
+Since $[0,1]$ is measurable, it remains to show that $S_{n}^{-1}(U)$ is measurable for any open $U \subseteq [-\infty, \infty]$. 
+
+For each positive integer $j$, let $X_{j}$ be defined as in Question 3 of HW 5. Now, for each 
+$k \in \left\{ 0, \dots, n \right\}$, if $S_{n}(x) = k$, then there are $\binom{n}{k}$ possibilities for the positions of the $k$ 5's in the first $n$
+digits of the non-terminating decimal expansion of $x$. Let $c_{k} = \binom{n}{k}$. Let $\left\{ F_{k,i} \right\}_{k=1}^{c_{k}}$, where $F_{k,i} =
+\left\{ j_{1}, \dots, j_{k} \right\}$, denote the $c_{k}$ unique choices for the $k$ 5's in the first $n$ digits of the non-terminating decimal
+expansion of $x$. So,
+\begin{align*}
+S_{n}^{-1}(k) & = \left\{ x \in [0,1] : S_{n}(x) = k \right\} \\
+& = \bigcup_{i=1}^{c_{k}}\left\{ x \in [0,1] : x\text{ has a 5 only at the positions }j \in F_{k,i} \right\} \\
+& = \bigcup_{i=1}^{c_{k}}\left[  \left(\bigcap_{j\in F_{k,i}}X_{j}\right) - \bigcup_{j \notin F_{k,i}, 1 \leq j \leq n} X_{j} \right]
+\end{align*}
+which is measurable since $X_{j}$ is measurable for all $j \geq 1$ by HW 5 Question 3. Now, let $U \subseteq [-\infty, \infty]$ be open. Then,
+\begin{align*}
+S_{n}^{-1}(U) = \left\{ x \in [0,1] : S_{n}(x) \in U \right\} & = \left\{ x \in [0,1] : S_{n}(x) \in U \cap \mathbb{N} \right\} \\
+& = \bigcup_{k \in U \cap \mathbb{N}} S_{n}^{-1}(k)
+\end{align*}
+is measurable. So $S_{n}$ is measurable.
+\end{claimproof}
+
+It follows by Theorem (III)(2)(vii) that $f_{n}(x) = \frac{S_{n}(x)}{n}$ is measurable. Since $n \geq 1$ was arbitrary, $\left\{ f_{n}
+\right\}_{n=1}^{\infty}$ is a sequence of measurable functions with a common domain. So, by Question 4 (the next question in this homework), the set 
+\[ \left\{ x \in [0,1] : \lim_{n\rightarrow\infty}f_{n}(x)\text{ exists} \right\} = \left\{ x \in [0,1] : 
+\lim_{n\rightarrow\infty}\frac{S_{n}(x)}{n} \text{ exists}\right\} \]
+is measurable.
+\end{proof}
+
+
+\newpage
+\section*{4 [RF 3.9]}
+Let $\left\{ f_{n} \right\}$ be a sequence of measurable functions defined on a measurable set $E$. Define $E_{0}$ as the set of all points $x \in E$
+such that $\left\{ f_{n}(x) \right\}$ converges. We will show that $E_{0}$ is measurable.
+
+\subsection*{Solution}
+\underline{Lemma:} If $f : E \rightarrow [-\infty, \infty]$ is measurable, then 
+\[ f^{*}(x) = f(x) \cdot \chi_{\mathbb{R}}[f(x)] = \left\{ \begin{array}{cl}
+f(x) & \text{ if } x \in \mathbb{R} \\
+0 & \text{ if } x \notin \mathbb{R} 
+\end{array} \right. \]
+is measurable.
+
+\begin{proof}
+Let $a \in \mathbb{R}$. If $a \leq 0$, then 
+\begin{align*}
+(f^{*})^{-1}\left( [a,\infty] \right) & = \left\{ x \in E : a \leq f^{*}(x) \leq \infty \right\} \\
+& = \left\{ x \in E : a \leq f(x) \leq \infty \vee f(x) = -\infty \right\} \\
+& = \left\{ x \in E : a \leq f(x) \leq \infty \right\} \cup \left\{ x \in E : f(x) = -\infty \right\} \\
+& = f^{-1}\left( [a,\infty] \right) \cup f^{-1}(\left\{ -\infty \right\}),
+\end{align*}
+which is measurable. If $a > 0$, then 
+\begin{align*}
+(f^{*})^{-1}\left( [a,\infty] \right) & = \left\{ x \in E : a \leq f^{*}(x) \leq \infty \right\} \\
+& = \left\{ x \in E : a \leq f(x) < \infty \right\} \\
+& = f^{-1}\left( [a,\infty) \right),
+\end{align*}
+which is measurable. Thus, by Proposition (III)(1)(vii), $f^{*}$ is measurable.
+\end{proof}
+
+We will now prove the main result.
+
+\begin{proof}
+Let $\left\{ f_{n} \right\}$ be a sequence of measurable functions defined on a measurable set $E$. Define $E_{0}$ as the set of all points $x \in E$
+such that $\left\{ f_{n}(x) \right\}$ converges. Note that for each $x \in E$, $\left\{ f_{n}(x) \right\}$ converges if and only if 
+\[ -\infty < \lim\inf f_{n}(x) = \lim\sup f_{n}(x) < \infty. \]
+Let $g_{0} = \lim\inf f_{n}$ and $g_{1} = \lim\sup f_{n}$. By Question 5 on this homework, $g_{0}$ and $g_{1}$ are measurable. Now define 
+\[ g_{0}^{*} = g_{0}\cdot \chi_{\mathbb{R}}[g_{0}] \qquad \text{ and } \qquad g_{1}^{*} = g_{1}\cdot \chi_{\mathbb{R}}[g_{1}]. \]
+By construction, $g_{i}^{*}$ is finite, and by the lemma, $g_{i}^{*}$ is measurable, for $i = 1,2$. Hence, by Theorem (III)(2)(vii), $g = g_{0}^{*} - g_{1}^{*}$ is measurable. Thus,
+\begin{align*}
+E_{0} & = \left\{ x \in E : g(x) = 0 \wedge g_{0} \in \mathbb{R} \wedge g_{1} \in \mathbb{R} \right\} \\
+& = \left\{ x \in E : g(x) = 0 \right\} \cap \left\{ x \in E : g_{0}(x) \in \mathbb{R} \right\} \cap \left\{ x \in E : g_{1}(x) \in \mathbb{R}
+\right\} \\ 
+& = g^{-1}\left[ \left\{ 0 \right\} \right] \cap (g_{0})^{-1}\left[ \mathbb{R} \right] \cap \left( g_{1} \right)^{-1}\left[ \mathbb{R}
+\right], 
+\end{align*}
+which is measurable.
+\end{proof}
+
+
+\newpage
+\section*{5 [RF 3.21]}
+Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a sequence of measurable functions with common domain $E$. Show that each of the following functions is
+measurable: $\inf\left\{ f_{n} \right\}$, $\sup\left\{ f_{n} \right\}$, $\lim\inf\left\{ f_{n} \right\}$, and $\lim\sup\left\{ f_{n} \right\}$.
+
+\subsection*{Solution}
+\begin{description}
+\item[(i)] $h_{1} \equiv \inf\left\{ f_{n} \right\}$ is measurable. 
+
+\begin{proof}
+Let $a \in \mathbb{R}$. Then 
+\begin{align*}
+h_{1}^{-1}\left( [a,\infty] \right) = \left\{ x \in E : h(x) \geq a \right\} & = \left\{ x \in E : \inf\left\{ f_{n}(x) \right\} \geq a \right\} \\
+& = \left\{ x \in E : f_{n}(x) \geq a \ \forall\ n \in \mathbb{N} \right\} \\
+& = \bigcap_{n=0}^{\infty}\left\{ x \in E : f_{n}(x) \geq a \right\} \\
+& = \bigcap_{n=0}^{\infty}f_{n}^{-1}\left( [a,\infty] \right),
+\end{align*}
+which is measurable by Proposition (3)(1)(vii). Therefore, by Proposition (3)(1)(vii) again, $h_{1}$ is measurable.
+\end{proof}
+
+\item[(ii)] $h_{2} \equiv \sup\left\{ f_{n} \right\}$ is measurable.
+
+\begin{proof}
+Let $a \in \mathbb{R}$. Then 
+\begin{align*}
+h_{2}^{-1}\left( [-\infty, a] \right) = \left\{ x \in E : h_{2}(x) \leq a \right\} & = \left\{ x \in E : \sup\left\{ f_{n}(x) \right\} \leq a \right\}
+\\
+& = \left\{ x \in E : f_{n}(x) \leq a\ \forall\ n \in \mathbb{N} \right\} \\
+& = \bigcap_{n=0}^{\infty}\left\{ x \in E : f_{n}(x) \leq a \right\} \\
+& = \bigcap_{n=0}^{\infty}f_{n}^{-1}\left( [-\infty, a] \right),
+\end{align*}
+which is measurable. Thus $h_{2}$ is measurable.
+\end{proof}
+
+\item[(iii)] $h_{3} \equiv \lim\inf\left\{ f_{n} \right\}$ is measurable.
+
+\begin{proof}
+Let $a \in \mathbb{R}$. Then, 
+\begin{align*}
+h_{3}^{-1}\left( [a,\infty] \right) = \left\{ x \in E : h(x) \geq a \right\} & = \left\{ x \in E : \lim\inf f_{n}(x) \geq a \right\} \\
+& = \left\{ x \in E: \exists\ n \in \mathbb{N} \text{ such that } k \geq n \text{ implies } f_{k}(x) \geq a \right\} \\
+& = \bigcup_{n=0}^{\infty}\bigcap_{k\geq n}\left\{ x \in E : f_{k}(x) \geq a \right\} \\
+& = \bigcup_{n=0}^{\infty}\bigcap_{k\geq n}f_{k}^{-1}\left( [a,\infty] \right),
+\end{align*}
+which is measurable. Thus $h_{3}$ is measurable.
+\end{proof}
+
+\item[(iv)] $h_{4} \equiv \lim\sup\left\{ f_{n} \right\}$ is measurable.
+
+\begin{proof}
+Let $a \in \mathbb{R}$. Then,
+\begin{align*}
+h_{4}^{-1}\left( [-\infty,a] \right) = \left\{ x \in E : h(x) \leq a \right\} & = \left\{ x \in E : \lim\sup f_{n}(x) \leq a \right\} \\
+& = \left\{ x \in E : \exists\ n \in \mathbb{N} \text{ such that } k \geq n \text{ implies } f_{k}(x) \leq a \right\} \\
+& = \bigcup_{n=0}^{\infty}\bigcap_{k\geq n} \left\{ x \in E : f_{k}(x) \leq a \right\} \\
+& = \bigcup_{n=0}^{\infty}\bigcap_{k\geq n} f_{k}^{-1}\left( [-\infty, a] \right),
+\end{align*}
+which is measurable. Thus $h_{4}$ is measurable.
+\end{proof}
+\end{description}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
