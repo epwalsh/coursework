@@ -133,9 +133,11 @@ Let $x_{0} \in \mathbb{R}$. By assumption, $\mu\left( \left\{ x_{0} - y \right\}
 \end{align*}
 \end{Proof}
 
+\vspace{-5mm}
 \item 
 \begin{Proof}
 
+\vspace{-5mm}
 \begin{claim}
 $\nu << m$.
 \end{claim}
@@ -262,6 +264,72 @@ so $(f*g)'$ is bounded.
 
 
 
+
+
+
+
+
+
+
+\newpage 
+\section*{5.15}
+Let $f \in L^{1}(\mathbb{R}), g \in L^{p}(\mathbb{R})$ for $1 \leq p < \infty$. Show that for all $x \in \mathbb{R}$,
+\[ \left( \int |f(u)g(x-u)|dm(u) \right)^{p} \leq \left( \int |f|dm \right)^{p-1}\left( \int |g(x-u)|^{p}|f(u)|dm(u) \right), \]
+and hence that $(f*g)(x)$ is well defined a.e. $(m)$ and $||f*g||_{p} \leq ||f||_{1}\cdot ||g||_{p}$.
+
+\subsection*{Solution}
+\begin{Proof}
+Without loss of generality assume that $m(\left\{ f > 0 \right\}) > 0$, otherwise the result is trivial. For all $A \in \mathcal{B}(\mathbb{R})$, let
+$\mu(A) := \int_{A}\frac{|f|}{||f||_{1}}dm$. Clearly $\mu$ is a probability measure on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$. 
+Now, since $g \in L^{p}(m)$, $|g|^{p} \in L^{1}(m)$. Thus, $|g(x-u)|^{p} \in L^{1}(m)$ by the translation invariance of $m$. So, by Proposition 5.4.3,
+\begin{equation}
+\int |g(x-u)|^{p}|f(u)|dm < \infty,
+\label{3.1}
+\end{equation}
+for almost all $x \in \mathbb{R}$. Thus, let $x \in \mathbb{R}$ such that \eqref{3.1} is satisfied
+and define $h(u) := |g(x-u)|$ for all $u \in \mathbb{R}$. Let $\phi(\omega) := \omega^{p}$ for all $\omega \in \mathbb{R}$. Since $p \geq
+1$, $\phi(\cdot)$ is convex over $\mathbb{R}$.
+
+\begin{claim}
+$h$ and $\phi\circ h$ are in $L^{1}(\mathbb{R}, \mathcal{B}(\mathbb{R}), \mu)$.
+\end{claim}
+\begin{claimproof}
+By \eqref{3.1},
+\[ \int |\phi\circ h|d\mu = \frac{1}{||f||_{1}}\int |g(x-u)|^{p}|f(u)|dm(u) < \infty. \]
+Further, note that when $|g(x-u)| \geq 1$, $\phi \circ h = |g(x-u)|^{p} \geq |g(x-u)| = h(u)$. Hence,
+\[ \int |h|d\mu = \int_{\{0\leq h <1\}}|h|d\mu + \int_{\{h\geq 1\}}|h|d\mu \leq \int_{\{0\leq h<1\}}1d\mu + \int_{\{h\geq 1\}}|\phi\circ h|d\mu \leq 1
++ \int_{\{h\geq 1\}}|\phi\circ h|d\mu < \infty. \]
+\end{claimproof}
+
+\begin{claim}
+\[ \left( \int |f(u)g(x-u)|dm(u) \right)^{p} \leq \left( \int |f|dm \right)^{p-1}\left( \int |g(x-u)|^{p}|f(u)|dm(u) \right). \]
+\end{claim}
+\begin{claimproof}
+By claim 1 we can apply Jensen's Inequality to $h$ and $\phi$ with the probability measure $\mu$. Thus,
+\[ \left( \frac{\int |g(x-u)||f(u)|dm(u)}{||f||_{1}} \right)^{p} = \phi\left( \int hd\mu \right) \leq \int \phi\circ hd\mu = \frac{\int
+|g(x-u)|^{p}|f(u)|dm(u)}{||f||_{1}}. \]
+By rearranging terms, we are done.
+\end{claimproof}
+
+By claim 2 and \eqref{3.1},
+\[ |(f*g)(x)| = \left| \int f(u)g(x-u)dm(u)\right| \leq \left( ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|dm(u) \right)^{1/p} < \infty. \]
+Therefore $f*g$ is well defined a.e. $(m)$.
+
+\begin{claim}
+$||f*g||_{p} \leq ||f||_{1}\cdot ||g||_{p}$.
+\end{claim}
+\begin{claimproof}
+By claim 2,
+\begin{align*}
+||f*g||_{p} = \left( \int |(f*g)|^{p}dm \right)^{1/p} & = \left( \int \left| \int f(u)g(x-u)dm(u)\right|^{p}dm(x) \right)^{1/p} \\
+& \leq \left( \int ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|dm(u)dm(x) \right)^{1/p} \\
+\text{(Tonelli's) } & = \left( ||f||_{1}^{p-1}\int\int |g(x-u)|^{p}|f(u)|dm(x)dm(u) \right)^{1/p} \\
+& = \left( ||f||_{1}^{p-1}\int |f(u)|\int |g(x)|^{p}dm(x)dm(u) \right)^{1/p} \\
+& = \left( ||f||_{1}^{p-1}\cdot ||f||_{1}\cdot ||g||_{p}^{p} \right)^{1/p} = ||f||_{1}\cdot ||g||_{p}.
+\end{align*}
+\end{claimproof}
+
+\end{Proof}
 
 
 
