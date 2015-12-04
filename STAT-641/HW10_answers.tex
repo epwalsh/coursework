@@ -1,0 +1,208 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{3mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{STAT 641: HW 10}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+% \maketitle
+
+\section*{5.12}
+Let $\mu$ and $\lambda$ be $\sigma$-finite measures on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$. Let $\nu(A) = (\mu * \lambda)(A)$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that for any Borel measurable $f : \mathbb{R} \rightarrow \mathbb{R}_{+}$, $f(x + y)$ is $\langle\mathcal{B}(\mathbb{R})\otimes
+\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable, and 
+\[ \int fd\mu = \int \int f(x + y) d\mu(x) d\lambda(y). \]
+\item Show that $\nu(A) = \int \mu(A - t)d\lambda(t)$ for all $A \in \mathcal{B}(\mathbb{R})$.
+\item Suppose there exists countable sets $B_{\lambda}, B_{\mu}$ such that $\mu(B_{\mu}^{c}) = 0 = \lambda(B_{\lambda}^{c})$. Show that there exists a
+countable $B_{\nu}$ such that $\nu(B_{\nu}^{c}) = 0$.
+\item Suppose $\mu\left( \left\{ x \right\} \right) = 0$ for all $x \in \mathbb{R}$. Show that $\nu\left( \left\{ x \right\} \right) = 0$ for all $x
+\in \mathbb{R}$.
+\item Suppose $\nu << m$ with $\frac{d\mu}{dm} := h$. Show that $\nu << m$ and find $\frac{d\mu}{dm}$ in terms of $h$ and $\lambda$.
+\item Suppose that $\nu << m$ and $\lambda << m$. Show that 
+\[ \frac{d\nu}{dm} = \frac{d\mu}{dm}*\frac{d\lambda}{dm}. \]
+\end{enumerate}
+
+\subsection*{Solution}
+
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{Proof}
+
+\begin{claim}
+$f(x + y)$ is measurable.
+\end{claim}
+\begin{claimproof}
+Denote $g_{0}(x,y) := x$, $g_{1}(x,y) := y$, and $g(x,y) := g_{0} - g_{1}$. Clearly $g_{0}, g_{1}$ are $\langle\mathcal{B}(\mathbb{R})\otimes
+\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable, so $g$ is also $\langle\mathcal{B}(\mathbb{R})\otimes
+\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable. Therefore $f \circ g$ is $\langle\mathcal{B}(\mathbb{R})\otimes
+\mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable as the composition of measurable functions.
+\end{claimproof}
+
+\begin{claim}
+$\int fd\nu = \int \int f(x + y)d\mu(x) d\lambda(y)$.
+\end{claim}
+\begin{claimproof}
+Let $g := x + y$. Note that for all $A \in \mathcal{B}(\mathbb{R})$, 
+\begin{align*}
+\nu(A) = \int \int I_{A}(x + y) d\mu(x)d\lambda(y) & = \int \int I_{g^{-1}[A]}(x,y)d\mu(x)d\lambda(y) \\
+& = \int_{\mathbb{R}\times\mathbb{R}}I_{g^{-1}[A]}d(\mu\times\lambda) = (\mu\times\lambda)g^{-1}[A].
+\end{align*}
+Thus, by the change of variables formula,
+\begin{align*}
+\int f\nu = \int f d(\mu \times \lambda g^{-1}) & = \int f\circ gd(\mu \times \lambda) \\
+& = \int \int f\circ g d\mu d\lambda = \int \int f(x + y)d\mu(x) d\lambda(y).
+\end{align*}
+\end{claimproof}
+
+\end{Proof}
+
+\item 
+\begin{Proof}
+Let $A \in \mathcal{B}(\mathbb{R})$. Then 
+\[ \nu(A) = \int \int I_{A}(x + t) d\mu(x)d\lambda(t) = \int \int I_{A -t}(x)d\mu(x)d\lambda(t) = \int \mu(A - t)d\lambda(t). \]
+\end{Proof}
+
+\item 
+\begin{Proof}
+Let $B\nu := \cup_{b \in B_{\mu}}\cup_{c \in B_{\lambda}}\left\{ b + c \right\}$. Let $g(x,y) := x + y$ for all $(x,y) \in
+\mathbb{R}\times\mathbb{R}$. Then 
+\begin{align*}
+g^{-1}[B_{\mu}^{c}] = \left\{ (x,y) \in \mathbb{R}\times \mathbb{R} : x + y \notin B_{\nu} \right\} & = \left\{ (x,y) : x + y \notin \cup_{b \in B_{\mu}}\cup_{c\in B_{\lambda}}\left\{ b + c \right\} \right\} \\
+& \subseteq \left\{ (x,y) : x \notin B_{\mu} \text{ or } y \notin B_{\lambda} \right\} \\
+& = \left\{ (x,y) : x \in B_{\mu}^{c} \text{ or } y \in B_{\lambda}^{c} \right\} \\
+& = B_{\mu}^{c} \times \mathbb{R} \cup \mathbb{R} \times B_{\lambda}^{c}.
+\end{align*}
+Therefore,
+\[ I_{g^{-1}[B_{\nu}^{c}]}(x,y) \leq I_{B_{\mu}^{c}\times \mathbb{R}\cup \mathbb{R}\times B_{\lambda}^{c}}(x,y) \leq
+I_{B_{\mu}^{c}\times\mathbb{R}}(x,y) + I_{\mathbb{R}\times B_{\lambda}^{c}}(x,y) = I_{B_{\mu}^{c}}(x) + I_{B_{\lambda}^{c}}(y). \]
+Thus,
+\begin{align*}
+\nu(B_{\nu}^{c})& = \int \int I_{B_{\nu}^{c}}(x + y)d\mu(x) d\lambda(y)  \\
+& = \int \int I_{g^{-1}[B_{\nu}^{c}]}(x,y)d\mu(x)d\lambda(y) \\
+& \leq \int\int \left( I_{B_{\mu}^{c}}(x) + I_{B_{\lambda}^{c}}(y) \right)d\mu(x)d\lambda(y) \\
+& = \int \int I_{B_{\mu}^{c}}(x)d\mu(x)d\lambda(y) + \int \int I_{B_{\lambda}^{c}}(y)d\lambda(y)d\mu(x) \\
+& = \int \mu(B_{\mu}^{c})d\lambda + \int \lambda(B_{\lambda}^{c})d\mu = \int 0d\lambda + \int 0d\mu = 0.
+\end{align*}
+\end{Proof}
+
+\item
+\begin{Proof}
+Let $x_{0} \in \mathbb{R}$. By assumption, $\mu\left( \left\{ x_{0} - y \right\} \right) = 0$ for all $y \in \mathbb{R}$. Therefore,
+\begin{align*}
+\nu\left( \left\{ x_{0} \right\} \right) = \int \int I_{ \left\{ x_{0} \right\} }(x+y)d\mu(x) d\lambda(y) & = \int \int I_{ \left\{ x_{0} - y \right\}
+}(x)d\mu(x)d\lambda(y) \\
+& = \mu\left( \left\{ x_{0} - y \right\} \right)d\lambda(y) = \int 0 d\lambda = 0.
+\end{align*}
+\end{Proof}
+
+\item 
+\begin{Proof}
+
+\begin{claim}
+$\nu << m$.
+\end{claim}
+\begin{claimproof}
+Let $A \in \mathcal{B}(\mathbb{R})$ such that $m(A) = 0$. Then $m(A - y) = 0$ for all $y \in \mathbb{R}$. Thus, $\mu(A - y) = 0$ by assumption. Hence,
+by part (b),
+\[ \nu(A) = \int \mu(A - y)d\lambda(y) = \int 0d\lambda = 0. \]
+\end{claimproof}
+
+\begin{claim}
+$\frac{d\nu}{dm}(t) = \int h(t- y)d\lambda(y)$ a.e. $(m)$.
+\end{claim}
+\begin{claimproof}
+Let $A \in \mathcal{B}(\mathbb{R})$.
+\begin{subclaim}
+For each $y \in \mathbb{R}$, 
+\[ \int I_{A-y}(t)h(t)dm(t) = \int I_{A}(t)h(t-y)dm. \]
+\end{subclaim}
+\begin{subclaimproof}
+Let $y \in \mathbb{R}$ and let $f,g : \mathbb{R} \rightarrow \mathbb{R}$ be defined by $g(t) := t - y$ and $f(t) := I_{A-y}(t)h(t)$. Then, by the
+change of variables formula and since the Legesgue measure is translation invariant,
+\[ \int I_{A-y}(t)h(t)dm(t) = \int fdm = \int fdmg^{-1} = \int f\circ gdm = \int I_{A}(t)h(t-y)dm(t). \]
+\end{subclaimproof}
+
+Thus,
+\begin{align*}
+\nu(A) = \int \mu(A - y)d\lambda(y) & = \int \int I_{A-y}(t)h(t)dm(t)d\lambda(y) \\
+\text{(claim 1) } & = \int \int I_{A}(t)h(t - y)dm(t)d\lambda(y) \\
+\text{(Tonelli's) } & = \int \int I_{A}(t)h(t-y)d\lambda(y)dm(t) \\
+& = \int_{A}\int_{\mathbb{R}}h(t-y)d\lambda(y)dm(t).
+\end{align*}
+So by uniqueness, $\frac{d\nu}{dm}(t) = \int h(t-y)d\lambda(y)$ a.e. $(m)$.
+\end{claimproof}
+
+\end{Proof}
+
+\item 
+\begin{Proof}
+We will use the fact that since $\lambda << m$, $\int fd\lambda = \int f\frac{d\lambda}{dm}dm$ for any non-negative measurable $f$. Let $A \in
+\mathcal{B}(\mathbb{R})$. Therefore, by part (d),
+\begin{align*}
+\nu(A) = \int_{A}\int_{\mathbb{R}}\frac{d\mu}{dm}(t-y)d\lambda(y)dm(t) & =
+\int_{A}\int_{\mathbb{R}}\frac{d\mu}{dm}(t-y)\frac{d\lambda}{dm}(y)dm(y)dm(t) \\
+& = \int_{A} \frac{d\mu}{dm} * \frac{d\lambda}{dm}(t)dm(t).
+\end{align*}
+So by uniqueness, $\frac{d\nu}{dm} = \frac{d\mu}{dm}*\frac{d\lambda}{dm}$ a.e. $(m)$.
+\end{Proof}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
