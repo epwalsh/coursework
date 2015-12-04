@@ -57,8 +57,7 @@ countable $B_{\nu}$ such that $\nu(B_{\nu}^{c}) = 0$.
 \item Suppose $\mu\left( \left\{ x \right\} \right) = 0$ for all $x \in \mathbb{R}$. Show that $\nu\left( \left\{ x \right\} \right) = 0$ for all $x
 \in \mathbb{R}$.
 \item Suppose $\nu << m$ with $\frac{d\mu}{dm} := h$. Show that $\nu << m$ and find $\frac{d\mu}{dm}$ in terms of $h$ and $\lambda$.
-\item Suppose that $\nu << m$ and $\lambda << m$. Show that 
-\[ \frac{d\nu}{dm} = \frac{d\mu}{dm}*\frac{d\lambda}{dm}. \]
+\item Suppose that $\nu << m$ and $\lambda << m$. Show that $\frac{d\nu}{dm} = \frac{d\mu}{dm}*\frac{d\lambda}{dm}$. 
 \end{enumerate}
 
 \subsection*{Solution}
@@ -130,7 +129,7 @@ Let $x_{0} \in \mathbb{R}$. By assumption, $\mu\left( \left\{ x_{0} - y \right\}
 \begin{align*}
 \nu\left( \left\{ x_{0} \right\} \right) = \int \int I_{ \left\{ x_{0} \right\} }(x+y)d\mu(x) d\lambda(y) & = \int \int I_{ \left\{ x_{0} - y \right\}
 }(x)d\mu(x)d\lambda(y) \\
-& = \mu\left( \left\{ x_{0} - y \right\} \right)d\lambda(y) = \int 0 d\lambda = 0.
+& = \int \mu\left( \left\{ x_{0} - y \right\} \right)d\lambda(y) = \int 0 d\lambda = 0.
 \end{align*}
 \end{Proof}
 
@@ -187,7 +186,72 @@ So by uniqueness, $\frac{d\nu}{dm} = \frac{d\mu}{dm}*\frac{d\lambda}{dm}$ a.e. $
 \end{enumerate}
 
 
+\newpage 
+\section*{5.14}
+Let $f,g \in L^{1}(\mathbb{R}, \mathcal{B}(\mathbb{R}), m)$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that if $f$ is continuous and bounded on $\mathbb{R}$ then so is $f*g$.
+\item Show that if $f$ is differentiable with a bounded derivative on $\mathbb{R}$, then so is $f * g$.
+\end{enumerate}
 
+\subsection*{Solution}
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{Proof}
+Suppose $f$ is continuous on $\mathbb{R}$ and $|f(x)| \leq c$ for all $x \in \mathbb{R}$.
+\begin{claim}
+$f*g$ is bounded.
+\end{claim}
+\begin{claimproof}
+Let $x \in \mathbb{R}$. Since $f(x) \leq c$,
+\[ |(f*g)(x)| = \left| \int f(x-u)g(u)dm(u)\right| \leq \left| \int cg(u)dm(u) \right| \leq c \int |g|dm < \infty, \]
+since $g \in L^{1}(\mathbb{R})$.
+\end{claimproof}
+
+\begin{claim}
+$f*g$ is continuous.
+\end{claim}
+\begin{claimproof}
+Let $x \in \mathbb{R}$ and suppose $\left\{ x_{n} \right\}_{n=0}^{\infty} \subset \mathbb{R}$ such that $x_{n} \rightarrow x$ as $n \rightarrow
+\infty$. We need to show that $(f*g)(x_{n}) \rightarrow (f*g)(x)$. For each $n \in \mathbb{R}$, let $h_{n}(u) := f(x_{n} - u)g(u)$ for all $u \in
+\mathbb{R}$. Since $f \leq c$, $|h_{n}| \leq c|g|$, where $c|g| \in L^{1}(\mathbb{R})$ by the work done in claim 1. Thus, by the DCT,
+\[ \lim_{n\rightarrow\infty}(f*g)(x_{n}) = \lim_{n\rightarrow\infty}\int h_{n}dm \stackrel{\text{DCT}}{=} \int f(x-u)g(u)dm(u) = (f*g)(x). \]
+\end{claimproof}
+
+\end{Proof}
+
+\item 
+\begin{Proof}
+Suppose $f$ is differentiable and $|f'| \leq c$ for some $c \in \mathbb{R}$. 
+\begin{claim}
+$(f*g)'(x) = \int f'(x-u)g(u)dm(u)$ for all $x \in \mathbb{R}$.
+\end{claim}
+\begin{claimproof}
+Let $x \in \mathbb{R}$ and suppose $\left\{ x_{n}
+\right\}_{n=0}^{\infty} \subset \mathbb{R}$ such that $x_{n} \rightarrow x$. For each $n \in \mathbb{N}$, let $h_{n}(u) := \frac{f(x_{n} -u) -
+f(x-u)}{x_{n} - x}g(u)$ for all $u \in \mathbb{R}$. Clearly $h_{n}(u) \rightarrow f'(x-u)g(u)$ and $|h_{n}(u)| \leq c|g(u)|$ for all $u \in
+\mathbb{R}$. Also, $\int |cg(u)|dm(u) = c \int |g|dm < \infty$,
+since $g \in L^{1}(\mathbb{R})$. Therefore we can apply the DCT to the sequence $\left\{ h_{n} \right\}_{n=0}^{\infty}$. So,
+\begin{align*}
+\int f'(x-u)g(u)dm(u) & = \lim_{n\rightarrow\infty}\int \frac{f(x_{n} - u) - f(x-u)}{x_{n} - x}g(u)dm(u) \\
+& = \lim_{n\rightarrow\infty} \frac{ \int f(x_{n} - u)g(u)dm(u) - \int f(x-u)g(u)dm(u)}{x_{n} - x} \\
+& = \lim_{n\rightarrow\infty}\frac{ (f*g)(x_{n}) - (f*g)(x) }{x_{n} - x}  = (f*g)'(x)
+\end{align*}
+The last line in the above equality is true since the sequence $\left\{ x_{n} \right\}_{n=0}^{\infty}$ was an arbitrary sequence converging to $x$.
+\end{claimproof}
+
+\begin{claim}
+$(f*g)'(x) \leq c||g||_{1}$ for all $x \in \mathbb{R}$.
+\end{claim}
+\begin{claimproof}
+By claim 1, 
+\[ |(f*g)'(x)| = \left| \int f'(x-u)g(u)dm(u)\right| \leq \int |f'(x-u)g(u)|dm(u) \leq c ||g||_{1} < \infty, \]
+so $(f*g)'$ is bounded.
+\end{claimproof}
+
+\end{Proof}
+
+\end{enumerate}
 
 
 
