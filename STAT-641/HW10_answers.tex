@@ -188,6 +188,16 @@ So by uniqueness, $\frac{d\nu}{dm} = \frac{d\mu}{dm}*\frac{d\lambda}{dm}$ a.e. $
 \end{enumerate}
 
 
+
+
+
+
+
+
+
+
+
+
 \newpage 
 \section*{5.14}
 Let $f,g \in L^{1}(\mathbb{R}, \mathcal{B}(\mathbb{R}), m)$.
@@ -268,9 +278,6 @@ so $(f*g)'$ is bounded.
 
 
 
-
-
-
 \newpage 
 \section*{5.15}
 Let $f \in L^{1}(\mathbb{R}), g \in L^{p}(\mathbb{R})$ for $1 \leq p < \infty$. Show that for all $x \in \mathbb{R}$,
@@ -326,6 +333,66 @@ By claim 2,
 \text{(Tonelli's) } & = \left( ||f||_{1}^{p-1}\int\int |g(x-u)|^{p}|f(u)|dm(x)dm(u) \right)^{1/p} \\
 & = \left( ||f||_{1}^{p-1}\int |f(u)|\int |g(x)|^{p}dm(x)dm(u) \right)^{1/p} \\
 & = \left( ||f||_{1}^{p-1}\cdot ||f||_{1}\cdot ||g||_{p}^{p} \right)^{1/p} = ||f||_{1}\cdot ||g||_{p}.
+\end{align*}
+\end{claimproof}
+
+\end{Proof}
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section*{A}
+Let $\mu, \lambda$ be two probabilities on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$. Consider the functions $f(x,y) = x$, $g(x,y) = y$ defined from
+$(\mathbb{R}^{2}, \mathcal{B}(\mathbb{R}^{2}))$, $\nu := \mu \times \lambda)$. Assume $f,g \in L^{1}(\mathbb{R}^{2}, \mathcal{B}(\mathbb{R}^{2}),
+\nu)$. Then show that 
+\[ \nu\left( \left\{ (f,g) \in A\times B \right\} \right) = \nu\left( \left\{ f\in A \right\} \right)\nu\left( \left\{ g \in B \right\} \right), \]
+for all $A,B \in \mathcal{B}(\mathbb{R})$, and 
+\[ \int fg\  d\nu = \left( \int fd\nu \right)\left( \int gd\nu \right). \]
+
+\subsection*{Solution}
+\begin{Proof}
+
+\begin{claim}
+$\nu\left( \left\{ (f,g) \in A\times B \right\} \right) = \nu\left( \left\{ f\in A \right\} \right)\nu\left( \left\{ g \in B \right\} \right)$
+for all $A, B \in \mathcal{B}(\mathbb{R})$.
+\end{claim}
+\begin{claimproof}
+Let $A, B \in \mathcal{B}(\mathbb{R})$. Then 
+\begin{align*}
+\nu\left( \left\{ (f,g) \in A\times B \right\} \right) = \nu\left(\left\{ (x,y) : x \in A \wedge y \in B \right\}\right) 
+& = \nu\left( A\times B \right) \\
+& = \mu(A)\cdot\lambda(B) \\
+\text{(since $\mu, \lambda$ probability measures) } & = \mu(A)\cdot\lambda(\mathbb{R})\cdot\mu(\mathbb{R})\cdot \lambda(B) \\
+& = \nu\left( A\times \mathbb{R} \right)\cdot \nu\left( \mathbb{R} \times B \right) \\
+& = \nu\left( \left\{ (x,y) : x \in A \right\} \right)\cdot \nu\left( \left\{ (x,y) : y\in B \right\} \right) \\
+& = \nu\left( \left\{ f \in A \right\} \right)\cdot \nu\left( \left\{ g \in B \right\} \right).
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+$f\cdot g \in L^{1}\left( \mathbb{R}^{2}, \mathcal{B}(\mathbb{R}^{2}), \nu \right)$.
+\end{claim}
+\begin{claimproof}
+By the Cauchy-Schwarz Inequality, $||f\cdot g||_{1} \leq ||f||_{2}\cdot ||g||_{2} < \infty$, since by assumption $f,g \in L^{2}(\nu)$.
+\end{claimproof}
+
+\begin{claim}
+\[ \int fg\ d\nu = \left( \int f\ d\nu \right)\left( \int g\ d\nu \right). \]
+\end{claim}
+\begin{claimproof}
+Due to claim 2, we can apply Fubini's Theorem. Therefore,
+\begin{align*}
+\int fg\ d\nu \stackrel{\text{Fubini's}}{=} \int \int fg\ d\mu\  d\lambda = \int \int x\cdot y\ d\mu(x)d\lambda(y) & = \left( \int x\ d\mu(x) \right)\left( \int y\ d\lambda(y) \right) \\
+\text{(since $\mu, \lambda$ probability measures) } & = \left(\int \int x\ d\mu(x)\lambda(y)\right)\left( \int \int y\ d\lambda(y)d\mu(x) \right) \\
+\text{(Fubini's again) } & = \left( \int fd\nu \right)\left( \int gd\nu \right).
 \end{align*}
 \end{claimproof}
 
