@@ -177,11 +177,11 @@ So by uniqueness, $\frac{d\nu}{dm}(t) = \int h(t-y)d\lambda(y)$ a.e. $(m)$.
 \item 
 \begin{Proof}
 We will use the fact that since $\lambda << m$, $\int fd\lambda = \int f\frac{d\lambda}{dm}dm$ for any non-negative measurable $f$. Let $A \in
-\mathcal{B}(\mathbb{R})$. Therefore, by part (d),
+\mathcal{B}(\mathbb{R})$. Therefore, by part (e),
 \begin{align*}
-\nu(A) = \int_{A}\int_{\mathbb{R}}\frac{d\mu}{dm}(t-y)d\lambda(y)dm(t) & =
-\int_{A}\int_{\mathbb{R}}\frac{d\mu}{dm}(t-y)\frac{d\lambda}{dm}(y)dm(y)dm(t) \\
-& = \int_{A} \frac{d\mu}{dm} * \frac{d\lambda}{dm}(t)dm(t).
+\nu(A) = \int_{A}\int_{\mathbb{R}}\frac{d\mu}{dm}(t-y)\ d\lambda(y)\ dm(t) & =
+\int_{A}\int_{\mathbb{R}}\frac{d\mu}{dm}(t-y)\frac{d\lambda}{dm}(y)\ dm(y)\ dm(t) \\
+& = \int_{A} \left(\frac{d\mu}{dm} * \frac{d\lambda}{dm}\right)(t)\ dm(t).
 \end{align*}
 So by uniqueness, $\frac{d\nu}{dm} = \frac{d\mu}{dm}*\frac{d\lambda}{dm}$ a.e. $(m)$.
 \end{Proof}
@@ -281,16 +281,16 @@ so $(f*g)'$ is bounded.
 \newpage 
 \section*{5.15}
 Let $f \in L^{1}(\mathbb{R}), g \in L^{p}(\mathbb{R})$ for $1 \leq p < \infty$. Show that for all $x \in \mathbb{R}$,
-\[ \left( \int |f(u)g(x-u)|dm(u) \right)^{p} \leq \left( \int |f|dm \right)^{p-1}\left( \int |g(x-u)|^{p}|f(u)|dm(u) \right), \]
+\[ \left( \int |f(u)g(x-u)|\ dm(u) \right)^{p} \leq \left( \int |f|\ dm \right)^{p-1}\left( \int |g(x-u)|^{p}|f(u)|\ dm(u) \right), \]
 and hence that $(f*g)(x)$ is well defined a.e. $(m)$ and $||f*g||_{p} \leq ||f||_{1}\cdot ||g||_{p}$.
 
 \subsection*{Solution}
 \begin{Proof}
 Without loss of generality assume that $m(\left\{ f > 0 \right\}) > 0$, otherwise the result is trivial. For all $A \in \mathcal{B}(\mathbb{R})$, let
-$\mu(A) := \int_{A}\frac{|f|}{||f||_{1}}dm$. Clearly $\mu$ is a probability measure on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$. 
+$\mu(A) := \int_{A}\frac{|f|}{||f||_{1}}\ dm$. Clearly $\mu$ is a probability measure on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$. 
 Now, since $g \in L^{p}(m)$, $|g|^{p} \in L^{1}(m)$. Thus, $|g(x-u)|^{p} \in L^{1}(m)$ by the translation invariance of $m$. So, by Proposition 5.4.3,
 \begin{equation}
-\int |g(x-u)|^{p}|f(u)|dm < \infty,
+\int |g(x-u)|^{p}|f(u)|\ dm < \infty,
 \label{3.1}
 \end{equation}
 for almost all $x \in \mathbb{R}$. Thus, let $x \in \mathbb{R}$ such that \eqref{3.1} is satisfied
@@ -302,24 +302,24 @@ $h$ and $\phi\circ h$ are in $L^{1}(\mathbb{R}, \mathcal{B}(\mathbb{R}), \mu)$.
 \end{claim}
 \begin{claimproof}
 By \eqref{3.1},
-\[ \int |\phi\circ h|d\mu = \frac{1}{||f||_{1}}\int |g(x-u)|^{p}|f(u)|dm(u) < \infty. \]
+\[ \int |\phi\circ h|\ d\mu = \frac{1}{||f||_{1}}\int |g(x-u)|^{p}|f(u)|\ dm(u) < \infty. \]
 Further, note that when $|g(x-u)| \geq 1$, $\phi \circ h = |g(x-u)|^{p} \geq |g(x-u)| = h(u)$. Hence,
-\[ \int |h|d\mu = \int_{\{0\leq h <1\}}|h|d\mu + \int_{\{h\geq 1\}}|h|d\mu \leq \int_{\{0\leq h<1\}}1d\mu + \int_{\{h\geq 1\}}|\phi\circ h|d\mu \leq 1
-+ \int_{\{h\geq 1\}}|\phi\circ h|d\mu < \infty. \]
+\[ \int |h|\ d\mu = \int_{\{0\leq h <1\}}|h|\ d\mu + \int_{\{h\geq 1\}}|h|d\mu \leq \int_{\{0\leq h<1\}}1\ d\mu + \int_{\{h\geq 1\}}|\phi\circ h|\ d\mu \leq 1
++ \int_{\{h\geq 1\}}|\phi\circ h|\ d\mu < \infty. \]
 \end{claimproof}
 
 \begin{claim}
-\[ \left( \int |f(u)g(x-u)|dm(u) \right)^{p} \leq \left( \int |f|dm \right)^{p-1}\left( \int |g(x-u)|^{p}|f(u)|dm(u) \right). \]
+\[ \left( \int |f(u)g(x-u)|\ dm(u) \right)^{p} \leq \left( \int |f|\ dm \right)^{p-1}\left( \int |g(x-u)|^{p}|f(u)|\ dm(u) \right). \]
 \end{claim}
 \begin{claimproof}
 By claim 1 we can apply Jensen's Inequality to $h$ and $\phi$ with the probability measure $\mu$. Thus,
-\[ \left( \frac{\int |g(x-u)||f(u)|dm(u)}{||f||_{1}} \right)^{p} = \phi\left( \int hd\mu \right) \leq \int \phi\circ hd\mu = \frac{\int
-|g(x-u)|^{p}|f(u)|dm(u)}{||f||_{1}}. \]
+\[ \left( \frac{\int |g(x-u)||f(u)|\ dm(u)}{||f||_{1}} \right)^{p} = \phi\left( \int h\ d\mu \right) \leq \int \phi\circ h\ d\mu = \frac{\int
+|g(x-u)|^{p}|f(u)|\ dm(u)}{||f||_{1}}. \]
 By rearranging terms, we are done.
 \end{claimproof}
 
 By claim 2 and \eqref{3.1},
-\[ |(f*g)(x)| = \left| \int f(u)g(x-u)dm(u)\right| \leq \left( ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|dm(u) \right)^{1/p} < \infty. \]
+\[ |(f*g)(x)| = \left| \int f(u)g(x-u)\ dm(u)\right| \leq \left( ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|\ dm(u) \right)^{1/p} < \infty. \]
 Therefore $f*g$ is well defined a.e. $(m)$.
 
 \begin{claim}
@@ -328,10 +328,10 @@ $||f*g||_{p} \leq ||f||_{1}\cdot ||g||_{p}$.
 \begin{claimproof}
 By claim 2,
 \begin{align*}
-||f*g||_{p} = \left( \int |(f*g)|^{p}dm \right)^{1/p} & = \left( \int \left| \int f(u)g(x-u)dm(u)\right|^{p}dm(x) \right)^{1/p} \\
-& \leq \left( \int ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|dm(u)dm(x) \right)^{1/p} \\
-\text{(Tonelli's) } & = \left( ||f||_{1}^{p-1}\int\int |g(x-u)|^{p}|f(u)|dm(x)dm(u) \right)^{1/p} \\
-& = \left( ||f||_{1}^{p-1}\int |f(u)|\int |g(x)|^{p}dm(x)dm(u) \right)^{1/p} \\
+||f*g||_{p} = \left( \int |(f*g)|^{p}\ dm \right)^{1/p} & = \left( \int \left| \int f(u)g(x-u)\ dm(u)\right|^{p}\ dm(x) \right)^{1/p} \\
+& \leq \left( \int ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|\ dm(u)\ dm(x) \right)^{1/p} \\
+\text{(Tonelli's) } & = \left( ||f||_{1}^{p-1}\int\int |g(x-u)|^{p}|f(u)|\ dm(x)\ dm(u) \right)^{1/p} \\
+& = \left( ||f||_{1}^{p-1}\int |f(u)|\int |g(x)|^{p}\ dm(x)\ dm(u) \right)^{1/p} \\
 & = \left( ||f||_{1}^{p-1}\cdot ||f||_{1}\cdot ||g||_{p}^{p} \right)^{1/p} = ||f||_{1}\cdot ||g||_{p}.
 \end{align*}
 \end{claimproof}
@@ -355,7 +355,7 @@ $(\mathbb{R}^{2}, \mathcal{B}(\mathbb{R}^{2}))$, $\nu := \mu \times \lambda)$. A
 \nu)$. Then show that 
 \[ \nu\left( \left\{ (f,g) \in A\times B \right\} \right) = \nu\left( \left\{ f\in A \right\} \right)\nu\left( \left\{ g \in B \right\} \right), \]
 for all $A,B \in \mathcal{B}(\mathbb{R})$, and 
-\[ \int fg\  d\nu = \left( \int fd\nu \right)\left( \int gd\nu \right). \]
+\[ \int fg\  d\nu = \left( \int f\ d\nu \right)\left( \int g\ d\nu \right). \]
 
 \subsection*{Solution}
 \begin{Proof}
@@ -393,7 +393,7 @@ Due to claim 2, we can apply Fubini's Theorem. Therefore,
 \begin{align*}
 \int fg\ d\nu \stackrel{\text{Fubini's}}{=} \int \int fg\ d\mu\  d\lambda = \int \int x\cdot y\ d\mu(x)d\lambda(y) & = \left( \int x\ d\mu(x) \right)\left( \int y\ d\lambda(y) \right) \\
 \text{(since $\mu, \lambda$ probability measures) } & = \left(\int \int x\ d\mu(x)\lambda(y)\right)\left( \int \int y\ d\lambda(y)d\mu(x) \right) \\
-\text{(Fubini's again) } & = \left( \int fd\nu \right)\left( \int gd\nu \right).
+\text{(Fubini's again) } & = \left( \int f\ d\nu \right)\left( \int g\ d\nu \right).
 \end{align*}
 \end{claimproof}
 
@@ -430,10 +430,11 @@ compute the integrals
 \[ \int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z), \qquad \int_{\mathbb{R}}e^{-x}\ dP_{X}, \qquad \text{and} \qquad \int_{\mathbb{R}}y\ dP_{Y}. \]
 \item Let $X_{1}, X_{2}, \hdots, X_{k}$ be iid $N(0,1)$ random variables. Let $Y := (X_{1}, \dots, X_{n})$ and $Z := Y^{2}$. Find the distributions
 on $Y$ and $Z$ and evaluate the the integrals
-\[ \int_{\mathbb{R}^{k}}(x_{1} + x_{2} + \dots + x_{k})^{2}\ dP_{X_{1},\hdots,X_{k}}(x_{1},\hdots,x_{k}) \qquad\text{and}\qquad \int_{\mathbb{R}}y^{2}\ dP_{Y}. \]
+\[ \int_{\mathbb{R}^{k}}(x_{1} + x_{2} + \dots + x_{k})^{2}\ dP_{X_{1},\hdots,X_{k}}(x_{1},\hdots,x_{k}), \qquad \int_{\mathbb{R}_{+}}z\ dP_{Z}(z),
+\qquad\text{and}\qquad \int_{\mathbb{R}}y^{2}\ dP_{Y}(y).  \]
 \item Let $X_{1}, \hdots, X_{k}$ be independent Binomial$(n_{i}, p)$, $i = 1, \hdots, k$ random variables. Let $Y := (X_{1} + \dots + X_{k})$. Find
 the distribution $P_{Y}$ of $Y$ and evaluate the integrals 
-\[ \int_{\mathbb{R}^{k}}(x_{1} + \dots + x_{k})\ dP_{X_{1},\hdots,X_{k}}(x_{1},\hdots,x_{k}) \qquad \text{and} \qquad \int_{\mathbb{R}}y\ dP_{Y}. \]
+\[ \int_{\mathbb{R}^{k}}(x_{1} + \dots + x_{k})\ dP_{X_{1},\hdots,X_{k}}(x_{1},\hdots,x_{k}) \qquad \text{and} \qquad \int_{\mathbb{R}}y\ dP_{Y}(y). \]
 \end{enumerate}
 
 \subsection*{Solution}
@@ -465,9 +466,10 @@ Clearly if $a > 1$, $F_{Y}(a) = 1$ and if $a \leq 0$, $F_{Y}(a) = 0$. Thus,
 Then $P_{Y}$ is the Legesgue-Stieltjes measure generated by $F_{Y}$.
 
 We will now prove that 
-\[ \int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z) = \int_{\mathbb{R}}e^{-x}\ dP_{X} = \int_{\mathbb{R}}y\ dP_{Y} = \frac{1}{\sqrt{3}}. \]
-\begin{Proof}
+\[ \int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z) = \int_{\mathbb{R}}e^{-x}\ dP_{X}(x) = \int_{\mathbb{R}}y\ dP_{Y}(y) = \frac{1}{\sqrt{3}}. \]
+\begin{Proof} 
 
+\vspace{-5mm}
 \begin{claim}
 $\int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z) = \frac{1}{\sqrt{3}}$.
 \end{claim}
@@ -501,13 +503,70 @@ $\int_{\mathbb{R}}e^{-x}\ dP_{X} = \int_{\mathbb{R}}y\ dP_{Y} = \frac{1}{\sqrt{3
 By claim 2 we can apply the change of variables formula (Exercise 2.42/Proposition 6.2.1). Therefore
 \[ \int_{\mathbb{R}}y\ d\mu_{3} = \int_{\mathbb{R}}h\ d\mu_{2} = \int_{\mathbb{R}}h\circ f\ d\mu_{1}, \]
 which implies
-\[ \int_{\mathbb{R}}y\ dP_{Y} = \int_{\mathbb{R}}e^{-x}\ dP_{X} = \int_{\mathbb{R}}e^{-z^{2}}\ dP_{Z} = \int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z) 
+\[ \int_{\mathbb{R}}y\ dP_{Y}(y) = \int_{\mathbb{R}}e^{-x}\ dP_{X}(x) = \int_{\mathbb{R}}e^{-z^{2}}\ dP_{Z}(z) = \int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z) 
 \stackrel{\text{claim 1}}{=} \frac{1}{\sqrt{3}}. \]
 \end{claimproof}
 
 \end{Proof}
 
 \item 
+We will use the following proposition to find the distribution of $Y$.
+
+{\bf Proposition.} If $Y_{1} \sim N(0, \sigma^{2})$ and $Y_{2} \sim N(0,1)$, then $Y_{1} + Y_{2} \sim N(0, \sigma^{2} + 1)$.
+
+\begin{Proof}
+By Exercise 5.12 (f), the density function of $Y_{1} + Y_{2}$ is given by the convolution of $f_{1}$ and $f_{2}$, where $f_{i}$ is the pdf of $Y_{i}$,
+$i = 1,2$. Thus,
+\begin{align*}
+f_{Y_{1} + Y_{2}}(y) = (f_{1} * f_{2})(y) & = \frac{1}{2\pi\sigma}\int_{\mathbb{R}}e^{-\frac{(x-u)^{2}}{2\sigma^{2}}}e^{-\frac{u^{2}}{2}}dm(u) \\
+& = \frac{1}{2\pi\sigma} \int_{\mathbb{R}}\exp\left[ -\frac{\sigma^{2} + 1}{2\sigma^{2}}\left( \frac{\sigma^{2}x^{2}}{(\sigma^{2} + 1)^{2}} + \left(
+u - \frac{x}{\sigma^{2} + 1} \right)^{2} \right) \right]dm(u) \\
+& = \frac{1}{2\pi\sigma}e^{-\frac{x^{2}}{2(\sigma^{2} +1)}} \int_{\mathbb{R}} \exp \left[ -\frac{\sigma^{2}+1}{2\sigma^{2}}\left( u -
+\frac{x}{\sigma^{2} + 1} \right)^{2} \right]dm(u) \\
+& = \frac{1}{2\pi\sigma}e^{-\frac{x^{2}}{2(\sigma^{2} + 1)}} \times \frac{\sigma\sqrt{2\pi}}{\sqrt{\sigma^{2} + 1}} \\
+& = \frac{1}{\sqrt{2\pi(\sigma^{2} + 1)}} e^{-\frac{x^{2}}{2(\sigma^{2} + 1)}} \ a.e.\  (m).
+\end{align*}
+Since this is the pdf of a $N(0, \sigma^{2} + 1)$ RV, we are done.
+\end{Proof}
+
+By iterating the above proposition, the distribution of $Y$ is $N(0,k)$. Now, if $a < 0$, then clearly $F_{Z}(a) = 0$. Now suppose $a \geq 0$. Then 
+\[ F_{Z}(a) = P_{Y}\left( Z^{-1}[(-\infty, a]] \right) = P_{Y}\left( \left\{ z : |z| \leq \sqrt{a} \right\} \right) = F_{Y}(\sqrt{a}) -
+F_{Y}(-\sqrt{a}). \]
+So 
+\[ F_{Z}(a) = \left\{ \begin{array}{cl}
+0 & \text{ for } a < 0 \\
+F_{Y}(\sqrt{a}) - F_{Y}(-\sqrt{a}) & \text{ for } a \geq 0 
+\end{array} \right. .\]
+The distribution of $Z$, $P_{Z}$, is the Legesgue-Stieltjes measure generated by $F_{Z}$. Next we will show that 
+\[ \int_{\mathbb{R}^{k}}(x_{1} + \dots + x_{k})^{2}\ dP_{X_{1}, \hdots, X_{k}}(x_{1}, \hdots, x_{k}) = \int_{\mathbb{R}}y^{2}\ dP_{Y}(y) =
+\int_{\mathbb{R}_{+}}z \ dP_{Z}(z) = k.\]
+\begin{Proof}
+Since the distribution of $Y$ is $N(0,k)$, the mgf of $Y$ is $e^{\frac{t^{2}k}{2}}$ by Table 6.2.1. Thus, 
+$\int_{\mathbb{R}}y^{2}\ dP_{Y}(y)$ is the $2^{nd}$ moment of $Y$, which is given by 
+\[ \frac{d^{2}}{dt} \left( e^{\frac{t^{2}k}{2}}\right)\bigg|_{t=0} = \left( ke^{\frac{t^{2}k}{2}} + t^{2}k^{2}e^{\frac{t^{2}k}{2}} \right)\bigg|_{t=0} = k. \]
+Thus, by applying the change of variables formula, 
+\[ k = \int_{\mathbb{R}}y^{2}\ dP_{Y}(y) = \int_{\mathbb{R}^{k}}(x_{1} + \dots + x_{k})^{2}\ dP_{X_{1}, \hdots, X_{k}}(x_{1}, \hdots, x_{k}) = 
+\int_{\mathbb{R}_{+}}z \ dP_{Z}(z).\]
+\end{Proof}
+
+\item 
+First we will derive the moment generating function of $Y$. Since $e^{tY} > 0$ for all $Y \in \mathbb{R}$, we can apply the change of variables
+formula. Further, since $X_{1}, \hdots, X_{k}$ are independent, $P_{X_{1}, \hdots, X_{k}} = P_{X_{1}}\times \dots \times P_{X_{k}}$. Thus,
+\begin{align*}
+Ee^{tY} = \int_{\mathbb{R}}\ dP_{Y}(y) & = \int_{\mathbb{R}^{k}}e^{t(x_{1} + \dots + x_{k})}\ dP_{X_{1}, \hdots, X_{k}}(x_{1}, \hdots, x_{k}) \\
+\text{(Tonelli's) } & = \int_{\mathbb{R}}\dots \int_{\mathbb{R}}e^{tx_{1}}\dots e^{tx_{k}}\ dP_{X_{1}}(x_{1})\dots dP_{X_{k}}(x_{k}) \\
+& = \Pi_{i=1}^{k} Ee^{tX_{i}} \\
+\text{(Table 6.2.1) } & = \Pi_{i=1}^{k} [(1-p) + pe^{t}]^{n_{i}} = [(1-p) + pe^{t}]^{\sum_{i=1}^{k}n_{i}}.
+\end{align*}
+This is the mgf of a Bin$(\sum_{i=1}^{k}n_{i}, p)$ RV, so that is the distribution of $Y$. Therefore $\int_{\mathbb{R}}y\ dP_{Y}(y) = EY =
+p\sum_{i=1}^{k}n_{i}$. At this point we could apply the change of variables formula again, but the other integral is easy enough to evaluate 
+using Tonelli's. Thus,
+\begin{align*}
+\int_{\mathbb{R}^{k}}(x_{1} + \dots + x_{k})\ dP_{X_{1},\hdots, X_{k}}(x_{1}, \hdots, x_{k}) & = \int_{\mathbb{R}}\dots \int_{\mathbb{R}} 
+(x_{1} + \dots + x_{k})\ dP_{X_{1}}(x_{1})\dots dP_{X_{k}}(x_{k}) \\
+& = \Pi_{i=1}^{k}EX_{i} \\
+& = p\sum_{i=1}^{k}n_{i}.
+\end{align*}
 
 \end{enumerate}
 
