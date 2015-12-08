@@ -85,9 +85,9 @@ Let $g := x + y$. Note that for all $A \in \mathcal{B}(\mathbb{R})$,
 \nu(A) = \int \int I_{A}(x + y)\  d\mu(x)d\lambda(y) & = \int \int I_{g^{-1}[A]}(x,y)\ d\mu(x)d\lambda(y) \\
 & = \int_{\mathbb{R}\times\mathbb{R}}I_{g^{-1}[A]}\ d(\mu\times\lambda) = (\mu\times\lambda)g^{-1}[A].
 \end{align*}
-Thus, by the change of variables formula,
+Further, since $f \geq 0$, we can apply the change of variables formula. Thus
 \begin{align*}
-\int f\nu = \int f \ d(\mu \times \lambda)g^{-1} & = \int f\circ g\ d(\mu \times \lambda) \\
+\int f\ d\nu = \int f \ d(\mu \times \lambda)g^{-1} & = \int f\circ g\ d(\mu \times \lambda) \\
 & = \int \int f\circ g \ d\mu \ d\lambda = \int \int f(x + y)\ d\mu(x) \ d\lambda(y).
 \end{align*}
 \end{claimproof}
@@ -488,19 +488,10 @@ Now, let $h,f : \mathbb{R} \rightarrow \mathbb{R}$ be defined by $h(x) := e^{-x}
 P_{Z}$, $\mu_{2} := P_{Z}f^{-1} = P_{Z}X^{-1} = P_{X}$, and $\mu_{3} := \mu_{2} h^{-1} = P_{X}Y^{-1} = P_{Y}$.
 
 \begin{claim}
-$h \in L^{1}(\mathbb{R}, \mathcal{B}(\mathbb{R}), \mu_{2})$.
-\end{claim}
-\begin{claimproof}
-Note that $h(x) \leq 1$ for all $x \in \mathbb{R}_{+}$ and $\mu_{2}\left( \mathbb{R}_{-} \right) = P_{X}(\mathbb{R}_{-}) = 0$. Thus, since $\mu_{2}$
-is a probability measure, 
-\[ \int_{\mathbb{R}}|h|\ d\mu_{2} = \int_{\mathbb{R}_{+}}h\ d\mu_{2} \leq 1. \]
-\end{claimproof}
-
-\begin{claim}
 $\int_{\mathbb{R}}e^{-x}\ dP_{X} = \int_{\mathbb{R}}y\ dP_{Y} = \frac{1}{\sqrt{3}}$.
 \end{claim}
 \begin{claimproof}
-By claim 2 we can apply the change of variables formula (Exercise 2.42/Proposition 6.2.1). Therefore
+Since $h > 0$, we can apply the change of variables formula (Exercise 2.42/Proposition 6.2.1). Therefore
 \[ \int_{\mathbb{R}}y\ d\mu_{3} = \int_{\mathbb{R}}h\ d\mu_{2} = \int_{\mathbb{R}}h\circ f\ d\mu_{1}, \]
 which implies
 \[ \int_{\mathbb{R}}y\ dP_{Y}(y) = \int_{\mathbb{R}}e^{-x}\ dP_{X}(x) = \int_{\mathbb{R}}e^{-z^{2}}\ dP_{Z}(z) = \int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z) 
@@ -509,6 +500,7 @@ which implies
 
 \end{Proof}
 
+\newpage
 \item 
 We will use the following proposition to find the distribution of $Y$.
 
@@ -585,20 +577,12 @@ $a$ and $b$ such that $P(Y = aX + b) = 1$.
 Suppose $|Cov(X,Y)| = \sqrt{Var(X)}\sqrt{Var(Y)}$. WLOG assume $X$ and $Y$ are not constant.
 
 \begin{claim}
-$Var(Y - aX) = 0$, where $a = \frac{E(XY) - (EX)(EY)}{E(X^{2}) - (EX)^{2}}$.
+$Var(Y - aX) = 0$, where $a := \frac{E(XY) - (EX)(EY)}{E(X^{2}) - (EX)^{2}}$.
 \end{claim}
 \begin{claimproof}
-By assumption,
+assumption implies
 \begin{align*}
-0 & = Var(X)Var(Y) - Cov(X,Y)^{2} \\
-& = [E(X^{2}) - (EX)^{2}][E(Y^{2}) - (EY)^{2}] - (EXY - (EX)(EY))^{2} \\
-& = E(X^{2})E(Y^{2}) - (EX)^{2}E(Y^{2}) - E(X^{2})(EY)^{2} + (EX)^{2}(EY)^{2} \\ 
-& \qquad - (EXY)^{2} - 2(EXY)(EX)(EY) - (EX)^{2}(EY)^{2} \\
-& = E(Y^{2})[E(X^{2}) - (EX)^{2}] - (EY)^{2}E(X^{2}) - (EXY)^{2}+ 2(EXY)(EX)(EXY).
-\end{align*}
-Which implies
-\begin{align*}
-0 & = E(Y^{2}) - (EY)^{2} - \frac{[(EXY)^{2} - 2(EX)(EY)(EXY) + (EX)^{2}(EY)^{2}]}{E(X^{2}) - (EX)^{2}} \\
+0 & = Var(Y) - \frac{[Cov(X,Y)]^{2}}{Var(X)} \\
 & = E(Y^{2}) - (EY)^{2} - \frac{[EXY - (EX)(EY)]^{2}}{E(X^{2}) - (EX)^{2}} \\
 & = E(Y^{2}) - (EY)^{2} - 2\frac{[EXY - (EX)(EY)]^{2}}{E(X^{2}) - (EX)^{2}} + \frac{[EXY - (EX)(EXY)]^{2}}{E(X^{2}) - (EX)^{2}} \\
 & = E(Y^{2}) - (EY)^{2} - 2\left[ \frac{EXY - (EX)(EY)}{E(X^{2}) - (EX)^{2}} \right](EXY - (EX)(EY)) \\
