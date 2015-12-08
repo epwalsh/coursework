@@ -575,5 +575,54 @@ using Tonelli's. Thus,
 
 
 
+\newpage 
+\section*{6.6}
+Let $X$ and $Y$ be random variables on $(\Omega, \mathcal{F}, P)$. Show that if $|Cov(X,Y)| = \sqrt{Var(X)}\sqrt{Var(Y)}$, then there exists constants
+$a$ and $b$ such that $P(Y = aX + b) = 1$.
+
+\subsection*{Solution}
+\begin{Proof}
+Suppose $|Cov(X,Y)| = \sqrt{Var(X)}\sqrt{Var(Y)}$. WLOG assume $X$ and $Y$ are not constant.
+
+\begin{claim}
+$Var(Y - aX) = 0$, where $a = \frac{E(XY) - (EX)(EY)}{E(X^{2}) - (EX)^{2}}$.
+\end{claim}
+\begin{claimproof}
+By assumption,
+\begin{align*}
+0 & = Var(X)Var(Y) - Cov(X,Y)^{2} \\
+& = [E(X^{2}) - (EX)^{2}][E(Y^{2}) - (EY)^{2}] - (EXY - (EX)(EY))^{2} \\
+& = E(X^{2})E(Y^{2}) - (EX)^{2}E(Y^{2}) - E(X^{2})(EY)^{2} + (EX)^{2}(EY)^{2} \\ 
+& \qquad - (EXY)^{2} - 2(EXY)(EX)(EY) - (EX)^{2}(EY)^{2} \\
+& = E(Y^{2})[E(X^{2}) - (EX)^{2}] - (EY)^{2}E(X^{2}) - (EXY)^{2}+ 2(EXY)(EX)(EXY).
+\end{align*}
+Which implies
+\begin{align*}
+0 & = E(Y^{2}) - (EY)^{2} - \frac{[(EXY)^{2} - 2(EX)(EY)(EXY) + (EX)^{2}(EY)^{2}]}{E(X^{2}) - (EX)^{2}} \\
+& = E(Y^{2}) - (EY)^{2} - \frac{[EXY - (EX)(EY)]^{2}}{E(X^{2}) - (EX)^{2}} \\
+& = E(Y^{2}) - (EY)^{2} - 2\frac{[EXY - (EX)(EY)]^{2}}{E(X^{2}) - (EX)^{2}} + \frac{[EXY - (EX)(EXY)]^{2}}{E(X^{2}) - (EX)^{2}} \\
+& = E(Y^{2}) - (EY)^{2} - 2\left[ \frac{EXY - (EX)(EY)}{E(X^{2}) - (EX)^{2}} \right](EXY - (EX)(EY)) \\
+& \qquad + \left[ \frac{EXY - (EX)(EY)}{E(X^{2}) -
+(EX)^{2}} \right]^{2}(E(X^{2}) - (EX)^{2}) \\
+& = E(^{2}) - 2aEXY + a^{2}E(X^{2}) - (EY)^{2} + 2a(EX)(EY) - a^{2}(EX)^{2} \\
+& = E[Y^{2} - 2aXY + a^{2}X^{2}] - [EY - aEX]^{2} \\
+& = E[Y - aX]^{2} - [E(Y - aX)]^{2} = Var(Y - aX).
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+$Y = aX + EY - aEX$ a.e. $(P)$.
+\end{claim}
+\begin{claimproof}
+Let $f := Y - aX - (EY - aEX)$. By claim 1, $0 = Var(Y - aX) = \int_{\Omega}f^{2}\ dP$,
+which implies $f = 0$ a.e. $(P)$ since $f^{2} \geq 0$.  Thus, $Y = aX + b$ a.e. $(P)$ where $b = EY - aEX$. 
+
+\end{claimproof}
+
+\end{Proof}
+
+
+
+
 \end{document}
 
