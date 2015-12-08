@@ -50,8 +50,8 @@ Let $\mu$ and $\lambda$ be $\sigma$-finite measures on $(\mathbb{R}, \mathcal{B}
 \begin{enumerate}[label=(\alph*)]
 \item Show that for any Borel measurable $f : \mathbb{R} \rightarrow \mathbb{R}_{+}$, $f(x + y)$ is $\langle\mathcal{B}(\mathbb{R})\otimes
 \mathcal{B}(\mathbb{R}), \mathcal{B}(\mathbb{R})\rangle$-measurable, and 
-\[ \int fd\mu = \int \int f(x + y) d\mu(x) d\lambda(y). \]
-\item Show that $\nu(A) = \int \mu(A - t)d\lambda(t)$ for all $A \in \mathcal{B}(\mathbb{R})$.
+\[ \int f\ d\nu = \int \int f(x + y)\ d\mu(x) d\lambda(y). \]
+\item Show that $\nu(A) = \int \mu(A - t)\ d\lambda(t)$ for all $A \in \mathcal{B}(\mathbb{R})$.
 \item Suppose there exists countable sets $B_{\lambda}, B_{\mu}$ such that $\mu(B_{\mu}^{c}) = 0 = \lambda(B_{\lambda}^{c})$. Show that there exists a
 countable $B_{\nu}$ such that $\nu(B_{\nu}^{c}) = 0$.
 \item Suppose $\mu\left( \left\{ x \right\} \right) = 0$ for all $x \in \mathbb{R}$. Show that $\nu\left( \left\{ x \right\} \right) = 0$ for all $x
@@ -77,30 +77,30 @@ Denote $g_{0}(x,y) := x$, $g_{1}(x,y) := y$, and $g(x,y) := g_{0} - g_{1}$. Clea
 \end{claimproof}
 
 \begin{claim}
-$\int fd\nu = \int \int f(x + y)d\mu(x) d\lambda(y)$.
+$\int fd\nu = \int \int f(x + y)\ d\mu(x) d\lambda(y)$.
 \end{claim}
 \begin{claimproof}
 Let $g := x + y$. Note that for all $A \in \mathcal{B}(\mathbb{R})$, 
 \begin{align*}
-\nu(A) = \int \int I_{A}(x + y) d\mu(x)d\lambda(y) & = \int \int I_{g^{-1}[A]}(x,y)d\mu(x)d\lambda(y) \\
-& = \int_{\mathbb{R}\times\mathbb{R}}I_{g^{-1}[A]}d(\mu\times\lambda) = (\mu\times\lambda)g^{-1}[A].
+\nu(A) = \int \int I_{A}(x + y)\  d\mu(x)d\lambda(y) & = \int \int I_{g^{-1}[A]}(x,y)\ d\mu(x)d\lambda(y) \\
+& = \int_{\mathbb{R}\times\mathbb{R}}I_{g^{-1}[A]}\ d(\mu\times\lambda) = (\mu\times\lambda)g^{-1}[A].
 \end{align*}
 Thus, by the change of variables formula,
 \begin{align*}
-\int f\nu = \int f d(\mu \times \lambda g^{-1}) & = \int f\circ gd(\mu \times \lambda) \\
-& = \int \int f\circ g d\mu d\lambda = \int \int f(x + y)d\mu(x) d\lambda(y).
+\int f\nu = \int f \ d(\mu \times \lambda)g^{-1} & = \int f\circ g\ d(\mu \times \lambda) \\
+& = \int \int f\circ g \ d\mu \ d\lambda = \int \int f(x + y)\ d\mu(x) \ d\lambda(y).
 \end{align*}
 \end{claimproof}
 
 \end{Proof}
 
-\item 
+\item % (b)
 \begin{Proof}
 Let $A \in \mathcal{B}(\mathbb{R})$. Then 
-\[ \nu(A) = \int \int I_{A}(x + t) d\mu(x)d\lambda(t) = \int \int I_{A -t}(x)d\mu(x)d\lambda(t) = \int \mu(A - t)d\lambda(t). \]
+\[ \nu(A) = \int \int I_{A}(x + t) \ d\mu(x)\ d\lambda(t) = \int \int I_{A -t}(x)\ d\mu(x)\ d\lambda(t) = \int \mu(A - t)\ d\lambda(t). \]
 \end{Proof}
 
-\item 
+\item  % (c)
 \begin{Proof}
 Let $B\nu := \cup_{b \in B_{\mu}}\cup_{c \in B_{\lambda}}\left\{ b + c \right\}$. Let $g(x,y) := x + y$ for all $(x,y) \in
 \mathbb{R}\times\mathbb{R}$. Then 
@@ -111,30 +111,30 @@ g^{-1}[B_{\mu}^{c}] = \left\{ (x,y) \in \mathbb{R}\times \mathbb{R} : x + y \not
 & = B_{\mu}^{c} \times \mathbb{R} \cup \mathbb{R} \times B_{\lambda}^{c}.
 \end{align*}
 Therefore,
-\[ I_{g^{-1}[B_{\nu}^{c}]}(x,y) \leq I_{B_{\mu}^{c}\times \mathbb{R}\cup \mathbb{R}\times B_{\lambda}^{c}}(x,y) \leq
+\[ I_{g^{-1}[B_{\nu}^{c}]}(x,y) \leq I_{(B_{\mu}^{c}\times \mathbb{R})\cup (\mathbb{R}\times B_{\lambda}^{c})}(x,y) \leq
 I_{B_{\mu}^{c}\times\mathbb{R}}(x,y) + I_{\mathbb{R}\times B_{\lambda}^{c}}(x,y) = I_{B_{\mu}^{c}}(x) + I_{B_{\lambda}^{c}}(y). \]
 Thus,
 \begin{align*}
-\nu(B_{\nu}^{c})& = \int \int I_{B_{\nu}^{c}}(x + y)d\mu(x) d\lambda(y)  \\
-& = \int \int I_{g^{-1}[B_{\nu}^{c}]}(x,y)d\mu(x)d\lambda(y) \\
-& \leq \int\int \left( I_{B_{\mu}^{c}}(x) + I_{B_{\lambda}^{c}}(y) \right)d\mu(x)d\lambda(y) \\
-& = \int \int I_{B_{\mu}^{c}}(x)d\mu(x)d\lambda(y) + \int \int I_{B_{\lambda}^{c}}(y)d\lambda(y)d\mu(x) \\
-& = \int \mu(B_{\mu}^{c})d\lambda + \int \lambda(B_{\lambda}^{c})d\mu = \int 0d\lambda + \int 0d\mu = 0.
+\nu(B_{\nu}^{c})& = \int \int I_{B_{\nu}^{c}}(x + y)\ d\mu(x)\ d\lambda(y)  \\
+& = \int \int I_{g^{-1}[B_{\nu}^{c}]}(x,y)\ d\mu(x)\ d\lambda(y) \\
+& \leq \int\int \left( I_{B_{\mu}^{c}}(x) + I_{B_{\lambda}^{c}}(y) \right)\ d\mu(x)\ d\lambda(y) \\
+& = \int \int I_{B_{\mu}^{c}}(x)d\mu(x)d\lambda(y) + \int \int I_{B_{\lambda}^{c}}(y)\ d\lambda(y)\ d\mu(x) \\
+& = \int \mu(B_{\mu}^{c})\ d\lambda + \int \lambda(B_{\lambda}^{c})\ d\mu = \int 0\ d\lambda + \int 0\ d\mu = 0.
 \end{align*}
 \end{Proof}
 
-\item
+\item % (d)
 \begin{Proof}
 Let $x_{0} \in \mathbb{R}$. By assumption, $\mu\left( \left\{ x_{0} - y \right\} \right) = 0$ for all $y \in \mathbb{R}$. Therefore,
 \begin{align*}
-\nu\left( \left\{ x_{0} \right\} \right) = \int \int I_{ \left\{ x_{0} \right\} }(x+y)d\mu(x) d\lambda(y) & = \int \int I_{ \left\{ x_{0} - y \right\}
-}(x)d\mu(x)d\lambda(y) \\
-& = \int \mu\left( \left\{ x_{0} - y \right\} \right)d\lambda(y) = \int 0 d\lambda = 0.
+\nu\left( \left\{ x_{0} \right\} \right) = \int \int I_{ \left\{ x_{0} \right\} }(x+y)\ d\mu(x)\ d\lambda(y) & = \int \int I_{ \left\{ x_{0} - y \right\}
+}(x)\ d\mu(x)\ d\lambda(y) \\
+& = \int \mu\left( \left\{ x_{0} - y \right\} \right)\ d\lambda(y) = \int 0 \ d\lambda = 0.
 \end{align*}
 \end{Proof}
 
 \vspace{-5mm}
-\item 
+\item % (e)
 \begin{Proof}
 
 \vspace{-5mm}
@@ -144,39 +144,39 @@ $\nu << m$.
 \begin{claimproof}
 Let $A \in \mathcal{B}(\mathbb{R})$ such that $m(A) = 0$. Then $m(A - y) = 0$ for all $y \in \mathbb{R}$. Thus, $\mu(A - y) = 0$ by assumption. Hence,
 by part (b),
-\[ \nu(A) = \int \mu(A - y)d\lambda(y) = \int 0d\lambda = 0. \]
+\[ \nu(A) = \int \mu(A - y)\ d\lambda(y) = \int 0 \ d\lambda = 0. \]
 \end{claimproof}
 
 \begin{claim}
-$\frac{d\nu}{dm}(t) = \int h(t- y)d\lambda(y)$ a.e. $(m)$.
+$\frac{d\nu}{dm}(t) = \int h(t- y) \ d\lambda(y)$ a.e. $(m)$.
 \end{claim}
 \begin{claimproof}
 Let $A \in \mathcal{B}(\mathbb{R})$.
 \begin{subclaim}
 For each $y \in \mathbb{R}$, 
-\[ \int I_{A-y}(t)h(t)dm(t) = \int I_{A}(t)h(t-y)dm. \]
+\[ \int I_{A-y}(t)h(t)\ dm(t) = \int I_{A}(t)h(t-y)\ dm. \]
 \end{subclaim}
 \begin{subclaimproof}
 Let $y \in \mathbb{R}$ and let $f,g : \mathbb{R} \rightarrow \mathbb{R}$ be defined by $g(t) := t - y$ and $f(t) := I_{A-y}(t)h(t)$. Then, by the
 change of variables formula and since the Legesgue measure is translation invariant,
-\[ \int I_{A-y}(t)h(t)dm(t) = \int fdm = \int fdmg^{-1} = \int f\circ gdm = \int I_{A}(t)h(t-y)dm(t). \]
+\[ \int I_{A-y}(t)h(t)\ dm(t) = \int f\ dm = \int f\ dmg^{-1} = \int f\circ g\ dm = \int I_{A}(t)h(t-y)\ dm(t). \]
 \end{subclaimproof}
 
 Thus,
 \begin{align*}
-\nu(A) = \int \mu(A - y)d\lambda(y) & = \int \int I_{A-y}(t)h(t)dm(t)d\lambda(y) \\
-\text{(claim 1) } & = \int \int I_{A}(t)h(t - y)dm(t)d\lambda(y) \\
-\text{(Tonelli's) } & = \int \int I_{A}(t)h(t-y)d\lambda(y)dm(t) \\
-& = \int_{A}\int_{\mathbb{R}}h(t-y)d\lambda(y)dm(t).
+\nu(A) = \int \mu(A - y)\ d\lambda(y) & = \int \int I_{A-y}(t)h(t)\ dm(t)\ d\lambda(y) \\
+\text{(claim 1) } & = \int \int I_{A}(t)h(t - y)\ dm(t)\ d\lambda(y) \\
+\text{(Tonelli's) } & = \int \int I_{A}(t)h(t-y)\ d\lambda(y)\ dm(t) \\
+& = \int_{A}\int_{\mathbb{R}}h(t-y)\ d\lambda(y)\ dm(t).
 \end{align*}
-So by uniqueness, $\frac{d\nu}{dm}(t) = \int h(t-y)d\lambda(y)$ a.e. $(m)$.
+So by uniqueness, $\frac{d\nu}{dm}(t) = \int h(t-y)\ d\lambda(y)$ a.e. $(m)$.
 \end{claimproof}
 
 \end{Proof}
 
 \item 
 \begin{Proof}
-We will use the fact that since $\lambda << m$, $\int fd\lambda = \int f\frac{d\lambda}{dm}dm$ for any non-negative measurable $f$. Let $A \in
+We will use the fact that since $\lambda << m$, $\int fd\lambda = \int f\frac{d\lambda}{dm}\ dm$ for any non-negative measurable $f$. Let $A \in
 \mathcal{B}(\mathbb{R})$. Therefore, by part (e),
 \begin{align*}
 \nu(A) = \int_{A}\int_{\mathbb{R}}\frac{d\mu}{dm}(t-y)\ d\lambda(y)\ dm(t) & =
@@ -216,7 +216,7 @@ $f*g$ is bounded.
 \end{claim}
 \begin{claimproof}
 Let $x \in \mathbb{R}$. Since $f(x) \leq c$,
-\[ |(f*g)(x)| = \left| \int f(x-u)g(u)dm(u)\right| \leq \left| \int cg(u)dm(u) \right| \leq c \int |g|dm < \infty, \]
+\[ |(f*g)(x)| = \left| \int f(x-u)g(u)\ dm(u)\right| \leq \left| \int cg(u)\ dm(u) \right| \leq c \int |g|\ dm < \infty, \]
 since $g \in L^{1}(\mathbb{R})$.
 \end{claimproof}
 
@@ -227,7 +227,7 @@ $f*g$ is continuous.
 Let $x \in \mathbb{R}$ and suppose $\left\{ x_{n} \right\}_{n=0}^{\infty} \subset \mathbb{R}$ such that $x_{n} \rightarrow x$ as $n \rightarrow
 \infty$. We need to show that $(f*g)(x_{n}) \rightarrow (f*g)(x)$. For each $n \in \mathbb{R}$, let $h_{n}(u) := f(x_{n} - u)g(u)$ for all $u \in
 \mathbb{R}$. Since $f \leq c$, $|h_{n}| \leq c|g|$, where $c|g| \in L^{1}(\mathbb{R})$ by the work done in claim 1. Thus, by the DCT,
-\[ \lim_{n\rightarrow\infty}(f*g)(x_{n}) = \lim_{n\rightarrow\infty}\int h_{n}dm \stackrel{\text{DCT}}{=} \int f(x-u)g(u)dm(u) = (f*g)(x). \]
+\[ \lim_{n\rightarrow\infty}(f*g)(x_{n}) = \lim_{n\rightarrow\infty}\int h_{n}\ dm \stackrel{\text{DCT}}{=} \int f(x-u)g(u)\ dm(u) = (f*g)(x). \]
 \end{claimproof}
 
 \end{Proof}
@@ -242,11 +242,11 @@ $(f*g)'(x) = \int f'(x-u)g(u)dm(u)$ for all $x \in \mathbb{R}$.
 Let $x \in \mathbb{R}$ and suppose $\left\{ x_{n}
 \right\}_{n=0}^{\infty} \subset \mathbb{R}$ such that $x_{n} \rightarrow x$. For each $n \in \mathbb{N}$, let $h_{n}(u) := \frac{f(x_{n} -u) -
 f(x-u)}{x_{n} - x}g(u)$ for all $u \in \mathbb{R}$. Clearly $h_{n}(u) \rightarrow f'(x-u)g(u)$ and $|h_{n}(u)| \leq c|g(u)|$ for all $u \in
-\mathbb{R}$. Also, $\int |cg(u)|dm(u) = c \int |g|dm < \infty$,
+\mathbb{R}$. Also, $\int |cg(u)|\ dm(u) = c \int |g|\ dm < \infty$,
 since $g \in L^{1}(\mathbb{R})$. Therefore we can apply the DCT to the sequence $\left\{ h_{n} \right\}_{n=0}^{\infty}$. So,
 \begin{align*}
-\int f'(x-u)g(u)dm(u) & = \lim_{n\rightarrow\infty}\int \frac{f(x_{n} - u) - f(x-u)}{x_{n} - x}g(u)dm(u) \\
-& = \lim_{n\rightarrow\infty} \frac{ \int f(x_{n} - u)g(u)dm(u) - \int f(x-u)g(u)dm(u)}{x_{n} - x} \\
+\int f'(x-u)g(u)dm(u) & = \lim_{n\rightarrow\infty}\int \frac{f(x_{n} - u) - f(x-u)}{x_{n} - x}\ g(u)\ dm(u) \\
+& = \lim_{n\rightarrow\infty} \frac{ \int f(x_{n} - u)g(u)\ dm(u) - \int f(x-u)g(u)\ dm(u)}{x_{n} - x} \\
 & = \lim_{n\rightarrow\infty}\frac{ (f*g)(x_{n}) - (f*g)(x) }{x_{n} - x}  = (f*g)'(x)
 \end{align*}
 The last line in the above equality is true since the sequence $\left\{ x_{n} \right\}_{n=0}^{\infty}$ was an arbitrary sequence converging to $x$.
@@ -257,7 +257,7 @@ $(f*g)'(x) \leq c||g||_{1}$ for all $x \in \mathbb{R}$.
 \end{claim}
 \begin{claimproof}
 By claim 1, 
-\[ |(f*g)'(x)| = \left| \int f'(x-u)g(u)dm(u)\right| \leq \int |f'(x-u)g(u)|dm(u) \leq c ||g||_{1} < \infty, \]
+\[ |(f*g)'(x)| = \left| \int f'(x-u)g(u)\ dm(u)\right| \leq \int |f'(x-u)g(u)|\ dm(u) \leq c ||g||_{1} < \infty, \]
 so $(f*g)'$ is bounded.
 \end{claimproof}
 
@@ -304,7 +304,7 @@ $h$ and $\phi\circ h$ are in $L^{1}(\mathbb{R}, \mathcal{B}(\mathbb{R}), \mu)$.
 By \eqref{3.1},
 \[ \int |\phi\circ h|\ d\mu = \frac{1}{||f||_{1}}\int |g(x-u)|^{p}|f(u)|\ dm(u) < \infty. \]
 Further, note that when $|g(x-u)| \geq 1$, $\phi \circ h = |g(x-u)|^{p} \geq |g(x-u)| = h(u)$. Hence,
-\[ \int |h|\ d\mu = \int_{\{0\leq h <1\}}|h|\ d\mu + \int_{\{h\geq 1\}}|h|d\mu \leq \int_{\{0\leq h<1\}}1\ d\mu + \int_{\{h\geq 1\}}|\phi\circ h|\ d\mu \leq 1
+\[ \int |h|\ d\mu = \int_{\{0\leq h <1\}}|h|\ d\mu + \int_{\{h\geq 1\}}|h|\ d\mu \leq \int_{\{0\leq h<1\}}1\ d\mu + \int_{\{h\geq 1\}}|\phi\circ h|\ d\mu \leq 1
 + \int_{\{h\geq 1\}}|\phi\circ h|\ d\mu < \infty. \]
 \end{claimproof}
 
@@ -318,8 +318,8 @@ By claim 1 we can apply Jensen's Inequality to $h$ and $\phi$ with the probabili
 By rearranging terms, we are done.
 \end{claimproof}
 
-By claim 2 and \eqref{3.1},
-\[ |(f*g)(x)| = \left| \int f(u)g(x-u)\ dm(u)\right| \leq \left( ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|\ dm(u) \right)^{1/p} < \infty. \]
+By claim 2, Proposition 5.4.4, and \eqref{3.1},
+\[ |(f*g)(x)| = |(g*f)(x)| = \left| \int f(u)g(x-u)\ dm(u)\right| \leq \left( ||f||_{1}^{p-1}\int |g(x-u)|^{p}|f(u)|\ dm(u) \right)^{1/p} < \infty. \]
 Therefore $f*g$ is well defined a.e. $(m)$.
 
 \begin{claim}
@@ -410,7 +410,7 @@ In terms of random variables, this means that if $X$ and $Y$ are independent ran
 \newpage 
 \section*{6.1}
 Let $\mu_{1} = \mu_{2}$ be the probability distribution on $\Omega = \left\{ 1,2 \right\}$ were $\mu_{1}(\left\{ 1 \right\}) = 1/2$. Find two distinct
-probability distrubtions on $\Omega \times \Omega$ with $\mu_{1}$ and $\mu_{2}$ as the set of marginals.
+probability distributions on $\Omega \times \Omega$ with $\mu_{1}$ and $\mu_{2}$ as the set of marginals.
 
 \subsection*{Solution}
 Let $\mu$ and $\lambda$ be probability measures on $(\Omega \times \Omega, \mathcal{P}(\Omega\times \Omega))$ defined as follows. 
@@ -481,7 +481,7 @@ Note that by Exercise 5.10,
 \end{equation}
 This also implies that $e^{-u^{2}/2} \in L^{1}(m)$. Thus, by applying Theorem 4.4.6 with $u \equiv T(z) := z\sqrt{3}$, we have 
 \[ \int_{\mathbb{R}}e^{-z^{2}}\varphi(z)\ dm(z) = \frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}e^{-3z^{2}/2}\ dm(z) =
-\frac{1}{\sqrt{6\pi}}\int_{\mathbb{R}}e^{-u^{2}/2}dm(u) \stackrel{\eqref{5.1}}{=} \frac{\sqrt{2\pi}}{\sqrt{6\pi}} = \frac{1}{\sqrt{3}}. \]
+\frac{1}{\sqrt{6\pi}}\int_{\mathbb{R}}e^{-u^{2}/2}\ dm(u) \stackrel{\eqref{5.1}}{=} \frac{\sqrt{2\pi}}{\sqrt{6\pi}} = \frac{1}{\sqrt{3}}. \]
 \end{claimproof}
 
 Now, let $h,f : \mathbb{R} \rightarrow \mathbb{R}$ be defined by $h(x) := e^{-x}$ and $f(z) := z^{2}$ for all $x,z \in \mathbb{R}$, and $\mu_{1} :=
@@ -529,7 +529,7 @@ u - \frac{x}{\sigma^{2} + 1} \right)^{2} \right) \right]dm(u) \\
 Since this is the pdf of a $N(0, \sigma^{2} + 1)$ RV, we are done.
 \end{Proof}
 
-By iterating the above proposition, the distribution of $Y$ is $N(0,k)$. Now, if $a < 0$, then clearly $F_{Z}(a) = 0$. Now suppose $a \geq 0$. Then 
+By iterative use of the above proposition, the distribution of $Y$ is $N(0,k)$. Now, if $a < 0$, then clearly $F_{Z}(a) = 0$. Now suppose $a \geq 0$. Then 
 \[ F_{Z}(a) = P_{Y}\left( Z^{-1}[(-\infty, a]] \right) = P_{Y}\left( \left\{ z : |z| \leq \sqrt{a} \right\} \right) = F_{Y}(\sqrt{a}) -
 F_{Y}(-\sqrt{a}). \]
 So 
@@ -553,7 +553,7 @@ Thus, by applying the change of variables formula,
 First we will derive the moment generating function of $Y$. Since $e^{tY} > 0$ for all $Y \in \mathbb{R}$, we can apply the change of variables
 formula. Further, since $X_{1}, \hdots, X_{k}$ are independent, $P_{X_{1}, \hdots, X_{k}} = P_{X_{1}}\times \dots \times P_{X_{k}}$. Thus,
 \begin{align*}
-Ee^{tY} = \int_{\mathbb{R}}\ dP_{Y}(y) & = \int_{\mathbb{R}^{k}}e^{t(x_{1} + \dots + x_{k})}\ dP_{X_{1}, \hdots, X_{k}}(x_{1}, \hdots, x_{k}) \\
+Ee^{tY} = \int_{\mathbb{R}}e^{ty}\ dP_{Y}(y) & = \int_{\mathbb{R}^{k}}e^{t(x_{1} + \dots + x_{k})}\ dP_{X_{1}, \hdots, X_{k}}(x_{1}, \hdots, x_{k}) \\
 \text{(Tonelli's) } & = \int_{\mathbb{R}}\dots \int_{\mathbb{R}}e^{tx_{1}}\dots e^{tx_{k}}\ dP_{X_{1}}(x_{1})\dots dP_{X_{k}}(x_{k}) \\
 & = \Pi_{i=1}^{k} Ee^{tX_{i}} \\
 \text{(Table 6.2.1) } & = \Pi_{i=1}^{k} [(1-p) + pe^{t}]^{n_{i}} = [(1-p) + pe^{t}]^{\sum_{i=1}^{k}n_{i}}.
@@ -604,7 +604,7 @@ Which implies
 & = E(Y^{2}) - (EY)^{2} - 2\left[ \frac{EXY - (EX)(EY)}{E(X^{2}) - (EX)^{2}} \right](EXY - (EX)(EY)) \\
 & \qquad + \left[ \frac{EXY - (EX)(EY)}{E(X^{2}) -
 (EX)^{2}} \right]^{2}(E(X^{2}) - (EX)^{2}) \\
-& = E(^{2}) - 2aEXY + a^{2}E(X^{2}) - (EY)^{2} + 2a(EX)(EY) - a^{2}(EX)^{2} \\
+& = E(Y^{2}) - 2aEXY + a^{2}E(X^{2}) - (EY)^{2} + 2a(EX)(EY) - a^{2}(EX)^{2} \\
 & = E[Y^{2} - 2aXY + a^{2}X^{2}] - [EY - aEX]^{2} \\
 & = E[Y - aX]^{2} - [E(Y - aX)]^{2} = Var(Y - aX).
 \end{align*}
