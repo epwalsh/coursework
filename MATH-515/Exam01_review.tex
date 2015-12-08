@@ -1,0 +1,208 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{3mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+% This rule is for making an integral with a bar above it or below it.
+\makeatletter
+\newcommand\tint{\mathop{\mathpalette\tb@int{t}}\!\int}
+\newcommand\bint{\mathop{\mathpalette\tb@int{b}}\!\int}
+\newcommand\tb@int[2]{%
+  \sbox\z@{$\m@th#1\int$}%
+  \if#2t%
+    \rlap{\hbox to\wd\z@{%
+      \hfil
+      \vrule width .35em height \dimexpr\ht\z@+1.4pt\relax depth -\dimexpr\ht\z@+1pt\relax
+      \kern.05em % a small correction on the top
+    }}
+  \else
+    \rlap{\hbox to\wd\z@{%
+      \vrule width .35em height -\dimexpr\dp\z@+1pt\relax depth \dimexpr\dp\z@+1.4pt\relax
+      \hfil
+    }}
+  \fi
+}
+\makeatother
+
+\title{MATH 515: Exam 1 Review}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+% \maketitle
+
+
+\section*{1.1 [Royden/Fitzpatrick (RF) 1.31]} Show that if a set $E$ consists only of
+isolated points then it is countable.
+
+
+\section*{1.2 [RF 1.32]} 
+Show that 
+\begin{enumerate}[label=(\roman*)]
+\item $E$ is open iff $E = \text{int} E$.
+\item $E$ is dense iff $\text{int} (\mathbb{R} - E) = \emptyset$.
+\end{enumerate}
+
+\section*{1.3 [RF 1.52]} Show that a non-empty set of real numbers $E$ is closed and
+bounded iff every continuous real-valued function on $E$ takes a maximum value.
+
+
+\section*{1.4 [RF 1.59]} Let $\{f_{n}\}$ be a sequence of real-valued continuous
+functions defined on a set $E$. Show that if $\{f_{n}\}$ converges uniformly to $f$ on
+$E$, then $f$ is continuous.
+
+
+\section*{1.5 [Proposition (I).(1).(xi)]} 
+Suppose $f$ is a step function on $[a,b]$.
+Then $f$ is integrable. Furthermore, if $(x_{0}, \dots, x_{n})$ is a partition
+of $[a,b]$ so that $f$ is constant on each open subinterval $(x_{0}, x_{1}),
+\dots, (x_{n-1}, x_{n})$, and if $c_{j}$ is the value of $f$ on $(x_{j-1},
+x_{j})$ whenever $1 \leq j \leq n$, then 
+\[ \int_{a}^{b} f = \sum_{j=1}^{n}c_{j}(x_{j} - x_{j-1}). \]
+
+
+\section*{1.6 [RF 2.6]} 
+Let $A$ be the set of irrational numbers in $[0,1]$. Show
+that $m^{*}(A) = 1$.
+
+
+\section*{1.7 [RF 2.10]} 
+Let $A,B$ be bounded sets for which there is an $\alpha > 0$
+such that $|a-b| \geq \alpha$ for every $a\in A$ and $b \in B$. Show that
+$m^{*}(A\cup B) = m^{*}(A) + m^{*}(B)$.
+
+
+
+\section*{2.1 [Lemma (II)(1)(xvi)]} 
+If $J_{0}, \dots, J_{n}$ are open intervals, and
+if $(J_{0}, \dots, J_{n})$ is a simple chain, then $\cup_{k=1}^{n}J_{k}$ is an
+open interval.
+
+
+\section*{2.2 [Lemma (II)(1)(xviii)]} 
+If $J_{0}, \dots, J_{n}$ are open intervals, and $(J_{0}, \hdots, J_{n})$ is a simple chain, then $\ell(\cup_{k=0}^{n}J_{k}) \leq \sum_{k=0}^{n}\ell(J_{k})$.
+
+
+\section*{2.3} 
+Consider the two definitions of outer measure for a set $A \subseteq
+\mathbb{R}$:
+\[ \mu^{*}(A) = \inf\{\ell(U) : A \subseteq U \subseteq \mathbb{R}, U \neq
+\emptyset, U \text{ open}\}, \text{ and } \]
+\[ m^{*}(A) = \inf\left\{\sum_{k=1}^{\infty}\ell(I_{k}) : A \subseteq
+\cup_{k=1}^{\infty}I_{k} \subseteq \mathbb{R}, I_{k} \neq \emptyset, I_{k}
+\text{ an open bounded interval}\right\}. \]
+Show that these two definitions are equivalent.
+
+
+\section*{2.4 [RF 2.7]} A set of real numbers is said to be a $G_{\delta}$ set
+provided it is the intersection of a countable collection of open sets. Show
+that for any bounded set $E$, there is a $G_{\delta}$ set $G$ for which 
+\[ E \subseteq G \text{ and } m^{*}(G) = m^{*}(E). \]
+
+
+\section*{2.5 [RF 2.9]} 
+If $m^{*}(A) = 0$, then $m^{*}(A\cup B) = m^{*}(B)$.
+
+
+\section*{2.6 [Claim 1 in the proof of Thm (II)(1)(xxiv)]} 
+Show that $\cup_{(n,j')\in G_{j}}I_{n,j'} = I_{j}$.
+
+
+
+\section*{3.1 [RF 2.11]} 
+If a $\sigma$-algebra of $\mathbb{R}$ contains intervals of the form $(a, \infty)$, then it contains all intervals.
+
+
+\section*{3.2 [RF 2.14]} 
+If a set $E$ has positive outer measure, then there is a bounded subset of $E$ that also has positive outer measure.
+
+
+\section*{3.3} 
+If $E$ has finite measure and $\epsilon > 0$, then $E$ is the disjoint union of a finite number of measurable sets, each of which has measure at most
+$\epsilon$.
+
+
+\section*{3.4} 
+Prove that there is not a countably infinite $\sigma$-algebra over the reals.
+
+
+\section*{3.5} 
+Let $f: [a,b] \rightarrow \mathbb{R}$ be a function. Royden and Fitzpatrick's definition of the lower Riemann integral of $f$ over $[a,b]$ is 
+\[ (R)\bint_{a}^{b} f = \sup\left\{ L^{*}(f,P) : P\text{ is a partition of }[a,b] \right\}, \]
+where $L^{*}(f,P) = \sum_{i=1}^{n}m_{i}(x_{i} - x_{i-1})$, for $m_{i} = \inf\left\{ f(x) : x_{i-1} < x < x_{i} \right\}$, is a lower Riemann sum. Similary,
+definition (I)(1)(v)(a), from our notes, of lower Riemann integral is 
+\[ \bint_{a}^{b}f = \sup\left\{ L(f, P, V) : P\text{ is a partition of }[a,b], V = (v_{1}, \dots, v_{n})\text{ with }v_{i} \leq f(x)\forall x_{i-1} <
+x < x_{i} \right\}, \]
+where $L(f,P,V) = \sum_{i=1}^{n}v_{i}(x_{i} - x_{i-1})$, is also considered a lower Riemann sum. 
+Show that these two definitions of lower Riemann integral are equivalent.
+
+
+
+\section*{4.1}
+Give an example of a Borel set of reals that is neither $F_{\sigma}$ or $G_{\delta}$.
+
+
+
+\section*{4.2 [RF 2.12]}
+Show that every interval is a Borel set.
+
+
+
+\section*{4.3 [RF 2.13]}
+Show that (i) the translate of an $F_{\sigma}$ is also $F_{\sigma}$, (ii) the translate of a $G_{\delta}$ is also $G_{\delta}$, and (iii) the
+translate of a set of measure zero also has measure zero.
+
+
+\section*{4.4 [RF 2.17]}
+Show that a set $E$ is measurable if and only if for each $\epsilon > 0$, there is a closed set $F$ and open set $\mathcal{O}$ for which $F \subseteq E\subseteq
+\mathcal{O}$ and $\mu^{*}(\mathcal{O}\setminus F) < \epsilon$.
+
+
+
+\section*{4.5 [RF 2.20]}
+(Legesgue) Let $E$ have finite outer measure. Show that $E$ is measurable if and only if for each open, bounded interval $(a,b)$,
+\[ b - a = \mu^{*}\left( (a,b) \cap E \right) + \mu^{*}\left( (a,b) \setminus E \right). \]
+
+
+
+
+
+
+
+\end{document}
+

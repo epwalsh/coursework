@@ -13,6 +13,27 @@
 \usepackage{amssymb} % for stacked arrows and other shit
 \pagestyle{fancy}
 
+% This rule is for making an integral with a bar above it or below it.
+\makeatletter
+\newcommand\tint{\mathop{\mathpalette\tb@int{t}}\!\int}
+\newcommand\bint{\mathop{\mathpalette\tb@int{b}}\!\int}
+\newcommand\tb@int[2]{%
+  \sbox\z@{$\m@th#1\int$}%
+  \if#2t%
+    \rlap{\hbox to\wd\z@{%
+      \hfil
+      \vrule width .35em height \dimexpr\ht\z@+1.4pt\relax depth -\dimexpr\ht\z@+1pt\relax
+      \kern.05em % a small correction on the top
+    }}
+  \else
+    \rlap{\hbox to\wd\z@{%
+      \vrule width .35em height -\dimexpr\dp\z@+1pt\relax depth \dimexpr\dp\z@+1.4pt\relax
+      \hfil
+    }}
+  \fi
+}
+\makeatother
+
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
 \declaretheorem[style=normal]{Proposition}
@@ -96,7 +117,7 @@ This is a contradiction since $\mu^{*}(E) > 0$.
 {\bf (3) [RF 2.15]} If $E$ has finite measure and $\epsilon > 0$, then $E$ is the disjoint union of a finite number of measurable sets, each of which
 has measure at most $\epsilon$.
 
-{\bf Solution:} First we will have to prove the following lemma.
+{\bf Solution:} 
 
 \begin{proof}
 Note from question (3) on homework 2, the definition from the book of outer measure is equivalent to our definition. For the convenience of this
@@ -144,12 +165,157 @@ E_{1} \right) = E\cup E_{1} = E, \]
 and $m(E_{k}) < \epsilon$ for each $1 \leq k \leq p$ by equations \ref{eqn:3-0} and \ref{eqn:3-1}.
 \end{proof}
 
-{\bf (4)} 
+{\bf (4)} We will show that there is not a countably infinite $\sigma$-algebra over the reals.
 
-{\bf Solution}
+{\bf Solution:}
 
+\begin{proof}
+We will proceed using a proof by contradiction. So, assume that there exists a countably infinite $\sigma$-algebra over $\mathbb{R}$, call it
+$\mathcal{F}$. The objective right now will be to construct a countably infinite disjoint collection of sets in $\mathcal{F}$ such that every set in
+$\mathcal{F}$ can be expressed as the unique union of a subset of that collection. Once such a set is constructed, a contradiction easily follows by
+using Cantor's diagonal argument.
 
-{\bf (5)}
+To accomplish this, we first define the following funtion $f : \mathbb{R} \rightarrow \mathcal{F}$, by 
+\[ f(x) = \bigcap_{\{E : E\in \mathcal{F}, x \in E\}}E, \]
+for all $x \in \mathbb{R}$.
+
+\underline{Claim 1:} $\mathcal{F}$ is well-defined.
+
+\begin{claimproof}
+We need to show that for each $x \in \mathbb{R}$, the image of $x$ under $f$ is in $\mathcal{F}$. So, let $x \in \mathbb{R}$. By assumption, $\mathcal{F}$ is countable, and
+so $\left\{ E : E \in \mathcal{F}, x \in E \right\} \subseteq \mathcal{F}$ is countable. Therefore 
+\[ \bigcap_{\left\{ E: E\in\mathcal{F}, x \in E \right\}}E \in \mathcal{F}, \]
+since $\mathcal{F}$ is closed under countable intersections.
+\end{claimproof}
+
+\underline{Claim 2:} The image of $f$, $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$ is a disjoint collection of sets.
+
+\begin{claimproof}
+Let $x, y \in \mathbb{R}$. We need to show that $f(x) = f(y)$ or $f(x) \cap f(y) = \emptyset$. In order to derive a contradiction, assume that $f(x)
+\neq f(y)$ and $f(x) \cap f(y) \neq \emptyset$. Then there are two cases to consider. Either (i) $x \in f(x) \setminus f(y)$, or (ii) $x \in f(x) \cap
+f(y)$.
+\begin{itemize}[label={},leftmargin=4mm, itemsep=1em, parsep=1em]
+\item (i) Assume $x \in f(x) \setminus f(y)$.
+
+Since $f(x), f(y) \in \mathcal{F}$ by claim 1, $f(x) \setminus f(y) \in \mathcal{F}$ by Lemma (II)(2)(xvi). So, $x \in f(x) \setminus f(y) \subset
+f(x)$, which is a contradiction since $f(x)$ should be a subset of all other sets in $\mathcal{F}$ that contain $x$.
+
+\item (ii) Now assume that $x \in f(x) \cap f(y)$.
+
+Well, $f(x) \cap f(y) \in \mathcal{F}$ and $f(x) \cap f(y) \subset f(x)$, which brings us to a contradiction again since $f(x)$ should be a subset of
+all other sets in $\mathcal{F}$ that contain $x$.
+\end{itemize}
+Since both cases lead to a contradiction, the image of $f$ must be a disjoint collection of sets.
+\end{claimproof}
+
+\underline{Claim 3:} Every set $B \in \mathcal{F}$ can be expressed as the countable union of a subset of the image of $f$. Further, this
+representation of $B$ is unique in the sense that there is only one collection of sets in $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$ such that
+$B$ is their union.
+
+\begin{claimproof}
+Let $B \in \mathcal{F}$, and let $x \in B$. Clearly $x \in f(x) \subseteq \cup_{\left\{ f(y) : y \in B \right\}}f(y)$. So $B \subseteq \cup_{\left\{
+f(y) : y \in B \right\}}f(y)$. Further, $f(x) \subseteq B$ because if that was not true, then $f(x) \cap B$ would be a ``smaller'' set in
+$\mathcal{F}$ that contains $x$, which is a contradiction. So $f(x) \subseteq B$ for each $x \in B$. Therefore $\cup_{\left\{f(y) : y \in B
+\right\}}f(y) \subseteq B$. Hence $B = \cap_{\{f(y) : y \in B\}}f(y)$.
+
+The fact that $\left\{ f(y) : y \in B \right\}$ is the unique collection of sets in $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$ such that 
+$B$ is their union follows directly as a
+result of claim 2, that the image of $f$, $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$, is a pairwise disjoint collection of sets.
+\end{claimproof}
+
+\underline{Claim 4:} The image of $f$, $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$, is countably infinite.
+
+\begin{claimproof}
+Since $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$ is a subset of $\mathcal{F}$, it cannot be uncountable. On the other hand, if $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$
+was finite, then there could only be a finite number of unique collections of sets in $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$, i.e. its power
+set would be finite. Thus, by claim 3, $\mathcal{F}$ would be finite since every set in $\mathcal{F}$ can be expressed as the unique union of a subset
+of $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$. This is a contradiction. Hence $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$ is countably infinite.
+\end{claimproof}
+
+As a result of claim 4, we can enumerate $\left\{ A : A = f(x), x \in \mathbb{R} \right\}$ as 
+\[ \left\{ A : A = f(x), x \in \mathbb{R} \right\} = \left\{ A_{n} \right\}_{n\in\mathbb{N}}. \]
+Now, let $\left\{ 0,1 \right\}^{\mathbb{N}}$ be the set of all countably infinite sequences of 0's and 1's. Define 
+\[ g: \left\{ 0,1 \right\}^{\mathbb{N}} \longrightarrow \mathcal{F} \]
+by 
+\[ g\left( \left( a_{n} \right)_{n\in\mathbb{N}} \right) = \bigcup_{\{n : a_{n} = 1\}}A_{n}, \text{ for each } \left( a_{n} \right)_{n\in\mathbb{N}}
+\in \left\{ 0,1 \right\}^{\mathbb{N}}. \]
+Note that $g$ is well-defined since $\cup_{\{n:a_{n}=1\}}A_{n}$ is a countable union of sets in $\mathcal{F}$, and $\mathcal{F}$ is closed under
+countable unions.
+
+\underline{Claim 5:} $g$ is a bijection.
+
+\begin{claimproof}
+By claim 2, $\left\{ A : A = f(x), x \in \mathbb{R} \right\} = \left\{ A_{n} \right\}_{n\in\mathbb{N}}$ is a disjoint collection of sets, so the union
+of any collection of sets in $\left\{ A_{n} \right\}_{n\in\mathbb{N}}$ is unique. Thus $g$ is one-to-one. Further, it follows as a corollary to claim
+3 that $g$ is onto, since any set $B \in \mathcal{F}$ can be expressed as the union of sets in $\left\{ A_{n} \right\}_{n\in\mathbb{N}}$. Hence $g$ is a bijection.
+\end{claimproof}
+
+To wrap up, Cantor's diagonal argument for the uncountability of the interval $[0,1]$ establishes that $\left\{ 0,1 \right\}^{\mathbb{N}}$ is uncountable.
+This is where the contradiction arises, since by claim 5 $\mathcal{F}$ has to be uncountable.
+
+Therefore there does not exist a countably infinite $\sigma$-algebra over the reals.
+\end{proof}
+
+As a side note, I think that the above argument would be valid for ANY $\sigma$-algebra, not just $\sigma$-algebras over the reals. So there must not
+exist any countably infinite $\sigma$-algebra in general.
+
+{\bf (5)} Let $f: [a,b] \rightarrow \mathbb{R}$ be a function. Royden and Fitzpatrick's definition of the lower Riemann integral of $f$ over $[a,b]$
+is 
+\[ (R)\bint_{a}^{b} f = \sup\left\{ L^{*}(f,P) : P\text{ is a partition of }[a,b] \right\}, \]
+where $L^{*}(f,P) = \sum_{i=1}^{n}m_{i}(x_{i} - x_{i-1})$, for $m_{i} = \inf\left\{ f(x) : x_{i-1} < x < x_{i} \right\}$, is a lower Riemann sum. Similary,
+definition (I)(1)(v)(a), from our notes, of lower Riemann integral is 
+\[ \bint_{a}^{b}f = \sup\left\{ L(f, P, V) : P\text{ is a partition of }[a,b], V = (v_{1}, \dots, v_{n})\text{ with }v_{i} \leq f(x)\forall x_{i-1} <
+x < x_{i} \right\}, \]
+where $L(f,P,V) = \sum_{i=1}^{n}v_{i}(x_{i} - x_{i-1})$, is also considered a lower Riemann sum. For notational simplicity, let 
+\[ \sup_{P}\left\{ L^{*}(f,P) \right\} =\sup\left\{ L^{*}(f,P) : P\text{ is a partition of }[a,b] \right\}, \text{ and } \]
+\begin{align*}
+\sup_{P, V}\left\{ L(f,P,V) \right\} = \sup\big\{ L(f, P, V) :& P\text{ is a partition of }[a,b], \\
+\qquad & V = (v_{1}, \dots, v_{n})\text{ with }v_{i} \leq f(x)\forall x_{i-1} < x < x_{i} \big\}.
+\end{align*}
+We will show that these two definitions of lower Riemann integral are equivalent.
+
+{\bf Solution:}
+
+\begin{proof}
+The two definitions only differ in the way they define a lower Riemann SUM. Thus, we need to show that the supremums of both sets of lower Riemann
+sums, defined in their own way, are equal. That is, we need to show $\sup_{P}\left\{ L^{*}(f,P) \right\} = \sup_{P,V}\left\{ L(f,P,V) \right\}$.
+
+$(\Rightarrow)$ First we will show that $\sup_{P}\left\{ L^{*}(f,P) \right\} \leq \sup_{P,V}\left\{ L(f,P,V) \right\}$. 
+
+Let $P' = (x_{0}, \dots, x_{n})$ be a partition of $[a,b]$. By definition,
+\[ m_{i} = \inf\left\{ f(x) : x_{i-1} < x < x_{i} \right\} \leq f(x)\ \forall\ x_{i-1} < x < x_{i}, i \in \left\{ 1, \dots, n \right\}. \]
+Thus, $(m_{1}, \dots, m_{n}) \in \left\{ V : V = (v_{1}, \dots, v_{n}), v_{i} \leq f(x)\ \forall\ x_{i-1} < x < x_{i} \right\}$. So,
+\begin{align*}
+L^{*}(f, P') = \sum_{i=1}^{n}m_{i}(x_{i}-x_{i-1}) \in& \left\{ \sum_{i=1}^{n}v_{i}(x_{i}-x_{i-1}) : v_{i} \leq f(x)\ \forall\ x_{i-1} < x < x_{i}
+\right\} \\
+&\qquad = \left\{ L(f,P',V) : v_{i} \leq f(x) \ \forall\ x_{i-1} < x < x_{i} \right\}. 
+\end{align*}
+Hence, $L^{*}(f,P') \leq \sup_{V}\left\{ L(f,P',V) \right\}$. But since this holds for any partition $P$ of $[a,b]$,
+\begin{equation}
+\sup_{P}\left\{ L^{*}(f,P) \right\} \leq \sup_{P,V}\left\{ L(f,P,V) \right\}.
+\label{eqn:5-1}
+\end{equation}
+
+$(\Leftarrow)$ We will now show that $\sup_{P}\left\{ L^{*}(f,P) \right\} \geq \sup_{P,V}\left\{ L(f,P,V) \right\}$. 
+
+Again, let $P' = (x_{0}, \dots, x_{n})$ be any partition of $[a,b]$, and let $V' = (v_{1}, \dots, v_{n})$ such that $v_{i} \leq f(x)$ for each
+$x_{i-1} < x < x_{i}$, $i \in \{1, \dots, n\}$. By definition, $v_{i}$ is a lower bound of $f$ on $(x_{i-1}, x_{i})$ for each $i \in \left\{ 1, \dots,
+n \right\}$. Thus, 
+\[ m_{i} = \inf\left\{ f(x) : x_{i-1} < x < x_{i} \right\} \geq v_{i}, \text{ for all } i \in \left\{ 1,\dots,n \right\}.\]
+Therefore,
+\[ L^{*}(f,P') = \sum_{i=1}^{n}m_{i}(x_{i}-x_{i-1}) \geq \sum_{i=1}^{n}v_{i}(x_{i}-x_{i-1}) = L(f,P',V'). \]
+Since this holds for any $V' = (v_{1}, \dots, v_{n})$ such that $v_{i} \leq f(x)$ for each $x_{i-1} < x < x_{i}$, $i \in \left\{ 1,\dots, n \right\}$, 
+\[ L^{*}(f, P') \geq \sup_{V}\left\{ L(f,P',V) \right\}. \]
+But the above inequality holds for any partition $P$ of $[a,b]$, so 
+\begin{equation}
+\sup_{P}\left\{ L^{*}(f,P) \right\} \geq \sup_{P,V}\left\{ L(f,P,V) \right\}.
+\label{eqn:5-2}
+\end{equation}
+
+From equations \ref{eqn:5-1} and \ref{eqn:5-2}, 
+\[ \sup_{P}\left\{ L^{*}(f,P) \right\} = \sup_{P,V}\left\{ L(f,P,V) \right\}. \]
+Hence the definitions of lower Riemann integral are equivalent.
+\end{proof}
 
 
 \end{document}

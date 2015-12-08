@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\stepcounter{ClaimCounter}\par\noindent\underline{Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter\vspace{5mm}}
+
+\title{MATH 515: Exam 2 Review}
+\author{Evan ``Pete'' Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+% \maketitle
+
+
+\section*{5.1 [Lemma (II)(6)iv Claim 1]}
+Suppose $E\subset \mathbb{R}$ and $\mu^*(E) < \infty$. Suppose $\mathcal{F}$ is a Vitali covering of $E$. Let $U \supseteq E$ such that $\ell(U) <
+\infty$. Set $\mathcal{F}' = \left\{ I \in \mathcal{F} : I \subseteq U \right\}$.
+
+\underline{Claim 1:} $\mathcal{F}'$ is a Vitali covering of $E$.
+
+\section*{5.2 [Lemma (II)(6)iv Claim 2]}
+Suppose $E\subset \mathbb{R}$ and $\mu^*(E) < \infty$. Suppose $\mathcal{F}$ is a Vitali covering of $E$. Let $U \supseteq E$ such that $\ell(U) <
+\infty$. Set $\mathcal{F}' = \left\{ I \in \mathcal{F} : I \subseteq U \right\}$.
+
+By assumption of case 2, assume that for every pairwise disjoint sequence $\left( I_{0}, \hdots, I_{n} \right) \subseteq \mathcal{F}$, 
+\[ E \nsubseteq \bigcup_{k=0}^{n}I_{k}.\]
+
+\underline{Claim 2:} If $I_{0}, \hdots, I_{n} \in \mathcal{F}'$ and if $\left( I_{0}, \hdots, I_{n} \right)$ is pairwise disjoint, then there exists
+some $I \in \mathcal{F}'$ such that $I \cap \bigcup_{k=0}^{n}I_{k} = \emptyset$.
+
+
+\section*{5.3}
+Let $n$ be a positive integer. Let $X_{n}$ be the set of all $x \in [0,1]$ such that the $n$-th digit in the non-terminating decimal expansion of $x$
+is 5. Prove that $X_{n}$ is measurable.
+
+
+\section*{5.4 [RF 2.33]}
+Let $E$ be a non-measurable set of finite outer measure. Show that there exists a $G_{\delta}$ set $G \supseteq E$ for which $\mu^*(E) = \mu^*(G)$ but
+$\mu^{*}(G\setminus E) > 0$.
+
+
+\section*{6.1}
+Prove that every step function is a simple function.
+
+
+\section*{6.2 [RF 3.1]}
+Suppose $f$ and $g$ are continuous over $[a,b]$. If $f = g$ a.e. on $[a,b]$, then $f = g$ on $[a,b]$.
+
+
+\section*{6.3}
+For every positive integer $n$, let $S_{n}(x)$ denote the number of 5's in the first $n$ digits of the non-terminating decimal expansion of $x$.
+Prove that $\left\{ x \in [0,1] : \lim_{n\rightarrow\infty}\frac{S_{n}(x)}{n}\text{ exists} \right\}$ is measurable.
+
+
+
+\section*{6.4 [RF 3.9]}
+Let $\left\{ f_{n} \right\}$ be a sequence of measurable functions defined on a measurable set $E$. Define $E_{0}$ as the set of all points $x \in E$
+such that $\left\{ f_{n}(x) \right\}$ converges. We will show that $E_{0}$ is measurable.
+
+
+
+\section*{6.5 [RF 3.21]}
+Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a sequence of measurable functions with common domain $E$. Show that each of the following functions is
+measurable: $\inf\left\{ f_{n} \right\}$, $\sup\left\{ f_{n} \right\}$, $\lim\inf\left\{ f_{n} \right\}$, and $\lim\sup\left\{ f_{n} \right\}$.
+
+
+
+\section*{7.1 [Proposition (iii)(5)iv]}
+For each $X\subseteq \mathbb{N}$, let $\bm{c}(X) = \sum_{n\in X}\frac{2}{3^{n+1}}$. Prove that $\bm{c}$ is a bijection of $\mathcal{P}(\mathbb{N})$ onto $\mathcal{C}$.
+
+
+
+\section*{7.2 [Proposition (III)(5)viii]}
+Define $\mathcal{C}_{0} = [0,1]$ and $\mathcal{C}_{n+1} = \left( \frac{1}{3}\mathcal{C}_{n} \right) \cup \left( \frac{2}{3} +
+\frac{1}{3}\mathcal{C}_{n} \right)$ for all $n \in \mathbb{N}$. Prove that $\mathcal{C} = \bigcap_{n=0}^{\infty} \mathcal{C}_{n}$.
+
+
+\section*{7.3 [Proposition (III)(5)xvi]}
+Suppose $n_{0} \in \mathbb{N}$. Then $|\phi(x_{0}) - \phi(x_{1})| < 2^{-n_{0}}$ whenever $x_{0}, x_{1} \in \mathcal{C}$ and $|x_{0} - x_{1}| < 3^{-n_{0}}$.
+
+
+
+\section*{7.4 [Proposition (III)(5)xx]}
+If $(a,b) \subseteq [0,1] - \mathcal{C}$, then $\phi$ is constant on $(a,b)$ and $\phi(a) = \phi(b)$.
+
+
+
+\section*{7.5}
+Prove that increasing continuous functions defined over the reals map Borel sets to Borel sets. 
+
+
+
+\section*{7.6}
+Suppose $f : E \rightarrow [-\infty, \infty]$ is measurable. Does it follow that there is a non-decreasing sequence of simple functions on $E$
+$\left\{ \sigma_{n} \right\}_{n=0}^{\infty}$ so that $\sigma_{n}\rightarrow f$ a.e. and $|\sigma_{n}| \leq |f|$ for all $n$? If yes, give a proof.
+Otherwise give a counterexample.
+
+
+
+\section*{8.1 [Example (IV)(1)(ii)(a)]}
+If $s$ is a step function on $[a,b]$, then 
+\[ \int_{a}^{b} s = \int_{[a,b]}sd\mu. \]
+
+
+
+\section*{8.2 [RF 4.16]}
+Let $f$ be a non-negatvie, bounded, measurable function on a set of finite measure $E$.\footnote{We actually don't need the assumptions that $f$ is
+bounded and $\mu(E) < \infty$.} Assume 
+\[ \int_{E}fd\mu = 0.\] 
+Show that $f = 0$ a.e. on $E$.
+
+
+
+\section*{8.3 [RF 4.17]}
+Let $E$ be a set of measure zero and define $f \equiv \infty$ on $E$. Show that $\int_{E}fd\mu = 0$.
+
+
+
+\section*{8.4 [RF 4.25]}
+Let $\left\{ f_{n} \right\}_{n\in\mathbb{N}}$ be a sequence of non-negative, measurable functions on $E$ that converges pointwise on $E$ to $f$.
+Suppose $f_{n} \leq f$ on $E$ for each $n \in \mathbb{N}$. Show that 
+\[ \lim_{n\rightarrow\infty}\int_{E}f_{n}d\mu = \int_{E}fd\mu. \]
+
+
+
+\section*{9.1 [RF 4.36]}
+Let $f$ be a real-valued function of two variables $(x,y)$ that is defined on the square $\mathcal{Q} := \left\{ (x,y) : 0 \leq x \leq 1, 0\leq y \leq
+1 \right\}$ and is a measurable function of $x$ for each fixed value of $y$. For each $(x,y) \in \mathcal{Q}$, suppose $f(x,y)$ is 
+integrable with respect to $x$ and the partial derivative $\partial f / \partial y$ exists. Further, suppose there is a function $g$ that is 
+integrable over $[0,1]$ such that 
+\[ \left| \frac{\partial f}{\partial y}(x,y)\right| \leq g(x) \ \text{ for all }(x,y) \in \mathcal{Q}. \]
+Prove that 
+\[ \frac{d}{dy}\left[ \int_{[0,1]}f(x,y)d\mu(x) \right] = \int_{[0,1]}\frac{\partial f}{\partial y}(x,y)d\mu(x) \ \text{ for all }y \in [0,1]. \]
+
+
+
+\section*{9.2 [RF 4.37]}
+Let $f$ be an integrable function on $E$. Show that for each $\epsilon > 0$, there exists a natural number $N$ for which if $n \geq N$, then 
+\[ \left| \int_{E_{n}}fd\mu \right| < \epsilon, \]
+where $E_{n} := \left\{ x \in E : |x| \geq n \right\}$.
+
+
+
+
+\section*{9.3}
+Suppose $f : X \rightarrow [-\infty, \infty]$ is integrable. Prove that for each $\epsilon > 0$, there is a $\delta > 0$ such that $\int_{E}|f|d\mu <
+\epsilon$ whenever $E$ is a measurable subset of $X$ so that $\mu(E) < \delta$.
+
+
+
+
+\section*{9.4}
+Suppose $E$ is a measurable set of reals. Prove that $\mu(aE) = a \mu(E)$ whenever $a$ is a positive real.
+
+
+
+
+
+\end{document}
+
