@@ -17,7 +17,11 @@
 \declaretheorem[style=normal]{Theorem}
 \declaretheorem[style=normal]{Proposition}
 \declaretheorem[style=normal]{Lemma}
-\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim:}\space#1}{\hfill $\blacksquare$\vspace{5mm}}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\stepcounter{ClaimCounter}\par\noindent\underline{Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter\vspace{5mm}}
 
 \title{MATH 515: HW 9}
 \author{Evan ``Pete'' Walsh}
@@ -34,41 +38,94 @@
 % \maketitle
 
 \section*{1 [RF 4.36]}
-Let $f$ be a real-valued function of two variables $(x,y)$ that is defined on the square $\mathcal{Q} = \left\{ (x,y) : 0 \leq x \leq 1, 0\leq y \leq
-1 \right\}$ and is a measurable function of $x$ for each fixed value of $y$. For each $(x,y) \in \mathcal{Q}$, suppose the partial derivative $\partial f
-/ \partial y$ exists. Further, suppose there is a function $g$ that is integrable over $[0,1]$ such that 
+Let $f$ be a real-valued function of two variables $(x,y)$ that is defined on the square $\mathcal{Q} := \left\{ (x,y) : 0 \leq x \leq 1, 0\leq y \leq
+1 \right\}$ and is a measurable function of $x$ for each fixed value of $y$. For each $(x,y) \in \mathcal{Q}$, suppose $f(x,y)$ is 
+integrable with respect to $x$ and the partial derivative $\partial f / \partial y$ exists. Further, suppose there is a function $g$ that is 
+integrable over $[0,1]$ such that 
 \[ \left| \frac{\partial f}{\partial y}(x,y)\right| \leq g(x) \ \text{ for all }(x,y) \in \mathcal{Q}. \]
 Prove that 
-\[ \frac{d}{dy}\left[ \int_{[0,1]}f(x,y)dx \right] = \int_{[0,1]}\frac{\partial f}{\partial y}(x,y)dx \ \text{ for all }y \in [0,1]. \]
+\[ \frac{d}{dy}\left[ \int_{[0,1]}f(x,y)d\mu(x) \right] = \int_{[0,1]}\frac{\partial f}{\partial y}(x,y)d\mu(x) \ \text{ for all }y \in [0,1]. \]
 
 \subsection*{Solution}
-\begin{proof}
-Let $y \in [0,1]$. Let $\left\{ y_{n} \right\}_{n=0}^{\infty}$ be a sequence of reals in $[0,1]$ that converges to $y$ such that $y_{n} \neq y$ for
+\begin{Proof}
+Let $y' \in [0,1]$. Let $\left\{ y_{n} \right\}_{n=0}^{\infty}$ be a sequence of reals in $[0,1]$ that converges to $y'$ such that $y_{n} \neq y'$ for
 all $n \in \mathbb{N}$. Let 
-\[ h(x) := \frac{\partial f}{\partial y}(x,y) \ \text{ and }\ h_{n}(x):= \frac{f(x,y_{n}) - f(x,y)}{y_{n} - y} \ \text{ for all }n \in \mathbb{N}. \]
+\[ h(x) := \frac{\partial f}{\partial y}(x,y') \ \text{ and }\ h_{n}(x):= \frac{f(x,y_{n}) - f(x,y')}{y_{n} - y'} \ \text{ for all }n \in \mathbb{N}. \]
 So $\lim_{n\rightarrow \infty}h_{n}(x) = h(x)$ by the sequential definition of partial derivative. 
 
-\underline{Claim 1:} $h_{n} : [0,1] \rightarrow \mathbb{R}$ is a measurable function of $x$ for every $n \in \mathbb{N}$.
+\begin{claim} 
+$h_{n} : [0,1] \rightarrow \mathbb{R}$ is a measurable function of $x$ for every $n \in \mathbb{N}$.
+\end{claim}
 \begin{claimproof}
-Let $n \in \mathbb{N}$. By assumption $f(x,y)$ and $f(x,y_{n})$ are measurable functions of $x$. Therefore $h_{n}(x)$ is a measurable function of $x$ 
+Let $n \in \mathbb{N}$. By assumption $f(x,y')$ and $f(x,y_{n})$ are measurable functions of $x$. Therefore $h_{n}(x)$ is a measurable function of $x$ 
 by the linearity of measurable functions.
+
 \end{claimproof}
 
-\underline{Claim 2:} $h_{n}(x) \leq g(x)$ for every $n \in \mathbb{N}$ and $x \in [0,1]$.
+\begin{claim}
+$|h_{n}(x)| \leq g(x)$ for every $n \in \mathbb{N}$ and $x \in [0,1]$.
+\end{claim}
 \begin{claimproof}
-Let $n \in \mathbb{N}$ and $x \in [0,1]$. Without loss of generality, assume that $y < y_{n}$. By the Mean Value Theorem, there exists $\theta_{n} \in (y, y_{n})$ such that 
-\[ h_{n}(x) = \frac{f(x,y_{n}) - f(x,y)}{y_{n} - y} = \frac{\partial f}{\partial y}(x,\theta_{n}). \]
-So, $|h_{n}(x)| = \left| \frac{\partial f}{\partial y}(x,\theta_{n})\right| \leq g(x)$ by assumption.
+Let $n \in \mathbb{N}$ and $x \in [0,1]$. By the Mean Value Theorem, there exists $\theta_{n}$ between $y'$ and $y_{n}$ such that 
+\[ h_{n}(x) = \frac{f(x,y_{n}) - f(x,y')}{y_{n} - y'} = \frac{\partial f}{\partial y'}(x,\theta_{n}). \]
+So, $|h_{n}(x)| = \left| \frac{\partial f}{\partial y'}(x,\theta_{n})\right| \leq g(x)$ by assumption.
 \end{claimproof}
 
-By claims 1 and 2 we can apply the Dominated Convergence Theorem. Hence, by DCT and the linearity of the Lebesgue integral,
-\begin{align*}
-\int_{[0,1]}h(x)dx = \lim_{n\rightarrow\infty}\int_{[0,1]}h_{n}(x)dx & = \lim_{n\rightarrow\infty}\int_{[0,1]}\left[ \frac{f(x,y_{n}) - f(x,y)}{y_{n}-y} \right]dx \\
-& = \lim_{n\rightarrow\infty} \frac{ \int_{[0,1]}f(x,y_{n})dx - \int_{[0,1]}f(x,y)dx}{y_{n} - y} \\
-& = \frac{d}{dy}\left[ \int_{[0,1]}f(x,y)dx \right].
-\end{align*}
-\end{proof}
+By claims 1 and 2 we can apply the Dominated Convergence Theorem. Hence, 
+\begin{equation}
+\int_{[0,1]}h(x)d\mu = \lim_{n\rightarrow\infty}\int_{[0,1]}h_{n}(x)d\mu = \lim_{n\rightarrow\infty}\int_{[0,1]}\left[ \frac{f(x,y_{n}) -
+f(x,y')}{y_{n}-y'} \right]d\mu(x).
+\label{1.1}
+\end{equation} 
+Further, by the linearity of the Legesgue integral,
+\begin{equation}
+\lim_{n\rightarrow\infty}\int_{[0,1]}\left[ \frac{f(x,y_{n}) - f(x,y')}{y_{n}-y'} \right]d\mu(x) = \lim_{n\rightarrow\infty} \frac{
+\int_{[0,1]}f(x,y_{n})d\mu(x) - \int_{[0,1]}f(x,y')d\mu(x)}{y_{n} - y'}.
+\label{1.2}
+\end{equation}
+Since \eqref{1.2} holds for any sequence $\left\{ y_{n} \right\}_{n=0}^{\infty} \subseteq [0,1]$ such that $y_{n} \rightarrow y'$,
+\begin{equation}
+\lim_{n\rightarrow\infty} \frac{ \int_{[0,1]}f(x,y_{n})d\mu(x) - \int_{[0,1]}f(x,y')d\mu(x)}{y_{n} - y'} = \frac{d}{dy}\left[ \int_{[0,1]}f(x,y')d\mu(x) \right]. 
+\label{1.3}
+\end{equation}
+So by \eqref{1.1}, \eqref{1.2}, and \eqref{1.3},
+\[ \int_{[0,1]}h(x)d\mu = \frac{d}{dy}\left[ \int_{[0,1]}f(x,y')d\mu(x) \right]. \]
+\end{Proof}
 
+\subsection*{Extra Credit}
+We will show that above result holds if we relax the assumption that $f(x,y)$ integrable with respect to $x$ for all $y \in [0,1]$, to the assumption
+that there exists some $y_{0} \in [0,1]$ such that $f(x,y_{0})$ is integrable.
+
+Specifically, we will show that this new assumption will lead to the conclusion that $f(x,y)$ is integrable with respect to $x$ for all $y \in [0,1]$.
+
+\begin{Proof}
+Suppose there exists $y_{0} \in [0,1]$ and $M \in \mathbb{R}$ such that $\int_{[0,1]}|f(x,y_{0})|d\mu(x) = M$.
+
+\begin{claim}
+For all $(x,y) \in \mathcal{Q}$, $|f(x,y) - f(x,y_{0})| \leq g(x)$.
+\end{claim}
+\begin{claimproof}
+Let $(x',y') \in \mathcal{Q}$. By the Mean Value Theorem, there exists $\theta_{0} \in [0,1]$ such that $f(x',y') - f(x',y_{0}) = (y'-y_{0})\frac{\partial
+f}{\partial y}(x,\theta_0)$. But since $|y' - y_{0}| \leq 1$,
+\[ |f(x',y') - f(x',y_{0})| \leq \left|\frac{\partial f}{\partial y}(x',\theta_{0})\right| \leq g(x'). \]
+\end{claimproof}
+
+\begin{claim}
+$\int_{[0,1]}|f(x,y)|d\mu(x) < \infty$ for all $y \in [0,1]$.
+\end{claim}
+\begin{claimproof}
+Let $y' \in [0,1]$. Then, 
+\begin{align*}
+\int_{[0,1]}|f(x,y')|d\mu(x) & = \int_{[0,1]}|f(x,y_{0}) + f(x,y') - f(x,y_{0})|d\mu(x) \\
+& \leq \int_{[0,1]}|f(x,y_{0})|d\mu(x) + \int_{[0,1]}|f(x,y') -
+f(x,y_{0})|d\mu(x) \\
+& \leq \int_{[0,1]}|f(x,y_{0})|d\mu(x) + \int_{[0,1]}g(x)d\mu(x) \\
+& = M + \int_{[0,1]}g(x)d\mu(x) < \infty.
+\end{align*}
+\end{claimproof}
+
+\vspace{-5mm}
+\end{Proof}
 
 
 
@@ -76,12 +133,159 @@ By claims 1 and 2 we can apply the Dominated Convergence Theorem. Hence, by DCT 
 \section*{2 [RF 4.37]}
 Let $f$ be an integrable function on $E$. Show that for each $\epsilon > 0$, there exists a natural number $N$ for which if $n \geq N$, then 
 \[ \left| \int_{E_{n}}fd\mu \right| < \epsilon, \]
-where $E_{n} = \left\{ x \in E : |x| \geq n \right\}$.
+where $E_{n} := \left\{ x \in E : |x| \geq n \right\}$.
 
 \subsection*{Solution}
+\begin{Proof}
+Let $f : E\rightarrow [-\infty, \infty]$ be an integrable function. Define $E_{n} := \left\{ x \in E : |x| \geq n \right\}$. 
+Let $\epsilon > 0$. By way of contradiction, assume that for every $n \in \mathbb{N}$,
+\begin{equation}
+\left|\int_{E_{n}}fd\mu\right| \geq \epsilon.
+\label{2.1}
+\end{equation}
+Since $E \supseteq E_{1} \supseteq E_{2} \supseteq \cdots$, by the continuity of integration,
+\begin{equation}
+\left| \int_{\cap_{n=0}^{\infty}E_{n}}fd\mu\right| = \left| \lim_{n\rightarrow\infty}\int_{E_{n}}fd\mu\right| \stackrel{\eqref{2.1}}{\geq} \epsilon.
+\label{2.2}
+\end{equation}
+However, $\cap_{n=0}^{\infty}E_{n} = \emptyset$, so 
+\begin{equation}
+\int_{\cap_{n=0}^{\infty}E_n}fd\mu = 0, 
+\label{2.3}
+\end{equation}
+by Proposition (IV)(3)(xii). So by \eqref{2.2} and \eqref{2.3} we have a contradiction.
+\end{Proof}
 
 
 
+
+\newpage
+\section*{3}
+Suppose $f : X \rightarrow [-\infty, \infty]$ is integrable. Prove that for each $\epsilon > 0$, there is a $\delta > 0$ such that $\int_{E}|f|d\mu <
+\epsilon$ whenever $E$ is a measurable subset of $X$ so that $\mu(E) < \delta$.
+
+\subsection*{Solution}
+\begin{Proof}
+Suppose $f : X\rightarrow [-\infty, \infty]$ is integrable. Let $\epsilon > 0$. Let $A := \left\{ x \in X : |f(x)| = \infty \right\}$.
+
+\begin{claim} 
+$\mu(A) = 0$, i.e. $f$ is finite a.e.
+\end{claim}
+\begin{claimproof}
+By way of contradiction, assume $\mu(A) > 0$. Then
+\[ \int_{X}|f|d\mu \geq \int_{A}|f|d\mu = \infty \cdot \mu(A) = \infty. \]
+This is a contradiction since $f$ was assumed to be integrable.
+\end{claimproof}
+
+\vspace{-3mm}
+Let $A_{n} := \left\{ x \in X : |f(x)| > n \right\}$, for all $n \in \mathbb{N}$.
+
+\begin{claim}
+$\int_{A_{n}}|f|d\mu \rightarrow 0$ as $n\rightarrow \infty$.
+\end{claim}
+\begin{claimproof}
+Note that $A_{n} \supseteq A_{n+1}$ for all $n \in \mathbb{N}$, and $\cap_{n \geq 0}A_{n} = A$. So by claim 1 and the continuity of the Legesgue integral,
+$\lim_{n\rightarrow\infty}\int_{A_{n}}|f|d\mu = \int_{A}|f|d\mu = 0$.
+\end{claimproof}
+
+\vspace{-3mm}
+\begin{claim}
+$\mu(A_{n})\cdot n \leq \int_{A_{n}}|f|d\mu$.
+\end{claim}
+\begin{claimproof}
+Apply Chebychev's Inequality.
+% Note that $|f(x)| > n$ for all $x \in A_{n}$. Thus,
+% \[ \int_{A_{n}}|f|d\mu \geq \int_{A_{n}}nd\mu = \mu(A_{n})\cdot n. \]
+\end{claimproof}
+
+\vspace{-3mm}
+Now to prove the result there are two cases to consider.
+\begin{description}
+\item[Case 1:] There exists a $n' > 0$ such that $\mu(A_{n'}) = 0$.
+
+Set $\delta = \epsilon / (n'+1)$. Suppose $E\subseteq X$ such that $\mu(E) < \delta$. Then 
+\[ \int_{E}|f|d\mu = \underbrace{\int_{E\cap A_{n'}}|f|d\mu}_{0} + \int_{E\cap A_{n'}^{c}}|f|d\mu \leq \int_{E\cap A_{n'}^{c}}n'd\mu = \mu(E\cap
+A_{n'}^{c})\cdot n' \leq \mu(E)\cdot n' < \epsilon. \]
+
+\item[Case 2:] $\mu(A_{n}) > 0$ for all $n > 0$.
+
+By claim 2, we can choose $n' > 0$ such that $\int_{A_{n'}}|f|d\mu < \epsilon / 2$. Set $\delta = \mu(A_{n'})$. By assumption of case 2, $\delta > 0$.
+Let $E\subseteq X$ such that $\mu(E) < \delta$. Note that by claim 3,
+\begin{equation}
+\int_{E\cap A_{n'}^{c}}|f|d\mu \leq \int_{E\cap A_{n'}^{c}}n'd\mu \leq \mu(E)\cdot n' < \delta \cdot n' = \mu(A_{n'})\cdot n' \leq \epsilon / 2. 
+\label{3.3}
+\end{equation}
+Thus,
+\[ \int_{E}|f|d\mu = \int_{E\cap A_{n'}}|f|d\mu  + \int_{E\cap A_{n'}^{c}}|f|d\mu 
+\leq \int_{A_{n'}}|f|d\mu + \int_{E\cap A_{n'}^{c}}|f|d\mu \stackrel{\eqref{3.3}}{<} \epsilon / 2 + \epsilon / 2 = \epsilon.
+\]
+\end{description}
+\end{Proof}
+
+
+
+\newpage 
+\section*{4}
+Suppose $E$ is a measurable set of reals. Prove that $\mu(aE) = a \mu(E)$ whenever $a$ is a positive real.
+
+\subsection*{Solution}
+\begin{Proof}
+Let $E \subseteq \mathbb{R}$ be measurable and let $a > 0$.
+
+\begin{claim}
+If $I \subset \mathbb{R}$ is an open, nonempty, bounded interval, then $\ell(xI) = x\ell(I)$ for all $x > 0$.
+\end{claim}
+\begin{claimproof}
+Suppose $I = (c,d)$ is an open, nonempty, bounded interval. Let $x > 0$. Then 
+\[ \ell(xI) = xd - xc = x(d-c) = x\ell(I). \]
+\end{claimproof}
+
+\begin{claim}
+Let $A \subseteq \mathbb{R}$. If $\left\{ I_{n} \right\}_{n=0}^{\infty}$ is a collection of open, nonempty, bounded intervals such that
+$\cup_{n=0}^{\infty}I_{n} \supseteq A$, then $\cup_{n=0}^{\infty}xI_{n} \supseteq xA$ for all $x > 0$.
+\end{claim}
+\begin{claimproof}
+Let $A \subseteq \mathbb{R}$ and $x > 0$. Suppose $\left\{ I_{n} \right\}_{n=0}^{\infty}$ is a sequence of open, nonempty, bounded intervals such
+that $\cup_{n=0}^{\infty}I_{n} \supseteq A$. Let $y \in xA$. Then $\frac{1}{x}y \in A$. Therefore there exists some $n_{0} \in \mathbb{N}$ such that
+$\frac{1}{x}y \in I_{n_{0}} = (c_{0}, d_{0})$. So $c_{0} < \frac{1}{x}y < d_{0}$, which implies $ac_{0} < y < ad_{0}$. Hence $y \in xI_{n_{0}}$. Thus
+$y \in \cup_{n=0}^{\infty}xI_{n}$, and so $xA \subseteq \cup_{n=0}^{\infty}xI_{n}$.
+\end{claimproof}
+
+Now let 
+\begin{align*}
+S_{1} & := \left\{ \sum_{n=0}^{\infty}\ell(I_{n}) : I_{n}\text{ open, bounded, nonempty interval for all }n \in \mathbb{N} \wedge
+\cup_{n=0}^{\infty}I_{n} \supseteq E \right\}, \text{ and } \\
+S_{2} & := \left\{ \sum_{n=0}^{\infty}\ell(I_{n}) : I_{n}\text{ open, bounded, nonempty interval for all }n \in \mathbb{N} \wedge
+\cup_{n=0}^{\infty}I_{n} \supseteq aE \right\}.
+\end{align*}
+Let $m_{1} := \inf S_{1}$ and $m_{2} := \inf S_{2}$. Using Royden and Fitzpatrick's definition of measure, we need to show that $am_{1} = m_{2}$.
+
+\begin{claim}
+$am_{1} \leq m_{2}$.
+\end{claim}
+\begin{claimproof}
+Let $r > m_{2}$. Then there exists a sequence $\left\{ I_{n} \right\}_{n=0}^{\infty}$ of open, nonempty, bounded intervals such that
+$\cup_{n=0}^{\infty}I_{n} \supseteq aE$ and $\sum_{n=0}^{\infty}\ell(I_{n}) < r$. By claim 2, 
+\[ \bigcup_{n=0}^{\infty}\frac{1}{a}I_{n} \supseteq E, \]
+so $\left\{ \frac{1}{a}I_{n} \right\}_{n=0}^{\infty} \in S_{1}$. Thus, by claim 1, 
+\[ m_{1} \leq \sum_{n=0}^{\infty}\ell\left(\frac{1}{a}I_{n}\right) = \frac{1}{a}\sum_{n=0}^{\infty}\ell(I_{n}). \]
+Hence $am_{1} \leq \sum_{n=0}^{\infty}\ell(I_{n}) < r$. So $am_{1} \leq m_{2}$.
+\end{claimproof}
+
+\begin{claim}
+$m_{2} \leq am_{1}$.
+\end{claim}
+\begin{claimproof}
+Let $r > am_{1}$. Then there exists a sequence $\left\{ I_{n} \right\}_{n=0}^{\infty}$ of open, nonempty, bounded intervals such that 
+$\cup_{n=0}^{\infty}I_{n} \supseteq E$ and $\sum_{n=0}^{\infty}\ell(I_{n}) < \frac{1}{a}r$. By claim 2,
+\[ \bigcup_{n=0}^{\infty}aI_{n} \supseteq aE, \]
+so $\left\{ aI_{n} \right\}_{n=0}^{\infty} \in S_{2}$. Thus, by claim 1,
+\[ m_{2} \leq \sum_{n=0}^{\infty}\ell(aI_{n}) = a\sum_{n=0}^{\infty}\ell(I_{n}) < r. \]
+Hence $m_{2} \leq am_{1}$.
+\end{claimproof}
+
+So by claims 3 and 4, $am_{1} = m_{2}$.
+\end{Proof}
 
 
 
