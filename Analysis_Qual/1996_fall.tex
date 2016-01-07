@@ -47,11 +47,30 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \section*{Part II: Real Analysis}
 
+\subsection*{4}
+Let $E$ be a measurable subset of $\mathbb{R}$ and let $f_{n} \rightarrow f$ a.e., where $f \in L^{1}(E)$. Show that $\int_{E}|f_{n} - f|\ d\mu
+\rightarrow 0$ if and only if $\int_{E}|f_{n}|\ d\mu \rightarrow \int_{E}|f|\ d\mu$.
+
+{\bf Solution:}
+
+\begin{Proof}
+$(\Rightarrow)$ Suppose $\int_{E}|f_{n} - f|\ d\mu \rightarrow 0$. Then 
+\[ \int_{E}|f_{n}|\ d\mu - \int_{E}|f|\ d\mu = \int_{E}(|f_{n}| - |f|)\ d\mu \leq \int_{E}|f_{n} - f| \ d\mu \rightarrow 0. \]
+
+$(\Leftarrow)$ Suppose $\int_{E}|f_{n}|\ d\mu \rightarrow \int_{E}|f|\ d\mu$. Then there exists $N \in \mathbb{N}$ such that $n \geq N$ implies
+$\int_{E}|f_{n}|\ d\mu < \int_{E}|f|\ d\mu + 1$.
+Thus, since $|f_{n} - f| \leq |f_{n}| + |f|$,
+\[ \int_{E}|f_{n} - f| \ d\mu \leq \int_{E}|f_{n}|\ d\mu + \int_{E}|f|\ d\mu < 2\int_{E}|f|\ d\mu + 1 < \infty, \]
+for all $n \geq N$. Hence, by the Dominated Covergence Theorem applied to $\left\{ |f_{n} - f| \right\}_{n=N}^{\infty}$,
+\[ \lim_{n\rightarrow\infty}\int_{E}|f_{n} - f| \ d\mu = \int_{E}\lim_{n\rightarrow\infty}|f_{n} - f|\ d\mu = 0. \]
+\end{Proof}
+
+
 \subsection*{5}
 Construct a function on $[0,1]$ which is monotone increasing and discontinuous precisely at the rationals. Rigorously prove that your function has the
 desired properties.
 
-\subsection*{Solution}
+{\bf Solution:}
 Let $\left\{ \alpha_{n} \right\}_{n=0}^{\infty}$ be an enumeration of the rationals in $[0,1]$. Let $f : [0,1] \rightarrow \mathbb{R}$ be defined by 
 \[ f(x) := \sum_{\{n : \alpha_{n} \leq x \}}2^{-n}, \qquad \forall \ x \in [0,1]. \]
 \begin{claim}
@@ -81,6 +100,7 @@ There exists $N \in \mathbb{N}$ such that $\alpha_{N} = x$. So clearly $f(x) - f
 Therefore $f$ is discontinuous at $x$.
 \end{description}
 \end{claimproof}
+
 
 
 \end{document}
