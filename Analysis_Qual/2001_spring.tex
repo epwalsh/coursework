@@ -1,0 +1,123 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{3mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{Spring 2001 Analysis Qualifier}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+% \maketitle
+
+\section*{Part I: Real Analysis}
+
+\subsection*{1}
+Let $(X, \mathcal{A}, \mu)$ be an arbitrary measure space with $\mu$ a positive measure. Prove that $(X, \mathcal{A}, \mu)$ is $\sigma$-finite if and
+only if there exists a strictly positive function $f \in L^{1}(\mu)$.
+
+{\bf Solution:}
+
+\begin{Proof}
+$(\Rightarrow)$ Suppose $(X, \mathcal{A}, \mu)$ is $\sigma$-finite. Then there exists sets $\left\{ A_{n} \right\}_{n=0}^{\infty} \subseteq
+\mathcal{A}$ such that $\mu(A_{n}) < \infty$ for all $n \in \mathbb{N}$ and $X = \cup_{n=0}^{\infty}A_{n}$. Without loss of generality assume 
+$\left\{ A_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint and $A_{n} \neq \emptyset$ for all $n \in \mathbb{N}$. Let $f : X \rightarrow \mathbb{R}$
+be defined 
+\[ f(x) := \sum_{n=0}^{\infty}\frac{2^{-n}}{\mu(A_{n})}\chi_{A_{n}}(x). \] 
+Then $f$ is strictly positive and 
+\[ \|f\|_{1} = \sum_{n=0}^{\infty}2^{-n} = 2 < \infty. \]
+$(\Leftarrow)$ Suppose there exists a strictly positive function $f \in L^{1}(\mu)$. By way of contradiction assume $(X, \mathcal{A}, \mu)$ is not
+$\sigma$-finite. For each $n \in \mathbb{N}$, let $A_{n} := \left\{ x \in X : f(x) > 2^{-n} \right\}$. Since $f$ is measurable, $A_{n}$ is measurable
+for all $n$. Also, since $\cup_{n=0}^{\infty}A_{n} = X$, there must exist some $n_{0} \in \mathbb{N}$ such that $\mu(A_{n_{0}}) = \infty$. Therefore,
+\[ \|f\|_{1} = \int_{X} f\ d\mu \geq \int_{A_{n_{0}}}f \ d\mu \geq \int_{A_{n_{0}}} 2^{-n_{0}} \ d\mu = \infty. \]
+This contradicts the assumption that $f \in L^{1}(\mu)$.
+\end{Proof}
+
+\subsection*{2}
+Give an example of each of the following:
+\begin{enumerate}[label=(\alph*)]
+\item A function $f$ which is unbounded but Lebesgue integrable on $(0,\infty)$.
+\item A function $f$ which is Lipschitz continuous but not differentiable everywhere.
+\item A function $f$ which is absolutely continuous but not Lipschitz continuous on $[0,1]$.
+\item A sequence $\left\{ f_{n} \right\}$ of functions that converges to $0$ pointwise on $[0,1]$ but not in $L^{1}([0,1])$.
+\end{enumerate}
+
+{\bf Solution:}
+\begin{enumerate}[label=(\alph*)]
+\item Let $f : (0,\infty) \rightarrow \mathbb{R}$ be defined by 
+\[ f(x) := \sum_{n=0}^{\infty}2^{-n}\chi_{(n,n+1]}(x). \]
+\item Let $f(x) := |x|$.
+\item Let $f(x) := \sqrt{x}$.
+\item For each $n \in \mathbb{N}$, let $f_{n}(x) := 2^{-n}\chi_{(0,2^{-n})}(x)$.
+\end{enumerate}
+
+
+\subsection*{3}
+Let $p, q > 1$ be conjugate and $\Omega \subset \mathbb{R}^{N}$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that if $f_{n} \rightarrow f$ in $L^{p}(\Omega)$ and $g_{n} \rightarrow g$ in $L^{q}(\Omega)$, then $f_{n}g_{n} \rightarrow fg$ in
+$L^{1}(\Omega)$.
+\item Explain carefully what is meant by the statement that $L^{q}(\Omega)$ is the dual space of $L^{p}(\Omega)$.
+\end{enumerate}
+
+{\bf Solution:}
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{Proof}
+Since $f_{n} \rightarrow f$ in $L^{p}(\Omega)$, there exists $N \in \mathbb{N}$ such that $n \geq N$ implies $\|f_{n} - f\|_{p} < 1$. Thus, for $n
+\geq N$,
+\[ \bigg| \|f_{n}\|_{p} - \|f\|_{p}\bigg| \leq \|f_{n} - f\|_{p} < 1, \]
+so $\left\{ \|f_{n}\|_{p} \right\}_{n\geq N}$ is bounded.
+But since $\left\{ \|f_{n}\|_{p} \right\}_{n<N}$ is a finite collection of reals, $\left\{ \|f_{n}\|_{p} \right\}$ is bounded. 
+Thus there exists $M > 0$ such that $\|f_{n}\|_{p} < M$ for all $n$. Therefore, by Minkowski's and multiple use of H\"{o}lder's Inequality,
+\begin{align*}
+\|f_{n}g_{n} - fg\|_{1} = \|f_{n}g_{n} - f_{n}g + f_{n}g - fg\|_{1} & \leq \|f_{n}(g_{n} - g)\|_{1} + \|g(f_{n} - f)\|_{1} \\
+& \leq \|f_{n}\|_{p}\cdot\|g_{n} - g\|_{q} + \|g\|_{q}\cdot\|f_{n} - f\|_{p} \\
+& \leq M\cdot\|g_{n} - g\|_{q} + \|g\|_{q}\cdot\|f_{n} - f\|_{p} \stackrel{n\rightarrow\infty}{\longrightarrow} 0.
+\end{align*}
+\end{Proof}
+
+\item To say that $L^{q}(\Omega)$ is the dual space of $L^{p}(\Omega)$ means that for every bounded linear function $T$ on $L^{p}(\Omega)$, there exists 
+$g \in L^{q}(\Omega)$ such that
+\[ T(f) = \int_{\Omega} f\cdot g\ d\mu, \]
+for all $f \in L^{p}(\Omega)$.
+\end{enumerate}
+
+
+\end{document}
+
