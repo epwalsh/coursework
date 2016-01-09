@@ -68,6 +68,7 @@ for all $n$. Also, since $\cup_{n=0}^{\infty}A_{n} = X$, there must exist some $
 This contradicts the assumption that $f \in L^{1}(\mu)$.
 \end{Proof}
 
+\newpage
 \subsection*{2}
 Give an example of each of the following:
 \begin{enumerate}[label=(\alph*)]
@@ -87,6 +88,7 @@ Give an example of each of the following:
 \end{enumerate}
 
 
+\newpage
 \subsection*{3}
 Let $p, q > 1$ be conjugate and $\Omega \subset \mathbb{R}^{N}$.
 \begin{enumerate}[label=(\alph*)]
@@ -117,6 +119,37 @@ $g \in L^{q}(\Omega)$ such that
 \[ T(f) = \int_{\Omega} f\cdot g\ d\mu, \]
 for all $f \in L^{p}(\Omega)$.
 \end{enumerate}
+
+
+\newpage
+\subsection*{4}
+If $f \in L^{q}(\mathbb{R}^{N})$ for some $q < \infty$, show that 
+\[ \lim_{p\rightarrow\infty} \|f\|_{p} = \|f\|_{\infty}. \]
+Also show by example that the conclusion may be false without the assumption that $f \in L^{q}(\mathbb{R}^{N})$.
+
+{\bf Solution:}
+
+\begin{Proof}
+Without loss of generality assume $\|f\|_{\infty} < \infty$. Let $0 < \delta < \|f\|_{\infty}$ and let $E := \left\{ x : |f(x)| \geq \|f\|_{\infty} - \delta \right\}$. 
+Since $f \in L^{q}(\mathbb{R}^{N})$, $\mu(E) < \infty$. Now for any $0 < p < \infty$,
+\[ \|f\|_{p} \geq \left( \int_{E}(\|f\|_{\infty} - \delta)^{p} d\mu\right)^{1/p} = (\|f\|_{\infty} - \delta)\cdot \mu(E)^{1/p}, \]
+so $\liminf_{p \rightarrow \infty}\|f\|_{p} \geq \lim_{p\rightarrow\infty}\|f\|_{\infty} - \delta$. Thus,
+\begin{equation}
+\liminf_{p \rightarrow \infty} \|f\|_{p} \geq \|f\|_{\infty}.
+\label{1.4.1}
+\end{equation}
+Further, for any $0 < p < \infty$,
+\[ \|f\|_{p} = \left( \int |f|^{p-q}|f|^{q}\ d\mu \right)^{1/p} \leq \|f\|_{\infty}^{\frac{p-q}{p}}\|f\|_{q}^{q/p}. \]
+Hence 
+\begin{equation}
+\limsup_{p\rightarrow\infty}\|f\|_{p} \leq \|f\|_{\infty}.
+\label{1.4.2}
+\end{equation}
+So by \eqref{1.4.1} and \eqref{1.4.2} we have equality.
+\end{Proof}
+
+For an illustration of how this relationship fails when there does not exist a $q < \infty$ such that $f \in L^{q}(\mathbb{R}^{N})$, consider any
+constant function $f(x) \equiv c$. Then $\|f\|_{\infty} = c$ but $\|f\|_{p} = \infty$ for all $0 < p < \infty$.
 
 
 \end{document}
