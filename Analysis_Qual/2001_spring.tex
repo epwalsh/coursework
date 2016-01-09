@@ -23,7 +23,7 @@
 \newcounter{ClaimCounter}[ProofCounter]
 \newcounter{SubClaimCounter}[ClaimCounter]
 \newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
-\newenvironment{claim}[1]{\vspace{3mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
 \newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
 \newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
 % \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
@@ -151,6 +151,62 @@ So by \eqref{1.4.1} and \eqref{1.4.2} we have equality.
 For an illustration of how this relationship fails when there does not exist a $q < \infty$ such that $f \in L^{q}(\mathbb{R}^{N})$, consider any
 constant function $f(x) \equiv c$. Then $\|f\|_{\infty} = c$ but $\|f\|_{p} = \infty$ for all $0 < p < \infty$.
 
+\newpage
+\subsection*{5}
+Show that 
+\[ f(x) := \sum_{n=1}^{\infty}\frac{1}{n}\sin\left( \frac{x}{n+1} \right) \]
+converges pointwise on $\mathbb{R}$ and uniformly on each bounded interval of $\mathbb{R}$ to a differentiable function $f$ which satisfies 
+$|f(x)| \leq |x|$.
+
+{\bf Solution:}
+
+\begin{Proof}
+Note that 
+\[ \sum_{n=1}^{\infty}\frac{1}{n(n+1)} = \sum_{n=1}^{\infty}\left[ \frac{1}{n} - \frac{1}{n+1} \right] = 1. \]
+Thus,
+\begin{equation}
+|f(x)| \leq \sum_{n=1}^{\infty}\left|\frac{1}{n}\sin\left( \frac{x}{n+1} \right)\right| \leq \sum_{n=1}^{\infty}\frac{|x|}{n(n+1)} \leq |x|,
+\label{1.5.1}
+\end{equation}
+for all $x \in \mathbb{R}$. By \eqref{1.5.1} it is obvious that $f(x)$ converges pointwise and uniformly on every bounded interval of $\mathbb{R}$.
+Also, if $f_{n}(x) := \frac{1}{n}\sin\left( \frac{x}{n+1} \right)$, then $f_{n}'(x) := \frac{1}{n(n+1)}\cos\left( \frac{x}{n+1} \right)$. From a
+similar argument as above, it follows that $\sum_{n=1}^{\infty}f_{n}'(x)$ converges uniformly on every bounded interval of $\mathbb{R}$. Therefore $f$
+is differentiable with derivative 
+\[ f'(x) = \sum_{n=1}^{\infty}f_{n}'(x) \ \ \text{(see Baby Rudin Thm 7.17)}.\]
+\end{Proof}
+
+
+\newpage 
+\subsection*{6}
+Prove the Riemann-Lebesgue Lemma: For any $f \in L^{1}(\mathbb{R})$
+\[ \lim_{n\rightarrow\infty}\int_{\mathbb{R}}f(x)e^{inx}\ d\mu(x) = 0. \]
+You may use the fact that for any $f \in L^{1}(\mathbb{R})$ and $\epsilon > 0$, there exists a step function $g \in L^{1}(\mathbb{R})$ such that 
+\[ \int_{\mathbb{R}}|f(x) - g(x)|\ d\mu(x) < \epsilon. \]
+
+{\bf Solution:}
+
+\begin{Proof}
+Suppose $f \in L^{1}(\mathbb{R}$.
+\begin{claim}
+If $g : \mathbb{R} \rightarrow \mathbb{R}$ is a step function then 
+$\int g(x)e^{inx} \ d\mu(x) \rightarrow 0$ as $n \rightarrow \infty$.
+\end{claim}
+\begin{claimproof}
+Suppose $-\infty < a < b < \infty$. Then 
+\[ \left| \int \chi_{[a,b]}(x)e^{inx}\ d\mu(x) \right| = \left| \int_{a}^{b} e^{inx}\ dx \right| = \left| \frac{e^{inb} - e^{ina}}{in} \right|
+\rightarrow 0\ \text{ as } n \rightarrow \infty. \]
+By the linearity of integration claim 1 follows for any step function $g$.
+\end{claimproof}
+
+Now let $\epsilon > 0$. Then there exists a step function $g$ such that $\|f - g\|_{1} < \epsilon$. Thus,
+\begin{align*}
+\left| \int f(x)e^{inx}\ d\mu(x) \right| & = \left| \int (f(x) - g(x))e^{inx}\ d\mu(x) + \int g(x)e^{inx}\ d\mu(x) \right| \\
+& \leq \int |f(x) - g(x)|\cdot |e^{inx}|\ d\mu(x) + \left| \int g(x)e^{inx}\ d\mu(x) \right| \\
+& \leq \int |f(x) - g(x)|\ d\mu(x) + \left| \int g(x)e^{inx}\ d\mu(x) \right| \\
+& \leq \epsilon + \left| \int g(x)e^{inx}\ d\mu(x) \right| \longrightarrow \epsilon + 0.
+\end{align*}
+Since $\epsilon > 0$ was arbitrary, $\lim_{n\rightarrow\infty} \int f(x)e^{inx}\ d\mu(x) = 0$.
+\end{Proof}
 
 \end{document}
 
