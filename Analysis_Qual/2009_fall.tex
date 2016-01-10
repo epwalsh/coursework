@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{3mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{Fall 2009 Analysis Qualifier}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+% \maketitle
+
+\section*{Part II: Real Analysis}
+
+\subsection*{6}
+Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a sequence of increasing, continuously differentiable functions on the interval $[a,b]$ such that, for
+all $x \in [a,b]$, $s(x) := \sum_{n=0}^{\infty}|f_{n}(x)| < \infty$.
+Show that 
+\[ s'(x) := \sum_{n=0}^{\infty}f_{n}'(x)\ \ \text{a.e.} \]
+
+{\bf Solution:} Note that this is essentially Fubini's theorem on term-by-term differentiation and the assumption that $f_{n}'$ is continuous is not
+needed.
+
+\begin{Proof}
+Clearly $s$ is increasing so $s'$ exists a.e. on $(a,b)$. Now suppose let $x \in (a,b)$ such that $s'(x)$ exists. Then
+\begin{align*}
+s'(x) = \lim_{k\rightarrow\infty}\text{Diff}_{2^{-k}}(s)(x) = \lim_{k\rightarrow\infty}\frac{\sum_{n=0}^{\infty}f_{n}(x + 2^{-k}) - \sum_{n=0}^{\infty}
+f_{n}(x)}{2^{-k}} 
+& = \lim_{k\rightarrow\infty}\sum_{n=0}^{\infty}\frac{f_{n}(x + 2^{-k}) - f_{n}(x)}{2^{-k}} \\
+& = \lim_{k\rightarrow\infty}\sum_{n=0}^{\infty}\text{Diff}_{2^{-k}}(f_{n})(x) \\
+\text{(Fatou's) } & \geq \sum_{n=0}^{\infty} \liminf_{k\rightarrow \infty}\text{Diff}_{2^{-k}}(f_{n})(x).
+\end{align*}
+So 
+\begin{equation}
+s'(x) \geq \sum_{n=0}^{\infty}f_{n}'(x).
+\label{2.6.1}
+\end{equation}
+Now let for each $k \in \mathbb{N}$, let $\alpha_{k}(x) := \sum_{n=k+1}^{\infty}f_{n}(x)$. Clearly each $\alpha_{k}$ is an increasing function of $x$.
+Thus
+\[0 \leq \int_{a}^{b} \alpha_{k}'\ d\mu \leq \alpha_{k}(b) - \alpha_{k}(a) = \sum_{n=k+1}^{\infty}[f_{n}(b) - f_{n}(a)], \]
+and since $\sum_{n=k+1}^{\infty}[f_{n}(b) - f_{n}(a)]$ converges for all $k \in \mathbb{N}$, 
+\begin{equation}
+\lim_{k\rightarrow\infty} \int_{a}^{b}\alpha_{k}'\ d\mu = 0.
+\label{2.6.2}
+\end{equation}
+Therefore 
+\[ \int_{a}^{b}s'\ d\mu = \int_{a}^{b}\left( \sum_{n=0}^{k}f_{n} \right)' d\mu + \int_{a}^{b}\alpha_{k}'\ d\mu 
+= \int_{a}^{b}\sum_{n=0}^{k}f_{n}'\ d\mu + \int_{a}^{b}\alpha_{k}'\ d\mu 
+\leq \int_{a}^{b} \sum_{n=0}^{\infty}f_{n}'\ d\mu + \int_{a}^{b}\alpha_{k}'\ d\mu. \]
+Hence by \eqref{2.6.2}
+\begin{equation}
+\int_{a}^{b}s'\ d\mu \leq \int_{a}^{b}\sum_{n=0}^{\infty}f_{n}'\ d\mu + \lim_{k\rightarrow\infty}\int_{a}^{b}\alpha_{k}'\ d\mu =
+\int_{a}^{b}\sum_{n=0}^{\infty}f_{n}'\ d\mu.
+\label{2.6.3}
+\end{equation}
+However, the only way that \eqref{2.6.1} and \eqref{2.6.3} can be consisted is if $s'(x) = \sum_{n=0}^{\infty}f_{n}'(x)$ a.e.
+\end{Proof}
+
+
+\end{document}
+
