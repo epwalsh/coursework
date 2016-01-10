@@ -47,6 +47,102 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \section*{Part II: Real Analysis}
 
+\subsection*{3}
+Let $f$ be continuous on $\mathbb{R}$ and let 
+\[ F_{n}(x) := \frac{1}{n}\sum_{k=0}^{n-1}f\left( x + \frac{k}{n} \right). \]
+Prove that $F_{n}$ converges uniformly on every finite interval $[a,b]$.
+
+{\bf Solution:}
+
+\begin{Proof}
+Let $-\infty < a < b < \infty$.
+
+\begin{claim}
+$F_{n}(x)$ converges pointwise to $\int_{x}^{x+1}f\ d\mu$ for all $x \in [a,b]$.
+\end{claim}
+\begin{claimproof}
+Let $x \in [a,b]$. For each $n \geq 1$ and $0 \leq k < n$, let 
+\[ E_{n,k} := \left\{ t : x + \sum_{i=0}^{k-1}\frac{i}{n} \leq t < x + \sum_{i=0}^{k}\frac{i}{n} \right\}. \]
+Now, since $f$ is contiuous on $[x,x+1]$, there exists $M > 0$ such that $|f(t)| < M$ for all $t \in [x,x+1]$. Therefore $\sum_{k=0}^{n-1}f\left(
+x + \frac{k}{n} \right)\chi_{E_{n,k}}(t) \leq M$ for all $n \in \mathbb{N}, t \in [x,x+1]$. Thus, by the Dominated Convergence Theorem,
+\[ \lim_{n\rightarrow\infty}F_{n}(x) = \lim_{n\rightarrow\infty}\frac{1}{n}\sum_{k=0}^{n-1}f\left( x + \frac{k}{n} \right) = \lim_{n\rightarrow\infty}
+\int_{x}^{x+1} \sum_{k=0}^{n-1}f\left( x + \frac{k}{n} \right)\chi_{E_{n,k}}(t)\ d\mu(t) = \int_{x}^{x+1}f\ d\mu. \]
+\end{claimproof}
+
+Now we will show that the convergence of $\left\{ F_{n} \right\}$ is uniform. Let $\epsilon > 0$. Since $f$ is continuous on $[a,b+1]$, $f$ is
+uniformly contiuous on $[a,b+1]$. Therefore there exists $\delta > 0$ such that $|f(t_{0}) - f(t_{1})| < \epsilon/2$ whenever $|t_{0} - t_{1}| <
+\delta$. Choose $N \geq 1$ such that $N^{-1} < \delta$. Thus, for $n \geq N$ and $x \in [a,b]$,
+\begin{align*}
+\left| F_{n}(x) - \int_{x}^{x+1}f\ d\mu \right| & = \left| \sum_{k=0}^{n-1} \int_{E_{n,k}}f\left( x + \frac{k}{n} \right)d\mu - \int_{x}^{x+1}f\
+d\mu\right| \\
+& = \left| \sum_{k=0}^{n-1}\int_{E_{n,k}}\left[f\left( x + \frac{k}{n} \right) - f(x)\right] d\mu \right| \\
+& \leq \sum_{k=0}^{n-1}\int_{E_{n,k}}\left|f\left( x + \frac{k}{n} \right) - f(x)\right|d\mu \\
+& \leq \sum_{k=0}^{n-1} \int_{E_{n,k}} \frac{\epsilon}{2}\ d\mu \\
+& = \sum_{k=0}^{n-1}\frac{\epsilon}{2n} = \frac{\epsilon}{2} < \epsilon.
+\end{align*}
+\end{Proof}
+
+\newpage
+\subsection*{4}
+Let $\left\{ f_{n} \right\}$, $f$ be measurable functions on $[0,1]$. Show that $f_{n} \rightarrow f$ is measure on $[0,1]$ if and only if 
+\[ \lim_{n\rightarrow\infty} \int_{0}^{1} \frac{|f_{n} - f|}{1 + |f_{n} - f|} \ d\mu = 0. \]
+
+{\bf Solution:}
+
+\begin{Proof}
+Let $g(x) = \frac{|x|}{1+|x|}$, $x \geq 0$.
+
+$(\Rightarrow)$ First suppose $f_{n} \rightarrow f$ in measure on $[0,1]$. Let $\epsilon > 0$. Then
+\begin{align*}
+\int_{0}^{1}g\circ f\ d\mu  = \int_{\{|f_{n} - f| > \epsilon\}}g\circ f\ d\mu + \int_{\{|f_{n} - f| \leq \epsilon\}}g\circ f\ d\mu & \leq
+\int_{\{|f_{n} - f|>\epsilon\}}1\ d\mu + \int_{0}^{1}\epsilon \ d\mu \\
+& = \mu\left( \left\{ |f_{n} - f| > \epsilon \right\} \right) + \epsilon.
+\end{align*}
+Therefore $0 \leq \limsup_{n\rightarrow\infty} \int_{0}^{1} g\circ f \ d\mu \leq \epsilon$, so $\lim_{n\rightarrow\infty}\int_{0}^{1}g\circ f\ d\mu =
+0$.
+
+$(\Leftarrow)$ Now suppose $\lim_{n\rightarrow\infty}\int_{0}^{1}g\circ f\ d\mu = 0$. Let $\epsilon > 0$. Then
+\begin{align*}
+\mu\left( \left\{ x \in [0,1] : |f_{n}(x) - f(x)| > \epsilon \right\} \right) = \mu\left( \left\{ x\in [0,1] : g(f(x)) > g(\epsilon) \right\} \right) & \leq
+g(\epsilon) \int_{\{|f_{n} - f| > \epsilon\}}g\circ f\ d\mu  \\
+& \leq \int_{0}^{1} g\circ f \ d\mu.
+\end{align*}
+Therefore 
+\[ 0 \leq \limsup_{n\rightarrow\infty}\mu\left( \left\{ |f_{n} - f| > \epsilon \right\} \right) \leq \limsup_{n\rightarrow\infty}\int_{0}^{1}g\circ f\ d\mu = 0. \]
+\end{Proof}
+
+\newpage
+\subsection*{5}
+Suppose $f : \mathbb{R} \rightarrow [0, \infty)$ is measurable and $\int f\ d\mu = c$, where $0 < c < \infty$. Prove 
+\[ \lim_{n\rightarrow\infty} \int n \log\left[ 1 + \left( \frac{f(x)}{n} \right)^{\alpha} \right]d\mu(x) = \left\{ \begin{array}{cl}
+\infty & \text{ if } 0 < \alpha < 1 \\
+c & \text{ if } \alpha = 1 \\
+0 & \text{ if } \alpha > 1.
+\end{array}\right. \]
+Hint: Show when $\alpha \geq 1$ that the integrand is dominated by $\alpha f(x)$.
+
+{\bf Solution:}
+
+\begin{Proof}
+Let $g\circ f := n\log\left[ 1 + \left( \frac{f}{n} \right)^{\alpha} \right]$. Then for all $x \in \mathbb{R}$,
+\begin{equation}
+\lim_{n\rightarrow\infty}g(f(x)) = \lim_{n\rightarrow\infty}\log\left[ 1 + \left( \frac{f(x)^{\alpha}}{n^{\alpha - 1}} \right)\left( \frac{1}{n} \right)
+ \right]^{n} = \left\{ \begin{array}{cl}
+\infty & \text{ if } 0 < \alpha < 1 \\
+f(x) & \text{ if } \alpha = 1 \\
+0 & \text{ if } \alpha > 1.
+\end{array} \right.
+\label{2.5.1}
+\end{equation}
+Now, for $\varphi(x) \geq 0$ and $\alpha \geq 1$, we have $1 + \varphi(x)^{\alpha} \leq (1 + \varphi(x))^{\alpha}$. Thus 
+\[ \log(1 + \varphi(x))^{\alpha} \leq \alpha \log(1 + \varphi(x)) \leq \alpha \varphi(x). \]
+Hence, for $\alpha \geq 1$,
+\[ g(f(x)) \leq n\alpha\frac{f(x)}{n} = \alpha f(x). \]
+So by applying the Dominated Convergence Theorem we have the result for $\alpha = 1$ and $\alpha > 1$. For $0 < \alpha < 1$ we can apply Fatou's Lemma.
+\end{Proof}
+
+
+\newpage
 \subsection*{6}
 Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a sequence of increasing, continuously differentiable functions on the interval $[a,b]$ such that, for
 all $x \in [a,b]$, $s(x) := \sum_{n=0}^{\infty}|f_{n}(x)| < \infty$.
