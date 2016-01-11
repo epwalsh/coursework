@@ -47,6 +47,41 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \section*{Part II: Real Analysis}
 
+\subsection*{1}
+Let $f$ be a Borel measurable function which is Lebesgue integrable on $\mathbb{R}$. Suppose for every $a < b$ that 
+$\int_{a}^{b}f\ d\mu = 0$. Show that $f = 0$ a.e.
+
+{\bf Solution:}
+\begin{Proof}
+Let $E := \left\{ x \in \mathbb{R} : f(x) > 0 \right\}$. We will show that $\mu(E) = 0$. The proof that $\mu\left( \left\{ x : f(x) < 0 \right\}
+\right) = 0$ follows by the same argument. Since $f$ is measurable, $E$ is measurable. Let $E_{n} := E \cap (-n,-n+1]\cup[n-1,n)$ for all $n \geq 1$.
+Thus $E = \cup_{n=1}^{\infty}E_{n}$ and each $E_{n}$ is measurable, and $\left\{ E_{n} \right\}_{n=1}^{\infty}$ is pairwise disjoint. 
+Thus, for each $n$ there exists a $G_{\delta}$ set $G_{n}$ such that $G_{n}\supseteq
+E_{n}$ and 
+\begin{equation}
+\mu(G_{n} - E_{n}) = 0. 
+\label{2.1.1}
+\end{equation}
+Without loss of generality assume $G_{n} = \cap_{k=1}^{\infty}O_{n,k}$ where $\left\{ O_{n,k}
+\right\}_{k=1}^{\infty}$ is a descending sequence of bounded, open sets. But then $O_{n,k} = \cup_{j\in \mathcal{F}_{n,k}}I_{j}$, where $I_{j}$ is a bounded,
+open interval for every $j \in \mathcal{F}_{n,k}$, $k,n \geq 1$, and therefore 
+\[ \int_{I_{j}} f\ d\mu = 0 \]
+by assumption. Thus,
+\begin{equation}
+\int_{O_{n,k}}f\ d\mu = \sum_{j\in\mathcal{F}_{n,k}}\int_{I_{j}}f\ d\mu = 0.
+\label{2.1.2}
+\end{equation}
+Hence, using the continuity of integration,
+\[ \int_{E}f\ d\mu = \sum_{n=1}^{\infty}\int_{E_{n}}f\ d\mu \stackrel{\eqref{2.1.1}}{=} \sum_{n=1}^{\infty}\int_{G_{n}}f\ d\mu  
+= \sum_{n=1}^{\infty}\left[ \lim_{k\rightarrow\infty}\int_{O_{n,k}}f\ d\mu \right] \stackrel{\eqref{2.1.2}}{=} 0. \]
+Since $\int_{E}f\ d\mu = 0$ and $f > 0$ on $E$, $\mu(E) = 0$.
+\end{Proof}
+
+
+\subsection*{2}
+This is just the Borel-Cantelli Lemma.
+
+\newpage
 \subsection*{3}
 Let $f$ be continuous on $\mathbb{R}$ and let 
 \[ F_{n}(x) := \frac{1}{n}\sum_{k=0}^{n-1}f\left( x + \frac{k}{n} \right). \]
