@@ -248,7 +248,13 @@ Therefore
 
 
 \subsection*{8}
-
+\begin{Proof}
+By Proposition 2.5.7 (ii) [A/L], $\left\{ X_{n} : n \geq 1 \right\}$ is UI. Now note that 
+\[ \left| \int X_{n} \ dP - \int X_{0}\ dP \right| = \left| \int X_{n} - X_{0}\ dP \right| \leq \int |X_{n} - X_{0}| \ dP, \]
+for all $n \geq 1$. Therefore, by Theorem 2.5.10 [A/L],
+\[ 0 \leq \liminf_{n\rightarrow\infty}\left| \int X_{n} \ dP - \int X_{0}\ dP \right| \leq \liminf_{n\rightarrow\infty}\int |X_{n} - X_{0}|\ dP = 0. \]
+So $\lim_{n\rightarrow\infty} \int X_{n} \ dP = \int X_{0}\ dP$.
+\end{Proof}
 
 
 
