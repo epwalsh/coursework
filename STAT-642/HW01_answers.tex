@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{STAT 642: HW 1}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+
+\begin{Proof} Let $\Omega := (0,1]$ and $\mathcal{F}$ consist of all finite disjoint intervals of the form $(a,a'] \subseteq (0,1]$.
+
+\begin{claim}
+$\mathcal{F}$ is an algebra.
+\end{claim}
+\begin{claimproof}
+Clearly $\Omega \in \mathcal{F}$. Now suppose $0 \leq a \leq a' \leq 1$ and $0 \leq b \leq b' \leq 1$. Then 
+\[ (0,1] - (a,a'] = (0,a] \cup (a', 1] \in \mathcal{F}, \]
+so $\mathcal{F}$ is closed under complementation. Further, if $a' < b$ or $b' < a$, then clearly 
+\begin{equation}
+(a,a'] \cap (b,b'] = \emptyset = \Omega^{c} \in \mathcal{F}.
+\label{1.1}
+\end{equation}
+On the other hand, if $b \leq a'$ and $a \leq b'$, then 
+\begin{equation}
+(a,a'] \cap (b,b'] = (\max\left\{ a,b \right\}, \min\left\{ a',b' \right\}] \in \mathcal{F}.
+\label{1.2}
+\end{equation}
+So by \eqref{1.1} and \eqref{1.2}, the intersection of any two such intervals is in $\mathcal{F}$. Now suppose $A, B \in \mathcal{F}$. Then $A =
+\cup_{i=1}^{n}(a_{i}, a_{i}']$ and $B = \cup_{j=1}^{m}(b_{j},b_{j}']$. Therefore 
+\[ A\cap B = \cup_{i=1}^{n}\cup_{j=1}^{m}(a_{i},a_{i}']\cap (b_{j},b_{j}'] \in \mathcal{F} \]
+by the above considerations. This proves that $\mathcal{F}$ is an algebra.
+\end{claimproof}
+
+\begin{claim}
+$\mathcal{F}$ is NOT a $\sigma$-algebra.
+\end{claim}
+\begin{claimproof}
+Note that $\cup_{n=0}^{\infty}(0,1-2^{-n}] = (0,1) \notin \mathcal{F}$. Thus $\mathcal{F}$ is not closed under countable unions, so cannot be a $\sigma$-algebra.
+\end{claimproof}
+
+\end{Proof}
+
+
+
+
+
+\subsection*{2}
+
+\begin{Proof}
+It suffices to show that $\mathcal{L}$ is closed under countable unions. So, let $\left\{ A_{n} \right\}_{n=0}^{\infty} \subset \mathcal{L}$. Set
+$B_{0} := A_{0}$, and for each $n \geq 1$, recursively define $B_{n} := B_{n-1} \cup A_{n}$. By the properties of $\lambda$ and $\pi$-classes, 
+$B_{n} = (B_{n-1}^{c} \cap A_{n}^{c})^{c} \in \mathcal{F}$ for each $n \in \mathbb{N}$, since $\mathcal{L}$ is closed under complementation and finite
+intersections. Further, by construction we have $B_{n} \subset B_{n+1}$ for every $n \in \mathbb{N}$, so 
+\[ \cup_{n=0}^{\infty}A_{n} = \cup_{n=0}^{\infty}B_{n} \in \mathcal{L}, \]
+since $\mathcal{L}$ is a $\lambda$-class.
+\end{Proof}
+
+
+
+
+\subsection*{3 [A/L 2.1]}
+\begin{enumerate}[label=(\alph*)]
+\item 
+
+\begin{Proof}
+Let $\omega_0 \in T^{-1}(\cup_{\alpha \in I}A_{\alpha}) = \left\{ \omega \in \Omega_{1} : T(\omega) \in \cup_{\alpha \in I}A_{\alpha} \right\}$. Then
+$T(\omega_0) \in \cup_{\alpha \in I}A_{\alpha}$, so $T(\omega_{0}) \in A_{\alpha_0}$ for some $\alpha_{0} \in I$. Thus, $w_0 \in T^{-1}(A_{\alpha_{0}})$, so
+$w_{0} \in \cup_{\alpha \in I}T^{-1}(A_\alpha)$. Hence 
+\begin{equation}
+T^{-1}\left( \bigcup_{\alpha\in I}A_{\alpha} \right) \subseteq \bigcup_{\alpha\in I}T^{-1}(A_\alpha).
+\label{1}
+\end{equation}
+Now, let 
+\begin{align*}
+\omega_{1} \in \cup_{\alpha \in I}T^{-1}(A_\alpha) & = \cup_{\alpha\in I}\left\{ \omega \in \Omega_{1} : T(\omega) \in A_\alpha \right\} \\
+& = \left\{ \omega \in \Omega_{1} : T(\omega) \in A_{\alpha}, \text{ for some }\alpha \in I \right\} \\
+& = \left\{ \omega \in \Omega_1 : T(\omega) \in \cup_{\alpha \in I}A_{\alpha} \right\} \\
+& = T^{-1}\left( \bigcup_{\alpha \in I}A_{\alpha} \right).
+\end{align*}
+Therefore 
+\begin{equation}
+\bigcup_{\alpha \in I}T^{-1}(A_{\alpha}) \subseteq T^{-1}\left( \bigcup_{\alpha \in I}A_{\alpha} \right).
+\label{2}
+\end{equation}
+By \ref{1} and \ref{2} we have equality.
+\end{Proof}
+
+\item 
+
+\begin{Proof}
+Let $\omega_{0} \in T^{-1}\left( \cap_{\alpha \in I}A_{\alpha} \right) = \left\{ \omega \in \Omega_{1} : T(\omega) \in \cap_{\alpha \in I}A_{\alpha}
+\right\}$. Then $T(\omega_0) \in \cap_{\alpha \in I}A_\alpha$, so $T(\omega_0) \in A_{\alpha}$ for every $\alpha \in I$. Thus $\omega_0 \in
+T^{-1}(A_\alpha)$ for every $\alpha \in I$. Hence $\omega_0 \in \cap_{\alpha\in I}T^{-1}(A_\alpha)$. So 
+\begin{equation}
+T^{-1}\left( \bigcap_{\alpha\in I}A_{\alpha} \right) \subseteq \bigcap_{\alpha\in I}T^{-1}(A_\alpha).
+\label{3}
+\end{equation}
+Now, let $\omega_{1} \in \cap_{\alpha\in I}T^{-1}(A_\alpha)$. Then $\omega_1 \in T^{-1}(A_\alpha) = \left\{ \omega \in \Omega_1 : T(\omega) \in
+A_\alpha \right\}$ for each $\alpha \in I$. So $\omega_1 \in \left\{ \omega \in \Omega_1 : T(\omega) \in \cap_{\alpha \in I}A_\alpha \right\} =
+T^{-1}\left( \cap_{\alpha \in I}A_\alpha \right)$. Thus 
+\begin{equation}
+\bigcap_{\alpha \in I}T^{-1}(A_\alpha) \subseteq T^{-1}\left( \bigcap_{\alpha\in I}A_\alpha \right).
+\label{4}
+\end{equation}
+So by \ref{3} and \ref{4} we have equality.
+\end{Proof}
+
+\item
+
+\begin{Proof}
+Let $\omega_0 \in \left( T^{-1}(A) \right)^{c}$. Then $\omega_0 \notin T^{-1}(A)$. So 
+\[ \omega_0 \in \left\{ \omega \in \Omega_1 : T(\omega) \notin A \right\} =  \left\{ \omega \in \Omega_1 : T(\omega) \in A^{c} \right\} =
+T^{-1}(A^{c}). \]
+Hence 
+\begin{equation}
+\left( T^{-1}(A) \right)^{c} \subseteq T^{-1}(A^{c}).
+\label{5}
+\end{equation}
+Now, let $\omega_1 \in T^{-1}(A^{c}) = \left\{ \omega\in \Omega_1 : T(\omega) \in A^{c} \right\} = \left\{ \omega \in \Omega_1 : T(\omega) \notin A
+\right\}$. Then $\omega_1 \notin T^{-1}(A)$, so $\omega_1 \in \left( T^{-1}(A) \right)^{c}$. Hence 
+\begin{equation}
+T^{-1}(A^{c}) \subseteq \left( T^{-1}(A) \right)^{c}.
+\label{6}
+\end{equation}
+So by \ref{5} and \ref{6} we have equality.
+\end{Proof}
+\end{enumerate}
+
+
+
+\subsection*{4}
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{Proof}
+$(\Rightarrow)$ Suppose $A \subset \mathbb{R}$ is measurable. Then for any $B \in \mathcal{B}(\mathbb{R})$,
+\[ f^{-1}[B] = \left\{ \begin{array}{cl}
+A & \text{ if } 1 \in B \wedge 0 \notin B \\
+A^{c} & \text{ if } 1 \notin B \wedge 0 \in B \\
+\emptyset & \text{ if } 1,0 \notin B \\
+\mathbb{R} & \text{ if } 1,0 \in B.
+\end{array} \right. \]
+In each case above, $f^{-1}[B] \in \mathcal{B}(\mathbb{R})$, so $f$ is measurable.
+
+$(\Leftarrow)$ Now suppose $f$ is measurable. Then $A = f^{-1}[\{1\}] \in \mathcal{B}(\mathbb{R})$.
+\end{Proof}
+
+\item 
+\begin{Proof}
+Let $a \in \mathbb{R}$. It suffices to show that $f^{-1}[(-\infty, a)] \in \mathcal{B}(\mathbb{R})$. Let $c := \sup\left\{ x : f(x) < a \right\}$.
+Then 
+\[ f^{-1}[(-\infty, a)] = \left\{ x : f(x) < a \right\} = (-\infty, c) \in \mathcal{B}(\mathbb{R}). \]
+\end{Proof}
+
+\end{enumerate}
+
+
+
+\subsection*{5}
+
+Let $x \in \mathbb{R}$. If $x < 0$, then $f_{n}(x) = 0$ for all $n \in \mathbb{N}$. If $x \geq 0$, then there exists $N \in \mathbb{N}$ such that $N >
+x$. Therefore $f_{n}(x) = 0$ for all $n \geq N$. This implies that $f(x) \equiv 0$. However, for each $n \in \mathbb{N}$,
+\[ \int f_{n}(x) \ dm(x) = \frac{1}{n}\cdot m([n,2n]) = 1, \]
+so $\lim_{n\rightarrow\infty} \int f_{n}\ dm = 1 \neq \int f\ dm$.
+
+
+\subsection*{6}
+
+\begin{Proof}
+Let $\epsilon > 0$. Since $f^{+}$ and $f^{-}$ are nonnegative and integrable, there exists simple functions $\varphi \leq f^{+}$ and $\xi(x) \leq
+f^{-}$ such that 
+\begin{equation}
+\int f^{+}\ d\mu - \int \varphi\ d\mu < \epsilon / 2, \qquad \text{and} \qquad \int f^{-}\ d\mu - \int \xi\ d\mu < \epsilon / 2.
+\label{6.1}
+\end{equation}
+(This is just a consequence of the definition of Legesgue integral) 
+
+Now set $\psi(x) = \varphi(x) + \xi(x)$. Clearly $\psi$ is a simple function and by \eqref{6.1},
+\[ \int |f - \psi|\ d\mu = \int |f^{+} - f^{-} - \varphi + \xi|\ d\mu \leq \int |f^{+} - \varphi|\ d\mu + \int |f^{-} - \xi|\ d\mu < \epsilon. \]
+\end{Proof}
+
+
+
+\subsection*{7}
+
+\begin{Proof}
+Let $f := p -q$. Then 
+\[ 0 = P(\Omega) - Q(\Omega) = \int f \ d\mu = \int f^{+}\ d\mu - \int f^{-}\ d\mu, \]
+so 
+\begin{equation}
+\int f^{+}\ d\mu = \int f^{-}\ d\mu.
+\label{7.1}
+\end{equation}
+Let $A \in \mathcal{F}$. Then 
+\begin{align*}
+|P(A) - Q(A)| = \left| \int_{A} f\ d\mu \right| & \leq \max\left\{ \int_{A}f^{+}\ d\mu, \int_{A}f^{-}\ d\mu \right\} \\
+& \leq \max\left\{ \int f^{+}\ d\mu, \int f^{-} \ d\mu \right\} \\
+\text{(by \eqref{7.1}) } & = \frac{1}{2}\left[ \int f^{+}\ d\mu + \int f^{-} \ d\mu \right] \\
+& = \frac{1}{2}\int |f| \ d\mu.
+\end{align*}
+Now let $A' := \left\{ \omega \in \Omega : f^{+}(\omega) > 0 \right\}$. Since $f$ is measurable, $A' \in \mathcal{F}$. Following the above computation
+with $A'$, we get 
+\[ |P(A') - Q(A')| = \left| \int_{A'} f\ d\mu\right| = \int f^{+} \ d\mu = \max\left\{ \int f^{+}\ d\mu, \int f^{-}\ d\mu \right\} = \frac{1}{2}\int
+|f|\ d\mu. \]
+Therefore 
+\[ \sup_{A}|P(A) - Q(A)| = \frac{1}{2}\int |f|\ d\mu. \]
+\end{Proof}
+
+
+
+\subsection*{8}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
