@@ -43,7 +43,104 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \cfoot{}
 
 \begin{document}
-\maketitle
+% \maketitle
+
+\subsection*{1}
+Let $\mathcal{A} := \left\{ E \subseteq [0,1] : \chi_{E} \text{ is Riemann integrable} \right\}$. Prove that $\mathcal{A}$ is an algebra but not a
+$\sigma$-algebra.
+
+{\bf Solution:}
+
+\begin{Lemma}
+If $s_{1}, s_{2}$ are step functions on $[a,b]$, then $\max\left\{ s_{1}, s_{2} \right\}$ is also a step function on $[a,b]$.
+\end{Lemma}
+\begin{Proof}
+Suppose $P_{1} := (x_{0}, \hdots, x_{n})$ and $P_{2} := (y_{0}, \hdots, y_{m})$ are partitions of $[0,1]$ such that $s_{1}$ is constant on $(x_{i-1},
+x_{i})$ and $s_{2}$ is constant on $(y_{j-1}, y_{j})$ for all $1\leq i \leq n$, $1 \leq j \leq m$. Let $P$ be the partition formed by the union of
+$P_{1}$ and $P_{2}$. Then it is clear that $\max\left\{ s_{i} \right\}_{i=1,2}$ is constant over each subinterval of $P$. Hence it is a step function.
+\end{Proof}
+
+Now we will prove that $\mathcal{A}$ is an algebra.
+
+\begin{Proof}
+Clearly $\chi_{[0,1]}$ is Riemann integrable, so $[0,1] \in \mathcal{A}$. Now suppose $E \in \mathcal{A}$. Then 
+\[ \chi_{E^{c}}(x) = 1 - \chi_{E}(x) = \chi_{[0,1]}(x) - \chi_{E}(x),\]
+for all $x \in [0,1]$. Therefore $\chi_{E^{c}}$ is Riemann integrable since $\chi_{[0,1]}$ and $\chi_{E}$ are Riemann integrable. So $\mathcal{A}$ is
+closed under complementation. Lastly, it suffices to show that $\mathcal{A}$ is closed under finite unions. So suppose $E_{1}, E_{2} \in \mathcal{A}$
+and let $\epsilon > 0$. Since $\chi_{E_{1}}$ and $\chi_{E_{2}}$ are Riemann integrable, there are step functions $\varphi_{1}, \psi_{1}, \varphi_{2},
+\psi_{2}$ over $[0,1]$ for which $\psi_{1} \leq \chi_{E_{1}} \leq \varphi_{1}$, $\psi_{2} \leq \chi_{E_{2}} \leq \varphi_{2}$ and such that
+\begin{equation}
+\int (\varphi_{1} - \psi_{1}) < \epsilon / 2 \qquad \text{and}\qquad \int (\varphi_{2} - \psi_{2}) < \epsilon / 2.
+\label{1.1}
+\end{equation}
+Let $\varphi := \max\left\{ \varphi_{1}, \varphi_{2} \right\}$ and $\psi:= \max\left\{ \psi_{1}, \psi_{2} \right\}$. By Lemma 1 $\varphi$ and $\psi$
+are step functions. Further, for each $x \in [0,1]$,
+\begin{equation}
+\psi(x) \leq \chi_{E_{1} \cup E_{2}}(x) = \max\left\{ \chi_{E_{1}}(x), \chi_{E_{2}}(x) \right\} \leq \varphi(x).
+\label{1.2}
+\end{equation}
+Now note that 
+\[ \max\left\{ \varphi_{1}(x), \varphi_{2}(x) \right\} - \max\left\{ \psi_{1}(x), \psi_{2}(x) \right\} \leq \varphi_{1}(x) - \psi_{1}(x) +
+\varphi_{2}(x) -\psi_{2}(x)\] 
+since $\varphi_{1}(x) \geq \psi_{1}(x)$ and $\varphi_{2}(x) \geq \psi_{2}(x)$. Thus, by \eqref{1.1}, we have 
+\begin{equation}
+\int (\varphi - \psi) \leq \int (\varphi_{1} - \psi_{1} + \varphi_{2} - \psi_{2}) = \int (\varphi_{1} - \psi_{1}) + \int (\varphi_{2} - \psi_{2}) <
+\epsilon. 
+\label{1.3}
+\end{equation}
+So by \eqref{1.2} and \eqref{1.3}, $\chi_{E_{1}\cup E_{2}}$ is Riemann integrable, and therefore $E_{1} \cup E_{2} \in \mathcal{A}$.
+\end{Proof}
+
+To see that $\mathcal{A}$ is not a $\sigma$-algebra, consider first that $\chi_{\{x\}}$ is Riemann integrable for any $x \in [0,1]$. Therefore $q \in
+\mathcal{A}$ for, say, all rational $q \in [0,1]$. However, $\mathbb{Q}\cap [0,1]$, a countable union of singletons belonging to $\mathcal{A}$, is
+clearly not in $\mathcal{A}$ since we have shown the Dirichlet function to not be Riemann integrable.
+
+
+\newpage
+\subsection*{2}
+Give an example of a monotone class that is not a $\sigma$-algebra.
+
+{\bf Solution:} Let $\mathcal{M} = \{\mathbb{N}\} \cup \left\{ \{0,\hdots,n\} : n \in \mathbb{N} \right\}$. Then $\mathcal{M}$ is closed under any
+countable unions or countable intersections, and therefore is a monotone class. However, $\{1,2\}^{c} = \{3, 4, 5, \hdots\}$, for example, is not in
+$\mathcal{M}$, so $\mathcal{M}$ is not closed under complementation.
+
+
+
+\subsection*{3 [RF 17.2]}
+Let $\mathcal{M}$ be a $\sigma$-algebra of subsets of a set $X$ and the set function $\mu : \mathcal{M} \rightarrow [0, \infty)$ be finitely additive.
+Prove that $\mu$ is a measure if and only if whenever $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is an ascending sequence of sets in $\mathcal{M}$, then 
+\[ \mu\left( \cup_{n=0}^{\infty}A_{n} \right) = \lim_{n\rightarrow\infty}\mu(A_{n}). \]
+
+{\bf Solution:}
+
+\begin{Proof}
+$(\Rightarrow)$ Apply Proposition (I)(1)xix.
+
+$(\Leftarrow)$ First note that for any $E \in \mathcal{M}$, $\mu(E) = \mu(E) + \mu(\emptyset)$ by finite additivity, so $\mu(\emptyset) = 0$. It
+remains to show that $\mu$ is countably additive. Suppose $\left\{ E_{k} \right\}_{k=0}^{\infty} \subseteq \mathcal{M}$ is pairwise disjoint. Set
+$A_{n} := \cup_{k=0}^{n}E_{k}$. So $A_{n} \subseteq A_{n+1}$. Thus,
+\[ \mu\left( \cup_{k=0}^{\infty}E_{k} \right) = \mu\left( \cup_{n=0}^{\infty}A_{n} \right) = \lim_{n\rightarrow\infty}\mu(A_{n}) =
+\lim_{n\rightarrow\infty}\sum_{k=0}^{n}\mu(E_{k}) = \sum_{k=0}^{\infty}\mu(E_{k}). \]
+\end{Proof}
+
+
+\subsection*{4}
+Let $\mathcal{S}$ denote the $\sigma$-algebra of all Legesgue measurable subsets of $[0,1]$ and let $\mu$ denote Lebesgue measure on $[0,1]$. Suppose
+$A$ is a measurable subset of $[0,1]$. For each $\alpha \in [0,1]$, let $f(\alpha) := \mu([0,\alpha]\cap A)$. Prove that $f$ is continuous.
+
+{\bf Solution:} Actually it turns out $f$ is Lipschitz continuous.
+
+\begin{Proof}
+Let $t_{0}, t_{1} \in [0,1]$ and assume without loss of generality that $t_{0} \leq t_{1}$. Then using monoticity and the excision property of
+measures,
+\[ |f(t_{0}) - f(t_{1})| = \mu(A\cap[0,t_{1}]) - \mu(A\cap[0,t_{0}]) = \mu(A\cap[t_{0},t_{1}]) \leq \mu([t_{0},t_{1}]) = |t_{0} - t_{1}|. \]
+So $f$ is Lipschitz continuous with constant $c = 1$.
+\end{Proof}
+
+
+
+
+
 
 \subsection*{5}
 Let $\mathcal{S}$ denote the $\sigma$-algebra of all Legesgue measurable subsets of $[0,1]$ and let $\mu$ denote Lebesgue measure on $[0,1]$. Suppose
@@ -54,20 +151,8 @@ $A$ is a measurable subset of $[0,1]$ and $r < \mu(A)$. Prove that there is a me
 \begin{Proof}
 Define the function $f : [0,1] \rightarrow [0,1]$ by 
 \[ f(t) := \mu(A \cap [0,t]) \]
-for all $t \in [0,1]$. Clearly $f$ is monotone increasing and $r > f(0) = \mu(\emptyset) = 0$ while $r < f(1) = \mu(A)$. Thus if we can show that $f$
-is continuous over $[0,1]$ then we are guaranteed to find some $t' \in [0,1]$ such that $f(t') = r$. It turns out $f$ is Lipschitz continuous.
-
-\begin{claim}
-$f$ is Lipschitz continuous on $[0,1]$
-\end{claim}
-\begin{claimproof}
-Let $t_{0}, t_{1} \in [0,1]$ and assume without loss of generality that $t_{0} \leq t_{1}$. Then using monoticity and the excision property of
-measures,
-\[ |f(t_{0}) - f(t_{1})| = \mu(A\cap[0,t_{1}]) - \mu(A\cap[0,t_{0}]) = \mu(A\cap[t_{0},t_{1}]) \leq \mu([t_{0},t_{1}]) = |t_{0} - t_{1}|. \]
-So $f$ is Lipschitz continuous with constant $c = 1$.
-\end{claimproof}
-
-By claim 1 and the remarks before claim 1, ran$(f) = [0, \mu(A)] \ni r$, so there exists $t' \in [0,1]$ such that $r = f(t') = \mu(A \cap [0,t'])$. So
+for all $t \in [0,1]$. Clearly $f$ is monotone increasing and $r > f(0) = \mu(\emptyset) = 0$ while $r < f(1) = \mu(A)$. By question 4, $f$ is
+continuous. Hence, ran$(f) = [0, \mu(A)] \ni r$, so there exists $t' \in [0,1]$ such that $r = f(t') = \mu(A \cap [0,t'])$. So
 $A \supset B := A \cap [0,t']$ has measure $r$.
 \end{Proof}
 
