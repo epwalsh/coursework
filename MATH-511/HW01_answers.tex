@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{MATH 511: HW 1}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+
+\subsection*{4}
+\begin{Proof}
+We will need the following claim.
+
+\begin{claim}
+Suppose $z_{i}, w_{i} \in \mathbb{C}$ for $i = 1, \hdots, n$. Then 
+\[ \sum_{i\neq j}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} - \sum_{i\neq j}z_{i}\bar{z}_{i}w_{j}\bar{w}_{j} = - \sum_{i < j}|z_{i}\bar{w}_{j} -
+\bar{w}_{i}z_{j}|^{2}. \]
+\end{claim}
+\begin{claimproof}
+We will proceed by induction. For base case consider when $n = 2$. Then 
+\begin{align*}
+\sum_{i\neq j}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} - \sum_{i\neq j}z_{i}\bar{z}_{i}w_{j}\bar{w}_{j} & = z_{1}\bar{z}_{2}w_{1}\bar{w}_{2} +
+z_{2}\bar{z}_{1}w_{2}\bar{w}_{2} - z_{1}\bar{z}_{1}w_{2}\bar{w}_{2} - z_{2}\bar{z}_{2}w_{1}\bar{w}_{1} \\
+& = -(z_{1}\bar{w}_{2} - \bar{w}_{1}z_{2})(\bar{z}_{1}w_{2} - w_{1}\bar{z}_{2}) \\
+& = -(z_{1}\bar{w}_{2} - \bar{w}_{1}z_{2})\overline{(z_{1}\bar{w}_{2} - \bar{w}_{1}z_{2})} \\
+& = -|z_{1}\bar{w}_{2} - \bar{w}_{1}z_{2}|^{2}.
+\end{align*}
+Now, by way of induction let $n > 2$ and suppose claim 1 holds for $n - 1$. Then 
+\begin{align*}
+\sum_{i\neq j}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} - \sum_{i\neq j}z_{i}\bar{z}_{i}w_{j}\bar{w}_{j} & = 
+\sum_{i\neq j: j,j < n}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} - \sum_{i\neq j: i,j < n}z_{i}\bar{z}_{i}w_{j}\bar{w}_{j} \\
+& \qquad + \sum_{i < n}(z_{i}\bar{z}_{n}w_{i}\bar{w}_{n} + z_{n}\bar{z}_{i}w_{n}\bar{w}_{i}) - 
+\sum_{i < n}(z_{i}\bar{z}_{i}w_{n}\bar{w}_{n} + z_{n}\bar{z}_{n}w_{i}\bar{w}_{i}) \\
+\text{(by inductive assumption) } & = - \sum_{i < j: j < n}|z_{i}\bar{w}_{j} - \bar{w}_{i}z_{j}|^{2} \\
+& \qquad + \sum_{i < n}(z_{i}\bar{z}_{n}w_{i}\bar{w}_{n} + z_{n}\bar{z}_{i}w_{n}\bar{w}_{i} - 
+z_{i}\bar{z}_{i}w_{n}\bar{w}_{n} - z_{n}\bar{z}_{n}w_{i}\bar{w}_{i}) \\
+\text{(by base case) } & = - \sum_{i < j: j < n}|z_{i}\bar{w}_{j} - \bar{w}_{i}z_{j}|^{2} - \sum_{i < n}|z_{i}\bar{w}_{n} - \bar{w}_{i}z_{n}|^{2} \\
+& = - \sum_{i < j}|z_{i}\bar{w}_{j} - \bar{w}_{i}z_{j}|^{2}.
+\end{align*}
+\end{claimproof}
+
+Now we will prove Lagranges Identity.
+\begin{align*}
+\left| \sum_{i=1}^{n}z_{i}w_{i}\right|^{2} = \left( \sum_{i=1}^{n}z_{i}w_{i} \right)\left( \sum_{i=1}^{n}\bar{z}_{i}\bar{w}_{i} \right) & =
+\sum_{i=1}^{n}\sum_{j=1}^{n}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} \\
+& = \sum_{i=1}^{n}|z_{i}|^{2}|w_{i}|^{2} + \sum_{i\neq j}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} \\
+& = \sum_{i=1}^{n}|z_{i}|^{2}|w_{i}|^{2} + \sum_{i\neq j}|z_{i}|^{2}|w_{j}|^{2} - \sum_{i\neq j}|z_{i}|^{2}|w_{j}|^{2} + \sum_{i\neq j}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} \\
+& = \left( \sum_{i=1}^{n}|z_{i}|^{2} \right)\left( \sum_{i=1}^{n}|w_{i}|^{2} \right) + \sum_{i\neq j}z_{i}\bar{z}_{j}w_{i}\bar{w}_{j} - \sum_{i\neq
+j}z_{i}\bar{z}_{i}w_{j}\bar{w}_{j} \\
+\text{(by claim 1) } & = \left( \sum_{i=1}^{n}|z_{i}|^{2} \right)\left( \sum_{i=1}^{n}|w_{i}|^{2} \right) - \sum_{i < j}|z_{i}\bar{w}_{j} - \bar{w}_{i}z_{j}|^{2}.
+\end{align*}
+Thus,
+\[ \left|\sum_{i=1}^{n}z_{i}w_{i}\right|^{2} \leq \left( \sum_{i=1}^{n}|z_{i}|^{2} \right)\left( \sum_{i=1}^{n}|w_{i}|^{2} \right), \]
+so by taking the square root of both sides we are left with the Cauchy-Schwarz Inequality.
+\end{Proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
