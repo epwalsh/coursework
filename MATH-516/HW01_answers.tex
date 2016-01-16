@@ -157,6 +157,51 @@ $A \supset B := A \cap [0,t']$ has measure $r$.
 \end{Proof}
 
 \subsection*{Extra Credit}
+Let $\mathcal{S}$ denote the $\sigma$-algebra of all Legesgue measurable subsets of $[0,1]$. Let $m$ denote the Lebesgue measure, and let $\mu :
+\mathcal{S} \rightarrow \mathbb{R}$ denote a measure so that $\mu(A) = m(A)$ whenever $\mathcal{A} \in \mathcal{S}$ and $m(A) = 1/2$. Prove that
+$\mu(A) = m(A)$ whenever $A \in \mathcal{S}$.
+
+{\bf Solution:}
+
+\begin{Proof}
+Define the function $F : [0,1] \rightarrow \mathbb{R}$ by $F(t) := \mu([0,t])$ for all $t \in [0,1]$. 
+
+\begin{claim}
+$F$ is differentiable with a constant derivative of 1.
+\end{claim}
+\begin{claimproof}
+Let $n \geq 1$. Choose a measurable set $E_{0} \subset [0,1/2)$ such that $m(E_{0}) = 1/2 - 2^{-(n+1)}$. By monotonicity,
+\[ r := \mu(E_{0}) \leq 1/2. \]
+Thus, if $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$, then 
+\[ m(E_{0} \cup E) = m(E_{0}) + m(E) = 1/2 = \mu(E_{0} \cup E) = \mu(E_{0}) + \mu(E), \] 
+so $\mu(E) = 1/2 - r$. Now, if we partition $[1/2,1]$ into $2^{n}$ pairwise disjoint sets $\left\{ E_{1}, \hdots , E_{2^{n}} \right\}$ such that
+$\mu(E_{k}) = 2^{-(n+1)}$ for all $1 \leq k \leq 2^{n}$, then since $\cup_{k=1}^{2^{n}}E_{k} = [1/2,1]$, we have 
+\[ 1/2 = \sum_{k=1}^{2^{n}}\mu(E_{k}) = 2^{n}(1/2 - r), \]
+which implies $r = 1/2 - 2^{-(n+1)}$. Therefore $\mu(E) = 2^{-(n+1)}$ for all $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$. This implies that
+not only is $F$ continuous on $[1/2,1]$, but for all $t \in [1/2,1]$,
+\[ \text{Diff}_{2^{-(n+1)}}(F)(t) = \frac{F(t + 2^{-(n+1)}) - F(t)}{2^{-(n+1)}} = \frac{ \mu([0,t+2^{-(n+1)}]) - \mu([0,t])}{2^{-(n+1)}} = 
+\frac{\mu\left( (t,t+2^{-(n+1)}] \right)}{2^{-(n+1)}} = 1. \]
+Therefore $F'(t) = 1$ for all $t \in [1/2,1]$. The the same argument would show that $F' \equiv 1$ on $[0,1/2]$.
+\end{claimproof}
+
+So $F$ is monotone increasing, going from 0 to 1 with a constant slope of 1. It follows that $\mu$ and $m$ agree on every subinterval of $[0,1]$, and
+thus on every open set, and thus on every closed set. Now suppose $E$ is any measurable subset of $[0,1]$ and let $\epsilon > 0$. By a theorem from 515, there exists a
+an open set $\mathcal{O}$ and closed set $F$ such that $\mathcal{O} \supseteq E \supseteq F$, while $m(\mathcal{O}) - m(E) < \epsilon / 2$ and $m(E) - m(F)
+< \epsilon / 2$. But by monotonicity of $\mu$, $\mu(\mathcal{O}) \geq \mu(E) \geq \mu(F)$, which implies $m(\mathcal{O}) \geq \mu(E) \geq m(F)$ since
+$\mu(\mathcal{O}) = m(\mathcal{O})$ and $\mu(F) = m(F)$. Therefore 
+\[ |\mu(E) - m(E)| \leq |m(\mathcal{O}) - m(F)| \leq |m(\mathcal{O} - m(E)| + |m(E) - m(F)| < \epsilon. \]
+Since $\epsilon > 0$ was arbitrary, $\mu(E) = m(E)$.
+\end{Proof}
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
 
