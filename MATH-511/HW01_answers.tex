@@ -236,6 +236,47 @@ so $\triangle u\cdot v = 8x \neq 0$.
 
 
 
+\subsection*{7}
+Suppose $u,v : \mathbb{C} \rightarrow \mathbb{R}$ such that $u + iv$ is holomorphic. Prove that $u\cdot v$ is harmonic.
+
+{\bf Solution:}
+
+\begin{Proof}
+Since $u + iv$ is holomorphic, we have 
+\begin{equation}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \qquad \text{and} \qquad \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial
+x}.
+\label{7.0}
+\end{equation}
+Thus,
+\begin{align}
+& \frac{\partial^{2}u}{\partial x^{2}} = \frac{\partial^{2}v}{\partial x\partial y} \label{7.1} \\
+& \frac{\partial^{2}u}{\partial y\partial x} = \frac{\partial^{2}v}{\partial y^{2}} \label{7.2} \\
+& \frac{\partial^{2}u}{\partial y^{2}} = -\frac{\partial^{2}v}{\partial y\partial x} \label{7.3} \\
+& \frac{\partial^{2}u}{\partial y\partial x} = -\frac{\partial^{2}v}{\partial x^{2}}. \label{7.4}
+\end{align}
+Thus,
+\begin{align*}
+\frac{\partial^{2}}{\partial x^{2}}u\cdot v & = \left( \frac{\partial^{2}u}{\partial x^{2}} \right)\cdot v + \left( \frac{\partial u}{\partial x}
+\right)\left( \frac{\partial v}{\partial x }\right) + u\cdot \left( \frac{\partial^{2}v}{\partial x^{2}} \right) + \left( \frac{\partial v}{\partial
+x} \right)\left( \frac{\partial u}{\partial x} \right) \\
+& =  \left( \frac{\partial^{2}u}{\partial x^{2}} \right)\cdot v  + u\cdot \left( \frac{\partial^{2}v}{\partial x^{2}} \right) + 2\left( \frac{\partial v}{\partial
+x} \right)\left( \frac{\partial u}{\partial x} \right) \\
+\text{(by \eqref{7.0}, \eqref{7.1}, \eqref{7.4}) } & = \left( \frac{\partial^{2}v}{\partial x\partial y} \right)\cdot v - u \left( \frac{\partial^{2}u}{\partial x \partial y} \right) + 2\left( 
+\frac{\partial v}{\partial y}\right)\left( \frac{\partial v}{\partial x} \right),
+\end{align*}
+and similarly,
+\begin{align*}
+\frac{\partial^{2}}{\partial y^{2}}u\cdot v & = 
+\left( \frac{\partial^{2}u}{\partial y^{2}} \right)\cdot v  + u\cdot \left( \frac{\partial^{2}v}{\partial y^{2}} \right) + 2\left( \frac{\partial v}{\partial
+y} \right)\left( \frac{\partial u}{\partial y} \right) \\
+\text{(by \eqref{7.0}, \eqref{7.2}, \eqref{7.3}) } & = - \left( \frac{\partial^{2}v}{\partial x\partial y} \right)\cdot v + 
+u \left( \frac{\partial^{2}u}{\partial x \partial y} \right) - 2\left( \frac{\partial v}{\partial y}\right)\left( \frac{\partial v}{\partial x} \right),
+\end{align*}
+Hence $\triangle u\cdot v = 0$.
+
+\end{Proof}
+
 
 
 
