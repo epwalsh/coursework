@@ -45,9 +45,41 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{document}
 \maketitle
 
+\subsection*{3}
+Let $S$ be the sphere of radius $1$, centered at the origin in $\mathbb{R}^{3}$ and $N = (0,0,1)$. For each point $P(x,y,z)$ on $S\setminus \{N\}$,
+let the ray from $N$ to $P$ intersect the $X-Y$ plane at $Q(u,v,0)$. Express $(x,y,z)$ in terms of $(u,v)$ and $(u,v)$ in terms of $(x,y,z)$.
+
+{\bf Solution:} Suppose $Q = (u,v,0)$ is known. The vector from of the line from $N$ to $Q$ is 
+\[ \vec{r} := \langle 0,0,1\rangle + t\langle u,v,-1\rangle = \langle tu, tv, 1-t\rangle. \]
+When $\vec{r}$ intersects $S$, we must have 
+\[ t^{2}u^{2} + t^{2}v^{2} + (1-t)^{2} = 1 \qquad \Rightarrow \qquad (u^{2} + v^{2} + 1)t^{2} - 2t = 0. \]
+Therefore
+\[ t_{0} := \frac{2\pm \sqrt{4}}{2(u^{2} + v^{2} + 1)} \qquad \Rightarrow \qquad t_{0} = \frac{2}{u^{2} + v^{2} + 1}. \]
+Thus,
+\[ P = \langle x,y,z \rangle = \left\langle \frac{2u}{u^{2} + v^{2} + 1}, \frac{2v}{u^{2} + v^{2} + 1}, \frac{u^{2} + v^{2} - 1}{u^{2} + v^{2} + 1}\right\rangle.
+\]
+Conversely, suppose $P = (x,y,z)$ is known. Then the vector form of the line from $N$ to $P$ is 
+\[ \vec{r} := \langle 0,0,1 \rangle + t\langle x,y,z-1 \rangle = \langle tx,ty,tz-t+1\rangle. \]
+We know that $\vec{r}$ intersects the $X-Y$ plane when $tz - t + 1 = 0$. Solving for $t$, we have $t_{0} = \frac{1}{1-z}$. Thus,
+\[ Q = \langle u,v,0 \rangle = \left\langle \frac{x}{1-z}, \frac{y}{1-z}, 0 \right\rangle. \]
 
 
+
+
+
+
+
+
+
+
+
+
+\newpage
 \subsection*{4}
+Prove Lagranges Identity and use that to deduce the Cauchy-Schwars Inequality.
+
+{\bf Solution:}
+
 \begin{Proof}
 We will need the following claim.
 
@@ -96,7 +128,19 @@ so by taking the square root of both sides we are left with the Cauchy-Schwarz I
 
 
 
+\subsection*{5}
+Compute the follwing derivatives:
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{\partial^{3}}{\partial x^{2}\partial y}(3z^{2}\bar{z}^{4} - 2z^{3}\bar{z} + z^{4} - \bar{z}^{5})$
+\item $\frac{\partial^{4}}{\partial z\partial \bar{z}^{3}}(xy^{2})$
+\end{enumerate}
 
+{\bf Solution:} See work attached.
+
+(a) 
+\[ \left( 24i - \frac{36}{i} \right)\bar{z}^{3} + 60i\bar{z}^{2} + \left( \frac{36}{i} - 72 \right)z\bar{z}^{2} - 72z^{2}\bar{z} + 12iz - 12i\bar{z}.
+\]
+(b) $0$.
 
 
 
