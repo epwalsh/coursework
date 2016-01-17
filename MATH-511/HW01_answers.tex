@@ -224,6 +224,15 @@ Compute the follwing derivatives:
 
 
 
+\subsection*{6}
+Find two real valued functions $u$ and $v$ on $\mathbb{C}$ such that $u\cdot v$ is not harmonic.
+
+{\bf Solution:} Let $u(x,y) := x^{2} - y^{2}$ and $v(x,y) := x$. We see that 
+\[ \frac{\partial^{2}u}{\partial x^{2}} = 2, \ \frac{\partial^{2}u}{\partial y^{2}} = -2, \qquad \text{and}\qquad 
+\frac{\partial^{2}v}{\partial x^{2}} = 0, \ \frac{\partial^{2}v}{\partial y^{2}} = 0. \]
+Therefore $u$ and $v$ are harmonic. However, with $u(x,y)\cdot v(x,y) = x^{3} - xy^{2}$, we see that
+\[ \frac{\partial^{2}}{\partial x^{2}}u\cdot v = 6x \qquad \text{and}\qquad \frac{\partial^{2}}{\partial y^{2}}u\cdot v = 2x, \]
+so $\triangle u\cdot v = 8x \neq 0$.
 
 
 
