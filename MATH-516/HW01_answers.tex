@@ -134,7 +134,7 @@ $A$ is a measurable subset of $[0,1]$. For each $\alpha \in [0,1]$, let $f(\alph
 Let $t_{0}, t_{1} \in [0,1]$ and assume without loss of generality that $t_{0} \leq t_{1}$. Then using monoticity and the excision property of
 measures,
 \[ |f(t_{0}) - f(t_{1})| = \mu(A\cap[0,t_{1}]) - \mu(A\cap[0,t_{0}]) = \mu(A\cap[t_{0},t_{1}]) \leq \mu([t_{0},t_{1}]) = |t_{0} - t_{1}|. \]
-So $f$ is Lipschitz continuous with constant $c = 1$.
+So $f$ is Lipschitz continuous with Lipschitz constant $c = 1$.
 \end{Proof}
 
 
@@ -151,13 +151,13 @@ $A$ is a measurable subset of $[0,1]$ and $r < \mu(A)$. Prove that there is a me
 \begin{Proof}
 Define the function $f : [0,1] \rightarrow [0,1]$ by 
 \[ f(t) := \mu(A \cap [0,t]) \]
-for all $t \in [0,1]$. Clearly $f$ is monotone increasing and $r > f(0) = \mu(\emptyset) = 0$ while $r < f(1) = \mu(A)$. By question 4, $f$ is
+for all $t \in [0,1]$. Clearly $f$ is monotone increasing and $0 = \mu(\emptyset) = f(0) < r < f(1) = \mu(A)$. By question 4, $f$ is
 continuous. Hence, ran$(f) = [0, \mu(A)] \ni r$, so there exists $t' \in [0,1]$ such that $r = f(t') = \mu(A \cap [0,t'])$. So
 $A \supset B := A \cap [0,t']$ has measure $r$.
 \end{Proof}
 
 \subsection*{Extra Credit}
-Let $\mathcal{S}$ denote the $\sigma$-algebra of all Legesgue measurable subsets of $[0,1]$. Let $m$ denote the Lebesgue measure, and let $\mu :
+Let $\mathcal{S}$ denote the $\sigma$-algebra of all Lebesgue measurable subsets of $[0,1]$. Let $m$ denote the Lebesgue measure, and let $\mu :
 \mathcal{S} \rightarrow \mathbb{R}$ denote a measure so that $\mu(A) = m(A)$ whenever $\mathcal{A} \in \mathcal{S}$ and $m(A) = 1/2$. Prove that
 $\mu(A) = m(A)$ whenever $A \in \mathcal{S}$.
 
@@ -189,7 +189,7 @@ thus on every open set, and thus on every closed set. Now suppose $E$ is any mea
 an open set $\mathcal{O}$ and closed set $F$ such that $\mathcal{O} \supseteq E \supseteq F$, while $m(\mathcal{O}) - m(E) < \epsilon / 2$ and $m(E) - m(F)
 < \epsilon / 2$. But by monotonicity of $\mu$, $\mu(\mathcal{O}) \geq \mu(E) \geq \mu(F)$, which implies $m(\mathcal{O}) \geq \mu(E) \geq m(F)$ since
 $\mu(\mathcal{O}) = m(\mathcal{O})$ and $\mu(F) = m(F)$. Therefore 
-\[ |\mu(E) - m(E)| \leq |m(\mathcal{O}) - m(F)| \leq |m(\mathcal{O} - m(E)| + |m(E) - m(F)| < \epsilon. \]
+\[ |\mu(E) - m(E)| \leq |m(\mathcal{O}) - m(F)| \leq |m(\mathcal{O}) - m(E)| + |m(E) - m(F)| < \epsilon. \]
 Since $\epsilon > 0$ was arbitrary, $\mu(E) = m(E)$.
 \end{Proof}
 
