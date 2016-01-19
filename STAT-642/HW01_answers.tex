@@ -92,7 +92,7 @@ $B_{0} := A_{0}$, and for each $n \geq 1$, recursively define $B_{n} := B_{n-1} 
 $B_{n} = (B_{n-1}^{c} \cap A_{n}^{c})^{c} \in \mathcal{F}$ for each $n \in \mathbb{N}$, since $\mathcal{L}$ is closed under complementation and finite
 intersections. Further, by construction we have $B_{n} \subset B_{n+1}$ for every $n \in \mathbb{N}$, so 
 \[ \cup_{n=0}^{\infty}A_{n} = \cup_{n=0}^{\infty}B_{n} \in \mathcal{L}, \]
-since $\mathcal{L}$ is a $\lambda$-class.
+since $\mathcal{L}$ is a $\sigma$-algebra.
 \end{Proof}
 
 
@@ -187,8 +187,10 @@ $(\Leftarrow)$ Now suppose $f$ is measurable. Then $A = f^{-1}[\{1\}] \in \mathc
 \item 
 \begin{Proof}
 Let $a \in \mathbb{R}$. It suffices to show that $f^{-1}[(-\infty, a)] \in \mathcal{B}(\mathbb{R})$. Let $c := \sup\left\{ x : f(x) < a \right\}$.
-Then 
+Then, if $f(c) \geq a$,
 \[ f^{-1}[(-\infty, a)] = \left\{ x : f(x) < a \right\} = (-\infty, c) \in \mathcal{B}(\mathbb{R}). \]
+Similarly, if $f(c) < a$, then $f^{-1}[(-\infty, a)] = (-\infty, c] \in \mathcal{B}(\mathbb{R})$. In both cases the pre-image of $f$ on $(-\infty, a)$
+is Borel, so $f$ is measurable.
 \end{Proof}
 
 \end{enumerate}
@@ -206,7 +208,7 @@ so $\lim_{n\rightarrow\infty} \int f_{n}\ dm = 1 \neq \int f\ dm$.
 \subsection*{6}
 
 \begin{Proof}
-Let $\epsilon > 0$. Since $f^{+}$ and $f^{-}$ are nonnegative and integrable, there exists simple functions $\varphi \leq f^{+}$ and $\xi(x) \leq
+Let $\epsilon > 0$. Since $f^{+}$ and $f^{-}$ are nonnegative and integrable, there exists simple functions $\varphi \leq f^{+}$ and $\xi \leq
 f^{-}$ such that 
 \begin{equation}
 \int f^{+}\ d\mu - \int \varphi\ d\mu < \epsilon / 2, \qquad \text{and} \qquad \int f^{-}\ d\mu - \int \xi\ d\mu < \epsilon / 2.
