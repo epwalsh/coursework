@@ -47,15 +47,14 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{1}
 
-\begin{Proof} Let $\Omega := (0,1]$ and $\mathcal{F}$ consist of all finite disjoint intervals of the form $(a,a'] \subseteq (0,1]$.
+\begin{Proof} Let $\Omega := (0,1]$ and $\mathcal{F}$ consist of all finite disjoint unions of intervals of the form $(a,a'] \subseteq (0,1]$.
 
 \begin{claim}
 $\mathcal{F}$ is an algebra.
 \end{claim}
 \begin{claimproof}
 Clearly $\Omega \in \mathcal{F}$. Now suppose $0 \leq a \leq a' \leq 1$ and $0 \leq b \leq b' \leq 1$. Then 
-\[ (0,1] - (a,a'] = (0,a] \cup (a', 1] \in \mathcal{F}, \]
-so $\mathcal{F}$ is closed under complementation. Further, if $a' < b$ or $b' < a$, then clearly 
+If $a' < b$ or $b' < a$, then clearly 
 \begin{equation}
 (a,a'] \cap (b,b'] = \emptyset = \Omega^{c} \in \mathcal{F}.
 \label{1.1}
@@ -68,7 +67,11 @@ On the other hand, if $b \leq a'$ and $a \leq b'$, then
 So by \eqref{1.1} and \eqref{1.2}, the intersection of any two such intervals is in $\mathcal{F}$. Now suppose $A, B \in \mathcal{F}$. Then $A =
 \cup_{i=1}^{n}(a_{i}, a_{i}']$ and $B = \cup_{j=1}^{m}(b_{j},b_{j}']$. Therefore 
 \[ A\cap B = \cup_{i=1}^{n}\cup_{j=1}^{m}(a_{i},a_{i}']\cap (b_{j},b_{j}'] \in \mathcal{F} \]
-by the above considerations. This proves that $\mathcal{F}$ is an algebra.
+by the above considerations. So $\mathcal{F}$ is closed under finite intersections. It remains to show that $\mathcal{F}$ is closed under
+complementation. So let $A := \cup_{i=1}^{n}(a_{i},b_{i}] \in \mathcal{F}$, where $\left\{ (a_{i},b_{i}] \right\}_{i=1}^{n}$ is pairwise disjoint.
+Without loss of generality assume $b_{i} \leq a_{i+1}$ for all $1\leq i < n$. Set $b_{0} := 0$ and $a_{n+1} := 1$. Then 
+\[ A^{c} = \left( \cup_{i=1}^{n}(a_{i},b_{i}] \right)^{c} = \cup_{i=1}^{n+1}(b_{i-1},a_{i}] \in \mathcal{F} \]
+by definition.
 \end{claimproof}
 
 \begin{claim}

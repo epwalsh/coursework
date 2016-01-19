@@ -164,10 +164,12 @@ $\mu(A) = m(A)$ whenever $A \in \mathcal{S}$.
 {\bf Solution:}
 
 \begin{Proof}
-Define the function $F : [0,1] \rightarrow \mathbb{R}$ by $F(t) := \mu([0,t])$ for all $t \in [0,1]$. 
+Define the function $F_{\mu} : [0,1] \rightarrow \mathbb{R}$ by $F_{\mu}(t) := \mu([0,t])$ for all $t \in [0,1]$, i.e. $F_{\mu}$ is the 
+cumulative distribution function (cdf) of $\mu$. Similarly, let $F_{m}$ be the cdf of $m$. It's easy enough to show that $F_{m}$ goes from 0 to 1 with
+constant derivative of 1. We will show that $F_{\mu} \equiv F_{m}$ and use that to prove that $\mu$ and $m$ agree on all $E \in \mathcal{S}$.
 
 \begin{claim}
-$F$ is differentiable with a constant derivative of 1.
+$\mu$ and $m$ agree on all sets $E \in \mathcal{S}$ with $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$, for some $n \in \mathbb{N}$.
 \end{claim}
 \begin{claimproof}
 Let $n \geq 1$. Choose a measurable set $E_{0} \subset [0,1/2)$ such that $m(E_{0}) = 1/2 - 2^{-(n+1)}$. By monotonicity,
@@ -177,15 +179,22 @@ Thus, if $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$, then
 so $\mu(E) = 1/2 - r$. Now, if we partition $[1/2,1]$ into $2^{n}$ pairwise disjoint sets $\left\{ E_{1}, \hdots , E_{2^{n}} \right\}$ such that
 $\mu(E_{k}) = 2^{-(n+1)}$ for all $1 \leq k \leq 2^{n}$, then since $\cup_{k=1}^{2^{n}}E_{k} = [1/2,1]$, we have 
 \[ 1/2 = \sum_{k=1}^{2^{n}}\mu(E_{k}) = 2^{n}(1/2 - r), \]
-which implies $r = 1/2 - 2^{-(n+1)}$. Therefore $\mu(E) = 2^{-(n+1)}$ for all $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$. This implies that
-not only is $F$ continuous on $[1/2,1]$, but for all $t \in [1/2,1]$,
-\[ \text{Diff}_{2^{-(n+1)}}(F)(t) = \frac{F(t + 2^{-(n+1)}) - F(t)}{2^{-(n+1)}} = \frac{ \mu([0,t+2^{-(n+1)}]) - \mu([0,t])}{2^{-(n+1)}} = 
+which implies $r = 1/2 - 2^{-(n+1)}$. Therefore $\mu(E) = 2^{-(n+1)}$ for all $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$. 
+\end{claimproof}
+
+\begin{claim}
+$F_{\mu}$ is differentiable, and therefore continuous, on $[1/2,1]$ with constant derivative of $1$.
+\end{claim}
+\begin{claimproof}
+Since $F_{\mu}$ is monotone increasing (this is clear by its definition), 
+
+for all $t \in [1/2,1]$,
+\[ \text{Diff}_{2^{-(n+1)}}(F_{\mu})(t) = \frac{F(t + 2^{-(n+1)}) - F(t)}{2^{-(n+1)}} = \frac{ \mu([0,t+2^{-(n+1)}]) - \mu([0,t])}{2^{-(n+1)}} = 
 \frac{\mu\left( (t,t+2^{-(n+1)}] \right)}{2^{-(n+1)}} = 1. \]
 Therefore $F'(t) = 1$ for all $t \in [1/2,1]$. The the same argument would show that $F' \equiv 1$ on $[0,1/2]$.
 \end{claimproof}
 
-So $F$ is monotone increasing, going from 0 to 1 with a constant slope of 1. It follows that $\mu$ and $m$ agree on every subinterval of $[0,1]$, and
-thus on every open set, and thus on every closed set. Now suppose $E$ is any measurable subset of $[0,1]$ and let $\epsilon > 0$. By a theorem from 515, there exists a
+Now suppose $E$ is any measurable subset of $[0,1]$ and let $\epsilon > 0$. By a theorem from 515, there exists a
 an open set $\mathcal{O}$ and closed set $F$ such that $\mathcal{O} \supseteq E \supseteq F$, while $m(\mathcal{O}) - m(E) < \epsilon / 2$ and $m(E) - m(F)
 < \epsilon / 2$. But by monotonicity of $\mu$, $\mu(\mathcal{O}) \geq \mu(E) \geq \mu(F)$, which implies $m(\mathcal{O}) \geq \mu(E) \geq m(F)$ since
 $\mu(\mathcal{O}) = m(\mathcal{O})$ and $\mu(F) = m(F)$. Therefore 
