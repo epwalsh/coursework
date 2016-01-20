@@ -14,6 +14,7 @@
 \pagestyle{fancy}
 \usepackage{changepage}
 \usepackage{mathcomp}
+\usepackage{tcolorbox}
 
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
@@ -47,11 +48,13 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 
 \subsection*{1}
+\begin{tcolorbox}
 Show that a cubic equation $E_{1} : t^{3} + at^{2} + bt + c = 0$ can be transformed into an equation of the form $E_{2} : x^{3} + px = q$ by a
 substitution of $t := x - a/3$. Suppose $\alpha^{3}$ and $\beta^{3}$ are the roots of the equation $z^{2} - qz - p^{3}/27 = 0$ with $\alpha\beta =
 -p/3$. Show that $x = \alpha + \beta$ is a solution of $E_{2}$. Hence, give the solutions of $E_{1}$ in terms of $a$, $b$ and $c$.
+\end{tcolorbox}
 
-{\bf Solution:} By substituting $t := x - a/3$ into $E_{1}$, we get 
+By substituting $t := x - a/3$ into $E_{1}$, we get 
 \begin{align*}
 & (x - a/3)^{3} + a(x-a/3)^{2} + b(x-a/3) + c = 0 \\
 & (x -a/3)\left(x^{2} - \frac{2}{3}ax + \frac{a^{2}}{9}\right) + ax^{2} - \frac{2}{3}a^{2}x + \frac{a^{3}}{9} + bx - \frac{ab}{3} + c = 0 \\
@@ -101,10 +104,12 @@ and $p = b - \frac{a^{2}}{3}$, $q = \frac{ab}{3} - c - \frac{2a^{2}}{27}$ as bef
 
 
 \subsection*{2}
+\begin{tcolorbox}
 Find all solutions of the equation $E_{3} : x^{3} - 15x - 4 = 0$ directly. Then compare them with the solutions using the formula found in 1. For each
 solution, find the corresponding $\alpha$ and $\beta$ as given in 1.
+\end{tcolorbox}
 
-{\bf Solution:} By trial and error we find that $x_{1} := 4$ is a solution of $E_{3}$. Next we proceed to find $a$ and $b$ in 
+By trial and error we find that $x_{1} := 4$ is a solution of $E_{3}$. Next we proceed to find $a$ and $b$ in 
 \[ 0 = (x - 4)(x^{2} + bx + c) = x^{3} + bx^{2} + cx - 4x^{2} - 4bx - 4c. \]
 But by comparing the above equation to $E_{3}$, we see that we must have $b = 4$ and $c = 1$. Therefore we solve $x^{2} + 4x + 1 = 0$ using the
 quadratic equation, and get the remaining two solutions to $E_{3}$:
@@ -126,10 +131,12 @@ which coincide with $x_{2}$ and $x_{3}$, respectively.
 
 
 \subsection*{3}
+\begin{tcolorbox}
 Let $S$ be the sphere of radius $1$, centered at the origin in $\mathbb{R}^{3}$ and $N = (0,0,1)$. For each point $P(x,y,z)$ on $S\setminus \{N\}$,
 let the ray from $N$ to $P$ intersect the $X-Y$ plane at $Q(u,v,0)$. Express $(x,y,z)$ in terms of $(u,v)$ and $(u,v)$ in terms of $(x,y,z)$.
+\end{tcolorbox}
 
-{\bf Solution:} Suppose $Q = (u,v,0)$ is known. The vector from of the line from $N$ to $Q$ is 
+Suppose $Q = (u,v,0)$ is known. The vector from of the line from $N$ to $Q$ is 
 \[ \vec{r} := \langle 0,0,1\rangle + t\langle u,v,-1\rangle = \langle tu, tv, 1-t\rangle. \]
 When $\vec{r}$ intersects $S$, we must have 
 \[ t^{2}u^{2} + t^{2}v^{2} + (1-t)^{2} = 1 \qquad \Rightarrow \qquad (u^{2} + v^{2} + 1)t^{2} - 2t = 0. \]
@@ -156,9 +163,10 @@ We know that $\vec{r}$ intersects the $X-Y$ plane when $tz - t + 1 = 0$. Solving
 
 \newpage
 \subsection*{4}
+\begin{tcolorbox}
 Prove Lagranges Identity and use that to deduce the Cauchy-Schwars Inequality.
+\end{tcolorbox}
 
-{\bf Solution:}
 
 \begin{Proof}
 We will need the following claim.
@@ -209,13 +217,15 @@ so by taking the square root of both sides we are left with the Cauchy-Schwarz I
 
 
 \subsection*{5}
+\begin{tcolorbox}
 Compute the follwing derivatives:
 \begin{enumerate}[label=(\alph*)]
 \item $\frac{\partial^{3}}{\partial x^{2}\partial y}(3z^{2}\bar{z}^{4} - 2z^{3}\bar{z} + z^{4} - \bar{z}^{5})$
 \item $\frac{\partial^{4}}{\partial z\partial \bar{z}^{3}}(xy^{2})$
 \end{enumerate}
+\end{tcolorbox}
 
-{\bf Solution:} See work attached.
+See work attached.
 
 (a) 
 \[ \left( 24i - \frac{36}{i} \right)\bar{z}^{3} + 60i\bar{z}^{2} + \left( \frac{36}{i} - 72 \right)z\bar{z}^{2} - 72z^{2}\bar{z} + 12iz - 12i\bar{z}.
@@ -225,9 +235,11 @@ Compute the follwing derivatives:
 
 
 \subsection*{6}
+\begin{tcolorbox}
 Find two real valued functions $u$ and $v$ on $\mathbb{C}$ such that $u\cdot v$ is not harmonic.
+\end{tcolorbox}
 
-{\bf Solution:} Let $u(x,y) := x^{2} - y^{2}$ and $v(x,y) := x$. We see that 
+Let $u(x,y) := x^{2} - y^{2}$ and $v(x,y) := x$. We see that 
 \[ \frac{\partial^{2}u}{\partial x^{2}} = 2, \ \frac{\partial^{2}u}{\partial y^{2}} = -2, \qquad \text{and}\qquad 
 \frac{\partial^{2}v}{\partial x^{2}} = 0, \ \frac{\partial^{2}v}{\partial y^{2}} = 0. \]
 Therefore $u$ and $v$ are harmonic. However, with $u(x,y)\cdot v(x,y) = x^{3} - xy^{2}$, we see that
@@ -237,9 +249,9 @@ so $\triangle u\cdot v = 8x \neq 0$.
 
 
 \subsection*{7}
+\begin{tcolorbox}
 Suppose $u,v : \mathbb{C} \rightarrow \mathbb{R}$ such that $u + iv$ is holomorphic. Prove that $u\cdot v$ is harmonic.
-
-{\bf Solution:}
+\end{tcolorbox}
 
 \begin{Proof}
 Since $u + iv$ is holomorphic, we have 
@@ -281,14 +293,14 @@ Hence $\triangle u\cdot v = 0$.
 
 
 \subsection*{8} 
+\begin{tcolorbox}
 Let $U \subseteq \mathbb{C}$ be an open set. Let $z_{0} \in U$ and $r > 0$ and assume that $\left\{ z : |z - z_{0}| \leq r \right\} \subseteq U$. For
 $j$ a positive integer, compute 
 \[ \frac{1}{2\pi}\int_{0}^{2\pi}(z_{0} + re^{i\theta})^{j}\ d\theta \qquad \text{and}\qquad \frac{1}{2\pi}\int_{0}^{2\pi}\overline{(z_{0} +
 re^{i\theta})^{j}}\ d\theta. \]
 Use these results to prove that if $\mu$ is a harmonic polynomial on $U$, then 
 \[ \frac{1}{2\pi}\int_{0}^{2\pi}u(z_{0} + re^{i\theta})\ d\theta = u(z_{0}). \]
-
-{\bf Solution:}
+\end{tcolorbox}
 
 \begin{Proof}
 
@@ -334,14 +346,48 @@ By claims 1 and 2,
 \end{align*}
 \end{Proof}
 
+\subsection*{9}
+\begin{tcolorbox}
+Prove that if $f$ is holomorphic on an open set $U \subseteq \mathbb{C}$ and $f$ is nonvanishing, then 
+\[ \triangle(|f|^{p}) = p^{2}|f|^{p-2}\left| \frac{\partial f}{\partial z}\right|^{2}, \ \text{ for all } p > 0. \]
+\end{tcolorbox}
+
+\begin{align*}
+\triangle(|f|^{p}) & = 4\frac{\partial^{2}}{\partial z\partial \bar{z}}(|f|^{2})^{p/2} \\
+& = 4\frac{\partial^{2}}{\partial z\partial \bar{z}}(f\cdot \bar{f})^{p/2} \\
+& = 4\frac{\partial}{\partial z}\left[ \left( \frac{p}{2} \right)\left( |f|^{2} \right)^{p/2-1}\left( f
+\cdot \frac{\partial\bar{f}}{\partial \bar{z}}  + \bar{f}\cdot \frac{\partial f}{\partial \bar{z}} \right)\right] \\
+& = 4\frac{\partial}{\partial z}\left[ \left( \frac{p}{2} \right)\left( |f|^{2} \right)^{p/2-1}\left( f
+\cdot \frac{\partial\bar{f}}{\partial \bar{z}}\right)\right] \\
+& = 4\left[ \left( \frac{p}{2} \right)\left( \frac{p}{2} - 1 \right)\left( |f|^{2} \right)^{p/2-2}\left( \bar{f}\cdot \frac{\partial f}{\partial z} \right)
+\left( f \cdot \frac{\partial \bar{f}}{\partial \bar{z}} \right) + \left( \frac{p}{2}\right)\left( |f|^{2} \right)^{p/2-1} 
+\left( \frac{\partial f}{\partial z}\cdot \frac{\partial \bar{f}}{\partial \bar{z}} + f\cdot \frac{\partial^{2}\bar{f}}{\partial z\partial \bar{z}}
+ \right)\right] \\
+& = 4\left[ \left( \frac{p}{2} \right)\left( \frac{p}{2} - 1 \right)\left( |f|^{2} \right)^{p/2-2}\cdot |f|^{2}\cdot \left( \frac{\partial f}{\partial z}
+\cdot \frac{\partial \bar{f}}{\partial \bar{z}} \right) + \left( \frac{p}{2}\right)\left( |f|^{2} \right)^{p/2-1} 
+\left( \frac{\partial f}{\partial z}\cdot \frac{\partial \bar{f}}{\partial \bar{z}} \right)\right] \\
+& = 4\left[ \left( \frac{p}{2} \right)\left( \frac{p}{2} - 1 \right)\left( |f|^{2} \right)^{p/2-2}\cdot |f|^{2}\cdot \left( \frac{\partial f}{\partial z}
+\right)\left(\overline{\frac{\partial f}{\partial z}} \right) + \left( \frac{p}{2}\right)\left( |f|^{2} \right)^{p/2-1} 
+\left( \frac{\partial f}{\partial z}\right)\left(\overline{\frac{\partial f}{\partial z}} \right)\right] \\
+& = 4\left[ \left( \frac{p}{2} \right)\left( \frac{p}{2} - 1 \right)\left( |f|^{2} \right)^{p/2-2}\cdot |f|^{2}\cdot \left| \frac{\partial f}{\partial z}
+\right|^{2} + \left( \frac{p}{2}\right)\left( |f|^{2} \right)^{p/2-1} 
+\left| \frac{\partial f}{\partial z}\right|^{2}\right] \\
+& = 4\left[ \left( \frac{p}{2} \right)\left( \frac{p}{2} - 1 \right) + \left( \frac{p}{2} \right) \right]\cdot |f|^{p-2}\left| \frac{\partial
+f}{\partial z}\right|^{2} \\
+& = p^{2}|f|^{p-2}\left| \frac{\partial f}{\partial z}\right|^{2}.
+\end{align*}
+
+
+
 
 
 \newpage
 \subsection*{10}
+\begin{tcolorbox}
 Suppose $U$ is star-shaped and $f,g \in C^{1}(U)$ satisfy $f_{y} = g_{x}$. Show that the function $h(x,y) := \int_{0}^{1}(f(r(t)),g(r(t)))\cdot
 r'(t)\ dt$ satisfies $h_{x} = f$ and $h_{y} = g$, where $r(t) := (a + t(x-a), b + t(y-b))$.
+\end{tcolorbox}
 
-{\bf Solution:}
 
 \begin{Proof}
 First note that 

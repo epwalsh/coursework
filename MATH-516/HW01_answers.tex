@@ -14,6 +14,7 @@
 \pagestyle{fancy}
 \usepackage{changepage}
 \usepackage{mathcomp}
+\usepackage{tcolorbox}
 
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
@@ -46,10 +47,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 % \maketitle
 
 \subsection*{1}
+\begin{tcolorbox}
 Let $\mathcal{A} := \left\{ E \subseteq [0,1] : \chi_{E} \text{ is Riemann integrable} \right\}$. Prove that $\mathcal{A}$ is an algebra but not a
 $\sigma$-algebra.
+\end{tcolorbox}
 
-{\bf Solution:}
+% {\bf Solution:}
 
 \begin{Lemma}
 If $s_{1}, s_{2}$ are step functions on $[a,b]$, then $\max\left\{ s_{1}, s_{2} \right\}$ is also a step function on $[a,b]$.
@@ -98,20 +101,23 @@ clearly not in $\mathcal{A}$ since we have shown the Dirichlet function to not b
 
 \newpage
 \subsection*{2}
+\begin{tcolorbox}
 Give an example of a monotone class that is not a $\sigma$-algebra.
+\end{tcolorbox}
 
-{\bf Solution:} Let $\mathcal{M} = \{\mathbb{N}\} \cup \left\{ \{0,\hdots,n\} : n \in \mathbb{N} \right\}$. Then $\mathcal{M}$ is closed under any
+Let $\mathcal{M} = \{\mathbb{N}\} \cup \left\{ \{0,\hdots,n\} : n \in \mathbb{N} \right\}$. Then $\mathcal{M}$ is closed under any
 countable unions or countable intersections, and therefore is a monotone class. However, $\{1,2\}^{c} = \{3, 4, 5, \hdots\}$, for example, is not in
 $\mathcal{M}$, so $\mathcal{M}$ is not closed under complementation.
 
 
 
 \subsection*{3 [RF 17.2]}
+\begin{tcolorbox}
 Let $\mathcal{M}$ be a $\sigma$-algebra of subsets of a set $X$ and the set function $\mu : \mathcal{M} \rightarrow [0, \infty)$ be finitely additive.
 Prove that $\mu$ is a measure if and only if whenever $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is an ascending sequence of sets in $\mathcal{M}$, then 
 \[ \mu\left( \cup_{n=0}^{\infty}A_{n} \right) = \lim_{n\rightarrow\infty}\mu(A_{n}). \]
+\end{tcolorbox}
 
-{\bf Solution:}
 
 \begin{Proof}
 $(\Rightarrow)$ Apply Proposition (I)(1)xix.
@@ -125,10 +131,12 @@ $A_{n} := \cup_{k=0}^{n}E_{k}$. So $A_{n} \subseteq A_{n+1}$. Thus,
 
 
 \subsection*{4}
+\begin{tcolorbox}
 Let $\mathcal{S}$ denote the $\sigma$-algebra of all Legesgue measurable subsets of $[0,1]$ and let $\mu$ denote Lebesgue measure on $[0,1]$. Suppose
 $A$ is a measurable subset of $[0,1]$. For each $\alpha \in [0,1]$, let $f(\alpha) := \mu([0,\alpha]\cap A)$. Prove that $f$ is continuous.
+\end{tcolorbox}
 
-{\bf Solution:} Actually it turns out $f$ is Lipschitz continuous.
+Actually it turns out $f$ is Lipschitz continuous.
 
 \begin{Proof}
 Let $t_{0}, t_{1} \in [0,1]$ and assume without loss of generality that $t_{0} \leq t_{1}$. Then using monoticity and the excision property of
@@ -143,10 +151,11 @@ So $f$ is Lipschitz continuous with Lipschitz constant $c = 1$.
 
 
 \subsection*{5}
+\begin{tcolorbox}
 Let $\mathcal{S}$ denote the $\sigma$-algebra of all Legesgue measurable subsets of $[0,1]$ and let $\mu$ denote Lebesgue measure on $[0,1]$. Suppose
 $A$ is a measurable subset of $[0,1]$ and $r < \mu(A)$. Prove that there is a measurable $B \subseteq A$ such that $\mu(B) = r$.
+\end{tcolorbox}
 
-{\bf Solution:}
 
 \begin{Proof}
 Define the function $f : [0,1] \rightarrow [0,1]$ by 
@@ -157,11 +166,11 @@ $A \supset B := A \cap [0,t']$ has measure $r$.
 \end{Proof}
 
 \subsection*{Extra Credit}
+\begin{tcolorbox}
 Let $\mathcal{S}$ denote the $\sigma$-algebra of all Lebesgue measurable subsets of $[0,1]$. Let $m$ denote the Lebesgue measure, and let $\mu :
 \mathcal{S} \rightarrow \mathbb{R}$ denote a measure so that $\mu(A) = m(A)$ whenever $\mathcal{A} \in \mathcal{S}$ and $m(A) = 1/2$. Prove that
 $\mu(A) = m(A)$ whenever $A \in \mathcal{S}$.
-
-{\bf Solution:}
+\end{tcolorbox}
 
 \begin{Proof}
 Define the function $F_{\mu} : [0,1] \rightarrow \mathbb{R}$ by $F_{\mu}(t) := \mu([0,t])$ for all $t \in [0,1]$, i.e. $F_{\mu}$ is the 
@@ -192,7 +201,7 @@ For every $1/2 > |h|  > 0$, there exists $c_{h} \geq 0$ such that $F_{\mu}(t) - 
 Without loss of generality, suppose $1/2 > h > 0$. 
 Let $E_{0} := [0, 1/2 - h]$. Then for any $t \in [1/2,1]$,
 \[ 1/2 = \mu(E_{0} \cup (t-h, t]) = \mu(E_{0}) + \mu( (t-h, t]) = \mu(E_{0}) + F_{\mu}(t) - F_{\mu}(t-h). \]
-Therefore $F_{\mu}(t) - F_{\mu}(t-h) \equiv c_{h} := 1/2 - \mu(E_{0})$. The second part of the claim follows by similar argument.
+Therefore $F_{\mu}(t) - F_{\mu}(t-h) \equiv c_{h} := 1/2 - \mu(E_{0})$. A similar argument shows that this holds when $t \in [0,1/2]$.
 \end{claimproof}
 
 \begin{claim}
