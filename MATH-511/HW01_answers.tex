@@ -280,6 +280,108 @@ Hence $\triangle u\cdot v = 0$.
 
 
 
+\subsection*{8} 
+Let $U \subseteq \mathbb{C}$ be an open set. Let $z_{0} \in U$ and $r > 0$ and assume that $\left\{ z : |z - z_{0}| \leq r \right\} \subseteq U$. For
+$j$ a positive integer, compute 
+\[ \frac{1}{2\pi}\int_{0}^{2\pi}(z_{0} + re^{i\theta})^{j}\ d\theta \qquad \text{and}\qquad \frac{1}{2\pi}\int_{0}^{2\pi}\overline{(z_{0} +
+re^{i\theta})^{j}}\ d\theta. \]
+Use these results to prove that if $\mu$ is a harmonic polynomial on $U$, then 
+\[ \frac{1}{2\pi}\int_{0}^{2\pi}u(z_{0} + re^{i\theta})\ d\theta = u(z_{0}). \]
+
+{\bf Solution:}
+
+\begin{Proof}
+
+\begin{claim}
+For any positive integer $j$,
+\[ \frac{1}{2\pi}\int_{0}^{2\pi}(z_{0} + re^{i\theta})^{j}\ d\theta = z_{0}^{j} \qquad \text{and}\qquad \frac{1}{2\pi}\int_{0}^{2\pi}\overline{(z_{0} +
+re^{i\theta})^{j}}\ d\theta = \bar{z}_{0}^{j}. \]
+\end{claim}
+\begin{claimproof}
+First note that for any $c \in \mathbb{C}$ and positive integer $k$,
+\[ \int_{0}^{2\pi}ce^{i\theta k}\ d\theta = c\int_{0}^{2\pi}\cos(k\theta)\ d\theta + ci\int_{0}^{2\pi}\sin(k\theta)\ d\theta = 0, \]
+and 
+\[ \int_{0}^{2\pi}c\overline{e^{i\theta k}}\ d\theta = c\int_{0}^{2\pi}\cos(k\theta)\ d\theta - ci\int_{0}^{2\pi}\sin(k\theta)\ d\theta = 0. \]
+Thus,
+\[ \frac{1}{2\pi}\int_{0}^{2\pi}(z_{0} + re^{i\theta})\ d\theta = \frac{1}{2\pi}\int_{0}^{2\pi}\left[ z_{0}^{j} + c_{1}z_{0}^{j-1}e^{i\theta} + 
+c_{1}z_{0}^{j-2}e^{i\theta 2} + \dots + c_{j}e^{i\theta j} \right]d\theta = z_{0}^{j}, \]
+and 
+\begin{align*}
+\frac{1}{2\pi}\int_{0}^{2\pi}\overline{z_{0} + re^{i\theta})^{j}}\ d\theta & = \frac{1}{2\pi}\int_{0}^{2\pi}(\bar{z}_{0} +
+r\overline{e^{i\theta}})^{j}\ d\theta \\
+& = \frac{1}{2\pi}\int_{0}^{2\pi}\left[ \bar{z}_{0}^{j} + c_{1}\bar{z}_{0}^{j-1}\overline{e^{i\theta}} + c_{1}\bar{z}_{0}^{j-2}\overline{e^{i\theta 2}} + \dots + 
+c_{j}\overline{e^{i\theta j}} \right]d\theta = \bar{z}_{0}^{j}.
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+For $u(z) = \sum_{l,m}c_{l,m}z^{l}\bar{z}^{m}$, we have $c_{l,m} = 0$ whenever both $l > 0$ and $m > 0$. In other words, there are no terms involving both $z$
+and $\bar{z}$.
+\end{claim}
+\begin{claimproof}
+By way of contradiction, suppose there exists $i,j > 0$ such that $c_{i,j} \neq 0$. But then 
+\[ \triangle (c_{i,j}z^{i}\bar{z}^{j}) = 4\frac{\partial^{2}}{\partial z\partial \bar{z}}(c_{i,j}z^{i}\bar{z}^{j}) = 4c_{i,j}\frac{\partial}{\partial
+z}(z^{i}j\bar{z}^{j-1})  = 4c_{i,j}(ijz^{i-1}\bar{z}^{j-1}) \neq 0,\]
+so $u$ is not harmonic. This is a contradiction.
+\end{claimproof}
+
+By claims 1 and 2,
+\begin{align*}
+\frac{1}{2\pi}\int_{0}^{2\pi}u(z_{0} + re^{i\theta})\ d\theta & = \sum_{l}\frac{c_{l,0}}{2\pi}\int_{0}^{2\pi}(z_{0} + re^{i\theta})^{l}\ d\theta + 
+\sum_{m}\frac{c_{0,m}}{2\pi}\int_{0}^{2\pi}\overline{(z_{0} + re^{i\theta})}^{m}\ d\theta \\
+& = \sum_{l}z_{0}^{l} + \sum_{m}\bar{z}_{0}^{m} \\
+& = u(z_{0}).
+\end{align*}
+\end{Proof}
+
+
+
+\newpage
+\subsection*{10}
+Suppose $U$ is star-shaped and $f,g \in C^{1}(U)$ satisfy $f_{y} = g_{x}$. Show that the function $h(x,y) := \int_{0}^{1}(f(r(t)),g(r(t)))\cdot
+r'(t)\ dt$ satisfies $h_{x} = f$ and $h_{y} = g$, where $r(t) := (a + t(x-a), b + t(y-b))$.
+
+{\bf Solution:}
+
+\begin{Proof}
+First note that 
+\begin{equation}
+\frac{d}{dt}t f(r(t)) = f(r(t)) + t\big[ f_{x}(r(t))(x-a) + f_{y}(r(t))(y-b)\big],
+\label{10.1}
+\end{equation}
+and 
+\begin{equation}
+\frac{d}{dt}t g(r(t)) = g(r(t)) + t\big[ g_{x}(r(t))(x-a) + g_{y}(r(t))(y-b)\big].
+\label{10.2}
+\end{equation}
+Now,
+\[ h(x,y) = \int_{0}^{1} f(r(t))(x-a)\ dt + \int_{0}^{1} g(r(t))(y-b)\ dt. \]
+Further, 
+\begin{equation}
+\frac{\partial}{\partial x}\left[ \int_{0}^{1}f(r(t))(x-a)\ dt \right] = \int_{0}^{1}\left[ f_{x}(r(t))\cdot t \cdot (x-a) + f(r(t)) \right]dt,
+\label{10.3}
+\end{equation}
+and 
+\begin{equation}
+\frac{\partial}{\partial x} \left[ \int_{0}^{1}g(r(t))(y-b)\ dt \right] = \int_{0}^{1} g_{x}(r(t))\cdot t \cdot (y-b)\ dt = \int_{0}^{1}
+f_{y}(r(t))\cdot t \cdot (y-b)\ dt
+\label{10.4}
+\end{equation}
+Thus we see that $h_{x}(x,y) = \eqref{10.3} + \eqref{10.4} = \int_{0}^{1} \eqref{10.1}\ dt = \int_{0}^{1} \frac{d( t f(r(t)))}{dt}\ dt = f(x,y)$, by the
+fundamental theorem. On the other hand,
+\begin{equation}
+\frac{\partial}{\partial y}\left[ \int_{0}^{1}f(r(t))(x-a)\ dt \right] = \int_{0}^{1}f_{y}(r(t))\cdot t \cdot (x-a)\ dt = \int_{0}^{1}g_{x}(r(t))\cdot
+t \cdot (x-a)\ dt,
+\label{10.5}
+\end{equation}
+and 
+\begin{equation}
+\frac{\partial}{\partial y}\left[ \int_{0}^{1}g(r(t))(y-b)\ dt \right] = \int_{0}^{1}\left[ g_{y}(r(t))\cdot t \cdot (y-b) + g(r(t)) \right]dt.
+\label{10.6}
+\end{equation}
+Therefore $h_{y}(x,y) = \eqref{10.5} + \eqref{10.6} = \int_{0}^{1} \eqref{10.2}\ dt = \int_{0}^{1}\frac{d(t g(r(t)))}{dt}\ dt = g(x,y)$, by the
+fundamental theorem once again.
+\end{Proof}
 
 
 
