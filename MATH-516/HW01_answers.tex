@@ -152,7 +152,7 @@ $A$ is a measurable subset of $[0,1]$ and $r < \mu(A)$. Prove that there is a me
 Define the function $f : [0,1] \rightarrow [0,1]$ by 
 \[ f(t) := \mu(A \cap [0,t]) \]
 for all $t \in [0,1]$. Clearly $f$ is monotone increasing and $0 = \mu(\emptyset) = f(0) < r < f(1) = \mu(A)$. By question 4, $f$ is
-continuous. Hence, ran$(f) = [0, \mu(A)] \ni r$, so there exists $t' \in [0,1]$ such that $r = f(t') = \mu(A \cap [0,t'])$. So
+continuous. Hence, ran$(f) = [0, \mu(A)] \ni r$, so by the intermediate value theorem there exists some $t' \in [0,1]$ such that $r = f(t') = \mu(A \cap [0,t'])$. So
 $A \supset B := A \cap [0,t']$ has measure $r$.
 \end{Proof}
 
@@ -169,7 +169,7 @@ cumulative distribution function (cdf) of $\mu$. Similarly, let $F_{m}$ be the c
 constant derivative of 1. We will show that $F_{\mu} \equiv F_{m}$ and use that to prove that $\mu$ and $m$ agree on all $E \in \mathcal{S}$.
 
 \begin{claim}
-$\mu$ and $m$ agree on all sets $E \in \mathcal{S}$ with $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$, for some $n \in \mathbb{N}$.
+$\mu$ and $m$ agree on all sets $E \in \mathcal{S}$ such that $m(E) = 2^{-(n+1)}$, for some $n \in \mathbb{N}$.
 \end{claim}
 \begin{claimproof}
 Let $n \geq 1$. Choose a measurable set $E_{0} \subset [0,1/2)$ such that $m(E_{0}) = 1/2 - 2^{-(n+1)}$. By monotonicity,
@@ -179,20 +179,74 @@ Thus, if $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$, then
 so $\mu(E) = 1/2 - r$. Now, if we partition $[1/2,1]$ into $2^{n}$ pairwise disjoint sets $\left\{ E_{1}, \hdots , E_{2^{n}} \right\}$ such that
 $\mu(E_{k}) = 2^{-(n+1)}$ for all $1 \leq k \leq 2^{n}$, then since $\cup_{k=1}^{2^{n}}E_{k} = [1/2,1]$, we have 
 \[ 1/2 = \sum_{k=1}^{2^{n}}\mu(E_{k}) = 2^{n}(1/2 - r), \]
-which implies $r = 1/2 - 2^{-(n+1)}$. Therefore $\mu(E) = 2^{-(n+1)}$ for all $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$. 
+which implies $r = 1/2 - 2^{-(n+1)}$. Therefore $\mu(E) = 2^{-(n+1)}$ for all $E \subseteq [1/2,1]$ such that $m(E) = 2^{-(n+1)}$. A similar argument
+holds for sets $E \in \mathcal{S}$ such that $E \subseteq [0,1/2]$ or $E \subseteq [1/2,3/4]$. Therefore we can conclude that $\mu(E) = m(E)$ whenever
+$m(E) = 2^{-(n+1)}$ for some $n \in \mathbb{N}$.
 \end{claimproof}
 
 \begin{claim}
-$F_{\mu}$ is differentiable, and therefore continuous, on $[1/2,1]$ with constant derivative of $1$.
+For every $1/2 > |h|  > 0$, there exists $c_{h} \geq 0$ such that $F_{\mu}(t) - F_{\mu}(t - h) \equiv c_{h}$ for every $t \in
+[1/2,1]$. Similarly, there exists $d_{h} \geq 0$ such that $F_{\mu}(t+h) - F_{\mu}(t) \equiv d_{h}$ for every $t \in [0,1/2]$.
 \end{claim}
 \begin{claimproof}
-Since $F_{\mu}$ is monotone increasing (this is clear by its definition), 
-
-for all $t \in [1/2,1]$,
-\[ \text{Diff}_{2^{-(n+1)}}(F_{\mu})(t) = \frac{F(t + 2^{-(n+1)}) - F(t)}{2^{-(n+1)}} = \frac{ \mu([0,t+2^{-(n+1)}]) - \mu([0,t])}{2^{-(n+1)}} = 
-\frac{\mu\left( (t,t+2^{-(n+1)}] \right)}{2^{-(n+1)}} = 1. \]
-Therefore $F'(t) = 1$ for all $t \in [1/2,1]$. The the same argument would show that $F' \equiv 1$ on $[0,1/2]$.
+Without loss of generality, suppose $1/2 > h > 0$. 
+Let $E_{0} := [0, 1/2 - h]$. Then for any $t \in [1/2,1]$,
+\[ 1/2 = \mu(E_{0} \cup (t-h, t]) = \mu(E_{0}) + \mu( (t-h, t]) = \mu(E_{0}) + F_{\mu}(t) - F_{\mu}(t-h). \]
+Therefore $F_{\mu}(t) - F_{\mu}(t-h) \equiv c_{h} := 1/2 - \mu(E_{0})$. The second part of the claim follows by similar argument.
 \end{claimproof}
+
+\begin{claim}
+$F_{\mu}$ is differentiable, and therefore continuous, on $[0,1]$ with constant derivative of $1$.
+\end{claim}
+\begin{claimproof}
+Since $F_{\mu}$ is monotone increasing (this is clear by its definition), $F_{\mu}'$ exists a.e. ($m$). Now suppose $t_{0} \in [0,1]$ such that
+$F_{\mu}(t_{0})$ exists. Without loss of generality assume $t_{0} \neq 1$. Then by claim 1,
+\[ F_{\mu}'(t_{0}) = \lim_{n\rightarrow\infty}\frac{F_{\mu}(t_{0} + 2^{-(n+1)}) - F_{\mu}(t_{0})}{2^{-(n+1)}} = \frac{\mu(
+(t_{0},t_{0}+2^{-(n+1)}])}{2^{-(n+1)}} = 1. \]
+Therefore $F_{\mu}'(t) \equiv 1$ wherever the derivative exists. But now we will show that the derivative exists everywhere. So let $t \in [0,1]$ and
+suppose $\left\{ t_{n} \right\}_{n=0}^{\infty} \subset [0,1]$ such that $t_{n} \rightarrow t$. If $t \geq 1/2$, let $t' \geq 1/2$ so that
+$F_{\mu}(t')$ exists. Otherwise let $t' < 1/2$ so that $F_{\mu}(t')$ exists. By claim 2,
+\[ F_{\mu}(t) - F_{\mu}(t_{n}) = F_{\mu}(t') - F_{\mu}(t' - t + t_{n}), \]
+since $t - t_{n} = t' - (t' - t + t_{n})$. Thus, 
+\begin{equation}
+\lim_{n\rightarrow\infty}\frac{F_{\mu}(t) - F_{\mu}(t_{n})}{t_{n} - t} = \lim_{n\rightarrow\infty}\frac{F_{\mu}(t') - F_{\mu}(t' - t + t_{n})}{t_{n} -
+t} = F_{\mu}'(t') = 1.
+\label{6.1}
+\end{equation}
+Since \eqref{6.1} holds for any sequence $\left\{ t_{n} \right\}_{n=0}^{\infty}$ such that $t_{n} \rightarrow t$, $F_{\mu}'(t) = 1$.
+\end{claimproof}
+
+\begin{claim}
+$F_{\mu} \equiv F_{m}$.
+\end{claim}
+\begin{claimproof}
+Follows by claim 3 since $0 = F_{\mu}(0) = F_{m}(0)$ and $1 \equiv F_{\mu}' \equiv F_{m}'$.
+\end{claimproof}
+
+\begin{claim}
+$\mu\left( \left\{ x \right\} \right) = 0$ for all $x \in [0,1]$.
+\end{claim}
+\begin{claimproof}
+Suppose $x \in [0,1]$ and without loss of generality assume $x \neq 0$. Then by the continuity of measure and the continuity of $F_{\mu}$ (claim 3),
+\begin{align*}
+\mu\left( \left\{ x \right\} \right) = \lim_{n\rightarrow\infty}\mu\left( (x-2^{-n},x] \right) & = \lim_{n\rightarrow\infty}\mu([0,x]) -
+\mu([0,x-2^{-n}]) \\
+& = \lim_{n\rightarrow\infty}F_{\mu}(x) - F_{\mu}(x - 2^{-n}) \\
+& = F_{\mu}(x) - F_{\mu}(x) = 0. 
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+$\mu(I) = m(I)$ for every interval $I \subseteq [0,1]$.
+\end{claim}
+\begin{claimproof}
+Suppose $0 \leq a \leq b \leq 1$. Then 
+\[ m\left( (a,b] \right) = F_{m}(b) - F_{m}(a) = F_{\mu}(b) - F_{\mu}(a) = \mu\left( (a,b] \right).\]
+By claim 5, $\mu( (a,b] ) = \mu( (a,b) ) = \mu( [a,b) ) = \mu([a,b])$. Therefore $\mu$ and $m$ agree on every interval.
+\end{claimproof}
+
+By claim 6, $\mu$ and $m$ agree on every open set, since an open set is the disjoint union of countably many open intervals. Therefore $\mu$ and $m$
+also agree on every closed set, since a closed set is the complement of an open set and $\mu([0,1]) = m([0,1]) = 1$.
 
 Now suppose $E$ is any measurable subset of $[0,1]$ and let $\epsilon > 0$. By a theorem from 515, there exists a
 an open set $\mathcal{O}$ and closed set $F$ such that $\mathcal{O} \supseteq E \supseteq F$, while $m(\mathcal{O}) - m(E) < \epsilon / 2$ and $m(E) - m(F)
