@@ -14,6 +14,7 @@
 \pagestyle{fancy}
 \usepackage{changepage}
 \usepackage{mathcomp}
+\usepackage{tcolorbox}
 
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
@@ -46,8 +47,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \maketitle
 
 \subsection*{1}
+\begin{tcolorbox}
+Let $\Omega := (0,1]$ and suppose $\mathcal{F}$ consists of all finite unions of disjoint intervals of the form $(a,a'], 0 \leq a \leq a' \leq 1$.
+Show that $\mathcal{F}$ is an algebra but not a $\sigma$-algebra.
+\end{tcolorbox}
 
-\begin{Proof} Let $\Omega := (0,1]$ and $\mathcal{F}$ consist of all finite disjoint unions of intervals of the form $(a,a'] \subseteq (0,1]$.
+\begin{Proof} 
 
 \begin{claim}
 $\mathcal{F}$ is an algebra.
@@ -88,6 +93,10 @@ Note that $\cup_{n=0}^{\infty}(0,1-2^{-n}] = (0,1) \notin \mathcal{F}$. Thus $\m
 
 
 \subsection*{2}
+\begin{tcolorbox}
+Let $\Omega$ be a non-empty set and let $\mathcal{L}$ be a class of subsets of $\Omega$. If $\mathcal{L}$ is a $\lambda$-class and also a $\pi$-class,
+show that $\mathcal{L}$ is a $\sigma$-algebra.
+\end{tcolorbox}
 
 \begin{Proof}
 It suffices to show that $\mathcal{L}$ is closed under countable unions. So, let $\left\{ A_{n} \right\}_{n=0}^{\infty} \subset \mathcal{L}$. Set
@@ -102,6 +111,18 @@ since $\mathcal{L}$ is a $\sigma$-algebra.
 
 
 \subsection*{3 [A/L 2.1]}
+\begin{tcolorbox}
+Let $\Omega_{i}$, $i = 1,2$ be two non-empty sets and $T : \Omega_{1} \rightarrow \Omega_{2}$ be a map. Let $\left\{ A_{\alpha} : \alpha \in I
+\right\}$ be any collection of subsets of $\Omega_{2}$. Show that
+\begin{enumerate}[label=(\alph*)]
+\item $T^{-1}\left( \bigcup_{\alpha \in I}A_{\alpha} \right) = \bigcup_{\alpha\in I}T^{-1}(A_{\alpha})$, \\
+
+\item $T^{-1}\left( \bigcap_{\alpha \in I} A_\alpha \right) = \bigcap_{\alpha \in I}T^{-1}(A_\alpha)$, and  \\
+
+\item $\left( T^{-1}(A) \right)^{c} = T^{-1}(A^{c})$ for every $A \in \Omega_2$.
+\end{enumerate}
+\end{tcolorbox}
+
 \begin{enumerate}[label=(\alph*)]
 \item 
 
@@ -172,6 +193,15 @@ So by \ref{5} and \ref{6} we have equality.
 
 
 \subsection*{4}
+\begin{tcolorbox}
+Suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is a real-valued function on a measurable space $(\Omega, \mathcal{F}) = (\mathbb{R},
+\mathcal{B}(\mathbb{R}))$. 
+\begin{enumerate}[label=(\alph*)]
+\item Show that $f : \mathbb{I}_{A}$ is Borel measurable if and only if $A$ is a Borel measurable set. 
+\item Show that if $f$ is non-decreasing then $f$ is Borel measurable.
+\end{enumerate}
+\end{tcolorbox}
+
 \begin{enumerate}[label=(\alph*)]
 \item 
 \begin{Proof}
@@ -201,6 +231,16 @@ is Borel, so $f$ is measurable.
 
 
 \subsection*{5}
+\begin{tcolorbox}
+On a measure space $(\Omega, \mathcal{F}, \mu) := (\mathbb{R}, \mathcal{B}(\mathbb{R}), m)$, define a sequence $f_{n} : \mathbb{R} \rightarrow
+\mathbb{R}$ by 
+\[ f_{n}(x) := \left\{ \begin{array}{cl}
+1/n &  \text{ if } x \in [n,2n] \\
+0 &  \text{ otherwise,}
+\end{array} \right. \qquad x \in \mathbb{R}. \]
+Find $\lim_{n\rightarrow\infty}f_{n}(x) := f(x)$, for each $x \in \mathbb{R}$, and show that 
+\[ \lim_{n\rightarrow\infty}\int f_{n}(x)\ d\mu(x) \neq \int f(x)\ d\mu(x). \]
+\end{tcolorbox}
 
 Let $x \in \mathbb{R}$. If $x < 0$, then $f_{n}(x) = 0$ for all $n \in \mathbb{N}$. If $x \geq 0$, then there exists $N \in \mathbb{N}$ such that $N >
 x$. Therefore $f_{n}(x) = 0$ for all $n \geq N$. This implies that $f(x) \equiv 0$. However, for each $n \in \mathbb{N}$,
@@ -209,6 +249,11 @@ so $\lim_{n\rightarrow\infty} \int f_{n}\ dm = 1 \neq \int f\ dm$.
 
 
 \subsection*{6}
+\begin{tcolorbox}
+On a measure space $(\Omega, \mathcal{F}, \mu)$, suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is a Borel measurable and $\mu$-integrable function.
+Show that, given $\epsilon > 0$, there is a simple function $\psi$ on $\mathbb{R}$ such that 
+\[ \int |f - \psi | d\mu < \epsilon. \]
+\end{tcolorbox}
 
 \begin{Proof}
 Let $\epsilon > 0$. Since $f^{+}$ and $f^{-}$ are nonnegative and integrable, there exists simple functions $\varphi \leq f^{+}$ and $\xi \leq
@@ -224,8 +269,13 @@ Now set $\psi(x) = \varphi(x) + \xi(x)$. Clearly $\psi$ is a simple function and
 \end{Proof}
 
 
-
+\newpage
 \subsection*{7}
+\begin{tcolorbox}
+Let $P$ and $Q$ denote two probability measures defined on measurable space $(\Omega, \mathcal{F}, \mu)$. Show that 
+\[ \sup_{A \in \mathcal{F}}|P(A) - Q(A)| = \frac{1}{2} \int |p - q|d\mu, \]
+where $p$ and $q$ denote densities for measures $P$ and $Q$, respectively, with respect to some dominating measure $\mu$.
+\end{tcolorbox}
 
 \begin{Proof}
 Let $f := p -q$. Then 
@@ -251,8 +301,13 @@ Therefore
 \end{Proof}
 
 
-
+\newpage
 \subsection*{8}
+\begin{tcolorbox}
+Suppose $\left\{ X_{n} \right\}_{n=1}^{\infty}$ are random variables on psp $(\Omega, \mathcal{F}, \mu)$ such that $X_{n} \rightarrow X_{0}$ a.s.
+($P$). If $\sup_{n\geq 1}E(X_{n}^{2}) < \infty$ show that $E(X_{n}) \rightarrow E(X_{0})$.
+\end{tcolorbox}
+
 \begin{Proof}
 By Proposition 2.5.7 (ii) [A/L], $\left\{ X_{n} : n \geq 1 \right\}$ is UI. Now note that 
 \[ \left| \int X_{n} \ dP - \int X_{0}\ dP \right| = \left| \int X_{n} - X_{0}\ dP \right| \leq \int |X_{n} - X_{0}| \ dP, \]
