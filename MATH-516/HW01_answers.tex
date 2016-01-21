@@ -105,8 +105,14 @@ clearly not in $\mathcal{A}$ since we have shown the Dirichlet function to not b
 Give an example of a monotone class that is not a $\sigma$-algebra.
 \end{tcolorbox}
 
-Let $\mathcal{M} = \{\mathbb{N}\} \cup \left\{ \{0,\hdots,n\} : n \in \mathbb{N} \right\}$. Then $\mathcal{M}$ is closed under any
-countable unions or countable intersections, and therefore is a monotone class. However, $\{1,2\}^{c} = \{3, 4, 5, \hdots\}$, for example, is not in
+Let $\mathcal{M} = \{\mathbb{N}\} \cup \left\{ \{0,\hdots,n\} : n \in \mathbb{N} \right\}$. Then $\mathcal{M}$ is closed under
+countable unions and countable intersections, and therefore is a monotone class. To see this, let $\left\{ A_{n} \right\}_{n=0}^{\infty}\subseteq
+\mathcal{M}$. If $A := \cup_{n=0}^{\infty}A_{n}$ is bounded, then 
+\[ A = \left\{ 0, \hdots, \max\{n \in \cup A\} \right\} \in \mathcal{M}. \]
+If $\cup_{n=0}^{\infty}A_{n}$ is unbouded, then $A = \mathbb{N} \in \mathcal{M}$. On the other hand, if $B := \cap_{n=0}^{\infty}A_{n}$, then 
+$B$ must be bounded, so 
+\[ B = \{0,\hdots, \max\{n \in B\}\}. \]
+However, $\{1,2\}^{c} = \{3, 4, 5, \hdots\}$, for example, is not in
 $\mathcal{M}$, so $\mathcal{M}$ is not closed under complementation.
 
 
@@ -125,8 +131,9 @@ $(\Rightarrow)$ Apply Proposition (I)(1)xix.
 $(\Leftarrow)$ First note that for any $E \in \mathcal{M}$, $\mu(E) = \mu(E) + \mu(\emptyset)$ by finite additivity, so $\mu(\emptyset) = 0$. It
 remains to show that $\mu$ is countably additive. Suppose $\left\{ E_{k} \right\}_{k=0}^{\infty} \subseteq \mathcal{M}$ is pairwise disjoint. Set
 $A_{n} := \cup_{k=0}^{n}E_{k}$. So $A_{n} \subseteq A_{n+1}$. Thus,
-\[ \mu\left( \cup_{k=0}^{\infty}E_{k} \right) = \mu\left( \cup_{n=0}^{\infty}A_{n} \right) = \lim_{n\rightarrow\infty}\mu(A_{n}) =
-\lim_{n\rightarrow\infty}\sum_{k=0}^{n}\mu(E_{k}) = \sum_{k=0}^{\infty}\mu(E_{k}). \]
+\[ \mu\left( \cup_{k=0}^{\infty}E_{k} \right) = \mu\left( \cup_{n=0}^{\infty}A_{n} \right) = \lim_{n\rightarrow\infty}\mu(A_{n}) \stackrel{*}{=}
+\lim_{n\rightarrow\infty}\sum_{k=0}^{n}\mu(E_{k}) = \sum_{k=0}^{\infty}\mu(E_{k}), \]
+where $(*)$ is due to finite additivity.
 \end{Proof}
 
 
@@ -139,7 +146,7 @@ $A$ is a measurable subset of $[0,1]$. For each $\alpha \in [0,1]$, let $f(\alph
 Actually it turns out $f$ is Lipschitz continuous.
 
 \begin{Proof}
-Let $t_{0}, t_{1} \in [0,1]$ and assume without loss of generality that $t_{0} \leq t_{1}$. Then using monoticity and the excision property of
+Let $t_{0}, t_{1} \in [0,1]$ and assume without loss of generality that $t_{0} \leq t_{1}$. Then using monotonicity and the excision property of
 measures,
 \[ |f(t_{0}) - f(t_{1})| = \mu(A\cap[0,t_{1}]) - \mu(A\cap[0,t_{0}]) = \mu(A\cap[t_{0},t_{1}]) \leq \mu([t_{0},t_{1}]) = |t_{0} - t_{1}|. \]
 So $f$ is Lipschitz continuous with Lipschitz constant $c = 1$.
@@ -165,7 +172,7 @@ continuous. Hence, ran$(f) = [0, \mu(A)] \ni r$, so by the intermediate value th
 $A \supset B := A \cap [0,t']$ has measure $r$.
 \end{Proof}
 
-\subsection*{Extra Credit}
+\subsection*{6 [Extra Credit]}
 \begin{tcolorbox}
 Let $\mathcal{S}$ denote the $\sigma$-algebra of all Lebesgue measurable subsets of $[0,1]$. Let $m$ denote the Lebesgue measure, and let $\mu :
 \mathcal{S} \rightarrow \mathbb{R}$ denote a measure so that $\mu(A) = m(A)$ whenever $\mathcal{A} \in \mathcal{S}$ and $m(A) = 1/2$. Prove that
@@ -238,9 +245,8 @@ $\mu\left( \left\{ x \right\} \right) = 0$ for all $x \in [0,1]$.
 \begin{claimproof}
 Suppose $x \in [0,1]$ and without loss of generality assume $x \neq 0$. Then by the continuity of measure and the continuity of $F_{\mu}$ (claim 3),
 \begin{align*}
-\mu\left( \left\{ x \right\} \right) = \lim_{n\rightarrow\infty}\mu\left( (x-2^{-n},x] \right) & = \lim_{n\rightarrow\infty}\mu([0,x]) -
-\mu([0,x-2^{-n}]) \\
-& = \lim_{n\rightarrow\infty}F_{\mu}(x) - F_{\mu}(x - 2^{-n}) \\
+\mu\left( \left\{ x \right\} \right) = \lim_{n\rightarrow\infty}\mu\left( (x-2^{-n},x] \right) = \lim_{n\rightarrow\infty}\mu([0,x]) -
+\mu([0,x-2^{-n}]) & = \lim_{n\rightarrow\infty}F_{\mu}(x) - F_{\mu}(x - 2^{-n}) \\
 & = F_{\mu}(x) - F_{\mu}(x) = 0. 
 \end{align*}
 \end{claimproof}
