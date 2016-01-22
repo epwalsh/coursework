@@ -225,12 +225,18 @@ Compute the follwing derivatives:
 \end{enumerate}
 \end{tcolorbox}
 
-See work attached.
-
-(a) 
+(a) See work attached.
 \[ \left( 24i - \frac{36}{i} \right)\bar{z}^{3} + 60i\bar{z}^{2} + \left( \frac{36}{i} - 72 \right)z\bar{z}^{2} - 72z^{2}\bar{z} + 12iz - 12i\bar{z}.
 \]
-(b) $0$.
+(b) 
+\begin{align*}
+\frac{\partial^{4}}{\partial z\partial \bar{z}^{3}}(xy^{2}) = \frac{\partial^{3}}{\partial z\partial\bar{z}^{2}}\left( 
+\frac{1}{2}\frac{\partial}{\partial x}(xy^{2}) - \frac{i}{2}\frac{\partial}{\partial y}(xy^{2}) \right) & 
+= \frac{\partial^{3}}{\partial z\partial\bar{z}^{2}}\left( \frac{1}{2}xy^{2} - ixy \right) \\
+& = \frac{\partial^{2}}{\partial z\partial \bar{z}}\left( -\frac{i}{2}y + \frac{i}{2}y + \frac{1}{2}x \right) \\
+& = \frac{\partial^{2}}{\partial z\partial \bar{z}}\left(\frac{1}{2}x \right) \\
+& = \frac{\partial}{\partial z}\left( \frac{1}{4} \right) = 0.
+\end{align*}
 
 
 
@@ -274,7 +280,7 @@ Thus,
 x} \right)\left( \frac{\partial u}{\partial x} \right) \\
 & =  \left( \frac{\partial^{2}u}{\partial x^{2}} \right)\cdot v  + u\cdot \left( \frac{\partial^{2}v}{\partial x^{2}} \right) + 2\left( \frac{\partial v}{\partial
 x} \right)\left( \frac{\partial u}{\partial x} \right) \\
-\text{(by \eqref{7.0}, \eqref{7.1}, \eqref{7.4}) } & = \left( \frac{\partial^{2}v}{\partial x\partial y} \right)\cdot v - u \left( \frac{\partial^{2}u}{\partial x \partial y} \right) + 2\left( 
+\text{(by \eqref{7.0}, \eqref{7.1}, \eqref{7.4})}\Rightarrow\  & = \left( \frac{\partial^{2}v}{\partial x\partial y} \right)\cdot v - u \left( \frac{\partial^{2}u}{\partial x \partial y} \right) + 2\left( 
 \frac{\partial v}{\partial y}\right)\left( \frac{\partial v}{\partial x} \right),
 \end{align*}
 and similarly,
@@ -282,7 +288,7 @@ and similarly,
 \frac{\partial^{2}}{\partial y^{2}}u\cdot v & = 
 \left( \frac{\partial^{2}u}{\partial y^{2}} \right)\cdot v  + u\cdot \left( \frac{\partial^{2}v}{\partial y^{2}} \right) + 2\left( \frac{\partial v}{\partial
 y} \right)\left( \frac{\partial u}{\partial y} \right) \\
-\text{(by \eqref{7.0}, \eqref{7.2}, \eqref{7.3}) } & = - \left( \frac{\partial^{2}v}{\partial x\partial y} \right)\cdot v + 
+\text{(by \eqref{7.0}, \eqref{7.2}, \eqref{7.3})}\Rightarrow\  & = - \left( \frac{\partial^{2}v}{\partial x\partial y} \right)\cdot v + 
 u \left( \frac{\partial^{2}u}{\partial x \partial y} \right) - 2\left( \frac{\partial v}{\partial y}\right)\left( \frac{\partial v}{\partial x} \right),
 \end{align*}
 Hence $\triangle u\cdot v = 0$.
@@ -292,6 +298,7 @@ Hence $\triangle u\cdot v = 0$.
 
 
 
+\newpage
 \subsection*{8} 
 \begin{tcolorbox}
 Let $U \subseteq \mathbb{C}$ be an open set. Let $z_{0} \in U$ and $r > 0$ and assume that $\left\{ z : |z - z_{0}| \leq r \right\} \subseteq U$. For
