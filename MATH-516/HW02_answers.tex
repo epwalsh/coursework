@@ -23,7 +23,7 @@
 \newcounter{ProofCounter}
 \newcounter{ClaimCounter}[ProofCounter]
 \newcounter{SubClaimCounter}[ClaimCounter]
-\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
 \newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
 \newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
 \newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
@@ -65,7 +65,7 @@ Now, by monotonicity,
 \end{equation*}
 since $B\cap E \subseteq E \subseteq A$ and $B\cap (X-E) \subseteq B$. Thus
 \begin{equation}
-\mu^*(B\cap E) + \mu^*(B\cap (X-E)) = \mu^*(B\cap E) \leq \mu^*(B).
+\mu^*(B\cap E) + \mu^*(B\cap (X-E)) = \mu^*(B\cap (X-E)) \leq \mu^*(B).
 \label{1.3}
 \end{equation}
 So by \eqref{1.1} and \eqref{1.3}, $E$ is measurable.
@@ -125,7 +125,8 @@ countable additivity of $\mu$ and $\nu$,
 $\lambda$ is a measure.
 \end{claim}
 \begin{claimproof}
-By the definition of $\lambda$ it is clear that for any $A \subseteq \mathcal{M}$ such that $\mu(A) < \infty$, we have $\lambda(A) = \mu(A) - \nu(A)$.
+By the definition of $\lambda$ it is clear that for any $A \subseteq \mathcal{M}$ such that $\mu(A) < \infty$, we have $\lambda(A) = \mu(A) - \nu(A)$ 
+(for example, set $E_{0} := A$ and $E_{n} := \emptyset$ $\forall$ $n \geq 1$).
 Therefore $\lambda(\emptyset) = \mu(\emptyset) - \nu(\emptyset) = 0$. Now suppose $\left\{ A_{n} \right\}_{n=0}^{\infty} \subseteq \mathcal{M}$ is
 pairwise disjoint.
 \begin{description}
@@ -152,8 +153,8 @@ pairwise disjoint sequence of measurable sets $\left\{ I_{j} \right\}_{j=0}^{\in
 $\mu = \nu + \lambda$.
 \end{claim}
 \begin{claimproof}
-Let $A \in \mathcal{M}$. If $\nu(A) < \infty$, then by definition of $\lambda$,
-\[ \lambda(A) = \mu(A) - \nu(A). \]
+Let $A \in \mathcal{M}$. If $\nu(A) < \infty$, then set $E_{0} := A$ and $E_{n} := \emptyset$ for all $n\geq 1$. Then by definition of $\lambda$,
+\[ \lambda(A) = \sum_{n=0}^{\infty}[\mu(E_{n}) - \nu(E_{n})] = \mu(A) - \nu(A). \]
 Therefore $\nu(A) + \lambda(A) = \mu(A)$. If $\nu(A) = \infty$, then trivially
 \[ \infty = \mu(A) = \nu(A) = \nu(A) + \lambda(A). \]
 \end{claimproof}
@@ -187,6 +188,20 @@ Let $(X,\mathcal{M})$ be a measurable space. Show that in general the measure $\
 such $\lambda$.
 \end{tcolorbox}
 
+To see that the measure $\lambda$ does not need to be unique, in general, consider
+the following example. Let $(X,\mathcal{M}) := (\mathbb{N}, \mathcal{P}(\mathbb{N}))$.
+Let $\mu$ and $\nu$ both be defined by 
+\[ \mu(A) = \nu(A) := \left\{ \begin{array}{cl}
+0 & \text{ if } A = \emptyset \\
+\infty & \text{ otherwise.} \end{array} \right. \]
+Let $\lambda_{1} \equiv 0$ and $\lambda_{2} :=$ counting measure. Then 
+$\infty = \mu(A) = \nu(A) + \lambda_{i}(A)$, for $i = 1,2$ and $A \neq \emptyset$.
+
+We will now show that there is always a smallest such $\lambda$.
+
+\begin{Proof}
+
+\end{Proof}
 
 
 
