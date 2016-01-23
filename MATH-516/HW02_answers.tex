@@ -72,7 +72,6 @@ So by \eqref{1.1} and \eqref{1.3}, $E$ is measurable.
 \end{Proof}
 
 
-\newpage 
 \subsection*{2 [RF 17.7 i]}
 \begin{tcolorbox}
 Let $(X,\mathcal{M})$ be a measurable space. Verify that if $\mu$ and $\nu$ are measures defined on $\mathcal{M}$, then the set function $\lambda$ defined on
@@ -98,24 +97,88 @@ Therefore $\lambda$ is a measure.
 Let $(X,\mathcal{M})$ be a measurable space. Verify that if $\mu$ and $\nu$ are measures on $\mathcal{M}$ and $\mu \geq \nu$, then there is a measure
 $\lambda$ on $\mathcal{M}$ for which $\mu = \nu + \lambda$.
 \end{tcolorbox}
+
 \begin{Proof}
-Set $\lambda(A) := \mu(A) - \nu(A)$ for every $A \in \mathcal{M}$. By assumption, $\lambda \geq 0$. Further,
-\begin{equation*}
-\lambda(\emptyset) = \mu(\emptyset) - \nu(\emptyset) = 0 - 0 = 0.
-\end{equation*}
-Now suppose $\left\{ A_{n} \right\}_{n=0}^{\infty} \subseteq \mathcal{M}$ is pairwise disjoint. We need to show 
-\begin{equation}
-\lambda\left( \cup_{n=0}^{\infty}A_{n} \right) = \sum_{n=0}^{\infty}\lambda(A_{n}).
-\label{3.2}
-\end{equation}
+Let $\lambda : \mathcal{M} \rightarrow [0,\infty]$ be defined by 
+\[ \lambda(A) := \left\{ \begin{array}{cl}
+\sum_{n=0}^{\infty}\left[ \mu(E_{n}) - \nu(E_{n}) \right] & \text{ if there exists a pairwise disjoint sequence $\{E_{n}\}_{n=0}^{\infty} \subseteq
+\mathcal{M}$} \\
+&\ \  \text{ such that $\cup_{n=0}^{\infty}E_{n} = A$ and $\nu(E_{n}) < \infty$ for all $n \in \mathbb{N}$}, \\
+\infty & \text{ otherwise, }
+\end{array} \right. \]
+for each $A \in \mathcal{M}$.
+\begin{claim}
+$\lambda(\cdot)$ is well-defined.
+\end{claim}
+\begin{claimproof}
+Suppose $A \in \mathcal{M}$ and $A = \cup_{n=0}^{\infty}E_{n} = \cup_{k=0}^{\infty}I_{k}$, where $\left\{ E_{n} \right\}_{n=0}^{\infty}, \left\{ I_{k}
+\right\}_{k=0}^{\infty} \subseteq \mathcal{M}$ are pairwise disjoint and $\nu(E_{n}), \nu(I_{k}) < \infty$ for all $n,k \in \mathbb{N}$. Then by the
+countable additivity of $\mu$ and $\nu$,
+\begin{align*}
+\sum_{n=0}^{\infty}[\mu(E_{n}) - \nu(E_{n})] = \sum_{n=0}^{\infty}\sum_{k=0}^{\infty}[\mu(E_{n}\cap I_{k}) - \nu(E_{n}\cap I_{k})] & = 
+\sum_{k=0}^{\infty}\sum_{n=0}^{\infty}[\mu(E_{n}\cap I_{k}) - \nu(E_{n}\cap I_{k})] \\
+& = \sum_{k=0}^{\infty}[\mu(I_k) - \nu(I_k)]. 
+\end{align*}
+\end{claimproof}
+
+\begin{claim}
+$\lambda$ is a measure.
+\end{claim}
+\begin{claimproof}
+By the definition of $\lambda$ it is clear that for any $A \subseteq \mathcal{M}$ such that $\mu(A) < \infty$, we have $\lambda(A) = \mu(A) - \nu(A)$.
+Therefore $\lambda(\emptyset) = \mu(\emptyset) - \nu(\emptyset) = 0$. Now suppose $\left\{ A_{n} \right\}_{n=0}^{\infty} \subseteq \mathcal{M}$ is
+pairwise disjoint.
+\begin{description}
+\item[Case 1:] First suppose there exists a pairwise disjoint sequence $\left\{ E_{k} \right\}_{k=0}^{\infty} \subseteq \mathcal{M}$ such that
+$\cup_{k=0}^{\infty}E_{k} = \cup_{n=0}^{\infty}A_{n}$ and $\mu(E_{k}) < \infty$ for all $k \in \mathbb{N}$. Then clearly $\cup_{k=0}^{\infty}A_{n}\cap
+E_{k}$ satisfies the same conditions for each $A_{n}$, so by definition, $\lambda(A_{n}) = \sum_{k=0}^{\infty}[\mu(A_{n}\cap E_{k}) - \nu(A_{n}\cap
+E_{k})]$. Thus,
+\begin{align*}
+\lambda\left( \cup_{n=0}^{\infty} \right) = \sum_{k=0}^{\infty}[\mu(E_{k}) - \nu(E_{k})] & = \sum_{k=0}^{\infty}
+\sum_{n=0}^{\infty}\left[\mu(E_{k}\cap A_{n}) - \nu(E_{k} \cap A_{n}) \right] \\
+& = \sum_{n=0}^{\infty}\sum_{k=0}^{\infty}\left[ \mu(E_{k}\cap A_{n}) - \nu(E_{k} \cap A_{n}) \right] \\
+& = \sum_{n=0}^{\infty}\lambda(A_{n}).
+\end{align*}
+\item[Case 2:] On the other hand, suppose there does not exist a pairwise disjoint sequence of measaurable sets $\left\{ E_{k}
+\right\}_{k=0}^{\infty}$ whose union is $\cup_{n=0}^{\infty}A_{n}$ and such that $\nu(E_{k}) < \infty$ for all $k \in \mathbb{N}$. Therefore
+$\lambda\left( \cup_{n=0}^{\infty}(A_{n}) \right) = \infty$ by definition, and there must exist some $n_{0} \in \mathbb{N}$ such that there is also NO
+pairwise disjoint sequence of measurable sets $\left\{ I_{j} \right\}_{j=0}^{\infty}$ such that their union is $A_{n_{0}}$ and $\nu(I_{j}) < \infty$ for all $j \in
+\mathbb{N}$. But then $\lambda(A_{n_0}) = \infty$. So 
+\[ \infty = \lambda\left( \cup_{n=0}^{\infty}A_{n} \right) = \lambda(A_{n_0}) = \sum_{n=0}^{\infty}\lambda(A_{n}). \]
+\end{description}
+\end{claimproof}
+
+\begin{claim}
+$\mu = \nu + \lambda$.
+\end{claim}
+\begin{claimproof}
+Let $A \in \mathcal{M}$. If $\nu(A) < \infty$, then by definition of $\lambda$,
+\[ \lambda(A) = \mu(A) - \nu(A). \]
+Therefore $\nu(A) + \lambda(A) = \mu(A)$. If $\nu(A) = \infty$, then trivially
+\[ \infty = \mu(A) = \nu(A) = \nu(A) + \lambda(A). \]
+\end{claimproof}
 
 \end{Proof}
 
-\newpage 
+
 \subsection*{4 [RF 17.7 iii]}
 \begin{tcolorbox}
 Let $(X,\mathcal{M})$ be a measurable space. Verify that if $\nu$ is $\sigma$-finite, the measure $\lambda$ as in 3 is unique.
 \end{tcolorbox}
+
+\begin{Proof}
+Suppose $\lambda_{1}, \lambda_{2}$ are measures that satisfy $\mu = \nu + \lambda_{i}$, $i = 1,2$. Since $\nu$ is $\sigma$-finite, $X =
+\cup_{n=0}^{\infty}E_{n}$, where $E_{n} \in \mathcal{M}$ and $\nu(E_{n}) < \infty$ for all $n \in \mathbb{N}$. Without loss of generality we can assume $\left\{ E_{n}
+\right\}_{n=0}^{\infty}$ is pairwise disjoint. Let $A \in \mathcal{M}$. If $\nu(A) < \infty$, then clearly 
+\[ \lambda_{1}(A) = \lambda_{2}(A) = \mu(A) - \nu(A) \] 
+in order for the condition on the $\lambda_{i}$'s to be satisfied. Now suppose $\nu(A) = \infty$. Note that $\nu(A\cap E_{n}) < \infty$ 
+for each $n \in \mathbb{N}$. Therefore 
+\[ \lambda_{i}(A\cap E_{n}) = \mu(A\cap E_{n}) - \nu(A\cap E_{n}), \ i = 1,2. \]
+But since $\left\{ E_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint and $A \subseteq X = \cup_{n=0}^{\infty}E_{n}$,
+\[ \lambda_{1}(A) = \sum_{n=0}^{\infty}\lambda_{1}(A\cap E_{n}) = \sum_{n=0}^{\infty}\lambda_{2}(A\cap E_{n}) = \lambda_{2}(A). \]
+\end{Proof}
+
+
 
 \newpage 
 \subsection*{5 [RF 17.7 iv]}
