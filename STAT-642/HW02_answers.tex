@@ -1,0 +1,251 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{STAT 642: HW 2}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{1 [AL 2.28]}
+\begin{tcolorbox}
+Let $\mu$ be the Lebesgue measure on $\left( [-1,1], \mathcal{B}([-1,1]) \right)$. For $n \geq 1$, define $f_{n}(x) = nI_{(0,n^{-1})}(x) -
+nI_{(-n^{-1},0)}(x)$ and $f(x) = 0$ for $x \in [-1,1]$. Show that $f_{n} \rightarrow f$ a.e. ($\mu$) and $\int f_{n}d\mu \rightarrow \int fd\mu$, but
+$\left\{ f_{n} \right\}_{n\geq 1}$ is not uniformly integrable.
+\end{tcolorbox}
+
+\begin{Proof}
+$\ $
+
+\begin{claim}
+$f_{n} \rightarrow f$ a.e. ($\mu$).
+\end{claim}
+\begin{claimproof}
+Let $x \in [-1,1]$. If $x = 0$, then $f_{n}(x) = 0$ for all $n \in \mathbb{N}$. If $x \neq 0$, then there exists $N \in \mathbb{N}$ such that $|x| >
+N^{-1}$. Therefore $x \notin (0,n^{-1}) \cup (-n^{-1},0)$, so $f_{n}(x) = 0$ for all $n \geq N$. Thus $f_{n}(x) \rightarrow 0$ as $n \rightarrow
+\infty$ for all $x \in [-1,1]$.
+\end{claimproof}
+
+\begin{claim}
+$\int f_{n}d\mu \rightarrow \int fd\mu$.
+\end{claim}
+\begin{claimproof}
+Let $n \geq 1$. Then 
+\begin{align*}
+\int f_{n}d\mu & = 0\cdot \mu\left( [-1,-n^{-1}] \right) -n\cdot \mu\left( (-n^{-1},0) \right) + 0\cdot \mu\left( \{0\} \right) + 
+n\cdot \mu\left( (0,n^{-1}) \right) + 0\cdot \mu\left( [n^{-1},1] \right) \\
+& = -n(1/n) + n(1/n) = 0.
+\end{align*}
+Therefore $\int f_{n}d\mu \rightarrow 0 = \int fd\mu$.
+\end{claimproof}
+
+\begin{claim}
+$\left\{ f_{n} \right\}_{n\geq 1}$ is not uniformly integrable.
+\end{claim}
+\begin{claimproof}
+Let $t > 0$. Then there exists $N \in \mathbb{N}$ such that $N > t$. Therefore 
+\[ A_{n,t} = \left\{ x \in [-1,1] : |f_{n}(x)| > t \right\} = (-1/n, 0) \cup (0, 1/n), \ \forall \ n \geq N. \]
+Thus,
+\[ a_{n}(t) = \int_{A_{n,t}} |f_{n}|d\mu = n\cdot \mu\left( (-n^{-1},0) \right) + n\cdot \mu\left( (0,n^{-1} \right) = 1 + 1 = 2, \]
+for all $n \geq N$. Hence, $\sup_{n\geq 1}a_{n}(t) = 2$ for all $t > 0$, so $\sup_{n\geq 1}a_{n}(t) \rightarrow 2$ as $t\rightarrow \infty$.
+\end{claimproof}
+
+\end{Proof}
+
+
+\newpage
+\subsection*{2}
+\begin{tcolorbox}
+Let $f_{n}(x) := n^{-1}\mathbb{I}_{(0,n^2)}(x)$ and $f(x) \equiv 0$ for all $x \in \mathbb{R}$. Let $m$ denote the Lebesgue measure on $(\mathbb{R},
+\mathcal{B}(\mathbb{R}))$. Show that $f_{n} \rightarrow f$ a.e. ($m$) and $\left\{ f_{n} \right\}_{n\geq 1}$ is UI but $\int f_{n}dm \nrightarrow \int
+f\ dm$.
+\end{tcolorbox}
+\begin{Proof}
+Let $\epsilon > 0$. Then there exists $N \geq 1$ such that $n^{-1} < \epsilon$. Therefore $f_{n}(x) < \epsilon$ for all $n \geq N$.
+Thus $f_n \rightarrow 0$. Now note that for all $t > 1$, $m(\left\{ |f_{n}| > t \right\}) = 0$ for all $n \geq 1$. Hence 
+\[ \sup_{n \geq 1} \int_{\{|f_{n}| > t\}}|f_{n}|\ dm = 0, \]
+when $t > 1$. Thus $\left\{ f_{n} \right\}_{n\geq 1}$ is UI. However,
+\[ \int f_{n}\ dm = n^{-1}\cdot n^{2} = n \rightarrow \infty. \]
+\end{Proof}
+
+
+
+
+
+
+\newpage
+\subsection*{3}
+\begin{tcolorbox}
+Let $\left\{ f_{n} \right\}_{n=0}^{\infty} \subset L^{1}(\Omega, \mathcal{F}, \mu)$ and $f \in L^{1}(\Omega, \mathcal{F}, \mu)$ such that $f_{n}
+\rightarrow f$ a.e. ($\mu$) and $\int |f_{n}|d\mu \rightarrow \int |f|d\mu$. Show that $\left\{ f_{n} \right\}_{n=0}^{\infty}$ is UI.
+\end{tcolorbox}
+
+\begin{Proof}
+Since $f_{n} \rightarrow f$ a.e.($\mu$), $g_{n} := |f_{n}| \rightarrow g := |f|$ a.e.($\mu$). Thus, since $f_{n} \leq g_n$, $g_{n}, g \in
+L^{1}(\Omega, \mathcal{F}, \mu)$, and $\|g_{n}\|_{1} \rightarrow \|g\|_{1}$,
+\begin{equation}
+\lim_{n\rightarrow\infty}\int |f_{n} - f|\ d\mu = 0,
+\label{3.1}
+\end{equation}
+by the Extended Dominated Convergence Theorem. Let $\epsilon > 0$. By \eqref{3.1}, there exists $N_{1} \in \mathbb{N}$ such that 
+\begin{equation}
+\|f_{n} - f\|_{1} < \epsilon/2 \ \ \forall \ n \geq N_{1}. 
+\label{3.2}
+\end{equation}
+Now, since $f \in L^{1}(\mu)$, there exists $\delta > 0$ such that $\int_{E}|f|d\mu < \epsilon / 2$ whenever $\mu(E) < \delta$.
+Further, by \eqref{3.1} we can apply Theorem 2.5.3, which says $f_{n} \rightarrow^{m} f$. Therefore there exists $N_{2} \in \mathbb{N}$ such that 
+$\mu\left( \{|f_{n} - f| > 1\} \right) < \delta$. Let $N := \max\{N_{1}, N_{2}\}$.
+Fix $t > 0$. For $n \geq N$, since
+$\{|f_{n}| > t\} \subseteq \{|f| + 1 > t\} \cup \{ |f_{n} - t| > 1\}$,
+\begin{equation}
+\int_{|f_{n}| > t}|f|\ d\mu \leq \int_{|f| > t - 1}|f| \ d\mu + \int_{|f_{n}-f|>1}|f|\ d\mu < \int_{|f| > t -1}|f|\ d\mu + \epsilon/2.
+\label{3.3}
+\end{equation}
+Thus
+\begin{align*}
+\sup_{\mathbb{N}} \int_{|f_{n}| > t}|f_{n}|\ d\mu & \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \sup_{n\geq N}\int_{|f_{n}| > t}|f_{n}|\
+d\mu \\
+& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \sup_{n\geq N}\left(\int_{|f_{n}| > t}|f_{n} - f|\ d\mu + \int_{|f_{n}|>t}|f|\ d\mu\right) \\
+& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \int_{\Omega}|f_{n} - f|\ d\mu + \sup_{n\geq N}\int_{|f_{n}|>t}|f|\ d\mu \\
+& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \epsilon/2 + \sup_{n\geq N}\left(\int_{|f|>t-1}|f|\ d\mu + \int_{|f_{n}-f|>1}|f|\
+d\mu\right) \\
+& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \epsilon/2 + \int_{|f|>t-1}|f|\ d\mu + \epsilon / 2.
+\end{align*}
+Further, since $\left\{ f_{n} \right\}_{n=0}^{N}$ and $\left\{ f \right\}$ are finite collections, they are UI. Hence 
+\[ \lim_{t\rightarrow\infty}\sup_{\mathbb{N}}\int_{|f_{n}| > t}|f_{n}|\ d\mu \leq \lim_{t\rightarrow\infty}\left( \sup_{0\leq n < N}\int_{|f_{n}| > t}
+|f_{n}|\ d\mu + \int_{|f| > t -1}|f|\ d\mu + \epsilon \right) = \epsilon. \]
+Since $\epsilon > 0$ was arbitrary, $\lim_{t\rightarrow\infty}\sup_{\mathbb{N}}\int_{|f_{n}| > t}|f_{n}|\ d\mu = 0$.
+\end{Proof}
+
+
+
+
+
+
+\newpage
+\subsection*{4 [AL 2.44]}
+\begin{tcolorbox}
+Let $f_{n}(x) := c_{n}\left( 1 - \frac{x}{n} \right)^{n}\mathbb{I}_{[0,n]}(x)$, for $x \in \mathbb{R}$ and $n\geq 1$.
+\begin{enumerate}[label=(\alph*)]
+\item Find $c_{n}$ such that $\int f_{n}\ d\mu = 1$.
+\item Show that $\lim_{n\rightarrow\infty}f_{n}(x) := f(x)$ exists for all $x \in \mathbb{R}$ and that $f$ is a pdf.
+\item For $A \in \mathcal{B}(\mathbb{R})$, let 
+\[ \nu_{n}(A) := \int_{A}f_{n}\ dm \qquad \text{and} \qquad \nu(A) := \int_{A}f\ dm. \]
+Show that $\nu_{n} \rightarrow \nu$ uniformly on $\mathcal{B}(\mathbb{R})$.
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{enumerate}[label=(\alph*)]
+\item Let $c_{n} := (n+1)/n$. Then 
+\begin{align*}
+\int f_{n}\ d\mu = c_{n} \int_{[0,n]}\left( 1-\frac{x}{n} \right)^{n}\ d\mu(x) & = c_{n} \int_{0}^{n}\left( 1-\frac{x}{n} \right)^{n}\ dx \\
+& = c_{n}\cdot \frac{(-n)}{n+1}\left( 1-\frac{x}{n} \right)^{n+1}\bigg|_{0}^{n} \\
+& = c_{n}\cdot \frac{n}{n+1} = 1.
+\end{align*}
+
+\item 
+\begin{Proof} Set 
+\[ f(x) := \left\{ \begin{array}{cl}
+e^{-x} & \text{ if } x \geq 0 \\
+0 & \text{ if } x < 0
+\end{array} \right., \ x \in \mathbb{R}. \]
+If $x < 0$, then $f_{n}(x) \equiv 0$ for all $n \in \mathbb{N}$. If $x \geq 0$, then 
+\[ \lim_{n\rightarrow\infty}f_{n}(x) = \lim_{n\rightarrow\infty} \frac{n+1}{n}\left( 1-\frac{x}{n} \right)^{n}\mathbb{I}_{[0,n]}(x) = e^{-x}. \]
+Thus $f_{n} \rightarrow f$.
+\end{Proof}
+\item 
+\begin{Proof}
+We need to show that $\sup_{A\in \mathcal{B}(\mathbb{R})}|\nu_{n}(A) - \nu(A)| \rightarrow 0$, but by a result on the previous homework,
+\[ \sup_{A\in \mathcal{B}(\mathbb{R})}|\nu_{n}(A) - \nu(A)| = \frac{1}{2}\int |f_{n} - f|\ d\mu. \]
+Therefore we need to show $\lim_{n\rightarrow\infty}\|f_{n} - f\|_{1} = 0$. Now, since $1 \equiv \|f_{n}\|_{1} \equiv \|f\|_{1}$ and $f_{n} \rightarrow f$
+from part (b), $\|f_{n} - f\|_{1} \rightarrow 0$ by Scheffe's Theorem.
+\end{Proof}
+\end{enumerate}
+
+
+
+\newpage 
+\subsection*{5 [AL 2.47]}
+\begin{tcolorbox}
+Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a sequence of continuous functions from $[0,1]$ to $[0,1]$ such that $f_{n}(x) \rightarrow 0$ as $n
+\rightarrow \infty$ for all $0 \leq x \leq 1$. Show that $\int_{0}^{1}f_{n}(x)dx \rightarrow 0$ as $n\rightarrow \infty$ by two methods: one using BCT
+and one without using BCT. Show also that if $\mu$ is a finite measure on $([0,1], \mathcal{B}([0,1]))$, then $\int_{[0,1]}f_{n}\ d\mu \rightarrow 0$.
+\end{tcolorbox}
+
+First we will show the result using the BCT.
+
+\begin{Proof}
+By Theorem 2.4.1, the Lebesgue integral of $f_{n}$ coincides with the Riemann integral of $f_{n}$ over $[0,1]$ for each $n \in \mathbb{N}$. 
+Then, since each $f_{n}$ is bounded above by 1 and $f_{n} \rightarrow 0$, 
+\[ \lim_{n\rightarrow\infty}\int_{0}^{1}f(x)\ dx = \lim_{n\rightarrow\infty}\int_{[0,1]}f_{n}\ dm = 0 \]
+by the bounded convergence theorem.
+\end{Proof}
+
+Now we will show the result without using the BCT.
+
+\begin{Proof}
+Let $\epsilon > 0$. By Egorov's Theorem, there exists some $A \in \mathcal{B}([0,1])$ such that $m(A) < \epsilon/2$ and $f_{n} \rightarrow f$ uniformly
+on $A^{c}$. Thus there exists $N \in \mathbb{N}$ such that $|f_{n}(x) - 0| = f_{n}(x) < \epsilon / 2$ whenever $x \in A^{c}$ and $n \geq N$. Thus,
+for $n\geq N$,
+\[ \int_{0}^{1}f_{n}\ dm = \int_{[0,1]}f\ dm = \int_{A}1\ dm + \int_{A^{c}}\frac{\epsilon}{2}\ dm \leq 
+\frac{\epsilon}{2} + \int_{[0,1]}\frac{\epsilon}{2}\ dm = \epsilon. \]
+Thus $\int f_{n} dx \rightarrow 0$ as $n \rightarrow \infty$.
+\end{Proof}
+
+Now suppose $\mu$ is a finite measure on $([0,1], \mathcal{B}([0,1]))$. We will show $\int_{[0,1]}f_{n}\ d\mu \rightarrow 0$.
+
+\begin{Proof}
+Apply the BCT once again.
+\end{Proof}
+
+
+
+\newpage 
+\subsection*{6 [AL 7.1]}
+\begin{tcolorbox}
+Give an example of three events $A_{1}, A_{2}, A_{3}$ on some probability space such that they are pairwise independent but not independent.
+\end{tcolorbox}
+
+
+\end{document}
+
