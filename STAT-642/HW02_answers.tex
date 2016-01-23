@@ -246,6 +246,28 @@ Apply the BCT once again.
 Give an example of three events $A_{1}, A_{2}, A_{3}$ on some probability space such that they are pairwise independent but not independent.
 \end{tcolorbox}
 
+Suppose $X_{i}$, for $i = 1,2,3$, are iid random variables such that $P(X_{i} = 0) = P(X_{i} = 1) = 1/2$. Then define 
+\[ A_{1} := \{X_{1} = X_{2}\}, \qquad A_{2} := \left\{ X_{1} = X_{3} \right\}, \qquad A_{3} := \left\{ X_{2} = X_{3} \right\}. \]
+Since $X_{1}$ and $X_{2}$ are independent, 
+\[ P(A_{1}) = P(X_{1} = 0 \wedge X_{2} = 0) + P(X_{1} = 1 \wedge X_{2} = 1) = \left( \frac{1}{2} \right)\left( \frac{1}{2} \right) + 
+\left( \frac{1}{2} \right)\left( \frac{1}{2} \right) = \frac{1}{2}. \]
+Similarly $P(A_{2}) = P(A_{3}) = 1/2$. Further,
+\begin{align*}
+P(A_{1}\cap A_{2}) = P(X_{1} = X_{2} \wedge X_{1} = X_{3}) & = P(X_{1} = X_{2} = X_{3} = 0) + P(X_{1} = X_{2} = X_{3} = 1) \\
+& = \left( \frac{1}{2} \right)\left( \frac{1}{2} \right)\left( \frac{1}{2} \right) + \left( \frac{1}{2} \right)\left( \frac{1}{2} \right)\left(
+\frac{1}{2} \right) \\
+& = \frac{1}{4} = P(A_{1})\cdot P(A_{2}).
+\end{align*}
+By similar calculation, $P(A_{i}\cap A_{j}) = P(A_{i})\cdot P(A_{j})$ for all $i \neq j$. Hence $\left\{ A_{i} \right\}_{i=1}^{3}$ are pairwise
+independent. However,
+\begin{align*}
+P(A_{1} \cap A_{2} \cap A_{3}) & = P(X_{1} = X_{2} \wedge X_{1} = X_{3} \wedge X_{3} = X_{2}) \\
+& = P(X_{1} = X_{2} = X_{3}) \\
+& = P(X_{1} = X_{2} = X_{3} = 0) + P(X_{1} = X_{2} = X_{3} = 1) \\
+& = \left( \frac{1}{8} \right) + \left( \frac{1}{8} \right) \\
+& = \frac{1}{4} \neq P(A_{1})\cdot P(A_{2}) \cdot P(A_{3}) = \frac{1}{8}.
+\end{align*}
+
 
 \end{document}
 
