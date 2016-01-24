@@ -23,7 +23,7 @@
 \newcounter{ProofCounter}
 \newcounter{ClaimCounter}[ProofCounter]
 \newcounter{SubClaimCounter}[ClaimCounter]
-\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
 \newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
 \newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
 \newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
@@ -226,7 +226,7 @@ Compute the follwing derivatives:
 \end{tcolorbox}
 
 (a) See work attached.
-\[ \left( 24i - \frac{36}{i} \right)\bar{z}^{3} + 60i\bar{z}^{2} + \left( \frac{36}{i} - 72 \right)z\bar{z}^{2} - 72z^{2}\bar{z} + 12iz - 12i\bar{z}.
+\[ 60i\bar{z}^{3} + 60i\bar{z}^{2} - 108iz\bar{z}^{2} - 72iz^{2}\bar{z} + 12iz - 12i\bar{z}.
 \]
 (b) 
 \begin{align*}
@@ -273,7 +273,7 @@ Thus,
 & \frac{\partial^{2}u}{\partial y^{2}} = -\frac{\partial^{2}v}{\partial y\partial x} \label{7.3} \\
 & \frac{\partial^{2}u}{\partial y\partial x} = -\frac{\partial^{2}v}{\partial x^{2}}. \label{7.4}
 \end{align}
-Thus,
+Hence,
 \begin{align*}
 \frac{\partial^{2}}{\partial x^{2}}u\cdot v & = \left( \frac{\partial^{2}u}{\partial x^{2}} \right)\cdot v + \left( \frac{\partial u}{\partial x}
 \right)\left( \frac{\partial v}{\partial x }\right) + u\cdot \left( \frac{\partial^{2}v}{\partial x^{2}} \right) + \left( \frac{\partial v}{\partial
@@ -297,15 +297,13 @@ Hence $\triangle u\cdot v = 0$.
 
 
 
-
-\newpage
 \subsection*{8} 
 \begin{tcolorbox}
 Let $U \subseteq \mathbb{C}$ be an open set. Let $z_{0} \in U$ and $r > 0$ and assume that $\left\{ z : |z - z_{0}| \leq r \right\} \subseteq U$. For
 $j$ a positive integer, compute 
 \[ \frac{1}{2\pi}\int_{0}^{2\pi}(z_{0} + re^{i\theta})^{j}\ d\theta \qquad \text{and}\qquad \frac{1}{2\pi}\int_{0}^{2\pi}\overline{(z_{0} +
 re^{i\theta})^{j}}\ d\theta. \]
-Use these results to prove that if $\mu$ is a harmonic polynomial on $U$, then 
+Use these results to prove that if $u$ is a harmonic polynomial on $U$, then 
 \[ \frac{1}{2\pi}\int_{0}^{2\pi}u(z_{0} + re^{i\theta})\ d\theta = u(z_{0}). \]
 \end{tcolorbox}
 
@@ -353,6 +351,7 @@ By claims 1 and 2,
 \end{align*}
 \end{Proof}
 
+\newpage
 \subsection*{9}
 \begin{tcolorbox}
 Prove that if $f$ is holomorphic on an open set $U \subseteq \mathbb{C}$ and $f$ is nonvanishing, then 
