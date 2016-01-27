@@ -82,7 +82,7 @@ Clearly
 \begin{equation*}
 \lambda(\emptyset) = \mu(\emptyset) + \nu(\emptyset) = 0 + 0 = 0.
 \end{equation*}
-Now suppose $\left\{ A_{n} \right\}_{n=0}^{\infty} \subseteq \mathcal{M}$ is pairwise disjoint. Then 
+Now suppose $A_{0}, A_{1}, \hdots \in \mathcal{M}$ such that $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint. Then 
 \begin{align*}
 \lambda\left( \cup_{n=0}^{\infty}A_{n} \right) = \mu\left( \cup_{n=0}^{\infty}A_{n} \right) + \nu\left( \cup_{n=0}^{\infty}A_{n} \right) = 
 \sum_{n=0}^{\infty}\mu(A_{n}) + \sum_{n=0}^{\infty}\nu(A_{n}) & = \sum_{n=0}^{\infty}\left[ \mu(A_{n}) + \nu(A_{n}) \right] \\
@@ -100,65 +100,76 @@ $\lambda$ on $\mathcal{M}$ for which $\mu = \nu + \lambda$.
 
 \begin{Proof}
 Let $\lambda : \mathcal{M} \rightarrow [0,\infty]$ be defined by 
-\[ \lambda(A) := \left\{ \begin{array}{cl}
-\sum_{n=0}^{\infty}\left[ \mu(E_{n}) - \nu(E_{n}) \right] & \text{ if there exists a pairwise disjoint sequence $\{E_{n}\}_{n=0}^{\infty} \subseteq
-\mathcal{M}$} \\
-&\ \  \text{ such that $\cup_{n=0}^{\infty}E_{n} = A$ and $\nu(E_{n}) < \infty$ for all $n \in \mathbb{N}$}, \\
-\infty & \text{ otherwise, }
-\end{array} \right. \]
-for each $A \in \mathcal{M}$.
+\[ \lambda(A) := \sup \left\{ \mu(B) - \nu(B) : B \in \mathcal{M} \text{ such that } \nu(B) < \infty \text{ and } B \subseteq A \right\}, \ A \in
+\mathcal{M}. \]
 \begin{claim}
-$\lambda(\cdot)$ is well-defined.
+If $\nu(A) < \infty$ then $\lambda(A) = \mu(A) - \nu(A)$.
 \end{claim}
 \begin{claimproof}
-Suppose $A \in \mathcal{M}$ and $A = \cup_{n=0}^{\infty}E_{n} = \cup_{k=0}^{\infty}I_{k}$, where $\left\{ E_{n} \right\}_{n=0}^{\infty}, \left\{ I_{k}
-\right\}_{k=0}^{\infty} \subseteq \mathcal{M}$ are pairwise disjoint and $\nu(E_{n}), \nu(I_{k}) < \infty$ for all $n,k \in \mathbb{N}$. Then by the
-countable additivity of $\mu$ and $\nu$,
-\begin{align*}
-\sum_{n=0}^{\infty}[\mu(E_{n}) - \nu(E_{n})] = \sum_{n=0}^{\infty}\sum_{k=0}^{\infty}[\mu(E_{n}\cap I_{k}) - \nu(E_{n}\cap I_{k})] & = 
-\sum_{k=0}^{\infty}\sum_{n=0}^{\infty}[\mu(E_{n}\cap I_{k}) - \nu(E_{n}\cap I_{k})] \\
-& = \sum_{k=0}^{\infty}[\mu(I_k) - \nu(I_k)]. 
-\end{align*}
+Since $A \subseteq A$ and $\nu(A) < \infty$, 
+\begin{equation}
+\lambda(A) \geq \mu(A) - \nu(A),
+\label{3.1} 
+\end{equation}
+by definition of $\lambda$. Now let $\epsilon > 0$. Using the
+definition of $\lambda$ again, there exists some $B \subseteq A$ such that $\lambda(A) - \epsilon \leq \mu(B) - \nu(B)$. But then 
+\[ \lambda(A) \leq \mu(B) - \nu(B) + \mu(A-B) - \nu(A-B) + \epsilon = \mu(A) - \nu(A) + \epsilon. \]
+But then 
+\begin{equation}
+\lambda(A) \leq \mu(A) - \nu(A). 
+\label{3.2}
+\end{equation}
+So by \eqref{3.1} and \eqref{3.2}, $\lambda(A) = \mu(A) - \nu(A)$.
 \end{claimproof}
 
 \begin{claim}
-$\lambda$ is a measure.
+$\lambda(\emptyset) = 0$
 \end{claim}
 \begin{claimproof}
-By the definition of $\lambda$ it is clear that for any $A \subseteq \mathcal{M}$ such that $\mu(A) < \infty$, we have $\lambda(A) = \mu(A) - \nu(A)$ 
-(for example, set $E_{0} := A$ and $E_{n} := \emptyset$ $\forall$ $n \geq 1$).
-Therefore $\lambda(\emptyset) = \mu(\emptyset) - \nu(\emptyset) = 0$. Now suppose $\left\{ A_{n} \right\}_{n=0}^{\infty} \subseteq \mathcal{M}$ is
-pairwise disjoint.
-\begin{description}
-\item[Case 1:] First suppose there exists a pairwise disjoint sequence $\left\{ E_{k} \right\}_{k=0}^{\infty} \subseteq \mathcal{M}$ such that
-$\cup_{k=0}^{\infty}E_{k} = \cup_{n=0}^{\infty}A_{n}$ and $\mu(E_{k}) < \infty$ for all $k \in \mathbb{N}$. Then clearly $\cup_{k=0}^{\infty}A_{n}\cap
-E_{k}$ satisfies the same conditions for each $A_{n}$, so by definition, $\lambda(A_{n}) = \sum_{k=0}^{\infty}[\mu(A_{n}\cap E_{k}) - \nu(A_{n}\cap
-E_{k})]$. Thus,
+By claim 1, $\lambda(\emptyset) = \mu(\emptyset) - \nu(\emptyset) = 0$.
+\end{claimproof}
+
+\begin{claim}
+$\lambda\left( \cup_{n=0}^{\infty}A_{n} \right) = \sum_{n=0}^{\infty}\lambda(A_{n})$ whenever $A_{0}, A_{1}, \hdots \in \mathcal{M}$ such that
+$\left\{ A_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint.
+\end{claim}
+\begin{claimproof}
+Suppose $A_{0}, A_{1}, \hdots \in \mathcal{M}$ such that $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint. Let $B \subseteq
+\cup_{n=0}^{\infty} A_{n}$ such that $\nu(B) < \infty$. Note that $B = \cup_{n=0}^{\infty}B\cap A_{n}$, where $\left\{ B\cap A_{n}
+\right\}_{n=0}^{\infty}$ is pairwise disjoint. Thus,
 \begin{align*}
-\lambda\left( \cup_{n=0}^{\infty} \right) = \sum_{k=0}^{\infty}[\mu(E_{k}) - \nu(E_{k})] & = \sum_{k=0}^{\infty}
-\sum_{n=0}^{\infty}\left[\mu(E_{k}\cap A_{n}) - \nu(E_{k} \cap A_{n}) \right] \\
-& = \sum_{n=0}^{\infty}\sum_{k=0}^{\infty}\left[ \mu(E_{k}\cap A_{n}) - \nu(E_{k} \cap A_{n}) \right] \\
+\mu(B) - \nu(B) & = \sum_{n=0}^{\infty}\left[ \mu(B\cap A_{n}) - \nu(B\cap A_{n}) \right] \\
+& \leq \sum_{n=0}^{\infty}\sup\left\{ 
+\mu(E) - \nu(E) : E \in \mathcal{M} \text{ such that } \nu(E) < \infty \text{ and } E \subseteq A_{n} \right\} \\
 & = \sum_{n=0}^{\infty}\lambda(A_{n}).
 \end{align*}
-\item[Case 2:] On the other hand, suppose there does not exist a pairwise disjoint sequence of measaurable sets $\left\{ E_{k}
-\right\}_{k=0}^{\infty}$ whose union is $\cup_{n=0}^{\infty}A_{n}$ and such that $\nu(E_{k}) < \infty$ for all $k \in \mathbb{N}$. Therefore
-$\lambda\left( \cup_{n=0}^{\infty}(A_{n}) \right) = \infty$ by definition, and there must exist some $n_{0} \in \mathbb{N}$ such that there is also NO
-pairwise disjoint sequence of measurable sets $\left\{ I_{j} \right\}_{j=0}^{\infty}$ such that their union is $A_{n_{0}}$ and $\nu(I_{j}) < \infty$ for all $j \in
-\mathbb{N}$. But then $\lambda(A_{n_0}) = \infty$. So 
-\[ \infty = \lambda\left( \cup_{n=0}^{\infty}A_{n} \right) = \lambda(A_{n_0}) = \sum_{n=0}^{\infty}\lambda(A_{n}). \]
-\end{description}
+Hence by taking the supremum over all such $B$ on the left,
+\begin{equation}
+\lambda\left( \cup_{n=0}^{\infty}A_{n} \right) \leq \sum_{n=0}^{\infty}\lambda(A_{n}).
+\label{3.3}
+\end{equation}
+It remains to show that 
+\begin{equation}
+\sum_{n=0}^{\infty}\lambda(A_{n}) \leq \lambda\left( \cup_{n=0}^{\infty} A_{n} \right).
+\label{3.4}
+\end{equation}
+Without loss of generality we can assume $\lambda\left( \cup_{n=0}^{\infty}A_{n} \right) < \infty$. 
+Therefore by \eqref{3.3} $\lambda(A_{n}) < \infty$ for all $n \in \mathbb{N}$. Thus, for each $n \in \mathbb{N}$, we can choose $B_{n}
+\subseteq A_{n}$ such that $B_{n} \in \mathcal{M}$, $\nu(B_{n}) < \infty$ and $\lambda(A_{n}) \leq \mu(B_{n}) - \nu(B_{n}) + \epsilon\cdot
+2^{-(n+1)}$. Note that for each $k \in \mathbb{N}$, $\cup_{n=0}^{k}B_{n} \subseteq \cup_{n=0}^{\infty}A_{n}$ and $\nu\left( \cup_{n=0}^{k}B_{n}
+\right) < \infty$. Hence,
+\begin{align*}
+\sum_{n=0}^{k}\lambda(A_{n}) \leq \sum_{n=0}^{k}\left[ \mu(B_{n}) - \nu(B_{n}) + \epsilon 2^{-(n+1)}\right] & = \mu\left( \cup_{n=0}^{k}B_{n} \right)
+- \nu\left( \cup_{n=0}^{k}B_{n} \right) + \epsilon\sum_{n=0}^{k}2^{-(n+1)} \\
+& \leq \lambda\left( \cup_{n=0}^{\infty}A_{n} \right) + \epsilon.
+\end{align*}
+Since the right-hand side is independent of $k$, we can take $k$ to infinity on the left. Thus,
+\[ \lim_{k\rightarrow\infty}\sum_{n=0}^{\infty}\lambda(A_{n}) = \sum_{n=0}^{\infty}\lambda(A_{n}) \leq \lambda\left( \cup_{n=0}^{\infty}A_{n}
+\right) + \epsilon. \]
+Since $\epsilon > 0$ was arbitrary, we now get \eqref{3.4}. So by \eqref{3.3} and \eqref{3.4}, we are done.
 \end{claimproof}
 
-\begin{claim}
-$\mu = \nu + \lambda$.
-\end{claim}
-\begin{claimproof}
-Let $A \in \mathcal{M}$. If $\nu(A) < \infty$, then set $E_{0} := A$ and $E_{n} := \emptyset$ for all $n\geq 1$. Then by definition of $\lambda$,
-\[ \lambda(A) = \sum_{n=0}^{\infty}[\mu(E_{n}) - \nu(E_{n})] = \mu(A) - \nu(A). \]
-Therefore $\nu(A) + \lambda(A) = \mu(A)$. If $\nu(A) = \infty$, then trivially
-\[ \infty = \mu(A) = \nu(A) = \nu(A) + \lambda(A). \]
-\end{claimproof}
-
+By claims 2 and 3, $\lambda$ is a measure, and by claim 1 $\lambda$ satisfies the condition that $\mu = \nu + \lambda$.
 \end{Proof}
 
 
@@ -197,10 +208,15 @@ Let $\mu$ and $\nu$ both be defined by
 Let $\lambda_{1} \equiv 0$ and $\lambda_{2} :=$ counting measure. Then 
 $\infty = \mu(A) = \nu(A) + \lambda_{i}(A)$, for $i = 1,2$ and $A \neq \emptyset$.
 
-We will now show that there is always a smallest such $\lambda$.
+We will now show that the measure constructed in 3 is always a smallest such $\lambda$.
 
 \begin{Proof}
-
+Let $\lambda$ denote the measure constructed in 3. Let $\lambda'$ be another measure on $(X,\mathcal{M})$ such that $\mu = \nu + \lambda'$. Clearly
+$\lambda(E) = \lambda'(E)$ whenever $\nu(E) < \infty$. With that in mind, let $A \in \mathcal{M}$ and let $B \subseteq A$ such that $B \in
+\mathcal{M}$ and $\nu(B) < \infty$. Then 
+\[ \lambda(B) = \lambda'(B) \leq \lambda'(A), \]
+by monotonicity of $\lambda'$. Thus, taking the supremum over all such $B$ on the left-hand side, we get 
+\[ \lambda(A) \leq \lambda'(A). \]
 \end{Proof}
 
 
