@@ -114,12 +114,12 @@ Since $A \subseteq A$ and $\nu(A) < \infty$,
 by definition of $\lambda$. Now let $\epsilon > 0$. Using the
 definition of $\lambda$ again, there exists some $B \subseteq A$ such that $\lambda(A) - \epsilon \leq \mu(B) - \nu(B)$. But then 
 \[ \lambda(A) \leq \mu(B) - \nu(B) + \mu(A-B) - \nu(A-B) + \epsilon = \mu(A) - \nu(A) + \epsilon. \]
-But then 
+So then 
 \begin{equation}
 \lambda(A) \leq \mu(A) - \nu(A). 
 \label{3.2}
 \end{equation}
-So by \eqref{3.1} and \eqref{3.2}, $\lambda(A) = \mu(A) - \nu(A)$.
+Thus by \eqref{3.1} and \eqref{3.2}, $\lambda(A) = \mu(A) - \nu(A)$.
 \end{claimproof}
 
 \begin{claim}
@@ -135,7 +135,7 @@ $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint.
 \end{claim}
 \begin{claimproof}
 Suppose $A_{0}, A_{1}, \hdots \in \mathcal{M}$ such that $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint. Let $B \subseteq
-\cup_{n=0}^{\infty} A_{n}$ such that $\nu(B) < \infty$. Note that $B = \cup_{n=0}^{\infty}B\cap A_{n}$, where $\left\{ B\cap A_{n}
+\cup_{n=0}^{\infty} A_{n}$ such that $\nu(B) < \infty$. Note that $B = \cup_{n=0}^{\infty}(B\cap A_{n})$, where $\left\{ B\cap A_{n}
 \right\}_{n=0}^{\infty}$ is pairwise disjoint. Thus,
 \begin{align*}
 \mu(B) - \nu(B) & = \sum_{n=0}^{\infty}\left[ \mu(B\cap A_{n}) - \nu(B\cap A_{n}) \right] \\
@@ -161,10 +161,11 @@ Therefore by \eqref{3.3} $\lambda(A_{n}) < \infty$ for all $n \in \mathbb{N}$. T
 \begin{align*}
 \sum_{n=0}^{k}\lambda(A_{n}) \leq \sum_{n=0}^{k}\left[ \mu(B_{n}) - \nu(B_{n}) + \epsilon 2^{-(n+1)}\right] & = \mu\left( \cup_{n=0}^{k}B_{n} \right)
 - \nu\left( \cup_{n=0}^{k}B_{n} \right) + \epsilon\sum_{n=0}^{k}2^{-(n+1)} \\
+& \leq \lambda\left( \cup_{n=0}^{\infty}A_{n} \right) + \epsilon\sum_{n=0}^{k}2^{-(n+1)} \\
 & \leq \lambda\left( \cup_{n=0}^{\infty}A_{n} \right) + \epsilon.
 \end{align*}
 Since the right-hand side is independent of $k$, we can take $k$ to infinity on the left. Thus,
-\[ \lim_{k\rightarrow\infty}\sum_{n=0}^{\infty}\lambda(A_{n}) = \sum_{n=0}^{\infty}\lambda(A_{n}) \leq \lambda\left( \cup_{n=0}^{\infty}A_{n}
+\[ \lim_{k\rightarrow\infty}\sum_{n=0}^{k}\lambda(A_{n}) = \sum_{n=0}^{\infty}\lambda(A_{n}) \leq \lambda\left( \cup_{n=0}^{\infty}A_{n}
 \right) + \epsilon. \]
 Since $\epsilon > 0$ was arbitrary, we now get \eqref{3.4}. So by \eqref{3.3} and \eqref{3.4}, we are done.
 \end{claimproof}

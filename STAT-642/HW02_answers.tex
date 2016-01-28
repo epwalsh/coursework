@@ -127,34 +127,20 @@ L^{1}(\Omega, \mathcal{F}, \mu)$, and $\|g_{n}\|_{1} \rightarrow \|g\|_{1}$,
 \lim_{n\rightarrow\infty}\int |f_{n} - f|\ d\mu = 0,
 \label{3.1}
 \end{equation}
-by the Extended Dominated Convergence Theorem. Let $\epsilon > 0$. By \eqref{3.1}, there exists $N_{1} \in \mathbb{N}$ such that 
+by the Extended Dominated Convergence Theorem. Let $\epsilon > 0$. By \eqref{3.1}, there exists $N \in \mathbb{N}$ such that 
 \begin{equation}
-\|f_{n} - f\|_{1} < \epsilon/2 \ \ \forall \ n \geq N_{1}. 
+\|f_{n} - f\|_{1} < \epsilon \ \ \forall \ n > N. 
 \label{3.2}
 \end{equation}
-Now, since $f \in L^{1}(\mu)$, there exists $\delta > 0$ such that $\int_{E}|f|d\mu < \epsilon / 2$ whenever $\mu(E) < \delta$.
-Further, by \eqref{3.1} we can apply Theorem 2.5.3, which says $f_{n} \rightarrow^{m} f$. Therefore there exists $N_{2} \in \mathbb{N}$ such that 
-$\mu\left( \{|f_{n} - f| > 1\} \right) < \delta$. Let $N := \max\{N_{1}, N_{2}\}$.
-Fix $t > 0$. For $n \geq N$, since
-$\{|f_{n}| > t\} \subseteq \{|f| + 1 > t\} \cup \{ |f_{n} - f| > 1\}$,
-\begin{equation}
-\int_{|f_{n}| > t}|f|\ d\mu \leq \int_{|f| > t - 1}|f| \ d\mu + \int_{|f_{n}-f|>1}|f|\ d\mu < \int_{|f| > t -1}|f|\ d\mu + \epsilon/2.
-\label{3.3}
-\end{equation}
-Thus
+Since $\left\{ f_{n} - f \right\}_{n=0}^{N}$ is a finite collection, it is UI. Thus by \eqref{3.2},
 \begin{align*}
-\sup_{\mathbb{N}} \int_{|f_{n}| > t}|f_{n}|\ d\mu & \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \sup_{n\geq N}\int_{|f_{n}| > t}|f_{n}|\
-d\mu \\
-& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \sup_{n\geq N}\left(\int_{|f_{n}| > t}|f_{n} - f|\ d\mu + \int_{|f_{n}|>t}|f|\ d\mu\right) \\
-& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \int_{\Omega}|f_{n} - f|\ d\mu + \sup_{n\geq N}\int_{|f_{n}|>t}|f|\ d\mu \\
-& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \epsilon/2 + \sup_{n\geq N}\left(\int_{|f|>t-1}|f|\ d\mu + \int_{|f_{n}-f|>1}|f|\
-d\mu\right) \\
-& \leq \sup_{0\leq n < N}\int_{|f_{n}| > t}|f_{n}|\ d\mu + \epsilon/2 + \int_{|f|>t-1}|f|\ d\mu + \epsilon / 2.
+\lim_{t\rightarrow\infty}\sup_{\mathbb{N}}\int_{|f_{n}-f|>t}|f_{n} - f|\ d\mu & \leq \lim_{t\rightarrow\infty}\left( 
+\sup_{0\leq n\leq N}\int_{|f_{n}-f|>t}|f_{n} - f|\ d\mu + \sup_{n>N}\int_{|f_{n}-f|>t}|f_{n}-f|\ d\mu \right) \\
+& \leq \lim_{t\rightarrow\infty}\sup_{0\leq n \leq N}\int_{|f_{n} -f|>t}|f_{n} - f|\ d\mu + \epsilon \\
+& = \epsilon.
 \end{align*}
-Further, since $\left\{ f_{n} \right\}_{n=0}^{N}$ and $\left\{ f \right\}$ are finite collections, they are UI. Hence 
-\[ \lim_{t\rightarrow\infty}\sup_{\mathbb{N}}\int_{|f_{n}| > t}|f_{n}|\ d\mu \leq \lim_{t\rightarrow\infty}\left( \sup_{0\leq n < N}\int_{|f_{n}| > t}
-|f_{n}|\ d\mu + \int_{|f| > t -1}|f|\ d\mu + \epsilon \right) = \epsilon. \]
-Since $\epsilon > 0$ was arbitrary, $\lim_{t\rightarrow\infty}\sup_{\mathbb{N}}\int_{|f_{n}| > t}|f_{n}|\ d\mu = 0$.
+Since $\epsilon > 0$ was arbitrary we have that $\left\{ f_{n} - f \right\}_{n=0}^{\infty}$ is UI. But since $f$ is integrable, $f$ is UI. Thus by
+Proposition 2.5.7 (iv) from AL, $\left\{ f_{n} - f + f \right\}_{n=0}^{\infty} = \left\{ f_{n} \right\}_{n=0}^{\infty}$ is UI.
 \end{Proof}
 
 
@@ -198,7 +184,7 @@ Thus $f_{n} \rightarrow f$.
 We need to show that $\sup_{A\in \mathcal{B}(\mathbb{R})}|\nu_{n}(A) - \nu(A)| \rightarrow 0$, but by a result on the previous homework,
 \[ \sup_{A\in \mathcal{B}(\mathbb{R})}|\nu_{n}(A) - \nu(A)| = \frac{1}{2}\int |f_{n} - f|\ d\mu. \]
 Therefore we need to show $\lim_{n\rightarrow\infty}\|f_{n} - f\|_{1} = 0$. Now, since $1 \equiv \|f_{n}\|_{1} \equiv \|f\|_{1}$ and $f_{n} \rightarrow f$
-from part (b), $\|f_{n} - f\|_{1} \rightarrow 0$ by Scheffe's Theorem.
+from part (b), $\|f_{n} - f\|_{1} \rightarrow 0$ by Scheffe's Theorem (from the textbook).
 \end{Proof}
 \end{enumerate}
 
