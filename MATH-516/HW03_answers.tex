@@ -15,6 +15,7 @@
 \usepackage{changepage}
 \usepackage{mathcomp}
 \usepackage{tcolorbox}
+\usepackage{yfonts}
 
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
@@ -88,11 +89,28 @@ Further, $\mu_{p}^{*}$ is actually a measure over $\mathcal{P}(X)$.
 
 \subsection*{5}
 \begin{tcolorbox}
-Suppose $(X, S, \mu)$ is a $\sigma$-finite measure space. Suppose $\mathcal{D} \subseteq \mathcal{S}$ is a disjoint class; i.e. $A\cap B = \emptyset$
-whenever $A, B \in \mathcal{D}$ and $A \neq B$. Prove that for each measurable $E \subseteq X$, $\{D \in \mathcal{D} : \mu(E\cap D) > 0\}$ is
+Suppose $(X, \mathcal{S}, \mu)$ is a $\sigma$-finite measure space. Suppose $\mathfrak{D} \subseteq \mathcal{S}$ is a disjoint class; i.e. $A\cap B = \emptyset$
+whenever $A, B \in \mathfrak{D}$ and $A \neq B$. Prove that for each measurable $E \subseteq X$, $\{D \in \mathfrak{D} : \mu(E\cap D) > 0\}$ is
 countable.
 \end{tcolorbox}
 
+\begin{Proof}
+Since $(X, \mathcal{S}, \mu)$ is $\sigma$-finite, there exists $A_{0}, A_{1}, \hdots \in \mathcal{S}$ such that $X = \cup_{n=0}^{\infty}A_{n}$ and
+$\mu(A_{n}) < \infty$ for each $n \in \mathbb{N}$. Without loss of generality we can assume $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is pairwise
+disjoint. Let $E \in \mathcal{S}$. Denote $\mathfrak{D}_{n,k} := \left\{ D \in \mathfrak{D} : \mu(E\cap D\cap A_{n}) > 2^{-k} \right\}$ for each $n,k
+\in \mathbb{N}$. Note that 
+\begin{align*}
+\left\{ D \in \mathfrak{D} : \mu(E \cap D) > 0 \right\} & = \cup_{n=0}^{\infty}\left\{ D \in \mathfrak{D} : \mu(E\cap D\cap A_{n}) > 0 \right\} \\
+& = \cup_{n=0}^{\infty}\cup_{k=0}^{\infty}\left\{ D \in \mathfrak{D} : \mu(E\cap D\cap A_{n}) > 2^{-k} \right\} \\
+& = \cup_{n=0}^{\infty}\cup_{k=0}^{\infty}\mathfrak{D}_{n,k}.
+\end{align*}
+Therefore it suffices to show that $\mathfrak{D}_{n,k}$ is countable for each $n,k \in \mathbb{N}$. In fact, each $\mathfrak{D}_{n,k}$ must
+necessarily be finite. To see this, assume by way of contradiction that there exists some $n', k' \in \mathbb{N}$ such that $\mathfrak{D}_{n',k'}$ is
+infinite (without loss of generality, assume $\mathfrak{D}_{n',k'}$ is countably infinite, otherwise we would just consider a countably infinite
+subset of $\mathfrak{D}_{n',k'}$). But since $\mathfrak{D}_{n',k'}$ is a disjoint class, 
+\[ \mu(A_{n'}) \geq \sum_{D\in \mathfrak{D}_{n',k'}}\mu(E\cap D\cap A_{n'}) \geq \sum_{D\in\mathfrak{D}_{n',k'}}2^{-k} = \infty. \]
+This is a contradiction. Hence each $\mathfrak{D}_{n,k}$ is finite. Since the countable sum of finite sets is a countable set, we are done.
+\end{Proof}
 
 
 \end{document}
