@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{MATH 516: HW 3}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+\begin{tcolorbox}
+Define a measure on $\left\{ 0,1 \right\}^{\omega}$ to model a biased coin.
+\end{tcolorbox}
+
+We will use the same algebra defined in the course notes. Let $0 \leq q \leq 1$. Let $A \in \mathcal{A}$. Then we can write $A = \cup_{j <
+n}B(\sigma_{j})$, where $\left\{ B(\sigma_{j}) \right\}_{j < n}$ is pairwise disjoint. For each $j < n$, let $n_{j} := |\sigma_{j}|$ and let
+$\sigma_{j}(i)$ denote the $i$'th entry in $\sigma_{j}$. Then let 
+\[ p(A) := \sum_{j < n}\prod_{i=1}^{n_{j}}\left[ q^{\sigma_{j}(i)}(1-q)^{1-\sigma_{j}(i)} \right]. \]
+If a 1 represents heads and 0 represents tails, then we can think of each $\sigma_{j}$ as a realization of $n_{j}$ coin flips. Then the product term inside
+the summation above represents the probability, according to $q$, of the event $\sigma_{j}$, where $q$ represents the probability of flipping heads on
+a single flip. Hence $p(A)$ is the probability of getting any of the $\sigma_{j}$ sequences. Using the same steps as in the course notes, we can show
+that $p$ is a premeasure on $A$. Then we can extend $p$ to the measure $\mu_{p}$ using Theorem (I)(2)(xvii).
+
+
+
+\subsection*{2}
+\begin{tcolorbox}
+Suppose $X := \mathbb{N}$ and $\mathcal{M} := \{\emptyset\}$ and $p(\emptyset) = 0$. Describe $\mu_{p}^{*}$.
+\end{tcolorbox}
+
+Then 
+\[ \mu_{p}^{*}(E) = \left\{ \begin{array}{cl}
+0 & \text{ if } E = \emptyset, \\
+\infty & \text{ if } E \neq \emptyset.
+\end{array} \right. \]
+The is because for any $\mathcal{P}(X) \supseteq E \neq \emptyset$, 
+\[ \left\{ \sum_{n=0}^{\infty}p(A_{n}) : E \subseteq \cup_{n=0}^{\infty}A_{n} \text{ such that } A_{n} \in \mathcal{M}\ \forall \ n \in \mathbb{N}
+\right\} = \emptyset. \]
+Further, $\mu_{p}^{*}$ is actually a measure over $\mathcal{P}(X)$.
+
+
+
+\subsection*{3}
+
+
+
+\subsection*{4}
+
+
+\subsection*{5}
+\begin{tcolorbox}
+Suppose $(X, S, \mu)$ is a $\sigma$-finite measure space. Suppose $\mathcal{D} \subseteq \mathcal{S}$ is a disjoint class; i.e. $A\cap B = \emptyset$
+whenever $A, B \in \mathcal{D}$ and $A \neq B$. Prove that for each measurable $E \subseteq X$, $\{D \in \mathcal{D} : \mu(E\cap D) > 0\}$ is
+countable.
+\end{tcolorbox}
+
+
+
+\end{document}
