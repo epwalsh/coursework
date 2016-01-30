@@ -24,7 +24,7 @@
 \newcounter{ProofCounter}
 \newcounter{ClaimCounter}[ProofCounter]
 \newcounter{SubClaimCounter}[ClaimCounter]
-\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
 \newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
 \newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
 \newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
@@ -80,11 +80,51 @@ Further, $\mu_{p}^{*}$ is actually a measure over $\mathcal{P}(X)$.
 
 
 
-\subsection*{3}
+\subsection*{3 [RF 17.36]}
+\begin{tcolorbox}
+Let $\mu$ be a finite premeasure on an algebra $\mathcal{S}$, and $\mu^{*}$ the induced outer measure. Show that a subset $E$ of $X$ is
+$\mu^*$-measurable if and only if for each $\epsilon > 0$ there exists a set $A \in \mathcal{S}_{\sigma}$ with $A\subseteq E$ such that $\mu^*(E-A) <
+\epsilon$.
+\end{tcolorbox}
 
 
+\newpage
+\subsection*{4 [RF 17.34]}
+\begin{tcolorbox}
+If we start with an outer measure $\mu^{*}$ on $2^{X}$ and form the induced measure $\bar{\mu}$ on the $\mu^{*}$-measurable sets, we can view
+$\bar{\mu}$ as a set function and denote by $\mu^{+}$ the outer measure induced by $\bar{\mu}$.
+\begin{enumerate}[label=(\alph*)]
+\item Show that for each set $E \subseteq X$ we have $\mu^{+}(E) \geq \mu^{*}(E)$.
+\item For a given set $E$, show that $\mu^{+}(E) = \mu^*(E)$ if and only if there is a $\mu^*$-measurable set $A \supseteq E$ with $\mu^*(A) =
+\mu^*(E)$.
+\end{enumerate}
+\end{tcolorbox}
+\begin{enumerate}[label=(\alph*)]
+\item \begin{Proof}
+Let $E \subseteq X$. Let $A_{0}, A_{1}, \hdots$ be $\mu^*$-measurable with $\cup_{n=0}^{\infty}A_{n}\supseteq E$ (of course, if no such sets exist, then
+$\mu^+(E) = \infty$). Thus by monotonicity and countable subadditivity,
+\[ \mu^*(E) \leq \mu^*\left( \cup_{n=0}^{\infty}A_{n} \right) \leq \sum_{n=0}^{\infty}\mu^*(A_{n}). \]
+Therefore 
+\[ \mu^*(E) \leq \inf\left\{ \sum_{n=0}^{\infty}\mu^*(E_{n}) : \text{each }E_{n} \ \mu^{*}\text{-measurable and } \cup_{n=0}^{\infty}E_{n} \supseteq E \right\} =
+\bar{\mu}(E). \]
+\end{Proof}
 
-\subsection*{4}
+\item \begin{Proof}
+Let $E \subseteq X$.
+
+$(\Rightarrow)$ First suppose that $\mu^+(E) = \mu^*(E)$. If $\mu^*(E) = \infty$, take $A = X$. Otherwise, for each $n \in \mathbb{N}$ there exists a
+collection $\left\{ A_{n,k} \right\}_{k=0}^{\infty}$ of $\mu^*$-measurable sets such that 
+\[ A_{n} := \cup_{k=0}^{\infty}A_{n,k} \supseteq E \text{ and } \sum_{k=0}^{\infty}\mu^*(A_{n,k}) < \mu^{+}(E) + 2^{-n}. \]
+Take $A := \cap_{n=0}^{\infty}A_{n}$. As the countable intersection of countable unions of
+$\mu^*$-measurable sets, $A$ is $\mu^*$-measurable. Further, since $E \subseteq A \subseteq A_{n}$ for each $n \in \mathbb{N}$,
+\[ \mu^*(E) \leq \mu^*(A) \leq \mu^*\left( A_{n} \right) \leq \sum_{k=0}^{\infty}\mu^*(A_{n,k}) < \mu^+(E) + 2^{-n} = \mu^*(E) + 2^{-n}. \]
+Therefore $\mu^*(A) = \mu^*(E)$.
+
+$(\Leftarrow)$ Now suppose there exists some $\mu^*$-measurable $A \supseteq E$ such that $\mu^*(A) = \mu^*(E)$. By (i), $\mu^+(E) \geq \mu^*(E)$. But
+if we take $A_{0} := A$ and $A_{n} := \emptyset$ for all $n \geq 1$, then 
+\[ \mu^{+}(E) \leq \sum_{n=0}^{\infty}\mu^{*}(A_{n}) = \mu^*(A) = \mu^*(E). \]
+\end{Proof}
+\end{enumerate}
 
 
 \subsection*{5}
@@ -111,6 +151,16 @@ subset of $\mathfrak{D}_{n',k'}$). But since $\mathfrak{D}_{n',k'}$ is a disjoin
 \[ \mu(A_{n'}) \geq \sum_{D\in \mathfrak{D}_{n',k'}}\mu(E\cap D\cap A_{n'}) \geq \sum_{D\in\mathfrak{D}_{n',k'}}2^{-k} = \infty. \]
 This is a contradiction. Hence each $\mathfrak{D}_{n,k}$ is finite. Since the countable sum of finite sets is a countable set, we are done.
 \end{Proof}
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
