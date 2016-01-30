@@ -86,6 +86,39 @@ Let $\mu$ be a finite premeasure on an algebra $\mathcal{S}$, and $\mu^{*}$ the 
 $\mu^*$-measurable if and only if for each $\epsilon > 0$ there exists a set $A \in \mathcal{S}_{\sigma}$ with $A\subseteq E$ such that $\mu^*(E-A) <
 \epsilon$.
 \end{tcolorbox}
+\begin{Proof} Let $E \subseteq X$.
+
+$(\Rightarrow)$ First assume that $E$ is $\mu^*$-measurable. Let $\epsilon > 0$. Since the premeasure $\mu$ is finite, $\mu^*(E)$ and $\mu^*(E^{c})$ are finite. Therefore
+there exists $A_{0}, A_1, \hdots \in \mathcal{S}$ such that $\cup_{n=0}^{\infty}A_{n} \supseteq E^{c}$ and $\sum_{n=0}^{\infty}\mu^*(A_{n}) <
+\mu^{*}(E) + \epsilon$. By subadditivity,
+\begin{equation}
+\mu^{*}\left( \cup_{n=0}^{\infty}A_{n} \right) \leq \sum_{n=0}^{\infty}\mu^*(A_{n}) < \mu^*(E) + \epsilon.
+\label{3.1}
+\end{equation}
+Now set $A := \left( \cup_{n=0}^{\infty}A_{n} \right)^{c}$. Then $A \in \mathcal{S}_{\delta}$ and $A\subseteq E$. By the measurability of $E$,
+\begin{align*}
+& \mu^{*}(E\cap A^{c}) + \mu^{*}(E^{c}\cap A^{c}) = \mu^{*}(A^{c}) \\
+\Rightarrow \qquad & \mu^{*}(E\cap A^{c}) = \mu^{*}(A^{c}) - \mu^{*}(E^{c}\cap A^{c}) \\
+\eqref{3.1} \Rightarrow \qquad & \mu^*(E - A) = \mu^*\left( \cup_{n=0}^{\infty}A_{n} \right) - \mu^{*}(E^{c}) < \epsilon.
+\end{align*}
+
+$(\Leftarrow)$ Now suppose for all $\epsilon > 0$, there exists some $A \in \mathcal{S}_{\delta}$ such that $A \subseteq E$ and $\mu^{*}(E - A) <
+\epsilon$. Then for all $n \in \mathbb{N}$, there exists $A_{n} \in \mathcal{S}_{\delta}$ such that $A_{n} \subseteq E$ and $\mu^{*}(E - A_{n}) < 2^{-n}$.
+Let $A := \cup_{n=0}^{\infty}A_{n}$. Since the $\mu^*$-measurable sets form a $\sigma$-algebra, each $A_{n}$ is $\mu^*$-measurable and thus $A$ is
+also $\mu^*$-measurable.
+\begin{claim}
+$\mu^{*}(A) = \mu^{*}(E)$.
+\end{claim}
+\begin{claimproof}
+First note that since each $A_{n}$ is measurable, $\mu^{*}(E - A_{n}) = \mu^*(E) - \mu^*(A_{n})$ (to see this, just rearrange using the definition of measurable).
+Therefore, for each $n \in \mathbb{N}$, $\mu^{*}(E - A_{n}) = \mu^{*}(E) - \mu^{*}(A_{n}) < 2^{-n}$. Thus,
+\[ \mu^{*}(A_{n}) \leq \mu^{*}(A) \leq \mu^{*}(E) < \mu^{*}(A_{n}) + 2^{-n}. \]
+So $\mu^{*}(A) = \mu^{*}(E)$.
+\end{claimproof}
+
+By claim 1, $\mu^*(E - A) = \mu^*(E) - \mu^*(A) = 0$. Therefore since outer measures are complete, $\mu^*(E - A)$ is $\mu^{*}$-measurable. Therefore 
+$E = A \cup (E - A)$ is measurable.
+\end{Proof}
 
 
 \newpage
