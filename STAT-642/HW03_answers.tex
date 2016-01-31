@@ -1,0 +1,160 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{STAT 642: HW 3}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1 [AL 7.6 (a)]}
+\begin{tcolorbox}
+Let $X_{1}$ and $X_{2}$ be independent random variables. Show that for any $p > 0$,
+\[ E|X_{1} + X_{2}|^{p} < \infty \qquad \text{if and only if} \qquad E|X_{1}| < \infty,\  E|X_{2}| < \infty. \]
+\end{tcolorbox}
+\begin{Proof}
+Since $X_{1}$ and $X_{2}$ are independent, $P_{X_{1},X_{2}} = P_{X}\times P_{Y}$. The backwards direction is easy. That is, if we assume that
+$E|X_{1}|^{p} < \infty$ and $E|X_{2}|^p < \infty$, then $E|X_{1} + EX_{2}|^{p} < \infty$ by Proposition 3.2.1 [AL]. Now suppose $E|X_{1} + X_{2}|^{p}
+< \infty$. Now, by Tonelli's Theorem,
+\[ E|X_{1} + X_{2}|^{p} = \int \int |x_{1} + x_{2}|^{p}\ dP_{X_{1}}(x_{1})\ dP_{X_{2}}(x_{2}) = \int E|X_{1} + x_{2}|^{p} \ dP_{X_{2}}(x_{2}) < \infty. \]
+Therefore there exists some $x_{2} \in \mathbb{R}$ such that $E|X_{1} + x_{2}|^{p} < \infty$. But then $E|X_{1}|^{p} < \infty$. By the symmetry of the
+above argument, $E|X_{2}|^{p} < \infty$.
+\end{Proof}
+
+For an example of how the above result fails when $X_{1}$ and $X_{2}$ are not independent, consider $X_{1} \sim $Cauchy(0,1) and $X_{2} = -X_{1}$. Then
+$E|X_{1} - X_{2}| = 0$ but $E|X_{1}| = E|X_{2}| = \infty$.
+
+
+\subsection*{2 [AL 7.11]}
+\begin{tcolorbox}
+For any nonnegative random variable $X$, show that $E|X| < \infty$ if and only if $\sum_{n=1}^{\infty}P(|X| > \epsilon n) < \infty$ for every
+$\epsilon > 0$.
+\end{tcolorbox}
+\begin{Proof}
+By the hint given
+\begin{equation}
+E|X| = \sum_{k=0}^{\infty}\int_{k\epsilon}^{(k+1)\epsilon}P(|X| > t)\ dt.
+\label{2.1}
+\end{equation}
+$(\Rightarrow)$ First assume that $E|X| < \infty$. Then using \eqref{2.1},
+\[ E|X| = \sum_{k=0}^{\infty}\int_{k\epsilon}^{(k+1)\epsilon}P(|X| > t)\ dt \geq \sum_{k=0}^{\infty}\int_{k\epsilon}^{(k+1)\epsilon}P(|X| >
+(k+1)\epsilon)\ dt = \epsilon\sum_{n=1}^{\infty}P(|X| > n\epsilon). \]
+$(\Leftarrow)$ Similarly, if we assume $\sum_{n=1}^{\infty}P(|X| > n\epsilon) < \infty$, then 
+\[ E|X| = \sum_{n=0}^{\infty}\int_{n\epsilon}^{(n+1)\epsilon}P(|X| > t)\ dt \leq \sum_{n=0}^{\infty}\int_{n\epsilon}^{(n+1)\epsilon}P(|X| >
+n\epsilon)\ dt \leq \epsilon + \epsilon\sum_{n=1}^{\infty}P(|X| > n\epsilon) < \infty. \]
+\end{Proof}
+
+
+\subsection*{3 [AL 7.12 (a)]}
+\begin{tcolorbox}
+Let $\left\{ X_{i} \right\}_{i\geq 1}$ be a sequence of independent and identically distributed random variables. Show that
+$\lim_{n\rightarrow\infty}\frac{X_{n}}{n} = 0$ with probability 1 if and only if $E|X_{1}| < \infty$.
+\end{tcolorbox}
+\begin{Proof}
+By question 2, $E|X_{1}| < \infty$ if and only if, for each $\epsilon > 0$,
+\begin{equation}
+\sum_{n=1}^{\infty}P(|X_{1}| > n\epsilon) = \sum_{n=1}^{\infty}P(|X_{n}| > n\epsilon) < \infty. 
+\label{3.1}
+\end{equation}
+But by the Borel 0-1 Law, \eqref{3.1} holds if and only if $P(\{\omega : |X_{n}| > n\epsilon \text{ i.o.}\}) = 0$ for every $\epsilon > 0$, 
+if and only if $P(\left\{ \omega : |X_{n}| \leq n\epsilon \text{ eventually} \right\}) = 1$ for every $\epsilon > 0$,
+if and only if 
+\[ P\left(\lim_{n\rightarrow\infty}\frac{|X_{n}|}{n} = 0\right) = 1 \qquad \text{if and only if} \qquad P\left(\lim_{n\rightarrow\infty}\frac{X_{n}}{n} = 0\right) = 1. \]
+\end{Proof}
+
+
+\subsection*{4 [AL 7.13]}
+\begin{tcolorbox}
+Let $\left\{ X_{i} \right\}_{i\geq 1}$ be sequence of identically distributed random variables and let $M_{n} := \max\left\{ |X_{j}| : 1 \leq j \leq n
+\right\}$.
+\begin{enumerate}[label=(\alph*)]
+\item If $E|X_{1}|^{\alpha} < \infty$ for some $\alpha \in (0,\infty)$, then show that 
+\begin{equation}
+\frac{M_{n}}{n^{1/\alpha}} \rightarrow 0 \text{ with probability 1}. 
+\label{4.1}
+\end{equation}
+\item Show that if $\left\{ X_{i} \right\}_{i\geq 1}$ are iid satisfying \eqref{4.1} for some $\alpha > 0$, then $E|X_{1}|^{\alpha} < \infty$.
+\end{enumerate}
+\end{tcolorbox}
+\begin{enumerate}[label=(\alph*)]
+\item \begin{Proof}
+Suppose $E|X_{1}|^{\alpha} < \infty$, where $\alpha > 0$. Let $\epsilon > 0$. By question 2,
+\[ \infty > \sum_{n=1}^{\infty}P(|X_{1}|^{\alpha} > \epsilon^{\alpha}n) = \sum_{n=1}^{\infty}P(|X_{n}| > \epsilon n^{1/\alpha}). \]
+\end{Proof}
+
+\item \begin{Proof}
+Let $\epsilon > 0$. Note that $P\left( \dfrac{M_{n}}{n^{\alpha}} < \epsilon \right) \leq P\left( \dfrac{|X_{n}|}{n^{\alpha}} < \epsilon \right)$ for
+all $n \geq 1$. 
+Since \eqref{4.1} holds,
+\[ P\left( \lim_{n\rightarrow\infty}\frac{M_{n}}{n^{\alpha}} < \epsilon \right) = P\left( \lim_{n\rightarrow\infty}|X_{n}| < n^{1/\alpha}\epsilon
+\right) = 1. \]
+Now, by the Borel 0-1 Law, $\sum_{n=1}^{\infty}P(|X_{n}| \geq n^{1/\alpha}\epsilon) < \infty$. Thus,
+\begin{align*}
+\infty > \epsilon + \epsilon\sum_{n=1}^{\infty}P\left( |X_{n}| \geq n^{1/\alpha}\epsilon \right) & = \epsilon + \epsilon\sum_{n=1}^{\infty}P(|X_{n}|^{\alpha} 
+\geq n\epsilon^{1/\alpha}) \\
+& \geq \sum_{n=0}^{\infty}\int_{n\epsilon^{1/\alpha}}^{(n+1)\epsilon^{1/\alpha}}P(|X_{n}|^{\alpha} \geq n\epsilon^{1/\alpha})\ dt \\
+& \geq \sum_{n=0}^{\infty}\int_{n\epsilon^{1/\alpha}}^{(n+1)\epsilon^{1/\alpha}}P(|X_{n}|^{\alpha} \geq t)\ dt  \\
+& = \sum_{n=0}^{\infty}\int_{n\epsilon^{1/\alpha}}^{(n+1)\epsilon^{1/\alpha}}P(|X_{1}|^{\alpha} \geq t)\ dt  \\
+& = E|X_{1}|^{\alpha}.
+\end{align*}
+\end{Proof}
+\end{enumerate}
+
+\subsection*{5}
+\begin{tcolorbox}
+Let $p_{n} := 1 - 2^{-n}$ for $n \geq 1$. Let $\left\{ X_{n} : n\geq 1 \right\}$ be random variables such that for each $n \geq 1$,
+\[ P(X_{n} = j) = (1 - p_{n})^{j-1}p_{n}, \ \ j = 1, 2, \hdots \]
+\begin{enumerate}[label=(\alph*)]
+\item Prove that $P(X_{n} = 1 \text{ eventually}) = 1$.
+\item Prove that $P(\lim_{n\rightarrow\infty} X_{n} = 1) = 1$.
+\end{enumerate}
+\end{tcolorbox}
+\begin{enumerate}[label=(\alph*)]
+\item Let $A_{n} := \left\{ \omega : X_{n} > 1 \right\}$. Then 
+$P\left( \left\{ \omega : X_{n} = 1 \text{ eventually}\right\}^{c} \right) = P\left( A_{n} \text{ i.o} \right)$. Now,
+\[ P(A_{n}) = \sum_{j=2}^{\infty}(2^{-n})^{j-1}(1-2^{-n}) = (1-2^{-n})\sum_{i=1}^{\infty}\left( \frac{1}{2^{n}} \right)^{i} = 2^{-n}. \]
+Thus $\sum_{n=1}^{\infty}P(A_{n}) = \frac{1}{2} < \infty$. So by the Borel 0-1 Law, $P(|X_{n}| = 1 \text{ eventually}) = 1$.
+\item What's the difference?
+\end{enumerate}
+
+\end{document}
+
