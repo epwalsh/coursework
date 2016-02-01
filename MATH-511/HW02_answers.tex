@@ -270,17 +270,29 @@ over the path as in \eqref{7.1}, this constant term gets multiplied by $\frac{\d
 D(1+i,\,2)}(\zb+1)^{2}dz$ directly. {\bf b)}
 Then evaluate it using the Cauchy integral formula and Cauchy integral theorem.
 \end{tcolorbox}
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{align*}
+\oint_{\dP D(1+i,2)}(\bar{z} + 1)^{2}dz & = \int_{0}^{2\pi}(\overline{1 + i + 2e^{it}} + 1)^{2}2ie^{it}\ dt \\
+& = \int_{0}^{2\pi}(2-i + 2e^{-it})^{2}2ie^{it}\ dt \\
+& = 2i(2-i)^2\int_{0}^{2\pi}e^{it}\ dt + \int_{0}^{2\pi}8i\ dt + 8i \int_{0}^{2\pi}e^{-it}\ dt \\
+& = 0 + 16\pi i + 0 = 16\pi i.
+\end{align*}
+\item 
+\end{enumerate}
 
 \subsection*{9}
 \begin{tcolorbox}Let $\gamma$ be the unit circle equipped with {\bf clockwise}
 orientation. For each real number $\lambda$, give an example of a
 nonconstant holomorphic function $F$ on the annulus
-$\{z:\frac12<|z|<2\}$ such that $$\dfrac{1}{2\pi
+$U := \{z:\frac12<|z|<2\}$ such that $$\dfrac{1}{2\pi
 i}\oint_{\gamma}F(z)\,dz=\lambda\,.$$
 \end{tcolorbox}
+Let $\lambda \in \mathbb{R}$. Let $F : U \rightarrow \mathbb{C}$ be defined by $F(z) := \lambda / z$. Then by the Cauchy Integral Theorem
+\[ \frac{1}{2\pi i}\oint_{\gamma}F(z)\ dz = \frac{1}{2\pi i}\oint \frac{\lambda}{\zeta - 0}\ d\zeta = f(0) = \lambda. \]
 
 
-
+\newpage
 \subsection*{10}
 \begin{tcolorbox}
 Let $\gamma_1$ be the curve $\partial D(0,1)$ and let $\gamma_2$ be the curve $\partial
