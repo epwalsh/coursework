@@ -120,9 +120,78 @@ satisfies this is $(0,0)$.
 Let $U\subset \IC$ be an open set  and  $f\in C^1(U)$. Let $z_0\in U$.
 \begin{enumerate}[label=(\alph*),itemsep=1ex]
 \item Suppose $|D_{e^{i\theta_1}}f(z_0)|=|D_{e^{i\theta_2}}f(z_0)|$  for all $\theta_1,\ \theta_2$.  Prove that either $f'(z_0)$ or $(\overline{f})'(z_0)$ exists. (Note: $(\overline{f})'\neq    \overline{(f')}$. )
-\item Suppose $ D_{e^{i\theta_1}}f(z_0) \overline{  D_{e^{i\theta_2}}f(z)}=|D_{e^{i\theta_1}}f(z_0)   D_{e^{i\theta_2}}f(z_0)|e^{i(\theta_1-\theta_2)}$ for all $\theta_1,\ \theta_2$. Prove that   $f'(z_0)$ exists.
+\item Suppose $D_{e^{i\theta_1}}f(z_0) \overline{  D_{e^{i\theta_2}}f(z)}=|D_{e^{i\theta_1}}f(z_0)   D_{e^{i\theta_2}}f(z_0)|e^{i(\theta_1-\theta_2)}$ for all $\theta_1,\ \theta_2$. Prove that   $f'(z_0)$ exists.
 \end{enumerate}
 \end{tcolorbox}
+Over the course problem assume $f = u + iv$. We will denote $u_x = \frac{\dP u}{\dP x}(z_{0})$ and similarly for $u_y$, $v_x$, and $v_y$. 
+\begin{enumerate}[label=(\alph*),itemsep=1ex]
+\item \begin{Proof}
+Suppose $|D_{e^{i\theta_1}}f(z_0)|=|D_{e^{i\theta_2}}f(z_0)|$ for all $\theta_1$ and $\theta_2$. Then 
+\begin{equation}
+D_{e^{i\theta_1}}f(z_{0})\cdot \overline{ D_{e^{i\theta_1}}f(z_0)} = |D_{e^{i\theta_1}}f(z_0)|^{2} = |D_{e^{i\theta_2}}f(z_0)|^{2} =
+D_{e^{i\theta_2}}f(z_{0})\cdot \overline{ D_{e^{i\theta_2}}f(z_0)}.
+\label{3.1}
+\end{equation}
+The left side of \eqref{3.1} is then 
+\begin{align*}
+(u_x \cos \theta_1 + u_y \sin \theta_1)^2 + (v_x \cos\theta_1 + v_y\sin \theta_1)^2 & = (u_x\cos\theta_1)^2 + (u_y\sin\theta_1)^2 +
+2u_xu_y\cos\theta_1\sin\theta_1 \\
+& \ + (u_x\cos\theta_1)^2 + (v_y\sin\theta_1)^2 + 2v_x v_y\cos\theta_1\sin\theta_1 
+\end{align*}
+Similarly, the right side of \eqref{3.1} is
+\begin{align*}
+(u_x \cos \theta_2 + u_y \sin \theta_2)^2 + (v_x \cos\theta_2 + v_y\sin \theta_2)^2 & = (u_x\cos\theta_2)^2 + (u_y\sin\theta_2)^2 +
+2u_xu_y\cos\theta_2\sin\theta_2 \\
+& \ + (u_x\cos\theta_2)^2 + (v_y\sin\theta_2)^2 + 2v_x v_y\cos\theta_2\sin\theta_2 
+\end{align*}
+Then it's clear that in order for both sides to not depend on $\theta_i$, we need either 
+\begin{equation}
+u_x = v_y \qquad \text{ and } \qquad u_y = -v_x, 
+\label{3.2}
+\end{equation}
+or 
+\begin{equation}
+u_x = -v_y \qquad \text{ and } \qquad u_y = v_x. 
+\label{3.3}
+\end{equation}
+If either \eqref{3.2} or \eqref{3.3} holds, the left side of \eqref{3.1} now becomes 
+\[ u_x(\cos^2\theta_1 + \sin^2\theta_1) + u_y^2(\cos^2\theta_1 + \sin^2\theta_1) = u_x^2 + u_y^2, \]
+and the right side also becomes $u_x^2 + u_y^2$. But \eqref{3.2} implies that $f'(z_0)$ exists, while \eqref{3.3} implies that $(\bar{f})'(z_0)$ exists.
+\end{Proof}
+\item \begin{Proof}
+Suppose 
+\begin{equation}
+D_{e^{i\theta_1}}f(z_0) \overline{  D_{e^{i\theta_2}}f(z)}=|D_{e^{i\theta_1}}f(z_0)   D_{e^{i\theta_2}}f(z_0)|e^{i(\theta_1-\theta_2)} 
+\label{3.4}
+\end{equation}
+for all $\theta_1,\ \theta_2$. Then by squaring both sides of \eqref{3.4}, we have 
+\[ (D_{e^{i\theta_1}}f(z_0))^2(\overline{D_{e^{i\theta_2}}f(z_0)})^2 = D_{e^{i\theta_1}}f(z_0)\overline{D_{e^{i\theta_1}}f(z_0)}\times D_{e^{i\theta_2}}f(z_0)
+\overline{D_{e^{i\theta_2}}f(z_0)}\times e^{2i(\theta_1 - \theta_2)}. \]
+But this implies 
+\begin{equation}
+\overline{ \overline{D_{e^{i\theta_1}}f(z_0)}D_{e^{i\theta_2}}f(z_0)e^{i(\theta_1-\theta_2)}} = 
+\overline{D_{e^{i\theta_1}}f(z_0)}D_{e^{i\theta_2}}f(z_0)e^{i(\theta_1-\theta_2)}.
+\label{3.5}
+\end{equation}
+But \eqref{3.5} holds if and only if both sides of \eqref{3.5} have no imaginary part. If we expand the left side, we get 
+\begin{align*}
+[(u_x\cos \theta_1 + u_y\sin\theta_1)-&i(v_x\cos\theta_1+v_y\sin\theta_1)][(u_x\cos\theta_2+u_y\sin\theta_2)+i(v_x\cos\theta_2+v_y\sin\theta_2)] \\
+&\times [(\cos\theta_1\cos\theta_2 + \sin\theta_1\sin\theta_2) + i(\sin\theta_1\cos\theta_2 - \cos\theta_1\sin\theta_2)], 
+\end{align*}
+and the imaginary part is 
+\begin{align*}
+(\sin\theta_1\cos\theta_2 &- \cos\theta_1\sin\theta_2)\bigg[(u_x\cos\theta_1 + u_y\sin\theta_1)(u_x\cos\theta_2 + u_y\sin\theta_2) \\
+& + (v_x\cos\theta_1 + v_y\sin\theta_1)(v_x\cos\theta_2 + v_y\sin\theta_2)\bigg] \\
+& + (\cos\theta_1\cos\theta_2 + \sin\theta_1\sin\theta_2)\bigg[(u_x\cos\theta_1 + u_y\sin\theta_1)(v_x\cos\theta_2 + v_y\sin\theta_2) \\
+& - (v_x\cos\theta_1 + v_y\sin\theta_1)(u_x\cos\theta_2 + u_y\sin\theta_2)\bigg]
+\end{align*}
+By expanding further we find the following terms:
+\[ (u_xu_x - u_xv_y)\sin\theta_1\cos\theta_1\cos^2\theta_2 \qquad \text{and}\qquad (u_x u_y + v_xv_y) \cos\theta_1\sin\theta_2. \]
+The first term will only cancel out if $u_x = v_y$. With that, the second term cancels out only if $u_y = -v_x$, i.e. the Cauchy-Riemann equations are satisfied. 
+It follows that the rest of the terms in the imaginary part also cancel out. The implies $f'(z_0)$ exists.
+\end{Proof}
+\end{enumerate}
+
 
 
 \subsection*{4}
@@ -160,6 +229,17 @@ Let $\gamma(t) = e^{it}$, $0\le t \le 2\pi$ and $\psi$ be a
 complex continuous function on $\gamma$. Show that
 $$\overline{\oint_\gamma\psi(z)\,dz}=-\oint_\gamma\overline{\psi(z)\,z^2}\,dz.$$
 \end{tcolorbox}
+Let $\psi(z) = u(z) + iv(z)$. Then
+\begin{align*}
+\overline{ \oint_{\gamma}\psi(z)\ dz} = \overline{ \int_{0}^{2\pi}\psi(e^{it})ie^{it}\ dt}& = \overline{\int_{0}^{2\pi}[u(e^{-it}) + iv(e^{it})][i\cos
+t - \sin t]\ dt} \\
+& = \overline{-\int_{0}^{2\pi}[u(e^{it})\sin t+v(e^{it})\cos t]\ dt + i\int_{0}^{2\pi}[u(e^{it})\cos t - v(e^{it})\sin t]\ dt} \\
+& = -\int_{0}^{2\pi}[u(e^{it}) - iv(e^{it})][i\cos t + \sin t]\ dt \\
+& = -\int_{0}^{2\pi}[u(e^{it}) - iv(e^{it})]i[\cos t - i\sin t]\ dt \\
+& = -\int_{0}^{2\pi}[u(e^{it}) - iv(e^{it})]i\overline{e^{it}}\overline{e^{it}}e^{it}\ dt \\
+& = -\int_{0}^{2\pi}\overline{\psi(e^{it})}\overline{e^{2it}}ie^{it}\ dt \\
+& = -\oint_{\gamma}\overline{\psi(z)z^{2}}\ dz.
+\end{align*}
 
 
 \subsection*{7}
@@ -170,6 +250,18 @@ $$\int_0^{2\pi}f\(2+e^{i\theta}\)\,d\theta$$ is not zero. Yet the
 Cauchy integral theorem asserts that $$\oint_{\partial
 D(2,1)}f(\zeta)\,d\,\zeta=0\,.$$ Give an explanation.
 \end{tcolorbox}
+Using the Cauchy Integral Theorem, we have 
+\begin{equation}
+\oint_{\dP D(2,1)}f(\zeta)\ d\zeta = \int_{0}^{2\pi}(2 + e^{i\theta})^{2}\cdot ie^{it}\ dt = 0. 
+\label{7.1}
+\end{equation}
+Now,
+\[
+\int_{0}^{2\pi}f(2 + e^{i\theta})\ d\theta = \int_{0}^{2\pi}(4 + 4e^{i\theta} + e^{2i\theta})\ d\theta = 8\pi + 4\int_{0}^{2\pi}e^{i\theta}d\theta +
+\int_{0}^{2\pi}e^{2i\theta}d\theta = 8\pi \neq 0.
+\]
+The reason the above integral does not evaluate to 0 is that there ends up being a constant term in the function being integrated. When we integrate
+over the path as in \eqref{7.1}, this constant term gets multiplied by $\frac{\dP \gamma}{\dP t}$.
 
 
 \subsection*{8}
@@ -199,6 +291,20 @@ i}\oint_{\gamma_2}
 i}\oint_{\gamma_1}
 \dfrac{\zeta^3-3\zeta-6}{\zeta(\zeta+2)(\zeta+4)}\,d\zeta$$
 \end{tcolorbox}
+Let $\gamma_3 := \dP D(-2,1)$. The expression involving the integral over $\gamma_{1}$ is given by 
+\begin{equation}
+\frac{1}{2\pi i}\oint_{\gamma_1}\frac{(\zeta^3 - 3\zeta - 6)(\zeta+2)^{-1}(\zeta+4)^{-1}}{\zeta}\ d\zeta = -\frac{6}{8} = -\frac{3}{4}, 
+\label{10.1}
+\end{equation}
+and the integral over $\gamma_{2}$ is given by
+\begin{align}
+\frac{1}{2\pi i}\oint_{\gamma_2} \frac{\zeta^3 - 3\zeta - 6}{\zeta(\zeta + 2)(\zeta + 4)}\ d\zeta & = \frac{1}{2\pi i}\oint_{\gamma_1}\frac{(\zeta^3 -
+3\zeta - 6)(\zeta + 4)^{-1}(\zeta+2)^{-1}}{\zeta}\ d\zeta \nonumber \\ 
+& \qquad + \frac{1}{2\pi i}\oint_{\gamma_3}\frac{(\zeta^{3} - 3\zeta - 6)(\zeta+4)^{-1}\zeta^{-1}}{\zeta + 2}\ d\zeta \nonumber \\
+& = -\frac{3}{4} + 2 = \frac{5}{4}. \label{10.2}
+\end{align}
+Thus, by \eqref{10.1} and \eqref{10.2}, the entire expression is equal to 2.
+
 
 
 \end{document}
