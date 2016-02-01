@@ -125,8 +125,8 @@ Suppose $E|X_{1}|^{\alpha} < \infty$, where $\alpha > 0$. Let $\epsilon > 0$. By
 Let $\epsilon > 0$. Note that $P\left( \dfrac{M_{n}}{n^{\alpha}} < \epsilon \right) \leq P\left( \dfrac{|X_{n}|}{n^{\alpha}} < \epsilon \right)$ for
 all $n \geq 1$. 
 Since \eqref{4.1} holds,
-\[ P\left( \lim_{n\rightarrow\infty}\frac{M_{n}}{n^{\alpha}} < \epsilon \right) = P\left( \lim_{n\rightarrow\infty}|X_{n}| < n^{1/\alpha}\epsilon
-\right) = 1. \]
+\[ 1 = P\left( \lim_{n\rightarrow\infty}\frac{M_{n}}{n^{\alpha}} < \epsilon \right) \leq P\left( \lim_{n\rightarrow\infty}|X_{n}| < n^{1/\alpha}\epsilon
+\right). \]
 Now, by the Borel 0-1 Law, $\sum_{n=1}^{\infty}P(|X_{n}| \geq n^{1/\alpha}\epsilon) < \infty$. Thus,
 \begin{align*}
 \infty > \epsilon + \epsilon\sum_{n=1}^{\infty}P\left( |X_{n}| \geq n^{1/\alpha}\epsilon \right) & = \epsilon + \epsilon\sum_{n=1}^{\infty}P(|X_{n}|^{\alpha} 
@@ -150,10 +150,15 @@ Let $p_{n} := 1 - 2^{-n}$ for $n \geq 1$. Let $\left\{ X_{n} : n\geq 1 \right\}$
 \end{tcolorbox}
 \begin{enumerate}[label=(\alph*)]
 \item Let $A_{n} := \left\{ \omega : X_{n} > 1 \right\}$. Then 
-$P\left( \left\{ \omega : X_{n} = 1 \text{ eventually}\right\}^{c} \right) = P\left( A_{n} \text{ i.o} \right)$. Now,
+$P\left( \left\{ \omega : X_{n} = 1 \text{ eventually}\right\}^{c} \right) = P\left( A_{n} \text{ i.o.} \right)$. Now,
 \[ P(A_{n}) = \sum_{j=2}^{\infty}(2^{-n})^{j-1}(1-2^{-n}) = (1-2^{-n})\sum_{i=1}^{\infty}\left( \frac{1}{2^{n}} \right)^{i} = 2^{-n}. \]
-Thus $\sum_{n=1}^{\infty}P(A_{n}) = \frac{1}{2} < \infty$. So by the Borel 0-1 Law, $P(|X_{n}| = 1 \text{ eventually}) = 1$.
-\item What's the difference?
+Thus $\sum_{n=1}^{\infty}P(A_{n}) = \frac{1}{2} < \infty$. So by the Borel 0-1 Law, $P(A_{n}\text{ i.o.}) = 0$, and thus $P(X_{n} = 1 \text{ eventually}) = 1$.
+
+\item Note that $P(\lim_{n\rightarrow\infty} X_{n} = 1) = 1$ if and only if for all $\epsilon > 0$, $P(\lim_{n\rightarrow\infty}|X_{n} - 1| > \epsilon) =
+0$. So let $\epsilon > 0$. Without loss of generality assume $\epsilon < 1$. Then $\left\{ \omega : |X_{n} - 1| > \epsilon \right\} = \left\{ \omega : 
+X_{n} > 1\right\} = A_{n}$, where $A_{n}$ is defined as in part (a). But by part (a), $P(A_{n} \text{ i.o.}) = 0$. Therefore 
+\[1 =  P(A_{n}^{c}\text{ eventually}) = P(|X_{n} - 1 | \leq \epsilon \text{ eventually}) = P(X_{n} = 1 \text{ eventually}). \]
+So $P(\lim_{n\rightarrow\infty}X_{n} = 1) = 1$.
 \end{enumerate}
 
 \end{document}
