@@ -54,10 +54,11 @@ Let $X_{1}$ and $X_{2}$ be independent random variables. Show that for any $p > 
 \begin{Proof}
 Since $X_{1}$ and $X_{2}$ are independent, $P_{X_{1},X_{2}} = P_{X}\times P_{Y}$. The backwards direction is easy. That is, if we assume that
 $E|X_{1}|^{p} < \infty$ and $E|X_{2}|^p < \infty$, then $E|X_{1} + EX_{2}|^{p} < \infty$ by Proposition 3.2.1 [AL]. Now suppose $E|X_{1} + X_{2}|^{p}
-< \infty$. Now, by Tonelli's Theorem,
+< \infty$. By Tonelli's Theorem,
 \[ E|X_{1} + X_{2}|^{p} = \int \int |x_{1} + x_{2}|^{p}\ dP_{X_{1}}(x_{1})\ dP_{X_{2}}(x_{2}) = \int E|X_{1} + x_{2}|^{p} \ dP_{X_{2}}(x_{2}) < \infty. \]
-Therefore there exists some $x_{2} \in \mathbb{R}$ such that $E|X_{1} + x_{2}|^{p} < \infty$. But then $E|X_{1}|^{p} < \infty$. By the symmetry of the
-above argument, $E|X_{2}|^{p} < \infty$.
+Therefore there exists some $x_{2} \in \mathbb{R}$ such that $E|X_{1} + x_{2}|^{p} < \infty$. But then $E|X_{1}|^{p} < \infty$ since $X_{1} = 
+X_{1} + x_{2} - Y$, where $Y \equiv x_{2} \in L^{p}$. By the symmetry of the
+above argument, $E|X_{2}|^{p} < \infty$ as well.
 \end{Proof}
 
 For an example of how the above result fails when $X_{1}$ and $X_{2}$ are not independent, consider $X_{1} \sim $Cauchy(0,1) and $X_{2} = -X_{1}$. Then
@@ -98,7 +99,8 @@ By question 2, $E|X_{1}| < \infty$ if and only if, for each $\epsilon > 0$,
 But by the Borel 0-1 Law, \eqref{3.1} holds if and only if $P(\{\omega : |X_{n}| > n\epsilon \text{ i.o.}\}) = 0$ for every $\epsilon > 0$, 
 if and only if $P(\left\{ \omega : |X_{n}| \leq n\epsilon \text{ eventually} \right\}) = 1$ for every $\epsilon > 0$,
 if and only if 
-\[ P\left(\lim_{n\rightarrow\infty}\frac{|X_{n}|}{n} = 0\right) = 1 \qquad \text{if and only if} \qquad P\left(\lim_{n\rightarrow\infty}\frac{X_{n}}{n} = 0\right) = 1. \]
+\[ P\left(\lim_{n\rightarrow\infty}\frac{|X_{n}|}{n} \leq \epsilon\right) = 1 \ \forall \ \epsilon > 0
+\qquad \text{if and only if} \qquad P\left(\lim_{n\rightarrow\infty}\frac{X_{n}}{n} = 0\right) = 1. \]
 \end{Proof}
 
 
@@ -152,7 +154,8 @@ Let $p_{n} := 1 - 2^{-n}$ for $n \geq 1$. Let $\left\{ X_{n} : n\geq 1 \right\}$
 \item Let $A_{n} := \left\{ \omega : X_{n} > 1 \right\}$. Then 
 $P\left( \left\{ \omega : X_{n} = 1 \text{ eventually}\right\}^{c} \right) = P\left( A_{n} \text{ i.o.} \right)$. Now,
 \[ P(A_{n}) = \sum_{j=2}^{\infty}(2^{-n})^{j-1}(1-2^{-n}) = (1-2^{-n})\sum_{i=1}^{\infty}\left( \frac{1}{2^{n}} \right)^{i} = 2^{-n}. \]
-Thus $\sum_{n=1}^{\infty}P(A_{n}) = \frac{1}{2} < \infty$. So by the Borel 0-1 Law, $P(A_{n}\text{ i.o.}) = 0$, and thus $P(X_{n} = 1 \text{ eventually}) = 1$.
+Thus $\sum_{n=1}^{\infty}P(A_{n}) = \frac{1}{2} < \infty$. So by the Borel 0-1 Law, $P(A_{n}\text{ i.o.}) = 0$, and thus 
+$P(A_{n}^{c}\text{ eventually}) = P(X_{n} = 1 \text{ eventually}) = 1$.
 
 \item Note that $P(\lim_{n\rightarrow\infty} X_{n} = 1) = 1$ if and only if for all $\epsilon > 0$, $P(\lim_{n\rightarrow\infty}|X_{n} - 1| > \epsilon) =
 0$. So let $\epsilon > 0$. Without loss of generality assume $\epsilon < 1$. Then $\left\{ \omega : |X_{n} - 1| > \epsilon \right\} = \left\{ \omega : 
