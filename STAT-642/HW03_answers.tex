@@ -117,10 +117,34 @@ Let $\left\{ X_{i} \right\}_{i\geq 1}$ be sequence of identically distributed ra
 \item Show that if $\left\{ X_{i} \right\}_{i\geq 1}$ are iid satisfying \eqref{4.1} for some $\alpha > 0$, then $E|X_{1}|^{\alpha} < \infty$.
 \end{enumerate}
 \end{tcolorbox}
+
 \begin{enumerate}[label=(\alph*)]
 \item \begin{Proof}
 Suppose $E|X_{1}|^{\alpha} < \infty$, where $\alpha > 0$. Let $\epsilon > 0$. By question 2,
-\[ \infty > \sum_{n=1}^{\infty}P(|X_{1}|^{\alpha} > \epsilon^{\alpha}n) = \sum_{n=1}^{\infty}P(|X_{n}| > \epsilon n^{1/\alpha}). \]
+\begin{equation}
+\infty > \sum_{n=1}^{\infty}P(|X_{1}|^{\alpha} > \epsilon^{\alpha}n) = \sum_{n=1}^{\infty}P(|X_{1}| > \epsilon n^{1/\alpha}). 
+\label{4.2}
+\end{equation}
+Therefore $P(|X_{n}| \leq \epsilon n^{1/\alpha} \text{ eventually}) = 1$. Hence there exists some $k \geq 1$ such that $|X_{n}| \leq \epsilon
+n^{1/\alpha}$ with probability 1 whenever $n \geq k$. Thus, for any $n \geq k$,
+\begin{equation}
+P(M_{n} > \epsilon n^{1/\alpha}) = P\left( \cup_{i=1}^{k}|X_{i}| > \epsilon n^{1/\alpha} \right) \leq \sum_{i=1}^{k}P(|X_{1}| > \epsilon
+n^{1/\alpha}) = kP(|X_{1}| > \epsilon n^{1/\alpha}). 
+\label{4.3}
+\end{equation}
+Also, for $n < k$, 
+\begin{equation}
+P(M_{n} > \epsilon n^{1/\alpha}) \leq \sum_{i=1}^{n}P(|X_{1}| > \epsilon n^{1/\alpha}) \leq \sum_{i=1}^{n}P(|X_{1}| > \epsilon i^{1/\alpha}).
+\label{4.4}
+\end{equation}
+Therefore 
+\begin{align*}
+\sum_{n=1}^{\infty}P(M_{n} > \epsilon n^{1/\alpha}) & = \sum_{n=1}^{k-1}P(M_{n} > \epsilon n^{1/\alpha}) + \sum_{n=k}^{\infty}P(M_{n} > \epsilon
+n^{1/\alpha})  \\
+\text{by \eqref{4.3} and \eqref{4.4} }\ & \leq \sum_{n=1}^{k-1}\sum_{i=1}^{n}P(|X_{1}| > \epsilon i^{1/\alpha}) + \sum_{n=k}^{\infty}\sum_{i=1}^{k}P(|X_{1}| > \epsilon n^{1/\alpha}) \\
+& = \sum_{n=1}^{k-1}\sum_{i=1}^{n}P(|X_{1}| > \epsilon i^{1/\alpha}) + k\sum_{n=k}^{\infty}P(|X_{1}| > \epsilon n^{1/\alpha}) \\
+\text{by \eqref{4.2} }\ & < \infty.
+\end{align*}
 \end{Proof}
 
 \item \begin{Proof}
@@ -141,6 +165,7 @@ Now, by the Borel 0-1 Law, $\sum_{n=1}^{\infty}P(|X_{n}| \geq n^{1/\alpha}\epsil
 \end{Proof}
 \end{enumerate}
 
+\newpage
 \subsection*{5}
 \begin{tcolorbox}
 Let $p_{n} := 1 - 2^{-n}$ for $n \geq 1$. Let $\left\{ X_{n} : n\geq 1 \right\}$ be random variables such that for each $n \geq 1$,
