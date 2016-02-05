@@ -110,10 +110,11 @@ also $\mu^*$-measurable.
 $\mu^{*}(A) = \mu^{*}(E)$.
 \end{claim}
 \begin{claimproof}
-First note that since each $A_{n}$ is measurable, $\mu^{*}(E - A_{n}) = \mu^*(E) - \mu^*(A_{n})$ (to see this, just rearrange using the definition of measurable).
+By monotonicity, $\mu^*(A) \leq \mu^*(E)$.
+Now note that since each $A_{n}$ is measurable, $\mu^{*}(E - A_{n}) = \mu^*(E) - \mu^*(A_{n})$ (to see this, just rearrange using the definition of measurable).
 Therefore, for each $n \in \mathbb{N}$, $\mu^{*}(E - A_{n}) = \mu^{*}(E) - \mu^{*}(A_{n}) < 2^{-n}$. Thus,
-\[ \mu^{*}(A_{n}) \leq \mu^{*}(A) \leq \mu^{*}(E) < \mu^{*}(A_{n}) + 2^{-n}. \]
-So $\mu^{*}(A) = \mu^{*}(E)$.
+\[ mu^{*}(E) < \mu^{*}(A_{n}) + 2^{-n} \leq \mu^*(A) + 2^{-n}. \]
+Hence $\mu^*(E) \leq \mu^*(A)$. So $\mu^{*}(A) = \mu^{*}(E)$.
 \end{claimproof}
 
 By claim 1, $\mu^*(E - A) = \mu^*(E) - \mu^*(A) = 0$. Therefore since outer measures are complete, $\mu^*(E - A)$ is $\mu^{*}$-measurable. Therefore 
@@ -183,7 +184,7 @@ necessarily be finite. To see this, assume by way of contradiction that there ex
 infinite (without loss of generality, assume $\mathfrak{D}_{n',k'}$ is countably infinite, otherwise we would just consider a countably infinite
 subset of $\mathfrak{D}_{n',k'}$). But since $\mathfrak{D}_{n',k'}$ is a disjoint class, 
 \[ \mu(A_{n'}) \geq \mu\left(A_{n'}\cap \bigcup_{D\in\mathfrak{D}_{n',k'}}(E\cap D)\right) = \sum_{D\in \mathfrak{D}_{n',k'}}\mu(E\cap D\cap A_{n'}) 
-\geq \sum_{D\in\mathfrak{D}_{n',k'}}2^{-k} = \infty. \]
+\geq \sum_{D\in\mathfrak{D}_{n',k'}}2^{-k'} = \infty. \]
 This is a contradiction. Hence each $\mathfrak{D}_{n,k}$ is finite. Since the countable sum of finite sets is a countable set, we are done.
 \end{Proof}
 

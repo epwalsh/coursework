@@ -275,12 +275,21 @@ Then evaluate it using the Cauchy integral formula and Cauchy integral theorem.
 \begin{align*}
 \oint_{\dP D(1+i,2)}(\bar{z} + 1)^{2}dz & = \int_{0}^{2\pi}(\overline{1 + i + 2e^{it}} + 1)^{2}2ie^{it}\ dt \\
 & = \int_{0}^{2\pi}(2-i + 2e^{-it})^{2}2ie^{it}\ dt \\
-& = 2i(2-i)^2\int_{0}^{2\pi}e^{it}\ dt + \int_{0}^{2\pi}8i\ dt + 8i \int_{0}^{2\pi}e^{-it}\ dt \\
-& = 0 + 16\pi i + 0 = 16\pi i.
+& = 2i(2-i)^2\int_{0}^{2\pi}e^{it}\ dt + 8i(2-i)\int_{0}^{2\pi}1\ dt + 8i \int_{0}^{2\pi}e^{-it}\ dt \\
+& = 0 + 16\pi i(2-i) + 0 = 16\pi i(2-i).
 \end{align*}
-\item 
+\item Let $\gamma^* := \dP D(0,2)$, i.e. $\gamma^{*}(t) = 2^{it}$ for $0 \leq t \leq 2\pi$. By a change of variables $\zeta := z - 1 - i$, and 
+since $\bar{\zeta} = \frac{|\zeta|^2}{\zeta} = \frac{4}{\zeta}$ on $\dP (0,2)$,
+\begin{align*}
+\oint_{\gamma}(\bar{z} + 1)^{2}\ dz = \oint_{\gamma^*}(\overline{\zeta + 1 + i} + 1)^2\ d\zeta & = \oint_{\gamma^*}(2 - i + \bar{\zeta})^2\ d\zeta \\
+& = \oint_{\gamma^*}[(2-i)^2 + 2(z-i)\bar{\zeta} + \bar{\zeta}^2]\ d\zeta \\
+& = (2-i)^2 \oint_{\gamma^*}1\ d\zeta + 8(2-i)\oint_{\gamma^*}\frac{1}{\zeta}\ d\zeta + 16\oint_{\gamma^*}\frac{1}{\zeta^2}\ d\zeta \\
+\text{(where $f \equiv 1$ on $\mathbb{C}$) }\ \  & = 0 + 8(2-i)2\pi i f(0) + 16 f'(0) \\
+& = 16\pi i(2-i).
+\end{align*}
 \end{enumerate}
 
+\newpage
 \subsection*{9}
 \begin{tcolorbox}Let $\gamma$ be the unit circle equipped with {\bf clockwise}
 orientation. For each real number $\lambda$, give an example of a
@@ -292,7 +301,6 @@ Let $\lambda \in \mathbb{R}$. Let $F : U \rightarrow \mathbb{C}$ be defined by $
 \[ \frac{1}{2\pi i}\oint_{\gamma}F(z)\ dz = \frac{1}{2\pi i}\oint \frac{\lambda}{\zeta - 0}\ d\zeta = f(0) = \lambda. \]
 
 
-\newpage
 \subsection*{10}
 \begin{tcolorbox}
 Let $\gamma_1$ be the curve $\partial D(0,1)$ and let $\gamma_2$ be the curve $\partial
