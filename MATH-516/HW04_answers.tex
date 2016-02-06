@@ -160,5 +160,75 @@ $\lambda\in\mathcal{G}$ and $n \in \mathbb{N}$. Thus $\mu$ is $\sigma$-finite.
 \end{Proof}
 \end{enumerate}
 
+
+\newpage
+\subsection*{3 [RF 18.19]}
+\begin{tcolorbox}
+Show that if $f$ is a non-negative measurable function on $X$, then 
+\[ \int_{X} f\ d\mu = 0 \ \ \text{ if and only if $f = 0$ a.e. on $X$.} \]
+\end{tcolorbox}
+\begin{Proof}
+The backwards $(\Leftarrow)$ direction is trivial. 
+
+$(\Rightarrow)$ Now suppose $\int_{X}f\ d\mu = 0$. Let $E := \left\{ \omega \in X : f(\omega) > 0 \right\}$, and for each $n \in \mathbb{N}$, set 
+$E_{n} := \left\{ \omega \in X : f(\omega) > 2^{-n} \right\}$. We need to show that $\mu(E) = 0$. Note that for each $n$,
+\begin{equation}
+0 \leq \mu(E_{n})\cdot 2^{-n} = \int_{E_{n}}2^{-n}\ d\mu \leq \int_{E_{n}}f\ d\mu \leq \int_{X}f\ d\mu = 0.
+\label{3.1}
+\end{equation}
+But the only way \eqref{3.1} can hold is if $\mu(E_{n}) = 0$. Thus, $\mu(E_{n}) = 0$ for each $n \in \mathbb{N}$. So, since $E =
+\cup_{n=0}^{\infty}E_{n}$ and $E_{n} \subseteq E_{n+1}$ for all $n \in \mathbb{N}$, $\mu(E) = \lim_{n\rightarrow\infty}\mu(E_{n}) = 0$.
+\end{Proof}
+
+
+\newpage
+\subsection*{4 [RF 18.22]}
+\begin{tcolorbox}
+Suppose $f$ and $g$ are non-negative measurable functions on $X$ for which $f^{2}$ and $g^{2}$ are integrable over $X$ with respect to $\mu$. Show
+that $f\cdot g$ is also integrable over $X$ with respect to $\mu$.
+\end{tcolorbox}
+\begin{Proof}
+Note that by Proposition (I)(3)(ix), $f\cdot g$ is measurable. Now,
+\[ 0 \leq \left( |f| - |g| \right)^{2} = |f|^{2} - 2|f|\cdot |g| + |g|^{2}. \]
+Therefore $|f\cdot g| \leq \frac{1}{2}f^{2} + \frac{1}{2}g^{2}$. So by the monotonicity and linearity of integration,
+\[ \int_{X}|f\cdot g|\ d\mu \leq \frac{1}{2}\int_{X}f^{2}\ d\mu + \frac{1}{2}\int_{X}g^{2}\ d\mu < \infty. \]
+Hence $f\cdot g$ is integrable.
+\end{Proof}
+
+
+
+\newpage
+\subsection*{5}
+\begin{tcolorbox}
+Suppose $\Omega := (X, \mathcal{S}, \mu)$ is a $\sigma$-finite measure space. Use the results from questions 1 and 2 to show that $\Omega$ can be written as a
+countable sum of finite measures.
+\end{tcolorbox}
+\begin{Proof}
+Since $\Omega$ is $\sigma$-finite, we can express $X$ and $X = \cup_{n=0}^{\infty}X_{n}$, where $X_{0}, X_{1}, \hdots \in \mathcal{S}$ and $\mu(X_{n})
+< \infty$ for all $n \in \mathbb{N}$. Without loss of generality we can assume $\left\{ X_{n} \right\}_{n=0}^{\infty}$ is pairwise disjoint. Now,
+for each $n\in\mathbb{N}$, define $\mathcal{S}_{n} := \left\{ E \in \mathcal{S} : E\subseteq X_{n} \right\}$, $\mu_{n}(\cdot)$ the restriction of $\mu$ to $\mathcal{S}_{n}$, and
+$\Omega := (X_{n}, \mathcal{S}_{n}, \mu_{n})$. By the result from question 1, $\Omega_{n}$ is a measure space for each $n \in \mathbb{N}$. Clearly each
+$\Omega_{n}$ is finite as well. Therefore it remains to show that $\Omega$ is the union of $\left\{ \Omega_{n} \right\}_{n=0}^{\infty}$.
+\begin{claim}
+$\mathcal{S} = \left\{ E \subseteq X : E\cap X_{n} \in \mathcal{S}_{n}\ \forall \ n\in\mathbb{N} \right\}$.
+\end{claim}
+\begin{claimproof}
+Clearly $\mathcal{S} \subseteq \left\{ E \subseteq X : E\cap X_{n} \in \mathcal{S}_{n}\ \forall \ n\in\mathbb{N} \right\}$. Now suppose $E \subseteq X$ such that $E\cap
+X_{n} \in \mathcal{S}_{n}$ for each $n \in \mathbb{N}$. Then $E\cap X_{n} \in \mathcal{S}$ by definition of $\mathcal{S}_{n}$. Hence we have $E =
+\cup_{n=0}^{\infty}(E\cap X_{n}) \in \mathcal{S}$. 
+\end{claimproof}
+
+\begin{claim}
+$\mu(E) = \sum_{n=0}^{\infty}\mu_{n}(E\cap X_{n})$
+\end{claim}
+\begin{claimproof}
+$\mu(E) = \mu\left( \cup_{n=0}^{\infty}E\cap X_{n} \right) = \sum_{n=0}^{\infty}\mu(E\cap X_{n}) = \sum_{n=0}^{\infty}\mu_{n}(E\cap X_{n})$.
+\end{claimproof}
+
+By claims 1 and 2, $\Omega$ is the union of $\left\{ \Omega_{n} \right\}_{n=0}^{\infty}$.
+\end{Proof}
+
+
+
 \end{document}
 
