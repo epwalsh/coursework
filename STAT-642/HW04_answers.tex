@@ -46,7 +46,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 
 \begin{document}
-\maketitle
+% \maketitle
 
 \def\cp{\stackrel{p}{\rightarrow}}
 \def\as{\stackrel{\text{a.s.}}{\longrightarrow}}
@@ -54,13 +54,54 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{1}
 \begin{tcolorbox}
 Suppose $X, X_{n}, Y, Y_{n}$ are random variables on a common probability space. Show that
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}[label=(\alph*)]
 \item if $X_{n} \stackrel{p}{\rightarrow} X$ and $X_{n}\stackrel{p}{\rightarrow}Y$, then $P(X = Y) = 1$,
 \item if $X_{n}\cp X$ and $Y_{n} \cp Y$, then $X_{n} + Y_{n} \cp X + Y$,
 \item if $X_{n}\cp X$ and $Y_{n}\cp Y$, then $X_{n}Y_{n}\cp XY$, 
 \item and if $X_{n}\cp X$, $Y_{n}\cp Y$ and $g$ is a continuous function on $\mathbb{R}^{2}$, then $g(X_{n},Y_{n})\cp g(X,Y)$.
 \end{enumerate}
 \end{tcolorbox}
+\begin{enumerate}[label=(\alph*)]
+\item \begin{Proof}
+We need to show that $P(X - y = 0) = 1$, or $P(|X - Y| > 0) = 0$, or $P(|X - Y| > \epsilon) = 0$ for all $\epsilon > 0$. But, since $|X - Y| \leq |X -
+X_{n}| + |X_{n} - Y|$,
+\[ P(|X - Y| > \epsilon) \leq P(|X - X_{n}| + |X_{n} - Y| > \epsilon) \leq P(|X - X_{n}| > \epsilon/2) + P(|X_{n} - Y| > \epsilon/2).\]
+But the right-hand side of the above inequality goes to 0 as $n\rightarrow \infty$, independent of $\epsilon$. Hence $P(|X-Y| > 0) = 0$.
+\end{Proof}
+
+\item \begin{Proof} Let $\epsilon > 0$. Since $|(X_{n} + Y_{n}) - (X+Y)| \leq |X_{n} - X| + |Y_{n} - Y|$,
+\[ P(|(X_{n} + Y_{n}) - (X + Y) > \epsilon) \leq P(|X_{n} - X| + |Y_{n} - Y| > \epsilon) \leq P(|X_{n} - X|>\epsilon/2) + P(|Y_{n}-Y| > \epsilon/2).
+\]
+But the right-hand side of the above inequality goes to 0 as $n\rightarrow\infty$. Hence $X_{n} + Y_{n}\cp X + Y$.
+\end{Proof}
+
+\item \begin{Proof}
+Let $\epsilon > 0$. Since 
+\[ |X_{n}Y_{n} - XY| = |X_{n}Y_{n} - XY + X_{n}Y - X_{n}Y| \leq |X_{n}|\cdot |Y_{n} - Y| + |Y|\cdot |X_{n} - X|, \]
+\begin{align*}
+P(|X_{n}Y_{n} - XY| > \epsilon) & \leq P(|X_{n}|\cdot |Y_{n} - Y| + |Y|\cdot |X_{n} - X| > \epsilon \\
+& \leq P(|X_{n}|\cdot |Y_{n}-Y| > \epsilon/2) + P(|Y|\cdot |X_{n} - X| > \epsilon/2) \\
+& = P(\left\{ |X_{n}|\cdot |Y_{n}-Y| > \epsilon/2 \right\}\cap \left\{ |X_{n}-X|\leq 1 \right\}) \\
+& \qquad + P(\left\{ |X_{n}|\cdot |X_{n}-Y| > \epsilon/2 \right\} 
+\cap\left\{ |X_{n}-X|>1 \right\}) \\
+& \qquad + P(|Y|\cdot |X_{n} -X| > \epsilon/2) \\
+& = P([|X| + 1]|Y_{n} - Y| > \epsilon/2)  \rightarrow 0\\
+& \qquad + P(|X_{n} - X| > 1) \rightarrow 0\\
+& \qquad + P(|Y|\cdot |X_{n} - X| > \epsilon/2) \rightarrow 0
+\end{align*}
+Since everything on the right-hand side goes to 0 as $n\rightarrow\infty$, $X_{n}Y_{n}\cp XY$.
+\end{Proof}
+
+\item \begin{Proof}
+Let $\epsilon > 0$. Since $g$ is continuous, there exists $\delta > 0$ such that $|X_{n} - X| + |Y_{n} - Y| \leq \delta$ implies $|g(X_{n},Y_{n}) -
+g(X,Y)| \leq \epsilon$. Thus,
+\begin{align*}
+P(|g(X_{n},Y_{n}) - g(X,Y)| > \epsilon) & \leq P(|X_{n} - X| + |Y_{n} - Y| > \delta) \\
+& \leq P(|X_{n} - X| > \delta/2) + P(|Y_{n} - Y|>\delta/2).
+\end{align*}
+But everything on the right-hand side goes to 0 as $n\rightarrow\infty$. Therefore $g(X_{n},Y_{n}) \cp g(X,Y)$. 
+\end{Proof}
+\end{enumerate}
 
 \subsection*{2}
 \begin{tcolorbox}
