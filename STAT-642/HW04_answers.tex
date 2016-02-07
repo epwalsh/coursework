@@ -135,12 +135,26 @@ P(\liminf X_{n} \leq X \leq \limsup X_{n}) & = 1 - P(\liminf X_{n} > X \text{ or
 \end{align*}
 \end{Proof}
 
+\newpage
 \subsection*{4}
 \begin{tcolorbox}
 Let $X, X_{0}, X_{1}, \hdots$ be random variables and suppose that for some $r > 0$,
 \[ E|X_{n} - X|^{r} \rightarrow 0 \ \text{ as } \ n \rightarrow \infty. \]
 Prove that $X_{n}\cp X$.
 \end{tcolorbox}
+\begin{Proof}
+By way of contradiction, suppose there exists $\epsilon, \delta > 0$ such that for all $N \in \mathbb{N}$, there exists an $n \geq N$ such that 
+\begin{equation}
+P(|X_{n} - X| > \epsilon) > \delta, \qquad \text{and thus}\qquad P(|X_{n} - X|^{r} > \epsilon^{r}) > \delta. 
+\label{4.1}
+\end{equation}
+Therefore we can create a subsequence $n_{0} < n_{1} < n_{2} < \hdots$ such that \eqref{4.1} holds for $n_{k}$, for all $k \in \mathbb{N}$.
+But then for each $k \in \mathbb{N}$,
+\[ E|X_{n_{k}} - X|^{r} = \int_{\Omega}|X_n - X|^{r}\ dP \geq \int_{E_{k}}|X_{n} - X|^{r}\ dP \geq \int_{E_{k}}\epsilon^{r}\ dP \geq \delta\cdot
+\epsilon^{r}, \]
+where $E_{k} := \left\{ \omega \in \Omega : |X_{n_{k}}(\omega)- X(\omega)|^{r} > \epsilon \right\}$.
+So $\lim_{k\rightarrow\infty}E|X_{n_{k}}-X|^{r} \geq \delta\cdot \epsilon^{r}$. This is a contradiction.
+\end{Proof}
 
 \subsection*{5}
 \begin{tcolorbox}
@@ -148,13 +162,33 @@ Let $X, X_{0}, X_{1}, \hdots$ be random variables and suppose that for some $r >
 \[ \sum_{n=0}^{\infty}E|X_{n} - X|^{r} < \infty. \]
 Prove that $X_{n} \as X$.
 \end{tcolorbox}
+\begin{Proof}
+Let $\epsilon > 0$ and define $A_{n} := \left\{ \omega \in \Omega : |X_{n}(\omega) - X(\omega)| > \epsilon \right\} = \left\{ 
+\omega \in \Omega : |X_{n}(\omega) - X(\omega)|^{r} > \epsilon^r \right\}$. Therefore 
+\[ \epsilon^{r}P(A_{n}) \leq \int_{A_{n}}|X_{n}-X|^{r}\ dP \leq \int_{\Omega}|X_{n} - X|^{r}\ dP = E|X_{n} - X|^{r}. \]
+Hence $\sum_{n=0}^{\infty}P(A_{n}) \leq \epsilon^{-r}\sum_{n=0}^{\infty}E|X_{n} - X|^{r} < \infty$. Therefore, by the Borel-Cantelli Lemma,
+$P(A_{n}\text{ i.o.}) = 0$. So $P(|X_{n} - X|\leq \epsilon\text{ eventually}) = 1$. Thus, by Theorem 4.1, $X_{n} - X \as 0$, and so $X_{n} \as X$.
+\end{Proof}
 
+\newpage
 \subsection*{6}
 \begin{tcolorbox}
 Suppose $X_{1}, X_{2}, \hdots$ are random variables. For each $n \geq 1$, let $S_{n} := \sum_{j=1}^{n}X_{j}$. Let $b_{1}, b_{2}, \hdots \in
-\mathbb{R}$ such that $0 < b_{n} < \infty$ and $b_{n} = \mathcal{0}(b_{n+1})$ for all $n \geq 1$. Prove that if 
+\mathbb{R}$ such that $0 < b_{n} < \infty$ and $b_{n} = \mathcal{O}(b_{n+1})$ for all $n \geq 1$. Prove that if 
 $\frac{S_{n}}{b_{n}} \as 0$, then $\frac{X_{n}}{b_{n}} \as 0$.
 \end{tcolorbox}
+\begin{Proof}
+Since $b_{n} = \mathcal{O}(b_{n+1})$, there exists some $M > 0$ such that $b_{n} \leq M b_{n+1}$ for all $n \in \mathbb{N}$. This implies 
+\begin{equation}
+b_{n-1} \leq M\cdot b_{n} \ \text{ for all } \ n\geq 1.
+\label{6.1}
+\end{equation}
+Now, since $S_{n}/b_{n} \as 0$, clearly $M\cdot S_{n-1}/b_{n-1} \as 0$. Therefore, since
+\[ \left|\frac{\sum_{j=0}^{n-1}X_{j}}{b_{n}}\right| \leq \left| \frac{\sum_{j=0}^{n-1}X_{j}}{b_{n-1}}\right|\times M  = \left|
+\frac{S_{n-1}}{b_{n-1}}\right|\times M,\]
+$S_{n-1}/b_{n} \as 0$. Hence by the results in question 1,
+\[ \frac{S_{n}}{b_{n}} - \frac{S_{n-1}}{b_{n}} = \frac{X_{n}}{b_{n}} \as 0. \]
+\end{Proof}
 
 \end{document}
 
