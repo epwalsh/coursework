@@ -108,14 +108,32 @@ But everything on the right-hand side goes to 0 as $n\rightarrow\infty$. Therefo
 Show that if $\left\{ X_{n} \right\}_{n=0}^{\infty}$ is a sequence of independent random variables and $X_{n} \cp X$, then $X$ is degenerate.
 \end{tcolorbox}
 \begin{Proof}
-
+Since $X_{n}\cp X$, there exists a subsequence 
+$\left\{ X_{n_{k}} \right\}_{k=0}^{\infty}$ such that $X_{n_{k}}\rightarrow X$ a.s. Therefore $T := \limsup_{k\rightarrow\infty}X_{n_{k}}
+= X$ a.e. $(P)$. By an example from class, $T$ is a tail random variable, and since $\left\{ X_{n_{k}} \right\}_{k=0}^{\infty}$ is an independent
+sequence of random variables, $T$ is degenerate by Corollary 3.5. Therefore there exists some $c \in \overline{\mathbb{R}}$ such that $P(T = c) = 1$.
+But since $P(T = X) = 1$, $P(X = c) = 1$. Hence $X$ is degenerate.
 \end{Proof}
 
 \subsection*{3}
 \begin{tcolorbox}
 For any sequence $\left\{ X_{n} \right\}_{n=0}^{\infty}$ of random variables with $X_{n}\cp X$, show that 
-\[ P(\liminf_{n\rightarrow\infty}X_{n}\leq X\leq \limsup_{n\rightarrow\infty}X_{n}) = 1. \]
+\[ P\left(\liminf_{n\rightarrow\infty}X_{n}\leq X\leq \limsup_{n\rightarrow\infty}X_{n}\right) = 1. \]
 \end{tcolorbox}
+\begin{Proof}
+Since $X_{n} \cp X$, there exists a subsequence $\left\{ X_{n_{k}} \right\}_{k=0}^{\infty}$ such that $X_{n_{k}}\rightarrow X$ a.s. 
+Without loss of generality assume $k\leq n_{k}$ for all $k \in \mathbb{N}$.
+Let $E := \left\{ \omega : X_{n_{k}}(\omega) \rightarrow X(\omega) \right\}$. Note that
+\[ X_{n_{k}} \leq \sup_{j\geq k}X_{n_{j}} \leq \sup_{j\geq k}X_{k}. \]
+Therefore $X(\omega) = \lim_{k\rightarrow\infty}X_{n_{k}}(\omega) \leq \lim_{k\rightarrow\infty}\sup_{j\geq k}X_{k} =
+\limsup_{k\rightarrow\infty}X_{k}$ for all $\omega \in E$. Since $P(E) = 1$, $P(X \leq \limsup X_{n}) = 1$, and therefore $P(X > \limsup X_{n}) = 0$.
+By a similar calculation, $P(X < \liminf X_{n}) = 0$. Thus 
+\begin{align*}
+P(\liminf X_{n} \leq X \leq \limsup X_{n}) & = 1 - P(\liminf X_{n} > X \text{ or } \limsup X_{n} < X) \\
+& \geq 1 - P(\liminf X_{n} > X) - P(\limsup X_{n}
+< X) = 1. 
+\end{align*}
+\end{Proof}
 
 \subsection*{4}
 \begin{tcolorbox}
