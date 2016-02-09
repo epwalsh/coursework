@@ -48,7 +48,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{1 [RF 17.6]}
 \begin{tcolorbox}
-Let $(X, \mathcal{M}, \mu)$ be a measure space adn $X_{0}$ belong to $\mathcal{M}$. Define $M_{0}$ to be the collection of sets in $\mathcal{M}$ that
+Let $(X, \mathcal{M}, \mu)$ be a measure space and $X_{0}$ belong to $\mathcal{M}$. Define $M_{0}$ to be the collection of sets in $\mathcal{M}$ that
 are subsets of $X_{0}$ and $\mu_{0}$ the restriction of $\mu$ to $\mathcal{M}_{0}$. Show that $(X_{0}, \mathcal{M}_{0}, \mu_{0})$ is a measure space.
 \end{tcolorbox}
 \begin{Proof}
@@ -152,11 +152,12 @@ Since $\mu_{\lambda}(X_{\lambda}) = \sum_{n=0}^{\infty}\mu_{\lambda}(X_{\lambda}
 $\lambda$'s satisfy $\mu_{\lambda}(X_{\lambda}) = 0$.
 
 $(\Leftarrow)$ Now suppose that all but a countable number of the measures $\mu_{\lambda}$ satisfy $\mu_{\lambda}(X_{\lambda}) = 0$ and the remainder
-are $\sigma$-finite. Then there exists a countable subset of $\Lambda$, call it $\mathcal{G}$, such that $\mu_{\lambda}$ is $\sigma$-finite for each
-$\lambda \in \mathcal{G}$. Therefore for each $\lambda \in \mathcal{G}$, there exists $A_{\lambda,0}, A_{\lambda,1}, \hdots \in \mathcal{M}_{\lambda}$
-such that $X_{\lambda} = \cup_{n=0}^{\infty}A_{\lambda,n}$ and $\mu_{\lambda}(A_{\lambda,n}) < \infty$ for all $n \in\mathbb{N}$. But then $X =
-\cup_{\lambda\in \mathcal{G}}\cup_{n\in\mathbb{N}}A_{\lambda,n}$ and $\mu(A_{\lambda,n}) = \mu_{\lambda}(A_{\lambda,n}) < \infty$ for all
-$\lambda\in\mathcal{G}$ and $n \in \mathbb{N}$. Thus $\mu$ is $\sigma$-finite.
+are $\sigma$-finite. Let $\mathcal{G}$ be the subset of $\Lambda$ such that $\mu_{\lambda}(X) > 0$. Therefore for each $\lambda \in \mathcal{G}$, there exists $A_{\lambda,0}, A_{\lambda,1}, \hdots \in \mathcal{M}_{\lambda}$
+such that $X_{\lambda} = \cup_{n=0}^{\infty}A_{\lambda,n}$ and $\mu_{\lambda}(A_{\lambda,n}) < \infty$ for all $n \in\mathbb{N}$. Let $B :=
+\cup_{\lambda\notin\mathcal{G}}X_{\lambda}$. Then $\{B\}\cup\{A_{\lambda,n} : \lambda\in\mathcal{G}, n\in\mathbb{N}\}$ is a countable collection and
+\[ X = \bigcup_{\lambda\in \mathcal{G}}\left[\cup_{n\in\mathbb{N}}A_{\lambda,n}\right] \bigcup B. \]
+Thus, since $\mu(A_{\lambda,n}) = \mu_{\lambda}(A_{\lambda,n}) < \infty$ for all
+$\lambda\in\mathcal{G}$, $n \in \mathbb{N}$ and $\mu(B) = 0$, we have that $\mu$ is $\sigma$-finite.
 \end{Proof}
 \end{enumerate}
 

@@ -44,7 +44,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \cfoot{}
 
 \begin{document}
-\maketitle
+% \maketitle
 
 
 % \def\IF{{\bf F}}
@@ -93,11 +93,40 @@ $\oint_\gamma \dfrac{\overline{z}}{8+z}\,dz$, where $\gamma$ is the
 rectangle with vertices $\pm 3\pm i$ with counter-clockwise
 direction.
 \end{tcolorbox}
+Let 
+\begin{align*}
+& \gamma_{1}(t) := 3 - i + it, \ 0 \leq t \leq 2 \\
+& \gamma_{2}(t) := 3 + i - t,  \ 0 \leq t \leq 6 \\
+& \gamma_{3}(t) := -3 - i - it, \ 0 \leq t \leq 2 \\
+& \gamma_{4}(t) := -3 - i + t, \ 0 \leq t \leq 6.
+\end{align*}
+First we will evaluate the line integral along $\gamma_{1}$. We have 
+\begin{align*}
+\oint_{\gamma_{1}}\frac{\bar{z}}{8 + z}dz & = \int_{0}^{2}\frac{\overline{3 - i + it}}{8 + (3-i + it)}\cdot i\  dt \\
+& = \int_{0}^{2} 
+\left[ \frac{3i - (t-1)}{11i + t - 1}\right]\times \left[ \frac{(t-1) - 11i}{(t-1) - 11i}\right]dt \\
+& = \int_{0}^{2}\frac{3(t-1)i - (t-1)^2 + (t-1)11i + 33 }{(t-1)^{2} + 121}dt \\
+(u:= t - 1)\  \ & = \underbrace{\int_{-1}^{1}\frac{3iu}{u^{2} + 121}du}_{A} - \underbrace{\int_{-1}^{1}\frac{u^{2}}{u^{2} + 121}du}_{B} + 
+\underbrace{\int_{-1}^{1}\frac{11iu}{u^{2}+121}du}_{C} +
+\underbrace{\int_{-1}^{1}\frac{33}{u^{2} + 121}du}_{D}.
+\end{align*}
+Then $A = C = 0$ since the function $u / (u^{2} + 121)$ is symmetric. For $B$, we have 
+\[ B = \int_{-1}^{1}\left[ 1 - \frac{121}{u^{2} + 121}\right]du = \left[ u - 11\tan^{-1}\left( \frac{u}{11} \right)\right]_{-1}^{1}  = 2 -
+22\tan^{-1}\left( \frac{1}{11} \right), \]
+and similarly for $D$,
+\[ D = 33 \int_{-1}^{1}\frac{1}{u^{2} + 121}du = 33\left[ \frac{1}{11}\tan^{-1}\left( \frac{u}{11} \right)\right]_{-1}^{1} = 6\tan^{-1}\left( 
+\frac{1}{11}\right). \]
+Thus $\oint_{\gamma_{1}}\frac{\bar{z}}{8 + z}dz = -2 + 28\tan^{-1}\left( \frac{1}{11} \right)$. Similarly, we find 
+\begin{align*}
+& \oint_{\gamma_{2}}\frac{\bar{z}}{8 + z}dz = \int_{0}^{6}\frac{t - 3 + i}{11 + i - t}dt = 6 - (4 + i)\log\left( \frac{775}{169} - \frac{168i}{169} \right)\\
+& \oint_{\gamma_{3}}\frac{\bar{z}}{8 + z}dz = \int_{0}^{2}\frac{1 + t - 3i}{5 - i(1 + t)}dt =    \\
+& \oint_{\gamma_{4}}\frac{\bar{z}}{8 + z}dz = \int_{0}^{6}\frac{-3 + t + i}{5 + t - i}dt =    \\
+\end{align*}
 
-
+\newpage
 \subsection*{2}
 \begin{tcolorbox}
-Let $f(x+iy)=x^3y^2+i\,x^2y^3$. Find all the points $P$ in $\IC$ where $f'(P)$ exists.
+Let $f(x+iy)=x^3y^2+i\,x^2y^3$. Find all the points $P$ in $\mathbb{C}$ where $f'(P)$ exists.
 \end{tcolorbox}
 Let $u := x^{3}y^{2}$ and $v := x^{2}y^{3}$. Since the derivates of $u$ and $v$ exist everywhere on $\mathbb{R}^{2}$, it suffices to find the points
 where the Cauchy-Riemann equations hold. Thus, we must have
@@ -110,14 +139,13 @@ and
 \frac{\dP u}{\dP y} = 2x^{3}y = -\frac{\dP v}{\dP x} = -2xy^{3}.
 \label{2.2}
 \end{equation}
-Focusing on \eqref{2.2} since \eqref{2.1} is trivial, we see that we must have $x(x^{2} + y^{2})y = 0$, or $x^{2} + y^{2} = 0$. The only point that
-satisfies this is $(0,0)$.
-
+Focusing on \eqref{2.2} since \eqref{2.1} is trivial, we see that we must have $x(x^{2} + y^{2})y = 0$, or $x^{2} + y^{2} = 0$. This is satisfied
+whenever either $x$ or $y$ is 0.
 
 
 \subsection*{3}
 \begin{tcolorbox}
-Let $U\subset \IC$ be an open set  and  $f\in C^1(U)$. Let $z_0\in U$.
+Let $U\subset \mathbb{C}$ be an open set  and  $f\in C^1(U)$. Let $z_0\in U$.
 \begin{enumerate}[label=(\alph*),itemsep=1ex]
 \item Suppose $|D_{e^{i\theta_1}}f(z_0)|=|D_{e^{i\theta_2}}f(z_0)|$  for all $\theta_1,\ \theta_2$.  Prove that either $f'(z_0)$ or $(\overline{f})'(z_0)$ exists. (Note: $(\overline{f})'\neq    \overline{(f')}$. )
 \item Suppose $D_{e^{i\theta_1}}f(z_0) \overline{  D_{e^{i\theta_2}}f(z)}=|D_{e^{i\theta_1}}f(z_0)   D_{e^{i\theta_2}}f(z_0)|e^{i(\theta_1-\theta_2)}$ for all $\theta_1,\ \theta_2$. Prove that   $f'(z_0)$ exists.
@@ -193,7 +221,7 @@ It follows that the rest of the terms in the imaginary part also cancel out. The
 \end{enumerate}
 
 
-
+\newpage
 \subsection*{4}
 \begin{tcolorbox}
 Let $u$ be a real-valued $C^1$ function on an open disc $U$ with center $0$. Assume that $u$ is harmonic on
@@ -204,7 +232,7 @@ function on $U$.
 Set $f := -\frac{\partial u}{\partial y}$ and $g := \frac{\dP u}{\partial x}$. Therefore $\frac{\dP f}{\dP y} = \frac{\dP g}{\dP x}$ and $f$ and $g$
 are continuously differentiably on $U \setminus \left\{ 0 \right\}$. So by Theorem 2.3.2, there exists some $C^{1}$ function $v : U \rightarrow
 \mathbb{R}$ such that 
-\[ \frac{\dP v}{\dP x} = f \qquad \text{ and } \qquad \frac{\dP h}{\dP y} = g. \]
+\[ \frac{\dP v}{\dP x} = f \qquad \text{ and } \qquad \frac{\dP v}{\dP y} = g. \]
 Hence $F := u + iv$ is $C^{1}$ and satisfies the Cauchy-Riemann equations.
 \end{Proof}
 
@@ -289,7 +317,6 @@ since $\bar{\zeta} = \frac{|\zeta|^2}{\zeta} = \frac{4}{\zeta}$ on $\dP (0,2)$,
 \end{align*}
 \end{enumerate}
 
-\newpage
 \subsection*{9}
 \begin{tcolorbox}Let $\gamma$ be the unit circle equipped with {\bf clockwise}
 orientation. For each real number $\lambda$, give an example of a
