@@ -79,6 +79,57 @@ Find the power series expansion of the following holomorphic functions at the gi
 \item $f(z) := \dfrac{z - \frac{1}{2}}{1 - \frac{z}{2}}$ at $z_{0} := 0$.
 \end{enumerate}
 \end{tcolorbox}
+\begin{enumerate}[label=(\alph*),itemsep=5mm,topsep=4mm]
+\item We have 
+\begin{align*}
+f(z) = \frac{1}{z} = \frac{1}{z - (2-i) + (2-i)} = \frac{1}{(2-i)\left[ 1 + \frac{z - (2-i)}{2-i} \right]} & = \frac{1}{(2-i)\left[ 1 - 
+\frac{z - (z-i)}{i - 2} \right]} \\
+& = \frac{1}{2-i}\sum_{n=0}^{\infty}\left[ \frac{z - (2-i)}{i-2} \right]^{n}.
+\end{align*}
+The radius of convergence is $r = |2 - i - 0| = \sqrt{5}$.
+\item We have 
+\begin{align*}
+\frac{z - \frac{1}{2}}{1 - \frac{z}{2}} = \frac{z}{1 - \frac{z}{2}} - \frac{1}{2}\left( \frac{1}{1 - \frac{z}{2}} \right)  = 
+2\left( \frac{\frac{z}{2}}{1 - \frac{z}{2}} \right) - \frac{1}{2}\left( \frac{1}{1 - \frac{z}{2}} \right) & = 
+2\sum_{n=1}^{\infty}\left( \frac{z}{2} \right)^{n} - \frac{1}{2}\sum_{n=0}^{\infty}\left( \frac{z}{2} \right)^{n} \\
+& = \sum_{n=1}^{\infty}\frac{z^{n}}{2^{n-1}} - \sum_{n=0}^{\infty}\frac{z^{n}}{2^{n+1}} \\
+& = \frac{1}{2} + \sum_{n=1}^{\infty}z^{n}\left( \frac{1}{2^{n-1}} - \frac{1}{2^{n+1}} \right) \\
+& = \frac{1}{2} + 3\sum_{n=1}^{\infty}\frac{1}{2^{n+1}}z^{n}.
+\end{align*}
+The radius of convergence is $r = 2$.
+\end{enumerate}
+
+
+\newpage 
+\subsection*{3}
+\begin{tcolorbox}
+Suppose that $f : D(0,2) \rightarrow \mathbb{C}$ is holomorphic and that $|f(z)| \leq 9$ for all $z \in D(0,2)$. Prove that 
+\[ \left| \frac{\partial^{3}}{\partial z^{3}}f\left( \frac{i}{2} \right)\right| \leq 16. \]
+\end{tcolorbox}
+\begin{Proof}
+Let $\epsilon > 0$. Since $f$ is holomorphic on $D(0,2)$, $\frac{\partial^{3}f}{\partial z^{3}}$ is continuous on $D(0,2)$. Therefore there exists 
+some $\delta > 0$ such that $\left|\frac{i}{2} - z\right| < \delta$ implies 
+\begin{equation}
+\left|\frac{\partial^{3}}{\partial z^{3}}f\left( \frac{i}{2} \right) - \frac{\partial^{3}}{\partial z}f(z)\right| < \epsilon.
+\label{3.1}
+\end{equation}
+Let $P := \frac{i}{2} - \frac{\delta i}{2}$. Then $\overline{D(P,3/2)} \subset D(0,2)$. Thus, by Theorem 3.4.1,
+\begin{equation}
+\left| \frac{\partial^{3}}{\partial z^{3}}f\left( P \right)\right| \leq \frac{9(3!)}{(3/2)^{3}} = 16.
+\label{3.2}
+\end{equation}
+Therefore by \eqref{3.1} and \eqref{3.2}, 
+\[ \left| \frac{\partial^{3}}{\partial z^{3}}f\left( \frac{i}{2} \right)\right| < 16 + \epsilon. \]
+But since we can make $\epsilon$ arbitrarily small, we have the result.
+\end{Proof}
+
+
+\newpage 
+\subsection*{4}
+\begin{tcolorbox}
+Suppose for some $k \geq 0$, $a_{k} \geq a_{k+1} \geq a_{k+2} \geq \dots \geq a_{n} \geq \dots$ and $\lim_{n\rightarrow\infty}a_{n} = 0$. Show that 
+$\sum_{n=0}^{\infty}a_{n}z^{n}$ converges for all $z$ with $|z| = 1$ and $z\neq 1$.
+\end{tcolorbox}
 
 
 \end{document}
