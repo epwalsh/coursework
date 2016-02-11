@@ -130,6 +130,32 @@ But since we can make $\epsilon$ arbitrarily small, we have the result.
 Suppose for some $k \geq 0$, $a_{k} \geq a_{k+1} \geq a_{k+2} \geq \dots \geq a_{n} \geq \dots$ and $\lim_{n\rightarrow\infty}a_{n} = 0$. Show that 
 $\sum_{n=0}^{\infty}a_{n}z^{n}$ converges for all $z$ with $|z| = 1$ and $z\neq 1$.
 \end{tcolorbox}
+\begin{Proof}
+Suppose $|z| = 1$ and $z \neq 1$. Then there exists $t \in (0,2\pi)$ such that $z = e^{it}$. So the series becomes 
+\[ \sum_{n=0}^{\infty}a_{n}z^{n} = \sum_{n=0}^{k-1}a_{n}z^{n} + \sum_{n=k}^{\infty}a_{n}e^{int} = \sum_{n=0}^{k-1}a_{n}z^{n} + \sum_{n=k}^{\infty}
+a_{n}[\cos(nt) + i\sin(nt)], \]
+which converges if and only if $S := \sum_{n=k}^{\infty}a_{n}[\cos(nt) + i\sin(nt)]$ converges. But $S$ converges 
+if and only if the real and imaginary parts of the partial sums converge, i.e.
+if $S_{1,N} := \sum_{n=k}^{N}a_{n}\cos(nt)$ and $S_{2,N} := \sum_{n=k}^{N}a_{n}\sin(nt)$ converge as $N \rightarrow \infty$. 
+By the alternating series test, both $S_{1,N}$ and $S_{2,N}$ do, in fact, converge.
+\end{Proof}
+
+
+\newpage 
+\subsection*{5}
+\begin{tcolorbox}
+Determine the radius of convergence of the series $\sum_{k=0}^{\infty}\frac{k}{k^{2} + 4}z^{k}$ and the points (including those on the boundary of the
+disk of convergence) at which the series converges.
+\end{tcolorbox}
+Since 
+\[
+\lim_{k\rightarrow\infty}\left( \frac{k}{k^{2} + 4} \right)^{1/k} = \lim_{k\rightarrow\infty}\exp \left( \frac{\log\left( \frac{k}{k^{2} + 4}
+\right)}{k} \right) = \exp(0) = 1,
+\]
+the radius of convergence is given by 
+\[ r = \frac{1}{\limsup_{k\rightarrow\infty}\left( \frac{k}{k^{2} + 4} \right)^{1/k}} = 1. \]
+Thus the series converges for all $z$ with $|z| < 1$. But by the result in question 4, the series also converges for $z$ with $|z| = 1$ as long as $z
+\neq 1$.
 
 
 \end{document}
