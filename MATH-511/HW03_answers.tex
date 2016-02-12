@@ -158,5 +158,44 @@ Thus the series converges for all $z$ with $|z| < 1$. But by the result in quest
 \neq 1$.
 
 
+\newpage 
+\subsection*{6} 
+\begin{tcolorbox}
+Suppose $f \not\equiv 0$ is an entire function such that for some $B, K > 0$, $|f(z)| \leq B|z|^{K}$ for all $z \in \mathbb{C}$. Prove that $K$ is an
+integer and $f(z) = Cz^{K}$ for some $C \in \mathbb{C}$ with $|C| \leq |B|$.
+\end{tcolorbox}
+\begin{Proof}
+
+\begin{claim}
+$\frac{\partial^{n}}{\partial z^{n}}f(0) = 0$ for all integers $n$ such that $n > K$.
+\end{claim}
+\begin{claimproof}
+Let $n > K$ be an integer. Let $x := n - K$. By Theorem 3.4.1, for any $|z| = r > 0$,
+\[ \left| \frac{\partial^{n}}{\partial z^{n}}f(0)\right| \leq \frac{B|z|^{K}n!}{r^{n}} = \frac{B|z|^{K}n!}{r^{K+x}} = \frac{Bn!}{r^{x}} 
+\rightarrow 0 \ \ \text{ as } r \rightarrow \infty. \]
+\end{claimproof}
+\begin{claim}
+$\frac{\partial^{n}}{\partial z^{n}}f(0) = 0$ for all integers $n$ such that $n < K$.
+\end{claim}
+\begin{claimproof}
+Let $0 \leq n < K$ be an integer. Let $x := K - n$. By Theorem 3.4.1, for any $|z| = r > 0$,
+\[ \left| \frac{\partial^{n}}{\partial z^{n}}f(0)\right| \leq \frac{B|z|^{K}n!}{r^{n}} = \frac{B|z|^{K}n!}{r^{K-x}} = B(n!)r^{x} 
+\rightarrow 0 \ \ \text{ as } r \rightarrow 0. \]
+\end{claimproof}
+
+By claims 1 and 2, $\frac{\partial^{n}}{\partial z^{n}}f(0) = 0$ whenever $n$ is an integer and $n \neq K$. Therefore, by Theorem 3.3.1, $f \equiv 0$
+if $K$ is not an integer. This is a contradiction. Hence $K$ is an integer and 
+$f(z) = Cz^{K}$, where $C = \frac{\partial^{K}f / \partial z^{K}(0)}{K!}$.
+\end{Proof}
+
+
+\newpage 
+\subsection*{7}
+\begin{tcolorbox}
+Suppose $f$ is a holomorphic function on $D(0,1)$ such that $f^{2}$ is a holomorphic polynomial on $D(0,1)$. Must $f$ be a holomorphic polynomial on
+$D(0,1)$? Explain your answer.
+\end{tcolorbox}
+
+
 \end{document}
 
