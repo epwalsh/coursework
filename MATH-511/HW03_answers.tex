@@ -197,5 +197,52 @@ $D(0,1)$? Explain your answer.
 \end{tcolorbox}
 
 
+\newpage 
+\subsection*{8}
+\begin{tcolorbox}
+Suppose $U\subseteq \mathbb{C}$ is open and $f : U \rightarrow \mathbb{C}$ is a function such that both $f^{2}$ and $f^{3}$ are holomorphic on $U$.
+Prove that $f$ is holomorphic on $U$. 
+\end{tcolorbox}
+
+
+\newpage 
+\subsection*{9}
+\begin{tcolorbox}
+Suppose $f$ is bounded and holomorphic on $\mathbb{C}\setminus \{0\}$. Prove that $f$ is constant on $\mathbb{C}\setminus\left\{ 0 \right\}$.
+\end{tcolorbox}
+\begin{Proof}
+Let 
+\[ g(z) := \left\{ \begin{array}{cl}
+z^{2}f(z) & : z \neq 0, \\
+0 & : z = 0. 
+\end{array} \right. \]
+Let $M := \sup\left\{ |f(z)| : z \in \mathbb{C} \right\}$. By assumption, $M < \infty$.
+\begin{claim}
+$g$ is entire.
+\end{claim}
+\begin{claimproof}
+It suffices to show that the complex derivative of $g$ exists at $z = 0$. Well, 
+\[ \lim_{z\rightarrow 0}\left|\frac{g(z) - g(0)}{z}\right|  = \lim_{z\rightarrow 0}\left|\frac{z^{2}f(z)}{z}\right| 
+\leq \lim_{z\rightarrow 0} |z|M = 0. \]
+Therefore $g'(0)$ exists and is equal to 0.
+\end{claimproof}
+
+Now, if $f \equiv 0$ then we are done. So suppose $f \not\equiv 0$. Note that $|g(z)| \leq |z|^{2}M$. Thus, by claim 1 and the result from question 6,
+$g(z) = Cz^{2}$ for some $C \in \mathbb{C}$. But since $g(z) = f(z)z^{2}$ whenever $z \neq 0$, $f(z) \equiv C$ on $\mathbb{C}\setminus \left\{ 0
+\right\}$.
+\end{Proof}
+
+
+\newpage 
+\subsection*{10}
+\begin{tcolorbox}
+In each of the following cases, determine if there exists $f$ holomorphic on $D(0,1)$ satisfying the condition. If so, find $f$. If not, explain why.
+\begin{enumerate}[label=(\alph*),itemsep=4mm,topsep=3mm]
+\item $f\left( \dfrac{1}{2n + 1} \right) = \dfrac{1}{n}$.
+\item $f\left( \dfrac{(-1)^{n}}{n} \right) = \dfrac{1}{n}$.
+\end{enumerate}
+\end{tcolorbox}
+
+
 \end{document}
 
