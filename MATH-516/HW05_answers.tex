@@ -1,0 +1,131 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{MATH 516: HW 5}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{1 [RF 18.2]}
+\begin{tcolorbox}
+Suppose $(X,\mathcal{M}, \mu)$ is not complete. Let $E$ be a subset of measure zero that does not belong to $M$. Let $f \equiv 0$ on $X$ and $g :=
+\chi_{E}$. Show that $f = g$ a.e. on $X$ while $f$ is measurable and $g$ is not.
+\end{tcolorbox}
+
+
+\newpage
+\subsection*{4}
+\begin{tcolorbox}
+Suppose $\mu(X) = 1$ and $f : X \rightarrow [0,\infty)$ is measurable. Set 
+\[ A := \int_{X}f\ d\mu. \]
+Prove that 
+\[ \sqrt{1 + A^{2}} \leq \int_{X}\sqrt{1  +f^{2}}\ d\mu \leq 1 + A. \]
+\end{tcolorbox}
+\begin{Proof}
+First note that since $f \geq 0$, $\sqrt{1 + f^{2}} \leq 1 + f$. Thus,
+\begin{equation}
+\int_{X}\sqrt{1 + f^{2}}d\mu \leq \int_{X}(1 + f)d\mu = 1 + \int_{X}fd\mu = 1 + A.
+\label{4.2}
+\end{equation}
+If $\left\|\sqrt{1 + f^{2}}\right\|_{1} = \infty$, then the rest of the proof is trivial. Thus, assume 
+\[ \int_{X}\left|\sqrt{1 + f^{2}}\right|\ d\mu = \int_{X}\sqrt{1 + f^{2}}\ d\mu  < \infty.\] 
+Therefore $\|f\|_{1} < \infty$ since $f \leq \sqrt{1 + f^{2}}$.
+Let $\varphi : [0,\infty) \rightarrow \mathbb{R}$ be defined by $\varphi(y) := \sqrt{1 + y^{2}}$ for all $y \geq 0$. $\phi$ is convex over $[0,\infty)$,
+and by assumption $f, \varphi\circ f \in \mathcal{L}^{1}(\mu)$. Thus, by Jensen's inequality,
+\begin{equation}
+\sqrt{1 + A^{2}} = \varphi\left( \int_{X}fd\mu \right) \leq \int_{X}\varphi\circ f d\mu = \int_{X}\sqrt{1 + f^{2}}\ d\mu.
+\label{4.3}
+\end{equation}
+So by \eqref{4.2} and \eqref{4.3} we are done.
+\end{Proof}
+
+
+
+\newpage
+\subsection*{5}
+\begin{tcolorbox}
+Suppose $f : X \rightarrow [0, \infty)$ is measurable, and set 
+\[ c := \int_{X}f\ d\mu. \]
+Suppose $0 < c < \infty$. Prove that 
+\[ \lim_{n\rightarrow\infty}\int_{X}n\ln[1 + (f/n)^{\alpha}]\ d\mu = \left\{ \begin{array}{cl}
+\infty & : 0 < \alpha < 1 \\
+c & : \alpha = 1 \\
+0 & : 1 < \alpha < \infty.
+\end{array} \right.
+\]
+\end{tcolorbox}
+
+
+
+\begin{Proof}
+Let $g_{n}(x) := n\ln\left[ 1 + \left( \frac{x}{n} \right)^{\alpha} \right]$ for all $n \in \mathbb{N}$ and $x \geq 0$. Then for all $\omega \in X$,
+\begin{equation}
+\lim_{n\rightarrow\infty}g_{n}(f(\omega)) = \lim_{n\rightarrow\infty}\ln\left[ 1 + \left( \frac{f(\omega)^{\alpha}}{n^{\alpha - 1}} \right)\left( \frac{1}{n} \right)
+ \right]^{n} = \left\{ \begin{array}{cl}
+\infty & : 0 < \alpha < 1 \\
+f(\omega) & : \alpha = 1 \\
+0 & : 1 < \alpha < \infty.
+\end{array} \right.
+\label{5.1}
+\end{equation}
+Now, for all $a \geq 1$, $b \geq 0$, we have $1 + b^{a} \leq (1 + b)^{a}$ and $\ln(1 + b) \leq b$. Thus 
+\[ \ln(1 + b^{a}) \leq \ln(1 + b)^{a} = a \ln(1 + b) \leq a b. \]
+Hence, for $\alpha \geq 1$ and $n \in \mathbb{N}$,
+\[ g_{n}(f(\omega)) \leq n\alpha\frac{f(\omega)}{n} = \alpha f(x). \]
+Since $\alpha f$ is integrable, we can apply the Dominated Convergence Theorem to $\left\{ g_{n}\circ f \right\}_{n=0}^{\infty}$ when $\alpha \geq 1$. 
+Thus, by \eqref{5.1},
+\[ \lim_{n\rightarrow\infty}\int_{X}g_{n}\circ f\ d\mu = \left\{\begin{array}{ll}
+\int_{X}f\ d\mu = c & : \alpha = 1,\\ \\
+\int_{X}0\ d\mu = 0 & : 1 < \alpha < \infty.
+\end{array} \right.
+\]
+For $0 < \alpha < 1$ we can apply Fatou's Lemma. Therefore by \eqref{5.1} 
+\[ \liminf_{n\rightarrow\infty}\int_{X}g_{n}\circ f\ d\mu \leq \int_{X}\infty\ d\mu = \infty. \]
+\end{Proof}
+
+
+
+
+\end{document}
+
