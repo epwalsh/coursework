@@ -49,11 +49,13 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{1 [RF 18.2]}
 \begin{tcolorbox}
-Suppose $(X,\mathcal{M}, \mu)$ is not complete. Let $E$ be a subset of measure zero that does not belong to $M$. Let $f \equiv 0$ on $X$ and $g :=
+Suppose $(X,\mathcal{M}, \mu)$ is not complete. Let $E$ be a subset of a set of measure zero that does not belong to $M$. Let $f \equiv 0$ on $X$ and $g :=
 \chi_{E}$. Show that $f = g$ a.e. on $X$ while $f$ is measurable and $g$ is not.
 \end{tcolorbox}
 \begin{Proof}
-Since $f$ is constant, $f$ is measurable. But $g^{-1}[(1/2,3/2)] = g^{-1}[\{1\}] = E \notin \mathcal{M}$. Thus $g$ is not measurable.
+Since $f$ is constant, $f$ is measurable. But $g^{-1}[(1/2,3/2)] = g^{-1}[\{1\}] = E \notin \mathcal{M}$. Thus $g$ is not measurable. Now, by
+assumption of the problem, there exists some $A \in \mathcal{M}$ such that $\mu(A) = 0$ and $A \supset E$. So, since $f = g$ on $X - E$, $f = g$ and $X -
+A$. Therefore $f = g$ a.e.
 \end{Proof}
 
 
