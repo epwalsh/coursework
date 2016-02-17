@@ -70,9 +70,30 @@ Show that $\left\{ f_{n} \right\}_{n=0}^{\infty}$ is pointwise convergent a.e. o
 Let $A_{n} := \left\{ x \in X : |f_{n}(x) - f_{n+1}(x)| > 2^{-n} \right\}$ for all $n \in \mathbb{N}$. Then 
 \[ \sum_{n=0}^{\infty}\mu(A_{n}) \leq \sum_{n=0}^{\infty}2^{-n} < \infty. \]
 Thus, by the Borel-Cantelli Lemma, almost all $x \in X$ belong to finitely many $A_{n}$'s. That is, $\mu(E^{c}) = 0$ where $E := \left\{ 
-x \in X : x \text{ belongs to finitely many $A_{n}$'s}\right\}$. Then for each $x \in E$, there exists some $N \in \mathbb{N}$ such that 
-\[ |f_{n}(x) - f_{n+1}(x)| \leq 2^{-n} \ \forall \ n \geq N. \]
-Therefore $\left\{ f_{n}(x) \right\}_{n=0}^{\infty}$ is Cauchy for each $x \in E$, so it converges.
+x \in X : x \text{ belongs to finitely many $A_{n}$'s}\right\}$. Then for each $x \in E$ there exists some $N \in \mathbb{N}$ such that  
+\begin{equation}
+|f_{n}(x) - f_{n+1}(x)| \leq 2^{-n}, 
+\label{2.1}
+\end{equation}
+for all $n \geq N$.
+\begin{claim}
+$\left\{ f_{n}(x) \right\}_{n=0}^{\infty}$ is Cauchy for all $x \in E$.
+\end{claim}
+\begin{claimproof}
+Let $\epsilon > 0$ and $x \in E$. Then there exists some $N_{1} \in \mathbb{N}$ such that \eqref{2.1} holds for all $n \geq N_{1}$. Further, there exists some
+$N_{2} \in \mathbb{N}$ such that $2^{-N_{2}} < \epsilon / 2$. Now set $N := \max\left\{ N_{1},N_{2} \right\}$. Then if $m > n \geq N$,
+\begin{align*}
+|f_{n}(x) - f_{m}(x)| & \leq |f_{n}(x) - f_{n+1}(x)| + |f_{n+1}(x) - f_{n+2}(x)| + \dots + |f_{m-1}(x) - f_{m}(x)|  \\
+& \leq \sum_{k=n}^{\infty}|f_{k}(x) - f_{k+1}(x)| \\
+& \leq \sum_{k=n}^{\infty}2^{-k} \\
+& = 2^{-n}\sum_{k=0}^{\infty}2^{-k} \\
+& = 2^{-n}\cdot 2 < \frac{\epsilon}{2} \cdot 2 = \epsilon.
+\end{align*}
+Therefore $\left\{ f_{n}(x) \right\}_{n=0}^{\infty}$ is Cauchy for each $x \in E$.
+\end{claimproof}
+
+By claim 1, $\left\{ f_{n}(x) \right\}_{n=0}^{\infty}$ converges for each $x \in E$, that is $\left\{ f_{n} \right\}_{n=0}^{\infty}$ converges almost
+everywhere since $\mu(E^{c}) = 0$.
 \end{Proof}
 
 
@@ -194,7 +215,7 @@ Thus, by \eqref{5.1},
 \end{array} \right.
 \]
 For $0 < \alpha < 1$ we can apply Fatou's Lemma. Therefore by \eqref{5.1} 
-\[ \liminf_{n\rightarrow\infty}\int_{X}g_{n}\circ f\ d\mu \leq \int_{X}\infty\ d\mu = \infty. \]
+\[ \liminf_{n\rightarrow\infty}\int_{X}g_{n}\circ f\ d\mu \geq \int_{X}\infty\ d\mu = \infty. \]
 \end{Proof}
 
 

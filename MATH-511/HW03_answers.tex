@@ -203,6 +203,34 @@ $D(0,1)$? Explain your answer.
 Suppose $U\subseteq \mathbb{C}$ is open and $f : U \rightarrow \mathbb{C}$ is a function such that both $f^{2}$ and $f^{3}$ are holomorphic on $U$.
 Prove that $f$ is holomorphic on $U$. 
 \end{tcolorbox}
+\begin{Proof}
+Without loss of generality assume $f\not\equiv 0$ on $U$. 
+Let $Z := \left\{ z \in U : f(z) = 0 \right\}$ and let $g(z) := f^{3}(z) / f^{2}(z)$ on $U \setminus Z$. Clearly $g$ is holomorphic and equal to $f$ on
+$U \setminus Z$, so $f$ is holomorphic on any open disk $D(z_{0},r) \subseteq U$ such that $D(z_{0}, r) \cap Z = \emptyset$. Therefore it remains to
+show that $f$ is holomorphic on open disks that contain points in $Z$.
+\begin{claim}
+For each $p \in Z$, $\lim_{z\rightarrow p}g(z) = 0$.
+\end{claim}
+\begin{claimproof}
+This follows from the fact that $f(p) = 0$, and therefore $|f^{2}(z)| \rightarrow 0$ as $z \rightarrow p$. Hence $\lim_{z\rightarrow p}|f(z)| = |f(p)|
+= 0$, and so $\lim_{z\rightarrow p}|g(z)| = \lim_{z\rightarrow p}|f(z)| = 0$.
+\end{claimproof}
+
+\begin{claim}
+For each $p \in Z$, there exists a function $\hat{g}_{p}$ and $r_{p} > 0$ such that $\hat{g}$ is holomorphic on the open disk $D(p,r_{p}) \subseteq U$ 
+and so that 
+\[ \hat{g}_{p}(z) = \left\{ \begin{array}{cl}
+g(z) & \text{ if } z \in D(p,r_{p}) \setminus \{p\}, \\
+0 & \text{ if }\hat{g}_{p}(p) = 0.
+\end{array}\right. \]
+\end{claim}
+\begin{claimproof}
+Let $p \in Z$. Since $f\not\equiv 0$ there exists some $r_{p} > 0$ such that $D(p,r_{p}) \cap Z = \{p\}$.  Now apply Theorem 4.1.1.
+\end{claimproof}
+
+By construction, $\hat{g}_{p} \equiv f$ on $D(p,r_{p})$ for all $p \in Z$. Therefore $f$ is holomorphic on each $D(p,r_{p})$.
+Hence $f$ is holomorphic on every open disk that is a subset of $U$, and so $f$ is holomorphic on $U$.
+\end{Proof}
 
 
 \newpage 
