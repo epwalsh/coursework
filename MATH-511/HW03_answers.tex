@@ -270,6 +270,16 @@ In each of the following cases, determine if there exists $f$ holomorphic on $D(
 \item $f\left( \dfrac{(-1)^{n}}{n} \right) = \dfrac{1}{n}$.
 \end{enumerate}
 \end{tcolorbox}
+\begin{enumerate}[label=(\alph*),itemsep=4mm,topsep=3mm]
+\item Yes. There does exist a holomorphic function $f$ on $D(0,1)$ that satisfies the condition. To see this, set $f(z) := \frac{2z}{1 - z}$ for all
+$z \in D(0,1)$. Clearly $f$ is holomorphic on $D(0,1)$ and satisfies the condition. By Corollary 3.6.3, this $f$ is the unique holomorphic function on
+$D(0,1)$ satisfying the condition.
+\item No. There does not exist such a holomorphic function on $D(0,1)$. By way of contradiction, suppose such a holomorphic $f$ exists. Consider the
+sequences $\{z_{n}\}_{n=0}^{\infty} = (1/2, 1/4, 1/6, 1/8, \hdots)$ and $\{\omega_{n}\}_{n=0}^{\infty} = (-1/3, -1/5, -1/7, \hdots)$. 
+Since $f$ is holomorphic, $f'(0)$ should exist and be computable along both sequences. But 
+\[ \lim_{n\rightarrow\infty}\frac{f(z_{n}) - f(0)}{z_{n}} = 1 \neq -1 = \lim_{n\rightarrow\infty}\frac{f(\omega_{n}) - f(0)}{\omega_{n}}. \]
+So $f'(0)$ does not exist, which is a contradiction.
+\end{enumerate}
 
 
 \end{document}
