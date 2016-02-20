@@ -195,6 +195,15 @@ $f(z) = Cz^{K}$, where $C = \frac{\partial^{K}f / \partial z^{K}(0)}{K!}$.
 Suppose $f$ is a holomorphic function on $D(0,1)$ such that $f^{2}$ is a holomorphic polynomial on $D(0,1)$. Must $f$ be a holomorphic polynomial on
 $D(0,1)$? Explain your answer.
 \end{tcolorbox}
+$f$ must also be a polynomial.
+
+\begin{Proof}
+By way of contradiction, suppose $f$ is not a polynomial. Then the Taylor expansion of $f$ at $p = 0$,
+\[ f(z) = \sum_{n=0}^{\infty}a_{n}z^{n}, \]
+must have infinitely many terms with $a_{n} \neq 0$. But then 
+\[ f^{2}(z) = \left( \sum_{n=0}^{\infty}a_{n}z^{n} \right)^{2} \]
+must also have infinitely many terms with $a_{n} \neq 0$. This is a contradiction since $f^{2}(z)$ is a polynomial.
+\end{Proof}
 
 
 \newpage 
