@@ -141,7 +141,7 @@ Show that $\hat{\zeta}_{n} := F_{n}^{-1}(p) := \inf\left\{ x : F_{n}(x) \geq p \
 n^{-1}\sum_{i=1}^{n}I(X_{i} \leq x)$, $x \in \mathbb{R}$, is the empirical distribution function of $X_{1}, \hdots, X_{n}$.
 \end{tcolorbox}
 \begin{Proof}
-Let $0 < p < 1$. Note that $F_{n}(x) \equiv F_{n,\omega}(x)$ is a function of both $x \in \mathbb{R}$ and $\omega \in \Omega$. Now, for any $x \in
+Let $0 < p < 1$. Note that $F_{n}(x) \equiv F_{n,\omega}(x)$ is a function of both $x \in \mathbb{R}$ and $\omega \in \Omega$. Now, for each $x \in
 \mathbb{R}$,
 \begin{equation}
 F_{n}(x) - F(x) = \frac{\sum_{i=1}^{n}I(X_{i} \leq x) - nF(x)}{n} = \frac{\sum_{i=1}^{n}Z_{i} - nEZ_{i}}{n} \rightarrow 0 \ \ \text{w.p. 1} 
@@ -155,7 +155,7 @@ E_{1,k} & := \left\{ \omega \in \Omega : F_{n,\omega}(\zeta_{p} - 2^{-k}) \right
 By \eqref{3.1}, $P(E_{0,k}) = P(E_{1,k}) = 1$ for all $k \in \mathbb{N}$. Therefore $P(E) = 1$ where $E := \cap_{i=0}^{1}\cap_{k=0}^{\infty}E_{i,k}$.
 Now let $\omega \in E$ and $\epsilon > 0$. We need to show that there exists some $N \geq 1$ such that 
 \[ |F_{n,\omega}^{-1}(p) - \zeta_p| < \epsilon \text{ for all $n \geq N$,} \]
-where $F_{n,\omega}^{-1} \equiv F_{n}^{-1}$.
+where $F_{n,\omega}^{-1}(p) \equiv F_{n}^{-1}(p) := \inf\left\{ x : F_{n,\omega}(x) \geq p \right\}$.
 Choose $K \in \mathbb{N}$ such that $2^{-K} < \epsilon$. Since $\omega \in E_{0,K}\cap E_{1,K}$ and $F(\zeta_{p} + \delta) > p$ for all $\delta
 > 0$, there exists some $N_{0}, N_{1} \geq 1$ such that 
 $F_{n,\omega}(\zeta_{p} + 2^{-K}) > p$ and $F_{m,\omega}(\zeta_p - 2^{-K}) < p$ whenever $n \geq N_{0}$ and $m \geq N_{1}$. Let $N := \max\left\{
@@ -165,6 +165,22 @@ Then
 for all $n \geq N$. Hence $|F_{n,\omega}^{-1}(p) - \zeta_p| \leq 2^{-K} < \epsilon$ for all $n \geq N$.
 \end{Proof}
 
+
+\newpage
+\subsection*{4 [AL 8.31]}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be iid random variables with cdf $F(\cdot)$. For each $\omega \in \Omega$ and $x \in \mathbb{R}$, let
+\[ F_{n}(x) := F_{n,\omega}(x) := F_{n}(x,\omega) := n^{-1}\sum_{i=1}^{n}I(X_{i}(\omega)\leq x) \]
+be the empirical cdf. Suppose $x_{n} \rightarrow x_{0}$ and $F(\cdot)$ is continuous at $x_{0}$. Show that $F_{n}(x_{n}) \rightarrow
+F_{n}(x_{0})$ w.p. 1.
+\end{tcolorbox}
+\begin{Proof}
+Let $E := \left\{ \omega \in \Omega : \sup_{x}|F_{n,\omega}(x) - F(x)| \rightarrow 0\right\}$. By Theorem AL 8.2.4 (Glivenko-Cantelli) $P(E) = 1$.
+Now let $\epsilon > 0$ and $\omega \in E$. Since $F$ is continuous at $x_{0}$, there exists some $N_{0} \geq 1$ such that $|F(x_{n}) - F(x_{0})| <
+\epsilon / 2$ whenever $n \geq N$. Further, since $\omega \in E$, there exists some $N_{1}$ such that $\sup_{x}|F_{n}(x) - F(x)| < \epsilon / 2$.
+Let $N := \max\left\{ N_{0}, N_{1} \right\}$. Then for all $n \geq N$,
+\[ |F_{n}(x_{n}) - F(x_{0})| \leq |F_{n}(x_{n}) - F(x_{n})| + |F(x_{n}) - F(x_{0})| < \epsilon / 2 + \epsilon / 2 = \epsilon. \]
+\end{Proof}
 
 
 
