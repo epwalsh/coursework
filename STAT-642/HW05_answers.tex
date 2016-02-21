@@ -90,7 +90,7 @@ It follows that $\lim_{n\rightarrow\infty}X_{n}/n^{1/p} = 0$ a.s. as well, just 
 
 
 \newpage 
-\subsection*{2}
+\subsection*{2 [AL 8.12]}
 \begin{tcolorbox}
 Show that equation (4.12) in chapter 8 of AL holds with $p \in (0,2) \setminus \{1\}$.
 \end{tcolorbox}
@@ -129,6 +129,44 @@ Similary, we have
 Now we can apply Kronecker's Lemma just as in Case 1.
 \end{description}
 \end{Proof}
+
+
+\newpage
+\subsection*{3 [AL 8.29]}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be a sequence of iid random variables with $F(x) := P(X_{1} \leq x)$ for all $x \in \mathbb{R}$. Fix $0 < p <
+1$. Suppose that $F(\zeta_{p} + \delta) > p$ for all $\delta> 0$, where 
+\[ \zeta_p := F^{-1}(p) := \inf\left\{ x : F(x) \geq p \right\}. \]
+Show that $\hat{\zeta}_{n} := F_{n}^{-1}(p) := \inf\left\{ x : F_{n}(x) \geq p \right\}$ converges to $\zeta_{p}$ w.p. 1, where $F_{n}(x) :=
+n^{-1}\sum_{i=1}^{n}I(X_{i} \leq x)$, $x \in \mathbb{R}$, is the empirical distribution function of $X_{1}, \hdots, X_{n}$.
+\end{tcolorbox}
+\begin{Proof}
+Let $0 < p < 1$. Note that $F_{n}(x) \equiv F_{n,\omega}(x)$ is a function of both $x \in \mathbb{R}$ and $\omega \in \Omega$. Now, for any $x \in
+\mathbb{R}$,
+\begin{equation}
+F_{n}(x) - F(x) = \frac{\sum_{i=1}^{n}I(X_{i} \leq x) - nF(x)}{n} = \frac{\sum_{i=1}^{n}Z_{i} - nEZ_{i}}{n} \rightarrow 0 \ \ \text{w.p. 1} 
+\label{3.1}
+\end{equation}
+by Kolmogorov's SLLN, where $Z_{i} := I(X_{i} \leq x)$. For each $k \in \mathbb{N}$, let 
+\begin{align*}
+E_{0,k} & := \left\{ \omega \in \Omega : F_{n,\omega}(\zeta_{p} + 2^{-k}) \rightarrow F_{n}(\zeta_{p} + 2^{-k}) \right\} \text{ and } \\
+E_{1,k} & := \left\{ \omega \in \Omega : F_{n,\omega}(\zeta_{p} - 2^{-k}) \rightarrow F(\zeta_{p}-2^{-k})\right\}.
+\end{align*}
+By \eqref{3.1}, $P(E_{0,k}) = P(E_{1,k}) = 1$ for all $k \in \mathbb{N}$. Therefore $P(E) = 1$ where $E := \cap_{i=0}^{1}\cap_{k=0}^{\infty}E_{i,k}$.
+Now let $\omega \in E$ and $\epsilon > 0$. We need to show that there exists some $N \geq 1$ such that 
+\[ |F_{n,\omega}^{-1}(p) - \zeta_p| < \epsilon \text{ for all $n \geq N$,} \]
+where $F_{n,\omega}^{-1} \equiv F_{n}^{-1}$.
+Choose $K \in \mathbb{N}$ such that $2^{-K} < \epsilon$. Since $\omega \in E_{0,K}\cap E_{1,K}$ and $F(\zeta_{p} + \delta) > p$ for all $\delta
+> 0$, there exists some $N_{0}, N_{1} \geq 1$ such that 
+$F_{n,\omega}(\zeta_{p} + 2^{-K}) > p$ and $F_{m,\omega}(\zeta_p - 2^{-K}) < p$ whenever $n \geq N_{0}$ and $m \geq N_{1}$. Let $N := \max\left\{
+N_{0}, N_{1} \right\}$.
+Then 
+\[ \zeta_p + 2^{-K} \geq F_{n,\omega}^{-1}(p)\  \ \text{ and }\ \ \zeta_p - 2^{-K} \leq F_{n,\omega}^{-1}(p) \] 
+for all $n \geq N$. Hence $|F_{n,\omega}^{-1}(p) - \zeta_p| \leq 2^{-K} < \epsilon$ for all $n \geq N$.
+\end{Proof}
+
+
+
 
 \end{document}
 
