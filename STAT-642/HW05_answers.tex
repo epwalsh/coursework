@@ -31,6 +31,7 @@
 % $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
 \newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
 $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+\allowdisplaybreaks
 
 \title{STAT 642: HW 5}
 \author{Evan P. Walsh}
@@ -87,6 +88,47 @@ It follows that $\lim_{n\rightarrow\infty}X_{n}/n^{1/p} = 0$ a.s. as well, just 
 \end{Proof}
 \end{enumerate}
 
+
+\newpage 
+\subsection*{2}
+\begin{tcolorbox}
+Show that equation (4.12) in chapter 8 of AL holds with $p \in (0,2) \setminus \{1\}$.
+\end{tcolorbox}
+\begin{Proof}
+\begin{description}[leftmargin=4mm]
+\item[Case 1:] $p \in (1,2)$.
+
+By assumption, $EX_{1} = 0$. Therefore $0 = E[X_{1}I(|X_{1}|^{p} \leq n)] + E[X_{1}I(|X_{1}|^{p} > n)]$ for all $n \geq 1$. Therefore 
+\[ |EZ_{n}| = \big|E[X_{n}I(|X_{n}|^{p} \leq n)]\big| = \big|E[X_{1}I(|X_{1}|^{p} \leq n)]\big| = \big|E[X_{1}I(|X_{1}|^{p} > n)]\big|, \ \forall \ n \geq 1. \]
+Thus,
+\begin{align*}
+\sum_{n=1}^{\infty}|E[Z_{n}]|n^{-1/p} & \leq \sum_{n=1}^{\infty}E\left[ |X_{1}|I(|X_{1}|^{p} > n) \right]n^{-1/p} \\
+& = \sum_{n=1}^{\infty}\sum_{j=n}^{\infty} E\left[ |X_{1}|I(j < |X_{1}|^{p} \leq j+1) \right]n^{-1/p} \\
+& = \sum_{j=1}^{\infty}\sum_{n=1}^{j}E\left[ |X_{1}|I(j < |X_{1}|^{p} \leq j + 1) \right]n^{-1/p} \\
+\text{by AL (4.10) } & = \sum_{j=1}^{\infty}E\left[ |X_{1}|I(j < |X_{1}|^{p} \leq j + 1) \right]\left( \frac{j^{1-1/p}}{1-1/p} \right) \\
+& = \sum_{j=1}^{\infty}E\left[ |X_{1}|^{2-1/p}|X_{1}|^{1/p-1}I(j < |X_{1}|^{p} \leq j + 1) \right]\left( \frac{j^{1-1/p}}{1-1/p} \right) \\
+& = \sum_{j=1}^{\infty}E\left[ |X_{1}|^{p}|X_{1}|^{1/p-1}I(j < |X_{1}|^{p} \leq j + 1) \right]\left( \frac{j^{1-1/p}}{1-1/p} \right) \\
+& \leq \sum_{j=1}^{\infty}E\left[ |X_{1}|^{p}I(j < |X_{1}|^{p} \leq j + 1) \right](j+1)^{1/p - 1}(j+1)^{1-1/p}\left( \frac{p}{p-1} \right) \\
+& \leq \frac{p}{p-1}E|X_{1}|^{p} < \infty.
+\end{align*}
+Therefore by Kronecker's Lemma $n^{-1/p}\sum_{j=1}^{n}EZ_{n} \rightarrow 0$ as $n \rightarrow \infty$.
+
+\item[Case 2:] $p \in (0,1)$.
+
+Similary, we have 
+\begin{align*}
+\sum_{n=1}^{\infty}|EZ_{n}|n^{-1/p} & \leq \sum_{n=1}^{\infty}E\left[ |Z_{n}| \right]n^{-1/p} \\
+& = \sum_{n=1}^{\infty}\sum_{j=1}^{\infty}E\left[ |X_{1}|I(j-1 < |X_{1}|^{p} \leq j) \right]n^{-1/p} \\
+& = \sum_{j=1}^{\infty}\sum_{n=j}^{\infty}E\left[ |X_{1}|I(j-1 < |X_{1}|^{p} \leq j) \right]n^{-1/p} \\
+\text{by AL (4.9) } & \leq \sum_{j=1}^{\infty}E\left\{ |X_{1}|I(j-1 < |X_{1}|^{p} \leq j) \right\}\left( \frac{1}{1-p} \right)j^{-(1/p-1)} \\
+& = \frac{1}{1-p}\sum_{j=1}^{\infty}E\left[ |X_{1}|^{p}|X_{1}|^{1-p}I(j-1 < |X_{1}|^{p} \leq j) \right]j^{-(1/p-1)} \\
+& \leq \frac{1}{1-p}\sum_{j=1}^{\infty}E\left[ |X_{1}|^{p}|X_{1}|^{1/p-1}I(j-1 < |X_{1}|^{p} \leq j) \right]j^{-(1/p-1)} \\
+& \leq \frac{1}{1-p}\sum_{j=1}^{\infty}E\left[ |X_{1}|^{p}I(j-1 < |X_{1}|^{p} \leq j) \right]j^{1/p-1}j^{1-1/p} \\
+& = \frac{1}{1-p}E|X_{1}|^{p} < \infty.
+\end{align*}
+Now we can apply Kronecker's Lemma just as in Case 1.
+\end{description}
+\end{Proof}
 
 \end{document}
 
