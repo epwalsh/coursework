@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\title{STAT 642: HW 5}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be iid random variables. Let $S_{n} := \sum_{j=1}^{n}X_{j}$ and $0 < p < \infty$.
+\begin{enumerate}[label=(\alph*),topsep=3mm]
+\item If $E|X_{1}|^{p} = \infty$, then show that 
+\[ \limsup_{n\rightarrow\infty}\frac{|S_{n}|}{n^{1/p}} = \limsup_{n\rightarrow\infty}\frac{|X_{n}|}{n^{1/p}} = \infty \ \text{almost certainly}. \]
+\item If $0 < p < 2$ and if $E|X_{1}|^{p} < \infty$, where $EX_{1} = 0$ when $1 \leq p < 2$, then show that 
+\[ \lim_{n\rightarrow\infty}\frac{S_{n}}{n^{1/p}} = \lim_{n\rightarrow\infty}\frac{X_{n}}{n^{1/p}} = 0 \ \text{almost certainly}. \]
+\end{enumerate}
+\end{tcolorbox}
+\begin{enumerate}[label=(\alph*),topsep=3mm]
+\item \begin{Proof}
+First we will show that $X := \limsup_{n\rightarrow\infty}\frac{|X_{n}|}{n^{1/p}} = \infty$ a.s. Now, since $X$ is a tail random variable based on a
+sequence of independent random variables, $X$ is degenerate. Thus, there exists some $c \in [0,\infty]$ such that $P(X = c) = 1$. By way of
+contradiction suppose that $c < \infty$. So $P\left( \limsup_{n\rightarrow\infty}\frac{|X_{n}|}{n^{1/p}} = c \right) = 1$, which implies 
+\[ P\left( \frac{|X_{n}|}{n^{1/p}} > (c+1)\ \text{i.o.} \right) = 0. \]
+So by the Borel 0-1 Law, $\sum_{n=1}^{\infty}P\left( \frac{|X_{n}|}{n^{1/p}} > c + 1 \right) < \infty$. But then 
+\[ E|X_{1}|^{p} \leq 1 + \sum_{n=1}^{\infty}P\left( |X_{1}| > (c+1)n^{1/p} \right) = 1 + \sum_{n=1}^{\infty}P\left( |X_{n}| > (c+1)n^{1/p} \right) <
+\infty. \]
+This is a contradiction, so $P(X = \infty) = 1$. Now consider $S := \limsup_{n\rightarrow\infty}\frac{|S_{n}|}{n^{1/p}}$. Like $X$, $S$ is a tail
+random variable based on an independent sequence of random variables, so $S$ is degenerate. Therefore there exists some $d \in [0,\infty]$ such that
+$P(S = d) = 1$. By way of contradiction, suppose $d < \infty$. Then,
+\[ \limsup_{n\rightarrow\infty}\frac{|X_{n}|}{n^{1/p}} \leq \limsup_{n\rightarrow\infty}\frac{|S_{n}|}{n^{1/p}} +
+\limsup_{n\rightarrow\infty}\frac{|S_{n-1}|}{(n-1)^{1/p}}\left(\frac{n-1}{n}\right)^{1/p} \leq 2d\ \text{a.s.} \]
+Now proceed as above with $X$ and some $c \leq 2d < \infty$.
+\end{Proof}
+
+\item \begin{Proof}
+First suppose $0 < p < 1$. Then by Theorem 4.15, for any $c \in \mathbb{R}$,
+\[ 0 = \lim_{n\rightarrow\infty}\frac{S_{n} - nc}{n^{1/p}} =\lim_{n\rightarrow\infty} \left(\frac{S_{n}}{n^{1/p}} - \frac{nc}{n^{1/p}}\right) 
+= \lim_{n\rightarrow\infty}\frac{S_{n}}{n^{1/p}} - \lim_{n\rightarrow\infty}n^{1 - 1/p}c = \lim_{n\rightarrow\infty}\frac{S_{n}}{n^{1/p}} \
+\text{a.s.} \]
+So $\lim_{n\rightarrow\infty}|S_{n}| / n^{1/p} = 0$ a.s. Further,
+\[ \lim_{n\rightarrow\infty}\frac{X_{n}}{n^{1/p}} = \frac{S_{n}}{n^{1/p}} - \frac{S_{n-1}}{(n-1)^{1/p}}\left( \frac{n-1}{n} \right)^{1/p} = 0\ \text{
+a.s.} \]
+Now suppose $1 \leq p < 2$ and $EX_{1} = 0$. Then by Theorem 4.15 again,
+\[ \lim_{n\rightarrow\infty}\frac{S_{n}}{n^{1/p}} = 0 \ \text{a.s.} \]
+It follows that $\lim_{n\rightarrow\infty}X_{n}/n^{1/p} = 0$ a.s. as well, just as in the first case.
+\end{Proof}
+\end{enumerate}
+
+
+\end{document}
+
