@@ -1,0 +1,139 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textit{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks
+
+\title{STAT 642: HW 6}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{1 [AL 9.1]}
+\begin{tcolorbox}
+If $X_{n}\rightarrow^{d}X_{0}$ and $P(X_0 = c) = 1$ for some $c \in \mathbb{R}$, then $X_n \rightarrow_p c$.
+\end{tcolorbox}
+\begin{Proof}
+Since $X_0$ is degenerate, the cdf of $X_0$, $F_{X_{0}}$, is only discontinuous at $c$. Therefore $F_{X_{n}}(x) \rightarrow F_{X_{0}}(x)$ for all $x \neq c$, where
+$F_{X_{n}}$ is the cdf of $X_n$ for all $n \geq 1$. Let $\epsilon > 0$. Then 
+\[ \lim_{n\rightarrow\infty}F_{X_{n}}(c + \epsilon) = F_{X_{0}}(c+\epsilon) = 1, \qquad \lim_{n\rightarrow\infty}F_{X_{n}}(x - \epsilon) = F_{X_{0}}(x
+- \epsilon) = 0. \]
+Thus,
+\begin{align*}
+& \lim_{n\rightarrow\infty}P(X_{n} > c + \epsilon) = 1 - \lim_{n\rightarrow\infty}P(X_{n} \leq c + \epsilon) = 0, \text{ and} \\
+& \lim_{n\rightarrow\infty}P(X_{n} < c - \epsilon) \leq \lim_{n\rightarrow\infty}P(X_{n} \leq c - \epsilon) = 0.
+\end{align*}
+Hence 
+\[ \lim_{n\rightarrow\infty}P(|X_{n} - X_{0}| > \epsilon) = \lim_{n\rightarrow\infty}P(|X_{n} - c| > \epsilon) = 0. \]
+\end{Proof}
+
+
+
+\subsection*{2 [AL 9.11]}
+\begin{tcolorbox}
+For any cdf $F$, let $F^{-1}(p) := \inf\left\{ x \in \mathbb{R} : F(x) \geq p \right\}$, for $p \in (0,1)$. Show that for any $0 < p_{0} < 1$ and
+$t_{0} \in \mathbb{R}$,
+\[ F^{-1}(p_{0}) \leq t_{0} \Leftrightarrow F(t_{0}) \geq p_{0}. \]
+\end{tcolorbox}
+\begin{Proof}
+Suppose $p_{0} \in (0,1)$ and $t_{0} \in \mathbb{R}$.
+Then clearly $F(t_{0}) \geq p_{0}$ if and only if 
+\[ \inf\left\{ x \in \mathbb{R} : F(x) \geq p_{0} \right\} \leq t_{0}\] 
+if and only if $F^{-1}(p_{0}) \leq t_{0}$.
+\end{Proof}
+
+
+
+
+\subsection*{3}
+\begin{tcolorbox}
+Let $F$ be a cdf. Show that the set of points where is discontinuous is countable.
+\end{tcolorbox}
+\begin{Proof}
+Since $F$ is non-decreasing, the only type of discontinuities that $F$ can have is jump discontinuities. That is, the discontinuous points are 
+\[ D := \left\{ x \in \mathbb{R} : \lim_{y\uparrow x}F(y) < F(x) \right\} = \bigcup_{n=0}^{\infty}\underbrace{\left\{ x \in \mathbb{R} : \lim_{y\uparrow x}F(y) <
+F(x) - 2^{-n} \right\}}_{D_{n}}. \]
+\begin{claim}
+Each set $D_{n}$ is finite.
+\end{claim}
+\begin{claimproof}
+By way of contradiction, suppose there exists some $n_{0} \in \mathbb{N}$ such that $D_{n_{0}}$ is infinite. Without loss of generality we can assume
+$D_{n_0}$ is countably infinite, otherwise we could just consider a countably infinite subset of $D_{n_0}$. Suppose $D_{n_0} = \left\{ x_k
+\right\}_{k=0}^{\infty}$, where $x_k < x_{k+1}$ for each $k \in \mathbb{N}$. By definition of $D_{n_0}$ and since $F$ is non-decreasing, 
+\[ F(x_k) + 2^{-n_0} < F(x_{k+1}). \]
+But then $\lim_{k\rightarrow\infty}F(x_{k}) = \infty$, a contradiction.
+\end{claimproof}
+
+By claim 1 and since the countable union of finite sets is countable, $D$ is countable.
+\end{Proof}
+
+
+
+\subsection*{4}
+\begin{tcolorbox}
+Show that a distribution function is uniquely determined by its values on any dense set.
+\end{tcolorbox}
+\begin{Proof}
+Let $F$ and $G$ be two distribution functions such that $F \equiv G$ and some dense set $D \subseteq \mathbb{R}$. We need to show that $F \equiv G$ on
+$D^{c}$. Well, let $x \in D^{c}$. Since $D$ is dense in $\mathbb{R}$, we can choose a sequence $\left\{ x_{n} \right\}_{n=0}^{\infty}$ such that
+$x < x_{n} \in D$ for all $n \in \mathbb{N}$ and so that $x_{n} \rightarrow x$. By the right-continuity of $F$ and $G$ and since $F(x_{n}) = G(x_{n})$
+for all $n \in \mathbb{N}$,
+\[ F(x) = \lim_{n\rightarrow\infty}F(x_{n}) = \lim_{n\rightarrow\infty}G(x_{n}) = G(x). \]
+Thus $F \equiv G$.
+\end{Proof}
+
+
+\subsection*{5}
+\begin{tcolorbox}
+Show that if $F_{n} \Rightarrow F$ and $F_{n}\Rightarrow G$, then $F \equiv G$.
+\end{tcolorbox}
+\begin{Proof}
+By the result in question 3, $C(F)$ and $C(G)$ are countable. So $C(F) \cup C(G)$ is countable. Thus, $D := [C(F) \cup C(G)]^{c}$ is dense in
+$\mathbb{R}$ and $F_{n}(x) \rightarrow F(x)$, $F_{n}(x) \rightarrow G(x)$ for every $x \in D$. So $F \equiv G$ on $D$. By the result in question 4, $F
+\equiv G$.
+\end{Proof}
+
+
+
+\end{document}
+
