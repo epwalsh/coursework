@@ -46,7 +46,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \cfoot{}
 
 \begin{document}
-\maketitle
+% \maketitle
 
 
 \subsection*{1 [AL 9.1]}
@@ -76,15 +76,19 @@ $t_{0} \in \mathbb{R}$,
 \[ F^{-1}(p_{0}) \leq t_{0} \Leftrightarrow F(t_{0}) \geq p_{0}. \]
 \end{tcolorbox}
 \begin{Proof}
-Suppose $p_{0} \in (0,1)$ and $t_{0} \in \mathbb{R}$.
-Then clearly $F(t_{0}) \geq p_{0}$ if and only if 
-\[ \inf\left\{ x \in \mathbb{R} : F(x) \geq p_{0} \right\} \leq t_{0}\] 
-if and only if $F^{-1}(p_{0}) \leq t_{0}$.
+Suppose $p_{0} \in (0,1)$ and $t_{0} \in \mathbb{R}$. 
+
+$(\Leftarrow)$ First suppose $F(t_{0}) \geq p_{0}$. Since $F$ is non-decreasing, 
+\[ t_{0} \geq \inf\left\{ x \in \mathbb{R} : F(x) \geq p_{0} \right\}  = F^{-1}(p_{0}). \] 
+$(\Rightarrow)$ On the other hand, if $t_{0} \geq F^{-1}(p_{0})$ then either $t_{0} = F^{-1}(p_{0})$ or $t_{0} > F^{-1}(p_{0})$. The latter case is
+trivial since $F$ is non-decreasing. For the former, suppose $t_{1}, t_{2}, \hdots \in \mathbb{R}$ such that $t_{n} > t_{0}$ for all $n \geq 1$ and $t_{n} \rightarrow t_{0}$.
+Clearly $F(t_{n}) \geq p_{0}$ since $t_{n} > F^{-1}(p_{0})$ for each $n \geq 1$. Thus,
+by the right-continuity of $F$, $F(t_{0}) = \lim_{n\rightarrow\infty}F(t_{n}) \geq p_{0}$.
 \end{Proof}
 
 
 
-
+\newpage
 \subsection*{3}
 \begin{tcolorbox}
 Let $F$ be a cdf. Show that the set of points where is discontinuous is countable.
