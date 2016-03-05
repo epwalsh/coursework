@@ -49,6 +49,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \maketitle
 
 \subsection*{1 [Lemma (I)(6)xii Claim 1]}
+\begin{tcolorbox}
+$k_{n+1} > k_{n}$.
+\end{tcolorbox}
 \stepcounter{ClaimCounter}
 \begin{claimproof}
 By way of contradiction, suppose $k_{n+1} \leq k_{n}$. Set $E_{n'} := E_{n+1}\cup E_{n}$. Note that $E_{n'}$ is a subset of $E$ and is 
@@ -61,6 +64,9 @@ measurable set $H \subseteq E - \cup_{k < n}E_{k}$ with $\mu(E) \geq 2^{-k_{n}}$
 
 
 \subsection*{2 [Lemma (I)(6)xii Claim 2]}
+\begin{tcolorbox}
+$F$ is negative.
+\end{tcolorbox}
 \stepcounter{ClaimCounter}
 \begin{claimproof}
 By way of contradiction, suppose there exists a measurable $H' \subseteq F$ such that $\mu(H') > 0$. Then there exists some $n_{0} \in \mathbb{N}$ such that 
@@ -182,10 +188,28 @@ By Subclaim 4.2, Claim 3, and the result from Homework 1: Question 3, $\mu_0$ is
 
 
 
+\newpage
 \subsection*{5 [Theorem (I)(6)xxix Claim 5]}
+\begin{tcolorbox}
+$\mu_{1}\perp \nu$.
+\end{tcolorbox}
 \stepcounter{ClaimCounter}
 \begin{claimproof}
+\begin{subclaim}
+If $\theta$ is a measure such that $\theta \leq \mu$ and $\theta \ll \nu$, then $\theta \leq \mu_0$.
+\end{subclaim}
+\begin{subclaimproof}
+Let $A \in \mathcal{S}$ and $\psi \in \mathcal{N}$. Since $\theta \ll \nu$, $\theta\left(\left\{ \omega \in X : |\psi(\omega)| > 0) \right\}\right) =
+0$. Hence,
+\[ \theta(A) = \int \chi_{A}d\theta = \int|\chi_{A}|^{2}d\theta = \int|\chi_{A} - \psi|^{2}d\theta \leq \int|\chi_{A} - \psi|^{2}d\mu. \]
+Thus,
+\[ \theta(A) \leq \inf_{\psi\in\mathcal{N}}\int|\chi_{A} - \psi|^{2}d\mu = \mu_0(A). \]
+\end{subclaimproof}
 
+Now suppose $\eta$ is a measure such that $\eta \leq \mu_{1}, \nu$. Consider the measure $\theta := \mu_0 + \eta$. Then 
+\[ \theta = \mu_0 + \eta = \mu - \mu_1 + \eta \leq \mu, \]
+and if $\nu(A) = 0$, then $\theta(A) = \mu_0(A) + \eta(A) = 0$. Hence, by Subclaim 1,
+$\theta = \mu_0 + \eta \leq \mu_0$, which implies $\eta \equiv 0$. Thus, by Lemma (I)(6)xxvii, $\mu_1 \perp \nu$.
 \end{claimproof}
 
 
