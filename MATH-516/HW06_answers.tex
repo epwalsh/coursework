@@ -1,0 +1,85 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks
+
+\title{MATH 516: HW 06}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1 [Lemma (I)(6)xii Claim 1]}
+\begin{Proof}
+By way of contradiction, suppose $k_{n+1} \leq k_{n}$. Set $E_{n'} := E_{n+1}\cup E_{n}$. Note that $E_{n'}$ is a subset of $E$ and is 
+disjoint from $\cup_{k < n}E_{k}$. Further, since $E_{n+1}\cap E_{n} = \emptyset$ by construction,
+\[ \mu(E_{n'}) = \mu(E_{n+1}) + \mu(E_{n}) \geq 2^{-k_{n+1}} \geq 2\cdot 2^{-k_{n+1}} = 2^{-(k_{n+1}-1)} = 2^{-k_{n}'}, \]
+where $k_{n}' := k_{n+1} - 1 < k_{n}$. By this is a contradiction since $k_{n}$ was chosen to be the smallest integer such that there exists a 
+measurable set $H \subseteq E - \cup_{k < n}E_{k}$ with $\mu(E) \geq 2^{-k_{n}}$.
+\end{Proof}
+
+
+
+\subsection*{2 [Lemma (I)(6)xii Claim 2]}
+\begin{Proof}
+By way of contradiction, suppose there exists a measurable $H' \subseteq F$ such that $\mu(H') > 0$. Then there exists some $n_{0} \in \mathbb{N}$ such that 
+$\mu(H') \geq 2^{-n_{0}}$. But by claim 1, there exists a positive integer $n$ and smallest integer $k_{n} > n_{0}$ for which there exists a measurable subset $H \subseteq 
+E - \cup_{j < k_{n}}E_{j}$, where each $E_{j}$, $1 \leq j < n$, have been chosen as in the beginning of the proof of this lemma. This is a contradiction.
+\end{Proof}
+
+
+
+\subsection*{3 [Theorem (I)(6)xxix Claim 3]}
+
+
+
+
+\subsection*{4 [Theorem (I)(6)xxix Claim 4]}
+
+
+
+
+\subsection*{5 [Theorem (I)(6)xxix Claim 5]}
+
+
+\end{document}
+
