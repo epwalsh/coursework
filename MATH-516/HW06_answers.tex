@@ -92,6 +92,45 @@ $\left\{ A\cap E_{i}^{*} \right\}_{i=1}^{n}$ is pairwise disjoint. Clearly one s
 \[ |\chi_{A}(\omega) - \chi_{A}(\omega)\psi^*(\omega)|^{2} = 0 \leq |\chi_{A}(\omega) - \psi(\omega)|^{2}. \]
 \end{subclaimproof}
 
+Now suppose $A,B \in \mathcal{S}$ such that $A\cap B = \emptyset$.
+\begin{subclaim}
+$\mu_0(A\cup B) \leq \mu_0(A) + \mu_0(B)$.
+\end{subclaim}
+\begin{subclaimproof}
+Let $\psi_{1}, \psi_{2} \in \mathcal{N}$. Define $\psi_{1}^{*}, \psi_{2}^{*}$ as in Subclaim 3.1. Then by Subclaim 3.1, $\chi_{A}\psi_{1}^{*} +
+\chi_{B}\psi_{2}^{*} \in \mathcal{N}$ and 
+\begin{align*}
+\mu_0(A\cup B) & = \inf_{\psi \in \mathcal{N}}\int |\chi_{A\cup B} - \psi|^{2}d\mu \\
+& \leq \int|\chi_{A\cup B} - (\chi_{A}\psi_{1}^{*} + \chi_{B}\psi_{2}^{*})|^{2}d\mu \\
+& = \int|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu \\
+& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu + 
+\int_{B}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu \\
+& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*}|d\mu + \int_{B}|\chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu \\
+& \leq \int|\chi_{A} - \psi_{1}|d\mu + \int|\chi_{B} - \psi_{2}|d\mu \\
+\end{align*}
+Therefore 
+\[ \mu_0(A\cap B) \leq \inf_{\psi\in \mathcal{N}}\int|\chi_{A} - \psi|^{2}d\mu + \inf_{\psi\in\mathcal{N}}\int|\chi_{B} - \psi|^{2}d\mu =
+\mu_0(A) + \mu_0(B). \]
+\end{subclaimproof}
+
+\begin{subclaim}
+$\mu_0(A) + \mu_0(B) \leq \mu_0(A\cup B)$.
+\end{subclaim}
+\begin{subclaimproof}
+Let $\psi_{1} \in \mathcal{N}$ and define $\psi_{1}^{*}$ as in Subclaim 3.1. Then by Subclaim 3.1, $\chi_{A}\psi_{1}^{*}, \chi_{B}\psi_{1}^{*}$, and
+$\chi_{A}\psi_{1}^{*} + \chi_{B}\psi_{1}^{*} = \chi_{A\cup B}\psi_{1}^{*} \in \mathcal{N}$, and 
+\begin{align*}
+\mu_0(A) + \mu_0(B) & = \inf_{\psi\in\mathcal{N}}\int|\chi_{A} - \psi|^{2}d\mu + \inf_{\psi\in\mathcal{N}}\int|\chi_{B} - \psi|^{2}d\mu \\
+& \leq \int|\chi_{A} - \chi_{A}\psi_{1}^{*}|^{2}d\mu + \int|\chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu \\
+& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*}|^{2}d\mu + \int_{B}|\chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu \\
+& = \int_{A\cup B}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu \\
+& = \int|\chi_{A\cup B} - \chi_{A\cup B}\psi_{1}^{*}|^{2}d\mu \\
+& \leq \int|\chi_{A\cup B} - \psi_{1}|^{2}d\mu \\
+\end{align*}
+Therefore $\mu_0(A) + \mu_(B) \leq \inf_{\psi\in\mathcal{N}}\int|\chi_{A\cup B} - \psi|^{2}d\mu = \mu_0(A\cup B)$.
+\end{subclaimproof}
+
+By subclaims 3.2 and 3.3, we are done.
 \end{claimproof}
 
 
