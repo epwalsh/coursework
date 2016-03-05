@@ -26,10 +26,10 @@
 \newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
 \newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
 \newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
-\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{\underline{Subclaim \theClaimCounter.\theSubClaimCounter:}}\space#1}{}
 % \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
 % $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
-\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{\underline{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}}\space#1}{\hfill
 $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \allowdisplaybreaks
@@ -49,36 +49,105 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \maketitle
 
 \subsection*{1 [Lemma (I)(6)xii Claim 1]}
-\begin{Proof}
+\stepcounter{ClaimCounter}
+\begin{claimproof}
 By way of contradiction, suppose $k_{n+1} \leq k_{n}$. Set $E_{n'} := E_{n+1}\cup E_{n}$. Note that $E_{n'}$ is a subset of $E$ and is 
 disjoint from $\cup_{k < n}E_{k}$. Further, since $E_{n+1}\cap E_{n} = \emptyset$ by construction,
 \[ \mu(E_{n'}) = \mu(E_{n+1}) + \mu(E_{n}) \geq 2^{-k_{n+1}} \geq 2\cdot 2^{-k_{n+1}} = 2^{-(k_{n+1}-1)} = 2^{-k_{n}'}, \]
 where $k_{n}' := k_{n+1} - 1 < k_{n}$. By this is a contradiction since $k_{n}$ was chosen to be the smallest integer such that there exists a 
 measurable set $H \subseteq E - \cup_{k < n}E_{k}$ with $\mu(E) \geq 2^{-k_{n}}$.
-\end{Proof}
+\end{claimproof}
 
 
 
 \subsection*{2 [Lemma (I)(6)xii Claim 2]}
-\begin{Proof}
+\stepcounter{ClaimCounter}
+\begin{claimproof}
 By way of contradiction, suppose there exists a measurable $H' \subseteq F$ such that $\mu(H') > 0$. Then there exists some $n_{0} \in \mathbb{N}$ such that 
 $\mu(H') \geq 2^{-n_{0}}$. But by claim 1, there exists a positive integer $n$ and smallest integer $k_{n} > n_{0}$ for which there exists a measurable subset $H \subseteq 
 E - \cup_{j < k_{n}}E_{j}$, where each $E_{j}$, $1 \leq j < n$, have been chosen as in the beginning of the proof of this lemma. This is a contradiction.
-\end{Proof}
+\end{claimproof}
 
 
-
+\newpage
 \subsection*{3 [Theorem (I)(6)xxix Claim 3]}
+\begin{tcolorbox}
+If $A,B \in \mathcal{S}$ such that $A\cap B = \emptyset$, then $\mu_0(A\cup B) = \mu_0(A) + \mu_0(B)$.
+\end{tcolorbox}
+\stepcounter{ClaimCounter}
+\begin{claimproof}
+\begin{subclaim}
+Suppose $\psi \in \mathcal{N}$, where $\psi = \sum_{i=1}^{n}c_{i}\chi_{E_{i}}$ such that $c_{i} \in \mathbb{R}$ and $\nu(E_{i}) = 0$ for all $1 \leq
+i \leq n$. Suppose $A\in \mathcal{S}$. Let $E_{1}^{*} := E_{1}$ and $E_{i}^{*} := E_{i} - \cup_{j < i}E_{i}^{*}$ for all $1 < i \leq
+n$. Let $\psi^{*} := \sum_{i=1}^{n}\chi_{E_{i}^{*}}$.
+Then $\chi_{A}\psi^{*} \in \mathcal{N}$ and $|\chi_{A} - \psi|^{2} \geq |\chi_{A} - \chi_{A}\psi^*|^2$.
+\end{subclaim}
+\begin{subclaimproof}
+The first part of the subclaim follows from the fact that $\chi_{A}\chi_{E_{i}^*} = \chi_{A\cap E_{i}^{*}}$, where $\nu(A\cap E_{i}^{*}) = 0$ 
+for all $1 \leq i \leq n$ since $A\cap E_{i}^* \subseteq E_{i}$. Now suppose
+$\omega \in X$. If $\omega \notin \cup_{i=1}^{n}E_{i}$, then $\omega \notin \cup_{i=1}^{n}A\cap E_{i}^{*}$, so
+\[ |\chi_{A}(\omega) - \psi(\omega)|^{2} = |\chi_{A}(\omega)|^{2} = |\chi_{A}(\omega) - \chi_{A}(\omega)\psi^{*}(\omega)|^{2}. \]
+If $\omega \in \cup_{i=1}^{n}E_{i}$, then there is at most one $i \in \left\{ 1, \hdots, n \right\}$ such that $\omega \in A\cap E_{i}^{*}$ since 
+$\left\{ A\cap E_{i}^{*} \right\}_{i=1}^{n}$ is pairwise disjoint. Clearly one such $i$ exists only if $\omega \in A$. In either case,
+\[ |\chi_{A}(\omega) - \chi_{A}(\omega)\psi^*(\omega)|^{2} = 0 \leq |\chi_{A}(\omega) - \psi(\omega)|^{2}. \]
+\end{subclaimproof}
+
+\end{claimproof}
 
 
-
-
+\newpage
 \subsection*{4 [Theorem (I)(6)xxix Claim 4]}
+\begin{tcolorbox}
+$\mu_0$ is a measure.
+\end{tcolorbox}
+\stepcounter{ClaimCounter}
+\begin{claimproof}
+\begin{subclaim}
+If $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is a sequence of measurable sets such that $A_{n} \supseteq A_{n+1}$ for all $n \in \mathbb{N}$, then 
+$\lim_{n\rightarrow\infty}\mu_0(A_{n}) = \mu_0(A)$, where $A := \cap_{n=0}^{\infty}A_{n}$.
+\end{subclaim}
+\begin{subclaimproof}
+Suppose $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is a descending sequence of measurable sets. Let $\psi_{1} \in \mathcal{N}$. Clearly $\psi_{1}$ 
+must be bounded. Therefore $|\chi_{A_{n}} - \psi_{1}|^{2} \leq M$, for some $M > 0$, 
+and $\lim_{n\rightarrow\infty}|\chi_{A_{n}} - \psi_{1}|^{2} = |\chi_{A} - \psi_{1}|^{2}$. But the constant funtion $g \equiv M$ is integrable with respect to $\mu$
+since $\mu$ is finite. Hence we can apply the DCT, and so
+\[ \liminf_{n\rightarrow\infty}\inf_{\psi\in\mathcal{N}}\int|\chi_{A_{N}} - \psi|^{2}d\mu \leq \liminf_{n\rightarrow\infty}\int|\chi_{A_{n}} -
+\psi_{1}|^{2}d\mu = \int|\chi_{A} - \psi_{1}|^{2}d\mu. \]
+Now by taking the infimum over all $\psi \in \mathcal{N}$ on the right hand side of the above inequality, we get 
+\begin{equation}
+\liminf_{n\rightarrow\infty}\mu_0(A_{n}) \leq \mu_0(A).
+\label{4.1}
+\end{equation}
+On the other hand, $\mu_0(A_n) = \mu_0(A) + \mu_0(A_n - A) \geq \mu_0(A)$ for all $n \in \mathbb{N}$ by Claim 3. Therefore 
+\begin{equation}
+\limsup_{n\rightarrow\infty}\mu_0(A_{n}) \geq \mu_0(A).
+\label{4.2}
+\end{equation}
+So by \eqref{4.1} and \eqref{4.2}, we are done.
+\end{subclaimproof}
 
+\begin{subclaim}
+If $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is a sequence of measurable sets such that $A_{n} \subseteq A_{n+1}$ for all $n \in \mathbb{N}$, then 
+$\lim_{n\rightarrow\infty}\mu_0(A_{n}) = \mu_0(A)$, where $A := \cup_{n=0}^{\infty}A_{n}$.
+\end{subclaim}
+\begin{subclaimproof}
+Suppose $\left\{ A_n \right\}_{n=0}^{\infty}$ is an ascending sequence of measurable sets. Then $A^{c} = \cap_{n=0}^{\infty}A_{n}^{c}$, where $\left\{
+A_{n}^{c} \right\}_{n=0}^{\infty}$ is a descending sequence of measurable sets. So by Subclaim 4.1, and Claim 3,
+\[ \lim_{n\rightarrow\infty}\mu_0(A_n) = \lim_{n\rightarrow\infty}\mu_0(X) - \mu_0(A_{n}^{c}) = \mu_0(X) - \lim_{n\rightarrow\infty}\mu_0(A_{n}^{c}) = 
+\mu_0(X) - \mu_0(A^{c}) = \mu_0(A). \]
+\end{subclaimproof}
+
+By Subclaim 4.2, Claim 3, and the result from Homework 1: Question 3, $\mu_0$ is a measure.
+
+\end{claimproof}
 
 
 
 \subsection*{5 [Theorem (I)(6)xxix Claim 5]}
+\stepcounter{ClaimCounter}
+\begin{claimproof}
+
+\end{claimproof}
 
 
 \end{document}
