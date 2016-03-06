@@ -120,7 +120,48 @@ So $X_{n}Y_{n} \stackrel{p}{\rightarrow} 0$.
 \end{Proof}
 
 
+\newpage
 \subsection*{4 [AL 9.9]}
+\begin{tcolorbox}
+Let $\left\{ X_{j,n} \right\}_{n\geq 1}$, $j = 1, \hdots, k \geq 1$ be sequence of random variables and let $X_{n} := \left( X_{1,n}, \hdots, X_{k,n}
+\right)$ for all $n \geq 1$. Show that $\left\{ X_{n} \right\}_{n\geq 1}$ is tight in $\mathbb{R}^{k}$ if and only if $\left\{ X_{j,n} \right\}_{n\geq
+1}$ is tight in $\mathbb{R}$ for each $1 \leq j \leq k$.
+\end{tcolorbox}
+\begin{Proof}
+$(\Rightarrow)$ Suppose $\left\{ X_{n} \right\}_{n\geq 1}$ is tight in $\mathbb{R}^{k}$. Let $\epsilon > 0$. Then there exists $M > 0$ such that 
+$\sup_{n\geq 1}P(\|X_{n}\| > M) < \epsilon$. But if $|X_{j_0,n}| > M$ for any $1 \leq j_0 \leq k$, then $\sum_{j=1}^{k}|X_{j,n}| = \|X_n\| > M$. Thus,
+\[ P\left( |X_{j_0,n}| > M \right) \leq P\left( \|X_{n}\| > M \right) \ \ \text{ for all } 1 \leq j_0 \leq k, n \geq 1. \]
+Hence, $\sup_{n\geq 1}P\left( |X_{j,n}| > M \right) \leq \sup_{n\geq 1}P(\|X_n\| > M) < \epsilon$ for all $1 \leq j \leq k$.
+
+$(\Leftarrow)$ Now suppose $\left\{ X_{j,n} \right\}_{n\geq 1}$ is tight in $\mathbb{R}$ for all $1 \leq j \leq k$. Let $\epsilon > 0$. Then for each
+$j \in \left\{ 1,\hdots, k \right\}$, there exists some $M_j > 0$ such that $\sup_{n\geq 1}P(|X_{j,n}| > M_j / k) < \epsilon / (2k)$. Let $M :=
+\max\left\{ M_{1}, \hdots, M_{k} \right\}$. Then for any $n \geq 1$,
+\begin{align*}
+P(\|X_n\| > M) = P\left( \sum_{j=1}^{k}|X_{j,n}| > M \right) & \leq P\left( |X_{j,n}| > \frac{M}{k}\text{ for some } 1 \leq j \leq k \right) \\
+& = P\left( \bigcup_{j=1}^{k}\left\{ |X_{j,n}| > \frac{M}{k} \right\} \right) \\
+& \leq \sum_{j=1}^{k}P\left(|X_{j,n}| > \frac{M}{k}\right) < \frac{\epsilon}{2}.
+\end{align*}
+Therefore $\sup_{n\geq 1}(\|X_{n}\| > M) \leq \epsilon / 2 < \epsilon$.
+\end{Proof}
+
+
+\newpage
+\subsection*{5 [AL 9.14]}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be a sequence of random variables and $\left\{ a_n \right\}_{n\geq 1}$ be a sequence of positive reals such
+that $a_n \rightarrow \infty$ as $n \rightarrow \infty$ and 
+\[ a_n(X_n - \theta) \rightarrow^{d} Z \]
+for some random variable $Z$ and for some $\theta \in \mathbb{R}$. Let $H : \mathbb{R} \rightarrow \mathbb{R}$ be a function that is differentiable at
+$\theta$ with derivative $c$. Show that 
+\[ a_n(H(X_n) - H(\theta)) \rightarrow^{d} cZ. \]
+\end{tcolorbox}
+
+
+
+
+
+
+
 
 \end{document}
 
