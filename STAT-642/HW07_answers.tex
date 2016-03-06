@@ -55,11 +55,52 @@ Let $X_{n} \rightarrow^{d} X$ and $x_{n} \rightarrow x$ as $n\rightarrow\infty$.
 \leq x)$.
 \end{tcolorbox}
 \begin{Proof}
-
+Let $Y_{n} \equiv x_n - x$ for each $n \geq 1$. Since $x_{n} \rightarrow x$, $Y_{n} \rightarrow 0$ a.s. ($P$). Hence $Y_n \rightarrow^{p} 0$. 
+So by Slutsky's Theorem, $X_{n} - Y_{n} \rightarrow^{d} X$.
+Now, since $P(X = x) = 0$, the distribution function, $F$, of $X$ is continuous at $x$. Hence 
+\[ P(X_{n} - (x_n - x) \leq x) \rightarrow P(X \leq x) \text{ as } n \rightarrow \infty, \]
+which implies $P(X_{n} \leq x) \rightarrow P(X \leq x)$ as $n\rightarrow \infty$.
 \end{Proof}
 
-\newpage
-\subsection*{3 [Proposition 5.9 (ii)]}
+\subsection*{2}
+\begin{tcolorbox}
+Consider random variables $\left\{ X_{n} \right\}_{n\geq 1}$, which may not be defined on a common probability space. Suppose that $X_{n}
+\rightarrow^{d} X$ as $n \rightarrow \infty$ and that $\left\{ X_{n} \right\}_{n\geq 1}$ is uniformly integrable, i.e.
+\[ \lim_{t\rightarrow\infty}\sup_{n\geq 1}E\left[ |X_{n}|\mathbb{I}(|X_{n}| > t) \right] = \lim_{t\rightarrow\infty}\sup_{n\geq 1}\int_{|x| >
+t}|x|d\mu_{n}(x) = 0, \]
+where $\mu_{n}$ denotes the probability distribution of $X_n$ on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, $n\geq 1$. Show that $E|X| < \infty$ and
+that $EX_n \rightarrow EX$ as $n\rightarrow\infty$.
+\end{tcolorbox}
+\begin{Proof}
+For simplicity, let $\mu_0$ denote the distribution of $X$. Since $X_n \rightarrow^{d} X$, there exists random variables $\left\{ Y_{n}
+\right\}_{n=0}^{\infty}$ on a common probability space $(\Omega, \mathcal{F}, P)$ such that each $Y_n$ has distribution $\mu_n$ and $Y_n \rightarrow
+Y_0$ a.s. ($P$). Thus, by Proposition 6.2.1 (i) [AL] (the change of variables formula),
+\begin{equation}
+\int_{\mathbb{R}}|x|\mathbb{I}(|x| > t)d\mu_n(x) = \int_{\mathbb{R}}|x|\mathbb{I}(|x| > t)dPY_{n}^{-1}(x) = \int_{\Omega}|Y_n|\mathbb{I}(|Y_n| > t)dP.
+\label{2.1}
+\end{equation}
+Hence $\left\{ Y_n \right\}_{n\geq 1}$ is UI, and by Proposition 2.5.7 (v) [AL], $\sup_{n\geq 1}\int_{\Omega}|Y_n|dP < \infty$, so $Y_n \in
+\mathcal{L}^{1}(\Omega, \mathcal{F}, P)$ for all $n \geq 1$. Thus, by Theorem 2.5.10 [AL], $Y_0$ is integrable, i.e. $E|Y_0| < \infty$, and 
+\begin{equation}
+\lim_{n\rightarrow\infty}\int_{\Omega}|Y_n - Y_0|dP = 0.
+\label{2.2}
+\end{equation}
+But $E|Y_0| < \infty$ implies $E|X| < \infty$ by \eqref{2.1} (take $t \leq 0$). Further, since $Y_n$ integrable for all $n \in \mathbb{N}$,
+\begin{equation}
+\int_{\mathbb{R}}x\ d\mu_n(x) = \int_{\Omega}Y_n\ dP \ \ \text{ for all } n \in \mathbb{N}, 
+\label{2.3}
+\end{equation}
+by Proposition 2.5.10 (ii). Therefore by \eqref{2.2} and \eqref{2.3}
+\begin{align*}
+\limsup_{n\rightarrow\infty}|EX_{n} - EX| = \limsup_{n\rightarrow\infty}\left| \int_{\mathbb{R}}x\ d\mu_n - \int_{\mathbb{R}} x\ d\mu_0 \right| & = 
+\limsup_{n\rightarrow\infty}\left| \int_{\Omega}Y_n \ dP - \int_{\Omega}Y_0\ dP\right| \\
+& = \limsup_{n\rightarrow\infty}\left| \int_{\Omega}(Y_n - Y_0)\ dP \right| \\
+& \leq \limsup_{n\rightarrow\infty}\int_{\Omega}|Y_n - Y_0|\ dP = 0.
+\end{align*}
+\end{Proof}
+
+
+\subsection*{3 [AL 9.7 / Proposition 5.9 (ii)]}
 \begin{tcolorbox}
 If $\left\{ X_{n} \right\}_{n=0}^{\infty}$ is tight and $Y_{n} \stackrel{p}{\rightarrow} 0$ ($X_{n}, Y_{n}$ defined on $(\Omega_{n}, \mathcal{F}_{n},
 P_{n})$), then $X_{n}Y_{n} \stackrel{p}{\rightarrow} 0$.
@@ -78,6 +119,8 @@ P_{n}\left( |X_{n}Y_{n}| > \epsilon \right) & = P_{n}\left( |X_{n}Y_{n}| > \epsi
 So $X_{n}Y_{n} \stackrel{p}{\rightarrow} 0$.
 \end{Proof}
 
+
+\subsection*{4 [AL 9.9]}
 
 \end{document}
 
