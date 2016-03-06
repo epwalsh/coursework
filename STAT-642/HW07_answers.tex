@@ -130,7 +130,7 @@ Let $\left\{ X_{j,n} \right\}_{n\geq 1}$, $j = 1, \hdots, k \geq 1$ be sequence 
 \begin{Proof}
 $(\Rightarrow)$ Suppose $\left\{ X_{n} \right\}_{n\geq 1}$ is tight in $\mathbb{R}^{k}$. Let $\epsilon > 0$. Then there exists $M > 0$ such that 
 $\sup_{n\geq 1}P(\|X_{n}\| > M) < \epsilon$. But if $|X_{j_0,n}| > M$ for any $1 \leq j_0 \leq k$, then $\sum_{j=1}^{k}|X_{j,n}| = \|X_n\| > M$. Thus,
-\[ P\left( |X_{j_0,n}| > M \right) \leq P\left( \|X_{n}\| > M \right) \ \ \text{ for all } 1 \leq j_0 \leq k, n \geq 1. \]
+$P\left( |X_{j_0,n}| > M \right) \leq P\left( \|X_{n}\| > M \right)$ for all $1 \leq j_0 \leq k, n \geq 1$. 
 Hence, $\sup_{n\geq 1}P\left( |X_{j,n}| > M \right) \leq \sup_{n\geq 1}P(\|X_n\| > M) < \epsilon$ for all $1 \leq j \leq k$.
 
 $(\Leftarrow)$ Now suppose $\left\{ X_{j,n} \right\}_{n\geq 1}$ is tight in $\mathbb{R}$ for all $1 \leq j \leq k$. Let $\epsilon > 0$. Then for each
@@ -145,17 +145,27 @@ Therefore $\sup_{n\geq 1}(\|X_{n}\| > M) \leq \epsilon / 2 < \epsilon$.
 \end{Proof}
 
 
-\newpage
 \subsection*{5 [AL 9.14]}
 \begin{tcolorbox}
 Let $\left\{ X_{n} \right\}_{n\geq 1}$ be a sequence of random variables and $\left\{ a_n \right\}_{n\geq 1}$ be a sequence of positive reals such
-that $a_n \rightarrow \infty$ as $n \rightarrow \infty$ and 
-\[ a_n(X_n - \theta) \rightarrow^{d} Z \]
+that $a_n \rightarrow \infty$ as $n \rightarrow \infty$ and $a_n(X_n - \theta) \rightarrow^{d} Z$.
 for some random variable $Z$ and for some $\theta \in \mathbb{R}$. Let $H : \mathbb{R} \rightarrow \mathbb{R}$ be a function that is differentiable at
 $\theta$ with derivative $c$. Show that 
-\[ a_n(H(X_n) - H(\theta)) \rightarrow^{d} cZ. \]
+$a_n(H(X_n) - H(\theta)) \rightarrow^{d} cZ$. 
 \end{tcolorbox}
-
+\begin{Proof}
+By Taylor's expansion, for any $x \in \mathbb{R}$,
+\begin{equation}
+H(x) = H(\theta) + c(x - \theta) + R(x)(x - \theta), 
+\label{5.1}
+\end{equation}
+where $R(x) \rightarrow 0$ as $x \rightarrow \theta$.
+Let $Y_n \equiv 1 / a_n$. Since $a_n \rightarrow \infty$, $Y_n \rightarrow 0$ with probability 1. Hence, by Slutsky's Theorem, 
+\[ X_n - \theta = a_n(X_n - \theta)Y_n \rightarrow^{d} 0. \]
+Therefore $X_n - \theta \rightarrow^{p} 0$ by Proposition 5.2, and since $R(x) \rightarrow 0$ as $x \rightarrow \theta$, $R(X_n) \rightarrow^{p} 0$.
+Hence $R(X_n)a_n(X_n - \theta) \rightarrow^{d} 0\cdot Z \equiv 0$ by Corollary 5.5 (ii). Thus by \eqref{5.1} and Corollary 5.5 (i),
+\[ a_n(H(X_n) - H(\theta)) = ca_n(X_n - \theta) + R(x)a_n(X_n - \theta) \rightarrow^{d} cZ. \]
+\end{Proof}
 
 
 
