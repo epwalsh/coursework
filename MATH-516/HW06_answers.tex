@@ -56,9 +56,9 @@ $k_{n+1} > k_{n}$.
 \begin{claimproof}
 By way of contradiction, suppose $k_{n+1} \leq k_{n}$. Set $E_{n'} := E_{n+1}\cup E_{n}$. Note that $E_{n'}$ is a subset of $E$ and is 
 disjoint from $\cup_{k < n}E_{k}$. Further, since $E_{n+1}\cap E_{n} = \emptyset$ by construction,
-\[ \mu(E_{n'}) = \mu(E_{n+1}) + \mu(E_{n}) \geq 2^{-k_{n+1}} \geq 2\cdot 2^{-k_{n+1}} = 2^{-(k_{n+1}-1)} = 2^{-k_{n}'}, \]
-where $k_{n}' := k_{n+1} - 1 < k_{n}$. By this is a contradiction since $k_{n}$ was chosen to be the smallest integer such that there exists a 
-measurable set $H \subseteq E - \cup_{k < n}E_{k}$ with $\mu(E) \geq 2^{-k_{n}}$.
+\[ \mu(E_{n'}) = \mu(E_{n+1}) + \mu(E_{n}) \geq 2^{-k_{n+1}}  + 2^{-k_n}\geq 2\cdot 2^{-k_{n}} = 2^{-(k_{n}-1)} = 2^{-k_{n}'}, \]
+where $k_{n}' := k_{n} - 1 < k_{n}$. By this is a contradiction since $k_{n}$ was chosen to be the smallest integer such that there exists a 
+measurable set $H \subseteq E - \cup_{k < n}E_{k}$ with $\mu(H) \geq 2^{-k_{n}}$.
 \end{claimproof}
 
 
@@ -70,8 +70,10 @@ $F$ is negative.
 \stepcounter{ClaimCounter}
 \begin{claimproof}
 By way of contradiction, suppose there exists a measurable $H' \subseteq F$ such that $\mu(H') > 0$. Then there exists some $n_{0} \in \mathbb{N}$ such that 
-$\mu(H') \geq 2^{-n_{0}}$. But by claim 1, there exists a positive integer $n$ and smallest integer $k_{n} > n_{0}$ for which there exists a measurable subset $H \subseteq 
-E - \cup_{j < k_{n}}E_{j}$, where each $E_{j}$, $1 \leq j < n$, have been chosen as in the beginning of the proof of this lemma. This is a contradiction.
+$\mu(H') \geq 2^{-n_{0}}$. But by Claim 1 we can choose a large enough positive integer $n$ and measurable sets $E_1, \hdots, E_{n-1}$, as constructed 
+in the proof of this lemma, such that the smallest integer, $k_n$, for which there exists a measurable $H \subseteq E - \cup_{j < k_n}E_j$ with $\mu(E)
+\geq 2^{-k_n}$ is greater than $n_0$. So $H' \subseteq E - \cup_{j=0}^{\infty}E_j \subseteq E - \cup_{j < n}E_j$ and $\mu(H') \geq 2^{-n_0} >
+2^{-k_n}$. This is a contradiction.
 \end{claimproof}
 
 
@@ -108,11 +110,11 @@ Let $\psi_{1}, \psi_{2} \in \mathcal{N}$. Define $\psi_{1}^{*}, \psi_{2}^{*}$ as
 \begin{align*}
 \mu_0(A\cup B) & = \inf_{\psi \in \mathcal{N}}\int |\chi_{A\cup B} - \psi|^{2}d\mu \\
 & \leq \int|\chi_{A\cup B} - (\chi_{A}\psi_{1}^{*} + \chi_{B}\psi_{2}^{*})|^{2}d\mu \\
-& = \int|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu \\
-& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu + 
-\int_{B}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu \\
-& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*}|d\mu + \int_{B}|\chi_{B} - \chi_{B}\psi_{2}^{*}|d\mu \\
-& \leq \int|\chi_{A} - \psi_{1}|d\mu + \int|\chi_{B} - \psi_{2}|d\mu \\
+& = \int|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|^{2}d\mu \\
+& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|^{2}d\mu + 
+\int_{B}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{2}^{*}|^{2}d\mu \\
+& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*}|^{2}d\mu + \int_{B}|\chi_{B} - \chi_{B}\psi_{2}^{*}|^{2}d\mu \\
+& \leq \int|\chi_{A} - \psi_{1}|^{2}d\mu + \int|\chi_{B} - \psi_{2}|^{2}d\mu \\
 \end{align*}
 Therefore 
 \[ \mu_0(A\cap B) \leq \inf_{\psi\in \mathcal{N}}\int|\chi_{A} - \psi|^{2}d\mu + \inf_{\psi\in\mathcal{N}}\int|\chi_{B} - \psi|^{2}d\mu =
@@ -129,8 +131,9 @@ $\chi_{A}\psi_{1}^{*} + \chi_{B}\psi_{1}^{*} = \chi_{A\cup B}\psi_{1}^{*} \in \m
 \mu_0(A) + \mu_0(B) & = \inf_{\psi\in\mathcal{N}}\int|\chi_{A} - \psi|^{2}d\mu + \inf_{\psi\in\mathcal{N}}\int|\chi_{B} - \psi|^{2}d\mu \\
 & \leq \int|\chi_{A} - \chi_{A}\psi_{1}^{*}|^{2}d\mu + \int|\chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu \\
 & = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*}|^{2}d\mu + \int_{B}|\chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu \\
+& = \int_{A}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu + \int_{B}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu \\
 & = \int_{A\cup B}|\chi_{A} - \chi_{A}\psi_{1}^{*} + \chi_{B} - \chi_{B}\psi_{1}^{*}|^{2}d\mu \\
-& = \int|\chi_{A\cup B} - \chi_{A\cup B}\psi_{1}^{*}|^{2}d\mu \\
+& = \int|\chi_{A\cup B} - \chi_{A\cup B}\psi_{1}^{*}|^{2}d\mu  \\
 & \leq \int|\chi_{A\cup B} - \psi_{1}|^{2}d\mu \\
 \end{align*}
 Therefore $\mu_0(A) + \mu_(B) \leq \inf_{\psi\in\mathcal{N}}\int|\chi_{A\cup B} - \psi|^{2}d\mu = \mu_0(A\cup B)$.
@@ -157,7 +160,7 @@ must be bounded. Therefore $|\chi_{A_{n}} - \psi_{1}|^{2} \leq M$, for some $M >
 and $\lim_{n\rightarrow\infty}|\chi_{A_{n}} - \psi_{1}|^{2} = |\chi_{A} - \psi_{1}|^{2}$. But the constant funtion $g \equiv M$ is integrable with respect to $\mu$
 since $\mu$ is finite. Hence we can apply the DCT, and so
 \[ \liminf_{n\rightarrow\infty}\inf_{\psi\in\mathcal{N}}\int|\chi_{A_{N}} - \psi|^{2}d\mu \leq \liminf_{n\rightarrow\infty}\int|\chi_{A_{n}} -
-\psi_{1}|^{2}d\mu = \int|\chi_{A} - \psi_{1}|^{2}d\mu. \]
+\psi_{1}|^{2}d\mu \stackrel{\text{DCT}}{=} \int|\chi_{A} - \psi_{1}|^{2}d\mu. \]
 Now by taking the infimum over all $\psi \in \mathcal{N}$ on the right hand side of the above inequality, we get 
 \begin{equation}
 \liminf_{n\rightarrow\infty}\mu_0(A_{n}) \leq \mu_0(A).
@@ -178,7 +181,7 @@ $\lim_{n\rightarrow\infty}\mu_0(A_{n}) = \mu_0(A)$, where $A := \cup_{n=0}^{\inf
 \begin{subclaimproof}
 Suppose $\left\{ A_n \right\}_{n=0}^{\infty}$ is an ascending sequence of measurable sets. Then $A^{c} = \cap_{n=0}^{\infty}A_{n}^{c}$, where $\left\{
 A_{n}^{c} \right\}_{n=0}^{\infty}$ is a descending sequence of measurable sets. So by Subclaim 4.1, and Claim 3,
-\[ \lim_{n\rightarrow\infty}\mu_0(A_n) = \lim_{n\rightarrow\infty}\mu_0(X) - \mu_0(A_{n}^{c}) = \mu_0(X) - \lim_{n\rightarrow\infty}\mu_0(A_{n}^{c}) = 
+\[ \lim_{n\rightarrow\infty}\mu_0(A_n) = \lim_{n\rightarrow\infty}(\mu_0(X) - \mu_0(A_{n}^{c})) = \mu_0(X) - \lim_{n\rightarrow\infty}\mu_0(A_{n}^{c}) = 
 \mu_0(X) - \mu_0(A^{c}) = \mu_0(A). \]
 \end{subclaimproof}
 
