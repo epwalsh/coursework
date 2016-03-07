@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks
+
+\title{MATH 511: HW 4}
+\author{Evan P. Walsh}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\lhead{\runauthor}
+\chead{\runtitle}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{4}
+\begin{tcolorbox}
+Find the Laurent series for 
+\[ f(x) = \frac{1}{z(z-1)(z-2)} \]
+centered at $z = 0$ and converging in the annulus $\left\{ z : 1 \leq |z| < 2 \right\}$.
+\end{tcolorbox}
+We have 
+\begin{align*}
+f(z) = \frac{1}{z(1-z)(z-2)} = \frac{1}{z}\left[ \frac{1}{z - 2} - \frac{1}{z - 1} \right] & = \frac{1}{z}\left[ 
+\left( -\frac{1}{2}\right)\left( \frac{1}{1 - \frac{z}{2}} \right)  - \left( \frac{1}{z} \right)\left( \frac{1}{1 - \frac{1}{z}} \right) \right] \\
+& = -\frac{1}{2z}\sum_{n=0}^{\infty}\left( \frac{z}{2} \right)^{n} - \frac{1}{z^{2}}\sum_{n=0}^{\infty}\left( \frac{1}{z} \right)^{n} \\
+& = \sum_{n=0}^{\infty}\left( -\frac{1}{2} \right)\frac{z^{n-1}}{2^{n}} + \sum_{n=0}^{\infty}(-1)\frac{1}{z^{n+2}} \\
+& = \sum_{n=-\infty}^{-2}(-1)z^{n} + \sum_{n=-1}^{\infty}\left( -\frac{1}{4} \right)\left( \frac{z}{2} \right)^{n}.
+\end{align*}
+
+\newpage
+\subsection*{5}
+\begin{tcolorbox}
+Find the function $f(z)$ satisfying the following conditions:
+\begin{enumerate}[label=(\alph*)]
+\item $f$ has a pole of order 2 as $z = 0$ with residue 2, a simple pole at $z = 1$ with residue 2.
+\item $f$ is holomorphic on $\mathbb{C} \setminus \left\{ 0,1 \right\}$.
+\item There exists $R$ and $M > 0$ such that $|f(z)| < M$ for all $z$ with $|z| \geq R$.
+\item $f(2) = 5$, $f(-1) = 2$.
+\end{enumerate}
+\end{tcolorbox}
+Since $f$ has a pole of order 2 at 0 and a simple pole at 1, we can express $f$ as 
+\[ f(z) = \frac{1}{z^{2}(z-1)}g(z), \]
+where $g$ is holomorphic on $\mathbb{C}$. Then,
+\begin{align}
+2 = \text{Res}_{f}(0) = \frac{\partial }{\partial z}\left( z^{2}f(z) \right)\bigg|_{z=0} & = \frac{\partial }{\partial z}\left( \frac{g(z)}{z-1}
+\right)\bigg|_{z = 0} \nonumber \\
+& = \frac{(z-1)g'(z) - g(z)}{(z-1)^{2}}\bigg|_{z=0}\nonumber \\
+& = (-1)g'(0) - g(0) \nonumber \\
+\Rightarrow  \qquad g(0) & = -2 - g'(0), \text{ and }\label{5.1} 
+\end{align}
+\begin{equation}
+2 = \text{Res}_{f}(1) = \frac{1}{z^{2}}f(z)\bigg|_{z = 1} = g(1), \ \text{ i.e. } g(1) = 2.
+\label{5.2}
+\end{equation}
+Further, we must have $f(2) = \frac{1}{4}g(2) = 5$ and $f(-1) = -\frac{1}{2}g(-1) = 2$, implying 
+\begin{equation}
+g(2) = 20, \qquad g(-1) = -4.
+\label{5.3}
+\end{equation}
+Now, if there exists $M, R > 0$ such that $|f(z)| < M$ for all $z$ with $|z| \geq R$, then $|g(z)| < M|z^{2}(z-1)| \leq C_{1}|z|^{3}$ for some $C_{1} > 0$.
+We can assume that $R > 1$ since $f$ is unbounded at $z = 1$. Since $g$ is holomorphic on $\mathbb{C}$, there exists some $C_{2} > 0$ such that $|g| <
+C_{2}$ on $\left\{ z : |z| \leq R \right\}$. Let $C := \max\left\{ C_1, C_2 \right\}$. Then $|g(z)| < C < C|z|^{3}$ for all $z$ with $|z| > 1$. Hence,
+by Theorem 3.4.4, $g$ is a polynomial in $z$ with degree at most $3$. Therefore we can write 
+\[ g(z) = az^{3} - bz^{2} + cz + d, \]
+where $a,b,c,d \in \mathbb{C}$. By \eqref{5.1}, \eqref{5.2}, and \eqref{5.3}, we must have 
+\[
+\begin{bmatrix}
+0 & 0 & 1 & 1 \\
+1 & 1 & 1 & 1 \\
+-1 & 1 & -1 & 1 \\
+8 & 4 & 2 & 1 \\
+\end{bmatrix}\left( \begin{array}{c}
+a \\
+b \\ 
+c \\
+d \\
+\end{array} \right) = \left( \begin{array}{c}
+-2 \\
+2 \\
+-4 \\
+20 \\
+\end{array} \right)
+\]
+which implies $a = 1, b = 3, c = 2, d = -4$. Therefore 
+\[ f(z) = \frac{z^{3} + 3z^{2} + 2z - 4}{z^{2}(z-1)}. \]
+
+
+
+\end{document}
+
