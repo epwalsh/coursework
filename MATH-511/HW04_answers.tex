@@ -69,6 +69,51 @@ and $Q$. But since $f(z)$ and $CR(z)$ are holomorphic and equal except at a fini
 \setminus \left\{ P_1,\hdots, P_k \right\}$ by Corollary 3.6.3.
 \end{Proof}
 
+\newpage
+\subsection*{2}
+\begin{tcolorbox}
+Prove that $f(z) := z\cdot e^{\frac{1}{z}}\cdot e^{-\frac{1}{z^{2}}}$ has an essential singularity at $z = 0$.
+\end{tcolorbox}
+\begin{Proof}
+We will show that $f$ cannot have either a removable singularity or a pole at 0.
+
+\begin{claim}
+$f$ does not have a removable singularity at 0.
+\end{claim}
+\begin{claimproof}
+Let $z_n := \frac{i}{n\pi}$ for $n \geq 1$. Then 
+\[ |f(z_n)| = \frac{1}{n\pi}\left| e^{-in\pi}\right|e^{\pi^2n^2} = \frac{1}{n\pi}e^{n^{2}}\left| \cos(-n\pi) + i\sin(-n\pi)\right| =
+\frac{1}{n\pi}e^{n^{2}} \rightarrow +\infty \]
+as $n \rightarrow \infty$. So $f$ is unbounded near 0, and so 0 is not a removable singularity.
+\end{claimproof}
+
+\begin{claim}
+$f$ does not have a pole at 0.
+\end{claim}
+\begin{claimproof}
+Let $z_n := \frac{1}{n}$. Then $|f(z_n)| = \frac{1}{n}e^{n(1-n)} \rightarrow 0$ as $n \rightarrow \infty$.
+\end{claimproof}
+
+By claims 1 and 2, $f$ must have an essential singularity at 0.
+\end{Proof}
+
+\newpage
+\subsection*{3}
+\begin{tcolorbox}
+Let $P$ and $Q$ be two polynomials with no zeros in common and let $a$ be a zero of $Q$. Express the residue of $P(z) / Q(z)$ at $a$ in terms of
+$P^{(k)}(a)$ and $Q^{(k)}(a)$, $k = 0,1,2,\hdots$ if $Q$ has a zero of order 2 at $a$.
+\end{tcolorbox}
+Let $f(z) := P(z) / Q(z)$. By Proposition 4.5.6,
+\begin{align*}
+\text{Res}_{f}(a) = \frac{\partial}{\partial z}\left( (z-a)^{2}f(z) \right)\bigg|_{z = a} & = \lim_{z\rightarrow a}\frac{\partial }{\partial z}\left(
+\frac{P(z)}{\frac{Q(z)}{(z-a)^{2}}} \right) \\
+& = \lim_{z\rightarrow a}\frac{ \frac{Q(z)}{(z-a)^2}P'(z) - P(z)\left( \frac{ (z-a)^2Q'(z) - 2(z-a)Q(z)}{(z-a)^4} \right)}{\left( 
+\frac{Q(z)}{(z-a)^2} \right)^4} \\
+& = \lim_{z\rightarrow a}\left[ \frac{(z-a)^2}{Q(z)}P'(z) - P(z)\left( \frac{(z-a)^2Q'(z) - 2(z-a)Q(z)}{[Q(z)]^2} \right) \right] \\
+& = \lim_{z\rightarrow a}\frac{(z-a)^2Q(z)P'(z) - (z-a)^2Q'(z)P(z) + 2(z-a)Q(z)P(z)}{[Q(z)]^2}
+\end{align*}
+
+
 
 \newpage
 \subsection*{4}
@@ -133,7 +178,7 @@ a \\
 b \\ 
 c \\
 d \\
-\end{array} \right) = \left( \begin{array}{c}
+\end{array} \right) = \left( \begin{array}{r}
 -2 \\
 2 \\
 -4 \\
