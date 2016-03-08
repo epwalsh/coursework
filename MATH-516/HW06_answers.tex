@@ -159,16 +159,16 @@ Suppose $\left\{ A_{n} \right\}_{n=0}^{\infty}$ is a descending sequence of meas
 must be bounded. Therefore $|\chi_{A_{n}} - \psi_{1}|^{2} \leq M$, for some $M > 0$, 
 and $\lim_{n\rightarrow\infty}|\chi_{A_{n}} - \psi_{1}|^{2} = |\chi_{A} - \psi_{1}|^{2}$. But the constant funtion $g \equiv M$ is integrable with respect to $\mu$
 since $\mu$ is finite. Hence we can apply the DCT, and so
-\[ \liminf_{n\rightarrow\infty}\inf_{\psi\in\mathcal{N}}\int|\chi_{A_{N}} - \psi|^{2}d\mu \leq \liminf_{n\rightarrow\infty}\int|\chi_{A_{n}} -
+\[ \limsup_{n\rightarrow\infty}\inf_{\psi\in\mathcal{N}}\int|\chi_{A_{N}} - \psi|^{2}d\mu \leq \limsup_{n\rightarrow\infty}\int|\chi_{A_{n}} -
 \psi_{1}|^{2}d\mu \stackrel{\text{DCT}}{=} \int|\chi_{A} - \psi_{1}|^{2}d\mu. \]
 Now by taking the infimum over all $\psi \in \mathcal{N}$ on the right hand side of the above inequality, we get 
 \begin{equation}
-\liminf_{n\rightarrow\infty}\mu_0(A_{n}) \leq \mu_0(A).
+\limsup_{n\rightarrow\infty}\mu_0(A_{n}) \leq \mu_0(A).
 \label{4.1}
 \end{equation}
 On the other hand, $\mu_0(A_n) = \mu_0(A) + \mu_0(A_n - A) \geq \mu_0(A)$ for all $n \in \mathbb{N}$ by Claim 3. Therefore 
 \begin{equation}
-\limsup_{n\rightarrow\infty}\mu_0(A_{n}) \geq \mu_0(A).
+\liminf_{n\rightarrow\infty}\mu_0(A_{n}) \geq \mu_0(A).
 \label{4.2}
 \end{equation}
 So by \eqref{4.1} and \eqref{4.2}, we are done.

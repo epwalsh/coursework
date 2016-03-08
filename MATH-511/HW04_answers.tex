@@ -48,6 +48,29 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{document}
 \maketitle
 
+\subsection*{1}
+\begin{tcolorbox}
+Let $R(z) := \frac{P(z)}{Q(z)}$, where $P$ and $Q$ are two polynomials with no zeros in common. Let $P_1, \hdots, P_k$ be the zeros of $Q$. Suppose
+$f$ is holomorphic on $\mathbb{C} \setminus \left\{ P_1, \hdots, P_k \right\}$ such that $|f(z)| \leq |R(z)|$ for all $z \in \mathbb{C} \setminus
+\left\{ P_1,\hdots, P_k \right\}$. Prove that $f(z) = CR(z)$ for some constant $C$.
+\end{tcolorbox}
+\begin{Proof}
+Let $z_0 \in \mathbb{C}$. If $z_0$ is not a zero of $P$ or $Q$, then $|f(z_0)| / |R(z_0)| \leq 1$. If $z_0$ is a zero of $P$ or $Q$, 
+then there exists some $r_0 > 0$ such that $D(z_0,r_0)$ does not contain any other zeros of $P$ or $Q$ besides $z_0$. Therefore $f(z) / R(z)$ is
+holomorphic and $|f(z)| / |R(z)| \leq 1$ for all $z$ in $D(z_0, r) \setminus \{z_0\}$. By the Riemann removable singularities theorem, we can extend
+$f(z) / R(z)$ to function $g_0$ that is holomorphic on $D(z_0, r_0)$ and defined by 
+\[ g_0(z) := \left\{ \begin{array}{cl}
+f(z) / R(z) & \text{ if } z \neq z_0 \\
+\lim_{\zeta\rightarrow z_0} f(z) / R(z) \leq 1 & \text{ if } z = z_0. 
+\end{array} \right. \]
+Since this can be done at every zero of $P$ and $Q$, we can construct an entire function $g$ that is equal to $f / R$ except at the zeros of $P$ and
+$Q$. By since $g$ is entire and bounded above by 1, $g(z) \equiv C$ for some constant $C$. Therefore $f(z) \equiv CR(z)$ except at the zeros of $P$
+and $Q$. But since $f(z)$ and $CR(z)$ are holomorphic and equal except at a finite number of isolated points, $f(z) \equiv CR(z)$ for all $z \in \mathbb{C}
+\setminus \left\{ P_1,\hdots, P_k \right\}$ by Corollary 3.6.3.
+\end{Proof}
+
+
+\newpage
 \subsection*{4}
 \begin{tcolorbox}
 Find the Laurent series for 
