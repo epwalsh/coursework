@@ -81,7 +81,7 @@ We will show that $f$ cannot have either a removable singularity or a pole at 0.
 $f$ does not have a removable singularity at 0.
 \end{claim}
 \begin{claimproof}
-Let $z_n := \frac{i}{n\pi}$ for $n \geq 1$. Then 
+Let $z_n := \frac{i}{n\pi}$ for $n \geq 1$. Then $z_n \rightarrow 0$ and 
 \[ |f(z_n)| = \frac{1}{n\pi}\left| e^{-in\pi}\right|e^{\pi^2n^2} = \frac{1}{n\pi}e^{n^{2}}\left| \cos(-n\pi) + i\sin(-n\pi)\right| =
 \frac{1}{n\pi}e^{n^{2}} \rightarrow +\infty \]
 as $n \rightarrow \infty$. So $f$ is unbounded near 0, and so 0 is not a removable singularity.
@@ -91,7 +91,8 @@ as $n \rightarrow \infty$. So $f$ is unbounded near 0, and so 0 is not a removab
 $f$ does not have a pole at 0.
 \end{claim}
 \begin{claimproof}
-Let $z_n := \frac{1}{n}$. Then $|f(z_n)| = \frac{1}{n}e^{n(1-n)} \rightarrow 0$ as $n \rightarrow \infty$.
+Let $z_n := \frac{1}{n}$, $n\geq 1$. Then $z_n \rightarrow 0$ and $|f(z_n)| = \frac{1}{n}e^{n(1-n)} \rightarrow 0$ as $n \rightarrow \infty$. Therefore $f$ can
+not have a pole at 0.
 \end{claimproof}
 
 By claims 1 and 2, $f$ must have an essential singularity at 0.
@@ -187,6 +188,43 @@ d \\
 \]
 which implies $a = 1, b = 3, c = 2, d = -4$. Therefore 
 \[ f(z) = \frac{z^{3} + 3z^{2} + 2z - 4}{z^{2}(z-1)}. \]
+
+
+
+
+\newpage 
+\subsection*{8}
+\begin{tcolorbox}
+Let $a > 0$. Compute the value of the integral 
+\[ \int_{0}^{\infty}\frac{x\sin(x)}{x^2 + a^2}dx. \]
+\end{tcolorbox}
+Let $f(z) := \frac{ze^{iz}}{z^{2} + a^{2}}$. Then $f$ has a pole at $\pm ia$. For $r > a$, define $\gamma_{r}^{1}(t) := t$, $-r \leq t \leq r$, and
+$\gamma_{r}^{2}(t) := re^{it}$, $0 \leq t \leq \pi$. Then $\gamma := \gamma_{r}^{1} \cup \gamma_{r}^{2}$ is the semicircle centered at 0 with radius
+$r$ on the top half of the plane. Therefore $f$ has only one (simple) pole at $ia$ within $\gamma$, and so 
+\begin{equation}
+\oint_{\gamma}f(z)dz = 2\pi i \text{Res}_{f}(ia)\cdot 1 = 2\pi i \frac{ze^{iz}}{(z + ia)}\bigg|_{z=ia} = 2\pi i\frac{ia e^{-a}}{2ia} = \pi i
+e^{-a}. 
+\label{8.0}
+\end{equation}
+Further,
+\begin{equation}
+\oint_{\gamma_{r}^{1}}f(z)dz = \int_{-r}^{r}\frac{x\cos(x)}{x^{2} + a^{2}}dx + i \int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx =
+i\int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx. 
+\label{8.1}
+\end{equation}
+On the other hand, for $0 \leq t \leq \pi$,
+\[ |f(z)| = \left|\frac{re^{it}e^{ir(\cos(t) + i\sin(t))}}{(re^{it})^{2} + a^{2}}\right| \leq \frac{re^{-r\sin(t)}}{r^{2} + a^{2}} \leq \frac{r}{r^{2}
++ a^{2}}. \]
+Therefore 
+\begin{equation}
+\left| \oint_{\gamma_{r}^{2}}f(z)dz \right| \leq \pi r\left( \frac{r}{r^{2} + a^{2}} \right) \rightarrow 0 \ \ \text{ as } r\rightarrow \infty.
+\label{8.2}
+\end{equation}
+By \eqref{8.0}, \eqref{8.1}, and \eqref{8.2},
+\[ \int_{0}^{\infty}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \lim_{r\rightarrow\infty}\frac{1}{2}\int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \frac{\pi
+e^{-a}}{2}. \]
+
+
 
 
 
