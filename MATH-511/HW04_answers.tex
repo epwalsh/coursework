@@ -190,7 +190,39 @@ which implies $a = 1, b = 3, c = 2, d = -4$. Therefore
 \[ f(z) = \frac{z^{3} + 3z^{2} + 2z - 4}{z^{2}(z-1)}. \]
 
 
+\newpage 
+\subsection*{6}
+\begin{tcolorbox}
+Let $f(z)$ be meromorphic on $\mathbb{C}$. Assume that $f(z) = f(z + 2i) = f(z + (1-3i))$ for all $z$ where $f(z)$, $f(z + 2i)$, and $f(z + (1-3i)$
+are defined. Let $\mathcal{P}$ be the parallelogram with vertices $0, 2i, 1- i$, and $1 - 3i$, and assume that $f$ has no poles on $\mathcal{P}$. Let
+$\zeta_{1}, \zeta_{2}, \hdots, \zeta_{n}$ be the poles of $f$ inside $\mathcal{P}$. Prove that 
+\[ \sum_{k=1}^{n}\text{Res}_{f}(\zeta_{k}) = 0. \]
+\end{tcolorbox}
+\begin{Proof}
+We parameterize $\mathcal{P}$ in the following way. Let 
+\[ 
+\begin{array}{ll}
+\gamma_{1}(t) := 2i - ti, \ \  0 \leq t \leq 2, & \gamma_{2}(t) := (1-3i), \ \ 0 \leq t \leq 1, \\
+\gamma_{3}(t) := 1 - 3i + ti, \ \ 0 \leq t \leq 2, & \gamma_{4}(t) := 1 - i + t(-1 + 3i), \ \ 0 \leq t \leq 1.
+\end{array}
+\]
+Let $\gamma = \cup_{i=1}^{4}\gamma_{i}$. By assumption,
+\begin{align}
+\oint_{\gamma_{1}}f(z)dz = \int_{0}^{2}f(2i - ti)(-i)dt = \int_{0}^{2}f(2 - ti + 1 - 3i)(-i)dt & = \int_{0}^{2}f(1 - i -ti)(-i)dt \nonumber \\
+& = -\oint_{\gamma_{3}}f(z)dz, \label{6.1} \\
+\oint_{\gamma_{2}}f(z)dz = \int_{0}^{1}f(t(1-3i))(1-3i)dt = \int_{0}^{1}f(t - 3it + 2i)(1 - 3i)dt & = -\oint_{\gamma_{4}}f(z)dz. \label{6.2}
+\end{align}
+Now note that $\text{Ind}_{\gamma}(\zeta_{k}) = 1$ for all $1 \leq k \leq n$. Hence,
+by \eqref{6.1}, \eqref{6.2}, and the residue theorem,
+\[ \sum_{k=1}^{n}\text{Res}_{f}(\zeta_{k})  = \frac{1}{2\pi i}\oint_{\gamma}f(z)dz = \frac{1}{2\pi i}\sum_{i=1}^{4}\oint_{\gamma_{i}}f(z)dz = 0. \]
+\end{Proof}
 
+\newpage 
+\subsection*{7}
+\begin{tcolorbox}
+Evaluate the integral 
+\[ \int_{0}^{\pi/2}\frac{dx}{9 + 7\sin^{2}(x)}. \]
+\end{tcolorbox}
 
 \newpage 
 \subsection*{8}
@@ -202,7 +234,7 @@ Let $f(z) := \frac{ze^{iz}}{z^{2} + a^{2}}$. Then $f$ has a pole at $\pm ia$. Fo
 $\gamma_{r}^{2}(t) := re^{it}$, $0 \leq t \leq \pi$. Then $\gamma := \gamma_{r}^{1} \cup \gamma_{r}^{2}$ is the semicircle centered at 0 with radius
 $r$ on the top half of the plane. Therefore $f$ has only one (simple) pole at $ia$ within $\gamma$, and so 
 \begin{equation}
-\oint_{\gamma}f(z)dz = 2\pi i \text{Res}_{f}(ia)\cdot 1 = 2\pi i \frac{ze^{iz}}{(z + ia)}\bigg|_{z=ia} = 2\pi i\frac{ia e^{-a}}{2ia} = \pi i
+\oint_{\gamma}f(z)dz = 2\pi i \cdot \text{Res}_{f}(ia)\cdot 1 = 2\pi i \frac{ze^{iz}}{(z + ia)}\bigg|_{z=ia} = 2\pi i\frac{ia e^{-a}}{2ia} = \pi i
 e^{-a}. 
 \label{8.0}
 \end{equation}
@@ -223,6 +255,22 @@ Therefore
 By \eqref{8.0}, \eqref{8.1}, and \eqref{8.2},
 \[ \int_{0}^{\infty}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \lim_{r\rightarrow\infty}\frac{1}{2}\int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \frac{\pi
 e^{-a}}{2}. \]
+
+\newpage 
+\subsection*{9}
+\begin{tcolorbox}
+Evaluate the integral 
+\[ \int_{0}^{\infty}\frac{x^{1/2}}{1 + x^{4}}dx. \]
+\end{tcolorbox}
+
+
+
+\newpage 
+\subsection*{10}
+\begin{tcolorbox}
+Evaluate 
+\[ \sum_{j=-\infty}^{\infty}\frac{1}{j^{3} + 2}. \]
+\end{tcolorbox}
 
 
 
