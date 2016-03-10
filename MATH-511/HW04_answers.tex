@@ -223,6 +223,21 @@ by \eqref{6.1}, \eqref{6.2}, and the residue theorem,
 Evaluate the integral 
 \[ \int_{0}^{\pi/2}\frac{dx}{9 + 7\sin^{2}(x)}. \]
 \end{tcolorbox}
+Note that $\sin^2(t) = \frac{1 - \cos(2t)}{2}$, and 
+\[ \cos(t) = \frac{e^{it} - e^{-it}}{2} = \frac{z - z^{-1}}{2} \]
+for $z = e^{it}$, $0 \leq t \leq 2\pi$. Thus,
+\begin{align*}
+\int_{0}^{\pi/2}\frac{dt}{9 + 7\sin^2(t)} = \int_{0}^{\pi/2}\frac{2dt}{25 - 7\cos(2t)} = \int_{0}^{\pi}\frac{dt}{25 - 7\cos(t)} & =
+\frac{1}{2}\int_{0}^{2\pi}\frac{dt}{25 - 7\cos(t)} \\
+& = \frac{1}{2}\int_{0}^{2\pi}\frac{dt}{25 - 7\left( \frac{e^{it} - e^{-it}}{2} \right)} \\
+& = \frac{1}{2}\oint_{|z| = 1}\frac{dz}{iz\left[ 25 - 7\left( \frac{z + z^{-1}}{2} \right) \right]} \\
+& = \frac{1}{2}\oint_{|z| = 1}\frac{dz}{-\frac{i}{2}(7z^2 - 50z + 7)} \\
+& = \oint_{|z| = 1}\frac{idz}{7(z - 7)(z - \frac{1}{7})} \\
+\text{by the residue theorem } \qquad & = 2\pi i \left( \frac{i}{7(z - 7)} \right)\bigg|_{z = 1/7} = \frac{\pi}{24}.
+\end{align*}
+
+
+
 
 \newpage 
 \subsection*{8}
