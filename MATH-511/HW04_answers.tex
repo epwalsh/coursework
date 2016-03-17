@@ -55,13 +55,13 @@ $f$ is holomorphic on $\mathbb{C} \setminus \left\{ P_1, \hdots, P_k \right\}$ s
 \left\{ P_1,\hdots, P_k \right\}$. Prove that $f(z) = CR(z)$ for some constant $C$.
 \end{tcolorbox}
 \begin{Proof}
-Let $z_0 \in \mathbb{C}$. If $z_0$ is not a zero of $P$ or $Q$, then $|f(z_0)| / |R(z_0)| \leq 1$. If $z_0$ is a zero of $P$ or $Q$, 
+Let $z_0 \in \mathbb{C}$. If $z_0$ is not a zero of $P$ or $Q$, then $|f(z_0)| / |R(z_0)| \leq 1$. If $z_0$ is a zero of $P$ or $Q$,
 then there exists some $r_0 > 0$ such that $D(z_0,r_0)$ does not contain any other zeros of $P$ or $Q$ besides $z_0$. Therefore $f(z) / R(z)$ is
 holomorphic and $|f(z)| / |R(z)| \leq 1$ for all $z$ in $D(z_0, r) \setminus \{z_0\}$. By the Riemann removable singularities theorem, we can extend
-$f(z) / R(z)$ to function $g_0$ that is holomorphic on $D(z_0, r_0)$ and defined by 
+$f(z) / R(z)$ to function $g_0$ that is holomorphic on $D(z_0, r_0)$ and defined by
 \[ g_0(z) := \left\{ \begin{array}{cl}
 f(z) / R(z) & \text{ if } z \neq z_0 \\
-\lim_{\zeta\rightarrow z_0} f(z) / R(z) \leq 1 & \text{ if } z = z_0. 
+\lim_{\zeta\rightarrow z_0} f(z) / R(z) \leq 1 & \text{ if } z = z_0.
 \end{array} \right. \]
 Since this can be done at every zero of $P$ and $Q$, we can construct an entire function $g$ that is equal to $f / R$ except at the zeros of $P$ and
 $Q$. By since $g$ is entire and bounded above by 1, $g(z) \equiv C$ for some constant $C$. Therefore $f(z) \equiv CR(z)$ except at the zeros of $P$
@@ -81,7 +81,7 @@ We will show that $f$ cannot have either a removable singularity or a pole at 0.
 $f$ does not have a removable singularity at 0.
 \end{claim}
 \begin{claimproof}
-Let $z_n := \frac{i}{n\pi}$ for $n \geq 1$. Then $z_n \rightarrow 0$ and 
+Let $z_n := \frac{i}{n\pi}$ for $n \geq 1$. Then $z_n \rightarrow 0$ and
 \[ |f(z_n)| = \frac{1}{n\pi}\left| e^{-in\pi}\right|e^{\pi^2n^2} = \frac{1}{n\pi}e^{n^{2}}\left| \cos(-n\pi) + i\sin(-n\pi)\right| =
 \frac{1}{n\pi}e^{n^{2}} \rightarrow +\infty \]
 as $n \rightarrow \infty$. So $f$ is unbounded near 0, and so 0 is not a removable singularity.
@@ -108,7 +108,7 @@ Let $f(z) := P(z) / Q(z)$. By Proposition 4.5.6,
 \begin{align*}
 \text{Res}_{f}(a) = \frac{\partial}{\partial z}\left( (z-a)^{2}f(z) \right)\bigg|_{z = a} & = \lim_{z\rightarrow a}\frac{\partial }{\partial z}\left(
 \frac{P(z)}{\frac{Q(z)}{(z-a)^{2}}} \right) \\
-& = \lim_{z\rightarrow a}\frac{ \frac{Q(z)}{(z-a)^2}P'(z) - P(z)\left( \frac{ (z-a)^2Q'(z) - 2(z-a)Q(z)}{(z-a)^4} \right)}{\left( 
+& = \lim_{z\rightarrow a}\frac{ \frac{Q(z)}{(z-a)^2}P'(z) - P(z)\left( \frac{ (z-a)^2Q'(z) - 2(z-a)Q(z)}{(z-a)^4} \right)}{\left(
 \frac{Q(z)}{(z-a)^2} \right)^4} \\
 & = \lim_{z\rightarrow a}\left[ \frac{(z-a)^2}{Q(z)}P'(z) - P(z)\left( \frac{(z-a)^2Q'(z) - 2(z-a)Q(z)}{[Q(z)]^2} \right) \right] \\
 & = \lim_{z\rightarrow a}\frac{(z-a)^2Q(z)P'(z) - (z-a)^2Q'(z)P(z) + 2(z-a)Q(z)P(z)}{[Q(z)]^2}
@@ -119,13 +119,13 @@ Let $f(z) := P(z) / Q(z)$. By Proposition 4.5.6,
 \newpage
 \subsection*{4}
 \begin{tcolorbox}
-Find the Laurent series for 
+Find the Laurent series for
 \[ f(x) = \frac{1}{z(z-1)(z-2)} \]
 centered at $z = 0$ and converging in the annulus $\left\{ z : 1 \leq |z| < 2 \right\}$.
 \end{tcolorbox}
-We have 
+We have
 \begin{align*}
-f(z) = \frac{1}{z(1-z)(z-2)} = \frac{1}{z}\left[ \frac{1}{z - 2} - \frac{1}{z - 1} \right] & = \frac{1}{z}\left[ 
+f(z) = \frac{1}{z(1-z)(z-2)} = \frac{1}{z}\left[ \frac{1}{z - 2} - \frac{1}{z - 1} \right] & = \frac{1}{z}\left[
 \left( -\frac{1}{2}\right)\left( \frac{1}{1 - \frac{z}{2}} \right)  - \left( \frac{1}{z} \right)\left( \frac{1}{1 - \frac{1}{z}} \right) \right] \\
 & = -\frac{1}{2z}\sum_{n=0}^{\infty}\left( \frac{z}{2} \right)^{n} - \frac{1}{z^{2}}\sum_{n=0}^{\infty}\left( \frac{1}{z} \right)^{n} \\
 & = \sum_{n=0}^{\infty}\left( -\frac{1}{2} \right)\frac{z^{n-1}}{2^{n}} + \sum_{n=0}^{\infty}(-1)\frac{1}{z^{n+2}} \\
@@ -143,7 +143,7 @@ Find the function $f(z)$ satisfying the following conditions:
 \item $f(2) = 5$, $f(-1) = 2$.
 \end{enumerate}
 \end{tcolorbox}
-Since $f$ has a pole of order 2 at 0 and a simple pole at 1, we can express $f$ as 
+Since $f$ has a pole of order 2 at 0 and a simple pole at 1, we can express $f$ as
 \[ f(z) = \frac{1}{z^{2}(z-1)}g(z), \]
 where $g$ is holomorphic on $\mathbb{C}$. Then,
 \begin{align}
@@ -151,13 +151,13 @@ where $g$ is holomorphic on $\mathbb{C}$. Then,
 \right)\bigg|_{z = 0} \nonumber \\
 & = \frac{(z-1)g'(z) - g(z)}{(z-1)^{2}}\bigg|_{z=0}\nonumber \\
 & = (-1)g'(0) - g(0) \nonumber \\
-\Rightarrow  \qquad g(0) & = -2 - g'(0), \text{ and }\label{5.1} 
+\Rightarrow  \qquad g(0) & = -2 - g'(0), \text{ and }\label{5.1}
 \end{align}
 \begin{equation}
 2 = \text{Res}_{f}(1) = \frac{1}{z^{2}}f(z)\bigg|_{z = 1} = g(1), \ \text{ i.e. } g(1) = 2.
 \label{5.2}
 \end{equation}
-Further, we must have $f(2) = \frac{1}{4}g(2) = 5$ and $f(-1) = -\frac{1}{2}g(-1) = 2$, implying 
+Further, we must have $f(2) = \frac{1}{4}g(2) = 5$ and $f(-1) = -\frac{1}{2}g(-1) = 2$, implying
 \begin{equation}
 g(2) = 20, \qquad g(-1) = -4.
 \label{5.3}
@@ -165,9 +165,9 @@ g(2) = 20, \qquad g(-1) = -4.
 Now, if there exists $M, R > 0$ such that $|f(z)| < M$ for all $z$ with $|z| \geq R$, then $|g(z)| < M|z^{2}(z-1)| \leq C_{1}|z|^{3}$ for some $C_{1} > 0$.
 We can assume that $R > 1$ since $f$ is unbounded at $z = 1$. Since $g$ is holomorphic on $\mathbb{C}$, there exists some $C_{2} > 0$ such that $|g| <
 C_{2}$ on $\left\{ z : |z| \leq R \right\}$. Let $C := \max\left\{ C_1, C_2 \right\}$. Then $|g(z)| < C < C|z|^{3}$ for all $z$ with $|z| > 1$. Hence,
-by Theorem 3.4.4, $g$ is a polynomial in $z$ with degree at most $3$. Therefore we can write 
+by Theorem 3.4.4, $g$ is a polynomial in $z$ with degree at most $3$. Therefore we can write
 \[ g(z) = az^{3} - bz^{2} + cz + d, \]
-where $a,b,c,d \in \mathbb{C}$. By \eqref{5.1}, \eqref{5.2}, and \eqref{5.3}, we must have 
+where $a,b,c,d \in \mathbb{C}$. By \eqref{5.1}, \eqref{5.2}, and \eqref{5.3}, we must have
 \[
 \begin{bmatrix}
 0 & 0 & 1 & 1 \\
@@ -176,7 +176,7 @@ where $a,b,c,d \in \mathbb{C}$. By \eqref{5.1}, \eqref{5.2}, and \eqref{5.3}, we
 8 & 4 & 2 & 1 \\
 \end{bmatrix}\left( \begin{array}{c}
 a \\
-b \\ 
+b \\
 c \\
 d \\
 \end{array} \right) = \left( \begin{array}{r}
@@ -186,21 +186,21 @@ d \\
 20 \\
 \end{array} \right)
 \]
-which implies $a = 1, b = 3, c = 2, d = -4$. Therefore 
+which implies $a = 1, b = 3, c = 2, d = -4$. Therefore
 \[ f(z) = \frac{z^{3} + 3z^{2} + 2z - 4}{z^{2}(z-1)}. \]
 
 
-\newpage 
+\newpage
 \subsection*{6}
 \begin{tcolorbox}
 Let $f(z)$ be meromorphic on $\mathbb{C}$. Assume that $f(z) = f(z + 2i) = f(z + (1-3i))$ for all $z$ where $f(z)$, $f(z + 2i)$, and $f(z + (1-3i)$
 are defined. Let $\mathcal{P}$ be the parallelogram with vertices $0, 2i, 1- i$, and $1 - 3i$, and assume that $f$ has no poles on $\mathcal{P}$. Let
-$\zeta_{1}, \zeta_{2}, \hdots, \zeta_{n}$ be the poles of $f$ inside $\mathcal{P}$. Prove that 
+$\zeta_{1}, \zeta_{2}, \hdots, \zeta_{n}$ be the poles of $f$ inside $\mathcal{P}$. Prove that
 \[ \sum_{k=1}^{n}\text{Res}_{f}(\zeta_{k}) = 0. \]
 \end{tcolorbox}
 \begin{Proof}
-We parameterize $\mathcal{P}$ in the following way. Let 
-\[ 
+We parameterize $\mathcal{P}$ in the following way. Let
+\[
 \begin{array}{ll}
 \gamma_{1}(t) := 2i - ti, \ \  0 \leq t \leq 2, & \gamma_{2}(t) := (1-3i), \ \ 0 \leq t \leq 1, \\
 \gamma_{3}(t) := 1 - 3i + ti, \ \ 0 \leq t \leq 2, & \gamma_{4}(t) := 1 - i + t(-1 + 3i), \ \ 0 \leq t \leq 1.
@@ -217,13 +217,13 @@ by \eqref{6.1}, \eqref{6.2}, and the residue theorem,
 \[ \sum_{k=1}^{n}\text{Res}_{f}(\zeta_{k})  = \frac{1}{2\pi i}\oint_{\gamma}f(z)dz = \frac{1}{2\pi i}\sum_{i=1}^{4}\oint_{\gamma_{i}}f(z)dz = 0. \]
 \end{Proof}
 
-\newpage 
+\newpage
 \subsection*{7}
 \begin{tcolorbox}
-Evaluate the integral 
+Evaluate the integral
 \[ \int_{0}^{\pi/2}\frac{dx}{9 + 7\sin^{2}(x)}. \]
 \end{tcolorbox}
-Note that $\sin^2(t) = \frac{1 - \cos(2t)}{2}$, and 
+Note that $\sin^2(t) = \frac{1 - \cos(2t)}{2}$, and
 \[ \cos(t) = \frac{e^{it} - e^{-it}}{2} = \frac{z - z^{-1}}{2} \]
 for $z = e^{it}$, $0 \leq t \leq 2\pi$. Thus,
 \begin{align*}
@@ -239,30 +239,30 @@ for $z = e^{it}$, $0 \leq t \leq 2\pi$. Thus,
 
 
 
-\newpage 
+\newpage
 \subsection*{8}
 \begin{tcolorbox}
-Let $a > 0$. Compute the value of the integral 
+Let $a > 0$. Compute the value of the integral
 \[ \int_{0}^{\infty}\frac{x\sin(x)}{x^2 + a^2}dx. \]
 \end{tcolorbox}
 Let $f(z) := \frac{ze^{iz}}{z^{2} + a^{2}}$. Then $f$ has a pole at $\pm ia$. For $r > a$, define $\gamma_{r}^{1}(t) := t$, $-r \leq t \leq r$, and
 $\gamma_{r}^{2}(t) := re^{it}$, $0 \leq t \leq \pi$. Then $\gamma := \gamma_{r}^{1} \cup \gamma_{r}^{2}$ is the semicircle centered at 0 with radius
-$r$ on the top half of the plane. Therefore $f$ has only one (simple) pole at $ia$ within $\gamma$, and so 
+$r$ on the top half of the plane. Therefore $f$ has only one (simple) pole at $ia$ within $\gamma$, and so
 \begin{equation}
 \oint_{\gamma}f(z)dz = 2\pi i \cdot \text{Res}_{f}(ia)\cdot 1 = 2\pi i \frac{ze^{iz}}{(z + ia)}\bigg|_{z=ia} = 2\pi i\frac{ia e^{-a}}{2ia} = \pi i
-e^{-a}. 
+e^{-a}.
 \label{8.0}
 \end{equation}
 Further,
 \begin{equation}
 \oint_{\gamma_{r}^{1}}f(z)dz = \int_{-r}^{r}\frac{x\cos(x)}{x^{2} + a^{2}}dx + i \int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx =
-i\int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx. 
+i\int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx.
 \label{8.1}
 \end{equation}
 On the other hand, for $0 \leq t \leq \pi$,
 \[ |f(z)| = \left|\frac{re^{it}e^{ir(\cos(t) + i\sin(t))}}{(re^{it})^{2} + a^{2}}\right| \leq \frac{re^{-r\sin(t)}}{r^{2} + a^{2}} \leq \frac{r}{r^{2}
 + a^{2}}. \]
-Therefore 
+Therefore
 \begin{equation}
 \left| \oint_{\gamma_{r}^{2}}f(z)dz \right| \leq \pi r\left( \frac{r}{r^{2} + a^{2}} \right) \rightarrow 0 \ \ \text{ as } r\rightarrow \infty.
 \label{8.2}
@@ -271,22 +271,56 @@ By \eqref{8.0}, \eqref{8.1}, and \eqref{8.2},
 \[ \int_{0}^{\infty}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \lim_{r\rightarrow\infty}\frac{1}{2}\int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \frac{\pi
 e^{-a}}{2}. \]
 
-\newpage 
+\newpage
 \subsection*{9}
 \begin{tcolorbox}
-Evaluate the integral 
+Evaluate the integral
 \[ \int_{0}^{\infty}\frac{x^{1/2}}{1 + x^{4}}dx. \]
 \end{tcolorbox}
 
 
 
-\newpage 
+\newpage
 \subsection*{10}
 \begin{tcolorbox}
-Evaluate 
+Evaluate
 \[ \sum_{j=-\infty}^{\infty}\frac{1}{j^{3} + 2}. \]
 \end{tcolorbox}
-
+Let
+\[ f(z) := \frac{\cot(z)}{\left( \frac{z}{\pi} \right)^{3} + 2}. \]
+Note that $f$ has poles of order 1 at $\left\{ j\pi : j \in \mathbb{Z} \right\}\cup \left\{ P_{i} : i \in \left\{ 1,2,3 \right\} \right\}$,
+where $P_{1} := 2^{1/3}\pi e^{i\pi/3}, P_{2} := -2^{1/3}\pi$, and $P_{3} := 2^{1/3}\pi e^{i5\pi /3}$.
+At $j\pi$, $j \in \mathbb{Z}$,
+\begin{align*}
+\text{Res}_{f}(j\pi) = \lim_{z \rightarrow j\pi}(z - j\pi)\frac{1}{\left( \frac{z}{\pi} \right)^{3} + 2}\cdot \frac{\cos(z)}{\sin(z)} & =
+\lim_{z\rightarrow j\pi} \frac{\cos(z)}{\left( \frac{z}{\pi} \right)^{3} + 2}\cdot \frac{1}{\left( \frac{\sin(z) + \sin(j\pi)}{z - j\pi} \right)} \\
+& = \frac{\cos(j\pi)}{j^{3} + 2}\cdot \frac{1}{\cos(j\pi)} \\
+& = \frac{1}{j^{3} + 2}.
+\end{align*}
+Let
+\[ M := \sum_{i=1}^{3}\text{Res}_{f}(P_{i}) = \sum_{i=1}^{3}\left( \lim_{z \rightarrow P_{i}} (z - P_{i})\frac{\cot(z)}{\left( \frac{z}{\pi}
+\right)^{3} + 2}\right). \]
+Let $\gamma_n$ be the contour consisting of a counterclockwise square with corners at $\left\{ (\pm z \pm i)(n+1/2)\pi \right\}$ for $n \geq 2$. For
+each $n$, let
+$\gamma_{n}^{(1)}$ be the vertical segment on the left, $\gamma_{n}^{(2)}$ be the horizontal segment on the bottom, $\gamma_{n}^{(3)}$ be the vertical
+segment on the right, and $\gamma_{n}^{(4)}$ be the horizontal segment on the top.
+We claim that 
+\begin{equation}
+\sum_{j=-\infty}^{\infty}\frac{1}{j^{3} + 2} = - M.
+\label{10.1}
+\end{equation}
+Indeed, since 
+\[ \frac{1}{2\pi i}\oint_{\gamma_n}f(z)dz = \sum_{j=-n}^{n}\text{Res}_{f}(j\pi) + \sum_{i=1}^{3}\text{Res}_{f}(P_{i}) = \sum_{j=-n}^{n}\frac{1}{j^{3}
++ 2} + M, \]
+it remains to show that $\lim_{n\rightarrow \infty}\oint_{\gamma_{n}}f(z)dz = 0$ in order to verify \eqref{10.1}. Well, in clas we proved that along
+$\gamma_{n}^{(1)}$ and $\gamma_{n}^{(3)}$, $|\cot(z)| < 1$, and along $\gamma_{n}^{(2)}$ and $\gamma_{n}^{(4)}$, $|\cot(z)| \leq (1 + e^{-\pi}) / (1 -
+e^{-\pi})$. Thus,
+\begin{align*}
+\oint_{\gamma_{n}}f(z)dz & = \oint_{\gamma_{n}^{(1)}\cup\gamma_{n}^{(3)}}f(z)dz + \oint_{\gamma_{n}^{(2)}\cup\gamma_{n}^{(4)}}f(z)dz \\
+& \leq \left(\frac{1}{n^{3} + 2}\right) 4(n + 1/2)\pi + \left( \frac{1 + e^{-\pi}}{1 - e^{-\pi}} \right)\left( \frac{1}{n^{3} + 2} \right)4(n + 1/2)\pi
+\rightarrow 0 \ \ \text{ as } n\rightarrow \infty, 
+\end{align*}
+so we are done.
 
 
 
