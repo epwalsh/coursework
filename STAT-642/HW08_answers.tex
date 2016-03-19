@@ -96,6 +96,54 @@ where $m_{j} := \int x^{j}d\mu(x)$.
 
 
 
+\newpage 
+\subsection*{3 [AL 9.24 (a)]}
+\begin{tcolorbox}
+Let $X_n \sim \text{Geo}(p_n)$ for $n\in\mathbb{N}$ and suppose $p_n \rightarrow 0$. Show that $p_n X_n \rightarrow^{d} X$, where $X \sim
+\text{Exp}(1)$.
+\end{tcolorbox}
+\begin{Proof}
+By the result from Problem 9.29, it suffices to show that for some $\delta > 0$, 
+\[ Ee^{tp_nX_n} \rightarrow Ee^{tX} = \frac{1}{1 - t}\] 
+for all $t$ such that $|t| < \delta$. Well, by Table 6.2.1 and L'Hopitals rule, 
+\[ \lim_{n\rightarrow\infty}Ee^{tp_nX_n} = \lim_{n\rightarrow\infty}\frac{p_n e^{tp_n}}{1 - (1 - p_n)e^{tp_n}} =
+\lim_{n\rightarrow\infty}\frac{e^{tp_n} + tp_n e^{tp_n}}{e^{tp_n} - t e^{tp_n} + tp_n e^{tp_n}} = \frac{1}{1 - t}, \]
+for all $t$ such that $|t| < 1$.
+\end{Proof}
+
+
+
+\newpage 
+\subsection*{4 [AL 9.26]}
+\begin{tcolorbox}
+Let $Y_n$ have the discrete uniform distribution on the integers $\left\{ 1,2,\hdots, n \right\}$. Let $X_n := Y_n / n$ and let $X \sim$ Uniform(0,1).
+Show that $X_n \rightarrow^{d} X$ using three different methods as follows:
+\begin{enumerate}[label=(\alph*)]
+\item Helly-Bray Theorem,
+\item the method of moments,
+\item using the cdfs.
+\end{enumerate}
+\end{tcolorbox}
+\begin{enumerate}[label=(\alph*)]
+\item Let $\mu_n$ denote the probability distribution of $X_n$ for all $n \in \mathbb{N}$ and $\mu$ the probability distribution of $X$. 
+Suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is a bounded continuous function. For each $n \in \mathbb{N}$, define the simple function $s_n :
+\mathbb{R} \rightarrow \mathbb{R}$ by $s_n(x) := \sum_{k=1}^{n}f\left( \frac{k}{n} \right)\mathbb{I}_{[k-1,k)}(x)$ for all $x \in (0,1)$. Since $f$ is continuous,
+$s_n(x) \rightarrow f(x)$ for all $x \in (0,1)$. Further, since $f$ is bounded, there exists some $M > 0$ such that $s_n \leq M$ for all $n \in
+\mathbb{N}$. Thus, by the BCT,
+\[ \lim_{n\rightarrow\infty}\int f d\mu_n = \lim_{n\rightarrow\infty}\frac{1}{n}\sum_{k=1}^{n}f\left( \frac{k}{n} \right) = 
+\lim_{n\rightarrow\infty}\int s_n d\mu \stackrel{\text{BCT}}{=} \int fd\mu. \]
+Hence, by the Helly-Bray Theorem, $\mu_n \Rightarrow \mu$.
+\item Let $k \in \mathbb{N}$. By the work done above and by taking $f(x) = x^{k}$,
+\[ \lim_{n\rightarrow\infty}EX_n^{k} = EX^{k}. \]
+Now, since the moment generating function of $X$ exists, the probability distribution of $X$ is uniquely determined by its moments. From this
+consideration and the convergence of moments as shown above, $X_n \rightarrow^{d} X$ by the Frech\'{e}t-Shohat theorem.
+\item Let $\epsilon > 0$. Choose $N \in \mathbb{N}$ such that $N^{-1} < \epsilon$. Let $x \in (0,1)$ and $n \geq N$. Let $k_x := \max\left\{ k :
+k/n \leq x\right\}$. Then
+\[ |F_n(x) - F(x)| = \left| \sum_{i=1}^{k_x}\frac{i}{n} - x\right| = \left| \frac{k_x}{n} - x\right| \leq \frac{1}{n} \leq \frac{1}{N} < \epsilon. \]
+Therefore $F_n \rightarrow F$.
+\end{enumerate}
+
+
 
 
 
