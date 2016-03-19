@@ -277,6 +277,51 @@ e^{-a}}{2}. \]
 Evaluate the integral
 \[ \int_{0}^{\infty}\frac{x^{1/2}}{1 + x^{4}}dx. \]
 \end{tcolorbox}
+Define $f(z) := \frac{z^{1/2}}{1 + z^{4}}$, where $z^{1/2}$ is defined by $z^{1/2} = (Re^{i\theta})^{1/2} := R^{1/2}e^{i\theta/2}$. Then $z^{1/2}$ is
+well-defined and holomorphic except on $\left\{ x : x \leq 0 \right\}$. For $r > 1$, define the contours 
+\begin{align*}
+& \gamma_{r}^{(1)}(t) := t,\  \frac{1}{r} \leq t \leq r, & \gamma_{r}^{(2)}(t) := re^{it}, \ 0 \leq t \leq \frac{\pi}{2}, \\
+& \gamma_{r}^{(3)}(t) := i(r - t), \ 0\leq t \leq r - \frac{1}{r}, & \gamma_{r}^{(4)}(t) := \frac{1}{r}e^{i\left( \frac{\pi}{2} - r \right)},\  0
+\leq t \leq \frac{\pi}{2}.
+\end{align*}
+Let $\gamma_{r} := \cup_{i=1}^{r}\gamma_{r}^{(i)}$. Note that $f$ has one pole of order 1 at $P := \frac{1}{\sqrt{2}}(1 + i) = e^{i\pi / 4}$ in
+$\gamma_{r}$, and 
+\[\text{Res}_{f}(P) = \lim_{z\rightarrow P}\frac{(z - P)z^{1/2}}{1 + z^{4}} 
+= \frac{e^{i\pi / 8}}{\left( \frac{1 + i + 1 - i}{\sqrt{2}} \right)\left( \frac{1 + i + 1 + i}{\sqrt{2}} \right)\left( \frac{1 + i - 1 + i}{\sqrt{2}} \right)} 
+= \frac{e^{i\pi / 8}}{\frac{4}{\sqrt{2}}(i - 1)} = \frac{\sqrt{2}}{4}e^{-i\frac{5\pi}{8}}.\]
+Thus, by the residue thereom,
+\begin{equation}
+\oint_{\gamma_{r}}f(z)dz = 2\pi i \cdot \text{Res}_{f}(P) \cdot 1 = \frac{\pi i}{\sqrt{2}}e^{-i\frac{5\pi}{8}} = -\frac{\pi}{\sqrt{2}}
+\sin\left( -\frac{5\pi}{8} \right) + i\frac{\pi}{\sqrt{2}}\cos\left( -\frac{5\pi}{8} \right).
+\label{9.1}
+\end{equation}
+Now,
+\begin{equation}
+\oint_{\gamma_{r}^{(1)}}f(z)dz = \int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt,
+\label{9.2}
+\end{equation}
+and 
+\begin{equation}
+\oint_{\gamma_{r}^{(3)}}f(z)dz = -\int_{\frac{1}{r}}^{r}\frac{(it)^{1/2}}{1 + (it)^{4}}\cdot i \ dt =
+-ie^{i\pi/4}\int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt = \left(\frac{1}{\sqrt{2}} -i\frac{1}{\sqrt{2}}\right)\int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt. 
+\label{9.3}
+\end{equation}
+Further,
+\begin{equation}
+\left|\oint_{\gamma_{r}^{(2)}}f(z)dz\right| \leq \frac{\pi r}{2}\cdot \frac{r^{1/2}}{1 + r^{4}} \rightarrow 0 \ \text{ as } r\rightarrow \infty,
+\label{9.4}
+\end{equation}
+and similarly,
+\begin{equation}
+\left|\oint_{\gamma_{r}^{(4)}}f(z)dz\right| = \left|\int_{0}^{\frac{\pi}{2}}\frac{(e^{it}/r)^{1/2}}{1 + e^{i4t}/r^{4}}\cdot \frac{ie^{it}}{r}dt\right|
+\leq -r^{-3/2} \cdot \frac{\pi}{2} \rightarrow 0 \ \text{ as } r\rightarrow \infty.
+\label{9.5}
+\end{equation}
+By \eqref{9.1} - \eqref{9.5},
+\[ -\frac{\pi}{\sqrt{2}}\sin\left( -\frac{5\pi}{8} \right) + i\frac{\pi}{\sqrt{2}}\cos\left( -\frac{5\pi}{8} \right) = 
+\lim_{n\rightarrow \infty}\oint_{\gamma_{r}}f(z)dz = 
+\left(\frac{1 + \sqrt{2}}{\sqrt{2}} -i\frac{1}{\sqrt{2}}\right)\int_{0}^{\infty}\frac{t^{1/2}}{1 + t^{4}}dt \]
+Therefore $\int_{0}^{\infty}\frac{x^{1/2}}{1 + x^{4}}dx = - \pi \cos \left( -\frac{5\pi}{8} \right) = \pi \sin\left( \frac{\pi}{8} \right)$.
 
 
 
