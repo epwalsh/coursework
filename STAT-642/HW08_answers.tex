@@ -52,10 +52,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
 Let $\mu_n$, $\mu$ be probability measures on a countable set $D := \left\{ a_j \right\}_{j\geq 1}$, where $a_j \in \mathbb{R}$ for all $j \geq 1$.
 Let $p_{n,j} := \mu_{n}\left( \left\{ a_j \right\} \right)$ for all $n,j\geq 1$ and $p_j := \mu\left( \left\{ a_j \right\} \right)$. Show that, as $n
-\rightarrow \infty$, 
+\rightarrow \infty$,
 \begin{enumerate}[label=(\roman*)]
-\item $\sup_{x\in\mathbb{R}}|F_n(x) - F(x)| \rightarrow 0$ if and only if 
-\item $p_{n,j} \rightarrow p_{j}$ for each $j \geq 1$ if and only if 
+\item $\sup_{x\in\mathbb{R}}|F_n(x) - F(x)| \rightarrow 0$ if and only if
+\item $p_{n,j} \rightarrow p_{j}$ for each $j \geq 1$ if and only if
 \item $\sum_{j=1}^{\infty}|p_{n,j} - p_j| \rightarrow 0$.
 \end{enumerate}
 \end{tcolorbox}
@@ -64,7 +64,7 @@ Let $p_{n,j} := \mu_{n}\left( \left\{ a_j \right\} \right)$ for all $n,j\geq 1$ 
 {\bf (i) $\Rightarrow$ (ii)} Suppose $\sup_{x\in\mathbb{R}}|F_{n}(x) - F(x)| \rightarrow 0$ as $n \rightarrow \infty$.
 Without loss of generality suppose $a_j < a_{j+1}$ for all $j \geq 1$. Let $j_0 \geq 1$. Then there exists $x_{j_0} \in
 \mathbb{R}$ such that $x_{j_0} < a_{j_0}$ and $j_0 = \min\left\{ j \geq 1 : a_J \geq x_{j_0} \right\}$. Then $p_{n,j_0} = F_n(a_{j_0}) - F_n(x_{j_0})$
-and $p_j = F(a_{j_0}) - F(x_{j_0})$. Therefore 
+and $p_j = F(a_{j_0}) - F(x_{j_0})$. Therefore
 \[ |p_{n,j_0} - p_{j_0}| = |(F_n(a_{j_0}) - F_n(x_{j_0})) - (F(a_{j_0}) - F(x_{j_0}))| \leq |F_n(a_{j_0}) - F(a_{j_0})| + |F_n(x_{j_0}) - F(x_{j_0})|
 \rightarrow 0 \]
 as $n \rightarrow \infty$.
@@ -76,7 +76,7 @@ $f_{n} \rightarrow f$ a.e. ($\lambda$) and $\int f_nd\lambda = \sum_{j=1}^{\inft
 Therefore, by Scheffe's Theorem,
 \[ \lim_{n\rightarrow \infty}\int|f_n - f|d\lambda = \lim_{n\rightarrow\infty}\sum_{j=1}^{\infty}|p_{n,j} - p_{j}| = 0. \]
 
-{\bf (iii) $\Rightarrow$ (i)} Suppose $\sum_{j=1}^{\infty}|p_{n,j} - p_{j}| \rightarrow 0$ as $n\rightarrow \infty$. Let $\epsilon > 0$. Note that 
+{\bf (iii) $\Rightarrow$ (i)} Suppose $\sum_{j=1}^{\infty}|p_{n,j} - p_{j}| \rightarrow 0$ as $n\rightarrow \infty$. Let $\epsilon > 0$. Note that
 $F_n(x) = \sum_{\{j : a_{j} \leq x\}}p_{n,j}$ and $F(x) = \sum_{\{j : a_{j} \leq x\}}p_{j}$. By assumption, we can choose some $N \geq 1$ such that
 \[\sum_{j=1}^{\infty}|p_{n,j} - p_{j}| < \epsilon\] whenever $n \geq N$. So for $n \geq N$ and any $x \in \mathbb{R}$,
 \[ |F_{n}(x) - F(x)| \leq \sum_{\{j : a_{j} \leq x\}}|p_{n,j} - p_{j}| \leq \sum_{j=1}^{\infty}|p_{n,j} - p_{j}| < \epsilon. \]
@@ -92,20 +92,48 @@ Carleman's condition is satisfied, i.e.
 \[ \sum_{k=1}^{\infty}m_{2k}^{-1/2k} = \infty, \]
 where $m_{j} := \int x^{j}d\mu(x)$.
 \end{tcolorbox}
+\begin{Proof}
+
+\begin{claim}
+\[ m_{2k}^{-1/2k} \geq \left\{ \begin{array}{cl}
+t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) < 1 \\
+\left[\varphi(t_0)\right]^{-1}t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) \geq 1. \\
+\end{array} \right. \]
+\end{claim}
+\begin{claimproof}
+Note that for any integer $r \geq 1$,
+\begin{align*}
+E|X|^{r} = \int_{0}^{\infty}rx^{r-1}P\left( |X| > x \right)dx & \leq \int_{0}^{\infty}rx^{r-1}P(|X| \geq x)dx \\
+\text{(Cramer's inequality) } \ & \leq \int_{0}^{\infty}rx^{r-1}e^{-t_0 x}\left(Ee^{t_0 |X|}\right)dx \\
+& = \varphi(t_0)rt_{0}^{-r}(r-1)! \\
+& = \varphi(t_0)t_{0}^{-r}r!.
+\end{align*}
+Therefore 
+\[ m_{2k}^{-1/2k} \geq [\varphi(t_0)]^{-1/2k}t_0 [(2k)!]^{-1/2k} \geq \left\{ \begin{array}{cl}
+t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) < 1 \\
+\left[\varphi(t_0)\right]^{-1}t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) \geq 1. \\
+\end{array} \right.\]
+\end{claimproof}
+
+By Claim 1, it suffices to show that $\sum_{k=1}^{\infty}[(2k)!]^{-1/2k} = \infty$. Well, by Stirling's approximation,
+\[ [(2k)!]^{-1/2k} \geq \frac{e^{-1/2k + 1}}{2k}(2k)^{-1/4k} \geq (2k)^{-1}\cdot (2k)^{-1/4k} \ \ \forall\  k \geq 1. \]
+But since $x^{-1/2x}$ is increasing when $x \geq 3$,
+\[ \sum_{k=1}^{\infty}(2k)^{-1}\cdot (2k)^{-1/4k} \geq 2^{-5/4} + 4^{-1/8}\sum_{k=2}^{\infty}\frac{1}{2k} = 2^{-5/4}\left( 1 + 
+\sum_{k=2}^{\infty}\frac{1}{k} \right) = \infty. \]
+\end{Proof}
 
 
 
-
-\newpage 
+\newpage
 \subsection*{3 [AL 9.24 (a)]}
 \begin{tcolorbox}
 Let $X_n \sim \text{Geo}(p_n)$ for $n\in\mathbb{N}$ and suppose $p_n \rightarrow 0$. Show that $p_n X_n \rightarrow^{d} X$, where $X \sim
 \text{Exp}(1)$.
 \end{tcolorbox}
 \begin{Proof}
-By the result from Problem 9.29, it suffices to show that for some $\delta > 0$, 
-\[ Ee^{tp_nX_n} \rightarrow Ee^{tX} = \frac{1}{1 - t}\] 
-for all $t$ such that $|t| < \delta$. Well, by Table 6.2.1 and L'Hopitals rule, 
+By the result from Problem 9.29, it suffices to show that for some $\delta > 0$,
+\[ Ee^{tp_nX_n} \rightarrow Ee^{tX} = \frac{1}{1 - t}\]
+for all $t$ such that $|t| < \delta$. Well, by Table 6.2.1 and L'Hopitals rule,
 \[ \lim_{n\rightarrow\infty}Ee^{tp_nX_n} = \lim_{n\rightarrow\infty}\frac{p_n e^{tp_n}}{1 - (1 - p_n)e^{tp_n}} =
 \lim_{n\rightarrow\infty}\frac{e^{tp_n} + tp_n e^{tp_n}}{e^{tp_n} - t e^{tp_n} + tp_n e^{tp_n}} = \frac{1}{1 - t}, \]
 for all $t$ such that $|t| < 1$.
@@ -113,7 +141,7 @@ for all $t$ such that $|t| < 1$.
 
 
 
-\newpage 
+\newpage
 \subsection*{4 [AL 9.26]}
 \begin{tcolorbox}
 Let $Y_n$ have the discrete uniform distribution on the integers $\left\{ 1,2,\hdots, n \right\}$. Let $X_n := Y_n / n$ and let $X \sim$ Uniform(0,1).
@@ -125,12 +153,12 @@ Show that $X_n \rightarrow^{d} X$ using three different methods as follows:
 \end{enumerate}
 \end{tcolorbox}
 \begin{enumerate}[label=(\alph*)]
-\item Let $\mu_n$ denote the probability distribution of $X_n$ for all $n \in \mathbb{N}$ and $\mu$ the probability distribution of $X$. 
+\item Let $\mu_n$ denote the probability distribution of $X_n$ for all $n \in \mathbb{N}$ and $\mu$ the probability distribution of $X$.
 Suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is a bounded continuous function. For each $n \in \mathbb{N}$, define the simple function $s_n :
 \mathbb{R} \rightarrow \mathbb{R}$ by $s_n(x) := \sum_{k=1}^{n}f\left( \frac{k}{n} \right)\mathbb{I}_{[k-1,k)}(x)$ for all $x \in (0,1)$. Since $f$ is continuous,
 $s_n(x) \rightarrow f(x)$ for all $x \in (0,1)$. Further, since $f$ is bounded, there exists some $M > 0$ such that $s_n \leq M$ for all $n \in
 \mathbb{N}$. Thus, by the BCT,
-\[ \lim_{n\rightarrow\infty}\int f d\mu_n = \lim_{n\rightarrow\infty}\frac{1}{n}\sum_{k=1}^{n}f\left( \frac{k}{n} \right) = 
+\[ \lim_{n\rightarrow\infty}\int f d\mu_n = \lim_{n\rightarrow\infty}\frac{1}{n}\sum_{k=1}^{n}f\left( \frac{k}{n} \right) =
 \lim_{n\rightarrow\infty}\int s_n d\mu \stackrel{\text{BCT}}{=} \int fd\mu. \]
 Hence, by the Helly-Bray Theorem, $\mu_n \Rightarrow \mu$.
 \item Let $k \in \mathbb{N}$. By the work done above and by taking $f(x) = x^{k}$,
