@@ -32,16 +32,16 @@
 \newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
 $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
-\allowdisplaybreaks
+\allowdisplaybreaks{}
+
+% chktex-file 3
 
 \title{STAT 642: HW 8}
 \author{Evan P. Walsh}
 \makeatletter
-\let\runauthor\@author
-\let\runtitle\@title
 \makeatother
-\lhead{\runauthor}
-\chead{\runtitle}
+\lhead{Evan Pete Walsh}
+\chead{STAT 642: HW 8}
 \rhead{\thepage}
 \cfoot{}
 
@@ -50,10 +50,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{1 [AL 9.22]}
 \begin{tcolorbox}
-Let $\mu_n$, $\mu$ be probability measures on a countable set $D := \left\{ a_j \right\}_{j\geq 1}$, where $a_j \in \mathbb{R}$ for all $j \geq 1$.
+Let $\mu_n$, $\mu$ be probability measures on a countable set $D := \left\{ a_{j} \right\}_{j\geq 1}$, where $a_j \in \mathbb{R}$ for all $j \geq 1$.
 Let $p_{n,j} := \mu_{n}\left( \left\{ a_j \right\} \right)$ for all $n,j\geq 1$ and $p_j := \mu\left( \left\{ a_j \right\} \right)$. Show that, as $n
 \rightarrow \infty$,
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}[label = (\roman*)]
 \item $\sup_{x\in\mathbb{R}}|F_n(x) - F(x)| \rightarrow 0$ if and only if
 \item $p_{n,j} \rightarrow p_{j}$ for each $j \geq 1$ if and only if
 \item $\sum_{j=1}^{\infty}|p_{n,j} - p_j| \rightarrow 0$.
@@ -62,17 +62,19 @@ Let $p_{n,j} := \mu_{n}\left( \left\{ a_j \right\} \right)$ for all $n,j\geq 1$ 
 
 \begin{Proof}
 {\bf (i) $\Rightarrow$ (ii)} Suppose $\sup_{x\in\mathbb{R}}|F_{n}(x) - F(x)| \rightarrow 0$ as $n \rightarrow \infty$.
-Without loss of generality suppose $a_j < a_{j+1}$ for all $j \geq 1$. Let $j_0 \geq 1$. Then there exists $x_{j_0} \in
-\mathbb{R}$ such that $x_{j_0} < a_{j_0}$ and $j_0 = \min\left\{ j \geq 1 : a_J \geq x_{j_0} \right\}$. Then $p_{n,j_0} = F_n(a_{j_0}) - F_n(x_{j_0})$
-and $p_j = F(a_{j_0}) - F(x_{j_0})$. Therefore
-\[ |p_{n,j_0} - p_{j_0}| = |(F_n(a_{j_0}) - F_n(x_{j_0})) - (F(a_{j_0}) - F(x_{j_0}))| \leq |F_n(a_{j_0}) - F(a_{j_0})| + |F_n(x_{j_0}) - F(x_{j_0})|
-\rightarrow 0 \]
-as $n \rightarrow \infty$.
+Without loss of generality suppose $a_j < a_{j+1}$ for all $j \geq 1$. Let $j_0 \geq 1$. If $j_0 = 1$, set $a_{0} := a_{j_{0}} - 1$.
+Then $p_{n,j_0} = F_n(a_{j_0}) - F_n(a_{j_0 - 1})$ and $p_j = F(a_{j_0}) - F(a_{j_{0}-1})$.
+Therefore
+\[
+  |p_{n,j_0} - p_{j_0}| = |(F_n(a_{j_0}) - F_n(a_{j_{0}-1})) - (F(a_{j_0}) - F(a_{j_0 - 1}))| \leq |F_n(a_{j_0}) - F(a_{j_0})| + |F_n(a_{j_0 - 1}) -
+  F(a_{j_0 - 1})|,
+\]
+which goes to 0 as $n \rightarrow \infty$.
 
 {\bf (ii) $\Rightarrow$ (iii)} Suppose $p_{n,j} \rightarrow p_{j}$ for all $j\geq 1$. Consider the measure space $(\mathbb{N},
 \mathcal{P}(\mathbb{N}), \lambda)$\footnote{For simplicity, let $\mathbb{N}$ denote the positive integers}, where $\lambda$ is the counting measure.
 For each $n,j \geq 1$, let $f,f_{n} : \mathbb{N} \rightarrow \mathbb{R}$ be defined by $f_{n}(j) := p_{n,j}$ and $f(j) := p_{j}$. By construction,
-$f_{n} \rightarrow f$ a.e. ($\lambda$) and $\int f_nd\lambda = \sum_{j=1}^{\infty}p_{n,j} = 1 = \sum_{j=1}^{\infty}p_{j} = \int fd\lambda$.
+$f_{n} \rightarrow f$ a.e. ($\lambda$) and $\int f_{n}d\lambda = \sum_{j=1}^{\infty}p_{n,j} = 1 = \sum_{j=1}^{\infty}p_{j} = \int fd\lambda$.
 Therefore, by Scheffe's Theorem,
 \[ \lim_{n\rightarrow \infty}\int|f_n - f|d\lambda = \lim_{n\rightarrow\infty}\sum_{j=1}^{\infty}|p_{n,j} - p_{j}| = 0. \]
 
@@ -95,10 +97,12 @@ where $m_{j} := \int x^{j}d\mu(x)$.
 \begin{Proof}
 
 \begin{claim}
-\[ m_{2k}^{-1/2k} \geq \left\{ \begin{array}{cl}
-t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) < 1 \\
-\left[\varphi(t_0)\right]^{-1}t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) \geq 1. \\
-\end{array} \right. \]
+\[
+  m_{2k}^{-1/2k} \geq \left\{ \begin{array}{cl}
+      t_{0}[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) < 1 \\
+      \left[\varphi(t_0)\right]^{-1}t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) \geq 1. \\
+  \end{array} \right.
+\]
 \end{claim}
 \begin{claimproof}
 Note that for any integer $r \geq 1$,
@@ -108,7 +112,7 @@ E|X|^{r} = \int_{0}^{\infty}rx^{r-1}P\left( |X| > x \right)dx & \leq \int_{0}^{\
 & = \varphi(t_0)rt_{0}^{-r}(r-1)! \\
 & = \varphi(t_0)t_{0}^{-r}r!.
 \end{align*}
-Therefore 
+Therefore
 \[ m_{2k}^{-1/2k} \geq [\varphi(t_0)]^{-1/2k}t_0 [(2k)!]^{-1/2k} \geq \left\{ \begin{array}{cl}
 t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) < 1 \\
 \left[\varphi(t_0)\right]^{-1}t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) \geq 1. \\
@@ -118,7 +122,7 @@ t_0[(2k)!]^{-1/2k} & \text{ if } \varphi(t_0) < 1 \\
 By Claim 1, it suffices to show that $\sum_{k=1}^{\infty}[(2k)!]^{-1/2k} = \infty$. Well, by Stirling's approximation,
 \[ [(2k)!]^{-1/2k} \geq \frac{e^{-1/2k + 1}}{2k}(2k)^{-1/4k} \geq (2k)^{-1}\cdot (2k)^{-1/4k} \ \ \forall\  k \geq 1. \]
 But since $x^{-1/2x}$ is increasing when $x \geq 3$,
-\[ \sum_{k=1}^{\infty}(2k)^{-1}\cdot (2k)^{-1/4k} \geq 2^{-5/4} + 4^{-1/8}\sum_{k=2}^{\infty}\frac{1}{2k} = 2^{-5/4}\left( 1 + 
+\[ \sum_{k=1}^{\infty}(2k)^{-1}\cdot (2k)^{-1/4k} \geq 2^{-5/4} + 4^{-1/8}\sum_{k=2}^{\infty}\frac{1}{2k} = 2^{-5/4}\left( 1 +
 \sum_{k=2}^{\infty}\frac{1}{k} \right) = \infty. \]
 \end{Proof}
 
@@ -132,10 +136,10 @@ Let $X_n \sim \text{Geo}(p_n)$ for $n\in\mathbb{N}$ and suppose $p_n \rightarrow
 \end{tcolorbox}
 \begin{Proof}
 By the result from Problem 9.29, it suffices to show that for some $\delta > 0$,
-\[ Ee^{tp_nX_n} \rightarrow Ee^{tX} = \frac{1}{1 - t}\]
+\[ Ee^{tp_{n}X_{n}} \rightarrow Ee^{tX} = \frac{1}{1 - t}\]
 for all $t$ such that $|t| < \delta$. Well, by Table 6.2.1 and L'Hopitals rule,
-\[ \lim_{n\rightarrow\infty}Ee^{tp_nX_n} = \lim_{n\rightarrow\infty}\frac{p_n e^{tp_n}}{1 - (1 - p_n)e^{tp_n}} =
-\lim_{n\rightarrow\infty}\frac{e^{tp_n} + tp_n e^{tp_n}}{e^{tp_n} - t e^{tp_n} + tp_n e^{tp_n}} = \frac{1}{1 - t}, \]
+\[ \lim_{n\rightarrow\infty}Ee^{tp_{n}X_{n}} = \lim_{n\rightarrow\infty}\frac{p_n e^{tp_n}}{1 - (1 - p_{n})e^{tp_n}} =
+\lim_{n\rightarrow\infty}\frac{e^{tp_{n}} + tp_n e^{tp_n}}{e^{tp_n} - t e^{tp_n} + tp_{n} e^{tp_{n}}} = \frac{1}{1 - t}, \]
 for all $t$ such that $|t| < 1$.
 \end{Proof}
 
@@ -144,15 +148,15 @@ for all $t$ such that $|t| < 1$.
 \newpage
 \subsection*{4 [AL 9.26]}
 \begin{tcolorbox}
-Let $Y_n$ have the discrete uniform distribution on the integers $\left\{ 1,2,\hdots, n \right\}$. Let $X_n := Y_n / n$ and let $X \sim$ Uniform(0,1).
+Let $Y_n$ have the discrete uniform distribution on the integers $\left\{ 1,2,\hdots, n \right\}$. Let $X_n := Y_n / n$ and let $X \sim$ Uniform (0,1).
 Show that $X_n \rightarrow^{d} X$ using three different methods as follows:
-\begin{enumerate}[label=(\alph*)]
+\begin{enumerate}[label = (\alph*)]
 \item Helly-Bray Theorem,
 \item the method of moments,
 \item using the cdfs.
 \end{enumerate}
 \end{tcolorbox}
-\begin{enumerate}[label=(\alph*)]
+\begin{enumerate}[label = (\alph*)]
 \item Let $\mu_n$ denote the probability distribution of $X_n$ for all $n \in \mathbb{N}$ and $\mu$ the probability distribution of $X$.
 Suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is a bounded continuous function. For each $n \in \mathbb{N}$, define the simple function $s_n :
 \mathbb{R} \rightarrow \mathbb{R}$ by $s_n(x) := \sum_{k=1}^{n}f\left( \frac{k}{n} \right)\mathbb{I}_{[k-1,k)}(x)$ for all $x \in (0,1)$. Since $f$ is continuous,
@@ -176,4 +180,3 @@ Therefore $F_n \rightarrow F$.
 
 
 \end{document}
-
