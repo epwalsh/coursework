@@ -32,16 +32,16 @@
 \newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
 $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
-\allowdisplaybreaks
+\allowdisplaybreaks{}
+
+% chktex-file 3
 
 \title{MATH 511: HW 4}
 \author{Evan P. Walsh}
 \makeatletter
-\let\runauthor\@author
-\let\runtitle\@title
 \makeatother
-\lhead{\runauthor}
-\chead{\runtitle}
+\lhead{Evan P. Walsh}
+\chead{MATH 511: HW 4}
 \rhead{\thepage}
 \cfoot{}
 
@@ -108,7 +108,7 @@ Let $f(z) := P(z) / Q(z)$. By Proposition 4.5.6,
 \begin{align*}
 \text{Res}_{f}(a) = \frac{\partial}{\partial z}\left( (z-a)^{2}f(z) \right)\bigg|_{z = a} & = \lim_{z\rightarrow a}\frac{\partial }{\partial z}\left(
 \frac{P(z)}{\frac{Q(z)}{(z-a)^{2}}} \right) \\
-& = \lim_{z\rightarrow a}\frac{ \frac{Q(z)}{(z-a)^2}P'(z) - P(z)\left( \frac{ (z-a)^2Q'(z) - 2(z-a)Q(z)}{(z-a)^4} \right)}{\left(
+& = \lim_{z\rightarrow a}\frac{\frac{Q(z)}{(z-a)^2}P'(z) - P(z)\left( \frac{(z-a)^2Q'(z) - 2(z-a)Q(z)}{(z-a)^4} \right)}{\left(
 \frac{Q(z)}{(z-a)^2} \right)^4} \\
 & = \lim_{z\rightarrow a}\left[ \frac{(z-a)^2}{Q(z)}P'(z) - P(z)\left( \frac{(z-a)^2Q'(z) - 2(z-a)Q(z)}{[Q(z)]^2} \right) \right] \\
 & = \lim_{z\rightarrow a}\frac{(z-a)^2Q(z)P'(z) - (z-a)^2Q'(z)P(z) + 2(z-a)Q(z)P(z)}{[Q(z)]^2}
@@ -136,7 +136,7 @@ f(z) = \frac{1}{z(1-z)(z-2)} = \frac{1}{z}\left[ \frac{1}{z - 2} - \frac{1}{z - 
 \subsection*{5}
 \begin{tcolorbox}
 Find the function $f(z)$ satisfying the following conditions:
-\begin{enumerate}[label=(\alph*)]
+\begin{enumerate}[label = (\alph*)]
 \item $f$ has a pole of order 2 as $z = 0$ with residue 2, a simple pole at $z = 1$ with residue 2.
 \item $f$ is holomorphic on $\mathbb{C} \setminus \left\{ 0,1 \right\}$.
 \item There exists $R$ and $M > 0$ such that $|f(z)| < M$ for all $z$ with $|z| \geq R$.
@@ -151,10 +151,10 @@ where $g$ is holomorphic on $\mathbb{C}$. Then,
 \right)\bigg|_{z = 0} \nonumber \\
 & = \frac{(z-1)g'(z) - g(z)}{(z-1)^{2}}\bigg|_{z=0}\nonumber \\
 & = (-1)g'(0) - g(0) \nonumber \\
-\Rightarrow  \qquad g(0) & = -2 - g'(0), \text{ and }\label{5.1}
+\Rightarrow  \qquad g(0) & = -2 - g'(0), \ \text{and}\ \label{5.1}
 \end{align}
 \begin{equation}
-2 = \text{Res}_{f}(1) = \frac{1}{z^{2}}f(z)\bigg|_{z = 1} = g(1), \ \text{ i.e. } g(1) = 2.
+2 = \text{Res}_{f}(1) = \frac{1}{z^{2}}f(z)\bigg|_{z = 1} = g(1), \ \text{i.e.}\  g(1) = 2.
 \label{5.2}
 \end{equation}
 Further, we must have $f(2) = \frac{1}{4}g(2) = 5$ and $f(-1) = -\frac{1}{2}g(-1) = 2$, implying
@@ -167,7 +167,7 @@ We can assume that $R > 1$ since $f$ is unbounded at $z = 1$. Since $g$ is holom
 C_{2}$ on $\left\{ z : |z| \leq R \right\}$. Let $C := \max\left\{ C_1, C_2 \right\}$. Then $|g(z)| < C < C|z|^{3}$ for all $z$ with $|z| > 1$. Hence,
 by Theorem 3.4.4, $g$ is a polynomial in $z$ with degree at most $3$. Therefore we can write
 \[ g(z) = az^{3} - bz^{2} + cz + d, \]
-where $a,b,c,d \in \mathbb{C}$. By \eqref{5.1}, \eqref{5.2}, and \eqref{5.3}, we must have
+where $a,b,c,d \in \mathbb{C}$. By~\eqref{5.1},~\eqref{5.2}, and~\eqref{5.3}, we must have
 \[
 \begin{bmatrix}
 0 & 0 & 1 & 1 \\
@@ -179,7 +179,7 @@ a \\
 b \\
 c \\
 d \\
-\end{array} \right) = \left( \begin{array}{r}
+\end{array} \right) = \left(\begin{array}{r}
 -2 \\
 2 \\
 -4 \\
@@ -193,7 +193,7 @@ which implies $a = 1, b = 3, c = 2, d = -4$. Therefore
 \newpage
 \subsection*{6}
 \begin{tcolorbox}
-Let $f(z)$ be meromorphic on $\mathbb{C}$. Assume that $f(z) = f(z + 2i) = f(z + (1-3i))$ for all $z$ where $f(z)$, $f(z + 2i)$, and $f(z + (1-3i)$
+  Let $f(z)$ be meromorphic on $\mathbb{C}$. Assume that $f(z) = f(z + 2i) = f(z + (1-3i))$ for all $z$ where $f(z)$, $f(z + 2i)$, and $f(z + (1-3i))$
 are defined. Let $\mathcal{P}$ be the parallelogram with vertices $0, 2i, 1- i$, and $1 - 3i$, and assume that $f$ has no poles on $\mathcal{P}$. Let
 $\zeta_{1}, \zeta_{2}, \hdots, \zeta_{n}$ be the poles of $f$ inside $\mathcal{P}$. Prove that
 \[ \sum_{k=1}^{n}\text{Res}_{f}(\zeta_{k}) = 0. \]
@@ -213,7 +213,7 @@ Let $\gamma = \cup_{i=1}^{4}\gamma_{i}$. By assumption,
 \oint_{\gamma_{2}}f(z)dz = \int_{0}^{1}f(t(1-3i))(1-3i)dt = \int_{0}^{1}f(t - 3it + 2i)(1 - 3i)dt & = -\oint_{\gamma_{4}}f(z)dz. \label{6.2}
 \end{align}
 Now note that $\text{Ind}_{\gamma}(\zeta_{k}) = 1$ for all $1 \leq k \leq n$. Hence,
-by \eqref{6.1}, \eqref{6.2}, and the residue theorem,
+by~\eqref{6.1},~\eqref{6.2}, and the residue theorem,
 \[ \sum_{k=1}^{n}\text{Res}_{f}(\zeta_{k})  = \frac{1}{2\pi i}\oint_{\gamma}f(z)dz = \frac{1}{2\pi i}\sum_{i=1}^{4}\oint_{\gamma_{i}}f(z)dz = 0. \]
 \end{Proof}
 
@@ -264,10 +264,10 @@ On the other hand, for $0 \leq t \leq \pi$,
 + a^{2}}. \]
 Therefore
 \begin{equation}
-\left| \oint_{\gamma_{r}^{2}}f(z)dz \right| \leq \pi r\left( \frac{r}{r^{2} + a^{2}} \right) \rightarrow 0 \ \ \text{ as } r\rightarrow \infty.
+\left| \oint_{\gamma_{r}^{2}}f(z)dz \right| \leq \pi r\left( \frac{r}{r^{2} + a^{2}} \right) \rightarrow 0 \ \ \text{as}\  r\rightarrow \infty.
 \label{8.2}
 \end{equation}
-By \eqref{8.0}, \eqref{8.1}, and \eqref{8.2},
+By~\eqref{8.0},~\eqref{8.1}, and~\eqref{8.2},
 \[ \int_{0}^{\infty}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \lim_{r\rightarrow\infty}\frac{1}{2}\int_{-r}^{r}\frac{x\sin(x)}{x^{2} + a^{2}}dx = \frac{\pi
 e^{-a}}{2}. \]
 
@@ -278,21 +278,22 @@ Evaluate the integral
 \[ \int_{0}^{\infty}\frac{x^{1/2}}{1 + x^{4}}dx. \]
 \end{tcolorbox}
 Define $f(z) := \frac{z^{1/2}}{1 + z^{4}}$, where $z^{1/2}$ is defined by $z^{1/2} = (Re^{i\theta})^{1/2} := R^{1/2}e^{i\theta/2}$. Then $z^{1/2}$ is
-well-defined and holomorphic except on $\left\{ x : x \leq 0 \right\}$. For $r > 1$, define the contours 
+well-defined and holomorphic except on $\left\{ x : x \leq 0 \right\}$. For $r > 1$, define the contours
 \begin{align*}
 & \gamma_{r}^{(1)}(t) := t,\  \frac{1}{r} \leq t \leq r, & \gamma_{r}^{(2)}(t) := re^{it}, \ 0 \leq t \leq \frac{\pi}{2}, \\
 & \gamma_{r}^{(3)}(t) := i(r - t), \ 0\leq t \leq r - \frac{1}{r}, & \gamma_{r}^{(4)}(t) := \frac{1}{r}e^{i\left( \frac{\pi}{2} - r \right)},\  0
 \leq t \leq \frac{\pi}{2}.
 \end{align*}
 Let $\gamma_{r} := \cup_{i=1}^{r}\gamma_{r}^{(i)}$. Note that $f$ has one pole of order 1 at $P := \frac{1}{\sqrt{2}}(1 + i) = e^{i\pi / 4}$ in
-$\gamma_{r}$, and 
-\[\text{Res}_{f}(P) = \lim_{z\rightarrow P}\frac{(z - P)z^{1/2}}{1 + z^{4}} 
-= \frac{e^{i\pi / 8}}{\left( \frac{1 + i + 1 - i}{\sqrt{2}} \right)\left( \frac{1 + i + 1 + i}{\sqrt{2}} \right)\left( \frac{1 + i - 1 + i}{\sqrt{2}} \right)} 
-= \frac{e^{i\pi / 8}}{\frac{4}{\sqrt{2}}(i - 1)} = \frac{\sqrt{2}}{4}e^{-i\frac{5\pi}{8}}.\]
+$\gamma_{r}$, and
+\[
+  \text{Res}_{f}(P) = \lim_{z\rightarrow P}\frac{(z - P)z^{1/2}}{1 + z^{4}} = \lim_{z\rightarrow P}\frac{z^{1/2} + (z-P)\left(
+  \frac{\partial z^{1/2}}{\partial z}\right)}{4z^{3}} = \frac{e^{i\pi/8}}{4e^{i3\pi / 4}} = \frac{1}{4}e^{-i\frac{5\pi}{8}}.
+\]
 Thus, by the residue thereom,
 \begin{equation}
-\oint_{\gamma_{r}}f(z)dz = 2\pi i \cdot \text{Res}_{f}(P) \cdot 1 = \frac{\pi i}{\sqrt{2}}e^{-i\frac{5\pi}{8}} = -\frac{\pi}{\sqrt{2}}
-\sin\left( -\frac{5\pi}{8} \right) + i\frac{\pi}{\sqrt{2}}\cos\left( -\frac{5\pi}{8} \right).
+\oint_{\gamma_{r}}f(z)dz = 2\pi i \cdot \text{Res}_{f}(P) \cdot 1 = \frac{\pi i}{2}e^{-i\frac{5\pi}{8}} = -\frac{\pi}{2}
+\sin\left( -\frac{5\pi}{8} \right) + i\frac{\pi}{2}\cos\left( -\frac{5\pi}{8} \right).
 \label{9.1}
 \end{equation}
 Now,
@@ -300,28 +301,28 @@ Now,
 \oint_{\gamma_{r}^{(1)}}f(z)dz = \int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt,
 \label{9.2}
 \end{equation}
-and 
+and
 \begin{equation}
 \oint_{\gamma_{r}^{(3)}}f(z)dz = -\int_{\frac{1}{r}}^{r}\frac{(it)^{1/2}}{1 + (it)^{4}}\cdot i \ dt =
--ie^{i\pi/4}\int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt = \left(\frac{1}{\sqrt{2}} -i\frac{1}{\sqrt{2}}\right)\int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt. 
+-ie^{i\pi/4}\int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt = \left(\frac{1}{\sqrt{2}} -i\frac{1}{\sqrt{2}}\right)\int_{\frac{1}{r}}^{r}\frac{t^{1/2}}{1 + t^{4}}dt.
 \label{9.3}
 \end{equation}
 Further,
 \begin{equation}
-\left|\oint_{\gamma_{r}^{(2)}}f(z)dz\right| \leq \frac{\pi r}{2}\cdot \frac{r^{1/2}}{1 + r^{4}} \rightarrow 0 \ \text{ as } r\rightarrow \infty,
+\left|\oint_{\gamma_{r}^{(2)}}f(z)dz\right| \leq \frac{\pi r}{2}\cdot \frac{r^{1/2}}{1 + r^{4}} \rightarrow 0 \ \text{as}\  r\rightarrow \infty,
 \label{9.4}
 \end{equation}
 and similarly,
 \begin{equation}
 \left|\oint_{\gamma_{r}^{(4)}}f(z)dz\right| = \left|\int_{0}^{\frac{\pi}{2}}\frac{(e^{it}/r)^{1/2}}{1 + e^{i4t}/r^{4}}\cdot \frac{ie^{it}}{r}dt\right|
-\leq -r^{-3/2} \cdot \frac{\pi}{2} \rightarrow 0 \ \text{ as } r\rightarrow \infty.
+\leq -r^{-3/2} \cdot \frac{\pi}{2} \rightarrow 0 \ \text{as}\  r\rightarrow \infty.
 \label{9.5}
 \end{equation}
-By \eqref{9.1} - \eqref{9.5},
-\[ -\frac{\pi}{\sqrt{2}}\sin\left( -\frac{5\pi}{8} \right) + i\frac{\pi}{\sqrt{2}}\cos\left( -\frac{5\pi}{8} \right) = 
-\lim_{n\rightarrow \infty}\oint_{\gamma_{r}}f(z)dz = 
+By~\eqref{9.1}~-~\eqref{9.5},
+\[ -\frac{\pi}{2}\sin\left( -\frac{5\pi}{8} \right) + i\frac{\pi}{2}\cos\left( -\frac{5\pi}{8} \right) =
+\lim_{n\rightarrow \infty}\oint_{\gamma_{r}}f(z)dz =
 \left(\frac{1 + \sqrt{2}}{\sqrt{2}} -i\frac{1}{\sqrt{2}}\right)\int_{0}^{\infty}\frac{t^{1/2}}{1 + t^{4}}dt \]
-Therefore $\int_{0}^{\infty}\frac{x^{1/2}}{1 + x^{4}}dx = - \pi \cos \left( -\frac{5\pi}{8} \right) = \pi \sin\left( \frac{\pi}{8} \right)$.
+Therefore $\int_{0}^{\infty}\frac{x^{1/2}}{1 + x^{4}}dx = - \frac{\pi\sqrt{2}}{2} \cos \left( -\frac{5\pi}{8} \right) = \frac{\pi}{2} \sin\left( \frac{\pi}{8} \right)$.
 
 
 
@@ -349,21 +350,21 @@ Let $\gamma_n$ be the contour consisting of a counterclockwise square with corne
 each $n$, let
 $\gamma_{n}^{(1)}$ be the vertical segment on the left, $\gamma_{n}^{(2)}$ be the horizontal segment on the bottom, $\gamma_{n}^{(3)}$ be the vertical
 segment on the right, and $\gamma_{n}^{(4)}$ be the horizontal segment on the top.
-We claim that 
+We claim that
 \begin{equation}
 \sum_{j=-\infty}^{\infty}\frac{1}{j^{3} + 2} = - M.
 \label{10.1}
 \end{equation}
-Indeed, since 
+Indeed, since
 \[ \frac{1}{2\pi i}\oint_{\gamma_n}f(z)dz = \sum_{j=-n}^{n}\text{Res}_{f}(j\pi) + \sum_{i=1}^{3}\text{Res}_{f}(P_{i}) = \sum_{j=-n}^{n}\frac{1}{j^{3}
 + 2} + M, \]
-it remains to show that $\lim_{n\rightarrow \infty}\oint_{\gamma_{n}}f(z)dz = 0$ in order to verify \eqref{10.1}. Well, in clas we proved that along
+it remains to show that $\lim_{n\rightarrow \infty}\oint_{\gamma_{n}}f(z)dz = 0$ in order to verify~\eqref{10.1}. Well, in clas we proved that along
 $\gamma_{n}^{(1)}$ and $\gamma_{n}^{(3)}$, $|\cot(z)| < 1$, and along $\gamma_{n}^{(2)}$ and $\gamma_{n}^{(4)}$, $|\cot(z)| \leq (1 + e^{-\pi}) / (1 -
 e^{-\pi})$. Thus,
 \begin{align*}
 \oint_{\gamma_{n}}f(z)dz & = \oint_{\gamma_{n}^{(1)}\cup\gamma_{n}^{(3)}}f(z)dz + \oint_{\gamma_{n}^{(2)}\cup\gamma_{n}^{(4)}}f(z)dz \\
 & \leq \left(\frac{1}{n^{3} + 2}\right) 4(n + 1/2)\pi + \left( \frac{1 + e^{-\pi}}{1 - e^{-\pi}} \right)\left( \frac{1}{n^{3} + 2} \right)4(n + 1/2)\pi
-\rightarrow 0 \ \ \text{ as } n\rightarrow \infty, 
+\rightarrow 0 \ \ \text{as}\  n\rightarrow \infty,
 \end{align*}
 so we are done.
 
@@ -371,4 +372,3 @@ so we are done.
 
 
 \end{document}
-
