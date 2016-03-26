@@ -1,0 +1,99 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 511: HW 5}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 511: HW 5}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsubsection*{1}
+\begin{tcolorbox}
+  Let $g$ be a holomorphic function on an open set $U \subseteq \mathbb{C}$ and $f$ a meromorphic function on $U$. Suppose $\overline{D(P,r)}
+  \subset U$ such that $f$ has zeros $z_{1}, \hdots, z_{p}$ and poles $w_{1}, \hdots, w_{q}$ in $D(P,r)$ and $f$ has neither zeros nor poles on
+  $\partial D(P,r)$. Prove that
+  \[
+    \frac{1}{2\pi i}\oint_{\partial D(P,r)}g(\zeta)\frac{f'(\zeta)}{f(\zeta)}d\zeta = \sum_{j=1}^{p}n_{j}g(z_{j}) - \sum_{k=1}^{q}m_{k}g(w_{k}),
+  \]
+  where $n_{j}$ is the multiplicity of $z_j$, $1 \leq j \leq p$, and $m_k$ is the order of $w_k$, $1 \leq k \leq q$.
+\end{tcolorbox}
+
+
+\newpage
+\subsubsection*{2}
+\begin{tcolorbox}
+  Find the number of zeros of $f(z) = z^{10} + 10ze^{z + 1} - 9$ in $\left\{ z : |z| < 1 \right\}$.
+\end{tcolorbox}
+Define $g(z) := 10ze^{z+1}$. Then, for $z = -1$, we have
+\[ |f(z) - g(z)| = |z^{10} - 9| = 8 < 10 + 18 = |g(z)| + |f(z)|. \]
+In general, when $|z| = 1$ but $z \neq -1$, $|e^{z + 1}| > 1$, so
+\[ |f(z) - g(z)| = |z^{10} - 9| \leq |z|^{10} + 9 = 10 < 10|e^{z+1}| = |g(z)| \leq |g(z)| + |f(z)|. \]
+Thus, by Rouch\'{e}'s theorem, $f$ has the same number of zeros in $D(0,1)$ as $g$, which is 1.
+
+\subsubsection*{3}
+\begin{tcolorbox}
+  Find the number of zeros of $f(z) = 2z^5 - 6z^2 + z + 1$ in $\left\{ z : 1 < |z| < 2 \right\}$.
+\end{tcolorbox}
+Let $g_1(z) := -6z^2$ and $g_2(z) := 2z^5$. For $z \in \partial D(0,1)$,
+\begin{equation}
+  |f(z) - g_1(z)| = |2z^5 + z + 1| \leq 2|z|^5 + |z| + 1 = 4 < 6 = |g_1(z)|.
+  \label{3.1}
+\end{equation}
+Similarly, for $z \in \partial D(0,2)$, we have 
+\begin{equation}
+  |f(z) - g_2(z)| = |-6z^2 + z + 1| \leq 6|z|^2 + |z| + 1 = 27 < 64 = |g_2(z)|.
+  \label{3.2}
+\end{equation}
+Thus, by~\eqref{3.1} and~\eqref{3.2} $f$ has 2 zeros in $D(0,1)$ and 5 zeros in $D(0,2)$ by Rouch\'{e}'s theorem (counting multiplicity). Hence, since
+$f$ has no zeros on $\partial D(0,1)$, $f$ has 3 zeros (counting multiplicity) in $\left\{ z : 1 < |z| < 2 \right\}$.
+
+
+\subsubsection*{4}
+\begin{tcolorbox}
+  Find the number of zeros of $f(z) = z^8 + 3z^3 + 7z + 5$ in $\left\{ x + iy : x > 0, y > 0 \right\}$.
+\end{tcolorbox}
+
+
+\end{document}
+
