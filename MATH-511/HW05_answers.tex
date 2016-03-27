@@ -58,6 +58,24 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \]
   where $n_{j}$ is the multiplicity of $z_j$, $1 \leq j \leq p$, and $m_k$ is the order of $w_k$, $1 \leq k \leq q$.
 \end{tcolorbox}
+\begin{Proof}
+  Let $H(z)$ be the holomorphic extension of 
+  \[ f(z)\cdot \frac{(z - w_1)^{m_1}\cdots (z - w_q)^{m_{q}}}{(z-z_1)^{n_{1}}\cdots (z - z_p)^{n_{p}}} \]
+  on $U$. So $H(z)$ is holomorphic on $U$ and $H(z) \neq 0$ for all $z \in \overline{D(P,r)}$. Therefore $H'(z) / H(z)$ is well-defined and
+  holomorphic on $\overline{D(p,r)}$. Further, we see that 
+  \begin{align*}
+    f'(z) = H'(z)\cdot \frac{(z - z_1)^{n_1}\cdots (z - z_p)^{n_p}}{(z - w_1)^{m_1}\cdots (z - w_q)^{m_q}} & + 
+    H(z)\sum_{i=1}^{p}\frac{n_i(z - z_i)^{n_i-1}}{(z - w_1)^{m_1}\cdots(z-w_q)^{m_q}}\prod_{j\neq i}(z - z_j)^{n_j} \\
+    & - H(z)\sum_{k=1}^{q}\frac{(z-z_1)^{n_1}\cdots(z-z_p)^{n_p}}{(z - w_k)^{m_k + 1}}\prod_{l\neq k}\frac{1}{(z-w_l)^{m_l + 1}}.
+  \end{align*}
+  Therefore 
+  \[ g(z)\cdot\frac{f'(z)}{f(z)} = g(z)\cdot\frac{H'(z)}{H(z)} + g(z)\sum_{j=1}^{p}\frac{n_j}{z - z_j} - g(z)\sum_{k=1}^{q}\frac{m_k}{z - w_k}. \]
+  Since $g(z) H'(z) / H(z)$ is holomorphic on $U$, $\oint_{\partial D(P,r)}g(z)H'(z) / H(z)\ dz = 0$. Thus,
+  \[ 
+    \oint_{\partial D(P,r)}g(z)\frac{f'(z)}{f(z)} dz = \sum_{j=1}^{p}\oint_{\partial D(P,r)}\frac{n_j g(z)}{z - z_j}dz -
+    \sum_{k=1}^{q}\oint_{\partial D(P,r)}\frac{m_k g(z)}{z - w_k}dz = \sum_{j=1}^{p}n_{j}g(z_{j}) - \sum_{k=1}^{q}m_{k}g(w_{k}).
+  \]
+\end{Proof}
 
 
 \newpage
