@@ -1,0 +1,460 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{STAT 642: HW Review}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{STAT 642: HW Review}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+% \maketitle
+
+\def\cp{\stackrel{p}{\rightarrow}}
+\def\as{\stackrel{\text{a.s.}}{\longrightarrow}}
+
+\subsection*{1.1}
+\begin{tcolorbox}
+Let $\Omega := (0,1]$ and suppose $\mathcal{F}$ consists of all finite unions of disjoint intervals of the form $(a,a'], 0 \leq a \leq a' \leq 1$.
+Show that $\mathcal{F}$ is an algebra but not a $\sigma$-algebra.
+\end{tcolorbox}
+
+
+
+\subsection*{1.2}
+\begin{tcolorbox}
+Let $\Omega$ be a non-empty set and let $\mathcal{L}$ be a class of subsets of $\Omega$. If $\mathcal{L}$ is a $\lambda$-class and also a $\pi$-class,
+show that $\mathcal{L}$ is a $\sigma$-algebra.
+\end{tcolorbox}
+
+
+
+
+\subsection*{1.3 [AL 2.1]}
+\begin{tcolorbox}
+Let $\Omega_{i}$, $i = 1,2$ be two non-empty sets and $T : \Omega_{1} \rightarrow \Omega_{2}$ be a map. Let $\left\{ A_{\alpha} : \alpha \in I
+\right\}$ be any collection of subsets of $\Omega_{2}$. Show that
+\begin{enumerate}[label=(\alph*)]
+\item $T^{-1}\left( \bigcup_{\alpha \in I}A_{\alpha} \right) = \bigcup_{\alpha\in I}T^{-1}(A_{\alpha})$, \\
+
+\item $T^{-1}\left( \bigcap_{\alpha \in I} A_\alpha \right) = \bigcap_{\alpha \in I}T^{-1}(A_\alpha)$, and  \\
+
+\item $\left( T^{-1}(A) \right)^{c} = T^{-1}(A^{c})$ for every $A \in \Omega_2$.
+\end{enumerate}
+\end{tcolorbox}
+
+
+
+
+\subsection*{1.4}
+\begin{tcolorbox}
+Suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is a real-valued function on a measurable space $(\Omega, \mathcal{F}) = (\mathbb{R},
+\mathcal{B}(\mathbb{R}))$. 
+\begin{enumerate}[label=(\alph*)]
+\item Show that $f : \mathbb{I}_{A}$ is Borel measurable if and only if $A$ is a Borel measurable set. 
+\item Show that if $f$ is non-decreasing then $f$ is Borel measurable.
+\end{enumerate}
+\end{tcolorbox}
+
+
+\subsection*{1.5}
+\begin{tcolorbox}
+On a measure space $(\Omega, \mathcal{F}, \mu) := (\mathbb{R}, \mathcal{B}(\mathbb{R}), m)$, define a sequence $f_{n} : \mathbb{R} \rightarrow
+\mathbb{R}$ by 
+\[ f_{n}(x) := \left\{ \begin{array}{cl}
+1/n &  \text{ if } x \in [n,2n] \\
+0 &  \text{ otherwise,}
+\end{array} \right. \qquad x \in \mathbb{R}. \]
+Find $\lim_{n\rightarrow\infty}f_{n}(x) := f(x)$, for each $x \in \mathbb{R}$, and show that 
+\[ \lim_{n\rightarrow\infty}\int f_{n}(x)\ d\mu(x) \neq \int f(x)\ d\mu(x). \]
+\end{tcolorbox}
+
+
+
+\subsection*{1.6}
+\begin{tcolorbox}
+On a measure space $(\Omega, \mathcal{F}, \mu)$, suppose $f : \mathbb{R} \rightarrow \mathbb{R}$ is a Borel measurable and $\mu$-integrable function.
+Show that, given $\epsilon > 0$, there is a simple function $\psi$ on $\mathbb{R}$ such that 
+\[ \int |f - \psi | d\mu < \epsilon. \]
+\end{tcolorbox}
+
+
+
+\subsection*{1.7}
+\begin{tcolorbox}
+Let $P$ and $Q$ denote two probability measures defined on measurable space $(\Omega, \mathcal{F}, \mu)$. Show that 
+\[ \sup_{A \in \mathcal{F}}|P(A) - Q(A)| = \frac{1}{2} \int |p - q|d\mu, \]
+where $p$ and $q$ denote densities for measures $P$ and $Q$, respectively, with respect to some dominating measure $\mu$.
+\end{tcolorbox}
+
+
+\subsection*{1.8}
+\begin{tcolorbox}
+Suppose $\left\{ X_{n} \right\}_{n=1}^{\infty}$ are random variables on psp $(\Omega, \mathcal{F}, \mu)$ such that $X_{n} \rightarrow X_{0}$ a.s.
+($P$). If $\sup_{n\geq 1}E(X_{n}^{2}) < \infty$ show that $E(X_{n}) \rightarrow E(X_{0})$.
+\end{tcolorbox}
+
+
+
+
+\subsection*{2.1 [AL 2.28]}
+\begin{tcolorbox}
+Let $\mu$ be the Lebesgue measure on $\left( [-1,1], \mathcal{B}([-1,1]) \right)$. For $n \geq 1$, define $f_{n}(x) = nI_{(0,n^{-1})}(x) -
+nI_{(-n^{-1},0)}(x)$ and $f(x) = 0$ for $x \in [-1,1]$. Show that $f_{n} \rightarrow f$ a.e. ($\mu$) and $\int f_{n}d\mu \rightarrow \int fd\mu$, but
+$\left\{ f_{n} \right\}_{n\geq 1}$ is not uniformly integrable.
+\end{tcolorbox}
+
+
+
+\subsection*{2.2}
+\begin{tcolorbox}
+Let $f_{n}(x) := n^{-1}\mathbb{I}_{(0,n^2)}(x)$ and $f(x) \equiv 0$ for all $x \in \mathbb{R}$. Let $m$ denote the Lebesgue measure on $(\mathbb{R},
+\mathcal{B}(\mathbb{R}))$. Show that $f_{n} \rightarrow f$ a.e. ($m$) and $\left\{ f_{n} \right\}_{n\geq 1}$ is UI but $\int f_{n}dm \nrightarrow \int
+f\ dm$.
+\end{tcolorbox}
+
+
+
+\subsection*{2.3}
+\begin{tcolorbox}
+Let $\left\{ f_{n} \right\}_{n=0}^{\infty} \subset L^{1}(\Omega, \mathcal{F}, \mu)$ and $f \in L^{1}(\Omega, \mathcal{F}, \mu)$ such that $f_{n}
+\rightarrow f$ a.e. ($\mu$) and $\int |f_{n}|d\mu \rightarrow \int |f|d\mu$. Show that $\left\{ f_{n} \right\}_{n=0}^{\infty}$ is UI.
+\end{tcolorbox}
+
+
+
+
+
+
+
+\subsection*{2.4 [AL 2.44]}
+\begin{tcolorbox}
+Let $f_{n}(x) := c_{n}\left( 1 - \frac{x}{n} \right)^{n}\mathbb{I}_{[0,n]}(x)$, for $x \in \mathbb{R}$ and $n\geq 1$.
+\begin{enumerate}[label=(\alph*)]
+\item Find $c_{n}$ such that $\int f_{n}\ d\mu = 1$.
+\item Show that $\lim_{n\rightarrow\infty}f_{n}(x) := f(x)$ exists for all $x \in \mathbb{R}$ and that $f$ is a pdf.
+\item For $A \in \mathcal{B}(\mathbb{R})$, let 
+\[ \nu_{n}(A) := \int_{A}f_{n}\ dm \qquad \text{and} \qquad \nu(A) := \int_{A}f\ dm. \]
+Show that $\nu_{n} \rightarrow \nu$ uniformly on $\mathcal{B}(\mathbb{R})$.
+\end{enumerate}
+\end{tcolorbox}
+
+
+\subsection*{2.5 [AL 2.47]}
+\begin{tcolorbox}
+Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a sequence of continuous functions from $[0,1]$ to $[0,1]$ such that $f_{n}(x) \rightarrow 0$ as $n
+\rightarrow \infty$ for all $0 \leq x \leq 1$. Show that $\int_{0}^{1}f_{n}(x)dx \rightarrow 0$ as $n\rightarrow \infty$ by two methods: one using BCT
+and one without using BCT. Show also that if $\mu$ is a finite measure on $([0,1], \mathcal{B}([0,1]))$, then $\int_{[0,1]}f_{n}\ d\mu \rightarrow 0$.
+\end{tcolorbox}
+
+
+
+\subsection*{2.6 [AL 7.1]}
+\begin{tcolorbox}
+Give an example of three events $A_{1}, A_{2}, A_{3}$ on some probability space such that they are pairwise independent but not independent.
+\end{tcolorbox}
+
+
+
+\subsection*{3.1 [AL 7.6 (a)]}
+\begin{tcolorbox}
+Let $X_{1}$ and $X_{2}$ be independent random variables. Show that for any $p > 0$,
+\[ E|X_{1} + X_{2}|^{p} < \infty \qquad \text{if and only if} \qquad E|X_{1}| < \infty,\  E|X_{2}| < \infty. \]
+\end{tcolorbox}
+
+
+\subsection*{3.2 [AL 7.11]}
+\begin{tcolorbox}
+For any nonnegative random variable $X$, show that $E|X| < \infty$ if and only if $\sum_{n=1}^{\infty}P(|X| > \epsilon n) < \infty$ for every
+$\epsilon > 0$.
+\end{tcolorbox}
+
+
+\subsection*{3.3 [AL 7.12 (a)]}
+\begin{tcolorbox}
+Let $\left\{ X_{i} \right\}_{i\geq 1}$ be a sequence of independent and identically distributed random variables. Show that
+$\lim_{n\rightarrow\infty}\frac{X_{n}}{n} = 0$ with probability 1 if and only if $E|X_{1}| < \infty$.
+\end{tcolorbox}
+
+
+\subsection*{3.4 [AL 7.13]}
+\begin{tcolorbox}
+Let $\left\{ X_{i} \right\}_{i\geq 1}$ be sequence of identically distributed random variables and let $M_{n} := \max\left\{ |X_{j}| : 1 \leq j \leq n
+\right\}$.
+\begin{enumerate}[label=(\alph*)]
+\item If $E|X_{1}|^{\alpha} < \infty$ for some $\alpha \in (0,\infty)$, then show that 
+\begin{equation}
+\frac{M_{n}}{n^{1/\alpha}} \rightarrow 0 \text{ with probability 1}. 
+\label{4.1}
+\end{equation}
+\item Show that if $\left\{ X_{i} \right\}_{i\geq 1}$ are iid satisfying~\eqref{4.1} for some $\alpha > 0$, then $E|X_{1}|^{\alpha} < \infty$.
+\end{enumerate}
+\end{tcolorbox}
+
+
+\subsection*{3.5}
+\begin{tcolorbox}
+Let $p_{n} := 1 - 2^{-n}$ for $n \geq 1$. Let $\left\{ X_{n} : n\geq 1 \right\}$ be random variables such that for each $n \geq 1$,
+\[ P(X_{n} = j) = (1 - p_{n})^{j-1}p_{n}, \ \ j = 1, 2, \hdots \]
+\begin{enumerate}[label=(\alph*)]
+\item Prove that $P(X_{n} = 1 \text{ eventually}) = 1$.
+\item Prove that $P(\lim_{n\rightarrow\infty} X_{n} = 1) = 1$.
+\end{enumerate}
+\end{tcolorbox}
+
+
+
+\newpage
+\subsection*{4.1}
+\begin{tcolorbox}
+Suppose $X, X_{n}, Y, Y_{n}$ are random variables on a common probability space. Show that
+\begin{enumerate}[label=(\alph*)]
+\item if $X_{n} \stackrel{p}{\rightarrow} X$ and $X_{n}\stackrel{p}{\rightarrow}Y$, then $P(X = Y) = 1$,
+\item if $X_{n}\cp X$ and $Y_{n} \cp Y$, then $X_{n} + Y_{n} \cp X + Y$,
+\item if $X_{n}\cp X$ and $Y_{n}\cp Y$, then $X_{n}Y_{n}\cp XY$, 
+\item and if $X_{n}\cp X$, $Y_{n}\cp Y$ and $g$ is a continuous function on $\mathbb{R}^{2}$, then $g(X_{n},Y_{n})\cp g(X,Y)$.
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection*{4.2}
+\begin{tcolorbox}
+Show that if $\left\{ X_{n} \right\}_{n=0}^{\infty}$ is a sequence of independent random variables and $X_{n} \cp X$, then $X$ is degenerate.
+\end{tcolorbox}
+
+
+\subsection*{4.3}
+\begin{tcolorbox}
+For any sequence $\left\{ X_{n} \right\}_{n=0}^{\infty}$ of random variables with $X_{n}\cp X$, show that 
+\[ P\left(\liminf_{n\rightarrow\infty}X_{n}\leq X\leq \limsup_{n\rightarrow\infty}X_{n}\right) = 1. \]
+\end{tcolorbox}
+
+\subsection*{4.4}
+\begin{tcolorbox}
+Let $X, X_{0}, X_{1}, \hdots$ be random variables and suppose that for some $r > 0$,
+\[ E|X_{n} - X|^{r} \rightarrow 0 \ \text{ as } \ n \rightarrow \infty. \]
+Prove that $X_{n}\cp X$.
+\end{tcolorbox}
+
+\newpage
+\subsection*{4.5}
+\begin{tcolorbox}
+Let $X, X_{0}, X_{1}, \hdots$ be random variables and suppose that for some $r > 0$,
+\[ \sum_{n=0}^{\infty}E|X_{n} - X|^{r} < \infty. \]
+Prove that $X_{n} \as X$.
+\end{tcolorbox}
+
+
+\subsection*{4.6}
+\begin{tcolorbox}
+Suppose $X_{1}, X_{2}, \hdots$ are random variables. For each $n \geq 1$, let $S_{n} := \sum_{j=1}^{n}X_{j}$. Let $b_{1}, b_{2}, \hdots \in
+\mathbb{R}$ such that $0 < b_{n} < \infty$ and $b_{n} = \mathcal{O}(b_{n+1})$ for all $n \geq 1$. Prove that if 
+$\frac{S_{n}}{b_{n}} \as 0$, then $\frac{X_{n}}{b_{n}} \as 0$.
+\end{tcolorbox}
+
+
+
+\subsection*{5.1}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be iid random variables. Let $S_{n} := \sum_{j=1}^{n}X_{j}$ and $0 < p < \infty$.
+\begin{enumerate}[label=(\alph*),topsep=3mm]
+\item If $E|X_{1}|^{p} = \infty$, then show that 
+\[ \limsup_{n\rightarrow\infty}\frac{|S_{n}|}{n^{1/p}} = \limsup_{n\rightarrow\infty}\frac{|X_{n}|}{n^{1/p}} = \infty \ \text{almost certainly}. \]
+\item If $0 < p < 2$ and if $E|X_{1}|^{p} < \infty$, where $EX_{1} = 0$ when $1 \leq p < 2$, then show that 
+\[ \lim_{n\rightarrow\infty}\frac{S_{n}}{n^{1/p}} = \lim_{n\rightarrow\infty}\frac{X_{n}}{n^{1/p}} = 0 \ \text{almost certainly}. \]
+\end{enumerate}
+\end{tcolorbox}
+
+
+\subsection*{5.2 [AL 8.12]}
+\begin{tcolorbox}
+Show that equation (4.12) in chapter 8 of AL holds with $p \in (0,2) \setminus \{1\}$.
+\end{tcolorbox}
+
+
+\newpage
+\subsection*{5.3 [AL 8.29]}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be a sequence of iid random variables with $F(x) := P(X_{1} \leq x)$ for all $x \in \mathbb{R}$. Fix $0 < p <
+1$. Suppose that $F(\zeta_{p} + \delta) > p$ for all $\delta> 0$, where 
+\[ \zeta_p := F^{-1}(p) := \inf\left\{ x : F(x) \geq p \right\}. \]
+Show that $\hat{\zeta}_{n} := F_{n}^{-1}(p) := \inf\left\{ x : F_{n}(x) \geq p \right\}$ converges to $\zeta_{p}$ w.p. 1, where $F_{n}(x) :=
+n^{-1}\sum_{i=1}^{n}I(X_{i} \leq x)$, $x \in \mathbb{R}$, is the empirical distribution function of $X_{1}, \hdots, X_{n}$.
+\end{tcolorbox}
+
+
+\subsection*{5.4 [AL 8.31]}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be iid random variables with cdf $F(\cdot)$. For each $\omega \in \Omega$ and $x \in \mathbb{R}$, let
+\[ F_{n}(x) := F_{n,\omega}(x) := F_{n}(x,\omega) := n^{-1}\sum_{i=1}^{n}I(X_{i}(\omega)\leq x) \]
+be the empirical cdf. Suppose $x_{n} \rightarrow x_{0}$ and $F(\cdot)$ is continuous at $x_{0}$. Show that $F_{n}(x_{n}) \rightarrow
+F_{n}(x_{0})$ w.p. 1.
+\end{tcolorbox}
+
+
+
+\subsection*{6.1 [AL 9.1]}
+\begin{tcolorbox}
+If $X_{n}\rightarrow^{d}X_{0}$ and $P(X_0 = c) = 1$ for some $c \in \mathbb{R}$, then $X_n \rightarrow_p c$.
+\end{tcolorbox}
+
+
+
+\subsection*{6.2 [AL 9.11]}
+\begin{tcolorbox}
+For any cdf $F$, let $F^{-1}(p) := \inf\left\{ x \in \mathbb{R} : F(x) \geq p \right\}$, for $p \in (0,1)$. Show that for any $0 < p_{0} < 1$ and
+$t_{0} \in \mathbb{R}$,
+\[ F^{-1}(p_{0}) \leq t_{0} \Leftrightarrow F(t_{0}) \geq p_{0}. \]
+\end{tcolorbox}
+
+
+\subsection*{6.3}
+\begin{tcolorbox}
+Let $F$ be a cdf. Show that the set of points where is discontinuous is countable.
+\end{tcolorbox}
+
+
+
+\subsection*{6.4}
+\begin{tcolorbox}
+Show that a distribution function is uniquely determined by its values on any dense set.
+\end{tcolorbox}
+
+
+\subsection*{6.5}
+\begin{tcolorbox}
+Show that if $F_{n} \Rightarrow F$ and $F_{n}\Rightarrow G$, then $F \equiv G$.
+\end{tcolorbox}
+
+
+
+
+
+\subsection*{7.1 [AL 9.33]}
+\begin{tcolorbox}
+Let $X_{n} \rightarrow^{d} X$ and $x_{n} \rightarrow x$ as $n\rightarrow\infty$. If $P(X = x) = 0$, then show that $P(X_{n}\leq x_{n}) \rightarrow P(X
+\leq x)$.
+\end{tcolorbox}
+
+\subsection*{7.2}
+\begin{tcolorbox}
+Consider random variables $\left\{ X_{n} \right\}_{n\geq 1}$, which may not be defined on a common probability space. Suppose that $X_{n}
+\rightarrow^{d} X$ as $n \rightarrow \infty$ and that $\left\{ X_{n} \right\}_{n\geq 1}$ is uniformly integrable, i.e.
+\[ \lim_{t\rightarrow\infty}\sup_{n\geq 1}E\left[ |X_{n}|\mathbb{I}(|X_{n}| > t) \right] = \lim_{t\rightarrow\infty}\sup_{n\geq 1}\int_{|x| >
+t}|x|d\mu_{n}(x) = 0, \]
+where $\mu_{n}$ denotes the probability distribution of $X_n$ on $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$, $n\geq 1$. Show that $E|X| < \infty$ and
+that $EX_n \rightarrow EX$ as $n\rightarrow\infty$.
+\end{tcolorbox}
+
+
+\subsection*{7.3 [AL 9.7 / Proposition 5.9 (ii)]}
+\begin{tcolorbox}
+If $\left\{ X_{n} \right\}_{n=0}^{\infty}$ is tight and $Y_{n} \stackrel{p}{\rightarrow} 0$ ($X_{n}, Y_{n}$ defined on $(\Omega_{n}, \mathcal{F}_{n},
+P_{n})$), then $X_{n}Y_{n} \stackrel{p}{\rightarrow} 0$.
+\end{tcolorbox}
+
+
+\subsection*{7.4 [AL 9.9]}
+\begin{tcolorbox}
+Let $\left\{ X_{j,n} \right\}_{n\geq 1}$, $j = 1, \hdots, k \geq 1$ be sequence of random variables and let $X_{n} := \left( X_{1,n}, \hdots, X_{k,n}
+\right)$ for all $n \geq 1$. Show that $\left\{ X_{n} \right\}_{n\geq 1}$ is tight in $\mathbb{R}^{k}$ if and only if $\left\{ X_{j,n} \right\}_{n\geq
+1}$ is tight in $\mathbb{R}$ for each $1 \leq j \leq k$.
+\end{tcolorbox}
+
+
+\subsection*{7.5 [AL 9.14]}
+\begin{tcolorbox}
+Let $\left\{ X_{n} \right\}_{n\geq 1}$ be a sequence of random variables and $\left\{ a_n \right\}_{n\geq 1}$ be a sequence of positive reals such
+that $a_n \rightarrow \infty$ as $n \rightarrow \infty$ and $a_n(X_n - \theta) \rightarrow^{d} Z$.
+for some random variable $Z$ and for some $\theta \in \mathbb{R}$. Let $H : \mathbb{R} \rightarrow \mathbb{R}$ be a function that is differentiable at
+$\theta$ with derivative $c$. Show that 
+$a_n(H(X_n) - H(\theta)) \rightarrow^{d} cZ$. 
+\end{tcolorbox}
+
+
+
+\subsection*{8.1 [AL 9.22]}
+\begin{tcolorbox}
+Let $\mu_n$, $\mu$ be probability measures on a countable set $D := \left\{ a_{j} \right\}_{j\geq 1}$, where $a_j \in \mathbb{R}$ for all $j \geq 1$.
+Let $p_{n,j} := \mu_{n}\left( \left\{ a_j \right\} \right)$ for all $n,j\geq 1$ and $p_j := \mu\left( \left\{ a_j \right\} \right)$. Show that, as $n
+\rightarrow \infty$,
+\begin{enumerate}[label = (\roman*)]
+\item $\sup_{x\in\mathbb{R}}|F_n(x) - F(x)| \rightarrow 0$ if and only if
+\item $p_{n,j} \rightarrow p_{j}$ for each $j \geq 1$ if and only if
+\item $\sum_{j=1}^{\infty}|p_{n,j} - p_j| \rightarrow 0$.
+\end{enumerate}
+\end{tcolorbox}
+
+
+
+\subsection*{8.2 [AL 9.28]}
+\begin{tcolorbox}
+Let $\mu$ be a probability distribution on $\mathbb{R}$ such that $\varphi(t_0) := \int e^{t_0|x|}d\mu(x) < \infty$ for some $t_0 > 0$. Show that
+Carleman's condition is satisfied, i.e.
+\[ \sum_{k=1}^{\infty}m_{2k}^{-1/2k} = \infty, \]
+where $m_{j} := \int x^{j}d\mu(x)$.
+\end{tcolorbox}
+
+
+
+\subsection*{8.3 [AL 9.24 (a)]}
+\begin{tcolorbox}
+Let $X_n \sim \text{Geo}(p_n)$ for $n\in\mathbb{N}$ and suppose $p_n \rightarrow 0$. Show that $p_n X_n \rightarrow^{d} X$, where $X \sim
+\text{Exp}(1)$.
+\end{tcolorbox}
+
+
+
+\newpage
+\subsection*{8.4 [AL 9.26]}
+\begin{tcolorbox}
+Let $Y_n$ have the discrete uniform distribution on the integers $\left\{ 1,2,\hdots, n \right\}$. Let $X_n := Y_n / n$ and let $X \sim$ Uniform (0,1).
+Show that $X_n \rightarrow^{d} X$ using three different methods as follows:
+\begin{enumerate}[label = (\alph*)]
+\item Helly-Bray Theorem,
+\item the method of moments,
+\item using the cdfs.
+\end{enumerate}
+\end{tcolorbox}
+
+
+
+
+\end{document}
