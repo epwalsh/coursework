@@ -155,6 +155,32 @@ Finally, on $\Gamma_{3}^{R}$,
 \end{Proof}
 
 
+\newpage 
+\subsection*{6}
+\begin{tcolorbox}
+  Suppose $\left\{ f_j \right\}_{j=0}^{\infty}$ is a sequence of holomorphic funtions on $D(0,1)$ such that each $f_j$ has at most $k$ zeros (counting
+  multiplicity) in $D(0,1)$ and $\left\{ f_j \right\}_{j=0}^{\infty}$ converges uniformly on compact subsets of $D(0,1)$ to $f$ (necessarily
+  holomorphic). Prove that if $f
+  \not\equiv 0$, then $f$ has at most $k$ zeros (counting multiplicity) in $D(0,1)$.
+\end{tcolorbox}
+\begin{Proof}
+  By way of contradiction, suppose $f \not\equiv 0$ and $f$ has $m > k$ zeros (counting multiplicity). Then there exists some $0 < R < 1$ such that
+  all of the zeros of $f$ are contained within $D(0,R)$. Since $\left\{ f_j \right\}_{n=0}^{\infty}$ converges uniformly on compact subsets, there
+  exists some $N \in \mathbb{N}$ such that $|f(z) - f_j(z)| < \min\left\{ |f(z)| : z \in \partial D(0,R) \right\}$ for all $j \geq N$, i.e. $f_j(z) \neq
+  0$ for all $z \in \partial D(0,R)$ whenever $j \geq N$. So, by Proposition 5.1.2,
+  \begin{equation}
+    \frac{1}{2\pi i}\oint_{\partial D(0,R)}\frac{f'_j(\zeta)}{f_j(\zeta)}d\zeta \leq k,
+    \label{6.1}
+  \end{equation}
+  for all $j \geq N$, and 
+  \begin{equation}
+    \frac{1}{2\pi i}\oint_{\partial D(0,R)}\frac{f'(\zeta)}{f(\zeta)}d\zeta = m.
+    \label{6.2}
+  \end{equation}
+  However, since $f_j \rightarrow f$ and $f_j' \rightarrow f$ uniformly on $\partial D(0,R)$, the integrals in~\eqref{6.1} converge to the integral 
+  in~\eqref{6.2}. This is a contradiction.
+\end{Proof}
+
 
 \end{document}
 
