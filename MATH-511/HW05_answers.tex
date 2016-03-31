@@ -182,5 +182,20 @@ Finally, on $\Gamma_{3}^{R}$,
 \end{Proof}
 
 
+\newpage
+\subsection*{8}
+\begin{tcolorbox}
+  Let $R > 0$ and $U = \mathbb{C} \setminus \overline{D(0,R)}$. Suppose $f$ is holomorphic on $U$, continuous and bounded on $\overline{U}$. Prove
+  that there exists $z_0 \in \partial D(0,R)$ such that $|f(z_0)| \geq |f(z)|$ for all $z \in \overline{U}$.
+\end{tcolorbox}
+\begin{Proof}
+  Define $\tilde{g}(z) = f(1/z)$ for all $z \in D(0,R^{-1})\setminus \{0\}$. Then $\tilde{g}$ is holomorphic on \\
+  $D(0,R^{-1})\setminus\{0\}$, 
+  and since $f$ is bounded on $U$, $\tilde{g}$ has a holomorphic extension $g$ on $D(0,R^{-1})$. Clearly $g$ must also be continuous on $\partial
+  D(0,R^{-1})$, so by the maximum modulus theorem, there exists $p_0 \in \partial D(0,R^{-1})$ such that $|g(p_0)| \geq |g(z)|$ for all $z \in
+  \overline{D(0,R^{-1})}$, i.e. $|f(1/p_0)| \geq |f(1/z)|$ for all $z \in \overline{D(0,R^{-1})}\setminus\{0\}$. Thus $|f(z_0)| \geq |f(z)|$ for all
+  $z \in \overline{U}$, where $z_0 := 1/p_0$.
+\end{Proof}
+
 \end{document}
 
