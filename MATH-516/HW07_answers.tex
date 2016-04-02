@@ -144,8 +144,16 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Prove that $\left\{ 0,1 \right\}^{\omega}$ is totally disconnected.
 \end{tcolorbox}
+\begin{Proof}
+  Let $E \subseteq \left\{ 0,1 \right\}^{\omega}$ such that $E$ contains at least two
+  unique elements, say $f$ and $g$. Since $f$ and $g$ are unique, there exists a minimum non-negative integer $n_0$ such that $f(n_0) \neq g(n_0)$. 
+  Let $\sigma_f = (f(0), \hdots, f(n_0))$ and $U = B(\sigma_{f})$. Then define $V$ as 
+  \[ V := \bigcup \left\{ B(\sigma) : \sigma = (a_0, \hdots, a_{n_0}) \text{ so that } a_i \neq f(i) \text{ for some } 0 \leq i \leq n_0 \right\}. \]
+  By definition, $U$ and $V$ are disjoint and open, where $\left\{ 0,1 \right\}^{\omega} = U\cup V \supseteq E$. But since $f \in U$ and $g \in V$, $E
+  \not\subseteq U$ and $E \not\subseteq V$. Hence $E$ is disconnected. Therefore we have shown that any subset containing more than 1 element is
+  disconnected, so $\left\{ 0,1 \right\}^{\omega}$ is totally disconnected.
+\end{Proof}
 
-\newpage 
 \subsection*{5}
 \begin{tcolorbox}
   Prove that $\left\{ 0,1 \right\}^{\omega}$ is compact.
