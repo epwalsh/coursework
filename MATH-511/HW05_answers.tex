@@ -211,6 +211,12 @@ has only $\ell$ zeros in $D(0,1)$.
   Suppose $f$ is 1-1 and holomorphic on $D(0,1)$, $D(0,1) \subseteq f(D(0,1))$ and $f(0) = 0$. Show that $|f'(0)| \geq 1$ and the equality % chktex 8
   holds if and only if $f(z) = \alpha z$ for some $\alpha$ with $|\alpha| = 1$.
 \end{tcolorbox}
+\begin{Proof}
+  Let $U = f(D(0,1))$. Since $f$ is 1-1 and holomorphic, $f^{-1} : U \rightarrow D(0,1)$ is holomorphic. % chktex 8
+  Further, $f^{-1}(D(0,1)) \subseteq f^{-1}(U) = D(0,1)$, so $|f^{-1}(z)| \leq 1$ for all $z \in D(0,1)$ and $f^{-1}(0) = 0$. Hence, by Schwarz's
+  Lemma, $|(f^{-1})'(0)| \leq 1$, which implies $|f'(0)| \geq 1$, and $|(f^{-1})'(0)| = 1$ if and only if $f^{-1}(z) \equiv \alpha z$ for some
+  $\alpha \in \mathbb{C}$ with $|\alpha| = 1$, if and only if $f(z) \equiv \tilde{\alpha}z$, where $\tilde{\alpha} = \frac{1}{\alpha}$.
+\end{Proof}
 
 
 
@@ -219,7 +225,7 @@ has only $\ell$ zeros in $D(0,1)$.
   Let $f$ be a holomorphic map on $D(0,1)$ such that $f(-1/2) = 0$ and $|f(z)| \leq |1 + z^2|$ for all $z \in D(0,1)$. Show that $|f(1/2)| \leq 1$.
 \end{tcolorbox}
 \begin{Proof}
-  Let $g(z) := \frac{f(z)}{1 + z^2}$. Then $g$ is holomorphic on $D(0,1)$ and $|g(z)| \leq 1$ for all $z \in D(0,1)$. Let $a_1 := -1/2$, $b_1 :=
+  Let $g(z) = \frac{f(z)}{1 + z^2}$. Then $g$ is holomorphic on $D(0,1)$ and $|g(z)| \leq 1$ for all $z \in D(0,1)$. Let $a_1 = -1/2$, $b_1 =
   g(-1/2) = 0$, $a_2 = 1/2$, and $b_2 = g(1/2) = f(1/2) / (1 + 1/4)$. By the Schwars-Pick theorem,
   \[ \left| \frac{b_2 - b_1}{1 - \bar{b}_1 b_2} \right| \leq \left| \frac{a_2 - a_1}{1 - \bar{a}_1 a_2}\right|, \]
   which implies
