@@ -59,19 +59,19 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   where $n_{j}$ is the multiplicity of $z_j$, $1 \leq j \leq p$, and $m_k$ is the order of $w_k$, $1 \leq k \leq q$.
 \end{tcolorbox}
 \begin{Proof}
-  Let $H(z)$ be the holomorphic extension of 
+  Let $H(z)$ be the holomorphic extension of
   \[ f(z)\cdot \frac{(z - w_1)^{m_1}\cdots (z - w_q)^{m_{q}}}{(z-z_1)^{n_{1}}\cdots (z - z_p)^{n_{p}}} \]
   on $U$. So $H(z)$ is holomorphic on $U$ and $H(z) \neq 0$ for all $z \in \overline{D(P,r)}$. Therefore $H'(z) / H(z)$ is well-defined and
-  holomorphic on $\overline{D(p,r)}$. Further, we see that 
+  holomorphic on $\overline{D(p,r)}$. Further, we see that
   \begin{align*}
-    f'(z) = H'(z)\cdot \frac{(z - z_1)^{n_1}\cdots (z - z_p)^{n_p}}{(z - w_1)^{m_1}\cdots (z - w_q)^{m_q}} & + 
+    f'(z) = H'(z)\cdot \frac{(z - z_1)^{n_1}\cdots (z - z_p)^{n_p}}{(z - w_1)^{m_1}\cdots (z - w_q)^{m_q}} & +
     H(z)\sum_{i=1}^{p}\frac{n_i(z - z_i)^{n_i-1}}{(z - w_1)^{m_1}\cdots(z-w_q)^{m_q}}\prod_{j\neq i}(z - z_j)^{n_j} \\
     & - H(z)\sum_{k=1}^{q}\frac{(z-z_1)^{n_1}\cdots(z-z_p)^{n_p}}{(z - w_k)^{m_k + 1}}\prod_{l\neq k}\frac{1}{(z-w_l)^{m_l + 1}}.
   \end{align*}
-  Therefore 
+  Therefore
   \[ g(z)\cdot\frac{f'(z)}{f(z)} = g(z)\cdot\frac{H'(z)}{H(z)} + g(z)\sum_{j=1}^{p}\frac{n_j}{z - z_j} - g(z)\sum_{k=1}^{q}\frac{m_k}{z - w_k}. \]
   Since $g(z) H'(z) / H(z)$ is holomorphic on $U$, $\oint_{\partial D(P,r)}g(z)H'(z) / H(z)\ dz = 0$. Thus,
-  \[ 
+  \[
     \oint_{\partial D(P,r)}g(z)\frac{f'(z)}{f(z)} dz = \sum_{j=1}^{p}\oint_{\partial D(P,r)}\frac{n_j g(z)}{z - z_j}dz -
     \sum_{k=1}^{q}\oint_{\partial D(P,r)}\frac{m_k g(z)}{z - w_k}dz = \sum_{j=1}^{p}n_{j}g(z_{j}) - \sum_{k=1}^{q}m_{k}g(w_{k}).
   \]
@@ -98,7 +98,7 @@ Let $g_1(z) := -6z^2$ and $g_2(z) := 2z^5$. For $z \in \partial D(0,1)$,
   |f(z) - g_1(z)| = |2z^5 + z + 1| \leq 2|z|^5 + |z| + 1 = 4 < 6 = |g_1(z)|.
   \label{3.1}
 \end{equation}
-Similarly, for $z \in \partial D(0,2)$, we have 
+Similarly, for $z \in \partial D(0,2)$, we have
 \begin{equation}
   |f(z) - g_2(z)| = |-6z^2 + z + 1| \leq 6|z|^2 + |z| + 1 = 27 < 64 = |g_2(z)|.
   \label{3.2}
@@ -126,7 +126,7 @@ Finally, on $\Gamma_{3}^{R}$,
 \newpage
 \subsection*{5}
 \begin{tcolorbox}
-  Let $P(z) = z^n + a_{n-1}z^{n-1} + \cdots + a_0$. Show that all the zeros of $P$ lie inside $D(0,R)$, where $R := 1 + \max\left\{ 
+  Let $P(z) = z^n + a_{n-1}z^{n-1} + \cdots + a_0$. Show that all the zeros of $P$ lie inside $D(0,R)$, where $R := 1 + \max\left\{
   |a_k| : 0 \leq k \leq n-1\right\}$.
 \end{tcolorbox}
 \begin{Proof}
@@ -138,12 +138,12 @@ Finally, on $\Gamma_{3}^{R}$,
     & \leq AR^{n-1} + AR^{n-2} + \cdots + A \\
     & = A[(A+1)^{n-1} + (A + 1)^{n-2} + \cdots + 1].
   \end{align*}
-  Since $|g(z)| = R^{n} = (A + 1)^{n}$ for $z\in \partial D(0,R)$, it suffices to show that 
+  Since $|g(z)| = R^{n} = (A + 1)^{n}$ for $z\in \partial D(0,R)$, it suffices to show that
   \begin{equation}
     \frac{A[(A+1)^{n-1} + (A + 1)^{n-2} + \cdots + 1]}{(A + 1)^{n}} < 1.
     \label{5.1}
   \end{equation}
-  But 
+  But
   \begin{align*}
     \frac{A[(A+1)^{n-1} + (A + 1)^{n-2} + \cdots + 1]}{(A + 1)^{n}} & = A\left[ \frac{1}{A+1} + \frac{1}{(A+1)^{2}} + \cdots + \frac{1}{(A+1)^{n}}
     \right] \\
@@ -155,7 +155,7 @@ Finally, on $\Gamma_{3}^{R}$,
 \end{Proof}
 
 
-\newpage 
+\newpage
 \subsection*{6}
 \begin{tcolorbox}
   Suppose $\left\{ f_j \right\}_{j=0}^{\infty}$ is a sequence of holomorphic funtions on $D(0,1)$ such that each $f_j$ has at most $k$ zeros (counting
@@ -172,12 +172,12 @@ Finally, on $\Gamma_{3}^{R}$,
     \frac{1}{2\pi i}\oint_{\partial D(0,R)}\frac{f'_j(\zeta)}{f_j(\zeta)}d\zeta \leq k,
     \label{6.1}
   \end{equation}
-  for all $j \geq N$, and 
+  for all $j \geq N$, and
   \begin{equation}
     \frac{1}{2\pi i}\oint_{\partial D(0,R)}\frac{f'(\zeta)}{f(\zeta)}d\zeta = m.
     \label{6.2}
   \end{equation}
-  However, since $f_j \rightarrow f$ and $f_j' \rightarrow f$ uniformly on $\partial D(0,R)$, the integrals in~\eqref{6.1} converge to the integral 
+  However, since $f_j \rightarrow f$ and $f_j' \rightarrow f$ uniformly on $\partial D(0,R)$, the integrals in~\eqref{6.1} converge to the integral
   in~\eqref{6.2}. This is a contradiction.
 \end{Proof}
 
@@ -187,7 +187,7 @@ Finally, on $\Gamma_{3}^{R}$,
   $k$ zeros in $D(0,1)$ and $f_j$ converges uniformly on compact subsets of $D(0,1)$ to $f$ but $f$ has only $\ell$ zeros in $D(0,1)$.
 \end{tcolorbox}
 For $j \geq 0$, $0 \leq \ell \leq k$, let $f_{j}^{\ell}(z) := z^{\ell}(z - (1 - 2^{-j}))^{k}$ and $f^{\ell}(z) := z^{\ell}(z - 1)^{k}$. Then
-$f_{j}^{\ell} \rightarrow f^{\ell}$ uniformly on compact subsets of $D(0,1)$, while each $f_{j}^{\ell}$ has $\ell + k$ zeros in $D(0,1)$ but $f^{\ell}$ 
+$f_{j}^{\ell} \rightarrow f^{\ell}$ uniformly on compact subsets of $D(0,1)$, while each $f_{j}^{\ell}$ has $\ell + k$ zeros in $D(0,1)$ but $f^{\ell}$
 has only $\ell$ zeros in $D(0,1)$.
 
 \subsection*{8}
@@ -197,11 +197,34 @@ has only $\ell$ zeros in $D(0,1)$.
 \end{tcolorbox}
 \begin{Proof}
   Define $\tilde{g}(z) = f(1/z)$ for all $z \in D(0,R^{-1})\setminus \{0\}$. Then $\tilde{g}$ is holomorphic on \\
-  $D(0,R^{-1})\setminus\{0\}$, 
+  $D(0,R^{-1})\setminus\{0\}$,
   and since $f$ is bounded on $U$, $\tilde{g}$ has a holomorphic extension $g$ on $D(0,R^{-1})$. Clearly $g$ must also be continuous on $\partial
   D(0,R^{-1})$, so by the maximum modulus theorem, there exists $p_0 \in \partial D(0,R^{-1})$ such that $|g(p_0)| \geq |g(z)|$ for all $z \in
   \overline{D(0,R^{-1})}$, i.e. $|f(1/p_0)| \geq |f(1/z)|$ for all $z \in \overline{D(0,R^{-1})}\setminus\{0\}$. Thus $|f(z_0)| \geq |f(z)|$ for all
   $z \in \overline{U}$, where $z_0 := 1/p_0$.
+\end{Proof}
+
+
+\newpage
+\subsection*{9}
+\begin{tcolorbox}
+  Suppose $f$ is 1-1 and holomorphic on $D(0,1)$, $D(0,1) \subseteq f(D(0,1))$ and $f(0) = 0$. Show that $|f'(0)| \geq 1$ and the equality % chktex 8
+  holds if and only if $f(z) = \alpha z$ for some $\alpha$ with $|\alpha| = 1$.
+\end{tcolorbox}
+
+
+
+\subsection*{10}
+\begin{tcolorbox}
+  Let $f$ be a holomorphic map on $D(0,1)$ such that $f(-1/2) = 0$ and $|f(z)| \leq |1 + z^2|$ for all $z \in D(0,1)$. Show that $|f(1/2)| \leq 1$.
+\end{tcolorbox}
+\begin{Proof}
+  Let $g(z) := \frac{f(z)}{1 + z^2}$. Then $g$ is holomorphic on $D(0,1)$ and $|g(z)| \leq 1$ for all $z \in D(0,1)$. Let $a_1 := -1/2$, $b_1 :=
+  g(-1/2) = 0$, $a_2 = 1/2$, and $b_2 = g(1/2) = f(1/2) / (1 + 1/4)$. By the Schwars-Pick theorem,
+  \[ \left| \frac{b_2 - b_1}{1 - \bar{b}_1 b_2} \right| \leq \left| \frac{a_2 - a_1}{1 - \bar{a}_1 a_2}\right|, \]
+  which implies
+  \[ |b_2| \leq \frac{1}{1 + \frac{1}{4}}\qquad \Rightarrow\qquad \frac{\left|f\left(\frac{1}{2}\right)\right|}{1 + \frac{1}{4}} \leq \frac{1}{1 + \frac{1}{4}}
+  \qquad\Rightarrow\qquad \left|f\left(\frac{1}{2}\right)\right| \leq 1. \]
 \end{Proof}
 
 \end{document}
