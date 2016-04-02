@@ -51,7 +51,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{1 [RF 18.52]}
 \begin{tcolorbox}
   Let $(X,\mathcal{M}, \mu)$ be a finite measure space, $\left\{ E_k \right\}_{k=1}^{n}$ be a collection of measurable sets, and $\left\{ c_k
-  \right\}_{k=1}^{n}$ a collection of real numbers. For each $E \in \mathcal{M}$, define 
+  \right\}_{k=1}^{n}$ a collection of real numbers. For each $E \in \mathcal{M}$, define
   \[ \nu(E) = \sum_{k=1}^{n}c_k \cdot \mu(E\cap E_k). \]
   Show that $\nu$ is absolutely continuous with respect to $\mu$ and find its Radon-Nikodym derivative $\frac{d\mu}{d\nu}$.
 \end{tcolorbox}
@@ -60,28 +60,25 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \[ \nu(E) = \sum_{k=1}^{n}c_k \cdot \mu(E\cap E_k) = \int_{E}\sum_{k=1}^{n}c_k\cdot \chi_{E_k}\ d\mu, \]
   and if $\mu(E) = 0$, then $\mu(E\cap E_k) = 0$ for all $1 \leq k \leq n$. Thus,
   \[ \nu(E) = \sum_{k=1}^{n}c_k \cdot \mu(E\cap E_K) = 0. \]
-  Hence $\nu \ll \mu$ and $\frac{d\nu}{d\mu} = \sum_{k=1}^{n}c_k\cdot \chi_{E_k}$.
+  Hence $\nu \ll \mu$ and $\frac{d\nu}{d\mu} = \sum_{k=1}^{n}c_k\cdot \chi_{E_k}$ a.e. ($\mu$).
 \end{Proof}
 
 
-\newpage 
+\newpage
 \subsection*{2,3 [RF 18.54]}
 \begin{tcolorbox}
   Let $\mu$, $\nu$, and $\lambda$ be $\sigma$-finite measures on the measurable space $(X, \mathcal{M})$.
   \begin{enumerate}[label = (\roman*)]
-    \item If $\nu \ll \mu$ and if $f$ is a non-negative function on $X$ that is measurable with respect to $\mathcal{M}$, show that 
+    \item If $\nu \ll \mu$ and if $f$ is a non-negative function on $X$ that is measurable with respect to $\mathcal{M}$, show that
       \[ \int_{X} f\ d\nu = \int_{X}f\left[ \frac{d\nu}{d\mu} \right]d\mu. \]
-    \item If $\nu \ll \mu$ and $\lambda \ll \mu$, show that 
-      \[ \frac{d(\nu + \lambda)}{d\mu} = \frac{d\nu}{d\mu} + \frac{d\lambda}{d\mu}\ \ \text{a.e. $(\mu)$}. \]
-    \item If $\nu \ll \mu \ll \lambda$, show that 
-      \[ \frac{d\nu}{d\lambda} = \frac{d\nu}{d\mu}\cdot \frac{d\mu}{d\lambda}\  \ \text{a.e. $(\lambda)$}. \]
-    \item If $\nu \ll \mu$ and $\mu \ll \nu$, show that 
-      \[ \frac{d\nu}{d\mu}\cdot \frac{d\mu}{d\nu} = 1 \ \ \text{a.e. $(\mu)$}. \]
+    \item If $\nu \ll \mu$ and $\lambda \ll \mu$, show that $\frac{d(\nu + \lambda)}{d\mu} = \frac{d\nu}{d\mu} + \frac{d\lambda}{d\mu}$ a.e. $(\mu)$.
+    \item If $\nu \ll \mu \ll \lambda$, show that $\frac{d\nu}{d\lambda} = \frac{d\nu}{d\mu}\cdot \frac{d\mu}{d\lambda}$  a.e. $(\lambda)$
+    \item If $\nu \ll \mu$ and $\mu \ll \nu$, show that $\frac{d\nu}{d\mu}\cdot \frac{d\mu}{d\nu} = 1$ a.e. $(\mu)$.
   \end{enumerate}
 \end{tcolorbox}
 \begin{Proof}
   \begin{enumerate}[label = (\roman*)]
-      \item 
+      \item
         Suppose $\nu \ll \mu$. First we will that if $f$ is any non-negative measurable function on $X$, then for any $E \in \mathcal{M}$,
         \begin{equation}
           \int_{E}f\ d\nu = \int_{E}f\left[ \frac{d\nu}{d\mu} \right]d\mu.
@@ -94,9 +91,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \begin{claimproof}
           Note that $\chi_{A}\cdot\chi_{E} = \chi_{A\cap E}$. Thus,
           \begin{align*}
-            \int_{E}f\ d\nu = \int_{E}\chi_{A}\ d\nu = \int_{X} \chi_{A}\chi_{E}\ d\nu = \int_{X} \chi_{A\cap E}\ d\nu = \nu(A\cap E) 
-            & = \int_{A\cap E}\frac{d\nu}{d\mu}\ d\mu \\
-            & = \int_{E}f\left[ \frac{d\nu}{d\mu} \right]d\mu.
+            \int_{E}f\ d\nu = \int_{E}\chi_{A}\ d\nu = \int_{X} \chi_{A}\chi_{E}\ d\nu = \int_{X} \chi_{A\cap E}\ d\nu = \nu(A\cap E)
+            = \int_{A\cap E}\frac{d\nu}{d\mu}\ d\mu 
+            = \int_{E}f\left[ \frac{d\nu}{d\mu} \right]d\mu.
           \end{align*}
         \end{claimproof}
         \begin{claim}
@@ -111,24 +108,24 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \begin{claimproof}
           Let $\left\{ s_n \right\}_{n=0}^{\infty}$ be an increasing sequence of non-negative simple functions such that $s_n \rightarrow f$. By MCT
           and Claim 2,
-          \[ 
+          \[
             \int_{E}f\ d\nu = \lim_{n\rightarrow\infty}\int_{E}s_n\ d\nu = \lim_{n\rightarrow\infty}\int_{E}s_n\left[ \frac{d\nu}{d\mu} \right]d\mu =
             \int_{E}f\left[ \frac{d\nu}{d\mu} \right]d\mu,
           \]
           where the last equality follows from MCT and the fact that $s_n \cdot \frac{d\nu}{d\mu} \uparrow f\cdot
-          \frac{d\nu}{d\mu}$ since $s_n \uparrow f$. 
+          \frac{d\nu}{d\mu}$ since $s_n \uparrow f$.
 
         \end{claimproof}
       \item Now suppose $\nu \ll \mu$ and $\lambda \ll \mu$. Then for any $E \in \mathcal{M}$,
-        \[ 
-          (\nu + \lambda)(E) = \nu(E) + \lambda(E) = \int_{E}\frac{d\nu}{d\mu}d\mu + \int_{E}\frac{d\lambda}{d\mu}d\mu = \int_{E} 
-          \left[ \frac{d\nu}{d\mu} + \frac{d\lambda}{d\mu} \right]d\mu. 
+        \[
+          (\nu + \lambda)(E) = \nu(E) + \lambda(E) = \int_{E}\frac{d\nu}{d\mu}d\mu + \int_{E}\frac{d\lambda}{d\mu}d\mu = \int_{E}
+          \left[ \frac{d\nu}{d\mu} + \frac{d\lambda}{d\mu} \right]d\mu.
         \]
         Hence $\frac{d(\nu + \lambda)}{d\mu} = \frac{d\nu}{d\mu} + \frac{d\lambda}{d\mu}$ a.e. ($\mu$).
       \item Let $E \in \mathcal{M}$. By Equation~\eqref{2.1} (or Claim 3) with $f = \frac{d\nu}{d\mu}$,
-        \[ 
+        \[
           \int_{E}f\ d\mu = \int_{E}f\left[ \frac{d\mu}{d\lambda} \right]d\lambda, \text{ i.e. } \int_{E}\frac{d\nu}{d\mu}\ d\mu = \int_{E}
-          \frac{d\nu}{d\mu}\cdot\frac{d\mu}{d\lambda}\ d\lambda. 
+          \frac{d\nu}{d\mu}\cdot\frac{d\mu}{d\lambda}\ d\lambda.
         \]
         Thus, $\nu(E) = \int_{E}\frac{d\nu}{d\mu}\cdot \frac{d\mu}{d\lambda}\ d\lambda$, and so $\frac{d\nu}{d\lambda} = \frac{d\nu}{d\mu}\cdot
         \frac{d\mu}{d\lambda}$ a.e. $(\lambda)$.
@@ -139,15 +136,14 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Proof}
 
 
-\newpage 
 \subsection*{4}
 \begin{tcolorbox}
   Prove that $\left\{ 0,1 \right\}^{\omega}$ is totally disconnected.
 \end{tcolorbox}
 \begin{Proof}
   Let $E \subseteq \left\{ 0,1 \right\}^{\omega}$ such that $E$ contains at least two
-  unique elements, say $f$ and $g$. Since $f$ and $g$ are unique, there exists a minimum non-negative integer $n_0$ such that $f(n_0) \neq g(n_0)$. 
-  Let $\sigma_f = (f(0), \hdots, f(n_0))$ and $U = B(\sigma_{f})$. Then define $V$ as 
+  unique elements, say $f$ and $g$. Since $f$ and $g$ are unique, there exists a minimum non-negative integer $n_0$ such that $f(n_0) \neq g(n_0)$.
+  Let $\sigma_f = (f(0), \hdots, f(n_0))$ and $U = B(\sigma_{f})$. Then define $V$ as
   \[ V := \bigcup \left\{ B(\sigma) : \sigma = (a_0, \hdots, a_{n_0}) \text{ so that } a_i \neq f(i) \text{ for some } 0 \leq i \leq n_0 \right\}. \]
   By definition, $U$ and $V$ are disjoint and open, where $\left\{ 0,1 \right\}^{\omega} = U\cup V \supseteq E$. But since $f \in U$ and $g \in V$, $E
   \not\subseteq U$ and $E \not\subseteq V$. Hence $E$ is disconnected. Therefore we have shown that any subset containing more than 1 element is
@@ -158,6 +154,25 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Prove that $\left\{ 0,1 \right\}^{\omega}$ is compact.
 \end{tcolorbox}
+\begin{Proof}
+  Let $\mathcal{O}$ be an open cover of $\left\{ 0,1 \right\}^{\omega}$. By the Lebesgue Number Lemma, there exists some $K_0 \in \mathbb{N}$ such that
+  whenever $f,g \in \left\{ 0,1 \right\}^{\omega}$ and $d(f,g) < 2^{-K_0}$, there exists some $E \in \mathcal{O}$ such that $f,g \in E$. Thus, for any
+  $f \in \left\{ 0,1 \right\}^{\omega}$, there exists some $E \in \mathcal{O}$ such that $B_{2^{-K_1}}(f) \subseteq E$, where $K_1 := K_0 + 1$. Now
+  let $\left\{ \sigma_{j} \right\}_{j=1}^{2^{K_1}}$ be the set of unique sequences of 0's and 1's of length $K_1$, i.e. $\sigma_{j} = (a_{j,0},
+    a_{j,1}, \hdots, a_{j,K_{0}})$, where $a_{j,i} \in \left\{ 0,1 \right\}$ for each $1 \leq j \leq 2^{K_1}$, $0 \leq i \leq K_0$. For each $j \in \left\{
+  1, \hdots, 2^{K_1} \right\}$, let $f_j \in \left\{ 0,1 \right\}^{\omega}$ such that 
+  \[ f_j(i) = \left\{ \begin{array}{cl}
+        a_{j,i} & \text{ if } 0 \leq i \leq K_{0} \\
+        0 & \text{ if } i \geq K_{1}. \\
+    \end{array} \right. 
+  \]
+  So for each $j \in \left\{ 1,\hdots, 2^{K_{1}} \right\}$, there exists $E_j \in \mathcal{O}$ such that $B_{2^{-K_{1}}}(f_j) \subseteq E_{j}$.
+  But 
+  \[ 
+    \bigcup_{j=1}^{2^{K_{1}}}E_j \supseteq \bigcup_{j=1}^{2^{K_{1}}}B_{2^{-K_{1}}}(f_j) = \left\{ 0,1 \right\}^{\omega}. 
+  \]
+  Hence $\left\{ E_1, \hdots, E_{2^{K_{1}}} \right\}$ is a finite subcover, and so $\left\{ 0,1 \right\}^{\omega}$ is compact.
+\end{Proof}
 
 
 \end{document}
