@@ -46,7 +46,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \cfoot{}
 
 \begin{document}
-\maketitle
+% \maketitle
 
 \subsubsection*{1}
 \begin{tcolorbox}
@@ -66,15 +66,20 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{align*}
     f'(z) = H'(z)\cdot \frac{(z - z_1)^{n_1}\cdots (z - z_p)^{n_p}}{(z - w_1)^{m_1}\cdots (z - w_q)^{m_q}} & +
     H(z)\sum_{i=1}^{p}\frac{n_i(z - z_i)^{n_i-1}}{(z - w_1)^{m_1}\cdots(z-w_q)^{m_q}}\prod_{j\neq i}(z - z_j)^{n_j} \\
-    & - H(z)\sum_{k=1}^{q}\frac{(z-z_1)^{n_1}\cdots(z-z_p)^{n_p}}{(z - w_k)^{m_k + 1}}\prod_{l\neq k}\frac{1}{(z-w_l)^{m_l + 1}}.
+    & - H(z)\sum_{k=1}^{q}\frac{m_k(z-z_1)^{n_1}\cdots(z-z_p)^{n_p}}{(z - w_k)^{m_k + 1}}\prod_{l\neq k}\frac{1}{(z-w_l)^{m_l + 1}}.
   \end{align*}
   Therefore
   \[ g(z)\cdot\frac{f'(z)}{f(z)} = g(z)\cdot\frac{H'(z)}{H(z)} + g(z)\sum_{j=1}^{p}\frac{n_j}{z - z_j} - g(z)\sum_{k=1}^{q}\frac{m_k}{z - w_k}. \]
-  Since $g(z) H'(z) / H(z)$ is holomorphic on $U$, $\oint_{\partial D(P,r)}g(z)H'(z) / H(z)\ dz = 0$. Thus,
+  Since $g(z) H'(z) / H(z)$ is holomorphic on $U$,
   \[
-    \oint_{\partial D(P,r)}g(z)\frac{f'(z)}{f(z)} dz = \sum_{j=1}^{p}\oint_{\partial D(P,r)}\frac{n_j g(z)}{z - z_j}dz -
-    \sum_{k=1}^{q}\oint_{\partial D(P,r)}\frac{m_k g(z)}{z - w_k}dz = \sum_{j=1}^{p}n_{j}g(z_{j}) - \sum_{k=1}^{q}m_{k}g(w_{k}).
+    \oint_{\partial D(P,r)}\frac{g(z)H'(z)}{H(z)}\ dz = 0.
   \]
+  Thus, by the Cauchy integral formula,
+  \begin{align*}
+    \frac{1}{2\pi i}\oint_{\partial D(P,r)}g(z)\frac{f'(z)}{f(z)} dz & = \frac{1}{2\pi i}\sum_{j=1}^{p}n_j \oint_{\partial D(P,r)}\frac{g(z)}{z - z_j}dz -
+    \frac{1}{2\pi i}\sum_{k=1}^{q}m_k \oint_{\partial D(P,r)}\frac{g(z)}{z - w_k}dz \\
+    & = \sum_{j=1}^{p}n_{j}g(z_{j}) - \sum_{k=1}^{q}m_{k}g(w_{k}).
+  \end{align*}
 \end{Proof}
 
 
@@ -103,8 +108,8 @@ Similarly, for $z \in \partial D(0,2)$, we have
   |f(z) - g_2(z)| = |-6z^2 + z + 1| \leq 6|z|^2 + |z| + 1 = 27 < 64 = |g_2(z)|.
   \label{3.2}
 \end{equation}
-Thus, by~\eqref{3.1} and~\eqref{3.2} $f$ has 2 zeros in $D(0,1)$ and 5 zeros in $D(0,2)$ by Rouch\'{e}'s theorem (counting multiplicity). Hence, since
-$f$ has no zeros on $\partial D(0,1)$, $f$ has 3 zeros (counting multiplicity) in $\left\{ z : 1 < |z| < 2 \right\}$.
+Thus, by~\eqref{3.1} and~\eqref{3.2} $f$ has 2 zeros in $D(0,1)$ and 5 zeros in $D(0,2)$ (counting multiplicity) by Rouch\'{e}'s theorem. Hence, since
+$f$ has no zeros on $\partial D(0,1)$, $f$ has 3 zeros in $\left\{ z : 1 < |z| < 2 \right\}$.
 
 
 \subsubsection*{4}
@@ -151,7 +156,7 @@ Finally, on $\Gamma_{3}^{R}$,
     & = A\cdot \frac{(A + 1)^{-1}}{1 - (A+1)^{-1}} = 1.
   \end{align*}
   Therefore~\eqref{5.1} holds, and so $|f(z) - g(z)| < (A + 1)^{n} = R^{n} = |g(z)| \leq |f(z)| + |g(z)|$. So by Rouch\'{e}'s theorem, $f$ has $n$
-  zeros with $D(0,R)$. Since $f$ only has $n$ zeros, all the zeros of $f$ are within $D(0,R)$.
+  zeros within $D(0,R)$. Since $f$ only has $n$ zeros, all the zeros of $f$ are within $D(0,R)$.
 \end{Proof}
 
 
