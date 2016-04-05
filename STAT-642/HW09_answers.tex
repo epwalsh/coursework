@@ -51,7 +51,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{1 [AL 10.10]}
 \begin{tcolorbox}
-  Let $\mu$ be a probability measure on $\mathbb{R}$ with characteristic function $\phi$. Prove that 
+  Let $\mu$ be a probability measure on $\mathbb{R}$ with characteristic function $\phi$. Prove that
   \[ \frac{1}{\pi} \int_{-\infty}^{\infty}[1 - \text{Re}(\phi(t))]t^{-2}dt = \int_{-\infty}^{\infty}|x|d\mu(x). \]
 \end{tcolorbox}
 \begin{Proof}
@@ -60,7 +60,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \frac{1}{\pi}\int_{-\infty}^{\infty}[1 - \text{Re}(\phi(t))]t^{-2}dt = \frac{1}{\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\frac{1 -
     \cos(|xt|)}{t^{2}}d\mu(x) dt = \frac{1}{\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\frac{1 - \cos(|xt|)}{t^{2}}dt d\mu(x)
   \]
-  Thus, it suffices to show that 
+  Thus, it suffices to show that
   \begin{equation}
     \int_{-\infty}^{\infty}\frac{1 - \cos(|xt|)}{t^{2}}dt = \pi|x|, \qquad \text{i.e.} \qquad \int_{0}^{\infty}\frac{1 - \cos(|x|t)}{t^{2}}dt =
     \frac{\pi}{2}|x|.
@@ -69,9 +69,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   We do integration by parts with $u := 1 - \cos(|x|t)$ and $dv := t^{-2}$. Thus,
   \[ \int_{0}^{\infty}\frac{1 - \cos(|x|t)}{t^{2}}dt = \lim_{T\rightarrow\infty}\int_{0}^{T}\frac{1 - \cos(|x|t)}{t^{2}}dt =
   \lim_{T\rightarrow\infty}\frac{\cos(|x|t) - 1}{t}\bigg|_{0}^{T} + |x|\int_{0}^{T}\frac{\sin(|x|t)}{t}dt. \]
-  Now, $\lim_{t \rightarrow 0}\frac{\cos(|x|t) - 1}{t} = \lim_{t\rightarrow 0}-|x|\sin(|x|t) = 0$ by L'Hopitals, so 
+  Now, $\lim_{t \rightarrow 0}\frac{\cos(|x|t) - 1}{t} = \lim_{t\rightarrow 0}-|x|\sin(|x|t) = 0$ by L'Hopitals, so
   \[
-    \lim_{T\rightarrow\infty}\frac{\cos(|x|t) - 1}{t}\bigg|_{0}^{T} = 0,
+    \lim_{T\rightarrow\infty}\left|\frac{\cos(|x|t) - 1}{t}\bigg|_{0}^{T}\right| = \lim_{T\rightarrow\infty}\left|\frac{\cos(|x|T) - 1}{T}\right| 
+    \leq \lim_{T\rightarrow\infty}\frac{2}{T} = 0,
   \]
   and by Equation 4.7 in Chapter 10.4 of AL,
   \[ \lim_{T\rightarrow\infty}|x|\int_{0}^{T}\frac{\sin(|x|t)}{t}dt = \frac{\pi}{2}|x|. \]
@@ -86,26 +87,26 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \mathbb{R}$ irrational, then there exists $x_0 \in \mathbb{R}$ such that $P(X = x_0) = 1$.
 \end{tcolorbox}
 \begin{Proof}
-  By the proof of Proposition 10.1.1 [AL], there exists $a_0, a_1$ such that 
-  \[ 
-    P(X \in \left\{ a_0 + \frac{2\pi k}{t} : k \in \mathbb{Z} \right\}) = 1 \qquad \text{ and } \qquad P(X \in \left\{ a_1 + \frac{2\pi k}{t\alpha} :
-    k \in \mathbb{Z}\right\}) = 1. 
+  By the proof of Proposition 10.1.1 [AL], there exists $a_0, a_1$ such that
+  \[
+    P\left(X \in \left\{ a_0 + \frac{2\pi k}{t} : k \in \mathbb{Z} \right\}\right) = 1 \qquad \text{ and } \qquad P\left(X \in \left\{ a_1 + \frac{2\pi k}{t\alpha} :
+    k \in \mathbb{Z}\right\}\right) = 1.
   \]
   Now, by way of contradiction suppose that there exists at least two integers $i_0 \neq j_0$ such that $P(X = a_0 + \frac{2\pi i_0}{t}), P(X = a_0 +
-  \frac{2\pi j_0}{t}) > 0$. Then there exists $i_1, j_1 \in \mathbb{Z}$ such that 
+  \frac{2\pi j_0}{t}) > 0$. Then there exists $i_1, j_1 \in \mathbb{Z}$ such that
   \[
     a_0 + \frac{2\pi i_0}{t} = a_1 + \frac{2\pi i_1}{t\alpha} \qquad \text{ and } \qquad a_0 + \frac{2\pi j_0}{t} = a_1 + \frac{2\pi j_1}{t\alpha}.
   \]
-  But then 
-  \[ 
-    \frac{2\pi}{t}(i_0 - j_0) = \frac{2\pi}{t\alpha}(i_1 - j_1), 
+  But then
+  \[
+    \frac{2\pi}{t}(i_0 - j_0) = \frac{2\pi}{t\alpha}(i_1 - j_1),
   \]
   which implies $\alpha = (i_1 - j_1) / (i_0 - j_0) \in \mathbb{Q}$, a contradiction.
 \end{Proof}
 
 
 
-\newpage 
+\newpage
 \subsection*{3 [AL 10.18]}
 \begin{tcolorbox}
   Let $\phi(\cdot)$ be a characteristic function on $\mathbb{R}$ such that $\phi(t) \rightarrow 0$ as $|t| \rightarrow \infty$. Let $X$ be a random
@@ -135,7 +136,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{claimproof}
 
   By Claim 2,
-  \[ 
+  \[
     \sup_{t\in\mathbb{R}}|\phi_n(t) - \phi(t)| \geq \limsup_{|t|\rightarrow\infty}|\phi_n(t) - \phi(t)| \geq \limsup_{|t|\rightarrow\infty}\big|
     |\phi_n(t)| - |\phi(t)|\big| \geq 1.
   \]
@@ -143,10 +144,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Proof}
 
 
-\newpage 
+\newpage
 \subsection*{4 [AL 10.19 (b)]}
 \begin{tcolorbox}
-  Let $\left\{ \delta_i \right\}_{i\geq 1}$ be iid random variables with distribution 
+  Let $\left\{ \delta_i \right\}_{i\geq 1}$ be iid random variables with distribution
   \[ P(\delta_1 = 1) = P(\delta_1 = -1) = 1/2. \]
   Let $X_n = \sum_{i=1}^{n}\delta_i / 2^{i}$ and $X = \lim_{n\rightarrow\infty}X_n$. Show that the characteristic function of $X$ is $\phi_X(t) :=
   \frac{\sin t}{t}$ and that $X$ must be Uniform (-1, 1).
@@ -158,12 +159,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{claimproof}
     Note that $E\delta_i = 0$ for all $i \geq 1$, so $E\left(\frac{\delta_i}{2^{i}}\right) = 0$ as well. Further,
     \[ \sum_{i=1}^{\infty}E\left( \frac{\delta_i}{2^{i}} \right)^{2} = \sum_{i=1}^{\infty}\frac{1}{2^{2i}} < \infty, \]
-    so by independence and the corollary to the 3-series theorem, $X_n$ converges almost surely (to $X$).
+    so by independence and the 1-series theorem, $X_n$ converges almost surely (to $X$).
 
   \end{claimproof}
 
   By the hint given,
-  \[ 
+  \[
     \phi_n(t) \rightarrow \phi(t) := \left\{ \begin{array}{cl}
         \frac{\sin t}{t} & \text{ if } t \neq 0 \\
         \\
@@ -171,7 +172,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \end{array} \right.
   \]
   By Claim 1 and the Levy continuity theorem, $X$ has characteristic function $\phi$. But for a Uniform (-1, 1) random variable $Y$,
-  \[ 
+  \[
     Ee^{itY} = \int_{-1}^{1}e^{ity}\cdot \frac{1}{2} dy = \left\{ \begin{array}{cl}
         \frac{e^{ity}}{2it}\bigg|_{-1}^{1} = \frac{\cos(t) + i\sin(t) - \cos(-t) - i\sin(-t)}{2it} = \frac{\sin t}{t} & \ t \neq 0 \\
         \\
