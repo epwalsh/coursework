@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 511: HW 6}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 511: HW 6}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{1}
+\begin{tcolorbox}
+  Suppose $f : \mathbb{C} \rightarrow \mathbb{C}$ is $1-1$ and holomorphic. Prove that $f(z) = az + b$ for some $a \neq 0$, $b \in \mathbb{C}$.  
+\end{tcolorbox}
+\begin{Proof}
+  \begin{claim}
+    $f$ is not bounded.
+  \end{claim}
+  \begin{claimproof}
+    If $f$ is bounded then $f \equiv C \in \mathbb{C}$ since $f$ is entire. But then $f$ is not $1-1$, a contradiction.
+  \end{claimproof}
+
+  \begin{claim}
+    $f$ does not have an essential singularity at $\infty$.
+  \end{claim}
+  \begin{claimproof}
+    By way of contradiction suppose $f$ has an essential singularity at $\infty$. But then $g(z) := f(1/z)$ has an essential singularity at $0$ (note 
+    that $g$ is $1-1$ on $\mathbb{C} \setminus \{0\}$ since $f$ is $1-1$). 
+    Thus, by the Casorati-Weierstrass Theorem, $g(D(0,R)\setminus \{0\})$ is dense in $\mathbb{C}$ for all $R > 0$. 
+    But then $g$ cannot be $1-1$, a contradiction.
+  \end{claimproof}
+
+  By claims 1 and 2, $\lim_{|z|\rightarrow\infty}|f(z)| = \infty$, and so by Theorem 4.7.5, $f$ is a polynomial. So it suffices to show that $f$ has
+  degree 1. By way of contradiction, suppose the degree of $f$ is greater than 1. Then $f'$ is also a non-constant polyomial with degree at least 1, and
+  so has a zero $P \in \mathbb{C}$. But this means that $f$ has a zero at $P$ of degree at least 2. But then by Theorem 5.2.2, there exists $\epsilon,
+  \delta > 0$ such that each $q \in D(f(P),\epsilon) \setminus \{f(P)\}$ has at least 2 distinct preimages in $D(P,\delta)$. This is a contradiction.
+  Hence $f$ is linear.
+\end{Proof}
+
+
+
+
+
+
+
+\end{document}
+
