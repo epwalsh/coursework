@@ -79,6 +79,67 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Proof}
 
 
+\newpage
+\subsection*{2}
+\begin{tcolorbox}
+  Let $S$ be the sphere of radius $1$, centered at the origin in $\mathbb{R}^{3}$ and $N = (0,0,1)$. For each point $(x,y,z)$, let $p(x,y,z)$ be the
+  point in $\mathbb{C}\cup \{\infty\}$ under the stereographic projection. Let $\gamma$ be a circle on $S$. Prove that $p(\gamma)$ is a line if
+  $N \in \gamma$ and $p(\gamma)$ is a circle $N\notin \gamma$, and that every line or circle in $\mathbb{C}\cup\{\infty\}$ is equal to $p(\gamma)$ for
+  some circle $\gamma$ on $S$.
+\end{tcolorbox}
+\begin{Proof}
+  Note that by Assignment 1, Question 3,
+  \begin{equation}
+    p(x,y,z) = \left( \frac{x}{1 - z}, \frac{y}{1 - z}\right) \in \mathbb{C},
+    \label{2.1}
+  \end{equation}
+  for any $(x,y,z) \in S$, and for any $(u,v) \in \mathbb{C}$,
+  \begin{equation}
+    q(u,v) := \left( \frac{2u}{u^{2} + v^{2} + 1}, \frac{2v}{u^{2} + v^{2} + 1}, \frac{u^{2} + v^{2} -1}{u^{2} + v^{2} + 1}\right) \in S. 
+    \label{2.2}
+  \end{equation}
+  \begin{claim}
+    If $\gamma$ is a circle on $S$ then $p(\gamma)$ is a line if $N \in \gamma$ or a circle if $N \notin \gamma$.
+  \end{claim}
+  \begin{claimproof}
+    Since $\gamma$ is a circle on $S$, $\gamma$ is the intersection of a plane with $S$. Thus, there exists scalars $A,B,C,D \in \mathbb{R}$ such that 
+    $Ax + By + Cz = D$ for all $(x,y,z) \in \gamma$, where $A^2 + B^2 + C^2 > D^{2}$. Thus by~\eqref{2.1}, if $(u,v) \in p(\gamma)$, we must have
+    \[ A\left( \frac{2u}{u^{2} + v^{2} + 1} \right) + B\left( \frac{2v}{u^{2} + v^{2} + 1} \right) + C\left( \frac{u^{2} + v^{2} - 1}{u^{2} + v^{2} +
+    1}\right) = D, \]
+    which implies 
+    \begin{equation}
+      (C - D)u^{2} + 2Au + (C-D)v^{2} + 2Bv = D + C. 
+      \label{2.3}
+    \end{equation}
+    Now, if $N \in \gamma$, then $C = D$, so~\eqref{2.3} becomes 
+    \begin{equation}
+      Au + Bv = C, 
+      \label{2.4}
+    \end{equation}
+    which is the equation of a line in $\mathbb{C}$. If $N \notin C$, then $C \neq D$,
+    so we can write~\eqref{2.3} as 
+    \[ u^{2} + 2\left( \frac{A}{C - D}\right)u + v^{2} + 2\left( \frac{B}{C-D} \right)v = \frac{C + D}{C - D}, \]
+    which, by completing the square, becomes 
+    \begin{equation}
+      \left( u - \frac{A}{D - C} \right)^{2} + \left( v - \frac{B}{D - C} \right)^{2} = \frac{A^2 + B^2 + C^2 - D^2}{C - D}, 
+      \label{2.5}
+    \end{equation}
+    the equation of a circle in $\mathbb{C}$.
+  \end{claimproof}
+
+  \begin{claim}
+    Any circle or line $\Gamma \subset \mathbb{C}$ is equal to $p(\gamma)$ for some circle $\gamma$ on $S$.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $\Gamma = \{(u,v) \in \mathbb{C} : (u - u_0)^{2} + (v - v_0)^{2} = R\}$ is a circle. Then take the circle $\gamma \in S$ given by the
+    equation $Ax + By + Cz = D$, where $A := u_0$, $B := v_0$, and $C := D + 1$, and $D := R - 1 - u_{0}^{2} - v_{0}^{2}$. Then by~\eqref{2.5} 
+    we see that $p(\gamma) = \Gamma$. Similarly, if $\Gamma = \{(u,v) \in \mathbb{C} : Fu + Gv = H\}$ is a line, then take $A := F$, $B := G$, and $C
+    := D := H$. Then by~\eqref{2.4} we see that $p(\gamma) = \Gamma$.
+  \end{claimproof}
+
+\end{Proof}
+
+
 
 
 
