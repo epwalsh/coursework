@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 516: HW 8}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 516: HW 8}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+\begin{tcolorbox}
+  Prove Claim 1 from proof of Theorem (10)ii. % chktex 36
+\end{tcolorbox}
+\begin{Proof}
+  Let $K$ be a contraction factor and let $r = d(p_0, p_1)$. Choose $N \in \mathbb{N}$ such that 
+  \begin{equation}
+    \frac{r}{K^{N-1}(1-K)} < \epsilon.
+    \label{1.1}
+  \end{equation}
+  Then for $n > m > N$,
+  \begin{align*}
+    d(p_m,p_n) \leq d(p_m,p_{m+1}) + \cdots + d(p_{n-1},p_n) & \leq K^{m}r + K^{m+1}r + \cdots + K^{n-1}r \\
+    & = r(K^{n-1} + K^{n-2} + \cdots + K^{m}) \\
+    & \leq \frac{r}{K^{N+n}}(K^{n-1} + \cdots + K^{m}) \\
+    & = \frac{r}{K^{N}}\left( K^{-1} + K^{-2} + \cdots + K^{n-m} \right) \\
+    & \leq \frac{r}{K^{N}}\sum_{n=1}^{\infty}K^{-n} = \frac{r}{K^{N}}\cdot \frac{K}{1-K} < \epsilon.
+  \end{align*}
+\end{Proof}
+
+\subsection*{2}
+\begin{tcolorbox}
+  Prove Claim 2 from proof of Theorem (10)ii. % chktex 36
+\end{tcolorbox}
+\begin{Proof}
+  By Claim 1 and since $(X,d)$ is complete, $p := \lim_{n\rightarrow\infty}p_n$ is well-defined. Further, $\left\{ f(p_n) \right\}_{n=0}^{\infty}$ and
+  $\left\{ p_{n} \right\}_{n=0}^{\infty}$ must converge to the same point since they are practically the same sequence. So
+  $\lim_{n\rightarrow\infty}f(p_n) = p$. 
+  But $f$ is also (Lipschitz) continuous since it is a contraction map, so $\lim_{n\rightarrow\infty}f(p_n) = f(p)$. Hence $f(p) = p$.
+\end{Proof}
+
+\subsection*{3}
+\begin{tcolorbox}
+  Prove Claim 3 from proof of Theorem (10)ii.  % chktex 36
+\end{tcolorbox}
+\begin{Proof}
+  Supose $f(q) = q$. If $q\neq p$, then $d(q,p) > 0$. Therefore $d(q,p) = d(f(q), f(p)) \leq Kd(q,p) < d(q,p)$, where $K$ is a contraction factor. 
+  This is a conradiction.
+\end{Proof}
+
+
+\subsection*{4}
+\begin{tcolorbox}
+  Prove that there is no one-to-one map from $\mathbb{R}^{2}$ into $\mathbb{R}$.
+\end{tcolorbox}
+\begin{Proof}
+  By way of contradiction suppose $f : \mathbb{R}^{2} \rightarrow \mathbb{R}$ is one-to-one and continuous.
+  For $R > 0$, let $E = \left\{ (x,y) \in \mathbb{R}^{2} : \sqrt{x^{2} + y^{2}} < R\right\}$. By Theorem (II)(8)xxxiv, $f[E]$ is % chktex 36
+  connected, and of
+  course $f[E]$ is non-empty since $E$ is non-empty. Further, $f[E]$ must be an interval since the only connected subsets of $\mathbb{R}$ are
+  intervals. Now let $a$ be in the interior of $f[E]$. Clearly $f[E] - \{a\}$ is disconnected. However, $E - \{f^{-1}(a)\}$ is still connected since
+  removing a single point from a disc in $\mathbb{R}^{2}$ does not make it a disconnected set. But by Theorem (II)(8)xxxiv once again, % chktex 36
+  $f[E - \{f^{-1}(a)\}] = f[E] - \{a\}$ is connected. This is a contradiction.
+\end{Proof}
+
+
+
+\newpage
+\subsection*{5}
+\begin{tcolorbox}
+  Suppose $(X,\mathcal{S}, \mu)$ is a measure space and $\mu(X) < \infty$. When $A,B \in \mathcal{S}$, let $d(A,B) = \mu(A\triangle B)$. Prove that 
+  $(\mathcal{S}, d)$ is a complete metric space (identify sets with symmetric difference of 0).
+\end{tcolorbox}
+\begin{Proof}
+  \begin{claim}
+    $(\mathcal{S}, d)$ is a metric space.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $A,B,C \in \mathcal{S}$.
+    Clearly $d(\cdot) \in [0,\infty)$ since $\mu(\cdot) < \infty$. Also clearly $d(A,B) = d(B,A)$, and $d(A,B) = 0$ if and only if $A = B$ % chktex 9
+    (in the sense that $A\triangle B$ has measure 0)
+    by definition. Therefore it remains to verify the triangle inequality. Well,
+    \begin{align*}
+      d(A,C) = \mu(A\triangle C) & = \mu(A\cap C^{c}) + \mu(A^{c}\cap C) \\
+      & = \mu(A\cap C^{c} \cap B) + \mu(A\cap C^{c}\cap B^{c}) + \mu(A^{c}\cap C\cap B) + \mu(A^{c}\cap C\cap B^{c}) \\
+      & \leq \mu(A\cap B^{c}) + \mu(A^{c} \cap B) + \mu(B\cap C^{c}) + \mu(B^{c}\cap C) \\
+      & = d(A,B) + d(B,C).
+    \end{align*}
+  \end{claimproof}
+
+  \begin{claim}
+    $(\mathcal{S}, d)$ is complete.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $\left\{ A_n \right\}_{n=0}^{\infty}$ is a Cauchy sequence in $(\mathcal{S}, d)$. Let $A = \cap_{n=0}^{\infty}A_n$. Clearly $A \in
+    \mathcal{S}$, so it remains to show that $A_n \rightarrow A$. Let $\epsilon > 0$. Since $\left\{ A_n \right\}_{n=0}^{\infty}$ is Cauchy, there
+    exists some $N \in \mathbb{N}$ such that $m,n > N$ implies $d(A_n, A_m) < \epsilon$. But, for $n > N$,
+    \begin{align*}
+      d(A,A_n) = \mu(A - A_n) + \mu(A_n - A) = 0 + \mu(A_n - A) & \leq \mu(A_n - A_{n+1}) \\
+      & \leq \mu(A_n - A_{n+1}) + \mu(A_{n+1} - A_n) \\
+      & = d(A_n, A_{n+1}) < \epsilon.
+    \end{align*}
+    Therefore $A_n$ converges to $A \in \mathcal{S}$, so $(\mathcal{S}, d)$ is complete.
+  \end{claimproof}
+
+\end{Proof}
+
+
+\end{document} % chktex 17
