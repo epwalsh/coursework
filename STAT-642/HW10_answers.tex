@@ -70,7 +70,7 @@ Thus,
   \frac{1}{3}n^{9/2}.
   \label{1.1}
 \end{equation}
-Using~\eqref{1.1}, we will verify that the Lindeberg Condition is satisfied. Let $\epsilon > 0$. By~\eqref{1.1}, $v_n > \frac{1}{3}n^{9/4}$.
+Using~\eqref{1.1}, we will verify that the lindeberg condition is satisfied. Let $\epsilon > 0$. By~\eqref{1.1}, $v_n > \frac{1}{3}n^{9/4}$.
 Thus, when $n^{1/4} \geq 3 / \epsilon$, we have $k^{2} \leq
 n^{2} \leq \frac{\epsilon}{3}n^{9/4}$ for all $1 \leq k \leq n$, which implies 
 \[
@@ -81,7 +81,7 @@ Hence,
   \lim_{n\rightarrow\infty}\frac{1}{v_{n}^{2}}\sum_{k=1}^{n}EX_{n,k}^{2}\mathbb{I}\left( |X_{n,k}| > \epsilon v_{n} \right) \leq
   \lim_{n\rightarrow\infty}\frac{1}{v_{n}^{2}}\sum_{k=1}^{n}EX_{n,k}^{2}\mathbb{I}\left( |X_{n,k}| > \frac{\epsilon}{3}n^{9/4} \right) = 0.
 \]
-Since the Lindeberg Condition is satisfied, we can choose $a_n := v_n$ and $b_n := 0$ for all $n \geq 1$.
+Since the Lindeberg condition is satisfied, we can choose $a_n := v_n$ and $b_n := 0$ for all $n \geq 1$.
 
 
 \subsection*{2 [AL 11.4]}
@@ -90,7 +90,7 @@ Since the Lindeberg Condition is satisfied, we can choose $a_n := v_n$ and $b_n 
   \[
     P(X_{n} = \pm n^{\alpha}) = \frac{n^{1-2\alpha}}{2} \ \ \text{and} \ \ P(X_{n} = 0) = 1 - n^{1-2\alpha}, \ n\geq 1.
   \]
-  Let $S_{n} = \sum_{j=1}^{n}$ and $s_{n}^{2} = \text{Var}(S_{n})$.
+  Let $S_{n} = \sum_{j=k}^{n}X_{n,k}$ and $s_{n}^{2} = \text{Var}(S_{n})$.
   \begin{enumerate}[label = (\alph*)]
     \item Show that for all $1/2 \leq \alpha < 1$, $\frac{S_{n}}{s_{n}} \rightarrow^{d} N(0,1)$.
     \item Show that (a) fails for $\alpha \geq 1$.
@@ -98,6 +98,55 @@ Since the Lindeberg Condition is satisfied, we can choose $a_n := v_n$ and $b_n 
       \infty$.
   \end{enumerate}
 \end{tcolorbox}
+\begin{Proof}
+  Let $X_{n,k} := X_{k}$ whenever $1 \leq k \leq n$. Let $\sigma_{n,k}^{2} := E|X_{n,k}|^{2} = k^{2\alpha + 1 - 2\alpha} = k$, and $v_{n}^{2} :=
+  \sum_{k=1}^{n}\sigma_{n,k}^{2} = \frac{n(n+1)}{2}$. Then $\left\{ X_{n,k} : 1 \leq k \leq n \right\}_{n\geq 1}$ is a triangular array with $EX_{n,k}
+  = 0$ for all $1 \leq k \leq n$.
+  \begin{enumerate}[label = (\alph*)]
+    \item Suppose $1/2 \leq \alpha < 1$. We will show that the Lindeberg condition is satisfied. Let $\epsilon > 0$. When $n^{1 - \alpha} \geq
+      \frac{\sqrt{2}}{\epsilon}$, we have 
+      \[ 
+        \mathbb{I}(|X_{n,k}| > \epsilon v_{n}) \leq \mathbb{I}\left(k^{\alpha} > \frac{\epsilon n}{\sqrt{2}}\right) \leq \mathbb{I}\left(n^{\alpha} >
+        \frac{\epsilon n}{\sqrt{2}}\right) = 0.
+      \]
+      Thus,
+      \[ \frac{1}{v_{n}^{2}}\sum_{k=1}^{n}E|X_{n,k}|^{2}\mathbb{I}(|X_{n,k}| > \epsilon v_{n}) \rightarrow 0. \]
+      Hence the Lindeberg condition is satisfied, so $\frac{S_{n}}{s_{n}} = \frac{S_{n}}{v_{n}} \rightarrow^{d} N(0,1)$.\addtocounter{enumi}{1} 
+    \item Suppose $\alpha > 1$. Let $X_{n}^{(1)} := X_{n}\mathbb{I}(|X_{n}| \leq 1)$. Then,
+      \begin{align*}
+        & \sum_{n=1}^{\infty}P(|X_{n}| > 1) = \sum_{n=2}^{\infty}n^{1-2\alpha} < \infty, \\
+        & \sum_{n=1}^{\infty}|EX_{n}^{(1)}| = 0, \\
+        & \sum_{n=1}^{\infty}\text{Var}(X_{n}^{(1)}) = \sum_{n=1}^{\infty}E|X_{n}^{(1)}|^{2} = 1.
+      \end{align*}
+      Thus, by the 3-series theorem, $S_{n}$ converges w.p. 1. Further, $s_{n} = \sqrt{v_{n}^{2}} = \frac{\sqrt{n(n+1)}}{\sqrt{2}} \rightarrow
+      \infty$. \addtocounter{enumi}{-2}
+    \item If $\alpha > 1$, then by part (c), $\frac{S_{n}}{s_{n}} \rightarrow 0$ w.p. 1.
+  \end{enumerate}
+\end{Proof}
+
+
+\newpage
+\subsection*{3 [AL 11.5]}
+\begin{tcolorbox}
+  Let $\left\{ X_{n,j} : 1 \leq j \leq r_{n} \right\}_{n\geq 1}$ be a triangular array of independent zero mean random variables satisfying the
+  Lindeberg condition. Show that 
+  \[ 
+    E\left[ \max_{1\leq j \leq r_{n}}\frac{X_{n,j}^{2}}{s_{n}^{2}} \right] \rightarrow 0 \ \ \text{as} \ \ n \rightarrow \infty,
+  \]
+  where $s_{n}^{2} = \sum_{j=1}^{r_{n}}\text{Var} (X_{n,j})$, for $n \geq 1$.
+\end{tcolorbox}
+\begin{Proof}
+  Let $0 < \epsilon < 1$. Then,
+  \begin{align*}
+    \limsup_{n\rightarrow\infty} E\left[ \max_{1\leq j \leq r_{n}}\frac{X_{n,j}^{2}}{s_{n}^{2}} \right] 
+    & = \limsup_{n\rightarrow\infty} E\left[ \max_{1\leq j \leq r_{n}}\frac{X_{n,j}^{2}}{s_{n}^{2}} \right]\mathbb{I} \left(\max_{1\leq j \leq
+    r_{n}}|X_{n,j}| \leq \epsilon s_{n}\right) \\
+    & \qquad + E\left[ \max_{1\leq j \leq r_{n}}\frac{X_{n,j}^{2}}{s_{n}^{2}} \right]\mathbb{I} \left(\max_{1\leq j\leq r_{n}}|X_{n,j}| > \epsilon s_{n}\right) \\
+    & \leq \limsup_{n\rightarrow\infty} \epsilon^{2} + \frac{1}{s_{n}^{2}}\sum_{j=1}^{n}EX_{n,j}^{2}\mathbb{I} (|X_{n,j}| > \epsilon s_{n}) \\
+    & < \limsup_{n\rightarrow\infty} \epsilon + \frac{1}{s_{n}^{2}}\sum_{j=1}^{n}EX_{n,j}^{2}\mathbb{I} (|X_{n,j}| > \epsilon s_{n}) = \epsilon.
+  \end{align*}
+  Since $\epsilon$ was arbitrary, we are done.
+\end{Proof}
 
 
 
