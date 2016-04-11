@@ -205,5 +205,40 @@ Since the Lindeberg condition is satisfied, we can choose $a_n := v_n$ and $b_n 
 \end{Proof}
 
 
+
+\newpage
+\subsection*{6 [AL 11.19]}
+\begin{tcolorbox}
+  For any random variable $X$, show that $EX^{2} < \infty$ implies 
+  \[
+    \frac{y^{2}P(|X| > y)}{E[X^{2}\mathbb{I} (|X| \leq y)]} \rightarrow 0
+  \]
+  as $y \rightarrow\infty$. Give an example to show that the converse is false.
+\end{tcolorbox}
+\begin{Proof}
+  Of course we should assume $X \not\equiv 0$, otherwise the assertion is false. Let $\mu$ denote the probability distribution of $X$ on
+  $(\mathbb{R},\mathcal{B}(\mathbb{R}))$. Now, note that
+  \begin{equation}
+    y^{2}P(|X| > y) = \int_{|x| > y}y^{2}d\mu(x) \leq \int_{|x| > y}|x|^{2}d\mu(x) \rightarrow 0\ \ \text{as}\ y \rightarrow \infty
+    \label{6.1}
+  \end{equation}
+  since $EX^{2} < \infty$, and 
+  \begin{equation}
+    E[X^{2}\mathbb{I} (|X| \leq y)] = \int_{|x| \leq y}x^{2}d\mu(x) \rightarrow EX^{2} < \infty \ \ \text{as} \ y \rightarrow \infty.
+    \label{6.2}
+  \end{equation}
+  So by~\eqref{6.1} and~\eqref{6.2}, $\frac{y^{2}P(|X| > y)}{E[X^{2}\mathbb{I} (|X| \leq y)]} \rightarrow 0$ as $y \rightarrow \infty$.
+\end{Proof}
+
+\vspace{5mm}
+Consider the random variable with pdf $f(x) = c_{1}|x|^{-3}$ for $|x| > 2$. Fix $y > 2$. Then
+\[ y^{2}P(|X| > y) = 2\int_{y}^{\infty}y^{2}c_{1}|x|^{-3}dx = 2y^{2}c_{1}\int_{y}^{\infty}\frac{1}{x^{3}}dx = c_{1}, \]
+and 
+\[ E[X^{2}\mathbb{I} (|X| \leq y)] = 2\int_{2}^{y}x^{2}\frac{1}{x^{3}}dx = 2\int_{2}^{y}\frac{1}{x}dx = 2\log(y) - 2\log(2) \rightarrow \infty \]
+as $y \rightarrow \infty$. Thus $\frac{y^{2}P(|X| > y)}{E[X^{2}\mathbb{I} (|X| \leq y)]} \rightarrow 0$ as $y \rightarrow \infty$, but 
+$E[X^{2}] = \lim_{y\rightarrow\infty}E[X^{2}\mathbb{I} (|X| \leq y)] = \infty$.
+
+
+
 \end{document}
 
