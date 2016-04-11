@@ -149,6 +149,61 @@ Since the Lindeberg condition is satisfied, we can choose $a_n := v_n$ and $b_n 
 \end{Proof}
 
 
+\newpage
+\subsection*{4 [AL 11.7]}
+\begin{tcolorbox}
+  For a sequence of random variables $\left\{ X_{n} \right\}_{n\geq 1}$ and for a real number $r > 2$, show that 
+  \[ \lim_{n\rightarrow\infty}s_{n}^{-r}\sum_{j=1}^{n}E|X_{j}|^{r}\mathbb{I}(|X_{j}| > \epsilon s_{n}) = 0 \]
+  for all $\epsilon > 0$ if and only if $\lim_{n\rightarrow\infty}s_{n}^{-r}\sum_{j=1}^{n}E|X_{j}|^{r} = 0$, wehre $s_{n}^{2} =
+  \sum_{j=1}^{n}EX_{j}^{2}$.
+\end{tcolorbox}
+\begin{Proof}
+  $(\Leftarrow)$ Trivial.
+
+  $(\Rightarrow)$ Let $\epsilon > 0$ and let $\delta := \epsilon^{1/(r-2)}$. Then
+  \begin{align*}
+    \limsup_{n\rightarrow\infty}\frac{1}{s_{n}^{r}}\sum_{j=1}^{n}E|X_{j}|^{r} & =
+    \limsup_{n\rightarrow\infty}\frac{1}{s_{n}^{r}}\sum_{j=1}^{n}E|X_{j}|^{r}\mathbb{I} (|X_{j}| \leq \delta s_{n}) 
+    + \underbrace{\frac{1}{s_{n}^{r}}\sum_{j=1}^{n}E|X_{j}|^{r}\mathbb{I} (|X_{j}| > \delta s_{n})}_{\longrightarrow 0} \\
+    & = \limsup_{n\rightarrow\infty}\frac{1}{s_{n}^{r}}\sum_{j=1}^{n}E|X_{j}|^{r-2}|X_{j}|^{2}\mathbb{I} (|X_{j}| \leq \delta s_{n}) \\
+    & \leq\limsup_{n\rightarrow\infty}\frac{1}{s_{n}^{r}}\sum_{j=1}^{n}(\delta s_{n})^{r-2}E|X_{j}|^{2} \\
+    & = \delta^{r-2}\cdot \frac{1}{s_{n}^{2}}\sum_{j=1}^{n}E|X_{j}|^{2} = \delta^{r-2} = \epsilon.
+  \end{align*}
+  Since $\epsilon > 0$ was arbitrary, we are done.
+\end{Proof}
+
+
+\newpage
+\subsection*{5 [AL 11.9]}
+\begin{tcolorbox}
+  Let $\left\{ X_n \right\}_{n\geq 1}$ be a sequence of independent random variables such that 
+  \[ P(X_{n} = \pm 1) = \frac{1}{4}, P(X_{n} = \pm n) = \frac{1}{4n^{2}} \]
+  and 
+  \[ P(X_{n} = 0) = \frac{1}{2}\left( 1 - \frac{1}{n^{2}} \right), \ n \geq 1. \]
+  \begin{enumerate}[label = (\alph*)]
+    \item Show that the triangular array $\left\{ X_{n,j} : 1 \leq j \leq n \right\}_{n\geq 1}$ with $X_{n,j} := X_{j}/\sqrt{n}$, for $1 \leq j \leq
+      n$, does not satisfy the Lindeberg condition.
+    \item Show that there exists $\sigma \in (0,\infty)$ such that 
+      \[ \frac{S_n}{\sqrt{n}} \rightarrow^{d}N(0,\sigma^{2}). \]
+      Find $\sigma$.
+  \end{enumerate}
+\end{tcolorbox}
+\begin{Proof}
+  \begin{enumerate}[label = (\alph*)]
+    \item We have 
+      \[ \sigma_{n,j}^{2} := E|X_{n,j}|^{2} = \frac{1}{n}E|X_{j}|^{2} = \frac{1}{n}\left( \frac{1}{2} + \frac{1}{2} \right) = \frac{1}{n}, \]
+      and 
+      \[ v_{n}^{2} := \sum_{j=1}^{n}\sigma_{n,j}^{2} = \sum_{j=1}^{n}\frac{1}{n} = 1. \]
+      Thus, for $0 < \epsilon < 1$,
+      \[ 
+        \frac{1}{v_{n}^{2}}\sum_{j=1}^{n}E|X_{n,j}|^{2}\mathbb{I} (|X_{n,j}| > \epsilon v_{n}) = \sum_{j=1}^{n}E|X_{n,j}|^{2}\mathbb{I} (|X_{n,j}| >
+        \epsilon) = n \rightarrow \infty. 
+      \]
+      Hence the Lindeberg condition is not satisfied.
+    \item 
+  \end{enumerate}
+\end{Proof}
+
 
 \end{document}
 
