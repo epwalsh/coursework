@@ -240,5 +240,37 @@ $E[X^{2}] = \lim_{y\rightarrow\infty}E[X^{2}\mathbb{I} (|X| \leq y)] = \infty$.
 
 
 
+
+\newpage
+\subsection*{9 [AL 11.20]}
+\begin{tcolorbox}
+  Let $\left\{ X_n \right\}_{n\geq 1}$ be a sequence of iid random variables with common distribution
+  \[
+    P(X_1 \in A) = \int_{A}|x|^{-3}\mathbb{I} (|x| > 1)dx,
+  \]
+  for $A \in \mathcal{B}(\mathbb{R})$. Find sequences $a_1,a_2,\hdots \in (0,\infty)$ and $b_1,b_2,\hdots \in \mathbb{R}$ such that 
+  \[
+    \frac{S_n - b_n}{a_n} \rightarrow^{d} N(0,1),
+  \]
+  where $S_n := \sum_{j=1}^{n}X_j$ for $n \geq 1$.
+\end{tcolorbox}
+
+
+\newpage
+\subsection*{8 [AL 11.21]}
+\begin{tcolorbox}
+  Show using characteristic functions that if $X_1, \hdots, X_k$ are iid Cauchy $(\mu,\sigma)$ random variables, then $S_{k} :=
+  \sum_{i=1}^{k}X_{i}$ has a Cauchy $(k\mu, k\sigma)$ distribution.
+\end{tcolorbox}
+\begin{Proof}
+  Let $t \in \mathbb{R}$. Then by independence,
+  \[ 
+    \phi_{S_{k}}(t) = Ee^{itS_{k}} = Ee^{it\sum_{i=1}^{k}X_{k}} = \prod_{i=1}^{k}Ee^{itX_i} = \left( Ee^{itX_1} \right)^{k} = 
+    \left( e^{i\mu t - \sigma |t|} \right)^{k} = e^{i(k\mu)t - (k\sigma)|t|},
+  \]
+  which is the characteristic function of a Cauchy $(k\mu, k\sigma)$ distribution.
+\end{Proof}
+
+
 \end{document}
 
