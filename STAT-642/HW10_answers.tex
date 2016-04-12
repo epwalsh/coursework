@@ -36,12 +36,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 % chktex-file 3
 
-\title{}
+\title{STAT 642: HW 10}
 \author{Evan P. Walsh}
 \makeatletter
 \makeatother
 \lhead{Evan P. Walsh}
-\chead{}
+\chead{STAT 642: HW 10}
 \rhead{\thepage}
 \cfoot{}
 
@@ -70,7 +70,7 @@ Thus,
   \frac{1}{3}n^{9/2}.
   \label{1.1}
 \end{equation}
-Using~\eqref{1.1}, we will verify that the lindeberg condition is satisfied. Let $\epsilon > 0$. By~\eqref{1.1}, $v_n > \frac{1}{3}n^{9/4}$.
+Using~\eqref{1.1}, we will verify that the Lindeberg condition is satisfied. Let $\epsilon > 0$. By~\eqref{1.1}, $v_n > \frac{1}{3}n^{9/4}$.
 Thus, when $n^{1/4} \geq 3 / \epsilon$, we have $k^{2} \leq
 n^{2} \leq \frac{\epsilon}{3}n^{9/4}$ for all $1 \leq k \leq n$, which implies 
 \[
@@ -120,7 +120,32 @@ Since the Lindeberg condition is satisfied, we can choose $a_n := v_n$ and $b_n 
       \end{align*}
       Thus, by the 3-series theorem, $S_{n}$ converges w.p. 1. Further, $s_{n} = \sqrt{v_{n}^{2}} = \frac{\sqrt{n(n+1)}}{\sqrt{2}} \rightarrow
       \infty$. \addtocounter{enumi}{-2}
-    \item If $\alpha > 1$, then by part (c), $\frac{S_{n}}{s_{n}} \rightarrow 0$ w.p. 1.
+      \newpage
+    \item If $\alpha > 1$, then by part (c), $\frac{S_{n}}{s_{n}} \rightarrow 0$ w.p. 1. Now suppose $\alpha = 1$. Let $X_{n,j} :=
+      \frac{\sqrt{2}}{\sqrt{n(n+1)}}X_{i}$, for $1 \leq i \leq n$, $n \geq 1$.
+        \begin{claim}
+          $\left\{ X_{n,j} : 1 \leq i\leq n \right\}$ is a null array.
+        \end{claim}
+        \begin{claimproof}
+          Let $\epsilon > 0$. For each $n \geq 1$, let $i_{n} := \min\left\{i : i > \epsilon \frac{\sqrt{n(n+1)}}{\sqrt{2}}\right\}$. Then
+          \[ \lim_{n\rightarrow\infty}\max_{1\leq i \leq n}P(|X_{n,j} > \epsilon) = \lim_{n\rightarrow\infty}\frac{1}{2i_{n}} = 0. \]
+          Hence $\left\{ X_{n,j} : 1 \leq i\leq n \right\}$ is a null array.
+        \end{claimproof}
+
+        By Claim 1 and since $N(0,1)$ distributions are infinitely divisible, we can apply the result of Theorem 6.2. Let $M(A) = \mathbb{I} (0\in A)$
+        for all $A \in \mathcal{B}(\mathbb{R})$. So
+        \begin{equation}
+          \int_{x}^{\infty}y^{-2}dM(y) = 0 \ \ \forall \ x > 0.
+          \label{2.1}
+        \end{equation}
+        However, since $i > \frac{n+1}{2}$ implies $\frac{i\sqrt{2}}{\sqrt{n(n+1)}} > \frac{\sqrt{2}}{2}$,
+        \begin{equation}
+          \sum_{i=1}^{n}P\left( X_{n,i} > \frac{\sqrt{2}}{2} \right) \geq \int_{\frac{n+3}{2}}^{n}\frac{1}{2x}dx = \frac{1}{2}\left( \log\left(
+          \frac{n}{n+3}\right) + \log(2) \right) \longrightarrow  \log(3) / 2 > 0.
+            \label{2.2}
+        \end{equation}
+        So by~\eqref{2.1} and~\eqref{2.2} and Theorem 6.2,
+        \[ \sum_{i=1}^{n}X_{n,j} = \frac{S_n}{s_n} \not\rightarrow^{d} N(0,1). \]
   \end{enumerate}
 \end{Proof}
 
@@ -143,7 +168,8 @@ Since the Lindeberg condition is satisfied, we can choose $a_n := v_n$ and $b_n 
     r_{n}}|X_{n,j}| \leq \epsilon s_{n}\right) \\
     & \qquad + E\left[ \max_{1\leq j \leq r_{n}}\frac{X_{n,j}^{2}}{s_{n}^{2}} \right]\mathbb{I} \left(\max_{1\leq j\leq r_{n}}|X_{n,j}| > \epsilon s_{n}\right) \\
     & \leq \limsup_{n\rightarrow\infty} \epsilon^{2} + \frac{1}{s_{n}^{2}}\sum_{j=1}^{n}EX_{n,j}^{2}\mathbb{I} (|X_{n,j}| > \epsilon s_{n}) \\
-    & < \limsup_{n\rightarrow\infty} \epsilon + \frac{1}{s_{n}^{2}}\sum_{j=1}^{n}EX_{n,j}^{2}\mathbb{I} (|X_{n,j}| > \epsilon s_{n}) = \epsilon.
+    & < \limsup_{n\rightarrow\infty} \epsilon + \frac{1}{s_{n}^{2}}\sum_{j=1}^{n}EX_{n,j}^{2}\mathbb{I} (|X_{n,j}| > \epsilon s_{n}) =
+    \epsilon.
   \end{align*}
   Since $\epsilon$ was arbitrary, we are done.
 \end{Proof}
@@ -200,7 +226,38 @@ Since the Lindeberg condition is satisfied, we can choose $a_n := v_n$ and $b_n 
         \epsilon) = \sum_{j=1}^{n}E|X_{n,j}|^{2} = 1 \not\rightarrow 0. 
       \]
       Hence the Lindeberg condition is not satisfied.
-    \item 
+    \item Let $Y_{n} = X_{n}\mathbb{I} (|X| \leq 1)$ and $Z_{n} = X_{n}\mathbb{I} (|X| > 1)$ for each $n \geq 1$. Further, define $Y_{n,i} = Y_{i}$
+      when $1 \leq i\leq n$ and $n \geq 1$.
+      \begin{claim}
+        $\frac{1}{\sqrt{n}}\sum_{i=1}^{n}Y_{i} \rightarrow^{d} N(0,1/2)$.
+      \end{claim}
+      \begin{claimproof}
+        Note that for all $1 \leq i \leq n$ and $n\geq 1$, 
+        $EY_{n,i} = 0$ and $EY_{n,i}^{2} = \frac{1}{2}$, and $v_{n}^{2} := \sum_{i=1}^{n}EY_{n,i}^{2} = \frac{n}{2} < \infty$. Thus,
+        \[ \lim_{n\rightarrow\infty}\frac{1}{v_{n}^{2}}\sum_{i=i}^{n}EY_{n,i}^{2}\mathbb{I} (|Y_{n,i}| > \epsilon v_{n}) \rightarrow 0. \]
+        Thus, $\frac{\sqrt{n}}{\sqrt{2}}\sum_{i=1}^{n}Y_{n,i} = \frac{\sqrt{n}{2}}\sum_{i=1}^{n}Y_{i} \rightarrow^{d} N(0,1)$ by the Lindeberg CLT.
+        But by Slutsky's theorem, $\frac{1}{\sqrt{n}}\sum_{i=1}^{n}Y_{i} \rightarrow^{d} N(0,1/2)$.
+      \end{claimproof}
+
+      \begin{claim}
+        $\frac{1}{\sqrt{n}}\sum_{i=1}^{n}Z_{i} \rightarrow^{d} 0$.
+      \end{claim}
+      \begin{claimproof}
+        Note that 
+        \[
+          E\left|\frac{1}{\sqrt{n}}\sum_{i=1}^{n}Z_{i}\right| \leq \frac{1}{\sqrt{n}}\sum_{i=1}^{n}E|Z_{i}| =
+          \frac{1}{\sqrt{n}}\sum_{i=1}^{n}\frac{1}{2i} \leq \frac{1}{2\sqrt{n}}\left( 1 + \int_{1}^{n}\frac{1}{x}dx \right) = \frac{1}{\sqrt{n}}(1 +
+          \log(n)) \rightarrow 0.
+        \]
+        Hence $\frac{1}{\sqrt{n}}\sum_{i=1}^{n}Z_{i} \rightarrow^{d} 0$ since $L^{1}$ convergence implies convergence in distribution.
+
+      \end{claimproof}
+
+      Thus, by claims 1 and 2,
+      \[
+        \frac{S_n}{\sqrt{n}} = \frac{1}{\sqrt{n}}\sum_{i=1}^{n}Y_{i} + \frac{1}{\sqrt{n}}\sum_{i=1}^{n}Z_{i} \rightarrow^{d} N(0,1/2)
+      \]
+      by the continuous mapping theorem.
   \end{enumerate}
 \end{Proof}
 
@@ -242,7 +299,7 @@ $E[X^{2}] = \lim_{y\rightarrow\infty}E[X^{2}\mathbb{I} (|X| \leq y)] = \infty$.
 
 
 \newpage
-\subsection*{9 [AL 11.20]}
+\subsection*{7 [AL 11.20]}
 \begin{tcolorbox}
   Let $\left\{ X_n \right\}_{n\geq 1}$ be a sequence of iid random variables with common distribution
   \[
@@ -254,6 +311,41 @@ $E[X^{2}] = \lim_{y\rightarrow\infty}E[X^{2}\mathbb{I} (|X| \leq y)] = \infty$.
   \]
   where $S_n := \sum_{j=1}^{n}X_j$ for $n \geq 1$.
 \end{tcolorbox}
+
+Let $Y_{n,i} := X_{i}\mathbb{I} (|X_{i}| \leq \sqrt{n})$ and $Z_{n,i} = X\mathbb{I} (|X_{i}| > \sqrt{n})$ for each $1\leq i \leq n$ and $n \geq 1$.
+\begin{claim}
+  The triangular array $\left\{ Y_{n,i} : 1 \leq i \leq n \right\}_{n\geq 1}$ satisfies the Lindeberg condition, and so
+  $\frac{1}{\sqrt{n\log(n)}}\sum_{i=1}^{n}Y_{n,i} \rightarrow^{d} N(0,1)$.
+\end{claim}
+\begin{claimproof}
+  We have $EY_{n,i} = 0$, 
+  \[
+    EY_{n,i}^{2} = 2\int_{1}^{\sqrt{n}}\frac{1}{x}dx = 2\log(\sqrt{n}) = \log(n),
+  \]
+  and $v_{n}^{2} := \sum_{i=1}^{n}EY_{n,i}^{2} = n\log(n)$. Therefore
+  \[ 
+    \lim_{n\rightarrow\infty}\frac{1}{v_{n}^{2}}\sum_{i=1}^{n}EY_{n,i}^{2}\mathbb{I} (|Y_{n,i}| > \epsilon v_{n}) =
+    \frac{1}{v_{n}^{2}}\sum_{i=1}^{n}EX_{i}\mathbb{I} (\epsilon \sqrt{n\log(n)} < |X_{i}| \leq \sqrt{n}) \rightarrow 0.
+  \]
+  Hence the Lindeberg condition is satisfied, and so $\frac{1}{v_{n}}\sum_{i=1}^{n}Y_{n,i}$.
+\end{claimproof}
+
+\begin{claim}
+  $\frac{1}{\sqrt{n\log(n)}}\sum_{i=1}^{n}Z_{n,i} \rightarrow^{d} 0$.
+\end{claim}
+\begin{claimproof}
+  \begin{align*}
+    E\left|\frac{1}{\sqrt{n\log(n)}}\sum_{i=1}^{n}Z_{n,i}\right| \leq \frac{1}{\sqrt{n\log(n)}}\sum_{i=1}^{n}E|Z_{n,i}| & =
+    \frac{2}{\sqrt{n\log(n)}}\sum_{i=1}^{n}\int_{\sqrt{n}}^{\infty}x^{-2}dx \\
+    & = \frac{2}{\sqrt{n\log(n)}}\cdot \frac{n}{\sqrt{n}} = \frac{2}{\sqrt{\log(n)}} \rightarrow 0.
+  \end{align*}
+\end{claimproof}
+
+By claims 1 and 2 and the continuous mapping theorem,
+\[
+  \frac{S_n - b_n}{a_n} = \frac{1}{\sqrt{n\log(n)}}\sum_{i=1}^{n}Y_{n,i} + \frac{1}{\sqrt{n\log(n)}}\sum_{i=1}^{n}Z_{n,i} \rightarrow^{d} N(0,1) 
+\]
+where $a_n = \sqrt{n\log(n)}, b_n = 0$ for each $n\geq 1$.
 
 
 \newpage
