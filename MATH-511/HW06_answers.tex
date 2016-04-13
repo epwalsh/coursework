@@ -145,5 +145,60 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 
 
+
+\newpage
+\subsection*{3}
+\begin{tcolorbox}
+  Suppose $f : \mathbb{C}\setminus \{0\}\rightarrow \mathbb{C}\setminus\{0\}$ is conformal. Prove that there exists $a \in \mathbb{C} \setminus \{0\}$
+  such that $f(z) = az$ or $f(z) = \frac{a}{z}$ for all $z \in \mathbb{C}\setminus \{0\}$.
+\end{tcolorbox}
+\begin{Proof}
+  By the same reasoning as in Question 1 (Claim 2), $f$ cannot have an essential singularity at $0$. So $f$ either has a pole or a removable
+  singularity at $0$.  
+  \begin{description}
+    \item[Case 1:] Suppose $f$ has a removable singularity at $0$
+
+      Then $f$ has a holomorphic extension $g$ on $\mathbb{C}$ defined by
+      \[ 
+        g(z) := \left\{ \begin{array}{cl}
+            f(z) & \text{ if } z \neq 0 \\
+            \lim_{\zeta\rightarrow 0}f(\zeta) & \text{ if } z = 0.
+        \end{array} \right.
+      \]
+      \begin{claim}
+        $g(0) = 0$
+      \end{claim}
+      \begin{claimproof}
+        By way of contradiction, suppose $g(0) = b \in \mathbb{C}\setminus\{0\}$. Let $z_0 := f^{-1}(b)$ and $r > 0$ such that $z_0 \notin
+        \overline{D(0,r)}$ ($z_0$ is well-defined since $f$ is onto $\mathbb{C}\setminus \{0\}$). 
+        By the open mapping theorem and since $f$ is non-constant, there exists some $\epsilon > 0$ such that $D(z_0, \epsilon)
+        \cap D(0,r) = \emptyset$ and $f[D(z_0,\epsilon)] \subseteq g[D(0,r)]$, which implies
+        \[ f[D(z_0,\epsilon)]\setminus\{b\} \subseteq g[D(0,r)]\setminus\{b\} \ \text{ and so } \ f[D(z_0, \epsilon)\setminus\{z_0\}] \subseteq
+        g[D(0,r)\setminus\{0\}] = f[D(0,r)\setminus\{0\}]. \]
+        This contradicts the fact that $f$ is 1-1. % chktex 8
+      \end{claimproof}
+
+      Therefore, by the result in Question 1, $f(z) = az$ for some $a \in \mathbb{C}\setminus\{0\}$.
+
+    \item[Case 2:] Now suppose $\lim_{z\rightarrow 0}|f(z)| = \infty$.
+
+      Then the function $g$ defined by
+      \[
+        g(z) := \left\{ \begin{array}{cl}
+            \frac{1}{f(z)} & \text{ if } z \neq 0 \\
+            \\
+            0 & \text{ if } z = 0
+        \end{array} \right.
+      \]
+      is well-defined, 1-1, and holomorphic on $\mathbb{C}$. % chktex 8
+      Hence, by the result in Question 1, $g(z) = \tilde{a}z$ for some $\tilde{a} \in \mathbb{C}\setminus\{0\}$. Hence $f(z) = \frac{a}{z}$, 
+      where $a := \tilde{a}$.
+  \end{description}
+\end{Proof}
+
+
+
+
+
 \end{document}
 
