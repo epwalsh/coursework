@@ -1,0 +1,106 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 516: HW 9}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 516: HW 9}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\newpage
+\subsection*{2 [RF 13.6]}
+\begin{tcolorbox}
+  Let $X$ be a normed linear space.
+  \begin{enumerate}[label = (\roman*)]
+    \item Let $\left\{ x_n \right\}_{n=0}^{\infty}$ and $\left\{ y_{n} \right\}_{n=0}^{\infty}$ be sequences in $X$ such that $x_n \rightarrow x$ and
+      $y_n \rightarrow y$. Show that for any real numbers $\alpha$ and $\beta$, $\alpha x_n + \beta y_n \rightarrow \alpha x + \beta y$.
+    \item Use (i) to show that if $Y$ is a subspace of $X$, then its closure $\overline{Y}$ is also a linear subspace of $X$.
+  \end{enumerate}
+\end{tcolorbox}
+\begin{Proof}
+  \begin{enumerate}[label = (\roman*)]
+    \item Let $\epsilon > 0$. Then there exists $N_{1} \in \mathbb{N}$ such that $\| x_n - x\| < \epsilon / 2\alpha$ whenever $n \geq N_1$ and $N_2 \in \mathbb{N}$ 
+      such that $\|y_n - y\| < \epsilon / 2\beta$ whenever $n \geq N_2$. Let $N = \max\{N_1, N_2\}$. Then for $n \geq N$,
+      \begin{align*}
+        \|(\alpha x_n + \beta y_n) - (\alpha x + \beta y)\| \leq \|\alpha x_n - \alpha x\| + \|\beta y_n - \beta y\| & = \alpha \|x_n - x\| + \beta
+        \|y_n - y\| \\
+        & < \alpha \cdot \frac{\epsilon}{2\alpha} + \beta \frac{\epsilon}{2\beta} = \epsilon.
+      \end{align*}
+      Hence $\lim_{n\rightarrow\infty}\|(\alpha x_n + \beta y_n) - (\alpha x + \beta y)\| = 0$, i.e. $\alpha x_n + \beta y_n \rightarrow \alpha x +
+      \beta y$.
+    \item Suppose $Y$ is a subspace of $X$. Let $x,y \in \overline{Y}$ and $\alpha, \beta \in \mathbb{R}$. We need to show that $\alpha x + \beta y
+      \in \overline{Y}$. Well, since $x,y \in \overline{Y}$, there exists sequence $\left\{ x_n \right\}_{n=0}^{\infty}$ and $\left\{ y_n
+      \right\}_{n=0}^{\infty}$ such that $x_n,y_n \in Y$ for all $n \in \mathbb{N}$. Since $Y$ is a subspace, $\alpha x_n + \beta y_n \in Y$ for all $n
+      \in \mathbb{N}$. But by part (i), $\lim_{n\rightarrow \infty}\alpha x_n + \beta y_n = \alpha x + \beta y$. Thus $\alpha x + \beta y \in
+      \overline{Y}$ by definition of closure.
+  \end{enumerate}
+\end{Proof}
+
+
+\subsection*{3 [RF 13.7]}
+\begin{tcolorbox}
+  Show that the set $\mathcal{P}$ of all polynomials on $[a,b]$ is a linear space. For $\mathcal{P}$ considered as a subset of the normed linear
+  space $C[a,b]$ and $L^{1}[a,b]$, show that $\mathcal{P}$ fails to be closed.
+\end{tcolorbox}
+\begin{Proof}
+  Trivially $0 \in \mathcal{P}$. Now let $P$ and $Q$ be two polynomials in $\mathcal{P}$ and $\alpha,\beta \in \mathbb{R}$.. Then we can write 
+  $P(x) = a_n x^{n} + a_{n-1}x^{n-1} + \cdots + a_{0}$ and $Q(x) = b_{m} x^{m} + b_{m-1}x^{m-1} + \cdots + b_{0}$
+  for all $x \in [a,b]$. Without loss of generality assume $n \geq m$. Then,
+  \[ 
+    R(x) := \alpha P(x) + \beta Q(x) = \alpha a_n x^{n} + \cdots + (\alpha a_{m} + \beta b_{m})x^{m} + (\alpha a_{m-1} + \beta b_{m-1})x^{m-1} + \cdots +
+    (\alpha a_0 + \beta b_0)
+  \]
+  for all $x \in [a,b]$. Since $R$ is also a polynomial, $R \in \mathcal{P}$ and hence $\mathcal{P}$ is a linear space. However, if we define $S_k(x) :=
+  \sum_{n=0}^{k}\frac{x^{n}}{n!}$ for all $k \in \mathbb{N}$, $x \in [a,b]$, then each $S_k \in \mathcal{P}$ and 
+  \[ 
+    \lim_{k\rightarrow\infty}S_k(x) = \lim_{k\rightarrow\infty}\sum_{n=0}^{k}\frac{x^{n}}{n!} = \exp(x),
+  \]
+  for all $x \in [a,b]$. $e^{x}$ is well-defined and continuous (therefore integrable on $[a,b]$ as well), yet is not a polynomial since it is 
+  defined in terms of a power series with infinitely many
+  terms. Thus we conclude that $\mathcal{P}$ is not closed as a subspace of either $C[a,b]$ or $L^{1}[a,b]$.
+\end{Proof}
+
+
+\end{document}
+
