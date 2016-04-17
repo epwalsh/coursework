@@ -36,12 +36,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 % chktex-file 3
 
-\title{MATH 516: HW 8}
+\title{MATH 516: HW 8 (Revised)}
 \author{Evan P. Walsh}
 \makeatletter
 \makeatother
 \lhead{Evan P. Walsh}
-\chead{MATH 516: HW 8}
+\chead{MATH 516: HW 8 (Revised)}
 \rhead{\thepage}
 \cfoot{}
 
@@ -114,6 +114,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Suppose $(X,\mathcal{S}, \mu)$ is a measure space and $\mu(X) < \infty$. When $A,B \in \mathcal{S}$, let $d(A,B) = \mu(A\triangle B)$. Prove that 
   $(\mathcal{S}, d)$ is a complete metric space (identify sets with symmetric difference of 0).
 \end{tcolorbox}
+\vspace{10mm}
 \begin{Proof}
   \begin{claim}
     $(\mathcal{S}, d)$ is a metric space.
@@ -135,15 +136,46 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $(\mathcal{S}, d)$ is complete.
   \end{claim}
   \begin{claimproof}
-    Suppose $\left\{ A_n \right\}_{n=0}^{\infty}$ is a Cauchy sequence in $(\mathcal{S}, d)$. Let $A = \cap_{n=0}^{\infty}A_n$. Clearly $A \in
-    \mathcal{S}$, so it remains to show that $A_n \rightarrow A$. Let $\epsilon > 0$. Since $\left\{ A_n \right\}_{n=0}^{\infty}$ is Cauchy, there
-    exists some $N \in \mathbb{N}$ such that $m,n > N$ implies $d(A_n, A_m) < \epsilon$. But, for $n > N$,
+    Suppose $\left\{ A_n \right\}_{n=0}^{\infty}$ is a Cauchy sequence in $(\mathcal{S}, d)$. Without loss of generality we can assume $d(A_{n+1},A_n) <
+    2^{-(n+1)}$ for all $n \in \mathbb{N}$.
+    Let $A = \cap_{k=0}^{\infty}\cup_{n > k}A_n$. Clearly $A \in \mathcal{S}$, so it remains to show that $A_n \rightarrow A$. 
+    \begin{subclaim}
+    For any $n \in \mathbb{N}$,
+    \[
+      \bigcup_{m > n}A_{m}\cap A_{n}^{c} \subseteq \bigcup_{m\geq n}A_{m+1}\cap A_{m}^{c} \qquad \text{and} \qquad
+      \bigcup_{m > n}A_{m}^{c}\cap A_{n} \subseteq \bigcup_{m\geq n}A_{m+1}^{c}\cap A_{m}. 
+    \]
+    \end{subclaim}
+    \begin{subclaimproof}
+      By symmetry it suffices to show for only one of the above equalities (replace $A_m$ with $A_{m}^{c}$ for the other equality). 
+      Suppose $\omega \in \cup_{m > n}A_{m}\cap A_{n}^{c}$. Then $\omega \notin
+      A_{n}$ but $\omega \in A_{m}$ for some $m > n$. Let $m_0 = \min\left\{ m > n : \omega \in A_{m} \right\}$. Then $\omega \in A_{m_0} \cap A_{m_0
+      - 1}^{c}$, and so $\omega \in \cup_{m \geq n}A_{m+1}\cap A_{m}^{c}$.
+
+    \end{subclaimproof}
+
+    Now, by Subclaim 2.1, 
+    \begin{align}
+      \mu(A - A_n) = \mu\left( \cap_{k=0}^{\infty}\cup_{m\geq k}A_{m}\cap A_{n}^{c} \right) & \leq \mu\left( \cup_{m > n}A_{m}\cap A_{n}^{c} \right)
+      \nonumber\\
+      & \leq \mu\left( \cup_{m\geq n}A_{m+1}\cap A_{m}^{c} \right) \nonumber\\
+      & \leq \sum_{m\geq n}\mu(A_{m+1}\cap A_{m}^{c}),
+    \end{align}
+    and
+    \begin{align}
+      \mu(A_n - A) = \mu\left( \cup_{k=0}^{\infty}\cap_{m\geq k}A_{m}^{c}\cap A_n \right) & = \mu\left( \cup_{k=n+1}^{\infty}\cap_{m\geq
+      k}A_{m}^{c}\cap A_{n} \right) \nonumber \\
+      & \leq \mu\left( \cup_{k>n}A_{k}^{c}\cap A_n \right) \nonumber \\
+      & \leq \mu\left( \cup_{m \geq n}A_{m+1}^{c}\cap A_{m} \right) \nonumber \\
+      & \leq \sum_{m\geq n}\mu(A_{m+1}^{c}\cap A_{m}),
+    \end{align}
+    for each $n \in \mathbb{N}$. Thus,
     \begin{align*}
-      d(A,A_n) = \mu(A - A_n) + \mu(A_n - A) = 0 + \mu(A_n - A) & \leq \mu(A_n - A_{n+1}) \\
-      & \leq \mu(A_n - A_{n+1}) + \mu(A_{n+1} - A_n) \\
-      & = d(A_n, A_{n+1}) < \epsilon.
+      d(A,A_n) = \mu(A - A_n) + \mu(A_n - A) & \leq \sum_{m\geq n}\mu(A_{m+1}\cap A_{m}^{c}) + \sum_{m\geq n}\mu(A_{m+1}^{c}\cap A_{m}) \\
+      & = \sum_{m\geq n}d(A_{m+1},A_{m}) \\
+      & \leq \sum_{m\geq n}2^{-(m+1)} = 2^{-n}.
     \end{align*}
-    Therefore $A_n$ converges to $A \in \mathcal{S}$, so $(\mathcal{S}, d)$ is complete.
+    Hence $d(A,A_n) \rightarrow 0$ as $n \rightarrow \infty$, and so $A_n$ converges to $A$.
   \end{claimproof}
 
 \end{Proof}

@@ -102,5 +102,72 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Proof}
 
 
+\subsection*{4 [RF 13.13]}
+\begin{tcolorbox}
+  Let $X$ be a Banach space and $T \in \mathcal{L}(X,X)$ have $\|T\| < 1$. Use the Contraction Mapping Principle to show that $I - T \in
+  \mathcal{L}(X,X)$ is one-to-one and onto.
+\end{tcolorbox}
+\begin{Proof}
+  Let $S := I - T$. 
+  \begin{claim}
+    $T(w) = w$ if and only if $w = \bm{0}$.
+  \end{claim}
+  \begin{claimproof}
+    Since 
+    \[ \|T(u) - T(v)\| = \|T(u-v)\| \leq \|T\|\cdot \|u - v\| \]
+    for any $u, v \in X$, $T$ is a contraction map. Hence, by the contraction mapping principle there exists a unique $w \in X$ such that $T(w) = w$.
+    But since $T(\bm{0}) = \bm{0}$, $w = \bm{0}$.
+  \end{claimproof}
+
+  \begin{claim}
+    $S$ is one-to-one.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $u,v \in X$ and $S(u) = S(v)$. Then $u - T(u) = v - T(v)$, so 
+    \[
+      u-v = T(u) - T(v) = T(u-v). 
+    \]
+    Hence, by Claim 1, $u - v = \bm{0}$.
+  \end{claimproof}
+
+  We will use the notation $T^{n}(u) = \underbrace{T\circ T\circ \cdots \circ T}_{n\text{ times}}(u)$, for $n \geq 1$, $u \in X$. Then
+  \begin{equation}
+    \|T^{n}(u)\| \leq \|T\|\cdot \|T^{n-1}(u)\| \leq \|T\|^{2}\cdot \|T^{n-2}(u)\| \leq \cdots \leq \|T\|^{n}\|u\|.
+    \label{4.1}
+  \end{equation}
+  Thus, for any $u \in X$, the series 
+  $H(u) := u + \sum_{n=1}^{\infty}T^{n}(u)$
+  is absolutely convergent since 
+  \[
+    \sum_{n=1}^{\infty}\|T^{n}(u)\| \leq \sum_{n=1}^{\infty}\|T\|^{n}\cdot \|u\| = \|u\| \sum_{n=1}^{\infty}\|T\|^{n} = \|u\|\frac{\|T\|}{1 - \|T\|} <
+    \infty
+  \]
+  by \eqref{4.1} and the fact that $\|T\| < 1$. Hence $H(u)$ is well-defined since $X$ is a Banach space.
+
+  \begin{claim}
+    For any $u \in X$, $S(H(u)) = u$, and therefore $S$ is onto.
+  \end{claim}
+  \begin{claimproof}
+    Let $u \in X$. Then, by continuity and linearity,
+    \begin{align*}
+      \left\|u - S(H(u))\right\| = \left\|u - \lim_{k\rightarrow\infty}S\left( u + \sum_{n=1}^{k}T^{n}(u) \right)\right\| 
+      & = \left\|u - S(u) + \lim_{k\rightarrow\infty}\sum_{n=1}^{k} S(T^{n}(u))\right\| \\
+      & = \left\|T(u) + \lim_{k\rightarrow\infty}\sum_{n=1}^{k}(T^{n}(u) - T^{n+1}(u))\right\| \\
+      & = \left\|\lim_{k\rightarrow\infty}T^{k+1}(u)\right\| = 0,\\
+    \end{align*}
+    where the last equality arises from $\|T^{k+1}(u)\| \leq \|T\|^{k+1}\cdot \|u\| \rightarrow 0$ as $k \rightarrow\infty$.
+  \end{claimproof}
+
+  By Claims 2 and 3, we are done.
+\end{Proof}
+
+\subsection*{5}
+\begin{tcolorbox}
+  Suppose $\mathcal{B}$ is a Banach space and $T : \mathcal{B} \rightarrow \mathcal{B}$ is a bounded linear endomorphism (i.e. is linear and
+  surjective). Suppose $\left\{ y_n \right\}_{n=0}^{\infty}$ converges in $\mathcal{B}$. Prove that there exists $x_0, x_1, \hdots \in \mathcal{B}$
+  such that $T(x_n) = y_n$ for all $n$ and $\lim_{n\rightarrow\infty}x_n$ exists.
+\end{tcolorbox}
+
+
 \end{document}
 
