@@ -48,6 +48,20 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{document}
 \maketitle
 
+\subsection*{1}
+\begin{tcolorbox}
+  Prove Subclaim 3.a in the proof of the Open Mapping Theorem.
+\end{tcolorbox}
+\begin{Proof}
+  From Claim 2, we know that $B_{1}(\bm{0}) \subseteq \overline{T[B_{2k/r}(\bm{0})]}$. Let $w \in \mathcal{B}$ and $R := \frac{2k}{r}\|w\|$. Thus, 
+  by linearity,
+  \[ B_{\|w\|}(\bm{0}) \subseteq \overline{T[B_{R}(\bm{0})]}, \ \text{and so} \ \overline{B_{\|w\|}(\bm{0})} \subseteq \overline{T[B_{R}(\bm{0})]}.\]
+  But this implies that for any $\epsilon > 0$, there exists some $y \in T[B_{R}(\bm{0})]$ such that 
+  \[ y \in \overline{B_{\|w\|}(\bm{0})} \cap B_{\epsilon}(w). \]
+  Hence there exists some $v \in B_{R}(\bm{0})$ with $T(v) = y$. So 
+  $T(v) \in \overline{B_{\|w\|}(\bm{0})} \cap B_{\epsilon}(w)$, and thus $\|w - T(v)\| < \epsilon$.
+\end{Proof}
+
 \newpage
 \subsection*{2 [RF 13.6]}
 \begin{tcolorbox}
@@ -84,7 +98,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   space $C[a,b]$ and $L^{1}[a,b]$, show that $\mathcal{P}$ fails to be closed.
 \end{tcolorbox}
 \begin{Proof}
-  Trivially $0 \in \mathcal{P}$. Now let $P$ and $Q$ be two polynomials in $\mathcal{P}$ and $\alpha,\beta \in \mathbb{R}$.. Then we can write 
+  Trivially $0 \in \mathcal{P}$. Now let $P$ and $Q$ be two polynomials in $\mathcal{P}$ and $\alpha,\beta \in \mathbb{R}$. Then we can write 
   $P(x) = a_n x^{n} + a_{n-1}x^{n-1} + \cdots + a_{0}$ and $Q(x) = b_{m} x^{m} + b_{m-1}x^{m-1} + \cdots + b_{0}$
   for all $x \in [a,b]$. Without loss of generality assume $n \geq m$. Then,
   \[ 
@@ -130,7 +144,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     Hence, by Claim 1, $u - v = \bm{0}$.
   \end{claimproof}
 
-  We will use the notation $T^{n}(u) = \underbrace{T\circ T\circ \cdots \circ T}_{n\text{ times}}(u)$, for $n \geq 1$, $u \in X$. Then
+  We will use the notation $T^{n}(u) = \underbrace{T\circ T\circ \cdots \circ T}_{n\ \text{times}}(u)$, for $n \geq 1$, $u \in X$. Then
   \begin{equation}
     \|T^{n}(u)\| \leq \|T\|\cdot \|T^{n-1}(u)\| \leq \|T\|^{2}\cdot \|T^{n-2}(u)\| \leq \cdots \leq \|T\|^{n}\|u\|.
     \label{4.1}
@@ -142,7 +156,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \sum_{n=1}^{\infty}\|T^{n}(u)\| \leq \sum_{n=1}^{\infty}\|T\|^{n}\cdot \|u\| = \|u\| \sum_{n=1}^{\infty}\|T\|^{n} = \|u\|\frac{\|T\|}{1 - \|T\|} <
     \infty
   \]
-  by \eqref{4.1} and the fact that $\|T\| < 1$. Hence $H(u)$ is well-defined since $X$ is a Banach space.
+  by~\eqref{4.1} and the fact that $\|T\| < 1$. Hence $H(u)$ is well-defined since $X$ is a Banach space.
 
   \begin{claim}
     For any $u \in X$, $S(H(u)) = u$, and therefore $S$ is onto.
@@ -163,10 +177,57 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{5}
 \begin{tcolorbox}
-  Suppose $\mathcal{B}$ is a Banach space and $T : \mathcal{B} \rightarrow \mathcal{B}$ is a bounded linear endomorphism (i.e. is linear and
-  surjective). Suppose $\left\{ y_n \right\}_{n=0}^{\infty}$ converges in $\mathcal{B}$. Prove that there exists $x_0, x_1, \hdots \in \mathcal{B}$
+  Suppose $\mathcal{B}$ is a Banach space and $T : \mathcal{B} \rightarrow \mathcal{B}$ is a bounded linear endomorphism (i.e.\ is linear % chktex 12
+  and surjective). Suppose $\left\{ y_n \right\}_{n=0}^{\infty}$ converges in $\mathcal{B}$. Prove that there exists $x_0, x_1, \hdots \in \mathcal{B}$
   such that $T(x_n) = y_n$ for all $n$ and $\lim_{n\rightarrow\infty}x_n$ exists.
 \end{tcolorbox}
+\begin{Proof}
+  Since $T$ is surjective, $T[\mathcal{B}] = \mathcal{B}$, which is closed. Hence,
+  by Theorem 8 of Section 13.4 (page 263) in Royden \& Fitzpatrick, there exists a constant $M > 0$ so that
+  for each $y \in \mathcal{B}$, there exists $x \in \mathcal{B}$ such that $T(x) = y$ and $\|x\| \leq M\|y\|$. 
+  Let $y := \lim_{n\rightarrow\infty}y_{n}$ and $x \in \mathcal{B}$ such that $T(x) = y$. 
+  Thus, for each $n \in \mathbb{N}$, we can choose $x_{n}^{*} \in \mathcal{B}$ such that 
+  $T(x_{n}^{*}) = y_n - y$ and $\|x_{n}^{*}\| \leq M\|y_n - y\|$. Then let $x_n := x^{*} + x$. So
+  \[ T(x_n) = T(x_{n}^{*}) + T(x) = y_n - y + y = y_n, \]
+  and 
+  \[ \|x_n - x\| = \|x_{n}^{*}\| \leq M\|y_n - y\|. \]
+  Therefore $\|x_n - x\| \rightarrow 0$ since $\|y_n - y\| \rightarrow 0$, so $x_n \rightarrow x$.
+  % Now, let $x_0 \in \mathcal{B}$ such
+  % that $T(x_0) = y_0$. By way of induction, suppose $x_{n}$ has been chosen. By the previous remark, we can choose $x^{*} \in \mathcal{B}$ such that 
+  % $T(x^{*}) = y_{n+1} - y_{n}$ and $\|x^{*}\| \leq M\|y_{n+1} - y_{n}\|$. Then let $x_{n+1} = x^{*} + x_{n}$. Hence,
+  % \begin{equation}
+    % \|x_{n+1} - x_{n}\| = \|x^{*}\| \leq M\|y_{n+1} - y_{n}\|.
+    % \label{5.1}
+  % \end{equation}
+
+  % \begin{claim}
+    % Every subsequence of $\left\{ x_n \right\}_{n=0}^{\infty}$ has a further subsequence that converges.
+  % \end{claim}
+  % \begin{claimproof}
+    % Let $\left\{ n_j \right\}_{j=0}^{\infty}$ be a subsequence of $\mathbb{N}$.
+    % Let $\epsilon > 0$. Since $\left\{ y_n \right\}_{n=0}^{\infty}$ converges, we can choose a further 
+    % subsequence $\left\{ n_{j_k} \right\}_{k=0}^{\infty}$ such
+    % that $\|y_{n_{j_{k+1}}} - y_{n_{j_{k}}}\| < M^{-1}2^{-k}$ for each $k \in \mathbb{N}$.
+  % \end{claimproof}
+  
+  % \begin{claim}
+    % Every convergent subsequence of $\left\{ x_{n} \right\}_{n=0}^{\infty}$ converges to the same point.
+  % \end{claim}
+  % \begin{claimproof}
+    % By way of contradiction suppose $\left\{ x_{n_j}\right\}_{j=0}^{\infty}$ and $\left\{ x_{k_j} \right\}_{j=0}^{\infty}$ are two subsequences that
+    % converge to separate limits $x'$ and $x''$, respectively. Let $0 < \epsilon < \frac{1}{4}\|x' - x''\|$. 
+    % Let $N_{1} \in \mathbb{N}$ such that $\|x_{n_j} - x'\| < \epsilon$ whenever $j \geq N_{1}$ and let $N_{2} \in \mathbb{N}$ such that 
+    % $\|x_{k_j} - x''\| < \epsilon$ whenever $j \geq N_{2}$. Since $\left\{ y_n \right\}_{n=0}^{\infty}$ converges, 
+    % there exists $N_{3} \in \mathbb{N}$ such that $\|y_n - y_m\| < \epsilon$ whenever $m,n \geq N_{3}$. Let $N := \max_{1\leq i\leq
+    % 3}\{N_{i}\}$. Since $n_j,k_j \geq j$ for all $j \in \mathbb{N}$, $j\geq N$ implies $n_j,k_j \geq N$.
+    % Thus $\|x_{n_j} - x_{k_j}\| < \epsilon$ whenever $j \geq N$. So for $j \geq N$, we have
+    % \[ \|x' - x''\| \leq \|x' - x_{n_j}\| + \|x_{n_j} - x_{k_j}\| + \|x_{k_j} - x''\| < \epsilon + \epsilon + \epsilon < 4 \epsilon = \|x' - x''\|. \]
+    % This is a contradiction. Therefore every convergence subsequence must converge to the same point.
+  % \end{claimproof}
+
+  % By Claims 1 and 2, every subsequence of $\left\{ x_{n} \right\}_{n=0}^{\infty}$ has a further subsequence that converges to the same limit. 
+  % Hence $\left\{ x_{n} \right\}_{n=0}^{\infty}$ converges.
+\end{Proof}
 
 
 \end{document}
