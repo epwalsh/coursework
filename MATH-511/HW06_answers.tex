@@ -197,6 +197,125 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Proof}
 
 
+\newpage
+\subsection*{4}
+\begin{tcolorbox}
+  Describe $f(U)$ for each of the following domains $U$ under the indicated maps.
+  \begin{enumerate}[label = (\alph*)]
+    \item $U = \left\{ z \in \mathbb{C} : \text{Im}(z) > 0 \right\}$, $f(z) = \frac{2z - i}{2 + iz}$.
+    \item $U = \left\{ z \in \mathbb{C} : 0 < \text{Re}(z) < 1 \right\}$, $f(z) = \frac{z - 1}{z}$.
+  \end{enumerate}
+\end{tcolorbox}
+\begin{enumerate}[label = (\alph*)]
+  \item Note that 
+    \[ f(1) = \frac{2 - i}{2 + i} = \frac{3 - 4i}{5} \qquad f(-1) = \frac{-2 - i}{2 - i} = \frac{-3 - 4i}{5}, \]
+    and 
+    \[ f(0) = \frac{-i}{2} \qquad f(\infty) = -2i. \]
+    Therefore $f$ maps the real line to the circle centered at $-\frac{5}{4}i$ with radius $\frac{3}{4}$. But since $f(i) = \frac{i}{1} = i$,
+    \[ f[U] = \left\{ z \in \mathbb{C} : \left|z + \frac{5}{4}i\right| > \frac{3}{4} \right\}. \]
+  \item Note that 
+    \[ f(1 + i) = \frac{i}{1 + i} = \frac{1 + i}{2} \qquad f(1 - i) = \frac{-i}{1 - i} = \frac{1 - i}{2}, \]
+    and $f(1) = 0$ while $f(\infty) = 1$. Thus $f$ maps the line $\left\{ z : \text{Re}(z) = 0 \right\}$ to the line $\left\{ z : \text{Re}(z) = 1
+    \right\}$ and the line $\left\{ z : \text{Re}(z) = 1 \right\}$ to the circle $\left\{ z : \left|z - \frac{1}{2}\right| = \frac{1}{2} \right\}$.
+    But since $f(\frac{1}{2}) = \frac{-\frac{1}{2}}{\frac{1}{2}} = -1$, 
+    \[ f[U] = \left\{ z \in \mathbb{C} : \left|z - \frac{1}{2}\right| > \frac{1}{2} \text{ and } \text{Re}({z}) < 1 \right\}. \]
+\end{enumerate}
+
+
+\newpage
+\subsection*{5}
+\begin{tcolorbox}
+  Let $f : \mathbb{C} \cup \{\infty\} \rightarrow \mathbb{C}\cup \{\infty\}$ be a linear fractional transformation. Prove that $f$ has a unique fixed
+  point $z_0$ with $z_0 \in \mathbb{C}$ if and only if $\frac{1}{f(z) - z_0} = \frac{1}{z - z_0} + h$, with $h \neq 0$.
+\end{tcolorbox}
+\begin{Proof}
+  Suppose we have $f(z) = \frac{az + b}{cz + d}$, where $a,b,c,d \in \mathbb{C}$. For $f$ to have a unique fixed point in $\mathbb{C}$, we need $c
+  \neq 0$, otherwise $f$ would be a linear which implies $f(\infty) = \infty$. Further, by solving $z = \frac{az + b}{cz + d}$, we obtain the equation 
+  $cz^{2} + (d - a)z - b = 0$, which offers the solutions given by
+  \[ z = \frac{(a-d) \pm \sqrt{(d - a)^{2} + 4bc}}{2c}. \]
+  Hence a linear fractional transformation $f$ has a unique fixed point in $\mathbb{C}$ if and only if 
+  \begin{equation}
+    c \neq 0\qquad \text{ and } \qquad (d - a)^{2} + 4bc = 0,
+    \label{5.1}
+  \end{equation}
+  in which case the solution is given by $z_0 = \frac{a - d}{2c}$.
+
+  \vspace{5mm}
+  $(\Leftarrow)$ Now suppose $f$ is a LFT such that 
+  \[ \frac{1}{f(z) - z_0} = \frac{1}{z - z_0} + h, \]
+  where $h \neq 0$. Then by rearranging we obtain
+  \begin{equation}
+    f(z) = \frac{(1 + hz_0)z - hz_{0}^{2}}{hz + 1 - hz_{0}}.
+    \label{5.2}
+  \end{equation}
+  Thus, with $a := 1 + hz_{0}, b := -hz_{0}^{2}, c := h$, and $d := 1 - hz_{0}$, we see that $c \neq 0$ and 
+  \[ (d - a)^{2} + 4bc = (1 - hz_{0} - 1 - hz_{0})^{2} + 4(-hz_{0}^{2})h = 4h^{2}z_{0}^{2} - 4h^{2}z_{0}{2} = 0. \]
+  Hence the conditions in~\eqref{5.1} are satisfied, and $f$ has a unique fixed point in $\mathbb{C}$ given by 
+  \[
+    \frac{a - d}{2c} = \frac{1 + hz_0 - 1 + hz_0}{2h} = z_0.
+  \]
+
+  $(\Rightarrow)$ On the other hand, suppose $f(z) = \frac{az + b}{cz + d}$ has a unique fixed point $z_0 = \frac{a - d}{2c}$. Then let $h := c$.
+  By~\eqref{5.1}, $h\neq 0$ and we can write $b = -c\left(\frac{d-a}{2c}\right)^{2} = -hz_{0}^{2}$. Thus $f(z)$ is of the form in~\eqref{5.2}.
+
+\end{Proof}
+
+
+\newpage
+\subsection*{6}
+\begin{tcolorbox}
+  Find a linear fractional transformation $f$ such that $i$ is the only fixed point and $f(1) = \infty$.
+\end{tcolorbox}
+For $f(1) = \infty$, we need $f$ to be of the form $f(z) = \frac{az + b}{z - 1}$. Further, for $i$ to be the unique fixed point of $f$, we
+need~\eqref{5.1} satisfied, which implies 
+\[ (a + 1)^{2} + 4b = 0. \]
+But by the work done in Question 5, $i = \frac{1 + 1}{2}$, and so $a = 2i - 1$. Solving for $b$, we get $b = 1$. Hence
+\[ f(z) = \frac{(2i - 1)z + 1}{z - 1}. \]
+
+
+\subsection*{7}
+\begin{tcolorbox}
+  Find a linear fractional transformation $f$ that takes the upper half plane to itself and satisfies $f(0) = 1$, $f(i) = 2i$.
+\end{tcolorbox}
+Since this mapping will preserve the symmetry of points about the real axis, we have 
+\begin{align*}
+  0 & \mapsto 1 \\
+  i & \mapsto 2i \\
+  -i & \mapsto -2i
+\end{align*}
+Thus, $(z, 0, i, -i) = (w, 1, 2i, -2i)$ where $w := f(z)$, i.e.
+\[ \left( \frac{w - 2i}{w + 2i} \right)\left( \frac{1 + 2i}{1 - 2i} \right) = \left( \frac{z - i}{z + i} \right)\left( \frac{i}{-i} \right). \]
+After simplifying, we have 
+\[ f(z) = w = \frac{-4z - 2}{z - 2}. \]
+
+\newpage
+\subsection*{8}
+\begin{tcolorbox}
+  Find a linear fractional transformation that takes the half plane $P = \left\{ x + iy : x + y > 2 \right\}$ to $D(0,1)$.
+\end{tcolorbox}
+Consider the mapping $f$ that takes
+\begin{align*}
+  2 + 2i & \mapsto 0 \\
+  1 + i & \mapsto \frac{1}{\sqrt{2}}(1 + i) \\
+  \infty & \mapsto -\frac{1}{\sqrt{2}}(1 + i)
+\end{align*}
+Then $(z, 2 + 2i, 1 + i, \infty) = \left(w, 0, \frac{1}{\sqrt{2}}(1 + i), -\frac{1}{\sqrt{2}}(1 + i)\right)$, where $w := f(z)$, i.e.
+\[ \left( \frac{w - \frac{1}{\sqrt{2}}(1 + i)}{w + \frac{1}{\sqrt{2}}(1 + i)} \right)(-1) = \frac{z - (1 + i)}{1 + i}. \]
+After simplifying, we have 
+\[ f(z) = w = \frac{-z + 2(1+i)}{\frac{1-i}{\sqrt{2}}z}. \]
+
+
+\subsection*{9}
+\begin{tcolorbox}
+  Find a conformal map $f : \left\{ z \in \mathbb{C} : |z - 1| > 1 \text{ and } |z - 2| < 2 \right\} \rightarrow D(0,1)$.
+\end{tcolorbox}
+
+
+\subsection*{10}
+\begin{tcolorbox}
+  Find a conformal map $f : \left\{ x + iy \in \mathbb{C} : x > 0 \text{ and } 0 < y < 1 \right\} \rightarrow D(0,1)$.
+\end{tcolorbox}
+
 
 
 
