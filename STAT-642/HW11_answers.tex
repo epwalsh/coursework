@@ -166,6 +166,19 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \[ \left| \int_{A} Y dP\right| \leq \left( \int_{A}E(X^{2}|\mathcal{G})dP \right)^{1/2}. \]
 \end{Proof}
 
+\subsection*{5 [AL 12.9 (a)]}
+\begin{tcolorbox}
+  Let $\left\{ X_n : n \in \mathbb{N} \right\}$ be a collection of independent random variables with $E|X_0| < \infty$. Show that $E(X_0|X_1, \hdots,
+  X_n) = EX_0$ for any $n \geq 1$.
+\end{tcolorbox}
+\begin{Proof}
+  Clearly $EX_0$ is $\sigma\langle X_1,\hdots, X_n\rangle$-measurable since it is constant. Therefore it remains to show that $\int_{A}EX_0\ dP =
+  \int_{A}X_0\ dP$ for any $A \in \sigma\langle X_1, \hdots, X_n\rangle$. So let $A \in \sigma\langle X_1,\hdots, X_n\rangle$ and note that $I_A$ is
+  independent of $X_0$ since $X_0$ is independent of $X_1, \hdots, X_n$. Thus,
+  \[ \int_{A}X_0\ dP = \int_{\Omega}X_0I_{A}\ dP = \int_{\Omega}X_0\ dP \int_{\Omega}I_{A}\ dP = E(X_0)\cdot P(A) = \int_{A}EX_0\ dP. \]
+\end{Proof}
+
+
 
 \end{document}
 % chktex 17
