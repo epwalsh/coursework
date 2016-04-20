@@ -113,9 +113,59 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Prove Theorem 12.2.3.
 \end{tcolorbox}
 \begin{Proof}
-  
+  Since $|Y_{n}| \leq Z$ almost surely, $Z - Y_{n}, Z + Y_{n} \geq 0$ almost surely. Hence, by the conditional Fatou's Lemma,
+  \begin{align*}
+    \liminf E(Z - Y_{n}) & \geq E(\liminf Z - Y_{n}) = E(Z - Y), \ \text{i.e.}\\
+    EZ + \liminf E(-Y_{n}) & \geq EZ - EY, \ \text{i.e.} \\
+    EZ - \limsup EY_{n} & \geq EZ - EY.
+  \end{align*}
+  Thus,
+  \begin{equation}
+    \limsup EY_{n} \leq EY.
+    \label{3.1}
+  \end{equation}
+  Similarly,
+  \[ \liminf E(Z + Y_{n}) \geq E(Z + Y_{n}), \ \text{i.e.} \ EZ + \liminf EY_{n} \geq EZ + EY. \]
+  Hence
+  \begin{equation}
+    \liminf EY_{n} \geq EY.
+    \label{3.2}
+  \end{equation}
+  So by~\eqref{3.1} and~\eqref{3.2},
+  \[ \limsup EY_{n} \leq EY \leq \liminf EY_{n}. \]
+  Therefore $\lim_{n\rightarrow\infty}EY_{n} = EY$.
+\end{Proof}
+
+
+\newpage
+\subsection*{4 [AL 12.6 (b)]}
+\begin{tcolorbox}
+  Let $X$ be a random variable on a probability space $(\Omega, \mathcal{F}, P)$ with $EX^{2} < \infty$, and let $\mathcal{G} \subset \mathcal{F}$ be
+  a sub-$\sigma$-field. Show that 
+  \[ \left| \int_{A} E(X|\mathcal{G}) dP\right| \leq \left( \int_{A}E(X^{2}|\mathcal{G})dP \right)^{1/2} \]
+  for all $A \in \mathcal{F}$.
+\end{tcolorbox}
+\begin{Proof}
+  Note that since $Y := E(X|\mathcal{G})$ is $\mathcal{G}$-measurable by definition, $Y$ is also $\mathcal{F}$-measurable since $\mathcal{G}
+  \subset \mathcal{F}$. Let $A \in \mathcal{F}$ and let $\varphi(x) := x^{2}$. Since $\varphi$ is convex on $[0,\infty)$ and % chktex 9
+  $E\varphi(XI_{A}) = EX^{2}I_{A} < \infty$,
+  \[
+    (YI_{A})^{2} = \varphi(YI_{A}) = \varphi(Y)I_{A} \leq E(\varphi(X) | \mathcal{G})I_{A} = E(X^{2}|\mathcal{G})I_{A} 
+  \]
+  by Jensen's conditional inequality. Thus 
+  \begin{equation}
+    \int_{A}Y^{2}\ dP \leq \int_{A} E(X^{2} | \mathcal{G}).
+    \label{4.1}
+  \end{equation}
+  Now, without loss of generality assume the left side of~\eqref{4.1} is finite. Then by Jensen's unconditional inequality,
+  \begin{equation}
+    \left( \int_{A}Y\ dP \right)^{2} = \varphi(EYI_{A}) \leq E\varphi(YI_{A}) = \int_{A}Y^{2}\ dP. 
+    \label{4.2}
+  \end{equation}
+  So by~\eqref{4.1} and~\eqref{4.2},
+  \[ \left| \int_{A} Y dP\right| \leq \left( \int_{A}E(X^{2}|\mathcal{G})dP \right)^{1/2}. \]
 \end{Proof}
 
 
 \end{document}
-
+% chktex 17
