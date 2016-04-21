@@ -179,6 +179,62 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Proof}
 
 
+\subsection*{6 [AL 12.12]}
+\begin{tcolorbox}
+  Let $X,Y \in L^{2}(\Omega, \mathcal{F}, P)$. If $E(X|Y) = Y$ and $E(Y|X) = X$, then $P(X = Y) = 1$.j
+\end{tcolorbox}
+\begin{Proof}
+  Since $X,Y \in L^{2}(\Omega, \mathcal{F}, P)$, $E(X - Y)^{2} = EX^{2} + EY^{2} - 2EXY$ is well defined (Cauchy-Schwarz inequality). Now note that
+  \[ EXY = E[E(XY | X)] = E[XE(Y|X)] = E[X^{2}], \]
+  and 
+  \[ EXY = E[E(XY | Y)] = E[YE(X|Y)] = E[Y^{2}]. \]
+  Thus,
+  \[ E(X - Y)^{2} = EX^{2} + EY^{2} - EX^{2} - EY^{2} = 0. \]
+  So, since $(X - Y)^{2} \geq 0$, $(X - Y)^{2} = 0$ with probability 1. Hence $P(X = Y) = 1$.
+\end{Proof}
+
+
+\subsection*{7 [AL 12.17]}
+\begin{tcolorbox}
+  Let $(\Omega, \mathcal{F}, P)$ be a probability space, $\mathcal{G}$ a sub-$\sigma$-algebra of $\mathcal{F}$, and let $A_0, A_1, A_2,\hdots \in
+  \mathcal{F}$ be pairwise disjoint. Show that 
+  \[ P\left( \cup_{n=0}^{\infty}A_n | \mathcal{G} \right) = \sum_{n=0}^{\infty}P(A_n | \mathcal{G}). \]
+\end{tcolorbox}
+
+
+\newpage
+\subsection*{8 [AL 12.19]}
+\begin{tcolorbox}
+  Let $\mathcal{G}_1, \mathcal{G}_2, \mathcal{G}_3$ be sub-$\sigma$-algebras of $\mathcal{F}$. Show that if $\mathcal{G}_1 \vee \mathcal{G}_3$ is
+  independent of $\mathcal{G}_2$, then $\mathcal{G}_1$ and $\mathcal{G}_2$ are conditionally independent given $\mathcal{G}_3$.
+\end{tcolorbox}
+\begin{Proof}
+  Let $A_1 \in \mathcal{G}_1$ and $A_2 \in \mathcal{G}_2$. We need to show that $P(A_1 \cap A_2 | \mathcal{G}_3) = P(A_1 | \mathcal{G}_3) \cdot P(A_2 |
+  \mathcal{G}_3)$.
+
+  \begin{claim}
+    $P(A_2 | \mathcal{G}) = P(A_2)$ with probability 1.
+  \end{claim}
+  \begin{claimproof}
+    Clearly $P(A_2)$ is $\mathcal{G}_3$-measurable since it is constant.
+    Now let $A_3 \in \mathcal{G}_3$. Then $A_3 \in \mathcal{G}_1 \vee \mathcal{G}_3$, and so $P(A_2 \cap A_3) = P(A_2)\cdot P(A_3)$ by independence.
+    Hence,
+    \[ \int_{A_3}I_{A_2}\ dP = \int_{\Omega}I_{A_2 \cap A_3}\ dP = P(A_2 \cap A_3) = P(A_2)\cdot P(A_3) = \int_{A_3}P(A_2)\ dP. \]
+  \end{claimproof}
+
+  Now, clearly $P(A_1|\mathcal{G}_3)\cdot P(A_2|\mathcal{G}_3)$ is measurable with respect to $\mathcal{G}_3$ since $P(A_i | \mathcal{G}_3)$ is 
+  measurable with respect to $\mathcal{G}_3$ for each $i = 1,2$. Thus by Claim 1,
+  \begin{align*}
+    \int_{A_3}I_{A_1\cap A_2}\ dP = \int_{\Omega}I_{A_1\cap A_2\cap A_3}\ dP = P(A_1 \cap A_2 \cap A_3) & = P(A_1\cap A_3)\cdot P(A_2)  \\
+    & = P(A_1\cap A_3) \cdot P(A_2|\mathcal{G}_3) \\
+    & = \int_{A_3}I_{A_1}\ dP \cdot P(A_2|\mathcal{G}_3) \\
+    & = \int_{A_3}P(A_1|\mathcal{G}_3)\ dP \cdot P(A_2 | \mathcal{G}_3) \\
+    & = \int_{A_3}P(A_1|\mathcal{G}_3)\cdot P(A_2|\mathcal{G}_3)\ dP.
+  \end{align*}
+\end{Proof}
+
+
+
 
 \end{document}
 % chktex 17
