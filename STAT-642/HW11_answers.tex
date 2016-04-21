@@ -200,6 +200,25 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \mathcal{F}$ be pairwise disjoint. Show that 
   \[ P\left( \cup_{n=0}^{\infty}A_n | \mathcal{G} \right) = \sum_{n=0}^{\infty}P(A_n | \mathcal{G}). \]
 \end{tcolorbox}
+\begin{Proof}
+  Let $A := \cup_{n=0}^{\infty}A_n$, $X_n := \sum_{k=0}^{n}I_{A_k}$ and $X := \lim_{n\rightarrow \infty}X_n = I_{A}$.
+  Then 
+  \[ 
+    0 \leq X_0 \leq X_1 \leq \cdots, 
+  \]
+  and so by the conditional MCT,
+  \[
+    \lim_{n\rightarrow\infty}E(X_n | \mathcal{G}) = E(X|\mathcal{G}).
+  \]
+  But then
+  \begin{align*}
+    P\left(A|\mathcal{G}\right) = E\left( I_{A}|\mathcal{G} \right) = E\left( X|\mathcal{G} \right) = \lim_{n\rightarrow\infty}E(X_n|\mathcal{G}) 
+    & = \lim_{n\rightarrow\infty}E\left( \sum_{k=0}^{n}I_{A_{k}}|\mathcal{G} \right) \\
+    & = \lim_{n\rightarrow\infty}\sum_{k=0}^{n}E\left( I_{A_{k}}|\mathcal{G} \right) \\
+    & = \lim_{n\rightarrow\infty}\sum_{k=0}^{n}P(A_{k}|\mathcal{G}) \\
+    & = \sum_{n=0}^{\infty}P(A_n|\mathcal{G}).
+  \end{align*}
+\end{Proof}
 
 
 \newpage
