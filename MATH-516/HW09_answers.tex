@@ -46,7 +46,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \cfoot{}
 
 \begin{document}
-\maketitle
+% \maketitle
 
 \subsection*{1}
 \begin{tcolorbox}
@@ -56,13 +56,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   From Claim 2, we know that $B_{1}(\bm{0}) \subseteq \overline{T[B_{2k/r}(\bm{0})]}$. Let $w \in \mathcal{B}$ and $R := \frac{2k}{r}\|w\|$. Thus, 
   by linearity,
   \[ B_{\|w\|}(\bm{0}) \subseteq \overline{T[B_{R}(\bm{0})]}, \ \text{and so} \ \overline{B_{\|w\|}(\bm{0})} \subseteq \overline{T[B_{R}(\bm{0})]}.\]
-  But this implies that for any $\epsilon > 0$, there exists some $y \in T[B_{R}(\bm{0})]$ such that 
-  \[ y \in \overline{B_{\|w\|}(\bm{0})} \cap B_{\epsilon}(w). \]
-  Hence there exists some $v \in B_{R}(\bm{0})$ with $T(v) = y$. So 
-  $T(v) \in \overline{B_{\|w\|}(\bm{0})} \cap B_{\epsilon}(w)$, and thus $\|w - T(v)\| < \epsilon$.
+  Since $w \in \overline{B_{\|w\|}(\bm{0})}$, $w \in \overline{T[B_{R}(\bm{0})]}$.
+  Hence for any $\epsilon > 0$, there exists $y \in T[B_{R}(\bm{0})]$ such that $y \in B_{\epsilon}(w)$.
+  But then there exists some $v \in B_{R}(\bm{0})$ with $T(v) = y$. So 
+  $T(v) \in B_{\epsilon}(w)$, and thus $\|w - T(v)\| < \epsilon$.
 \end{Proof}
 
-\newpage
 \subsection*{2 [RF 13.6]}
 \begin{tcolorbox}
   Let $X$ be a normed linear space.
@@ -84,14 +83,15 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       Hence $\lim_{n\rightarrow\infty}\|(\alpha x_n + \beta y_n) - (\alpha x + \beta y)\| = 0$, i.e. $\alpha x_n + \beta y_n \rightarrow \alpha x +
       \beta y$.
     \item Suppose $Y$ is a subspace of $X$. Let $x,y \in \overline{Y}$ and $\alpha, \beta \in \mathbb{R}$. We need to show that $\alpha x + \beta y
-      \in \overline{Y}$. Well, since $x,y \in \overline{Y}$, there exists sequence $\left\{ x_n \right\}_{n=0}^{\infty}$ and $\left\{ y_n
-      \right\}_{n=0}^{\infty}$ such that $x_n,y_n \in Y$ for all $n \in \mathbb{N}$. Since $Y$ is a subspace, $\alpha x_n + \beta y_n \in Y$ for all $n
+      \in \overline{Y}$. Well, since $x,y \in \overline{Y}$, there exists sequences $\left\{ x_n \right\}_{n=0}^{\infty}$ and $\left\{ y_n
+      \right\}_{n=0}^{\infty}$ such that $x_n,y_n \in Y$ for all $n \in \mathbb{N}$ and $x_n \rightarrow x$, $y_n \rightarrow y$. 
+      Since $Y$ is a subspace, $\alpha x_n + \beta y_n \in Y$ for all $n
       \in \mathbb{N}$. But by part (i), $\lim_{n\rightarrow \infty}\alpha x_n + \beta y_n = \alpha x + \beta y$. Thus $\alpha x + \beta y \in
       \overline{Y}$ by definition of closure.
   \end{enumerate}
 \end{Proof}
 
-
+\newpage
 \subsection*{3 [RF 13.7]}
 \begin{tcolorbox}
   Show that the set $\mathcal{P}$ of all polynomials on $[a,b]$ is a linear space. For $\mathcal{P}$ considered as a subset of the normed linear
