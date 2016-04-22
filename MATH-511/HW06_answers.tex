@@ -307,14 +307,25 @@ After simplifying, we have
 
 \subsection*{9}
 \begin{tcolorbox}
-  Find a conformal map $f : \left\{ z \in \mathbb{C} : |z - 1| > 1 \text{ and } |z - 2| < 2 \right\} \rightarrow D(0,1)$.
+  Find a conformal map $T : \left\{ z \in \mathbb{C} : |z - 1| > 1 \text{ and } |z - 2| < 2 \right\} \rightarrow D(0,1)$.
 \end{tcolorbox}
+Let $U_1 := \left\{ z \in \mathbb{C} : |z - 1| > 1 \text{ and } |z - 2| < 2 \right\}$. 
+Let $T_1(z) := 2\pi i\frac{z - 2}{z}$. Then $T_1$ is conformal and $T_1[\partial D(2,2)] = \left\{ x + iy : y = \pi \right\}$. Further,
+$T_1[\partial D(1,1)] = \left\{ x + iy : y = 0 \right\}$. Further, since $T_1(3) = \frac{2\pi i}{3}$, it must be that $T_1$ maps $U_1$ into 
+$U_2 := \left\{ x + iy : 0 < y < \pi \right\}$. Then $T_2(z) := e^{z}$ takes $z \in U_2$ to $U_3 :=$ upper half-plane. Lastly, $T_3(z) := \frac{z -
+i}{z + i}$ takes $z \in U_3$ to $D(0,1)$. So $T(z) := T_3 \circ T_2 \circ T_1(z)$ is the desired conformal map.
 
 
 \subsection*{10}
 \begin{tcolorbox}
-  Find a conformal map $f : \left\{ x + iy \in \mathbb{C} : x > 0 \text{ and } 0 < y < 1 \right\} \rightarrow D(0,1)$.
+  Find a conformal map $T : \left\{ x + iy \in \mathbb{C} : x > 0 \text{ and } 0 < y < 1 \right\} \rightarrow D(0,1)$.
 \end{tcolorbox}
+Let $T_1(z) := \pi z$, $T_2(z) := e^{z}$, $T_3(z) := J(z) = \frac{1}{2}\left(z + \frac{1}{z}\right)$, and $T_4(z) := \frac{z - i}{z + i}$. Then $T_1$
+is a conformal map from $U_1 := \left\{ x + iy : x > 0,\  0 < y < 1 \right\}$ to $U_2 := \left\{ x + iy : x > 0,\  0 < y < \pi \right\}$, $T_2$ is a
+conformal map from $U_2$ to $U_3 := \left\{ x + iy : y > 0,\  x^2 + y^2 > 1 \right\}$, $T_3$ is a conformal map from $U_3$ to 
+$U_4 := \left\{ x + iy : y > 0 \right\}$, and $T_4$ is a conformal map from $U_4$ to $D(0,1)$. Thus,
+\[ T(z) := T_4 \circ T_3 \circ T_2 \circ T_1(z) \]
+is a conformal map from $U_1$ to $D(0,1)$.
 
 
 
