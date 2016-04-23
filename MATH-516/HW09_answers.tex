@@ -175,6 +175,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   By Claims 2 and 3, we are done.
 \end{Proof}
 
+\newpage
 \subsection*{5}
 \begin{tcolorbox}
   Suppose $\mathcal{B}$ is a Banach space and $T : \mathcal{B} \rightarrow \mathcal{B}$ is a bounded linear endomorphism (i.e.\ is linear % chktex 12
@@ -182,51 +183,35 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   such that $T(x_n) = y_n$ for all $n$ and $\lim_{n\rightarrow\infty}x_n$ exists.
 \end{tcolorbox}
 \begin{Proof}
-  Since $T$ is surjective, $T[\mathcal{B}] = \mathcal{B}$, which is closed. Hence,
-  by Theorem 8 of Section 13.4 (page 263) in Royden \& Fitzpatrick, there exists a constant $M > 0$ so that
-  for each $y \in \mathcal{B}$, there exists $x \in \mathcal{B}$ such that $T(x) = y$ and $\|x\| \leq M\|y\|$. 
-  Let $y := \lim_{n\rightarrow\infty}y_{n}$ and $x \in \mathcal{B}$ such that $T(x) = y$. 
-  Thus, for each $n \in \mathbb{N}$, we can choose $x_{n}^{*} \in \mathcal{B}$ such that 
-  $T(x_{n}^{*}) = y_n - y$ and $\|x_{n}^{*}\| \leq M\|y_n - y\|$. Then let $x_n := x^{*} + x$. So
+  % Since $T$ is surjective, $T[\mathcal{B}] = \mathcal{B}$, which is closed. Hence,
+  % by Theorem 8 of Section 13.4 (page 263) in Royden \& Fitzpatrick, there exists a constant $M > 0$ so that
+  % for each $y \in \mathcal{B}$, there exists $x \in \mathcal{B}$ such that $T(x) = y$ and $\|x\| \leq M\|y\|$. 
+  \begin{claim}
+    There exists $R > 0$ such that for each $v \in \mathcal{B}$, there exists $u \in \mathcal{B}$ such that $T(u) = v$ and $\|u\| \leq R\|v\|$.
+  \end{claim}
+  \begin{claimproof}
+    Since $T$ is bounded, there exists some $M > 0$ such that $\|T(x)\| \leq M\|x\|$ for all $x \in \mathcal{B}$. Since $T$ is onto, 
+    \[ \mathcal{B} = \cup_{n=1}^{\infty}nT[\overline{B_1(\bm{0})}], \]
+    where $nT[\overline{B_1(\bm{0})}]$ is closed for each $n \geq 1$ by the Open Mapping Theorem (closed sets map to closed sets since open sets map
+    to open sets).
+    Hence, by the Baire Category Theorem, there exists $N \in \mathbb{N}$ such that $NT[\overline{B_1(\bm{0})}]$ is not nowhere dense, i.e.\ for some 
+    $v\in NT[\overline{B_1(\bm{0})}]$ and $r > 0$, $B_r(v) \subseteq NT[\overline{B_1(\bm{0})}]$. Thus,
+    \[ B_r(\bm{0}) \subseteq NT[\overline{B_1(\bm{0})}] - v \subseteq 2NT[\overline{B_1(\bm{0})}], \]
+    and so
+    \[ \overline{B_1(\bm{0})} \subseteq \frac{2N}{r}T[\overline{B_1(\bm{0})}] = RT[\overline{B_{1}(\bm{0})}] = T[\overline{B_{R}(\bm{0})}], \]
+    where $R := \frac{2N}{r}$. Thus, for each $v \in \mathcal{B}$, 
+    \[ v \in \|v\|\overline{B_1(\bm{0})} \subseteq \|v\|T[\overline{B_{R}(\bm{0})}] = T[\overline{B_{R\|v\|}(\bm{0})}], \]
+    and so there exists $u \in \mathcal{B}$ such that $T(u) = v$ and $\|u\| \leq R\|v\|$.
+  \end{claimproof}
+
+  \vspace{5mm}
+  Now, let $y := \lim_{n\rightarrow\infty}y_{n}$ and $x \in \mathcal{B}$ such that $T(x) = y$. 
+  Thus by Claim 1, for each $n \in \mathbb{N}$, we can choose $x_{n}^{*} \in \mathcal{B}$ such that 
+  $T(x_{n}^{*}) = y_n - y$ and $\|x_{n}^{*}\| \leq R\|y_n - y\|$. Then let $x_n := x^{*} + x$. So
   \[ T(x_n) = T(x_{n}^{*}) + T(x) = y_n - y + y = y_n, \]
   and 
   \[ \|x_n - x\| = \|x_{n}^{*}\| \leq M\|y_n - y\|. \]
   Therefore $\|x_n - x\| \rightarrow 0$ since $\|y_n - y\| \rightarrow 0$, so $x_n \rightarrow x$.
-  % Now, let $x_0 \in \mathcal{B}$ such
-  % that $T(x_0) = y_0$. By way of induction, suppose $x_{n}$ has been chosen. By the previous remark, we can choose $x^{*} \in \mathcal{B}$ such that 
-  % $T(x^{*}) = y_{n+1} - y_{n}$ and $\|x^{*}\| \leq M\|y_{n+1} - y_{n}\|$. Then let $x_{n+1} = x^{*} + x_{n}$. Hence,
-  % \begin{equation}
-    % \|x_{n+1} - x_{n}\| = \|x^{*}\| \leq M\|y_{n+1} - y_{n}\|.
-    % \label{5.1}
-  % \end{equation}
-
-  % \begin{claim}
-    % Every subsequence of $\left\{ x_n \right\}_{n=0}^{\infty}$ has a further subsequence that converges.
-  % \end{claim}
-  % \begin{claimproof}
-    % Let $\left\{ n_j \right\}_{j=0}^{\infty}$ be a subsequence of $\mathbb{N}$.
-    % Let $\epsilon > 0$. Since $\left\{ y_n \right\}_{n=0}^{\infty}$ converges, we can choose a further 
-    % subsequence $\left\{ n_{j_k} \right\}_{k=0}^{\infty}$ such
-    % that $\|y_{n_{j_{k+1}}} - y_{n_{j_{k}}}\| < M^{-1}2^{-k}$ for each $k \in \mathbb{N}$.
-  % \end{claimproof}
-  
-  % \begin{claim}
-    % Every convergent subsequence of $\left\{ x_{n} \right\}_{n=0}^{\infty}$ converges to the same point.
-  % \end{claim}
-  % \begin{claimproof}
-    % By way of contradiction suppose $\left\{ x_{n_j}\right\}_{j=0}^{\infty}$ and $\left\{ x_{k_j} \right\}_{j=0}^{\infty}$ are two subsequences that
-    % converge to separate limits $x'$ and $x''$, respectively. Let $0 < \epsilon < \frac{1}{4}\|x' - x''\|$. 
-    % Let $N_{1} \in \mathbb{N}$ such that $\|x_{n_j} - x'\| < \epsilon$ whenever $j \geq N_{1}$ and let $N_{2} \in \mathbb{N}$ such that 
-    % $\|x_{k_j} - x''\| < \epsilon$ whenever $j \geq N_{2}$. Since $\left\{ y_n \right\}_{n=0}^{\infty}$ converges, 
-    % there exists $N_{3} \in \mathbb{N}$ such that $\|y_n - y_m\| < \epsilon$ whenever $m,n \geq N_{3}$. Let $N := \max_{1\leq i\leq
-    % 3}\{N_{i}\}$. Since $n_j,k_j \geq j$ for all $j \in \mathbb{N}$, $j\geq N$ implies $n_j,k_j \geq N$.
-    % Thus $\|x_{n_j} - x_{k_j}\| < \epsilon$ whenever $j \geq N$. So for $j \geq N$, we have
-    % \[ \|x' - x''\| \leq \|x' - x_{n_j}\| + \|x_{n_j} - x_{k_j}\| + \|x_{k_j} - x''\| < \epsilon + \epsilon + \epsilon < 4 \epsilon = \|x' - x''\|. \]
-    % This is a contradiction. Therefore every convergence subsequence must converge to the same point.
-  % \end{claimproof}
-
-  % By Claims 1 and 2, every subsequence of $\left\{ x_{n} \right\}_{n=0}^{\infty}$ has a further subsequence that converges to the same limit. 
-  % Hence $\left\{ x_{n} \right\}_{n=0}^{\infty}$ converges.
 \end{Proof}
 
 
