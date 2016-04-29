@@ -190,7 +190,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     There exists $R > 0$ such that for each $v \in \mathcal{B}$, there exists $u \in \mathcal{B}$ such that $T(u) = v$ and $\|u\| \leq R\|v\|$.
   \end{claim}
   \begin{claimproof}
-    Since $T$ is bounded, there exists some $M > 0$ such that $\|T(x)\| \leq M\|x\|$ for all $x \in \mathcal{B}$. Since $T$ is onto, 
+    Since $T$ is onto, 
     \[ \mathcal{B} = \cup_{n=1}^{\infty}nT[\overline{B_1(\bm{0})}], \]
     where $nT[\overline{B_1(\bm{0})}]$ is closed for each $n \geq 1$ by the Open Mapping Theorem (closed sets map to closed sets since open sets map
     to open sets).
@@ -206,12 +206,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
   \vspace{5mm}
   Now, let $y := \lim_{n\rightarrow\infty}y_{n}$ and $x \in \mathcal{B}$ such that $T(x) = y$. 
-  Thus by Claim 1, for each $n \in \mathbb{N}$, we can choose $x_{n}^{*} \in \mathcal{B}$ such that 
-  $T(x_{n}^{*}) = y_n - y$ and $\|x_{n}^{*}\| \leq R\|y_n - y\|$. Then let $x_n := x^{*} + x$. So
+  By Claim 1, for each $n \in \mathbb{N}$, we can choose $x_{n}^{*} \in \mathcal{B}$ such that 
+  $T(x_{n}^{*}) = y_n - y$ and $\|x_{n}^{*}\| \leq R\|y_n - y\|$. Then let $x_n := x_{n}^{*} + x$. So
   \[ T(x_n) = T(x_{n}^{*}) + T(x) = y_n - y + y = y_n, \]
   and 
-  \[ \|x_n - x\| = \|x_{n}^{*}\| \leq M\|y_n - y\|. \]
-  Therefore $\|x_n - x\| \rightarrow 0$ since $\|y_n - y\| \rightarrow 0$, so $x_n \rightarrow x$.
+  \[ \|x_n - x\| = \|x_{n}^{*}\| \leq R \|y_n - y\|. \]
+  Therefore $\|x_n - x\| \rightarrow 0$ since $\|y_n - y\| \rightarrow 0$. Thus, $\lim_{n\rightarrow\infty}x_n = x$.
 \end{Proof}
 
 
