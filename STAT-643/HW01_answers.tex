@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{STAT 643: HW 1}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+\begin{tcolorbox}
+
+\end{tcolorbox}
+
+{\bf Solution:}
+
+We need to show that 
+\begin{enumerate}[label=\roman*.]
+  \item $h(x,y)$ is measurable with respect to $(\mathbb{R}^{2}, \sigma\langle Y\rangle )$,\footnote{By this we mean $\langle
+      (\mathbb{R}^{2}, \sigma \langle Y\rangle), (\mathbb{R}, \mathcal{B}(\mathbb{R}))\rangle$-measurable.} \\
+    \item and for any $G \in \sigma\langle Y\rangle$, 
+      \begin{equation}
+        \int_{G}h(x,y)\ dP(x,y) = \int_{G} P(X\in B | Y)\ dP.
+        \label{1.1}
+      \end{equation}
+\end{enumerate}
+
+To show i., let $g_{B}(y) := \int_{B}f(t,y)d\mu_{1}(t)$. Note that by Fubini's Theorem $g_{B}(y)$ and $f_{Y}(y)$ are measurable with respect to 
+$(\mathbb{B}, \mathcal{B}(\mathbb{R}))$ as functions of just $y$. Hence $g_{B}(y)$ and $f_{Y}(y)$ are measurable with respect to $\sigma\langle
+Y\rangle$ as functions of $(x,y)$. It follows easily that $h(x,y)$ is measurable with respect to $(\mathbb{R}^{2}, \mathcal{B}(\mathbb{R}^{2}))$.
+
+To show ii., let $G = \mathbb{R} \times A \in \sigma \langle Y \rangle$. Note that 
+\begin{equation}
+  \int_{G}P(X\in B | Y)\ dP = \int_{G}E(I_{B\times \mathbb{R}}|Y)\ dP = \int_{G}I_{B\times \mathbb{R}}\ dP = P(\mathbb{R}\times A \cap B \times
+  \mathbb{R}) = P(B\times A).
+  \label{1.2}
+\end{equation}
+Further, note that $h(x,y) \equiv \frac{1}{f_{Y}(y)}\int_{B}f(t,y)d\mu_{1}(t)$ almost surely. Hence,
+\begin{align*}
+  \int_{G}h(x,y)\ dP(x,y) & = \int_{G}\frac{1}{f_{Y}(y)}\int_{B}f(t,y)d\mu_{1}(t)\ dP(x,y) \\
+  & = \int_{G}\frac{1}{f_{Y}(y)}\int_{B}f(t,y)d\mu_{1}(t) \cdot f(x,y)\ d(\mu_{1}\times \mu_{2})(x,y) \\
+  & \qquad \text{(since $f$ is the R-N derivative)} \\
+  & = \int_{A}\int_{\mathbb{R}}\frac{1}{f_{Y}(y)}\int_{B}f(t,y)d\mu_{1}(t)\cdot f(x,y)\ d\mu_{1}(x)d\mu_{2}(y) \ \ \text{(by Tonelli's)} \\
+  & = \int_{A}\int_{B}f(t,y)\ d\mu_{1}(t)d\mu_{2}(y) \\
+  & = \int_{B\times A}f(t,y)\ d(\mu_{1}\times \mu_{2})(t,y) \ \ \text{(by Tonelli's again)} \\
+  & = P(B\times A) = \int_{G}P(X \in B| Y) \ dP \ \ \text{by \eqref{1.2}.}
+\end{align*}
+Thus \eqref{1.1} is satisfied.
+
+
+
+\end{document}
+
