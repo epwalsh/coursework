@@ -208,6 +208,32 @@ for all $\theta \in \Theta$.
 \end{tcolorbox}
 
 {\bf Solution:}
+\begin{enumerate}[label=(\alph*)]
+  \item A version of the Radon-Nikodym derivative of $P_{\lambda}^{X}$ with respect to $\mu$ is given by 
+    \[ f_{\lambda}(x) := \left\{ \begin{array}{cl}
+          \lambda e^{-\lambda x} & \text{ if } x \geq 1 \\
+          1 - e^{-\lambda} & \text{ if } x = 0,
+      \end{array} \right. \qquad x \in \mathcal{X}.
+    \]
+
+  \item Let $X := (X_{1}, \dots, X_{n})$. Let $P_{\lambda}$ be the distribution of $X$. Since $P_{\lambda}^{X} \ll \mu$ and the $X_{i}$'s are
+    independent, $P = P_{\lambda}^{X} \times \dots \times P_{\lambda}^{X} \ll \nu := \mu \times \dots \times \mu$ (multiplication $n$ times).
+    Thus, a version of $\frac{dP_{\lambda}}{d\nu}$ is given by 
+    \[ \frac{dP_{\lambda}}{d\nu}(x) = \prod_{i=1}^{n}f_{\lambda}(x_{i}) = (1 - e^{-\lambda})^{k}\lambda^{n - k}e^{-\lambda\sum_{i=1}^{n}x_{i}}, 
+    \qquad x = (x_{1}, \dots, x_{n}) \in \mathcal{X}^{n}, \]
+    where $k \equiv k(x) := \sum_{i=1}^{n}I(x_{i} = 0)$, i.e. $k$ is a statistic that is the number of $x_{i}$'s equal to 0.
+    By the Factorization Theorem, $T(x) := \left(k(x), \sum_{i=1}^{n}x_{i}\right)$ is clearly sufficient.
+
+  \item Let $x,y \in \mathcal{X}^{n}$. Since $\frac{dP_{\lambda}}{d\nu} > 0$ on $\mathcal{X}^{n}$, 
+    \begin{align*}
+    \frac{ \frac{dP_{\lambda}}{d\nu}(x) }{ \frac{dP_{\lambda}}{d\nu}(y)} & = \frac{ (1-e^{-\lambda})^{k(x)}\lambda^{n - k(x)}e^{-\lambda
+    \sum_{i=1}^{n}y_{i}} }{ (1-e^{-\lambda})^{k(y)}\lambda^{n - k(y)}e^{-\lambda \sum_{i=1}^{n}y_{i}} } \\
+    & = (1 - e^{-\lambda})^{k(x) - k(y)} \lambda^{k(y) - k(x)}e^{\lambda\left( \sum_{i=1}^{n}y_{i} - \sum_{i=1}^{n}x_{i}\right)}
+  \end{align*}
+  is well-defined and, as we can see, is independent of $\lambda$ if and only if $T(x) = T(y)$. Hence $T$ is minimal sufficient by Theorem 06 in our
+  notes.
+\end{enumerate}
+
 
 
 \newpage
@@ -226,6 +252,30 @@ for all $\theta \in \Theta$.
 \end{tcolorbox}
 
 {\bf Solution:}
+Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\theta, d}$
+\begin{enumerate}[label=(\alph*)]
+  \item We will show that $S(X) := (T(X), \min_{i} X_{i})$ is sufficient for $(\theta, d)$. Since $T$ is sufficient for $\Theta$, we can write
+    \[ \prod_{i=1}^{n}f_{\theta}(x_{i}) = g_{\theta}(x)h(x) \]
+    for $x = (x_{1}, \dots, x_{n}) \in \mathbb{R}^{n}$. Further,
+    since the $X_{i}$'s are independent, the density for $X$
+    with respect to Lebesgue measure $\nu$ on $\mathbb{R}^{n}$ is equal a.e. $\nu$ to 
+    \begin{equation}
+      \prod_{i=1}^{n}I(x_{i} > d)\frac{f_{\theta}(x_{i})}{1 - F_{\theta}(d)} = \frac{I(\min_{i}x_{i} > d)}{(1 - F_{\theta}(d))^{n}}
+    \prod_{i=1}^{n}f_{\theta}(x_{i}) = I(\min_{i} x_{i} > d)g_{\theta}(T(x))\frac{h(x)}{(1 - F_{\theta}(d))^{n}}. 
+    \label{6.1}
+    \end{equation}
+    Hence by the Factorization Theorem, $S$ is sufficient for $(\theta, d)$.
+
+  \item Even if $T$ is minimal sufficient for $\theta$, $S$ may not be. To see this, let 
+    \[
+      U(X) := (T(X), I(\min_{i} X_{i} > d)).
+    \]
+    We can see from \eqref{6.1} that $U$ is also sufficient for $(\theta, d)$ by the Factorization Theorem. However, there may be no way to obtain $S$
+    from $U$, i.e. it may be impossible to write $S$ as a function of $U$. For example, suppose $T(X) = \sum_{i=1}^{n}X_{i}$. Then we cannot obtain the second
+    component of $S$, $\min_{i} X_{i}$, from $U(X) = \left(\sum_{i=1}^{n}X_{i}, I(\min_{i}X_{i} > d)\right)$.
+\end{enumerate}
+
+
 
 \newpage
 \subsection*{7}
@@ -234,6 +284,46 @@ for all $\theta \in \Theta$.
 \end{tcolorbox}
 
 {\bf Solution:}
+Let $c$ denote the counting measure on $\mathbb{N} = \{0, 1, \dots\}$. Then $P_{\theta} \ll c$ and a version of the Radon-Nikodym derivative
+of $P_{\theta}$ with respect to $c$ is given by 
+\[
+  \frac{dP_{\theta}}{dc}(x) = \frac{e^{-\theta_{1}}\theta_{1}^{x}}{x!}I(\theta_{2} = 1) + \theta_{1}^{x}(1 - \theta_1)^{1-x}I(\theta_2 =
+  2)I(x\in\{0,1\}) \qquad x \in \mathbb{N}.
+\]
+Let $Q_{\theta}$ be the distribution of $X = (X_{1}, \dots, X_{n})$ on $\mathbb{N}^{n}$. Then $Q_{\theta} \ll \mu := c \times \dots \times c$ on
+$\mathbb{N}^{n}$, and a version $f_{\theta}$ of the R-N derivative of $Q_{\theta}$ with respect to $\mu$ is 
+\begin{align*}
+  f_{\theta}(x) & := \prod_{i=1}^{n} \frac{dP_{\theta}}{dc}(x_{i}) \\
+  & = \prod_{i=1}^{n}\left[ \frac{e^{-\theta_{1}}\theta_{1}^{x_{i}}}{x_{i}!}I(\theta_{2} = 1) + \theta_{1}^{x_{i}}(1 - \theta_1)^{1-x_{i}}I(\theta_2 = 2)I(x_{i}\in\{0,1\}) \right] \\
+  & \qquad \text{(cross terms cancel since $I(\theta_2 = 1)\times I(\theta_2 = 2) \equiv 0$)} \\
+  & = \theta_{1}^{\sum_{i=1}^{n}x_{i}}\left[ \frac{ e^{-\theta_1 \sum_{i=1}^{n} x_{i}} }{ \prod_{i=1}^{n}x_{i}!} I(\theta_2 = 1) + (1 - \theta_1)^{n -
+    \sum_{i=1}^{n}x_{i}} I(\theta_2 = 2)\prod_{i=1}^{n} I(x_{i} \in \{0,1\}) \right] \\
+  & = \theta_{1}^{\sum_{i=1}^{n}x_{i}}\left[ \frac{ e^{-\theta_1 \sum_{i=1}^{n} x_{i}} }{ \prod_{i=1}^{n}x_{i}!} I(\theta_2 = 1) + (1 - \theta_1)^{n -
+    \sum_{i=1}^{n}x_{i}} I(\theta_2 = 2) I(\max_i x_{i} \leq 1) \right] \\
+  & = \theta_{1}^{\sum_{i=1}^{n}x_{i}}\left[ e^{-\theta_1 \sum_{i=1}^{n} x_{i}} I(\theta_2 = 1) + (1 - \theta_1)^{n -
+  \sum_{i=1}^{n}x_{i}} I(\theta_2 = 2) I(\max_i x_{i} \leq 1) \right] \left( \frac{1}{\prod_{i=1}^{n}x_{i}!} \right) \\
+  & = g_{\theta}(T(x)) h(x), \qquad x \in \mathbb{N}^{n}, 
+\end{align*}
+where $h(x) := \left( \frac{1}{\prod_{i=1}^{n}x_{i}!} \right)$, $T(x) := \left( \sum_{i=1}^{n}x_{i}, I(\max_{i} x_{i} \leq 1 )\right)$, and
+$g_{\theta}(T(x))$ is everything to the left of $h(x)$. Hence by the Factorization Theorem, $T$ is sufficient for $\theta$.
+It remains to show that $T$ is minimal. To that end, let $x, y \in \mathbb{N}$ and suppose that 
+\begin{equation}
+  f_{\theta}(x) = f_{\theta}(y) \cdot \prod_{i=1}^{n}\frac{y_{i}!}{x_{i}!} \qquad \text{ for all $\theta$. }
+  \label{7.1}
+\end{equation}
+We need to show that \eqref{7.1} implies $T(x) = T(y)$. Well, if $\theta_2 = 2$, then \eqref{7.1} implies
+% Well, if $\theta_2 = 1$, then by re-writing the equation in \eqref{7.1} we get 
+% \[
+  % \theta_{1}^{\sum_{i=1}^{n}x_{i} - \sum_{i=1}^{n}y_{i}}\exp\left\{ \theta_1\left(\sum_{i=1}^{n}y_{i} - \sum_{i=1}^{n}x_{i}\right) \right\} = 1,
+% \]
+% which holds if and only if $\sum_{i=1}^{n}x_{i} = \sum_{i=1}^{n}y_{i}$. 
+% On the other hand, if $\theta_2 = 2$, then \eqref{7.1} implies
+\[ 
+  \theta_{1}^{\sum_{i=1}^{n}x_{i} - \sum_{i=1}^{n}y_{i}}(1 - \theta_{1})^{\sum_{i=1}^{n}y_{i} - \sum_{i=1}^{n}x_{i}}I(\max_{i} x_{i} \leq 1) =
+  I(\max_{i}y_{i} \leq 1),
+\]
+which holds if and only if $\sum_{i=1}^{n}x_{i} = \sum_{i=1}^{n}y_{i}$ and $I(\max_{i}x_{i} \leq 1) = I(\max_{i}y_{i} \leq 1)$, i.e. $T(x) = T(y)$.
+Hence $T$ is minimal by Theorem 06 from our notes.
 
 
 \newpage
@@ -243,6 +333,39 @@ for all $\theta \in \Theta$.
 \end{tcolorbox}
 
 {\bf Solution:}
+Let $X := (X_{1}, \dots, X_{n})$, $P_{\gamma}^{X}$ be the distribution of $X$. Then $P_{\gamma}^{X} \ll \mu :=$ Lebesgue measure on $\mathbb{R}^n$.
+By independence,
+\[ 
+  \frac{dP_{\gamma}^{X}}{d\mu}(x) = \left( 2\pi\gamma^{2} \right)^{-n/2}\exp\left\{ -\frac{1}{2\gamma^{2}}\left[ \sum_{i=1}^{n}x_{i}^{2} -
+  2\gamma\sum_{i=1}^{n}x_{i} + \gamma^{2} \right] \right\} \qquad \text{a.e. } \mu, \ x \in \mathbb{R}^{n}.
+\]
+Let $T(x) := (\sum_{i=1}^{n}x_i, \sum_{i=1}^{n}x_{i}^{2})$. Then $T$ is sufficient by the Factorization Theorem. We also claim that $T$ is minimal.
+To show this, let $x, y \in \mathbb{R}^{n}$ and suppose $\frac{dP_{\gamma}^{X}}{d\mu}(x) = \frac{dP_{\gamma}^{X}}{d\mu}(y)$ for all $\gamma$.
+Then for each $\gamma$
+\[
+  \exp\left\{ \frac{1}{2\gamma}\left( \sum_{i=1}^{n}y_{i}^{2} - \sum_{i=1}^{n}x_{i}^{2} \right) \right\}\exp\left\{ \frac{1}{\gamma}\left( 
+  \sum_{i=1}^{n}x_{i} - \sum_{i=1}^{n}y_{i}\right) \right\} = 1
+\]
+if and only if 
+\[
+  \sum_{i=1}^{n}x_{i}^{2} = \sum_{i=1}^{n}y_{i}^{2} \qquad \text{and} \qquad \sum_{i=1}^{n}x_{i} = \sum_{i=1}^{n}y_{i}.
+\]
+Hence $T$ is minimal sufficient by Theorem 06. Lastly we claim that $T$ is not complete. To show this, first note that the typical unbiased estimate
+of the variance of $X_{i}$ can be written as
+\[
+  s^{2} := \frac{n\sum_{i=1}^{n}X_{i}^{2} - \left( \sum_{i=1}^{n}X_{i} \right)^{2}}{n(n-1)}.
+\]
+As $s^{2}$ is unbiased, $Es^{2} = \gamma^{2}$. We also know that 
+\[
+  \gamma^{2} = E\left( \frac{1}{2n}\sum_{i=1}^{n}X_{i}^{2} \right).
+\]
+Thus, let 
+\[
+  g(T(X)) := s^{2} - \frac{1}{2n}\sum_{i=1}^{n}X_{i}^{2} = \frac{(n+1)\sum_{i=1}^{n}X_{i}^{2}}{2n(n-1)} - \frac{\left( \sum_{i=1}^{n}X_{i}
+  \right)^{2}}{n(n-1)}.
+\]
+Then $g(T)$ has expected value of 0 yet is not identically 0. So $T$ is not complete.
+
 
 
 
