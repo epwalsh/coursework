@@ -103,7 +103,6 @@ Further, note that $h(x,y) \equiv \frac{1}{f_{Y}(y)}\int_{B}f(t,y)d\mu_{1}(t)$ a
 Thus \eqref{1.1} is satisfied.
 
 
-\newpage
 \subsection*{2}
 \begin{tcolorbox}
   Suppose that the distributions $\mathcal{P}=\{P_\theta\}_{\theta \in \Theta}$ are dominated by a $\sigma$-finite measure $\mu$ and that
@@ -255,24 +254,46 @@ for all $\theta \in \Theta$.
 Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\theta, d}$
 \begin{enumerate}[label=(\alph*)]
   \item We will show that $S(X) := (T(X), \min_{i} X_{i})$ is sufficient for $(\theta, d)$. Since $T$ is sufficient for $\Theta$, we can write
-    \[ \prod_{i=1}^{n}f_{\theta}(x_{i}) = g_{\theta}(x)h(x) \]
+    \begin{equation}
+      \prod_{i=1}^{n}f_{\theta}(x_{i}) = g_{\theta}(x)h(x)
+      \label{6.0}
+    \end{equation}
     for $x = (x_{1}, \dots, x_{n}) \in \mathbb{R}^{n}$. Further,
     since the $X_{i}$'s are independent, the density for $X$
     with respect to Lebesgue measure $\nu$ on $\mathbb{R}^{n}$ is equal a.e. $\nu$ to 
     \begin{equation}
-      \prod_{i=1}^{n}I(x_{i} > d)\frac{f_{\theta}(x_{i})}{1 - F_{\theta}(d)} = \frac{I(\min_{i}x_{i} > d)}{(1 - F_{\theta}(d))^{n}}
-    \prod_{i=1}^{n}f_{\theta}(x_{i}) = I(\min_{i} x_{i} > d)g_{\theta}(T(x))\frac{h(x)}{(1 - F_{\theta}(d))^{n}}. 
+      q_{\theta, d}(x) := \prod_{i=1}^{n}\frac{I(x_{i} > d)f_{\theta}(x_{i})}{1 - F_{\theta}(d)} = \frac{I(\min_{i}x_{i} > d)}{(1 - F_{\theta}(d))^{n}}
+    \prod_{i=1}^{n}f_{\theta}(x_{i}) = \frac{I(\min_{i} x_{i} > d)g_{\theta}(T(x))h(x)}{(1 - F_{\theta}(d))^{n}}. 
     \label{6.1}
     \end{equation}
     Hence by the Factorization Theorem, $S$ is sufficient for $(\theta, d)$.
 
-  \item Even if $T$ is minimal sufficient for $\theta$, $S$ may not be. To see this, let 
+  \item Yes, it turns out that $S$ is necessarily minimal sufficient if $T$ is minimal sufficient. To prove this by way of Theorem 06, let 
     \[
-      U(X) := (T(X), I(\min_{i} X_{i} > d)).
+      A := \{x,y \in \mathbb{R}^{n} : f_{\theta}(x_{i}), f_{\theta}(y_{i}) > 0 \ \forall \ 1 \leq i \leq n, \ \forall\ \theta \in \Theta\}.
     \]
-    We can see from \eqref{6.1} that $U$ is also sufficient for $(\theta, d)$ by the Factorization Theorem. However, there may be no way to obtain $S$
-    from $U$, i.e. it may be impossible to write $S$ as a function of $U$. For example, suppose $T(X) = \sum_{i=1}^{n}X_{i}$. Then we cannot obtain the second
-    component of $S$, $\min_{i} X_{i}$, from $U(X) = \left(\sum_{i=1}^{n}X_{i}, I(\min_{i}X_{i} > d)\right)$.
+    By assumption of the problem, $A$ has probability 1 with respect to all $\theta \in \Theta$.
+    Now let $x,y \in A$. By \eqref{6.0}, $g_{\theta}(x)h(x), g_{\theta}(y)h(y) > 0$ for all $\theta \in \Theta$. Now assume that
+    \begin{equation}
+      q_{\theta,d}(x) = q_{\theta,d}(y)\cdot \frac{h(x)}{h(y)} \ \ \forall \ (\theta, d) \in \Theta \times \mathbb{R}.
+      \label{6.2}
+    \end{equation}
+    But \eqref{6.2} holds if and only if 
+    \begin{equation}
+      I(\min_{i} x_{i} > d)g_{\theta}(T(x)) = I(\min_{i}y_{i} > d)g_{\theta}(T(y)) \ \ \forall \ (\theta, d) \in \Theta \times \mathbb{R}.
+      \label{6.3}
+    \end{equation}
+    Since $g_{\theta}(x), g_{\theta}(y) > 0$, this implies that $\min_{i} x_{i} = \min_{i}y_{i}$ (otherwise we could choose $d$ in between $\min_{i}
+    x_{i}$ and $\min_{i} y_{i}$ and \eqref{6.3} would not hold). Hence $g_{\theta}(T(x)) = g_{\theta}(T(y))$ for all $\theta \in \Theta$, which
+    implies $T(x) = T(y)$ since $T$ is minimal. So $S(x) = S(y)$. Hence $S$ is minimal.
+
+    % Even if $T$ is minimal sufficient for $\theta$, $S$ may not be. To see this, let 
+    % \[
+      % U(X) := (T(X), I(\min_{i} X_{i} > d)).
+    % \]
+    % We can see from \eqref{6.1} that $U$ is also sufficient for $(\theta, d)$ by the Factorization Theorem. However, there may be no way to obtain $S$
+    % from $U$, i.e. it may be impossible to write $S$ as a function of $U$. For example, suppose $T(X) = \sum_{i=1}^{n}X_{i}$. Then we cannot obtain the second
+    % component of $S$, $\min_{i} X_{i}$, from $U(X) = \left(\sum_{i=1}^{n}X_{i}, I(\min_{i}X_{i} > d)\right)$.
 \end{enumerate}
 
 
@@ -280,7 +301,9 @@ Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\th
 \newpage
 \subsection*{7}
 \begin{tcolorbox}
-  Suppose that $X_1,X_2,\ldots,X_n$ are iid $P_{\bm{\theta}}$ for $\bm{\theta}=(\theta_1,\theta_2)\in(0,1)\times\{1,2\}$, where $P_{(\theta_1,1)}$ is the Poisson$(\theta_1)$ distribution and $P_{(\theta_2,2)}$ is the Bernoulli$(\theta_2)$ distribution.  Find a two-dimensional minimal sufficient statistic for $\bm{\theta}$ (argue carefully for minimal sufficiency).
+  Suppose that $X_1,X_2,\ldots,X_n$ are iid $P_{\bm{\theta}}$ for $\bm{\theta}=(\theta_1,\theta_2)\in(0,1)\times\{1,2\}$, 
+  where $P_{(\theta_1,1)}$ is the Poisson$(\theta_1)$ distribution and $P_{(\theta_1,2)}$ is the Bernoulli$(\theta_1)$ distribution.  
+  Find a two-dimensional minimal sufficient statistic for $\bm{\theta}$ (argue carefully for minimal sufficiency).
 \end{tcolorbox}
 
 {\bf Solution:}
@@ -311,19 +334,18 @@ It remains to show that $T$ is minimal. To that end, let $x, y \in \mathbb{N}$ a
   f_{\theta}(x) = f_{\theta}(y) \cdot \prod_{i=1}^{n}\frac{y_{i}!}{x_{i}!} \qquad \text{ for all $\theta$. }
   \label{7.1}
 \end{equation}
-We need to show that \eqref{7.1} implies $T(x) = T(y)$. Well, if $\theta_2 = 2$, then \eqref{7.1} implies
-% Well, if $\theta_2 = 1$, then by re-writing the equation in \eqref{7.1} we get 
-% \[
-  % \theta_{1}^{\sum_{i=1}^{n}x_{i} - \sum_{i=1}^{n}y_{i}}\exp\left\{ \theta_1\left(\sum_{i=1}^{n}y_{i} - \sum_{i=1}^{n}x_{i}\right) \right\} = 1,
-% \]
-% which holds if and only if $\sum_{i=1}^{n}x_{i} = \sum_{i=1}^{n}y_{i}$. 
-% On the other hand, if $\theta_2 = 2$, then \eqref{7.1} implies
+We need to show that \eqref{7.1} implies $T(x) = T(y)$. 
+Well, if $\theta_2 = 1$, then by re-writing the equation in \eqref{7.1} we get 
+\[
+  \theta_{1}^{\sum_{i=1}^{n}x_{i} - \sum_{i=1}^{n}y_{i}}\exp\left\{ \theta_1\left(\sum_{i=1}^{n}y_{i} - \sum_{i=1}^{n}x_{i}\right) \right\} = 1,
+\]
+which holds if and only if $\sum_{i=1}^{n}x_{i} = \sum_{i=1}^{n}y_{i}$. 
+On the other hand, if $\theta_2 = 2$, then \eqref{7.1} implies
 \[ 
   \theta_{1}^{\sum_{i=1}^{n}x_{i} - \sum_{i=1}^{n}y_{i}}(1 - \theta_{1})^{\sum_{i=1}^{n}y_{i} - \sum_{i=1}^{n}x_{i}}I(\max_{i} x_{i} \leq 1) =
   I(\max_{i}y_{i} \leq 1),
 \]
-which holds if and only if $\sum_{i=1}^{n}x_{i} = \sum_{i=1}^{n}y_{i}$ and $I(\max_{i}x_{i} \leq 1) = I(\max_{i}y_{i} \leq 1)$, i.e. $T(x) = T(y)$.
-Hence $T$ is minimal by Theorem 06 from our notes.
+which holds and only if $I(\max_{i}x_{i} \leq 1) = I(\max_{i}y_{i} \leq 1)$. Hence \eqref{7.1} implies $T(x) = T(y)$, so $T$ is minimal by Theorem 06 from our notes.
 
 
 \newpage
