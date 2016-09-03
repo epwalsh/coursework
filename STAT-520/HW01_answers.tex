@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{STAT 520: Assignment 1}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{STAT 520: Assignment 1}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\section*{Part I: Random Variables}
+
+\subsection*{1}
+\begin{enumerate}[label=(\alph*)]
+  \item Since we are interested in the presence of mayflies at sampling locations and how that is related to the primary habitat category and sediment
+    type, I would define binary random variables that associated with whether or not mayflies were found in specific samples.
+    Let $X_{i,j,k} \in \{0,1\}$ indicate whether or not mayflies were found during the $i^{th}$ year since 1992, at the $j^{th}$ reach of the Upper
+    Mississippi River, and at the $k^{th}$ sampling location, where $0 \leq i \leq 12$, $1 \leq j \leq 6$, and $1 \leq k \leq n_{i,j}$.
+    Here 0 and 1 represent the absense or presence of mayflies, respectively.
+
+    We could treat the primary habitat category and sediment type as non-random covariates. Depending on how far apart the samples were in time and
+    space, it could be reasonable to treat the random variables as independent.
+
+  \item To assess how the abundance of mayflies has changed over the period from 1992 to 2004 we could aggregate the variables defined in part (a)
+    over $k$. This is assuming that we are interested in examining the six reaches of the Upper Mississippi River separately, otherwise we could also
+    aggregate over $j$. Thus we define $Y_{i,j} := \frac{1}{n_{j}}\sum_{k=1}^{n_{j}}X_{i,j,k}$. Note that we use the mean as the aggregation function
+    as opposed to the sum since the total number of samples taken $n_{j}$ may have differed across year and reach.
+
+    The support of each $Y_{i,j}$ is technically discrete since the number of samples was finite, although it's probably reasonable to treat them as
+    continuous for modelling purposes since each $n_{j}$ was approximately 120 -- a relatively large number. Thus the support of $Y_{i,j}$ would be
+    the interval $[0, 1]$.
+
+    Let $Y_{j} := (Y_{0,j}, \dots, Y_{12, j})$, the time series data for the $j^{th}$ reach of the river. It might make sense to assume
+    $\{Y_j\}_{j=1}^{6}$ is an independent family of random variables, it would make less sense to assume that $Y_{0,j}, \dots, Y_{12,j}$ are
+    independent for fixed $j$.
+\end{enumerate}
+
+
+\subsection*{2}
+In this study there were 2 groups and 12 pregnant sows in each group -- thus 12 litters across 2 groups. Let $X_{i,j,k} \in \{0,1\}$ be a random
+variable associated with whether or not
+the $k^{th}$ piglet in the $j^{th}$ litter in the $i^{th}$ group was born normal, for $i \in \{1, 2\}$, $j \in \{1, \dots, 12\}$, and $k \in \{1,
+\dots, n_{j}\}$. Here $X_{i,j,k} = 1$ means the piglet was born normal. Similarly we define $Y_{i,j,k}$ and $Z_{i,j,k}$ to represent whether or not 
+the $k^{th}$ piglet in the $j^{th}$ litter in the $i^{th}$ group was born weak or still, respectively. Obviously for fixed $i, j, k$, the random
+variables $X_{i,j,k}, Y_{i,j,k}$, and $Z_{i,j,k}$ are not independent since one and only one of them will assume a value of 1. However, since sows
+were separated, it would be reasonable to assume that the triplets $(X_{i,j,k}, Y_{i,j,k}, Z_{i,j,k})$ are independent across litters.
+
+
+
+\subsection*{3}
+For the direct observation part of the study we could define $X_{0}$ to be associated with the number of visits of the wasps during the observation
+time and $X_{1}$ to be the number of captures of wasps during the observation time. Both $X_0$ and $X_1$ would have support in the non-negative integers.
+Clearly these variables are not independent, as $X_1$ cannot exceed $X_0$. The conditional support of $X_1$ given $X_0 = x$ would be $\{0,\dots, x\}$.
+
+For the indirect observation part of the study we could define $Y$ to be associated with the number of ingested wasps during the 2 week period of
+observation. Then $Y$ would also have support in the non-negative integers.
+
+
+\newpage
+\section*{Part II: Exponential Families}
+
+\subsection*{1}
+We can rewrite $f(y|\alpha, \beta)$ as 
+\begin{align*}
+  f(y|\alpha,\beta) & = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}y^{\alpha - 1}(1-y)^{\beta - 1} \\
+  & = \exp\left\{ \log\left[ \Gamma(\alpha + \beta) \right] - \log\left[ \Gamma(\alpha) \right] - \log\left[ \Gamma(\beta) \right] + (\alpha-1)\log(y)
+  + (\beta - 1)\log(1-y)\right\} \\
+  & = \exp\big\{ \alpha \log(y) + \beta\log(1-y) - \left[ \log\left\{ \Gamma(\alpha) \right\} + \log\left\{ \Gamma(\beta)\right\} - \log\left\{ \Gamma(\alpha
+  + \beta) \right\} \right] \\
+  & \qquad\qquad - \log(y) - \log(1-y) \big\} \\
+  & = \exp\big\{ \theta_{1} \log(y) + \theta_{2}\log(1-y) - \left[ \log\left\{ \Gamma(\theta_{1}) \right\} + \log\left\{ \Gamma(\theta_{2})\right\} - \log\left\{ \Gamma(\theta_{1}
+  + \theta_{2}) \right\} \right] \\
+  & \qquad\qquad - \log(y) - \log(1-y) \big\},
+\end{align*}
+where $\theta_{1} := \alpha$ and $\theta_2 := \beta$. Thus, using property 5 of exponential families on page 32 of our notes, 
+\begin{align*}
+  E\left\{ \log(y) \right\} = \frac{\partial}{\partial\theta_{1}}\left[ \log\left\{ \Gamma(\theta_1) \right\} + \log\left\{ \Gamma(\theta_2)
+  \right\} - \log\left\{ \Gamma(\theta_1 + \theta_2 \right\} \right]
+  & = \frac{\Gamma'(\theta_1)}{\Gamma(\theta_1)} - \frac{\Gamma'(\theta_1 + \theta_2)}{\Gamma(\theta_1 + \theta_2)} \\
+  & = \frac{\Gamma'(\alpha)}{\Gamma(\alpha)} - \frac{\Gamma'(\alpha + \beta)}{\Gamma(\alpha + \beta)} \\
+\end{align*}
+
+
+\subsection*{2}
+We can rewrite $f(y|\lambda)$ as 
+\begin{align*}
+  f(y|\lambda) & = \exp\left\{ y\log(y) - \log(y!) - \lambda \right\} \\
+  & = \exp\left\{ y\log(y) - \lambda - \log(y!) \right\} \\
+  & = \exp\left\{ \theta y - e^{\theta} - \log(y!) \right\},
+\end{align*}
+where $\theta := \log(y)$. Thus, using property 5 of exponential families on page 32 of our notes,
+\[
+  EY = \frac{\partial}{\partial \theta}e^{\theta} = e^{\theta} = \lambda. 
+\]
+
+
+\subsection*{3}
+First we derive the pdf of $W$. Let $w := g(y) := y^{-1}$. Then $y = g^{-1}(w) = w^{-1}$. So,
+\begin{align*}
+  f_{W}(w|\alpha,\beta) = f_{Y}(g^{-1}(w))\cdot \left| \frac{-1}{w^{2}} \right| & = f_{Y}(w^{-1})\cdot w^{-2} \\
+  & = \frac{\beta^{\alpha}}{\Gamma(\alpha)}\left( \frac{1}{w} \right)^{\alpha - 1}\exp\left[ -\frac{\beta}{\alpha} \right]\frac{1}{w^{2}} \\
+  & = \frac{\beta^{\alpha}}{\Gamma(\alpha)}w^{-\alpha - 1}\exp\left( -\frac{\beta}{w} \right), \ \ w \in (0, \infty).
+\end{align*}
+Now we can rewrite $f_{W}(w|\alpha,\beta)$ as 
+\begin{align*}
+  f_{W}(w|\alpha,\beta) & = \exp\left\{ -\frac{\beta}{w} + \alpha\log(\beta) - \log\left[ \Gamma(\alpha) \right] - (\alpha + 1)\log(w) \right\} \\
+  & = \exp\left\{ -\frac{\beta}{w} - \alpha\log(w) - \left[ \log\left\{ \Gamma(\alpha) \right\} - \alpha\log(\beta) \right] - \log(w) \right\} \\
+  & = \exp\left\{ \theta_1 w^{-1} + \theta_2\log(w) - \left[ \log\left\{ \Gamma(-\theta_2) \right\} + \theta_2\log(-\theta_1) \right] - \log(w) \right\},
+\end{align*}
+where $\theta_1 := -\beta$ and $\theta_2 := -\alpha$. Thus, using property 5 of exponential families on page 32 of the notes,
+\begin{align*}
+  E\left( \frac{1}{W} \right) & = \frac{\partial}{\partial \theta_1}\left[ \log\left\{ \Gamma(-\theta_2) \right\} + \theta_2\log(-\theta_1) \right] \\
+  & = \frac{\theta_2}{\theta_1} = \frac{\alpha}{\beta}, \ \ \text{ and } \\
+  E\left[ \log(W) \right] & =  \frac{\partial}{\partial \theta_2}\left[ \log\left\{ \Gamma(-\theta_2) \right\} + \theta_2\log(-\theta_1) \right] \\
+  & = \log(-\theta_1) - \frac{\Gamma'(-\theta_2)}{\Gamma(\theta_2)} \\
+  & = \log(\beta) - \frac{\Gamma'(\alpha)}{\Gamma(\alpha)}.
+\end{align*}
+
+
+\subsection*{Bonus}
+Note that $\phi(x) := x^{-1}$ is convex on $(0,\infty)$. Further, $E|Y|$ and $E|W| = E(|Y|^{1})$ are finite. Thus, by Jensen's inequality,
+\[
+  \phi\left( EY \right) \leq E\phi(Y), \ \text{ i.e. } \ \frac{1}{EY} \leq E\left( \frac{1}{Y} \right).
+\]
+So the expected value of $W$ is greater than or equal to $(EY)^{-1}$.
+
+
+\end{document}
+
