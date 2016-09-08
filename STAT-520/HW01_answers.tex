@@ -54,17 +54,21 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{1}
 \begin{enumerate}[label=(\alph*)]
   \item Since we are interested in the presence of mayflies at sampling locations and how that is related to the primary habitat category and sediment
-    type, I would define binary random variables that associated with whether or not mayflies were found in specific samples.
+    type, I would define binary random variables that are associated with whether or not mayflies were found in specific samples.
     Let $X_{i,j,k} \in \{0,1\}$ indicate whether or not mayflies were found during the $i^{th}$ year since 1992, at the $j^{th}$ reach of the Upper
     Mississippi River, and at the $k^{th}$ sampling location, where $0 \leq i \leq 12$, $1 \leq j \leq 6$, and $1 \leq k \leq n_{i,j}$.
     Here 0 and 1 represent the absense or presence of mayflies, respectively.
 
     We could treat the primary habitat category and sediment type as non-random covariates. Depending on how far apart the samples were in time and
-    space, it could be reasonable to treat the random variables as independent.
+    space, it could be reasonable to treat the random variables as independent across sampling locations.
 
   \item To assess how the abundance of mayflies has changed over the period from 1992 to 2004 we could aggregate the variables defined in part (a)
-    over $k$. This is assuming that we are interested in examining the six reaches of the Upper Mississippi River separately, otherwise we could also
-    aggregate over $j$. Thus we define $Y_{i,j} := \frac{1}{n_{j}}\sum_{k=1}^{n_{j}}X_{i,j,k}$. Note that we use the mean as the aggregation function
+    over $k$, the sampling locations. This is assuming that we are interested in examining the six reaches of the Upper Mississippi River separately, otherwise we could also
+    aggregate over $j$ as well. Thus we define 
+    \[
+      Y_{i,j} := \frac{1}{n_{j}}\sum_{k=1}^{n_{j}}X_{i,j,k}. 
+    \]
+    Note that we use the mean as the aggregation function
     as opposed to the sum since the total number of samples taken $n_{j}$ may have differed across year and reach.
 
     The support of each $Y_{i,j}$ is technically discrete since the number of samples was finite, although it's probably reasonable to treat them as
@@ -72,7 +76,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     the interval $[0, 1]$.
 
     Let $Y_{j} := (Y_{0,j}, \dots, Y_{12, j})$, the time series data for the $j^{th}$ reach of the river. It might make sense to assume
-    $\{Y_j\}_{j=1}^{6}$ is an independent family of random variables, it would make less sense to assume that $Y_{0,j}, \dots, Y_{12,j}$ are
+    $\{Y_j\}_{j=1}^{6}$ is an independent family of random variables, although it would make less sense to assume that $Y_{0,j}, \dots, Y_{12,j}$ are
     independent for fixed $j$.
 \end{enumerate}
 
@@ -81,7 +85,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 In this study there were 2 groups and 12 pregnant sows in each group -- thus 12 litters across 2 groups. Let $X_{i,j,k} \in \{0,1\}$ be a random
 variable associated with whether or not
 the $k^{th}$ piglet in the $j^{th}$ litter in the $i^{th}$ group was born normal, for $i \in \{1, 2\}$, $j \in \{1, \dots, 12\}$, and $k \in \{1,
-\dots, n_{j}\}$. Here $X_{i,j,k} = 1$ means the piglet was born normal. Similarly we define $Y_{i,j,k}$ and $Z_{i,j,k}$ to represent whether or not 
+\dots, n_{j}\}$. Here $X_{i,j,k} = 1$ represents the event that the piglet was born normal. Similarly we define $Y_{i,j,k}$ and $Z_{i,j,k}$ to represent whether or not 
 the $k^{th}$ piglet in the $j^{th}$ litter in the $i^{th}$ group was born weak or still, respectively. Obviously for fixed $i, j, k$, the random
 variables $X_{i,j,k}, Y_{i,j,k}$, and $Z_{i,j,k}$ are not independent since one and only one of them will assume a value of 1. However, since sows
 were separated, it would be reasonable to assume that the triplets $(X_{i,j,k}, Y_{i,j,k}, Z_{i,j,k})$ are independent across litters.
@@ -89,12 +93,12 @@ were separated, it would be reasonable to assume that the triplets $(X_{i,j,k}, 
 
 
 \subsection*{3}
-For the direct observation part of the study we could define $X_{0}$ to be associated with the number of visits of the wasps during the observation
-time and $X_{1}$ to be the number of captures of wasps during the observation time. Both $X_0$ and $X_1$ would have support in the non-negative integers.
+For the direct observation part of the study we could define $X_{0}$ and $X_{1}$ to be associated with the number of visits and captures of the wasps 
+during the observation time, respectively. Both $X_0$ and $X_1$ would have support in the non-negative integers.
 Clearly these variables are not independent, as $X_1$ cannot exceed $X_0$. The conditional support of $X_1$ given $X_0 = x$ would be $\{0,\dots, x\}$.
 
 For the indirect observation part of the study we could define $Y$ to be associated with the number of ingested wasps during the 2 week period of
-observation. Then $Y$ would also have support in the non-negative integers.
+observation. Then $Y$ would also have support in the non-negative integers. 
 
 
 \newpage

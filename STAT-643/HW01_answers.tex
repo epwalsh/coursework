@@ -177,9 +177,9 @@ When $p$ is known to be $1/2$, a sufficient statistic is
 
 Without loss of generality assume $\Theta$ has at least two elements. 
 Let $\theta_{0} \in \Theta$ and $B \in \mathcal{B}$. It suffices to show that $P_{\theta_{0}}[B | \mathcal{B}_{S}] = P_{\theta}[B | \mathcal{B}_{S}]$
-a.s. $P_{\theta}$ for all $\theta \in \Theta$. Thus, pick $\theta_1 \in \Theta$, $\theta_1 \neq \theta_0$. Let $\tilde{P} := \{P_{\theta_0, \theta_1}\}$.
-Then $\tilde{P} \ll \mu := \frac{1}{2}P_{\theta_0} + \frac{1}{2}P_{\theta_1}$, where $\mu$ is clearly $\sigma$-finite.
-As $\tilde{P} \subseteq P$, $T$ is sufficient for $\tilde{P}$. Hence
+a.s. $P_{\theta}$ for all $\theta \in \Theta$. Thus, pick $\theta_1 \in \Theta$, $\theta_1 \neq \theta_0$. Let $\tilde{\mathcal{P}} := \{P_{\theta_0}, P_{\theta_1}\}$.
+Then $\tilde{\mathcal{P}} \ll \mu := \frac{1}{2}P_{\theta_0} + \frac{1}{2}P_{\theta_1}$, where $\mu$ is clearly $\sigma$-finite.
+As $\tilde{\mathcal{P}} \subseteq \mathcal{P}$, $T$ is sufficient for $\tilde{\mathcal{P}}$. Hence
 \[
   \frac{dP_{\theta}}{d\mu}(x) = g_{\theta}(T(x))h(x) \qquad \text{a.e. } \mu
 \]
@@ -187,7 +187,7 @@ for $\theta \in \{\theta_{1}, \theta_2\}$ by the Factorization Theorem. But then
 \[
   \frac{dP_{\theta}}{d\mu}(x) = g_{\theta}(\psi(S(x)))h(x) \qquad \text{a.e. } \mu.
 \]
-Hence, by the Factorization Theorem once more, $S$ is sufficient for $\tilde{P}$. So by the definition of sufficiency,
+Hence, by the Factorization Theorem once more, $S$ is sufficient for $\tilde{\mathcal{P}}$. So by the definition of sufficiency,
 \[ P_{\theta_0}[B|\mathcal{B}_{S}] = P_{\theta_1}[B|\mathcal{B}_{S}] \qquad \text{a.s. } P_{\theta_{1}}. \]
 Since $\theta_{1}$ was arbitrary,
 \[ P_{\theta_{0}}[B | \mathcal{B}_{S}] = P_{\theta}[B | \mathcal{B}_{S}] \qquad \text{a.s. } P_{\theta},\]
