@@ -268,32 +268,67 @@ Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\th
     \end{equation}
     Hence by the Factorization Theorem, $S$ is sufficient for $(\theta, d)$.
 
-  \item Yes, it turns out that $S$ is necessarily minimal sufficient if $T$ is minimal sufficient. To prove this by way of Theorem 06, let 
-    \[
-      A := \{x,y \in \mathbb{R}^{n} : f_{\theta}(x_{i}), f_{\theta}(y_{i}) > 0 \ \forall \ 1 \leq i \leq n, \ \forall\ \theta \in \Theta\}.
-    \]
-    By assumption of the problem, $A$ has probability 1 with respect to all $\theta \in \Theta$.
-    Now let $x,y \in A$. By \eqref{6.0}, $g_{\theta}(x)h(x), g_{\theta}(y)h(y) > 0$ for all $\theta \in \Theta$. Now assume that
-    \begin{equation}
-      q_{\theta,d}(x) = q_{\theta,d}(y)\cdot \frac{h(x)}{h(y)} \ \ \forall \ (\theta, d) \in \Theta \times \mathbb{R}.
-      \label{6.2}
-    \end{equation}
-    But \eqref{6.2} holds if and only if 
-    \begin{equation}
-      I(\min_{i} x_{i} > d)g_{\theta}(T(x)) = I(\min_{i}y_{i} > d)g_{\theta}(T(y)) \ \ \forall \ (\theta, d) \in \Theta \times \mathbb{R}.
-      \label{6.3}
-    \end{equation}
-    Since $g_{\theta}(x), g_{\theta}(y) > 0$, this implies that $\min_{i} x_{i} = \min_{i}y_{i}$ (otherwise we could choose $d$ in between $\min_{i}
-    x_{i}$ and $\min_{i} y_{i}$ and \eqref{6.3} would not hold). Hence $g_{\theta}(T(x)) = g_{\theta}(T(y))$ for all $\theta \in \Theta$, which
-    implies $T(x) = T(y)$ since $T$ is minimal. So $S(x) = S(y)$. Hence $S$ is minimal.
+  \item Yes, it turns out that $S$ is necessarily minimal sufficient if $T$ is minimal sufficient. 
+    \begin{proof} 
+      $ $
+      \begin{claim}
+        $S$ is minimal sufficient for $d$ when $\theta$ is fixed. 
+      \end{claim}
+      \begin{claimproof}
+        Fix $\theta_0 \in \Theta$.
+        Let 
+        \[
+          A := \{x \in \mathbb{R}^{n} : f_{\theta_0}(x_{i}) > 0 \ \forall \ 1 \leq i \leq n \}.
+        \]
+        Then clearly $P_{\theta_0,d}(A) = 1$ for all $d \in \mathbb{R}$.
+        Now let $x,y \in A$ and assume that
+        \begin{equation}
+          q_{\theta_0,d}(x) = q_{\theta_0,d}(y)\cdot \frac{h(x)}{h(y)} \ \ \forall \ d \in \mathbb{R}.
+          \label{6.2}
+        \end{equation}
+        But \eqref{6.2} holds if and only if 
+        \begin{equation}
+          I(\min_{i} x_{i} > d)g_{\theta_0}(T(x)) = I(\min_{i}y_{i} > d)g_{\theta_0}(T(y)) \ \ \forall \ d \in \mathbb{R}.
+          \label{6.3}
+        \end{equation}
+        Since $g_{\theta_0}(x), g_{\theta_0}(y) > 0$, this implies that $\min_{i} x_{i} = \min_{i}y_{i}$ (otherwise we could choose $d$ in between $\min_{i}
+        x_{i}$ and $\min_{i} y_{i}$ and \eqref{6.3} would not hold). Hence, by Theorem 06, $S$ is minimal sufficient for $d$ when $\theta_0 \in \Theta$ is fixed.
+      \end{claimproof}
 
-    % Even if $T$ is minimal sufficient for $\theta$, $S$ may not be. To see this, let 
-    % \[
-      % U(X) := (T(X), I(\min_{i} X_{i} > d)).
-    % \]
-    % We can see from \eqref{6.1} that $U$ is also sufficient for $(\theta, d)$ by the Factorization Theorem. However, there may be no way to obtain $S$
-    % from $U$, i.e. it may be impossible to write $S$ as a function of $U$. For example, suppose $T(X) = \sum_{i=1}^{n}X_{i}$. Then we cannot obtain the second
-    % component of $S$, $\min_{i} X_{i}$, from $U(X) = \left(\sum_{i=1}^{n}X_{i}, I(\min_{i}X_{i} > d)\right)$.
+      \vspace{5mm}
+
+      So if $\tilde{S}$ is an other sufficient statistic for $d$ under $\theta_0$, then there exists $U$ such that $S = U\circ \tilde{S}$ a.s. $P_{d,\theta_0}$.
+
+
+      \begin{claim}
+        $T$ is minimal sufficient for $\theta$ for fixed $d_0 \in \mathbb{R}$.
+      \end{claim}
+      \begin{claimproof}
+        Fix $d_0 \in \mathbb{R}$. Let 
+        \[ 
+          A := \{x \in \mathbb{R}^{n} : \min_{i} x_{i} > d_0\}.
+        \]
+        Then $P_{\theta, d_0}(A) = 1$ for all $\theta \in \Theta$. Now assume $\tilde{T}$ is another sufficient statistic for $\theta$.
+        Then 
+        \[ 
+          q_{\theta, d_0}(x) = \frac{I(\min_i x_i > d_0)\tilde{g}_{\theta}(\tilde{T}(x)) \tilde{h}(x)}{(1 - F_{\theta}(d_0))^{n}}  \ \text{ a.e. }\nu. 
+        \]
+        So for $x \in A$, $g_{\theta}(T(x))h(x) = \tilde{g}_{\theta}(\tilde{T}(x))\tilde{h}(x)$ a.e. $\nu$. Thus,
+        \begin{align*}
+          g_{\theta}(T(x))h(x) & = [g_{\theta}(T(x))I(\min_i x_i \leq d_0) + \tilde{g}_{\theta}(\tilde{T}(x))I(\min_i x_i > d_0)] \\
+          & \qquad \qquad \times [h(x)I(\min_i x_i \leq d_0) + \tilde{h}(x)I(\min_i x_i > d_0)] \ \ \text{ a.e. }\nu 
+        \end{align*}
+        for $x \in \mathbb{R}^{n}$. By the Factorization Theorem, this gives us that $T^{*} := (\bar{T}, \min_i x_i)$ is sufficient for $\theta$, where 
+        $\bar{T}(x) := T(x)I(\min_i x_i \leq d_0) + \tilde{T}(x)I(\min_i x_i > d)$.
+        
+        Thus we can write $T = U\circ T^{*}$ a.s. $\mathcal{P}$. So for $x \in A$, $T(x) = U(\tilde{T}(x), 1)$ a.s. $P_{\theta, d_0}$
+        for all $\theta \in \Theta$. Thus $T$ is a function of $\tilde{T}$ a.s. on $A$. Hence $T$ is minimal sufficient for $\theta$ when $d_0$ is
+        fixed.
+      \end{claimproof}
+
+
+    \end{proof}
+
 \end{enumerate}
 
 
