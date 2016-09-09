@@ -253,7 +253,7 @@ for all $\theta \in \Theta$.
 {\bf Solution:}
 Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\theta, d}$
 \begin{enumerate}[label=(\alph*)]
-  \item We will show that $S(X) := (T(X), \min_{i} X_{i})$ is sufficient for $(\theta, d)$. Since $T$ is sufficient for $\Theta$, we can write
+  \item We will show that $(T(X), S(X) := \min_{i} X_{i})$ is sufficient for $(\theta, d)$. Since $T$ is sufficient for $\Theta$, we can write
     \begin{equation}
       \prod_{i=1}^{n}f_{\theta}(x_{i}) = g_{\theta}(x)h(x)
       \label{6.0}
@@ -266,9 +266,9 @@ Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\th
     \prod_{i=1}^{n}f_{\theta}(x_{i}) = \frac{I(\min_{i} x_{i} > d)g_{\theta}(T(x))h(x)}{(1 - F_{\theta}(d))^{n}}. 
     \label{6.1}
     \end{equation}
-    Hence by the Factorization Theorem, $S$ is sufficient for $(\theta, d)$.
+    Hence by the Factorization Theorem, $(T, S)$ is sufficient for $(\theta, d)$.
 
-  \item Yes, it turns out that $S$ is necessarily minimal sufficient if $T$ is minimal sufficient. 
+  \item Yes, it turns out that $(T, S)$ is necessarily minimal sufficient if $T$ is minimal sufficient. 
     \begin{proof} 
       $ $
       \begin{claim}
@@ -325,6 +325,22 @@ Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\th
         for all $\theta \in \Theta$. Thus $T$ is a function of $\tilde{T}$ a.s. on $A$. Hence $T$ is minimal sufficient for $\theta$ when $d_0$ is
         fixed.
       \end{claimproof}
+
+      \vspace{5mm}
+
+      Now suppose $W$ is another sufficient statistic for $(\theta, d)$. It remains to show that we can write $T$ as a function of $W$ a.s.
+      $P_{\theta, d}$ for all $(\theta, d) \in \Theta\times \mathbb{R}$. Well, for fixed $\theta_0 \in \Theta$, there exists a function $U$ such that
+      $S = U\circ W$ a.s. $P_{\theta_0, d}$ for all $d \in \mathbb{R}$ by Claim 1. But since $f_{\theta_0} > 0$ a.e. $\mu$, $S = U\circ W$ a.e. $\mu$.
+      Thus $S = U\circ W$ a.s. $P_{\theta, d}$ for all $(\theta, d) \in \Theta \times \mathbb{R}$. 
+
+      Now, for each $n \in \mathbb{N}$, let $d_n := -n$. By Claim 2, for each $n$ there exists $V_n$ such that $T = V_n\circ W$ a.s. $P_{\theta, d_n}$
+      for all $\theta \in \Theta$. Clearly $T = V_n\circ W$ a.s. $P_{\theta, d}$ for any $d \leq d_n$. Thus, 
+      \begin{align*}
+        T(x) & = V_0\circ W(x) I(\min_i x_i \geq 0) + \sum_{n=1}^{\infty}V_n\circ W(x) I(-n \leq \min_i x_i < -n + 1) \text{ a.s. } P_{\theta, d} \\
+        & = V_0\circ W(x) I(U\circ W(x) \geq 0) + \sum_{n=1}^{\infty}V_n\circ W(x) I(-n \leq U\circ W(x) < -n + 1) \text{ a.s. } P_{\theta, d} 
+      \end{align*}
+      for all $(\theta, d) \in \Theta \times \mathbb{R}$. Hence $(T, S)$ is a function of $W$ a.s. $P_{\theta, d}$ for all $(\theta, d) \in \Theta
+      \times \mathbb{R}$.
 
 
     \end{proof}
