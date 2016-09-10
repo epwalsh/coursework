@@ -318,7 +318,7 @@ Assume that $X_{1}, \dots, X_{n}$ are iid from the distribution with pdf $f_{\th
           g_{\theta}(T(x))h(x) & = [g_{\theta}(T(x))I(\min_i x_i \leq d_0) + \tilde{g}_{\theta}(\tilde{T}(x))I(\min_i x_i > d_0)] \\
           & \qquad \qquad \times [h(x)I(\min_i x_i \leq d_0) + \tilde{h}(x)I(\min_i x_i > d_0)] \ \ \text{ a.e. }\nu 
         \end{align*}
-        for $x \in \mathbb{R}^{n}$. By the Factorization Theorem, this gives us that $T^{*} := (\bar{T}, \min_i x_i)$ is sufficient for $\theta$, where 
+        for $x \in \mathbb{R}^{n}$. By the Factorization Theorem, this gives us that $T^{*}(x) := (\bar{T}(x), \min_i x_i)$ is sufficient for $\theta$, where 
         $\bar{T}(x) := T(x)I(\min_i x_i \leq d_0) + \tilde{T}(x)I(\min_i x_i > d)$.
         
         Thus we can write $T = U\circ T^{*}$ a.s. $\mathcal{P}$. So for $x \in A$, $T(x) = U(\tilde{T}(x), 1)$ a.s. $P_{\theta, d_0}$
