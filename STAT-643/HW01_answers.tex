@@ -115,7 +115,7 @@ Thus \eqref{1.1} is satisfied.
 
 {\bf Solution:}
 
-Note that $\triangle(\theta, X)$ is not a statistic since it a function of $X$ AND $\theta$, but by assumption of the problem we can write
+Note that $\triangle(\theta, X)$ is not a statistic since it a function of $X$ \emph{and} $\theta$, but by assumption of the problem we can write
 \[ 
   f_{\theta}(x) = \triangle(\theta, x)\cdot f_{\theta_{0}}(x) = g_{\theta}(x) \cdot h(x),
 \]
@@ -149,9 +149,10 @@ Since $X$ has independent components $P_{X} = P_{X_{1}} \times P_{X_{2}} \times 
   f_{\theta}(\bm{x}) := \frac{dP_{X}}{d\eta}(\bm{x}) & = \left( \prod_{\{i : x_{i} \in \mathbb{R}\}}\frac{p}{\sqrt{2\pi}}e^{-\frac{1}{2}(x_{i} -
   \mu)^{2}} \right)
   \left( \prod_{\{j : x_{j} \in \mathbb{R}-\mathbb{N}\}}(1-p)\frac{e^{-\mu}\mu^{x_{j}}}{x_{j}!} \right) \\
-  & = \left( \frac{p}{\sqrt{2\pi}} \right)^{n - n_{1}}(1-p)^{n_{1}}e^{\mu\sum\{x_{i} : x_{i} \in \mathbb{R}-\mathbb{N}\}}e^{ - \frac{1}{2}\mu^{2}}
-  e^{-n_{1}\mu}\mu^{\sum\{x_{j}:x_{j}\in\mathbb{N}\}} \\
-  & \qquad \times e^{-\frac{1}{2}\sum\{x_i : x_{i}\in\mathbb{R} - \mathbb{N}\}}\prod_{\{j : x_{j} \in \mathbb{N}\}}\frac{1}{x_{j}!}
+  & = \left( \frac{p}{\sqrt{2\pi}} \right)^{n - n_{1}}(1-p)^{n_{1}}\exp\left\{\mu\sum\{x_{i} : x_{i} \in \mathbb{R}-\mathbb{N}\} - \frac{1}{2}\mu^{2}
+  -n_{1}\mu\right\} \mu^{\sum\{x_{j}:x_{j}\in\mathbb{N}\}} \\
+  & \qquad \times \exp\left\{-\frac{1}{2}\sum\{x_i : x_{i}\in\mathbb{R} - \mathbb{N}\}\right\} \prod\left\{\frac{1}{x_j!} : x_{j} \in
+  \mathbb{N}\right\}
   \qquad \text{a.e. }\eta, 
 \end{align*}
 
@@ -199,7 +200,7 @@ for all $\theta \in \Theta$.
 \subsection*{5}
 \begin{tcolorbox}
   Suppose that $Z$ is exponential with mean $1/\lambda>0$, but that one only observes $X = Z I(Z \geq 1)$ (where $I(\cdot)$ is the indicator function).
-  \begin{enumerate}
+  \begin{enumerate}[label=(\alph*)]
     \item Consider the measure $\mu$ on $\mathcal{X} = \{0\}\cup [1,\infty)$ consisting of a point mass of 1 at 0 plus the Lebesgue measure on $[1,\infty)$.  Give a formula for the R-N derivative of $P_\lambda^X$ with respect to $\mu$ on $\mathcal{X}$.
     \item Suppose that $X_1,X_2,\ldots,X_n$ are iid with the distribution $P_\lambda^X$.  Find a two-dimensional sufficient statistic for this problem and argue that it is indeed sufficient.
     \item Argue carefully that your statistic from (b) is minimal sufficient.
