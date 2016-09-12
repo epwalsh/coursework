@@ -1,0 +1,196 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{STAT 643: HW 2}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{STAT 643: HW 2}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{1}
+\begin{tcolorbox}
+Suppose that $(X_1,Y_1),\ldots, (X_n,Y_n)$ are iid random vectors and that $X_i$ and $Y_i$ are independently distributed as 
+$N(\mu,\sigma^2_1)$ and $N(\mu,\sigma^2_2)$, respectively, with $\bm{\theta}=(\mu,\sigma_1^2,\sigma_2^2)\in \mathbb{R}\times (0,\infty)\times (0,\infty)$.  Let $\bar{X}$ and $S_X^2$ denote the sample mean  and sample variance of the $X_i$'s and let
+$\bar{Y}$ and $S_Y^2$ denote the sample mean  and sample variance of the $Y_i$'s.  Show that $(\bar{X},\bar{Y},S_X^2,S_Y^2)$ is minimal sufficient
+but not boundedly complete.  What is a first-order ancillary statistic here?
+\end{tcolorbox}
+\textbf{Solution:} Let $T := (\bar{X}, \bar{Y}, S_{X}^{2}, S_{Y}^{2})$. First we will show that $T$ is minimal sufficient but not boundedly complete.
+
+\begin{Proof}
+  Let $\mu$ be the Lebesgue measure on $(\mathbb{R}^{2n}, \mathcal{B}(\mathbb{R}^{2n}))$.
+  Note that 
+  \begin{align*}
+    \sum_{i=1}^{n}(x_i - \mu)^{2} & = \sum_{i=1}^{n}(x_{i} - \bar{x} + \bar{x} - \mu)^{2} \\
+    & = \sum_{i=1}^{n}(x_i - \bar{x})^{2} + 2\bar{x} \sum_{i=1}^{n} - 2n\bar{x}^{2} - 2\mu\sum_{i=1}^{n}x_i + 2n\mu\bar{x} + n(\bar{x} - \mu)^{2} \\
+    & = (n-1)s_{X}^{2} + n(\bar{x} - \mu)^{2}.
+  \end{align*}
+  By the symmetry of the above argument, the same holds for $y_{1}, \dots, y_{n}$. Hence, by independence,
+  \begin{align*}
+    \frac{dP_{\theta}}{d\mu}(x_1, \dots, x_n, y_1, \dots, y_n) & = \left(\frac{1}{2\pi\sigma_1 \sigma_2}\right)^{n}\exp\left\{
+    -\frac{1}{2\sigma_{1}^{2}}\sum_{i=1}^{n}(x_i - \mu)^{2} - \frac{1}{2\sigma_{2}^{2}}\sum_{i=1}^{n}(y_i - \mu)^{2} \right\} \\
+    & = \left(\frac{1}{2\pi\sigma_1 \sigma_2}\right)^{n}\exp\bigg\{ -\frac{1}{2\sigma_{1}^{2}}\left[ 
+      (n-1)s_{X}^{2} + n(\bar{x} - \mu)^{2}\right] \\
+    & \qquad \qquad\qquad\qquad\ \ \ \  -\frac{1}{2\sigma_{2}^{2}}\left[ (n-1)s_{Y}^{2} + n(\bar{y} - \mu)^{2}\right] \bigg\} \ \text{ a.e. } \mu.
+  \end{align*}
+  Thus, by the Factorization Theorem, $T$ is sufficient. 
+
+  \begin{claim}
+    $T$ is minimal sufficient.
+  \end{claim}
+  \begin{claimproof}
+    To show the minimality of $T$ we will make use of Theorem 06. Let $f_{\theta}$ denote the
+    version of the pdf shown above, and suppose
+    $(w_1, z_1), \dots, (w_n, z_n)$ is another dataset. Then,
+    \begin{align*}
+      \frac{f_{\theta}(x_1, \dots, x_n, y_1, \dots, y_n)}{ f_{\theta}(w_1, \dots, w_n, z_1, \dots, z_n)} & =
+      \exp\bigg\{ -\frac{1}{2\sigma_{1}^{2}}\left[ (n-1)(s_{X}^{2} - s_{W}^{2}) + n(\bar{x}^{2} - \bar{w}^{2} - 2\mu(\bar{x} - \bar{w})) \right] \\
+        & \qquad \qquad - \frac{1}{2\sigma_{2}^{2}}\left[ (n-1)(s_{Y}^{2} - s_{Z}^{2}) + n(\bar{y}^{2} - \bar{z}^{2} - 2\mu(\bar{y} - \bar{z}))
+      \right]\bigg\} \\
+      & = \exp\bigg\{ -\frac{1}{2\sigma_{1}^{2}}\left[ \sum_{i=1}^{n}x_{i}^{2}-\sum_{i=1}^{n}w_{i}^{2} - 2n\mu(\bar{x} - \bar{w}) \right] \\
+        & \qquad \qquad - \frac{1}{2\sigma_{2}^{2}}\left[ \sum_{i=1}^{n}y_{i}^{2}-\sum_{i=1}^{n}z_{i}^{2} - 2n\mu(\bar{y} - \bar{z})
+      \right]\bigg\}, \\
+    \end{align*}
+    which is free of $\theta$ if and only if $\bar{x} = \bar{w}$, $\bar{y} = \bar{z}$, $\sum x_{i}^{2} = \sum w_{i}^{2}$, and $\sum y_{i}^{2} = \sum
+    z_{i}^{2}$ if and only if $\bar{x} = \bar{w}$, $\bar{y} = \bar{z}$, $s_{X}^{2} = s_{W}^{2}$, and $s_{Y}^{2} = s_{Z}^{2}$ by the sample variance
+    shortcut formula. Hence $T$ is minimal sufficient by Theorem 06.
+  \end{claimproof}
+
+  \begin{claim}
+    $T$ is not complete.
+  \end{claim}
+  \begin{claimproof}
+    Since $X_{1},\dots, X_{n}$ are iid $N(\mu, \sigma_{1}^{2})$, it is a well-known fact that $\frac{\bar{X}}{\sqrt{S_{X}^{2} / n}} \sim
+    t_{n-1}(\mu)$, where $\mu$ is the non-centrality parameter. By symmetry, $\frac{\bar{Y}}{\sqrt{S_{Y}^{2} / n}} \sim t_{n-1}(\mu)$ as well.
+    Now, let 
+    \[
+      \phi(t) := \left\{ \begin{array}{cl}
+          -1 & \text{ if } x \leq -1 \\
+          t & \text{ if } -1 < x < 1 \\
+          1 & \text{ if } x \geq 1
+      \end{array} \right., \ \ t \in \mathbb{R}.
+    \]
+    Then let 
+    \[
+      h(T) := \phi\left( \frac{\bar{X}}{\sqrt{S_{X}^{2} / n}} \right) - \phi\left( \frac{\bar{Y}}{\sqrt{S_{Y}^{2}/n}} \right).
+    \]
+    So clearly $h$ is bounded and $E_{\theta}h(T) = 0$ for all $\theta \in \mathbb{R} \times (0,\infty) \times (0,\infty)$, but $h \not\equiv 0$. Thus $T$ is not boundedly complete.
+
+  \end{claimproof}
+
+\end{Proof}
+
+
+There are many choices for a statistic that is ancillary, the simplest of which is any constant function $S \equiv c$, where $c \in \mathbb{R}$.
+A non-trivial example would be $h(T)$ as defined in Claim 2 above since $E_{\theta}h(T) \equiv 0$ for all $\theta \in
+\mathbb{R}\times(0,\infty)\times(0,\infty)$.
+
+
+\newpage
+\subsection*{2}
+\begin{tcolorbox}
+Suppose that $X_1,\ldots,X_n$ are iid $P_\theta$ for $\theta \in \mathbb{R}$, where if $\theta \neq 0$ the distribution $P_\theta$ is $N(\theta,1)$, while $P_0$ is $N(0,2)$.  Show that $\bar{X}=\sum_{i=1}^n X_i/n$ is complete but not sufficient for $\theta$.
+\end{tcolorbox}
+
+
+\subsection*{3}
+\begin{tcolorbox}
+Let $\tilde{X}$ be an exponential random variable with mean $\lambda^{-1}>0$.    Suppose that, independent of $\tilde{X}$, $Y$ is exponential with mean 1
+and that with $V = \min(\tilde{X},Y)$, one observes $X=(I[V=\tilde{X}],V)$ (so that one either sees $\tilde{X}$ or a random censoring time $Y$
+less than $\tilde{X}$ as well as an indicator variable of whether it is $\tilde{X}$ or $Y$ that is seen).
+The family of distributions of $X$, $\mathcal{P}\equiv \{P^X_\lambda\}_{\lambda \in (0,\infty)}$, is absolutely continuous with respect to the
+product of the counting measure and the Lebesgue measure on $\mathcal{X}=\{0,1\}\times \mathbb{R}$ (call this dominating measure $\mu$).
+\begin{enumerate}
+  \item Find an R-N derivative of $P_\lambda^X$ with respect to $\mu$ on $\mathcal{X}$.
+  \item Suppose that $X_1,\ldots,X_n$ are iid with the distribution of $P_\lambda^X$.  Find a minimal sufficient statistic. \\
+    Hint: Claim 23 applies here under the much weaker assumption that there exist $k+1$ points $\bm{\eta}_0,\ldots,\bm{\eta}_k\in \Gamma_\Theta$ such
+    that their convex hull contains an open set in $\mathbb{R}^k$, as given on page 44 of {\it Theory of Point Estimation}, 1983, by E.L.~Lehmann.  Here $\Theta=\Lambda \equiv (0,\infty)$ and $k=2$, so the convex hull is the triangle whose vertices consist of $\bm{\eta}_0,\bm{\eta}_1,\bm{\eta}_2$.
+\end{enumerate}
+\end{tcolorbox}
+
+
+\subsection*{4}
+\begin{tcolorbox}
+(Truncated Exponential Families) Suppose that the distributions $P_{\bm{\eta}}$ have R-N derivatives with respect to a
+$\sigma$-measure $\mu$ of the form $f_{\bm{\eta}}(x) = K(\bm{\eta}) \exp \left(  \sum_{i=1}^k \eta_i T_i(x)\right) h(x)$.
+For a measurable set $A$ with $P_{\bm{\eta}}(A)>0$, consider the family of distributions $Q_{\bm{\eta}}^A$ on $A$ having R-N derivatives
+with respect to $\mu$ as
+\[
+  g_{\bm{\eta}}(x ) \propto f_{\bm{\eta}}(x) I[x\in A].
+\]
+Argue that this is an exponential family and say what you can about the natural parameter space for this family in comparison to that of the $P_{\bm{\eta}}$ family.
+\end{tcolorbox}
+
+
+\subsection*{5}
+\begin{tcolorbox}
+  Suppose that for $\bm{\theta}=(p_1,p_2)$, $Y\sim$Binomial$(n,p_1)$ and, conditional on $Y=y$, $Z\sim$Binomial$(y,p_2)$. Let $X=(Y,Z)$.  Find $\bm{I}_{X}(\bm{\theta}_0)$.
+\end{tcolorbox}
+
+
+\subsection*{6}
+\begin{tcolorbox}
+  Let $P_0$ and $P_1$ be two distributions on $\mathcal{X}$ and $f_0$ and $f_1$ be their densities with respect to a dominating $\sigma$-finite
+  measure $\mu$.  Consider the parametric family of distributions with parameter $\theta \in \Theta \equiv [0,1]$ and densities with respect to $\mu$
+  of the form
+  \[
+    f_\theta(x) = (1-\theta) f_0(x) +\theta f_1(x).
+  \]
+  Suppose that $X$ has the density $f_\theta$ and $\theta$ has a distribution $G$ on $\Theta$.
+  \begin{enumerate}
+    \item If $G(\{0\})=G(\{1\})=1/2$, find the posterior distribution of $\theta|X$.
+    \item Suppose now that $G$ is the uniform distribution on $[0,1]$.  Find the posterior distribution of $\theta|X$ and answer  the following:
+
+      \begin{enumerate}
+        \item What is the mean of this posterior distribution (which provides a Bayesian way of creating a point estimator for $\theta$)?
+        \item Consider the partition of $\Theta$ into $\Theta_0=[0,0.5]$ and $\Theta_1=(0.5,1]$.  One Bayesian way of inventing a test for $H_0: \theta \in \Theta_0$ is to decide in favor of $H_0$ if the posterior probability assigned to $\Theta_0$ is at least $0.5$. Describe as explicitly as you can the subset of $\mathcal{X}$ that favors $H_0$.
+      \end{enumerate}
+  \end{enumerate}
+\end{tcolorbox}
+
+
+
+
+\end{document}
+

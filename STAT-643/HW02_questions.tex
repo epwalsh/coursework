@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{bm}
+\usepackage{color}
+
+
+\setlength{\textwidth}{7.0in} \setlength{\oddsidemargin}{-.5in}
+\setlength{\evensidemargin}{-.5in} \setlength{\textheight}{10in}
+\setlength{\topmargin}{-.7in}
+
+\renewcommand{\baselinestretch}{1}
+
+\begin{document}
+
+\vspace{6cm}
+\begin{center}\Large \textbf{Homework 2 -- STAT 643} \\
+\normalsize \textbf{Due Monday, September 26 (in class)}
+\end{center}
+
+\begin{enumerate} \itemsep .3cm
+\item Suppose that $(X_1,Y_1),\ldots, (X_n,Y_n)$ are iid random vectors and that $X_i$ and $Y_i$ are independently distributed as 
+$N(\mu,\sigma^2_1)$ and $N(\mu,\sigma^2_2)$, respectively, with $\bm{\theta}=(\mu,\sigma_1^2,\sigma_2^2)\in \mathbb{R}\times (0,\infty)\times (0,\infty)$.  Let $\bar{X}$ and $S_X^2$ denote the sample mean  and sample variance of the $X_i$'s and let
+$\bar{Y}$ and $S_Y^2$ denote the sample mean  and sample variance of the $Y_i$'s.  Show that $(\bar{X},\bar{Y},S_X^2,S_Y^2)$ is minimal sufficient
+but not boundedly complete.  What is a first-order ancillary statistic here?
+\item Suppose that $X_1,\ldots,X_n$ are iid $P_\theta$ for $\theta \in \mathbb{R}$, where if $\theta \neq 0$ the distribution $P_\theta$ is $N(\theta,1)$, while $P_0$ is $N(0,2)$.  Show that $\bar{X}=\sum_{i=1}^n X_i/n$ is complete but not sufficient for $\theta$.
+
+    \item  Let $\tilde{X}$ be an exponential random variable with mean $\lambda^{-1}>0$.    Suppose that, independent of $\tilde{X}$, $Y$ is exponential with mean 1
+        and that with $V = \min(\tilde{X},Y)$, one observes $X=(I[V=\tilde{X}],V)$ (so that one either sees $\tilde{X}$ or a random censoring time $Y$
+        less than $\tilde{X}$ as well as an indicator variable of whether it is $\tilde{X}$ or $Y$ that is seen).
+ The family of distributions of $X$, $\mathcal{P}\equiv \{P^X_\lambda\}_{\lambda \in (0,\infty)}$, is absolutely continuous with respect to the
+ product of the counting measure and the Lebesgue measure on $\mathcal{X}=\{0,1\}\times \mathbb{R}$ (call this dominating measure $\mu$).
+
+ \begin{enumerate}
+\item Find an R-N derivative of $P_\lambda^X$ with respect to $\mu$ on $\mathcal{X}$.
+\item Suppose that $X_1,\ldots,X_n$ are iid with the distribution of $P_\lambda^X$.  Find a minimal sufficient statistic. \\
+Hint: Claim 23 applies here under the much weaker assumption that there exist $k+1$ points $\bm{\eta}_0,\ldots,\bm{\eta}_k\in \Gamma_\Theta$ such
+that their convex hull contains an open set in $\mathbb{R}^k$, as given on page 44 of {\it Theory of Point Estimation}, 1983, by E.L.~Lehmann.  Here $\Theta=\Lambda \equiv (0,\infty)$ and $k=2$, so the convex hull is the triangle whose vertices consist of $\bm{\eta}_0,\bm{\eta}_1,\bm{\eta}_2$.
+\end{enumerate}
+
+\item (Truncated Exponential Families) Suppose that the distributions $P_{\bm{\eta}}$ have R-N derivatives with respect to a
+$\sigma$-measure $\mu$ of the form $f_{\bm{\eta}}(x) = K(\bm{\eta}) \exp \left(  \sum_{i=1}^k \eta_i T_i(x)\right) h(x)$.
+For a measurable set $A$ with $P_{\bm{\eta}}(A)>0$, consider the family of distributions $Q_{\bm{\eta}}^A$ on $A$ having R-N derivatives
+with respect to $\mu$ as
+\[
+g_{\bm{\eta}}(x ) \propto f_{\bm{\eta}}(x) I[x\in A].
+\]
+Argue that this is an exponential family and say what you can about the natural parameter space for this family in comparison to that of the $P_{\bm{\eta}}$ family.
+
+
+\item Suppose that for $\bm{\theta}=(p_1,p_2)$, $Y\sim$Binomial$(n,p_1)$ and, conditional on $Y=y$, $Z\sim$Binomial$(y,p_2)$. Let $X=(Y,Z)$.  Find $\bm{I}_{X}(\bm{\theta}_0)$.
+
+\item Let $P_0$ and $P_1$ be two distributions on $\mathcal{X}$ and $f_0$ and $f_1$ be their densities with respect to a dominating $\sigma$-finite
+measure $\mu$.  Consider the parametric family of distributions with parameter $\theta \in \Theta \equiv [0,1]$ and densities with respect to $\mu$
+of the form
+\[
+f_\theta(x) = (1-\theta) f_0(x) +\theta f_1(x).
+\]
+Suppose that $X$ has the density $f_\theta$ and $\theta$ has a distribution $G$ on $\Theta$.
+\begin{enumerate}
+\item If $G(\{0\})=G(\{1\})=1/2$, find the posterior distribution of $\theta|X$.
+\item Suppose now that $G$ is the uniform distribution on $[0,1]$.  Find the posterior distribution of $\theta|X$ and answer  the following:
+
+\begin{enumerate}
+\item What is the mean of this posterior distribution (which provides a Bayesian way of creating a point estimator for $\theta$)?
+\item Consider the partition of $\Theta$ into $\Theta_0=[0,0.5]$ and $\Theta_1=(0.5,1]$.  One Bayesian way of inventing a test for $H_0: \theta \in \Theta_0$ is to decide in favor of $H_0$ if the posterior probability assigned to $\Theta_0$ is at least $0.5$. Describe as explicitly as you can the subset of $\mathcal{X}$ that favors $H_0$.
+\end{enumerate}
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
