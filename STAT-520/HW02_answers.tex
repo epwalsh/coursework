@@ -79,7 +79,7 @@ In order to maximize this function using the Newton-Raphson method, we will also
 
 \subsection*{2}
 
-We used the Newton-Raphson method to find the maximum likelihood estimates for $\alpha$, and $\beta$ in the full model with two groups and the reduced
+We used the Newton-Raphson method to find the maximum likelihood estimates for $\alpha$ and $\beta$ in the full model with two groups and the reduced
 model with one group. 
 In each case the method of moments estimators were used as starting values for the algorithm.
 For Group 1 and Group 2, the log likelihood was maximized at $(\hat{\alpha}_1, \hat{\beta}_1) = (4.563441, 2.412541)$ and 
@@ -97,7 +97,7 @@ approximated with the observed Fisher Information matrix. The results are summar
       \hline 
       Group 1 & 4.5634 & (2.1205, 7.0064) & 2.4125 & (1.0473, 3.7778) \\
       \hline
-      Group 2 & 1.0531 & (0.5320, 1.5541) & 0.5410 & (0.2043, 0.8776) \\
+      Group 2 & 1.0431 & (0.5320, 1.5541) & 0.5410 & (0.2043, 0.8776) \\
       \hline
       Reduced & 1.6523 & (1.0585, 2.2461) & 0.8651 & (0.5025, 1.2277) \\
       \hline
@@ -117,7 +117,7 @@ To test whether the groups should be considered significantly different, we comp
 where $\ell_{\text{R}}$ is the log likelihood evaluated at the estimates of the parameters for the reduced model and $\ell_{\text{F}}$ is the log likelihood evaluated
 at the estimates of the parameters for the full model. Given that the Gamma distribution is a regular exponential family, test statistics in the form
 of $T$ will have the limiting distribution of a $\chi_{2}^{2}$ random variable. The 2 degrees of freedom come from the difference in dimensionality of
-the full parameter space versus the reduced parameter space. The p-value found by comparing the test statistic its limiting distribution is 0.00077,
+the full parameter space versus the reduced parameter space. The p-value found by comparing the test statistic to its limiting distribution is 0.00077,
 far below the threshold of 0.10. Hence there is significant evidence that the full model with separate parameters for each group is a better fit than
 the reduced model.
 

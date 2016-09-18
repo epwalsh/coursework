@@ -59,6 +59,7 @@ but not boundedly complete.  What is a first-order ancillary statistic here?
 \textbf{Solution:} Let $T := (\bar{X}, \bar{Y}, S_{X}^{2}, S_{Y}^{2})$. First we will show that $T$ is minimal sufficient but not boundedly complete.
 
 \begin{Proof}
+  Without loss of generality assume $n \geq 2$.
   Let $\mu$ be the Lebesgue measure on $(\mathbb{R}^{2n}, \mathcal{B}(\mathbb{R}^{2n}))$.
   Note that 
   \begin{align*}
@@ -102,7 +103,7 @@ but not boundedly complete.  What is a first-order ancillary statistic here?
   \end{claim}
   \begin{claimproof}
     Since $X_{1},\dots, X_{n}$ are iid $N(\mu, \sigma_{1}^{2})$, it is a well-known fact that $\frac{\bar{X}}{\sqrt{S_{X}^{2} / n}} \sim
-    t_{n-1}(\mu)$, where $\mu$ is the non-centrality parameter. By symmetry, $\frac{\bar{Y}}{\sqrt{S_{Y}^{2} / n}} \sim t_{n-1}(\mu)$ as well.
+    t_{n-1}(\mu)$ (as long as $n > 2$, otherwise is Cauchy if $n = 2$), where $\mu$ is the non-centrality parameter. By symmetry, $\frac{\bar{Y}}{\sqrt{S_{Y}^{2} / n}} \sim t_{n-1}(\mu)$ as well.
     Now, let 
     \[
       \phi(t) := \left\{ \begin{array}{cl}
@@ -132,6 +133,29 @@ A non-trivial example would be $h(T)$ as defined in Claim 2 above since $E_{\the
 \begin{tcolorbox}
 Suppose that $X_1,\ldots,X_n$ are iid $P_\theta$ for $\theta \in \mathbb{R}$, where if $\theta \neq 0$ the distribution $P_\theta$ is $N(\theta,1)$, while $P_0$ is $N(0,2)$.  Show that $\bar{X}=\sum_{i=1}^n X_i/n$ is complete but not sufficient for $\theta$.
 \end{tcolorbox}
+\textbf{Solution:} Let $X := (X_1, \dots, X_n)$ and $\mu$ be the Lebesgue measure on $\mathbb{R}^{n}$. Then for $x = (x_1, \dots, x_n) \in
+\mathbb{R}^{n}$,
+\begin{align*}
+  \frac{dP_{\theta}^{X}}{d\mu}(x) = f_{\theta}(x) & := \left(2\pi \sigma^{2}(\theta)\right)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^{2}(\theta)}
+  \left[ \sum_{i=1}^{n}x_{i}^{2} - 2\theta \sum_{i=1}^{n}x_{i} + n\theta^{2} \right]\right\} \\
+  & = \left(2\pi \sigma^{2}(\theta)\right)^{-n/2} \exp\left\{ -\frac{1}{2\sigma^{2}(\theta)}
+  \left[ \sum_{i=1}^{n}x_{i}^{2} - 2n\theta \bar{x} + n\theta^{2} \right]\right\} \ \ \text{ a.e. } \mu,
+\end{align*}
+where $\sigma^{2}(\theta) := I(\theta \neq 0) + 2I(\theta = 0)$. Since $\sum_{i=1}^{n}x_{i}^{2}$ cannot be expressed as a function of $\bar{x}$,
+$\bar{x}$ is not sufficient by the Factorization Theorem. Now let $\Theta' := \left\{ \theta \in \mathbb{R} : \theta \neq 0 \right\}$ and
+$\mathcal{P}' := \{P_{\theta}^{X} : \theta\neq 0\}$.
+So for $\theta \in \Theta'$ and $x = (x_1, \dots, x_n) \in \mathbb{R}^{n}$,
+\begin{align*}
+  f_{\theta}(x) & = (2\pi)^{-n/2}\exp\left\{ n\theta\bar{x} - \frac{n\theta^{2}}{2} - \frac{1}{2}\sum_{i=1}^{n}x_{i}^{2}  \right\} \\
+  & = \exp\left\{ \eta(\theta)\bar{x} \right\}K(\theta)h(x),
+\end{align*}
+where $\eta(\theta) := n\theta$, $K(\theta) := \exp\left( -\frac{n\theta^2}{2} \right)$, and $h(x) := (2\pi)^{-n/2}\exp\left(
+-\frac{1}{2}\sum_{i=1}^{n}x_{i}^{2} \right)$. Note that $\Gamma_{\Theta'} := \{ \eta(\theta) : \theta \in \Theta'\} = \mathbb{R} - \{0\}$, which is
+open as a subset of the natural parameter space $\Gamma \equiv \mathbb{R}$ for this family.
+Hence, by Claim 22, $\bar{X}$ is complete for $\mathcal{P}'$. But since $\Theta' \subset \Theta$ and $\Theta'$ dominates $\Theta$, $\bar{X}$ is
+complete for $\mathcal{P}$ by Theorem 13.
+
+\newpage
 
 
 \subsection*{3}
@@ -189,8 +213,56 @@ Argue that this is an exponential family and say what you can about the natural 
   \end{enumerate}
 \end{tcolorbox}
 
+\textbf{Solution:}
+
+\begin{enumerate}
+  \item Let $x \in \mathcal{X}$. Then
+    \begin{equation}
+      \int_{\Theta}f_{\theta}(x)dG(\theta) = \frac{1}{2}f_{\theta}(x)\bigg|_{\theta = 0} + \frac{1}{2}f_{\theta}(x)\bigg|_{\theta = 1} =
+      \frac{1}{2}[f_0(x) + f_1(x)].
+      \label{6.1}
+    \end{equation}
+    Now let $C \in \mathcal{C}$, the $\sigma$-algebra associated with $\Theta$. Then the posterior distribution of $\theta | X$ is given by
+    \begin{align*}
+      \pi^{\theta|X}(C|X=x) = \int_{C} \frac{f_{\theta}(x)}{\int_{\Theta}f_{\tilde{\theta}}(x)dG(\tilde{\theta})}dG(\theta) 
+      & = \frac{ 2\int_{C}f_{\theta}(x)dG(\theta) }{ f_0(x) + f_1(x) } \ \ \text{ by \eqref{6.1}} \\
+      & = \frac{ I(0 \in C) f_0(x) + I(1 \in C)f_1(x) }{ f_0(x) + f_1(x) }.
+    \end{align*}
+
+  \item Now suppose $G$ is the uniform distribution on $[0,1]$. Then $G$ is actually the Lebesgue measure $\mu$ on $[0,1]$. So,
+    \begin{equation}
+      \int_{\Theta} f_{\theta}(x) dG(\theta) = \int_{[0,1]}(1-\theta)f_0(x) + \theta f_1(x)\ d\mu(\theta) = \frac{1}{2}[ f_0(x) - f_1(x) ].
+      \label{6.2}
+    \end{equation}
+    Thus, for $C \in \mathcal{C} = \mathcal{B}[0,1]$, 
+    \[
+      \pi^{\theta|X}(C|X=x) = \frac{ 2\int_{C}f_{\theta}(x)d\mu(\theta) }{ f_0(x) + f_1(x) } = \frac{ 2\int_{C} (1-\theta) f_0(x) + \theta f_1(x) \
+      d\mu(\theta) }{ f_0(x) + f_1(x) }.
+    \]
+    This implies that the Radon-Nikodym derivative of $\pi^{\theta | X}$ with respect to $\mu$ is given by
+    \begin{equation}
+      \frac{ 2(1 - \theta) f_0(x) + 2\theta f_1(x) }{ f_0(x) + f_1(x) } \ \ \text{ a.e. } \mu.
+      \label{6.3}
+    \end{equation}
+    \begin{enumerate}
+      \item By \eqref{6.3}, the posterior mean is given by 
+        \begin{align*}
+          E(\theta) := \frac{ 2 \int_{0}^{1} \theta(1 - \theta) f_0(x) + \theta^{2}f_1(x) \ d\mu(\theta) }{ f_0(x) + f_1(x) } 
+          & = \frac{2 \left[ \frac{1}{2}f_0(x) - \frac{1}{3}f_0(x) + \frac{1}{3}f_1(x) \right] }{ f_0(x) + f_1(x) } \\
+          & = \frac{ \frac{1}{3}f_0(x) + \frac{2}{3}f_1(x) }{ f_0(x) + f_1(x) }.
+        \end{align*}
+      \item We are interested in describing the set $A := \{ x \in \mathcal{X} : \pi^{\theta|X}(\Theta_0|X=x) \geq 0.5 \}$. But for any $x \in
+        \mathcal{X}$, 
+        \begin{align*}
+          \pi^{\theta | X}(\Theta_0 | X=x) = \frac{ 2\int_{0}^{1/2}(1-\theta)f_0(x) + \theta f_1(x) \ d\mu(\theta) }{ f_0(x) + f_1(x) } 
+          & = \frac{ 2\left[ \frac{1}{2}f_0(x) - \frac{1}{8} f_0(x) + \frac{1}{8}f_1(x) \right] }{ f_0(x) + f_1(x) } \\
+          & = \frac{ \frac{3}{4}f_0(x) + \frac{1}{4}f_1(x) }{ f_0(x) + f_1(x) },
+        \end{align*}
+        which, by inspection, is greater than or equal to 0.5 if and only if $f_0(x) \geq f_1(x)$.
+        Thus $A = \{ x \in \mathcal{X} : f_0(x) \geq f_1(x) \}$.
+    \end{enumerate}
+\end{enumerate}
 
 
 
 \end{document}
-
