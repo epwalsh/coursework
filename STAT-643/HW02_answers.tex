@@ -173,6 +173,37 @@ product of the counting measure and the Lebesgue measure on $\mathcal{X}=\{0,1\}
 \end{enumerate}
 \end{tcolorbox}
 
+\textbf{Solution:} Let $X = (X^{(0)}, X^{(1)})$. Then $X^{(0)} = 0$ if and only if $X^{(1)} = Y$ if and only if $\tilde{X} > Y$. Similarly, $X^{(0)} =
+1$ if and only if $X^{(1)} = \tilde{X}$ if and only if $\tilde{X} < Y$. Thus, for $A\times B \in 2^{\{0,1\}} \times \mathcal{B}(0,\infty)$, we can
+write
+\begin{align*}
+  P_{\lambda}(X \in A\times B) & = I(0 \in A)\int_{B}e^{-x^{(1)}}\int_{x^{(1)}}^{\infty} \lambda e^{-\lambda t}dm(t)\ dm(x^{(1)})  \\
+  & \qquad + I(1 \in A) \int_{B}\lambda e^{-\lambda x^{(1)}} \int_{x^{(1)}}^{\infty} e^{-t} dm(t)\ dm(x^{(1)}) \\
+  & = I(0 \in A)\int_{B}e^{-x^{(1)}(1 + \lambda)} dm(x^{(1)}) + I(1 \in A) \int_{B} \lambda e^{-x^{(1)}(1 + \lambda)} dm(x^{(1)}),
+\end{align*}
+where $x = (x^{(0)}, x^{(1)})$, which implies 
+\[
+  \frac{dP_{\lambda}^{X}}{d\mu}(x) = I(x^{(0)} = 0) e^{-x^{(1)}(1 + \lambda)} + I(x^{(0)} = 1) \lambda e^{-x^{(1)}(1 + \lambda)} \ \ \text{a.e. } \mu.
+\]
+Now let $\bm{X} = (X_{1}, X_{2}, \dots, X_{n})$, where $X_1, \dots, X_n$ are iid with distribution $P_{\lambda}^{X}$. Then for 
+$\bm{x} = (x_{1}, \dots, x_{n}) \in (\{0,1\}\times (0,\infty))^{n}$,
+\begin{align*}
+  \frac{dP_{\lambda}^{\bm{X}}}{d\mu^{n}}(\bm{x}) & = \prod_{j=1}^{n} \frac{dP_{\lambda}^{X}}{d\mu}(x_{j}) \\
+  & = \exp\left\{ \sum_{j=1}^{n}\log\left[ I(x_{j}^{(0)} = 0) e^{-x_{j}^{(1)}(1 + \lambda)} + I(x_{j}^{(0)} = 1) \lambda e^{-x_{j}^{(1)}(1 + \lambda)}
+  \right] \right\} \\
+  & = \exp\left\{ \sum_{j=1}^{n}I(x_{j}^{(0)} = 0)\left[ -x_{j}^{(1)}(1 + \lambda) \right] + \sum_{j=1}^{n}\left[ \log(\lambda) - x_{j}^{(1)}(1 +
+  \lambda) \right] \right\} \\
+  & = \exp\left\{ \log(\lambda)\sum_{j=1}^{n}I(x_{j}^{(0)} = 1) - \lambda\sum_{j=1}^{n}x_{j}^{(1)} - \sum_{j=1}^{n}x_{j}^{(1)} \right\} \ \ \text{a.e.
+  } \mu^{n},
+\end{align*}
+which is the form of an exponential family.
+Further, $\Gamma_{\Theta} = \left\{\left(-\lambda, \log(\lambda)\right) : \lambda > 0 \right\} = \left\{ \left(\lambda, \log(-\lambda)\right) : \lambda <
+0\right\}$, which describes a curve through $\mathbb{R}^{2}$ (as opposed to a straight line). Hence, by the hint given, the statistic 
+\[
+  \left( \sum_{j=1}^{n}I(X_{j}^{(0)} = 1), \sum_{j=1}^{n}X_{j}^{(1)} \right)
+\]
+is minimal sufficient for $\lambda$.
+
 
 \subsection*{4}
 \begin{tcolorbox}
@@ -186,12 +217,30 @@ with respect to $\mu$ as
 Argue that this is an exponential family and say what you can about the natural parameter space for this family in comparison to that of the $P_{\bm{\eta}}$ family.
 \end{tcolorbox}
 
+\textbf{Solution:} Let $\Gamma$ denote the natural parameter space for $\{P_{\bm{\eta}}\}$, and $\Gamma^{A}$ denote the natural parameter space for
+$\{Q_{\bm{\eta}}^{A}\}$. By definition $\Gamma$ consists of $\bm{\eta} \in \mathbb{R}^{k}$ such that 
+\begin{equation}
+  \int_{\mathcal{X}} h(x)\exp\left( \sum_{i=1}^{n}\eta_{i}T_i(x) \right)d\mu(x) < \infty,
+  \label{4.0}
+\end{equation}
+while $\Gamma^{A}$ consists of $\bm{\eta} \in \mathbb{R}^{k}$ such that
+\begin{equation}
+  \int_{X} h(x)I_A(x)\exp\left( \sum_{i=1}^{n}\eta_{i}T_i(x) \right) d\mu(x) < \infty.
+  \label{4.1}
+\end{equation}
+Since \eqref{4.0} is a stricter condition than \eqref{4.1}, $\Gamma^{A} \supseteq \Gamma$.
+
+
+
+\newpage
 
 \subsection*{5}
 \begin{tcolorbox}
   Suppose that for $\bm{\theta}=(p_1,p_2)$, $Y\sim$Binomial$(n,p_1)$ and, conditional on $Y=y$, $Z\sim$Binomial$(y,p_2)$. Let $X=(Y,Z)$.  Find $\bm{I}_{X}(\bm{\theta}_0)$.
 \end{tcolorbox}
 
+
+\newpage
 
 \subsection*{6}
 \begin{tcolorbox}
