@@ -48,13 +48,63 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{document}
 \maketitle
 
+
 \subsection*{Assignment 3.1}
 
 \begin{enumerate}
   \item We define the random variables $Y_{1}, \dots, Y_{n}$ so that $Y_i$ is associated with the blood concentration of oxychlordane (OXY) in gull
     $i$ and the covariates $x_{1}, \dots, x_{n}$ such that $x_{i}$ is the body mass (in grams) of gull $i$.
 
-  \item 
+  \item We create a Box-Cox plot of the log of means 
+    versus the log standard deviation of the response in 5 different bins, as shown below in Figure \ref{fig:1}.
+
+    \begin{figure}[h]
+      \caption{Box-Cot plot produced using the function \texttt{regmeanvar}}
+      \centering
+      \includegraphics[width=.8\textwidth]{./figures/hw03_regmeanvar.pdf}
+      \label{fig:1}
+    \end{figure}
+
+    The slope of the best fit line in Figure 1 is 0.988, suggesting that a Gamma random component is appropriate.
+
+  \item To determine the appropriate link function, we plot various tranformations of the response variable of the response variable OXY against the covariate, body mass.
+    Figure \ref{fig:2} shows a log transformation of the response which results in a reasonably linear trend in the data. Thus we decide to use the
+    log link.
+    
+    \begin{figure}[h]
+      \caption{Log transformed data}
+      \centering
+      \includegraphics[width=.8\textwidth]{./figures/hw03_log_link.pdf}
+      \label{fig:2}
+    \end{figure}
+
+
+  \item We fit a glm using the R function \texttt{basicglm} with a Gamma random component and a log link function. The results are summarized below in
+    the table.
+
+    \begin{table}[h]
+      \caption{Results of glm fit to OXY with body mass as a covariate. Here $D_{u}$ represents the unscaled deviance while $D_{s}$ represents the
+      scaled deviance.}
+      \centering
+      \begin{tabular}{c|c|c|c|c|c|c|c}
+        \hline
+        $\hat{\phi}$ & $\hat{\beta_0}$ & $\hat{\beta_{1}}$ & 95\% CI for $\hat{\beta_0}$ & 95\% CI for $\hat{\beta_1}$ & $D_{u}$ & $D_{s}$ &
+        $\ell(\hat{\beta_0}, \hat{\beta_1}, \hat{\phi})$ \\
+        \hline
+        $1.1673$ & $-0.9606$ & $0.0024$ & $(-2.4765, 0.5553)$ & $(0.0015, 0.0033)$ & 76.5991 & 89.4139 & $-144.0595$ \\
+        \hline
+      \end{tabular}
+      \label{tab:1}
+    \end{table}
+
+    A scatter plot of the data along with the estimated expectation function is shown in Figure \ref{fig:3}.
+
+    \begin{figure}[h]
+      \caption{Scatter plot of data with fitted means}
+      \centering
+      \includegraphics[width=.8\textwidth]{./figures/hw03_fitted.pdf}
+      \label{fig:3}
+    \end{figure}
 \end{enumerate}
 
 
@@ -63,9 +113,39 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \begin{enumerate}
   \item 
+
+    \begin{table}[h]
+      \caption{Results of glm fit to OXY with body mass as a covariate. Here $D$ represents the deviance. Not that we only report one deviance and
+      also omit the estimated $\phi$ since $\phi = 1$ with a binary random component and thus the scaled deviance is equal to the unscaled deviance.}
+      \centering
+      \begin{tabular}{c|c|c|c|c|c}
+        \hline
+        $\hat{\beta_0}$ & $\hat{\beta_{1}}$ & 95\% CI for $\hat{\beta_0}$ & 95\% CI for $\hat{\beta_1}$ & $D$ & 
+        $\ell(\hat{\beta_0}, \hat{\beta_1}, \hat{\phi})$ \\
+        \hline
+        $-6.3861$ & $0.1918$ & $(-6.4395,-6.3326)$ & $(0.1853, 0.1983)$ & 28.1989 & $-14.1057$ \\
+        \hline
+      \end{tabular}
+      \label{tab:2}
+    \end{table}
+
+    \begin{figure}[h]
+      \caption{Scatter plot of the simulated data with fitted means}
+      \centering
+      \includegraphics[width=.8\textwidth]{./figures/hw03_2_fitted.pdf}
+      \label{fig:4}
+    \end{figure}
+
   \item 
+
+    \begin{figure}[h]
+      \caption{Scatter plot of the simulated data with fitted means and 95\% confidence bands}
+      \centering
+      \includegraphics[width=.8\textwidth]{./figures/hw03_2_confidence.pdf}
+      \label{fig:5}
+    \end{figure}
+
 \end{enumerate}
 
 
 \end{document}
-

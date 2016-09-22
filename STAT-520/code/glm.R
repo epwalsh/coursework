@@ -3,7 +3,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-09-18
-# Last Modified: 2016-09-18 14:49:01
+# Last Modified: 2016-09-20 17:14:14
 # =============================================================================
 
 basicglm<-function(xmat,y,link,random,startb=0,ns=1,ews=0,pwr=0,outfile=NULL)
@@ -374,5 +374,4 @@ writeres<-function(b, outs,filename){
   cat(" ",file=filename,append=T,fill=T)
   #  j<-format(outs[[1]],digits=3)
   write.table(format(indres),row.names=F,quote=F,file=filename,append=T)
-
 }
