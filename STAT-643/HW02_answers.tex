@@ -15,6 +15,7 @@
 \usepackage{changepage}
 \usepackage{mathcomp}
 \usepackage{tcolorbox}
+\usepackage{accents}
 
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
@@ -236,8 +237,89 @@ Since \eqref{4.0} is a stricter condition than \eqref{4.1}, $\Gamma^{A} \supsete
 
 \subsection*{5}
 \begin{tcolorbox}
-  Suppose that for $\bm{\theta}=(p_1,p_2)$, $Y\sim$Binomial$(n,p_1)$ and, conditional on $Y=y$, $Z\sim$Binomial$(y,p_2)$. Let $X=(Y,Z)$.  Find $\bm{I}_{X}(\bm{\theta}_0)$.
+  Suppose that for $\bm{\theta}=(p_1,p_2)$, $Y\sim$ Binomial$(n,p_1)$ and, conditional on $Y=y$, $Z\sim$ Binomial$(y,p_2)$. Let $X=(Y,Z)$.  Find $\bm{I}_{X}(\bm{\theta}_0)$.
 \end{tcolorbox}
+
+\stepcounter{ProofCounter}
+\textbf{Solution:} Let $\theta_1 := p_1$ and $\theta_2 := p_2$ and $c\times c$ be the counting measure on the space $(\mathcal{X}, 2^{\mathcal{X}})$,
+where
+$\mathcal{X} := \{(y,z) \in \{0,\hdots, n\}^{2} : z \leq y\}$. 
+First we derive a version of the joint distribution of $Y$ and $Z$, i.e. the
+distribution of $X$. Since $Y$ and $Z$ are discrete,
+\[
+  P(Z = z | Y = y) = \frac{P(Z = z, Y = y)}{P(Y=y)},
+\]
+for $y \in \{0,\hdots, n\}$ and $z \in \{0, \hdots y\}$. Thus,
+\begin{equation}
+  f_{\theta}(x) := P_{\theta}^{X}\left( (y,z) \right) = P(Y = y, Z = z) = \binom{y}{z}p_{2}^{z}(1 -
+  p_2)^{y-z}\binom{n}{y}p_{1}^{y}(1-p_1)^{n-y},
+  \label{5.1}
+\end{equation}
+for $x = (y,z) \in \mathcal{X}$. 
+
+\begin{claim}
+  $\{P_{\theta} : \theta \in (0,1)^{2}\}$ is FI regular at $\theta_0$ for all $\theta_0 \in (0,1)^{2}$.
+\end{claim}
+\begin{claimproof}
+  For $\theta_0 \in (0,1)^{2}$ and $i \in \{1,2\}$,
+  \begin{align*}
+    \int_{\mathcal{X}} \frac{\partial f_{\theta}(x) }{\partial \theta_i}\bigg|_{\theta_0} dc(x) = \sum_{y=0}^{n}\sum_{z=0}^{y}\frac{\partial
+    f_{\theta}(y,z)}{\partial \theta_i}\bigg|_{\theta_0} 
+    & = \frac{\partial}{\partial \theta_i} \sum_{y=0}^{n}\sum_{z=0}^{y}f_{\theta}(y,z) \bigg|_{\theta_0} \\
+    & = \frac{\partial}{\partial \theta_i} \int_{\mathcal{X}}f_{\theta}(x)dc(x)\bigg|_{\theta_0} \\
+    & = \frac{\partial}{\partial \theta_i} 1 \equiv 0.
+  \end{align*}
+  Further, for all $x \in \mathcal{X}$ and $\theta \in (0,1)^{2}$, $f_{\theta}(x) > 0$ and $f_{\theta}$ has continuous first (and second) order partial
+  derivatives with respect to $\theta$.
+\end{claimproof}
+
+Now,
+\begin{equation}
+  0 = \int_{\mathcal{X}} \frac{\partial^{2} f_{\theta}(x)}{\partial \theta_1 \partial \theta_2}\bigg|_{\theta_0}dc(x)
+  \label{5.2}
+\end{equation}
+for all $\theta_0 \in (0,1)^{2}$ (we can interchange derivatives with integration again since ``integration'' here is just a finite sum). Hence by
+Claim 1 the conditions for Theorem 30 are met. So 
+\begin{equation}
+  \underaccent{\tilde}{I}(\theta_0) = -\left[ E_{\theta_0}\left( \frac{\partial^{2}\log f_{\theta}(X)}{\partial \theta_i\theta_j}\bigg|_{\theta_0} \right)
+  \right]_{i,j}, \ \ i,j = 1,2.
+  \label{5.3}
+\end{equation}
+Thus it just remains to calculate the elements in \eqref{5.3}. Let $\theta_0 := (p_{1}', p_2') \in (0,1)^{2}$. Well,
+\[
+  \log f_{\theta}(x) = z\log(p_2) + (y - z)\log(1-p_2) + y\log(p_1) + (n-y)\log(1-p_1) + C(y,z).
+\]
+Hence
+\begin{align*}
+  & \frac{ \partial \log f_{\theta}(x)}{\partial \theta_1} = \frac{y}{p_1} + \frac{n-y}{1-p_1}(-1) = \frac{y}{p_1} + \frac{y-n}{1-p_1}, \text{ and }\\
+  & \frac{ \partial \log f_{\theta}(x)}{\partial \theta_2} = \frac{z}{p_2} + \frac{y-z}{1-p_2}(-1) = \frac{z}{p_2} + \frac{z-y}{1-p_2}
+\end{align*}
+for all $\theta \in (0,1)^{2}$,
+so
+\begin{align*}
+  & \frac{ \partial^{2} \log f_{\theta}(x)}{\partial \theta_{1}^{2}}\bigg|_{\theta_0} = 
+  -\frac{y}{p_1^2} - \frac{y-n}{(1-p_1)^2}(-1)\bigg|_{\theta_0} = \frac{y-n}{(1-p_1')^2} - \frac{y}{(p_1')^2},\\
+  & \frac{ \partial^{2} \log f_{\theta}(x)}{\partial \theta_{2}^{2}}\bigg|_{\theta_0} = 
+  -\frac{z}{p_2^2} - \frac{z-y}{(1-p_2)^2}(-1)\bigg|_{\theta_0} = \frac{z-y}{(1-p_2')^2} - \frac{z}{(p_2')^{2}}, \text{ and } \\
+  & \frac{ \partial^{2} \log f_{\theta}(x)}{\partial \theta_1\partial \theta_{2}}\bigg|_{\theta_0} = 0.
+\end{align*}
+Thus,
+\begin{align*}
+  & -E_{\theta_0}\left(\frac{ \partial^{2} \log f_{\theta}(x)}{\partial \theta_{1}^{2}}\bigg|_{\theta_0}\right) = 
+  - E_{\theta_0}\left(\frac{y-n}{(1-p_1')^2} - \frac{y}{(p_1')^2} \right) = \frac{n}{1-p_1'} + \frac{n}{p_1'}, \\
+  & -E_{\theta_0}\left(\frac{ \partial^{2} \log f_{\theta}(x)}{\partial \theta_{2}^{2}}\bigg|_{\theta_0}\right) = 
+  -E_{\theta_0}\left(\frac{z-y}{(1-p_2')^2} - \frac{z}{(p_2')^{2}}\right) = \frac{np_1'}{1-p_2'} + \frac{np_1'}{p_2'}, \text{ and } \\
+  & -E_{\theta_0}\left(\frac{ \partial^{2} \log f_{\theta}(x)}{\partial \theta_1\partial \theta_{2}}\bigg|_{\theta_0}\right) = 0.
+\end{align*}
+Therefore 
+\[
+  I(\theta_0) = \begin{bmatrix}
+    \frac{n}{1-p_1'} + \frac{n}{p_1'} & 0 \\
+    \\
+    0 & \frac{np_1'}{1-p_2'} + \frac{np_1'}{p_2'}
+  \end{bmatrix}.
+\]
+
 
 
 \newpage
