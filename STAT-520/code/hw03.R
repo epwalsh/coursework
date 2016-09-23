@@ -3,7 +3,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-09-18
-# Last Modified: 2016-09-22 21:15:24
+# Last Modified: 2016-09-23 15:14:02
 # =============================================================================
 
 source("glm.R")
@@ -22,6 +22,7 @@ j <- regmeanvar(xmat[,2], y, 5)
 plot(log(j$mean), log(sqrt(j$vars)), 
   xlab="Log Group Mean", 
   ylab="Log Group Std. Deviation")
+
 q <- matrix(c(rep(1,5), log(j$mean)), 5, 2, byrow=F)
 solve(t(q)%*%q)%*%t(q)%*%log(sqrt(j$vars))
 abline(-0.122,0.988)
@@ -32,14 +33,33 @@ plot(xmat[,2], log(y),
   xlab="Body mass (g)",
   ylab="Log OXY concentration")
 
+plot(xmat[,2], sqrt(y),
+  xlab="Body mass (g)",
+  ylab="Square root of OXY concentration")
+
+plot(xmat[,2], y^(1/3),
+  xlab="Body mass (g)",
+  ylab="OXY concentration to the power of 1/3")
+
 
 res <- basicglm(xmat, y, 2, 5)
+res2 <- basicglm(xmat, y, 8, 5, pwr=.5)
+res3 <- basicglm(xmat, y, 8, 5, pwr=0.33)
 
 res$estb[1,1] - qnorm(0.975) * sqrt(res$invinf[1,1])
 res$estb[1,1] + qnorm(0.975) * sqrt(res$invinf[1,1])
-
 res$estb[2,1] - qnorm(0.975) * sqrt(res$invinf[2,2])
 res$estb[2,1] + qnorm(0.975) * sqrt(res$invinf[2,2])
+
+res2$estb[1,1] - qnorm(0.975) * sqrt(res2$invinf[1,1])
+res2$estb[1,1] + qnorm(0.975) * sqrt(res2$invinf[1,1])
+res2$estb[2,1] - qnorm(0.975) * sqrt(res2$invinf[2,2])
+res2$estb[2,1] + qnorm(0.975) * sqrt(res2$invinf[2,2])
+
+res3$estb[1,1] - qnorm(0.975) * sqrt(res3$invinf[1,1])
+res3$estb[1,1] + qnorm(0.975) * sqrt(res3$invinf[1,1])
+res3$estb[2,1] - qnorm(0.975) * sqrt(res3$invinf[2,2])
+res3$estb[2,1] + qnorm(0.975) * sqrt(res3$invinf[2,2])
 
 
 x <- seq(0, 2100, by=5)
@@ -49,6 +69,8 @@ plot(xmat[,2], y,
   xlab="Body mass (g)",
   ylab="OXY concentration")
 curve(exp(res$estb[1,1] + x * res$estb[2,1]), from=0, to=2100, add=T)
+curve((res2$estb[1,1] + x * res2$estb[2,1])^2, from=0, to=2100, add=T, lty=2)
+curve((res3$estb[1,1] + x * res3$estb[2,1])^3, from=0, to=2100, add=T, lty=3)
 
 
 # Assignment 3.2:

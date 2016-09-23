@@ -15,6 +15,8 @@
 \usepackage{changepage}
 \usepackage{mathcomp}
 \usepackage{tcolorbox}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
@@ -56,7 +58,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $i$ and the covariates $x_{1}, \dots, x_{n}$ such that $x_{i}$ is the body mass (in grams) of gull $i$. Then each $Y_{i}$ has support in the non-negative
     reals since concentration cannot be negative.
 
-  \item In choosing a random model component we first need to make sure that the support of the model matches the support of the random variables we
+  \item In choosing a random model component we first need to make sure that the support of the model aligns the support of the random variables we
     have defined. Thus a random model component with support in the non-negative reals is natural. This gives us several options, including Gamma and
     Inverse Gaussian. To determine which is the most appropriate, we 
     create a Box-Cox plot of the log of means 
@@ -72,44 +74,77 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     The slope of the best fit line in Figure 1 is 0.988, suggesting that a Gamma random component is appropriate.
 
   \item To determine the appropriate link function, we plot various tranformations of the response variable OXY against the covariate, body mass.
-    Figure \ref{fig:2} shows a log transformation of the response which results in a reasonably linear trend in the data. Thus we decide to use the
-    log link.
+    Figure \ref{fig:2} shows a log transformation of the response which results in a reasonably linear relationship. Similarly, a power link with
+    powers $\lambda = 1/2$ and $\lambda = 1/3$ also seem to fit well as shown in Figure \ref{fig:3} and Figure \ref{fig:4}, respectively.
+    Thus we proceed with a separate analysis for these three different link functions.
     
     \begin{figure}[h]
-      \caption{\emph{Log transformed data.}}
       \centering
-      \includegraphics[width=.82\textwidth]{./figures/hw03_log_link.pdf}
-      \label{fig:2}
-    \end{figure}
+      \caption{\emph{Various tranformations of the reponse OXY against the covariate body mass.}}
+      \begin{subfigure}{0.6\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{./figures/hw03_log_link.pdf}
+        \caption{\emph{Log transformation.}}
+        \label{fig:2}
+      \end{subfigure}
+      \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{./figures/hw03_sqrt_link.pdf}
+        \caption{\emph{Power $\lambda = 1/2$.}}
+        \label{fig:3}
+      \end{subfigure}
+      \begin{subfigure}{0.4\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{./figures/hw03_third_link.pdf}
+        \caption{\emph{Power $\lambda = 1/3$.}}
+        \label{fig:4}
+      \end{subfigure}
+      \label{2}
+      \end{figure}
 
 
-  \item We fit a glm using the R function \texttt{basicglm} with a Gamma random component and a log link function. The results are summarized below in
+    \item We fit a glm using the R function \texttt{basicglm} with a Gamma random component and three different link functions: (1) a log link (2) a power
+      link with $\lambda = 1/2$,  and (3) a power link with $\lambda = 1/3$. The results are summarized below in
     the Table 1, which includes 95\% Wald Theory intervals for the parameters $\beta_0$ and $\beta_1$. We also report the unscaled deviance $D_{u}$
     and the scaled deviance $D_{s}$.
-    A scatterplot of the data along with the estimated expectation function is shown in Figure \ref{fig:3}.
+    A scatterplot of the data along with the estimated expectation function for each model is shown in Figure \ref{fig:5}. The solid line is the
+    estimated expectation for the log link and two dotted lines (which are almost indistinguishable) are for the power link functions with powers $1/2$
+    and $1/3$.
 
-    \begin{table}[h!]
-      \caption{\emph{Results of glm fit to OXY with body mass as a covariate. Here $D_{u}$ represents the unscaled deviance while $D_{s}$ represents the
-      scaled deviance.}}
+    There is little difference between the estimated expectation function from model to model. Therefore it doesn't really matter which one we
+    use for analysis if we are only interested in the expectation function.
+
+    \begin{table}[h]
+      \caption{\emph{Results of a glm fit to OXY with body mass as a covariate. Here $D_{u}$ represents the unscaled deviance while $D_{s}$ represents the
+      scaled deviance. Model 1 is the log link, model 2 is the power link with $\lambda = 1/2$, and model 3 is the power link with $\lambda = 1/3$.}}
       \vspace{.5cm}
       \centering
-      \begin{tabular}{c|c|c|c|c|c|c|c}
+      \begin{tabular}{l|c|c|c|c|c|c|c|c}
         \hline
-        $\hat{\phi}$ & $\hat{\beta_0}$ & $\hat{\beta_{1}}$ & 95\% CI for $\hat{\beta_0}$ & 95\% CI for $\hat{\beta_1}$ & $D_{u}$ & $D_{s}$ &
+        & $\hat{\phi}$ & $\hat{\beta_0}$ & $\hat{\beta_{1}}$ & 95\% CI for $\hat{\beta_0}$ & 95\% CI for $\hat{\beta_1}$ & $D_{u}$ & $D_{s}$ &
         $\ell(\hat{\beta_0}, \hat{\beta_1}, \hat{\phi})$ \\
         \hline
-        $1.1673$ & $-0.9606$ & $0.0024$ & $(-2.4765, 0.5553)$ & $(0.0015, 0.0033)$ & 76.5991 & 89.4139 & $-144.0595$ \\
+        1 & $1.1673$ & $-0.9606$ & $0.0024$ & $(-2.4765, 0.5553)$ & $(0.0015, 0.0033)$ & 76.5991 & 89.4139 & $-144.0595$ \\
+        \hline
+        2 & $1.2059$ & $-4.4007$ & $0.0055$ & $(-7.6897, -1.1116)$ & $(0.0034, 0.0076)$ & 75.9642 & 75.9642 & $-143.1465$ \\
+        \hline
+        3 & $1.1959$ & $-0.8732$ & $0.0022$ & $(-2.1933, 0.4469)$ & $(0.0014, 0.0030)$ & 76.0436 & 90.9419 & $-143.3277$ \\
         \hline
       \end{tabular}
       \label{tab:1}
     \end{table}
 
 
-    \begin{figure}[h!]
-      \caption{\emph{Scatterplot of data with fitted expectation function.}}
+    \vspace{5cm}
+
+
+    \begin{figure}[h]
+      \caption{\emph{Scatterplot of data with fitted expectation function. The solid line is the
+          estimated expectation for the log link and two dotted lines (which are almost indistinguishable) are for the power link functions with powers $1/2$
+    and $1/3$.}}
       \centering
       \includegraphics[width=.8\textwidth]{./figures/hw03_fitted.pdf}
-      \label{fig:3}
+      \label{fig:5}
     \end{figure}
 \end{enumerate}
 
@@ -123,10 +158,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \item For this part of the assignment we simulated data coming from a generalized linear model with a binary random component and a complementary
     log-log link function. We used the regression coefficients $\beta_0 = -5$ and $\beta_1 = 0.14$. The results of fitting the same model to the
     simulated data as from which they were generated are displayed in Table 2. Note that we only report one deviance statistic and omit the estimated
-    $\phi$ since $\phi = 1$, which implies that the unscaled deviance $D_{u}$ is equal to the scaled deviance $D_{s}$. A scatterplot with the estimated expectation function is also shown in Figure 4.
+    $\phi$ since $\phi = 1$, which implies that the unscaled deviance $D_{u}$ is equal to the scaled deviance $D_{s}$. 
+    A scatterplot with the estimated expectation function is also shown in Figure \ref{fig:6}.
 
     \begin{table}[h]
-      \caption{\emph{Results of glm fit to OXY with body mass as a covariate. Here $D$ represents both the unscaled and scaled deviance.}}
+      \caption{\emph{Results of a glm fit to OXY with body mass as a covariate. Here $D$ represents both the unscaled and scaled deviance.}}
       \vspace{.5cm}
       \centering
       \begin{tabular}{c|c|c|c|c|c}
@@ -145,17 +181,17 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
       \centering
       \includegraphics[width=.8\textwidth]{./figures/hw03_2_fitted.pdf}
-      \label{fig:4}
+      \label{fig:6}
     \end{figure}
 
   \item  Lastly we compute 95\% pointwise confidence bands for the expectation function. We do this using the multivariate delta method on the
-    inverse of the link function. The results are displayed on the next page in Figure 5.
+    inverse of the link function. The results are displayed on the next page in Figure \ref{fig:7}.
 
     \begin{figure}[h]
       \caption{\emph{Scatterplot of the simulated data with fitted means and 95\% confidence bands.}}
       \centering
       \includegraphics[width=.8\textwidth]{./figures/hw03_2_confidence.pdf}
-      \label{fig:5}
+      \label{fig:7}
     \end{figure}
 
 \end{enumerate}
