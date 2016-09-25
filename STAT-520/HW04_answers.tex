@@ -56,7 +56,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 Drinking water was sampled from individual wells in three different counties in Iowa, with 25 wells sampled from each county. In each well the nitrate
 concentration was measured since nitrate is considered to be a contaminate, with concentrations above 5 being an indication of risk.
-We are interested in whether there are differences in the distribution of nitrate concentrations across wells for the different counties.
+We are interested in whether there are differences in the distribution of nitrate concentrations across wells for the three different counties.
 Figure \ref{boxplot} shows side-by-side boxplots of the nitrate concentrations in the wells for each county, and Figure \ref{density} shows the empirical density
 functions of the nitrate concentrations in the wells for each county.
 
@@ -70,7 +70,7 @@ functions of the nitrate concentrations in the wells for each county.
 \begin{figure}[h]
   \caption{\emph{Empirical density curves of the nitrate concentrations in each county.}}
   \centering
-  \includegraphics[width=.82\textwidth]{./figures/hw04_density.pdf}
+  \includegraphics[width=.9\textwidth]{./figures/hw04_density.pdf}
   \label{density}
 \end{figure}
 
@@ -109,7 +109,7 @@ functions of the nitrate concentrations in the wells for each county.
 
     \begin{table}[h]
       \caption{\emph{Parameter estimates, standard errors, and 95\% Wald theory confidence intervals. Here the $\beta$'s are the coefficients for the
-      linear component in our model, not the $\beta$ parameters in a Gamma distribution.}}
+      linear component in our model, not the rate parameter in a Gamma distribution.}}
       \vspace{.5cm}
       \centering
       \begin{tabular}{|c|c|c|c|}
@@ -127,11 +127,11 @@ functions of the nitrate concentrations in the wells for each county.
     \end{table}
 
     Table 1 and Table 2 report the results of fitting the generalized linear model just described using the R function \texttt{glm}.
-    We use the result that maximum likelihood estimates are asymptically normal with a convariance matrix that can be approximated by the inverse of
+    We use the fact that maximum likelihood estimates are asymptically normal with a covariance matrix that can be approximated by the inverse of
     the observed Fisher information matrix to construct 95\% confidence intervals for the true coefficients $\beta_{j}$, $j = 0, 1, 2$.
 
     Note that the implicit assumption of our model was that the ``shape'' parameter for each distribution was equal to $\phi$, the dispersion
-    parameter. That is $\alpha_i \equiv \phi$ for all $i = 1, \dots, 75$. Thus the distributions are only allowed to differ through the ``rate''
+    parameter. That is, $\alpha_i \equiv \phi$ for all $i = 1, \dots, 75$. Thus the distributions are only allowed to differ through the ``rate''
     parameter $\beta$. With blatant abuse of notation we now define $\beta_j$, for $j = 1, 2, 3$, to be the ``rate'' parameter for the distribution of
     the nitrate concentrations across wells in county $j$. 
     
@@ -165,9 +165,9 @@ functions of the nitrate concentrations in the wells for each county.
 
     Since none all of the confidence intervals for the pairwise differences in the estimated ``rate'' parameters contain 0, there is not sufficient
     evidence to believe the distributions for the nitrate concentration across wells in the three counties are different. An estimate of the common
-    distribution function is in Figure \ref{combined_density}. Using this estimated common distribution with $\hat{\alpha} = \hat{\phi} = 3.0311$ and
+    distribution function is shown in Figure \ref{combined_density}. Using this estimated common distribution with $\hat{\alpha} = \hat{\phi} = 3.0311$ and
     $\hat{\beta} = 0.6793$, we calculate that the probability of a randomly chosen well from any of the three counties having a nitrate concentration of less
-    than 3 mg/L is 0.342, and more than 10 mg/L is 0.031.
+    than 3 mg/L is 0.342 and more than 10 mg/L is 0.031.
 
 
     \begin{figure}[h]
@@ -225,10 +225,42 @@ functions of the nitrate concentrations in the wells for each county.
     the probability that a $\chi_{4}^{2}$ random variable is greater than $T$ is 0.0158. Thus there is significant evidence to believe the that the
     distributions between the three counties are not all the same.
 
+    The estimated probabilities that the nitrate concentration of a randomly selected well in each county is below 3 mg/L and above 10 mg/L is are
+    summarized in Table 5.
 
+    \begin{table}[h]
+      \caption{\emph{Estimated probabilities for each county.}}
+      \centering
+      \begin{tabular}{|c|c|c|}
+        \hline
+        County & Probability less than 3 mg/L & Probability greater than 10 mg/L \\
+        \hline 
+        1 & 0.4292 & 0.0587 \\
+        \hline
+        2 & 0.2786 & 0.0286 \\
+        \hline
+        3 & 0.2480 & 0.0032 \\
+        \hline
+      \end{tabular}
+    \end{table}
+
+    We also plot the estimated density functions of the nitrate concentration across wells for each county, as shown in Figure \ref{density2}.
+
+    \begin{figure}[h]
+      \caption{\emph{Estimated density functions for each county.}}
+      \centering
+      \includegraphics[width=.9\textwidth]{./figures/hw04_density2.pdf}
+      \label{density2}
+    \end{figure}
+
+
+  \item The two different approaches to our analysis yielded two different results. When we approached the problem using a generalized linear model,
+    we found that there was not significant evidence to believe the distributions of the nitrate concentration across wells was different for
+    different counties. However, this analysis relied on the assumption that the shape parameter in each model was the same. 
+    On the other hand, when we approached the problem with a likelihood analysis, we found that there was significant evidence in favor a full model which assigned
+    different distributions to each county. This suggests that the distributions vary primarly through the shape parameter $\alpha$.
 
 \end{enumerate}
-
 
 
 \end{document}
