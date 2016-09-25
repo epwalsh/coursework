@@ -3,8 +3,9 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-09-18
-# Last Modified: 2016-09-20 17:14:14
+# Last Modified: 2016-09-24 14:43:26
 # =============================================================================
+
 
 basicglm<-function(xmat,y,link,random,startb=0,ns=1,ews=0,pwr=0,outfile=NULL)
 {
@@ -58,7 +59,7 @@ Fishscorglm<-
       etahat <- x %*% as.matrix(b)
       if(link == 7)
         etahat <- -1 * abs(etahat)
-      if(1e-08 > (sum((etahat - oeh)^2) * 0.5))
+      if(1e-08 > (sum((etahat - oeh)^2) ^ 0.5))
         break
     }
     xtw2 <- t(x) * (mw^0.5)
@@ -152,7 +153,7 @@ else if(pick == 4) {
 else if(pick == 5) {
   eprt <- exp(exp(etahat))
   mh <- (eprt - 1)/eprt
-  dedm <- 1/((1 - mh) * (1-(log(1 - mh))))
+  dedm <- -1/((1 - mh) * log(1 - mh))
 }
 else if(pick == 6) {
   mh <- 1/etahat
@@ -374,4 +375,6 @@ writeres<-function(b, outs,filename){
   cat(" ",file=filename,append=T,fill=T)
   #  j<-format(outs[[1]],digits=3)
   write.table(format(indres),row.names=F,quote=F,file=filename,append=T)
+
 }
+
