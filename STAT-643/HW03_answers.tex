@@ -56,16 +56,39 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Suppose that $X=(T,S)$ and the family $\mathcal{P}$ of distributions of $X$ on $\mathcal{X}=\mathcal{T}\times \mathcal{S}$ is dominated by the measure $\mu=\nu\times \gamma$ (a product of $\sigma$-finite measures on $\mathcal{T}$ and $\mathcal{S}$, respectively).  With $\frac{d P_\theta}{d \mu}(t,s) = f_\theta(t,s)$, let
   \[
-    g_\theta(t) = \int_{\mathcal{S}}f_\theta(s,t) d\gamma(s)  \qquad \mbox{and}\qquad f_\theta(s|t) =\frac{f_\theta(t,s)}{g_\theta(t)}.
+    g_\theta(t) = \int_{\mathcal{S}}f_\theta(t,s) d\gamma(s)  \qquad \mbox{and}\qquad f_\theta(s|t) =\frac{f_\theta(t,s)}{g_\theta(t)}.
   \]
   Suppose that $\mathcal{P}$ is FI regular at $\theta_0 \in \mathbb{R}$ and $g^\prime_{\theta_0}(t)=\int_{\mathcal{S}} f^\prime_{\theta_0}(t,s) d \gamma(s)$ holds for any $t$, where the derivatives $g_\theta^\prime$ and $f_\theta^\prime$ are with respect to $\theta$.  Then show that
   \[
     I_X(\theta_0) \geq I_{T}(\theta_0).
   \]
 
-  \noindent Note:  Don't use Proposition 43 here; you should prove this result directly.    For this, it is helpful to use that, for $Y\equiv \frac{ d \log f_\theta(t,s) } { d \theta} \big|_{\theta=\theta_0}$,  $\E_{\theta_0}[ Y^2 ] = \E_{\theta_0}( \E_{\theta_0}[ Y^2 |T])$ holds and
+  \noindent Note:  Don't use Proposition 43 here; you should prove this result directly.    For this, it is helpful to use that, for 
+  $Y :=\frac{ d \log f_\theta(t,s) } { d \theta} \big|_{\theta=\theta_0}$,  $\E_{\theta_0}[ Y^2 ] = \E_{\theta_0}( \E_{\theta_0}[ Y^2 |T])$ holds and
   $\E_{\theta_0}[ Y^2 |T] \geq (\E_{\theta_0}[ Y |T])^2$ by conditional Jensen's inequality.
 \end{tcolorbox}
+\textbf{Solution:}
+
+\begin{Proof}
+  Let $Y:= \frac{ d \log f_\theta(T,s) } { d \theta} \big|_{\theta=\theta_0}$,
+  First note that 
+  \begin{align}
+    \E_{\theta_0}[Y|T] \equiv \E_{\theta_0}[Y|T](t) & = \frac{1}{g_{\theta_0}(t)}\int_{\mathcal{S}}\frac{d\log f_{\theta}(t,s)}{d\theta}\bigg|_{\theta=\theta_0}
+    f_{\theta_0}(t,s)d\gamma(s) \nonumber \\
+    & = \frac{1}{g_{\theta_0}(t)}\int_{\mathcal{S}}\frac{df_{\theta}(t,s)}{d\theta}\bigg|_{\theta=\theta_0}d\gamma(s) \nonumber \\
+    & = \frac{g_{\theta_0}'(t)}{g_{\theta_0}(t)} \nonumber \\
+    & = \frac{d\log g_{\theta}(t)}{d\theta}\bigg|_{\theta = \theta_0} \ \ \text{a.e.}\ \  \mu.
+    \label{1.1}
+  \end{align}
+  Thus, by \eqref{1.1} and conditional Jensen's inequality,
+  \begin{align*}
+    I_{X}(\theta_0) = \E_{\theta_0}[Y^{2}] = \E_{\theta_0}\left( \E_{\theta_0}\left[ Y^2|T \right] \right)
+    & \geq \E_{\theta_0}\left( E_{\theta_0}[Y|T] \right)^2 \\
+    & = E_{\theta_0}\left( \frac{d\log g_{\theta}(T)}{d\theta}\bigg|_{\theta=\theta_0} \right)^2  \\
+    & = I_{T}(\theta_0),
+  \end{align*}
+  since $\frac{dP_{\theta}^{T}}{d\nu}(t) = g_{\theta}(t)$ a.e. $\nu$.
+\end{Proof}
 
 
 \newpage
@@ -77,9 +100,27 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \]
   assuming that $P$ and $Q$ are elements of $\mathcal{P}$.\\
 
-  \noindent Hint:  For $Z\equiv  q(X)/p(X)$, use that $\E_{\theta_0}[ C(Z) |T] \geq C(\E_{\theta_0}[ Z |T])$ by conditional Jensen's inequality for $C(z)= - \log z $.  One also needs  densities for $T$ from $p_T(t) = \int_{\mathcal{S}}p(s,t) d\gamma(s)$ and
+  \noindent Hint:  For $Z\equiv  q(X)/p(X)$, use that $\E_{\theta_0}[ C(Z) |T] \geq C(\E_{\theta_0}[ Z |T])$ by conditional Jensen's inequality for $C(z)= - \log z $.  
+  One also needs  densities for $T$ from $p_T(t) = \int_{\mathcal{S}}p(s,t) d\gamma(s)$ and
   $q_T(t) = \int_{\mathcal{S}}q(s,t) d\gamma(s)$ where $\frac{d P}{d \mu}(t,s) = p(t,s)$ and $\frac{d Q}{d \mu}(t,s) = q(t,s)$.
 \end{tcolorbox}
+\textbf{Solution:}
+
+\begin{Proof}
+  Let $p(t,s):=\frac{d P}{d \mu}(t,s)$ and $q(t,s) := \frac{d Q}{d \mu}(t,s)$. Then
+  $p_{T}(t) := \int_{\mathcal{S}}p(t,s)d\gamma(s)$ and $q_{T}(t) := \int_{\mathcal{S}}q(t,s)d\gamma(s)$ are the densities for $T$ with respect to
+  $\nu$. Now, define $Z := q(X) / p(X)$ and $C(z) := -\log z$, $z > 0$. Note that 
+  \begin{equation}
+    E_{P}[Z|T] \equiv E_P[Z|T](t) = \frac{1}{p_{T}(t)}\int_{\mathcal{S}}\frac{q(t,s)}{p(t,s)}p(t,s)d\gamma(s) = \frac{q_T(t)}{p_T(t)}.
+      \label{2.1}
+  \end{equation}
+  Now, without loss of generality assume $q(X) > 0$ a.s. $P$ and $\E_P|C(Z)| < \infty$. Then by conditional Jensen's inequality and \eqref{2.1},
+  \begin{align*}
+    I_X(P,Q) = E_PC(Z) = E_P\left( E_P[C(Z)|T] \right) & \geq E_P\left\{ C\left( E_P[Z|T] \right) \right\} \\
+    & = E_P\left\{ -\log\left[ \frac{q_T(T)}{p_T(T)} \right] \right\} \\
+    & = E_P\left\{ \log\left[\frac{p_T(T)}{q_T(T)}\right] \right\} = I_T(P^{T},Q^{T}).
+  \end{align*}
+\end{Proof}
 
  
  
