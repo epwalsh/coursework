@@ -3,7 +3,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-09-24
-# Last Modified: 2016-09-24 18:52:43
+# Last Modified: 2016-09-26 10:31:58
 # =============================================================================
 
 source("glm.R")
@@ -13,7 +13,13 @@ dat <- read.csv("../data/HW04.csv")
 dat$county <- as.factor(dat$county)
 
 ggplot(aes(y=y, x=county, fill=county), data=dat) + geom_boxplot() + theme_bw()
-ggplot(aes(y, colour=county, fill=county), data=dat) + geom_density(alpha=0.2) + 
+
+dat2 <- dat
+dat2$county <- NA
+dat2$county[dat$county == 1] <- "county1"
+dat2$county[dat$county == 2] <- "county2"
+dat2$county[dat$county == 3] <- "county3"
+ggplot(aes(y, colour=county, fill=county), data=dat2) + geom_density(alpha=0.2) + 
   theme_bw() + xlim(0, 12)
 
 # Part 1 {{{
@@ -95,6 +101,18 @@ y <- dgamma(x, shape=phi, rate=Beta)
 df2 <- data.frame(x=x, density=y)
 
 ggplot(aes(x=x, y=density), data=df2) + geom_line() + theme_bw()
+
+# Combined model
+mod3 <- basicglm(xmat[,1], y, link=6, random=5)
+mod3$estb
+Alpha <- as.numeric(mod3$ests[1])
+Beta <- as.numeric(mod3$ests[1] * mod3$estb)
+pgamma(3, shape=Alpha, rate=Beta)
+1 - pgamma(10, shape=Alpha, rate=Beta)
+
+mod4 <- glm(y~x1 + x2, data=df, family=Gamma(link="log"))
+summary(mod4)
+summary(mod2)
 # }}}
 
 # Part 2 {{{
@@ -107,8 +125,48 @@ county3 <- dat[dat$county == 3,2]
 county1_res <- newtraph(derloglike, county1, c(2,0.5))
 county2_res <- newtraph(derloglike, county2, c(2,0.5))
 county3_res <- newtraph(derloglike, county3, c(2,0.5))
+reduced_res <- newtraph(derloglike, dat$y, c(2, 0.5))
 
 county1_res[[1]]
+county1_res[[1]] - qnorm(0.975) * sqrt(diag(county1_res[[3]]))
+county1_res[[1]] + qnorm(0.975) * sqrt(diag(county1_res[[3]]))
+
 county2_res[[1]]
+county2_res[[1]] - qnorm(0.975) * sqrt(diag(county2_res[[3]]))
+county2_res[[1]] + qnorm(0.975) * sqrt(diag(county2_res[[3]]))
+
 county3_res[[1]]
+county3_res[[1]] - qnorm(0.975) * sqrt(diag(county3_res[[3]]))
+county3_res[[1]] + qnorm(0.975) * sqrt(diag(county3_res[[3]]))
+
+reduced_res[[1]]
+reduced_res[[1]] - qnorm(0.975) * sqrt(diag(reduced_res[[3]]))
+reduced_res[[1]] + qnorm(0.975) * sqrt(diag(reduced_res[[3]]))
+
+reduced_res[[2]]
+county1_res[[2]] + county2_res[[2]] + county3_res[[2]]
+
+-2 * (reduced_res[[2]] - (county1_res[[2]] + county2_res[[2]] + county3_res[[2]]))
+
+pgamma(3, shape=county1_res[[1]][1], rate=county1_res[[1]][2])
+pgamma(3, shape=county2_res[[1]][1], rate=county2_res[[1]][2])
+pgamma(3, shape=county3_res[[1]][1], rate=county3_res[[1]][2])
+
+1 - pgamma(10, shape=county1_res[[1]][1], rate=county1_res[[1]][2])
+1 - pgamma(10, shape=county2_res[[1]][1], rate=county2_res[[1]][2])
+1 - pgamma(10, shape=county3_res[[1]][1], rate=county3_res[[1]][2])
+
+x <- seq(0,12.5, by=0.1)
+county1 <- dgamma(x, shape=county1_res[[1]][1], rate=county1_res[[1]][2])
+county2 <- dgamma(x, shape=county2_res[[1]][1], rate=county2_res[[1]][2])
+county3 <- dgamma(x, shape=county3_res[[1]][1], rate=county3_res[[1]][2])
+df3 <- data.frame(x=x, county1=county1, county2=county2, county3=county3)
+
+library(dplyr)
+library(reshape2)
+
+df3 %>% melt(id.vars=c("x"), measure.vars=c("county1", "county2", "county3"),
+  variable.name="county", value.name="density") %>%
+  ggplot(aes(x=x, colour=county, fill=county)) + 
+  geom_ribbon(aes(ymin=0, ymax=density), alpha=0.2) + theme_bw() + ylab("density")
 # }}}

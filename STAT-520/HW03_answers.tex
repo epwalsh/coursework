@@ -58,16 +58,16 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $i$ and the covariates $x_{1}, \dots, x_{n}$ such that $x_{i}$ is the body mass (in grams) of gull $i$. Then each $Y_{i}$ has support in the non-negative
     reals since concentration cannot be negative.
 
-  \item In choosing a random model component we first need to make sure that the support of the model aligns the support of the random variables we
+  \item In choosing a random model component we first need to make sure that the support of the model aligns with the support of the random variables we
     have defined. Thus a random model component with support in the non-negative reals is natural. This gives us several options, including Gamma and
     Inverse Gaussian. To determine which is the most appropriate, we 
     create a Box-Cox plot of the log of means 
     versus the log standard deviation of the response in 5 different bins, as shown below in Figure \ref{fig:1}.
 
     \begin{figure}[h]
-      \caption{\emph{Box-Cot plot produced using the function \texttt{regmeanvar}.}}
       \centering
       \includegraphics[width=.82\textwidth]{./figures/hw03_regmeanvar.pdf}
+      \caption{\emph{Box-Cot plot produced using the function \texttt{regmeanvar}.}}
       \label{fig:1}
     \end{figure}
 
@@ -80,7 +80,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     
     \begin{figure}[h]
       \centering
-      \caption{\emph{Various tranformations of the reponse OXY against the covariate body mass.}}
+      \caption{\emph{Various tranformations of the response OXY against the covariate body mass.}}
       \begin{subfigure}{0.6\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{./figures/hw03_log_link.pdf}
@@ -119,7 +119,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       scaled deviance. Model 1 is the log link, model 2 is the power link with $\lambda = 1/2$, and model 3 is the power link with $\lambda = 1/3$.}}
       \vspace{.5cm}
       \centering
-      \begin{tabular}{l|c|c|c|c|c|c|c|c}
+      \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
         \hline
         & $\hat{\phi}$ & $\hat{\beta_0}$ & $\hat{\beta_{1}}$ & 95\% CI for $\hat{\beta_0}$ & 95\% CI for $\hat{\beta_1}$ & $D_{u}$ & $D_{s}$ &
         $\ell(\hat{\beta_0}, \hat{\beta_1}, \hat{\phi})$ \\
@@ -139,11 +139,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 
     \begin{figure}[h]
-      \caption{\emph{Scatterplot of data with fitted expectation function. The solid line is the
-          estimated expectation for the log link and two dotted lines (which are almost indistinguishable) are for the power link functions with powers $1/2$
-    and $1/3$.}}
       \centering
       \includegraphics[width=.8\textwidth]{./figures/hw03_fitted.pdf}
+      \caption{\emph{Scatterplot of data with fitted expectation function. The solid line is the
+          estimated expectation for the log link and two dotted lines (which are almost indistinguishable) are for the power link functions with powers $1/2$
+      and $1/3$.}}
       \label{fig:5}
     \end{figure}
 \end{enumerate}
@@ -165,7 +165,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \caption{\emph{Results of a glm fit to OXY with body mass as a covariate. Here $D$ represents both the unscaled and scaled deviance.}}
       \vspace{.5cm}
       \centering
-      \begin{tabular}{c|c|c|c|c|c}
+      \begin{tabular}{|c|c|c|c|c|c|}
         \hline
         $\hat{\beta_0}$ & $\hat{\beta_{1}}$ & 95\% CI for $\hat{\beta_0}$ & 95\% CI for $\hat{\beta_1}$ & $D$ & 
         $\ell(\hat{\beta_0}, \hat{\beta_1}, \hat{\phi})$ \\
@@ -177,10 +177,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \end{table}
 
     \begin{figure}[h]
-      \caption{\emph{Scatterplot of the simulated data with the estimated expectation function.}}
-
       \centering
       \includegraphics[width=.8\textwidth]{./figures/hw03_2_fitted.pdf}
+      \caption{\emph{Scatterplot of the simulated data with the estimated expectation function.}}
       \label{fig:6}
     \end{figure}
 
