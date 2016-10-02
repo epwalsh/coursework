@@ -46,7 +46,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \cfoot{}
 
 \begin{document}
-% \maketitle
+\maketitle
 
 \newcommand{\E}{\mathrm{E}}
 \renewcommand{\baselinestretch}{1}
@@ -62,10 +62,6 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \[
     I_X(\theta_0) \geq I_{T}(\theta_0).
   \]
-
-  \noindent Note:  Don't use Proposition 43 here; you should prove this result directly.    For this, it is helpful to use that, for 
-  $Y :=\frac{ d \log f_\theta(t,s) } { d \theta} \big|_{\theta=\theta_0}$,  $\E_{\theta_0}[ Y^2 ] = \E_{\theta_0}( \E_{\theta_0}[ Y^2 |T])$ holds and
-  $\E_{\theta_0}[ Y^2 |T] \geq (\E_{\theta_0}[ Y |T])^2$ by conditional Jensen's inequality.
 \end{tcolorbox}
 \textbf{Solution:}
 
@@ -73,18 +69,17 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Let $Y:= \frac{ d \log f_\theta(T,s) } { d \theta} \big|_{\theta=\theta_0}$,
   First note that 
   \begin{align}
-    \E_{\theta_0}[Y|T] \equiv \E_{\theta_0}[Y|T](t) & = \frac{1}{g_{\theta_0}(t)}\int_{\mathcal{S}}\frac{d\log f_{\theta}(t,s)}{d\theta}\bigg|_{\theta=\theta_0}
-    f_{\theta_0}(t,s)d\gamma(s) \nonumber \\
+    \E_{\theta_0}[Y|T](t) = \frac{1}{g_{\theta_0}(t)}\int_{\mathcal{S}}\frac{d\log f_{\theta}(t,s)}{d\theta}\bigg|_{\theta=\theta_0}
+    f_{\theta_0}(t,s)d\gamma(s)
     & = \frac{1}{g_{\theta_0}(t)}\int_{\mathcal{S}}\frac{df_{\theta}(t,s)}{d\theta}\bigg|_{\theta=\theta_0}d\gamma(s) \nonumber \\
     & = \frac{g_{\theta_0}'(t)}{g_{\theta_0}(t)} \nonumber \\
     & = \frac{d\log g_{\theta}(t)}{d\theta}\bigg|_{\theta = \theta_0} \ \ \text{a.e.}\ \  \mu.
     \label{1.1}
   \end{align}
-  Thus, by \eqref{1.1} and conditional Jensen's inequality,
+  Now, without loss of generality assume $\E_{\theta_0}Y^{2} < \infty$. Then by \eqref{1.1} and conditional Jensen's inequality,
   \begin{align*}
     I_{X}(\theta_0) = \E_{\theta_0}[Y^{2}] = \E_{\theta_0}\left( \E_{\theta_0}\left[ Y^2|T \right] \right)
-    & \geq \E_{\theta_0}\left( E_{\theta_0}[Y|T] \right)^2 \\
-    & = E_{\theta_0}\left( \frac{d\log g_{\theta}(T)}{d\theta}\bigg|_{\theta=\theta_0} \right)^2  \\
+    \geq \E_{\theta_0}\left( E_{\theta_0}[Y|T] \right)^2 & = E_{\theta_0}\left( \frac{d\log g_{\theta}(T)}{d\theta}\bigg|_{\theta=\theta_0} \right)^2  \\
     & = I_{T}(\theta_0),
   \end{align*}
   since $\frac{dP_{\theta}^{T}}{d\nu}(t) = g_{\theta}(t)$ a.e. $\nu$.
@@ -99,10 +94,6 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     I_X(P,Q) \geq I_{T}(P^T,Q^T)
   \]
   assuming that $P$ and $Q$ are elements of $\mathcal{P}$.\\
-
-  \noindent Hint:  For $Z\equiv  q(X)/p(X)$, use that $\E_{\theta_0}[ C(Z) |T] \geq C(\E_{\theta_0}[ Z |T])$ by conditional Jensen's inequality for $C(z)= - \log z $.  
-  One also needs  densities for $T$ from $p_T(t) = \int_{\mathcal{S}}p(s,t) d\gamma(s)$ and
-  $q_T(t) = \int_{\mathcal{S}}q(s,t) d\gamma(s)$ where $\frac{d P}{d \mu}(t,s) = p(t,s)$ and $\frac{d Q}{d \mu}(t,s) = q(t,s)$.
 \end{tcolorbox}
 \textbf{Solution:}
 
@@ -111,10 +102,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   $p_{T}(t) := \int_{\mathcal{S}}p(t,s)d\gamma(s)$ and $q_{T}(t) := \int_{\mathcal{S}}q(t,s)d\gamma(s)$ are the densities for $T$ with respect to
   $\nu$. Now, define $Z := q(X) / p(X)$ and $C(z) := -\log z$, $z > 0$. Note that 
   \begin{equation}
-    E_{P}[Z|T] \equiv E_P[Z|T](t) = \frac{1}{p_{T}(t)}\int_{\mathcal{S}}\frac{q(t,s)}{p(t,s)}p(t,s)d\gamma(s) = \frac{q_T(t)}{p_T(t)}.
+    E_P[Z|T=t] = \frac{1}{p_{T}(t)}\int_{\mathcal{S}}\frac{q(t,s)}{p(t,s)}p(t,s)d\gamma(s) = \frac{q_T(t)}{p_T(t)}.
       \label{2.1}
   \end{equation}
-  Now, without loss of generality assume $q(X) > 0$ a.s. $P$ and $\E_P|C(Z)| < \infty$. Then by conditional Jensen's inequality and \eqref{2.1},
+  Now, without loss of generality assume $\E_{P}|C(Z)| < \infty$.
+  Then by conditional Jensen's inequality and \eqref{2.1},
   \begin{align*}
     I_X(P,Q) = E_PC(Z) = E_P\left( E_P[C(Z)|T] \right) & \geq E_P\left\{ C\left( E_P[Z|T] \right) \right\} \\
     & = E_P\left\{ -\log\left[ \frac{q_T(T)}{p_T(T)} \right] \right\} \\
@@ -135,9 +127,50 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
     \item Supposing that $P$ and $Q$ have common support for discrete $X$ and that $I_X(P,Q)<\infty$,  show that  $I_X(P,Q) = I_{T(X)}(P^T,Q^T)$ holds if and only if $T(X)$ is sufficient for $\{P,Q\}$.
   \end{enumerate}
-
-  Hint:  For $Z\equiv  q(X)/p(X)$, again use that $\E_{P}[ C(Z) |T(X)=t] \geq C(\E_{P}[ Z |T(X)=t])$ by conditional Jensen's inequality for $C(z)= - \log z $ when $P(T(X)=t)>0$; equality can only hold if and only if the conditional distribution $Z|T(X)=t$ is degenerately equal to $\E_{P}[ Z |T(X)=t]$.     Note $p_T(t) = P(T(X)=t) = \sum_{x : T(x)=t} p(x)$ and $q_T(t) = Q(T(X)=t) = \sum_{x : T(x)=t} q(x)$.
 \end{tcolorbox}
+
+\textbf{Solution:} Let $Z := q(X) / p(X)$ and $C(z) := -\log z$ for $z > 0$. Further, note that $p_T(t) := P(T(X)=t) = \sum_{x : T(x)=t} p(x)$ and 
+$q_T(t) := Q(T(X)=t) = \sum_{x : T(x)=t} q(x)$.
+Without loss of generality assume $E_{P}|C(Z)| < \infty$. Then, by
+conditional Jensen's inequality,
+\begin{equation}
+  \E_P[C(Z)|T] \geq C\left( E_P[Z|T] \right).
+  \label{3.1}
+\end{equation}
+We also have that for each $t$ such that $P(T(X) = t) > 0$,
+\begin{equation}
+  \E_P[Z|T] = \frac{\sum_{x:T(x) = t}\frac{q(x)}{p(x)}p(x) }{\sum_{x:T(x) = t}p(x)} = \frac{q_{T}(x)}{p_T(x)}.
+  \label{3.2}
+\end{equation}
+\begin{enumerate}
+  \item By \eqref{3.1} and \eqref{3.2},
+    \begin{align}
+      I_{X}(P,Q) = \E_P[C(Z)] = \E_{P}\left( E[C(Z)|T] \right) \geq \E_P\left\{ C\left( E[Z|T] \right) \right\} & = \E_P\left[
+      \log\left(\frac{p_T(T)}{q_T(T)}\right) \right] \nonumber \\
+      & = I_{T(X)}(P^{T},Q^{T}).
+      \label{3.3}
+    \end{align}
+
+  \item Without loss of generality assume $p(x), q(x) > 0$ for all $x \in \mathcal{X}$.
+    By \eqref{3.3}, 
+    \[
+      I_X(P,Q) = I_{T(X)}(P^T, Q^T)
+    \]
+    if and only if 
+    \begin{equation}
+      E[C(Z)|T=t] = C\left( E[Z|T=t] \right)\  \text{ for all }\ t \in \mathrm{Ran} T.
+      \label{3.4}
+    \end{equation}
+    But since $C$ is strictly convex, \eqref{3.4} holds if and only if for each $t \in \mathrm{Ran} T$, 
+    \[
+      Z = \frac{q(X)}{p(X)} \equiv \text{ some constant} 
+    \]
+    whenever $T(X) = t$, i.e. the conditional distribution of $Z | T = t$ is
+    degenerate. But this equivalent to the condition that we can factor $p$ and $q$ as $p(x) = g_P(T(x))h(x)$ and $q(x) = g_Q(T(x))h(x)$, respectively.
+    Hence by the Factorization Theorem we see that $I_X(P,Q) = I_{T(X)}(P^{T}, Q^{T})$ if and only if $T$ is sufficient.
+
+\end{enumerate}
+
 
 
 \newpage
@@ -173,7 +206,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Proof}
 
 
-
+\newpage
 \subsection*{5}
 \begin{tcolorbox}
   Suppose that $\Theta = \Theta_1 \times \Theta_2$ and that a decision rule $\phi \in D^*$ is such that for each $\theta_2\in\Theta_2$, $\phi$
@@ -181,7 +214,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{tcolorbox}
 
 
-
+\newpage
 \subsection*{6}
 \begin{tcolorbox}
   Suppose that $w(\theta)>0$ for any $\theta \in \Theta$ and let $\phi \in D^*$.  Show $\phi$ is admissible in $D^*$ with the loss function $L(\theta,a)$
@@ -189,7 +222,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{tcolorbox}
 
 
-
+\newpage
 \subsection*{7}
 \begin{tcolorbox}
   Consider estimation of $p \in [0,1]$ with the squared error loss, based on $X\sim$Binomial$(n,p)$, and the two non-randomized decision rules
