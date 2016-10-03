@@ -16,6 +16,8 @@
 \usepackage{mathcomp}
 \usepackage{tcolorbox}
 
+\linespread{1.5}
+
 \declaretheoremstyle[headfont=\normalfont]{normal}
 \declaretheorem[style=normal]{Theorem}
 \declaretheorem[style=normal]{Proposition}
@@ -103,16 +105,16 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
     \newpage
 
-  \item Assume $\theta = 0.5$. We use the R function \texttt{nonlin} from the course webpage to estimate $\bm{\beta}$ using generalized least squares.
+  \item Assume $\theta = 0.5$. We used the R function \texttt{nonlin} from the course webpage to estimate $\bm{\beta}$ using generalized least squares.
     Figure \ref{scatterplot} shows the relationship between the response and the covariate. Based on this, we can guestimate that the asymptote
-    $\beta_1$ is around 20 and the point of inflection $\beta_2 / \beta_3$ is around 6. After some trial and error, we find that the starting values 
-    $\beta_{1}^{(0)} = 20, \beta_{2}^{(0)} = 3$, and $\beta_{3}^{(0)} = 0.5$ give us convergence. Estimates of parameters along with 95\% Wald theory
-    confidence intervals are displayed in Table \ref{tab2.1}.
+    $\beta_1$ is around 20 and the point of inflection $\beta_2 / \beta_3$ is around 6. After some trial and error, we found that the starting values 
+    $\beta_{1}^{(0)} = 20, \beta_{2}^{(0)} = 3$, and $\beta_{3}^{(0)} = 0.5$ give us convergence. Estimates of parameters along with 95\% 
+    confidence intervals based on the Fundemental Theorem of Generalized Least Squares are displayed in Table \ref{tab2.1}.
 
     \begin{figure}[h]
       \caption{\emph{Scatterplot of response variable against the covariate.}}
       \centering
-      \includegraphics[width=.7\textwidth]{./figures/hw05_scatterplot.pdf}
+      \includegraphics[width=.9\textwidth]{./figures/hw05_scatterplot.pdf}
       \label{scatterplot}
     \end{figure}
 
@@ -123,7 +125,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \centering
       \begin{tabular}{|c|c|c|}
         \hline
-         & Estimate & 95\% Wald theory CI \\
+        & Estimate & 95\% CI based on Fund. Thm of GLS \\
         \hline
         $\beta_1$ & 20.062 & (19.365, 20.760) \\
         \hline
@@ -139,7 +141,65 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \label{tab2.1}
     \end{table}
 
+    \newpage
+  \item Assume again that $\theta = 0.5$. Based on the estimates from Part 2, we used the starting values $\beta_1 = 20$, $\beta_2 = 3$, $\beta_3 =
+    0.5$, and $\sigma^{2} = 0.2$ as input for the R function \texttt{optim} to minimize the negative log likelihood function.  The estimated
+    parameters along with 95\% Wald theory confidence intervals are shown in Table \ref{tab3.1}.
+
+    \begin{table}[h]
+      \caption{\emph{Results of a maximum likelihood approach to estimate the parameters in model \eqref{5}.}}
+      \vspace{.2cm}
+      \centering
+      \begin{tabular}{|c|c|c|}
+        \hline
+        & Estimate & 95\% Wald theory CI \\
+        \hline
+        $\beta_1$ & 20.064 & (19.393, 20.736) \\
+        \hline
+        $\beta_2$ & 3.259 & (3.009, 3.509) \\
+        \hline
+        $\beta_3$ & 0.544 & (0.493, 0.594) \\
+        \hline
+        $\beta_2 / \beta_3$ & 5.996 & (5.815, 6.176) \\
+        \hline
+        $\sigma^{2}$ & 0.202 & \\
+        \hline
+      \end{tabular}
+      \label{tab3.1}
+    \end{table}
+
+
   \item
+
+  \item 
+
+  % Question 6
+  \item Assuming that $\theta$ is now unknown, we used the R function \texttt{optim} once again to estimate all parameters by a standard maximum
+    likelihood approach. For starting values we used the estimates from Part 3 for $\bm{\beta}$ and $\sigma^{2}$, and $\theta = 0.5$. Convergence was
+    eventually acheived by upping the maximum number of rounds to 1000. The estimates of all parameters along with 95\% Wald theory confidence
+    intervals are displayed in Table \ref{tab6.1}.
+
+    \begin{table}[h]
+      \caption{\emph{Results of a maximum likelihood approach to estimate the parameters in model \eqref{5}.}}
+      \vspace{.2cm}
+      \centering
+      \begin{tabular}{|c|c|c|}
+        \hline
+        & Estimate & 95\% Wald theory CI \\
+        \hline
+        $\beta_1$ & 20.148 & (19.431, 20.864) \\
+        \hline
+        $\beta_2$ & 3.141 & (2.911, 3.371) \\
+        \hline
+        $\beta_3$ & 0.523 & (0.475, 0.571) \\
+        \hline
+        $\sigma^{2}$ & 0.107 & \\
+        \hline
+        $\theta$ & 0.624 & \\
+        \hline
+      \end{tabular}
+      \label{tab6.1}
+    \end{table}
 
 \end{enumerate}
 
