@@ -86,19 +86,60 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \end{equation}
     Since \eqref{2} and \eqref{3} are clearly different objectives, the GLS and MLE estimates may very well differ.
 
+    \vspace{2cm}
 
-  \item Now suppose the model in \eqref{1} is expressed with 
+    \textbf{For the remainder of the assignment we will assume the model in \eqref{1} is expressed with }
     \begin{align}
       g_1(\bm{x}_i,\bm{\beta}) & = \beta_1\exp\left[ -\exp(\beta_2 - \beta_3x_i) \right] \nonumber \\
       g_2(\bm{x}_i, \bm{\beta}) & = [g_1(\bm{x}_i,\bm{\beta})]^{\theta},
       \label{4}
     \end{align}
-    i.e. 
+    \textbf{i.e. }
     \begin{equation}
       Y_i = \mu_i(\bm{\beta}) + \sigma\{\mu_i(\bm{\beta})\}^{\theta}\epsilon_i,
       \label{5}
     \end{equation}
-    where $\mu_i(\bm{\beta}) = \beta_1\exp\left[ -\exp(\beta_2 - \beta_3x_i) \right]$.
+    \textbf{where }$\mu_i(\bm{\beta}) = \beta_1\exp\left[ -\exp(\beta_2 - \beta_3x_i) \right]$.
+
+    \newpage
+
+  \item Assume $\theta = 0.5$. We use the R function \texttt{nonlin} from the course webpage to estimate $\bm{\beta}$ using generalized least squares.
+    Figure \ref{scatterplot} shows the relationship between the response and the covariate. Based on this, we can guestimate that the asymptote
+    $\beta_1$ is around 20 and the point of inflection $\beta_2 / \beta_3$ is around 6. After some trial and error, we find that the starting values 
+    $\beta_{1}^{(0)} = 20, \beta_{2}^{(0)} = 3$, and $\beta_{3}^{(0)} = 0.5$ give us convergence. Estimates of parameters along with 95\% Wald theory
+    confidence intervals are displayed in Table \ref{tab2.1}.
+
+    \begin{figure}[h]
+      \caption{\emph{Scatterplot of response variable against the covariate.}}
+      \centering
+      \includegraphics[width=.7\textwidth]{./figures/hw05_scatterplot.pdf}
+      \label{scatterplot}
+    \end{figure}
+
+
+    \begin{table}[h]
+      \caption{\emph{Results of generalized least squares to estimate the parameters in model \eqref{5}.}}
+      \vspace{.2cm}
+      \centering
+      \begin{tabular}{|c|c|c|}
+        \hline
+         & Estimate & 95\% Wald theory CI \\
+        \hline
+        $\beta_1$ & 20.062 & (19.365, 20.760) \\
+        \hline
+        $\beta_2$ & 3.224 & (2.921, 3.427) \\
+        \hline
+        $\beta_3$ & 0.539 & (0.480, 0.598) \\
+        \hline
+        $\beta_2 / \beta_3$ & 5.985 & (5.797, 6.172) \\
+        \hline
+        $\sigma^{2}$ & 0.2096 & \\
+        \hline
+      \end{tabular}
+      \label{tab2.1}
+    \end{table}
+
+  \item
 
 \end{enumerate}
 

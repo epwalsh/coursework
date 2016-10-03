@@ -56,7 +56,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 Drinking water was sampled from individual wells in three different counties in Iowa, with 25 wells sampled from each county. In each well the nitrate
 concentration was measured since nitrate is considered to be a contaminate, with concentrations above 5 being an indication of risk.
-We are interested in whether there are differences in the distribution of nitrate concentrations across wells for the three different counties.
+We are interested in whether there are differences in the distributions of nitrate concentration across wells for the three different counties.
 Figure \ref{boxplot} shows side-by-side boxplots of the nitrate concentrations in the wells for each county, and Figure \ref{density} shows the empirical density
 functions of the nitrate concentrations in the wells for each county.
 
@@ -87,14 +87,15 @@ functions of the nitrate concentrations in the wells for each county.
       \end{array} \right.
     \]
     Note that we only need two covariates here and not three since we will fit the model with an intercept.
-    Since the covariates are just dummy variables for group membership, the particular form of the link function will have little effect on the model.
+    Since the covariates are just dummy variables for group membership, the particular form of the link function will no effect on the model in terms
+    of inference for the expected value and variance of each distribution.
     Thus we simply choose to use the canonical link function for the Gamma distribution: $g(\mu_i) := 1 / \mu_i$.
     
 
     \begin{table}[h]
       \caption{\emph{Results of a glm fit to the nitrate concentrations in each well with a Gamma random component and the Gamma canonical link.
       $\hat{\phi}$ is the usual method of moments estimator of the dispersion parameter $\phi$.}}
-      \vspace{.5cm}
+      \vspace{.2cm}
       \centering
       \begin{tabular}{|c|c|c|c|}
         \hline
@@ -109,8 +110,8 @@ functions of the nitrate concentrations in the wells for each county.
 
     \begin{table}[h]
       \caption{\emph{Parameter estimates, standard errors, and 95\% Wald theory confidence intervals. Here the $\beta$'s are the coefficients for the
-      linear component in our model, not the rate parameter in a Gamma distribution.}}
-      \vspace{.5cm}
+      systematic (linear) component in our model, not the rate parameter in a Gamma distribution.}}
+      \vspace{.2cm}
       \centering
       \begin{tabular}{|c|c|c|c|}
         \hline
@@ -140,7 +141,7 @@ functions of the nitrate concentrations in the wells for each county.
     The results of this analysis are shown in Table 3.
 
     \begin{table}[h]
-      \caption{\emph{Estimates of the rate parameters for the distribution of the nitrate concentrations across wells in each county.}}
+      \caption{\emph{Estimates of the rate parameters for the distributions of the nitrate concentration across wells in each county.}}
       \vspace{.5cm}
       \centering
       \begin{tabular}{|c|c|c|}
@@ -163,7 +164,7 @@ functions of the nitrate concentrations in the wells for each county.
       \label{tab:3}
     \end{table}
 
-    Since none all of the confidence intervals for the pairwise differences in the estimated ``rate'' parameters contain 0, there is not sufficient
+    Since all of the confidence intervals for the pairwise differences in the estimated ``rate'' parameters contain 0, there is not sufficient
     evidence to believe the distributions for the nitrate concentration across wells in the three counties are different. An estimate of the common
     distribution function is shown in Figure \ref{combined_density}. Using this estimated common distribution with $\hat{\alpha} = \hat{\phi} = 3.0311$ and
     $\hat{\beta} = 0.6793$, we calculate that the probability of a randomly chosen well from any of the three counties having a nitrate concentration of less
@@ -171,7 +172,7 @@ functions of the nitrate concentrations in the wells for each county.
 
 
     \begin{figure}[h]
-      \caption{\emph{Empirical density curves of the nitrate concentrations in each county.}}
+      \caption{\emph{Estimated common density function for the distribution of nitrate concentration.}}
       \centering
       \includegraphics[width=.95\textwidth]{./figures/hw04_combined_density.pdf}
       \label{combined_density}
@@ -220,7 +221,7 @@ functions of the nitrate concentrations in the wells for each county.
     \]
     where $\ell_{R}$ is the log likelihood evaluated at the estimates of the parameters for the reduced model with a single group and $\ell_{F}$ is
     the log likelihood evaluated at the estimates for the full model with three distinct groups. Under the null hypothesis that the there is only one
-    distribution for all three counties, $T$ has a limiting distribution of $\chi_{4}^{2}$ random variable. The 4 degrees of freedom come from the
+    distribution for all three counties, $T$ has a limiting distribution of a $\chi_{4}^{2}$ random variable. The 4 degrees of freedom come from the
     difference in dimensionality of the full parameter space ($d = 6$) and the reduced parameter space ($d = 2$). The p-value obtained by computing
     the probability that a $\chi_{4}^{2}$ random variable is greater than $T$ is 0.0158. Thus there is significant evidence to believe the that the
     distributions between the three counties are not all the same.
@@ -258,7 +259,7 @@ functions of the nitrate concentrations in the wells for each county.
     we found that there was not significant evidence to believe the distributions of the nitrate concentration across wells was different for
     different counties. However, this analysis relied on the assumption that the shape parameter in each model was the same. 
     On the other hand, when we approached the problem with a likelihood analysis, we found that there was significant evidence in favor a full model which assigned
-    different distributions to each county. This suggests that the distributions vary primarly through the shape parameter $\alpha$.
+    different distributions to each county. This suggests that the distributions might vary primarly through the shape parameter $\alpha$.
 
 \end{enumerate}
 
