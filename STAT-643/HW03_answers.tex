@@ -212,7 +212,25 @@ We also have that for each $t$ such that $P(T(X) = t) > 0$,
   Suppose that $\Theta = \Theta_1 \times \Theta_2$ and that a decision rule $\phi \in D^*$ is such that for each $\theta_2\in\Theta_2$, $\phi$
   is admissible in $D^*$ when the parameter space is $\Theta_1\times \{\theta_2\}$.  Show that $\phi$ is then admissible in $D^*$ when the parameter space is $\Theta$.
 \end{tcolorbox}
+\textbf{Solution:} 
 
+\begin{Proof}
+  By way of contradiction suppose $\phi$ is inadmissable in $\mathcal{D}^{*}$ under the parameter space $\Theta$. Then there exists some $\phi' \in
+  \mathcal{D}^{*}$ and $\theta' = (\theta_1', \theta_2') \in \Theta$ such that 
+  \begin{equation}
+    \mathrm{R}(\theta, \phi') \leq \mathrm{R}(\theta, \phi) \ \ \forall \ \theta \in \Theta
+    \label{5.1}
+  \end{equation}
+  and 
+  \begin{equation}
+    \mathrm{R}(\theta', \phi') < \mathrm{R}(\theta', \phi).
+    \label{5.2}
+  \end{equation}
+  But since $\Theta_1 \times \{\theta_2'\} \subseteq \Theta$, \eqref{5.1} implies that $\mathrm{R}(\theta, \phi') \leq \mathrm{R}(\theta, \phi)$ for
+  all $\theta \in \Theta_1 \times \{\theta_2'\}$, and \eqref{5.2} implies that at $\theta' \in \Theta_1 \times \{\theta_2'\}$, $\mathrm{R}(\theta',
+  \phi') < \mathrm{R}(\theta', \phi)$. So $\phi$ is inadmissable in $\mathcal{D}^{*}$ under the parameter space $\Theta_1 \times \{\theta_2\}$.
+  This is a condradiction.
+\end{Proof}
 
 \newpage
 \subsection*{6}
@@ -220,6 +238,34 @@ We also have that for each $t$ such that $P(T(X) = t) > 0$,
   Suppose that $w(\theta)>0$ for any $\theta \in \Theta$ and let $\phi \in D^*$.  Show $\phi$ is admissible in $D^*$ with the loss function $L(\theta,a)$
   if and only if $\phi$ is admissible in $D^*$ with the loss function $w(\theta)L(\theta,a)$.
 \end{tcolorbox}
+
+\textbf{Solution:}
+
+\begin{Proof}
+  Let $R_1(\theta, \phi)$ be the risk function for $\phi$ under the loss function $L(\theta, a)$, and $R_2(\theta, \phi)$ be the risk function for
+  $\phi$ under the loss function $w(\theta)L(\theta, a)$. Then note that 
+  \begin{equation}
+    R_2(\theta, \phi) = \int_{\mathcal{X}}\int_{\mathcal{A}}w(\theta)L(\theta, a)d\phi_x(a)dP_{\theta}(x) = w(\theta)R_1(\theta, \phi).
+    \label{6.1}
+  \end{equation}
+
+  $(\Rightarrow)$ So suppose $\phi$ is admissible in $\mathcal{D}^{*}$ with respect to $R_1$. By way of contradiction suppose $\phi$ is inadmissible 
+  with respect to $R_2$. Then there exists $\phi' \in \mathcal{D}^{*}$ and $\theta' \in \Theta$ such that 
+  \begin{equation}
+    R_2(\theta, \phi') \leq R_2(\theta, \phi) \ \ \forall \ \theta \in \Theta
+    \label{6.2}
+  \end{equation}
+  and 
+  \begin{equation}
+    R_2(\theta', \phi') < R_2(\theta', \phi).
+    \label{6.3}
+  \end{equation}
+  But by \eqref{6.1} and since $w(\theta) > 0$, \eqref{6.2} implies $R_1(\theta, \phi') \leq R_1(\theta, \phi)$ for all $\theta \in \Theta$ and \eqref{6.3} implies $R_1(\theta',
+  \phi') < R_1(\theta', \phi)$. This is a contradiction.
+
+  $(\Leftarrow)$ Now suppose $\phi$ is admissible in $\mathcal{D}^{*}$ with respect to $R_2$. Then by \eqref{6.1} we can apply the same argument above with 
+  $w'(\theta) := [w(\theta)]^{-1}$.
+\end{Proof}
 
 
 \newpage
@@ -234,6 +280,8 @@ We also have that for each $t$ such that $P(T(X) = t) > 0$,
     \item Identify a non-randomized estimator (decision rule) that is strictly better than $\psi$ (or $\phi$).
   \end{enumerate}
 \end{tcolorbox}
+
+\textbf{Solution:}
 
 
 \end{document}
