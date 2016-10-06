@@ -169,9 +169,74 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \end{table}
 
 
-  \item
+  \item With $T_1 \equiv T_1(\bm{\beta}, x_i) := \exp[-\exp(\beta_2 - \beta_3x_i)]$ and $T_2 \equiv T_2(\bm{\beta}, x_i) := \exp(\beta_2 -
+    \beta_3x_i)$, we found the first order partial derivatives of the log likelihood to be
+    \[
+      \begin{array}{ll}
+        \frac{\partial \ell}{\partial \beta_1} = \sum_{i=1}^{n}\left[\frac{y_i^2}{2\sigma^2T_1\beta_1^2} - \frac{T_1}{2\sigma^2} -
+        \frac{1}{2\beta_1}\right] &
+        \frac{\partial \ell}{\partial \beta_2} = \sum_{i=1}^{n}\left[\frac{T_1T_2\beta_1}{2\sigma^2} + \frac{T_2}{2} -
+        \frac{y_i^2T_2}{2\sigma^2T_1\beta_1}\right] \\
+        \frac{\partial \ell}{\partial \beta_3} = \sum_{i=1}^{n}\left[ \frac{y_i^2x_iT_2}{2\sigma^2T_1\beta_1} - \frac{\beta_1x_iT_1T_2}{2\sigma^2} -
+        \frac{x_iT_2}{2} \right] & \frac{\partial \ell}{\partial \sigma^2} = \sum_{i=1}^{n}\left[ \frac{y_i^2}{2[\sigma^2]^2\beta_1T_1} -
+        \frac{y_i}{[\sigma^2]^2} + \frac{\beta_1T_1}{2[\sigma^2]^2} - \frac{1}{2\sigma^2} \right], \\ 
+      \end{array}
+    \]
+    and the second order partial derivatives to be
+    \[
+      \begin{array}{ll}
+        \frac{\partial^2 \ell}{\partial \beta_1 \partial \beta_1} = \sum_{i=1}^{n}\left[ \frac{1}{2\beta_1^2} - \frac{y_i^2}{\sigma^2T_1\beta_1^3} \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_2 \partial \beta_2} = \sum_{i=1}^{n}\left[ \left\{ \frac{T_2\beta_1}{2\sigma^2} +
+          \frac{y_i^2T_2}{2\sigma^2T_1^2\beta_1} \right\}(-T_1T_2) + \left\{ \frac{T_1\beta_1}{2\sigma^2} + \frac{1}{2} -
+        \frac{y_i^2}{2\sigma^2T_1\beta_1} \right\}(T_2) \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_1 \partial \beta_2} = \sum_{i=1}^{n}\left[ \left\{ -\frac{y_i^2x_iT_2}{2\sigma^2T_1^2\beta_1} -
+          \frac{\beta_1x_iT_2}{2\sigma^2} \right\}(x_iT_1T_2) + \left\{ \frac{y_i^2x_i}{2\sigma^2T_1\beta_1} - \frac{\beta_1x_iT_1}{2\sigma^2} -
+        \frac{x_i}{2} \right\}(-x_iT_2) \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \sigma^2 \partial \sigma^2} = \sum_{i=1}^{n}\left[ \frac{1}{2[\sigma^2]^2} - \frac{y_i^2}{[\sigma^2]^3\beta_1T_1}
+        + \frac{2y_i - \beta_1T_1}{[\sigma^2]^3}\right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_1 \partial \beta_2} = \sum_{i=1}^{n}\left[ \frac{T_1T_2}{2\sigma^2} + \frac{y_i^2T_2}{2\sigma^2T_1\beta_1} \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_1 \partial \beta_3} = \sum_{i=1}^{n}\left[ \frac{x_iT_2}{2\beta_1^2} - \frac{x_iT_1T_2}{2\sigma^2} -
+        \frac{y_i^2x_iT_2}{2\sigma^2T_1\beta_1^2} \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_1 \partial \sigma^2} = \sum_{i=1}^{n}\left[ \frac{T_1}{2[\sigma^2]^2} -
+        \frac{y_i^2}{2[\sigma^2]^2\beta_1^2T_1} \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_2 \partial \beta_3} = \sum_{i=1}^{n}\left[ \left\{ \frac{T_2\beta_1}{2\sigma^2} +
+          \frac{y_i^2T_2}{2\sigma^2T_1^2\beta_1} \right\}(x_iT_1T_2) + \left\{ \frac{T_1\beta_1}{2\sigma^2} + \frac{1}{2} -
+        \frac{y_i^2}{2\sigma^2T_1\beta_1} \right\}(-x_iT_2) \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_2 \partial \sigma^2} = \sum_{i=1}^{n}\left[ \frac{y_i^2T_2}{2[\sigma^2]^2T_1\beta_1} -
+        \frac{T_1T_2\beta_1}{2[\sigma^2]^2} \right] & \\ 
+        \frac{\partial^2 \ell}{\partial \beta_3 \partial \sigma^2} = \sum_{i=1}^{n}\left[ \frac{\beta_1x_iT_1T_2}{2[\sigma^2]^2} -
+        \frac{y_i^2x_iT_2}{2[\sigma^2]^2T_1\beta_1} \right]. & \\
+      \end{array}
+    \]
+    See work attached.
 
-  \item 
+    \newpage
+
+  \item Table \ref{tab5.1} reports the value of the gradient of the log likelihood function evaluated at the GLS and MLE estimates.
+    Notice that the norm of gradient is larger when evaluated at the GLS estimates than at the MLE estimates. This makes sense since the objective 
+    of the maximum likelihood approach is to find a maximum to the log likelihood, which is a point at which the gradient is 0. But as we saw in Part 1, the objective
+    of the GLS approach is not quite the same.
+
+    \begin{table}[h]
+      \caption{\emph{Gradient of the log likelihood evaluated at the GLS and MLE estimates.}}
+      \vspace{.2cm}
+      \centering
+      \begin{tabular}{|c|c|c|}
+        \hline
+        & GLS Estimates & MLE Estimates \\
+        \hline
+        $\frac{\partial \ell}{\partial \beta_1}$ & -0.03582643 & 0.001490834 \\
+        \hline
+        $\frac{\partial \ell}{\partial \beta_2}$ & 0.7379254 & -0.0229311 \\
+        \hline
+        $\frac{\partial \ell}{\partial \beta_3}$ & -3.079696 & 0.1291069 \\
+        \hline
+        $\frac{\partial \ell}{\partial \sigma^{2}}$ & -6.076791 & -0.01993837 \\
+        \hline
+      \end{tabular}
+      \label{tab5.1}
+    \end{table}
+
 
   % Question 6
   \item Assuming that $\theta$ is now unknown, we used the R function \texttt{optim} once again to estimate all parameters by a standard maximum

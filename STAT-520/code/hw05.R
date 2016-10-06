@@ -3,7 +3,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-10-03
-# Last Modified: 2016-10-03 17:39:53
+# Last Modified: 2016-10-06 18:29:12
 # =============================================================================
 
 source("./nonlin.R")
@@ -69,7 +69,44 @@ res2$par[2] / res2$par[3] - qnorm(0.975) * s
 res2$par[2] / res2$par[3] + qnorm(0.975) * s
 # }}}
 
-# Question 5 {{{
+x <- df$x
+
+T2 <- function(b2, b3, x) {
+  return(exp(b2 - b3 * x))
+}
+
+T1 <- function(b2, b3, x) {
+  res <- exp(-T2(b2, b3, x))
+  return(res)
+}
+
+y <- df$y
+x <- df$x
+
+b1 <- res2$par[1]
+b2 <- res2$par[2]
+b3 <- res2$par[3]
+s2 <- res2$par[4]
+
+b1 <- b[1]
+b2 <- b[2]
+b3 <- b[3]
+s2 <- res$sshat
+
+t1 <- T1(b2, b3, x)
+t2 <- T2(b2, b3, x)
+
+# dl/db1
+sum((y^2) / (2 * s2 * t1 * b1^2) - t1 / (2 * s2) - 1 / (2 * b1))
+# dl/db2
+sum(t1 * t2 * b1 / (2 * s2) + t2 / 2 - (y^2) * t2 / (2 * s2 * t1 * b1))
+# dl/db3
+sum((y^2) * x * t2 / (2 * s2 * t1 * b1) - b1 * x * t1 * t2 / (2 * s2) - x * t2 / (2))
+# dl/ds2
+sum((y^2) / (2 * (s2^2) * b1 * t1) - y / ((s2^2)) + b1 * t1 / (2 * (s2)^2) - 1 / (2*s2))
+
+
+# Question 6 {{{
 loglikgomp2 <- function(dat, params) {
   # Negative of log likelihood
   x <- dat$x
