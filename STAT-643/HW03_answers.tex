@@ -283,5 +283,36 @@ We also have that for each $t$ such that $P(T(X) = t) > 0$,
 
 \textbf{Solution:}
 
+  \begin{enumerate}
+    \item The risk function for $\delta_1$ is given by 
+      \begin{align*}
+        R(p,\delta_1)  = \E_p\left[ p - \frac{X}{n} \right]^{2} = \mathrm{Var}_p\left[ \frac{X}{n} \right] & = \frac{1}{n^2}\mathrm{Var}_p[X] \\
+        & = \frac{1}{n^2}np(1-p) \\
+        & = \frac{p(1-p)}{n}.
+      \end{align*}
+      Similarly, the risk function for $\delta_2$ is given by
+      \begin{align*}
+        R(p,\delta_2) & = \E_p\left[ p - \frac{1}{2}\left(\frac{1}{2} - \frac{X}{n}\right) \right]^2 \\
+        & = p^2 - 2p\left( \frac{1}{4} + \frac{p}{2} \right) + \frac{1}{4}\left[ \frac{1}{4} + p + \frac{1}{n^2}\left( n^2p^2 + np\left\{ 1-p
+        \right\} \right) \right] \\
+        & = \frac{p(1-p)}{4n} + \frac{p^2}{4} - \frac{p}{4} + \frac{1}{16}.
+      \end{align*}
+      Finally, the risk function for $\psi$ is given by 
+      \begin{align*}
+        R(p,\psi) = \int_{D}R(p, \delta)d\psi(\delta) & = \frac{1}{2}R(p,\delta_1) + \frac{1}{2}R(p,\delta_2) \\
+        & = \frac{p(1-p)}{2n} + \frac{p(1-p)}{8n} + \frac{p^2}{8} - \frac{p}{8} + \frac{1}{32}.
+      \end{align*}
+    \item Define $\phi$ such that 
+      \[
+        \phi_x\left( \{\delta_1(x)\} \right) = \phi_x\left( \left\{ \delta_2(x) \right\} \right) = \frac{1}{2}.
+      \]
+    \item Note here that the decision space is $\mathcal{A} = [0,1]$, which is convex as a subset of $\mathbb{R}$. Further, for any value of $p$, the
+      ``squared error loss'' function $L(p,\cdot) : \mathcal{A} \rightarrow [0,\infty)$ is strictly convex. Thus, since $P_p(\{x | \phi_x \text{ is
+      non-degenerate}\}) > 0$ for each $p \in \mathcal{A}$ and $R(p,\phi) < \infty$,
+      \[
+        \delta(x) := \int_{\mathcal{A}}ad\phi_x(a) = \frac{1}{2}\left( \delta_1(x) + \delta_2(x) \right)
+      \]
+      is strictly better than $\phi_x$ be Lemma 51, and thus strictly better than $\psi$ be Part (b).
+  \end{enumerate}
 
 \end{document}

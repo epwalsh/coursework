@@ -3,7 +3,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-10-03
-# Last Modified: 2016-10-06 18:29:12
+# Last Modified: 2016-10-07 17:47:06
 # =============================================================================
 
 source("./nonlin.R")
@@ -35,7 +35,7 @@ b[2]/b[3] + qnorm(0.975) * s
 res$sshat
 # }}}
 
-# Question 2 {{{
+# Question 3 {{{
 loglikgomp <- function(dat, params) {
   # Negative of log likelihood
   x <- dat$x
@@ -69,6 +69,7 @@ res2$par[2] / res2$par[3] - qnorm(0.975) * s
 res2$par[2] / res2$par[3] + qnorm(0.975) * s
 # }}}
 
+# Question 5 {{{
 x <- df$x
 
 T2 <- function(b2, b3, x) {
@@ -104,7 +105,7 @@ sum(t1 * t2 * b1 / (2 * s2) + t2 / 2 - (y^2) * t2 / (2 * s2 * t1 * b1))
 sum((y^2) * x * t2 / (2 * s2 * t1 * b1) - b1 * x * t1 * t2 / (2 * s2) - x * t2 / (2))
 # dl/ds2
 sum((y^2) / (2 * (s2^2) * b1 * t1) - y / ((s2^2)) + b1 * t1 / (2 * (s2)^2) - 1 / (2*s2))
-
+# }}}
 
 # Question 6 {{{
 loglikgomp2 <- function(dat, params) {
@@ -132,4 +133,41 @@ res3$par[2] - qnorm(0.975) * sqrt(invinf[2,2])
 res3$par[2] + qnorm(0.975) * sqrt(invinf[2,2])
 res3$par[3] - qnorm(0.975) * sqrt(invinf[3,3])
 res3$par[3] + qnorm(0.975) * sqrt(invinf[3,3])
+# }}}
+
+# Question 7 {{{
+thetas <- seq(.1, .9, by=0.001)
+
+theta0 <- res3$par[5]
+ell0 <- -res3$value
+
+estimate <- function(theta, ps) {
+  loglik <- function(dat, params) {
+    x <- dat$x
+    y <- dat$y
+    n <- length(x)
+    mu <- gompfctn(x, params[1:3])
+    sig2 <- params[4]
+    l1 <- n * 0.5 * log(2 * pi * sig2)
+    l2 <- theta * sum(log(mu))
+    l3 <- sum(((y - mu)^2) / (2 * sig2 * mu^(2 * theta)))
+    return(l1 + l2 + l3)
+  }
+  res <- optim(par=ps, fn=loglik, dat=df, hessian=T, control=list(maxit=1000))
+  ellhat <- -res$value
+  return(list(estimate = -2 * (ellhat - ell0), params = res$par))
+}
+
+
+estimates <- c()
+ps <- c(20, 3, 0.5, .2)
+for (theta in thetas) {
+  res <- estimate(theta, ps)
+  ps <- res$params
+  est <- res$estimate
+  estimates <- append(estimates, est)
+}
+
+min(thetas[estimates < qchisq(0.95, 1)])
+max(thetas[estimates < qchisq(0.95, 1)])
 # }}}
