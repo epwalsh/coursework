@@ -1,0 +1,213 @@
+\documentclass[12pt]{article}
+\textheight 10.7in
+\textwidth 7.9in
+\oddsidemargin -.7in
+\evensidemargin -.7in
+\topmargin -.73in
+\headheight 0in
+\headsep 0in
+\pagestyle{empty}
+
+
+\usepackage{graphicx}
+\usepackage{epsfig, color}
+\usepackage{amsmath,amssymb}
+
+
+\newcommand{\var}{\mathrm{Var}}
+
+\newcommand{\E}{\mathrm{E}}
+\def\g{\gamma}
+\def\t{\theta}
+\def\al{\alpha}
+\def\T{\Theta}
+\def\X1{X_1,\ldots,X_n}
+\def\r{I\!\!R}
+\def\sumin{\sum_{i=1}^n}
+\def\bfx{{\bf x}}
+\def\bxn{{\bar{X}}_n}
+\def\e{\equiv}
+\def\ST{Show that~}
+\begin{document}
+
+\textbf{\hspace*{1cm} \hfill Page 1 of 9}
+\vspace*{3cm}
+\begin{center}{\Large
+
+
+\bf STAT 643  \\   Fall 2016 - Nordman \\
+\vspace{.2cm}  Midterm Exam \\}
+\vspace{.2cm} {\large {\bf 10/19/16}  \\
+\vspace{2cm} STUDENT NAME (PRINTED):\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\\
+\vspace{1.5cm} {\em I have neither given nor received any unauthorized aid on this exam.}\\
+\vspace{1cm} Student
+Signature:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ Date:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+}
+\end{center}
+
+\vspace*{2cm}
+\begin{center}{\large
+
+\begin{itemize}
+\item The exam is due in class (9 AM) on \textbf{Wednesday, October 26.}
+\item Students may use notes but must work independently and alone.
+ \item Students are not to discuss the exam with one another during the exam process.
+\item Be sure to show work to receive  credit.
+\item Relax and do your best.  GOOD LUCK!
+\end{itemize}
+
+
+
+ }
+\end{center}
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 2 of 9}
+
+
+\begin{enumerate}
+
+
+
+
+
+\item Suppose that $X_1,X_2,\ldots,X_n$ are iid random variables with common density
+\[
+f_\theta(x) = \frac{2}{\sqrt{\pi}} \exp\left[-(x-\theta)^2\right] I(x \leq \theta),\quad x\in\mathbb{R},
+\]
+with respect to the Lebesgue measure on $\mathbb{R}$ and parameter $\theta \in \mathbb{R}$.
+Set $X=(X_1,\ldots,X_n)$.
+
+\begin{enumerate}
+\item Find a minimal sufficient statistic $T(X)$ for $\theta$.  Be sure to carefully justify your response.\\[6in]
+
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 3 of 9}
+
+
+\item Show that the statistic $T(X)$ in part (a) is not complete. \\[4.4in]
+
+\end{enumerate}
+
+\item Suppose that a random variable $X$ has a class of distributions $\{P_\theta : \theta \in (0,1) \}$, where each distribution $P_\theta$ is described by a density
+\[
+f_\theta(x)  = \left\{\begin{array}{lcl}
+\theta (1-\theta)^{x-1} && x=1,2,\ldots,9;\\
+(1-\theta)^9&& x=10;\\
+0 && \mbox{otherwise}\\
+\end{array} \right.
+\]
+with respect to the counting measure on $\mathbb{N}\equiv \{1,2,3,\ldots\}$ and a parameter $\theta \in (0,1)$.  (You may assume that  FI regularity conditions hold.)
+
+\begin{enumerate}
+\item Find the Kullback-Liebler Information   $I(P_{\theta_0},P_{\theta_1})$  at values $\theta_0,\theta_1\in(0,1)$.\\[.1cm]
+Note: $\sum_{y=0}^m y a^y = (a+ ma^{m+2}-(m+1)a^{m+1})/(1-a)^2$ for integer $m\geq 1$ and $a\in (0,1)$.
+
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 4 of 9}
+
+
+
+\item Suppose $Y$ is a geometric random variable with $P_\theta(Y=y) = \theta (1-\theta)^{y-1}$ for $y\in \mathbb{N}$.
+Let $I_Y(\theta_0)$ denote the Fisher information about $\theta$ contained in $Y$ at a value $\theta_0\in(0,1)$ and
+let $I_X(\theta_0)$ denote the Fisher information contained in $X$.
+Without deriving $I_Y(\theta_0)$ directly, explain why it must be true that $I_Y(\theta_0)\geq I_X(\theta_0)$ holds
+based on sufficiency principles.\\[.1cm]
+Hint: Think about how to obtain $X$ (or the distribution of $X$) from $Y$\\[5in]
+
+ \item Show that $\mathcal{P}\equiv \{P_\theta:\theta\in(0,1)\}$ is a two-dimensional exponential family.
+
+\end{enumerate}
+
+
+
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 5 of 9}
+
+
+
+\item Let $X=(X_1,X_2)$ where $X_1$ and $X_2$ are independent Bernoulli$(p)$ random variables for $p\in[0,1]$.
+Consider the loss function $L(p,a)=|a-p|$ for $a,p\in[0,1]$ and define a (nonrandom) estimation rule  as
+\[
+ \delta_c(X) \equiv \delta_c(X_1,X_2) = \left\{\begin{array}{lcl}
+ 0 &&\mbox{if $X_1=X_2=0$}\\
+ 1 &&\mbox{if $X_1=X_2=1$}\\
+ c &&\mbox{otherwise}
+\end{array}
+    \right.
+\]
+for a fixed/given $c\in(0,1)$.
+
+
+\begin{enumerate}
+\item  Suppose $\phi_X \in \mathcal{D}^*$ represents a behavioral decision rule
+which is better than    $\delta_c(X)$.  Show that there must then be   a non-randomized rule, say $\delta(X)$,  which is also better than
+$\delta_c(X)$.\\[4.3in]
+
+
+\item Suppose that a non-randomized rule, say $\delta(X)$,  is at least as good as
+$\delta_c(X)$.  Show that $\delta(X)$ must match $\delta_c(X)$ for $X=(X_1,X_2)$ where $X_1=X_2$ holds.\\[.1cm]
+Hint: Consider  how risks must compare when $p=0$ or $p=1$.
+
+
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 6 of 9}
+
+\item  Using (a) \& (b) above, show $\delta_c(X)$ is admissible in the class
+of behavioral decision rules  (i.e., there can be no rule in $\mathcal{D}^*$ that is  better than    $\delta_c(X)$).\\[.1cm]
+Hint:  Try a proof by contradiction and note that $|(a+b)/2|\leq (|a|+|b|)/2$ for $a,b \in \mathbb{R}$ (with strict inequality if $a\neq b$).
+
+\end{enumerate}
+
+
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 7 of 9}
+
+\item Let $\mathcal{P}\equiv \{P_\theta:\theta \in \Theta\}$ be a family of distributions on $(\mathcal{X},\mathcal{B})$ for a random observable $X$. Suppose $\mathcal{P}$ is dominated by a $\sigma$-finite measure $\mu$ and that $T:(\mathcal{X},\mathcal{B})\rightarrow (\mathcal{T},\mathcal{F})$ is  sufficient for $\mathcal{P}$, where $(\mathcal{T},\mathcal{F}) = (\mathbb{R}^k, \mathcal{B}(\mathbb{R}^k))$ for some $k\geq 1$.  Let $ \mathcal{P}_0 \subset \mathcal{P}$ be a subset of distributions on $(\mathcal{X},\mathcal{B})$
+
+    \begin{enumerate}
+
+
+
+\item Prove or disprove:  If $T$ is  minimal sufficient for $\mathcal{P}$, then $T$ is  minimal sufficient for $\mathcal{P}_0$.\\[4.5in]
+
+
+
+
+\item Prove or disprove:  If $T$ is  complete for $\mathcal{P}_0$, then $T$ is  minimal sufficient for $\mathcal{P}_0$.
+
+
+\end{enumerate}
+
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 8 of 9}
+\item Let $\mu=\lambda+\gamma$ denote a measure on $(\mathbb{R},\mathcal{B}(\mathbb{R}))$ where $\lambda$ denotes
+the Lebesgue measure on $(0,2)$ (i.e., $\lambda$ assigns measure zero outside $(0,2)$) and $\gamma$ denotes the counting measure on nonnegative integers $\mathbb{Z}_+=\{0,1,2\ldots\}$.
+ For $\eta =(\eta_1,\eta_2) \in \mathbb{R}^2$ such that
+ \[
+   K(\eta) \equiv \int_{\mathbb{R}} \exp\left[  \eta_1 x I(x \in \mathbb{Z}_+) + \eta_2 x I(0<x<2)  \right] d\mu(x)<\infty,
+ \]
+let
+\[
+f_\eta (x) = \frac{1}{K(\eta)}\exp\left[  \eta_1 x I(x \in \mathbb{Z}_+) + \eta_2 x I(0<x<2)  \right]
+\]
+denote the corresponding density (with respect to $\mu$) of a distribution $P_\eta$ on $ \mathbb{R}$.
+
+
+\begin{enumerate}
+\item Identify the natural parameter space $\Gamma$  for this family of distributions.\\[4in]
+
+
+\item If $X=(X_1,\ldots,X_n)$ consists of iid random variables, each with common distribution $P_\eta$ on $ \mathbb{R}$ ($\eta \in \Gamma$), show that $\sum_{i=1}^n X_i I(X_i \in \mathbb{Z}_+)$ is a complete statistic for the resulting family of distributions, say $\{P^X_\eta: \eta \in \Gamma\}$, for $X$.\\[.1cm]
+Hint: Consider first a complete statistic by exponential family properties.
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 9 of 9}
+
+\item For $X$ in part (b), find the Fisher information $I_X(\eta)$ at a point $\eta \in \Gamma$.
+
+
+
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}

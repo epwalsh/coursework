@@ -1,0 +1,458 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=15mm, right=15mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{amssymb} % for stacked arrows and other shit
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{STAT 643: Exam 1}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{STAT 643: Exam 1}
+\rhead{\thepage}
+\cfoot{}
+
+
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\E}{\mathrm{E}}
+
+\def\g{\gamma}
+\def\t{\theta}
+\def\al{\alpha}
+\def\T{\Theta}
+\def\X1{X_1,\ldots,X_n}
+\def\r{I\!\!R}
+\def\sumin{\sum_{i=1}^n}
+\def\bfx{{\bf x}}
+\def\bxn{{\bar{X}}_n}
+\def\e{\equiv}
+\def\ST{Show that~}
+\begin{document}
+
+\vspace*{3cm}
+\begin{center}{\Large
+
+
+\bf STAT 643  \\   Fall 2016 - Nordman \\
+\vspace{.2cm}  Midterm Exam \\}
+\vspace{.2cm} {\large {\bf 10/19/16}  \\
+  \vspace{2cm} STUDENT NAME (PRINTED): Evan Pete Walsh \\
+\vspace{1.5cm} {\em I have neither given nor received any unauthorized aid on this exam.}\\
+\vspace{1cm} Student
+Signature:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ Date:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+}
+\end{center}
+
+\vspace*{2cm}
+\begin{center}{\large
+
+\begin{itemize}
+\item The exam is due in class (9 AM) on \textbf{Wednesday, October 26.}
+\item Students may use notes but must work independently and alone.
+ \item Students are not to discuss the exam with one another during the exam process.
+\item Be sure to show work to receive  credit.
+\item Relax and do your best.  GOOD LUCK!
+\end{itemize}
+
+
+
+ }
+\end{center}
+\newpage
+
+
+\begin{enumerate}[leftmargin=0cm, itemindent=0cm]
+
+
+
+
+
+\item Suppose that $X_1,X_2,\ldots,X_n$ are iid random variables with common density
+\[
+f_\theta(x) = \frac{2}{\sqrt{\pi}} \exp\left[-(x-\theta)^2\right] I(x \leq \theta),\quad x\in\mathbb{R},
+\]
+with respect to the Lebesgue measure on $\mathbb{R}$ and parameter $\theta \in \mathbb{R}$.
+Set $X=(X_1,\ldots,X_n)$.
+
+\begin{enumerate}[leftmargin=0cm, itemindent=0cm]
+\item Find a minimal sufficient statistic $T(X)$ for $\theta$.  Be sure to carefully justify your response.
+
+  \begin{Solution}
+
+  For $\theta \in \mathbb{R}$, let $p_{\theta}$ denote the joint density of $X_1, \dots , X_n$ with respect to Lebesgue measure $\mu$ on
+  $\mathbb{R}^n$.
+  Let $\bm{x} = (x_1, \dots, x_n) \in \mathbb{R}^{n}$. Then by independence,
+  \begin{align*}
+    p_{\theta}(\bm{x}) = \prod_{i=1}^{n}f_{\theta}(x_i) & = \left( \frac{2}{\sqrt{\pi}} \right)^{n}\exp\left[ -\sum_{i=1}^{n}\left\{ x_i - \theta
+    \right\}^2 \right]I(\max_i x_i \leq \t) \\
+    & = \left( \frac{2}{\sqrt{\pi}} \right)^{n} \exp\left[ -\sum_{i=1}^{n}x_i^2 \right]\exp\left[ 2\theta\sum_{i=1}^{n}x_i - n\theta^2 \right]I(\max_i
+    x_i \leq \t) \ \ \text{ a.e. } \mu.
+  \end{align*}
+  Hence $T(X) := \left( \sum_{i=1}^{n}X_i, \max_i X_i \right)$ is sufficient for $\theta$. We will now show that $T$ is minimal sufficient by way
+  of Theorem 06. Well, let $\bm{x}, \bm{y} \in \mathbb{R}^{n}$ and suppose 
+  \begin{equation}
+    p_{\theta}(\bm{x}) = p_{\theta}(\bm{y}) \exp\left[ \sum_{i=1}^{n}y_i - \sum_{i=1}^{n}x_i \right] \ \ \text{ for all } \theta \in \mathbb{R}.
+    \label{1.1}
+  \end{equation}
+  But \eqref{1.1} holds if and only if
+  \[
+    \exp\left[ 2\theta\left\{ \sum_{i=1}^{n}x_i - \sum_{i=1}^{n}y_i \right\} \right]I(\max_i x_i \leq \theta) = I(\max_i y_i) \ \ \text{ for all } \theta
+    \in \mathbb{R},
+  \]
+  which implies $\max_i x_i = \max_i y_i$. Further, if we take $\theta \in \mathbb{R}$ such that $\theta > \max_i x_i$ and $\theta > 0$, then $\sum_{i=1}^{n}x_i$ must equal $\sum_{i=1}^{n}y_i$.
+  Hence \eqref{1.1} implies $T(\bm{x}) = T(\bm{y})$, and thus $T$ is minimal sufficient.
+
+\end{Solution}
+
+
+
+\item Show that the statistic $T(X)$ in part (a) is not complete. \\
+
+  \begin{Solution}
+    Let $m$ denote the Lebesgue measure on $\mathbb{R}$.
+
+    \begin{claim}
+      For $i = 1, \dots, n$, $EX_i = \pi^{-1/2} + \theta$.
+    \end{claim}
+    \begin{claimproof}
+      By a simple $u$-substitution,
+      \[ E(X_i - \theta) = \int_{-\infty}^{\theta}(x - \theta) 2\pi^{-1/2}\exp\left\{ -(x -\theta^2) \right\}dm(x) = -\pi^{-1/2}\exp\left\{
+          -(x-\theta)^2
+      \right\}\bigg|_{-\infty}^{\theta} = \pi^{-1/2}. \]
+      Hence $EX_i = \pi^{-1/2} + \theta$.
+    \end{claimproof}
+
+    \begin{claim}
+      $E[\max_i X_i] = \theta - K$ for some constant $K > 0$.
+    \end{claim}
+    \begin{claimproof}
+      Let $F_{\theta}(x) = \int_{-\infty}^{\theta}f_{\theta}(x)dm(x)$. Using integration by parts,
+      \[
+        E\left[ \max_i X_i \right] = \int_{-\infty}^{\theta}nxf_{\theta}(x)\left[ F_{\theta}(x) \right]^{n-1}dm(x) = x\left[ F_{\theta}(x)
+        \right]^{n}\bigg|_{-\infty}^{\theta} - \underbrace{\int_{-\infty}^{\theta}\left[ F_{\theta}(x) \right]^{n}dm(x)}_{\text{constant as a function
+        of }\t}  = \theta - K.
+      \]
+      Hence $E[\max_i X_i] = \theta - K$ where $K := \int_{-\infty}^{\theta}\left[ F_{\theta}(x) \right]^{n}dm(x)$.
+    \end{claimproof}
+
+    Now take $h(T(\bm{x})) := \frac{1}{n}\left( \sum_{i=1}^{n}x_i \right) - \pi^{-1/2} - K - \max_i x_i = \bar{x} - \pi^{-1/2} - K - \max_i x_i$.
+    Then by claims 1 and 2,
+    \[
+      E_{\theta}h\circ T(X) = E_{\theta}\bar{X} - \pi^{-1/2} - K - E\left[ \max_i X_i \right] = \pi^{-1/2} + \theta - \pi^{-1/2} - K - (\theta - K) =
+      0.
+    \]
+    However, clearly $h\circ T \neq 0$ on a set of positive measure, so $T$ is not complete.
+  \end{Solution}
+
+
+\end{enumerate}
+
+\vspace{1cm}
+
+
+
+\item Suppose that a random variable $X$ has a class of distributions $\{P_\theta : \theta \in (0,1) \}$, where each distribution $P_\theta$ is described by a density
+\[
+f_\theta(x)  = \left\{\begin{array}{lcl}
+\theta (1-\theta)^{x-1} && x=1,2,\ldots,9;\\
+(1-\theta)^9&& x=10;\\
+0 && \mbox{otherwise}\\
+\end{array} \right.
+\]
+with respect to the counting measure on $\mathbb{N}\equiv \{1,2,3,\ldots\}$ and a parameter $\theta \in (0,1)$.  (You may assume that  FI regularity
+conditions hold.) \\
+
+\begin{enumerate}[leftmargin=0cm, itemindent=0cm]
+\item Find the Kullback-Liebler Information   $I(P_{\theta_0},P_{\theta_1})$  at values $\theta_0,\theta_1\in(0,1)$. \\
+
+  \begin{Solution} $I(P_{\t_0}, P_{\t_1}) = $
+    \begin{align*}
+       & = E_{\theta_0}\log\left\{ \frac{f_{\theta_0}(X)}{f_{\theta_1}(X)} \right\} \\
+      & = \sum_{x=1}^{9}\log\left\{ \frac{\theta_0(1
+      - \theta_0)^{x-1}}{\theta_1(1 - \theta_1)^{x-1}}\right\}\theta_0(1-\theta_0)^{x-1} + \log\left\{ \frac{(1-\theta_0)^{9}}{(1-\theta_1)^{9}}
+      \right\}(1-\theta_0)^{9} \\
+      & = \log\left( \frac{\theta_0}{\theta_1} \right)\theta_0\sum_{x=1}^{9}(1-\theta_0)^{x-1} + \theta_0\log\left( \frac{1-\theta_0}{1-\theta_1}
+      \right)\sum_{x=1}^{9}(x-1)(1-\theta_0)^{x-1} + 9\log\left( \frac{1-\theta_0}{1-\theta_1} \right)(1-\theta_0)^{9} \\
+      & = \log\left( \frac{\theta_0}{\theta_1} \right)(1-\theta_0)^{9} + \frac{1}{\theta_0}\log\left( \frac{1-\theta_0}{1-\theta_1} \right)\left\{
+      (1-\theta_0) + 8(1-\theta_0)^{10} - 9(1-\theta_0)^{9} \right\} + 9\log\left( \frac{1-\theta_0}{1-\theta_1} \right)(1-\theta_0)^{9} \\
+      & =  \log\left( \frac{\theta_0}{\theta_1} \right)(1-\theta_0)^{9} + \log\left( \frac{1-\t_0}{1-\t_1} \right)\left\{ \frac{(1-\t_0) +
+      8(1-\t_0)^{10} - 9(1 - \t_0)^{10}}{\t_0} \right\} \\
+      & =  \log\left( \frac{\theta_0}{\theta_1} \right)(1-\theta_0)^{9} + \log\left( \frac{1-\t_0}{1-\t_1} \right)\left\{ \frac{(1-\t_0)
+      - (1 - \t_0)^{10}}{\t_0} \right\}.
+    \end{align*}
+
+  \end{Solution}
+
+
+
+
+
+\newpage
+
+
+
+\item Suppose $Y$ is a geometric random variable with $P_\theta(Y=y) = \theta (1-\theta)^{y-1}$ for $y\in \mathbb{N}$.
+Let $I_Y(\theta_0)$ denote the Fisher information about $\theta$ contained in $Y$ at a value $\theta_0\in(0,1)$ and
+let $I_X(\theta_0)$ denote the Fisher information contained in $X$.
+Without deriving $I_Y(\theta_0)$ directly, explain why it must be true that $I_Y(\theta_0)\geq I_X(\theta_0)$ holds
+based on sufficiency principles. \\
+
+\begin{Solution}
+  Let $\mu$ denote the counting measure on $\mathbb{N}$. Let $\theta_0 \in (0,1)$.
+  We aim to show this inequality holds by way of Proposition 33. First we need to verify that $\left\{ P_{\theta}^{Y} \right\}_{\t\in(0,1)}$ is FI
+  regular at $\theta_0$. Well, clearly $P_{\t}{Y}(y) > 0$ for all $y \in \mathbb{N}$ and has first partial derivatives at $\theta_0$. Further,
+  \[
+    1 = \int_{\mathbb{N}}P_{\theta}^{Y}(y)d\mu(y) = \sum_{y=1}^{\infty}\theta(1-\theta)^{y-1},
+  \]
+  in which case we can clearly exchange integration with differentation with respect to $\theta$ and differentate the right side above term-by-term,
+  since it is in the form of an analytic function of $\theta$. So the conditions for FI regularity at $\theta_0$ are satisfied. Now, $X$ can be
+  expressed as a function of $Y$ by defining $X := T(Y) := YI(Y \leq 9) + 10I(Y > 9)$. So by Proposition 33,
+  \[ 
+    I_{Y}(\theta_0) \geq I_{T(Y)}(\theta_0) = I_{X}(\theta_0).
+  \]
+\end{Solution}
+
+ \item Show that $\mathcal{P}\equiv \{P_\theta:\theta\in(0,1)\}$ is a two-dimensional exponential family. \\
+
+   \begin{Solution}
+     For $x \in \mathbb{N}$ and $\theta \in (0,1)$, we may write 
+     \begin{align*}
+       f_{\theta}(x)&  = \theta(1-\theta)^{x-1}I(1\leq x \leq 9) + (1-\t)^9I(x=10)  \\
+       & = \exp\left\{ I(1\leq x\leq9)\left[ \log\theta + (x-1)\log(1-\t) \right] + I(x=10)9\log(1-\theta) \right\}I(1\leq x \leq 10)\\
+       & = \exp\left\{ \log(\theta)I(1\leq x \leq 9) + \log(1-\theta)(x-1) \right\}I(1\leq x \leq 10) \ \ \text{ a.e. } \mu.
+     \end{align*}
+     So by setting $\eta_1(\theta) := \log(\theta)$ and $\eta_2(\theta) := \log(1-\theta)$, we see that $\mathcal{P}\equiv \{P_\theta:\theta\in(0,1)\}$ is a two-dimensional exponential family.
+   \end{Solution}
+
+\end{enumerate}
+
+
+
+\newpage
+
+
+
+\item Let $X=(X_1,X_2)$ where $X_1$ and $X_2$ are independent Bernoulli$(p)$ random variables for $p\in[0,1]$.
+Consider the loss function $L(p,a)=|a-p|$ for $a,p\in[0,1]$ and define a (nonrandom) estimation rule  as
+\[
+ \delta_c(X) \equiv \delta_c(X_1,X_2) = \left\{\begin{array}{lcl}
+ 0 &&\mbox{if $X_1=X_2=0$}\\
+ 1 &&\mbox{if $X_1=X_2=1$}\\
+ c &&\mbox{otherwise}
+\end{array}
+    \right.
+\]
+for a fixed/given $c\in(0,1)$.
+
+
+\begin{enumerate}
+\item  Suppose $\phi_X \in \mathcal{D}^*$ represents a behavioral decision rule
+which is better than    $\delta_c(X)$.  Show that there must then be   a non-randomized rule, say $\delta(X)$,  which is also better than
+$\delta_c(X)$.\\
+
+\begin{Solution}
+  Define $\delta(x) := \int_{\mathcal{A}}ad\phi_x(a)$. Since $L(p,\cdot) : \mathcal{A}\rightarrow [0,\infty)$ is convex for all $p \in [0,1]$ and
+  $\mathcal{A} = [0,1]$ is a convex subset of $\mathbb{R}$, $R(p,\delta) \leq R(p, \phi)$ for all $p \in [0,1]$ by Lemma 51. Thus $\delta$ is at least
+  as good as $\phi_X$, and since $\phi_X$ is better than $\delta_c$, $\delta$ is better than $\delta_c$.
+\end{Solution}
+
+
+\vspace{0.5cm}
+
+
+\item Suppose that a non-randomized rule, say $\delta(X)$,  is at least as good as
+$\delta_c(X)$.  Show that $\delta(X)$ must match $\delta_c(X)$ for $X=(X_1,X_2)$ where $X_1=X_2$ holds.\\
+
+\begin{Solution}
+  Note that 
+  \begin{equation}
+    R(p,\delta_c) = \sum_{x_1=0}^{1}\sum_{x_2=0}^{1}\|\delta_c(x_1,x_2) - p\|p^{x_1 + x_2}(1-p)^{2 - x_1 - x_2} = p(1-p)^{2} + (1-p)p^{2} +
+    2\|c-p\|p(1-p).
+    \label{3.1}
+  \end{equation}
+  Now, by way of contradiction, suppose $\delta(0,0) = a \in (0,1]$, i.e. $\delta(0,0) \neq 0 = \delta_c(0,0)$. From \eqref{3.1} we see that $R(0,
+  \delta_c) = 0$, so we must have $R(0, \delta) = 0$. But $R(0,\delta) \geq |a-p|(1-p)^{2} = a > 0$. This is a contradiction. 
+
+  Similary, assume for a moment that $\delta(1,1) = a \in [0,1)$, i.e. $\delta(1,1) \neq 1 = \delta_c(1,1)$. By \eqref{3.1}, $R(1,\delta_c) = 0$, so
+  $R(1,\delta) = 0$. But $R(1,\delta) \geq \|a - p\|p^{2} = \|a - 1\| > 0$. This is a contradiction once again.
+\end{Solution}
+
+\vspace{0.5cm}
+
+\item  Using (a) \& (b) above, show $\delta_c(X)$ is admissible in the class
+of behavioral decision rules  (i.e., there can be no rule in $\mathcal{D}^*$ that is  better than    $\delta_c(X)$).\\[.1cm]
+
+\begin{Solution}
+  By way of contradiction suppose there exists $\phi \in \mathcal{D}^{*}$ better than $\delta_c$. Then by (a), there exists $\delta \in \mathcal{D}$
+  better than $\delta_c$. But by (b), $\delta(0,0) = \delta_c(0,0) = 0$, and $\delta(1,1) = \delta_c(1,1) = 1$. Thus we must have either $\delta(0,1)
+  \neq \delta_c(0,1) = c$ or $\delta(1,0) \neq \delta_c(1,0) = c$. Without loss of generality assume $\delta(1,0) \neq c$.
+  Similary to \eqref{3.1}, the risk of $\delta$ is given by 
+  \[
+    R(p, \delta) = p(1-p)^{2} + (1-p)p^{2} + \|\delta(1,0) - p\|p(1-p) + \|\delta(0,1) - p\|p(1-p).
+  \]
+  So at $p = c$,
+  \[
+    R(p,\delta) - R(p,\delta_c) = \|\delta(1,0) - p\|p(1-p) + \|\delta(0,1) - p\|p(1-p) \geq \|\delta(1,0) - c\|c(1-c) > 0.
+  \]
+  Hence $\delta$ is not better than $\delta_c$. This is a contradiction.
+\end{Solution}
+
+\end{enumerate}
+
+
+\newpage
+
+\item Let $\mathcal{P}\equiv \{P_\theta:\theta \in \Theta\}$ be a family of distributions on $(\mathcal{X},\mathcal{B})$ for a random observable $X$. Suppose $\mathcal{P}$ is dominated by a $\sigma$-finite measure $\mu$ and that $T:(\mathcal{X},\mathcal{B})\rightarrow (\mathcal{T},\mathcal{F})$ is  sufficient for $\mathcal{P}$, where $(\mathcal{T},\mathcal{F}) = (\mathbb{R}^k, \mathcal{B}(\mathbb{R}^k))$ for some $k\geq 1$.  Let $ \mathcal{P}_0 \subset \mathcal{P}$ be a subset of distributions on $(\mathcal{X},\mathcal{B})$
+
+    \begin{enumerate}
+
+
+
+\item Prove or disprove:  If $T$ is  minimal sufficient for $\mathcal{P}$, then $T$ is  minimal sufficient for $\mathcal{P}_0$.\\
+
+  \begin{Solution}
+    No, $T$ is not necessarily minimal sufficient. Let $m$ denote Lebesgue measure on $[0,1]$ and consider the family $\mathcal{P}\equiv
+    \{P_\theta:\theta \in \Theta\}$ where for $\theta = (\theta_1, \theta_2) \in \Theta := (0,\infty)^{2}$, $P_{\theta}$ is the Beta distribution with
+    mean $\theta_1 / (\theta_1 + \theta_2)$. Then $T(X) := X$ is minimal sufficient for $\mathcal{P}$.
+
+    Now take $\Theta_0 := \{(1,1)\}$ and $\mathcal{P}_0 := \{P_{\theta} : \theta \in \Theta_0\} = \{P_{(1,1)}\}$, where $P_{(1,1)}$ is the uniform
+    distribution on $[0,1]$. Then $\frac{dP_{(1,1)}}{dm}(x) \equiv 1$ a.e. $m$. Thus, by the Factorization Theorem, any constant function $S(X) \equiv C
+    > 0$
+    is sufficient, as we can write $\frac{dP_{(1,1)}}{dm}(x) = g(S(x))\cdot C^{-1}$, where $g(\cdot)$ is the identity. However, clearly $T$ cannot 
+    be expressed as a function of $S$, so $T$ is not sufficient for $\mathcal{P}_0$.
+  \end{Solution}
+
+
+
+
+\item Prove or disprove:  If $T$ is  complete for $\mathcal{P}_0$, then $T$ is  minimal sufficient for $\mathcal{P}_0$.
+
+  \begin{Solution}
+    This is true. If $T$ is sufficient for $\mathcal{P}$, then clearly $T$ is sufficient for $\mathcal{P}_0$ (consider the Factorization Theorem).
+    Further, since $T$ is complete for $\mathcal{P}_0$, $T$ is boundedly complete for $\mathcal{P}_0$. Thus, by Bahadur's Theorem, $T$ is minimal
+    sufficient for $\mathcal{P}_0$.
+  \end{Solution}
+
+
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\item Let $\mu=\lambda+\gamma$ denote a measure on $(\mathbb{R},\mathcal{B}(\mathbb{R}))$ where $\lambda$ denotes
+the Lebesgue measure on $(0,2)$ (i.e., $\lambda$ assigns measure zero outside $(0,2)$) and $\gamma$ denotes the counting measure on nonnegative integers $\mathbb{Z}_+=\{0,1,2\ldots\}$.
+ For $\eta =(\eta_1,\eta_2) \in \mathbb{R}^2$ such that
+ \[
+   K(\eta) \equiv \int_{\mathbb{R}} \exp\left[  \eta_1 x I(x \in \mathbb{Z}_+) + \eta_2 x I(0<x<2)  \right] d\mu(x)<\infty,
+ \]
+let
+\[
+f_\eta (x) = \frac{1}{K(\eta)}\exp\left[  \eta_1 x I(x \in \mathbb{Z}_+) + \eta_2 x I(0<x<2)  \right]
+\]
+denote the corresponding density (with respect to $\mu$) of a distribution $P_\eta$ on $ \mathbb{R}$.
+
+
+\begin{enumerate}
+\item Identify the natural parameter space $\Gamma$  for this family of distributions.\\
+
+  \begin{Solution}
+    The natural parameter space is $\Gamma = \left\{ \eta \in \mathbb{R}^{2} : K(\eta) < \infty \right\}$, where for $\eta \in \mathbb{R}^{2}$,
+    \begin{align*}
+      K(\eta) & = \int_{\mathbb{R}}\exp\left[ \eta_1 xI(x \in \mathbb{Z}_+) + \eta_2 x \left( 0 < x < 2\right)\right]d(\lambda + \gamma)(x) \\
+      & = \underbrace{\int_{(0,2)}\exp\left[ \eta_2x \right]d\lambda(x)}_{< \infty \ \forall \ \eta_2 \in \mathbb{R}} + 
+      \underbrace{\int_{\mathbb{Z}_+}\exp\left[ \eta_1x + \eta xI(x = 1) \right]d\gamma(x). }_{ = 1 + \exp\left[ \eta_1 + \eta_2 \right] +
+      \sum_{x=2}^{\infty}\exp[\eta_1x]}
+    \end{align*}
+    Thus 
+    \[ 
+      \Gamma = \left\{ \eta \in \mathbb{R}^{2} : \sum_{x=2}^{\infty}\exp\left[ \eta_1 x \right] < \infty \right\} = 
+      \left\{ \eta \in \mathbb{R}^{2} : \eta_1 < 0 \right\} = (-\infty, 0) \times \mathbb{R}.
+    \]
+  \end{Solution}
+
+
+\item If $X=(X_1,\ldots,X_n)$ consists of iid random variables, each with common distribution $P_\eta$ on $ \mathbb{R}$ ($\eta \in \Gamma$), show that $\sum_{i=1}^n X_i I(X_i \in \mathbb{Z}_+)$ is a complete statistic for the resulting family of distributions, say $\{P^X_\eta: \eta \in \Gamma\}$, for $X$.\\
+Hint: Consider first a complete statistic by exponential family properties. \\
+
+\begin{Solution}
+  Let $T(X) = (T_1(X), T_2(X))$, where 
+  \[
+    T_1(X) := \sum_{i=1}^{n}X_iI(X_i \in \mathbb{Z}_+) \qquad \text{and} \qquad T_2(X) := \sum_{i=1}^{n}X_iI(0 < X_i < 2).
+  \]
+  Then $T$ is complete by the properties of exponential families. Let $S(X) = T_1(X)$, i.e. $S$ is just the first component of $T$. We claim that $S$
+  is complete. To that end, let $h$ be any real-valued measurable function of $S$ such that for all $\eta \in \Gamma$, $E_{\eta}h[S(X)] = 0$. Then 
+  \[
+    E_{\eta}h(S) = E_{\eta}h[\pi^{1}(T)] = 0 \ \ \text{ for all } \eta \in \Gamma,
+  \]
+  where $\pi^{1}(T)$ is the projection of $T$ onto its first component. Then by the definition of completeness of $T$, $h[\pi^{1}(T)] = 0$ a.s.
+  $P_{\eta}$ for all $\eta \in \Gamma$.
+  So $h(S) = 0$ a.s. $P_{\eta}$ for all $\eta \in \Gamma$. Hence $S$ is complete.
+\end{Solution}
+
+\vspace{5mm}
+
+\item For $X$ in part (b), find the Fisher information $I_X(\eta)$ at a point $\eta_0 \in \Gamma$. \\
+
+  \begin{Solution}
+    By Proposition 34 and independence,
+    \[
+      I_{X}(\eta_0) = -n\left[ \frac{\partial^2 \log K(\eta)}{\partial \eta_i\partial \eta_j}\bigg|_{\eta_0} \right]_{i,j}, \ i,j = 1,2,
+    \]
+    where
+    \[
+      \frac{\partial \log K(\eta)}{\partial \eta_1} = \frac{1}{K(\eta)}\frac{\partial K}{\partial \eta_1}(\eta) \qquad  \text{and} \qquad
+      \frac{\partial \log K(\eta)}{\partial \eta_2} = \frac{1}{K(\eta)}\frac{\partial K}{\partial \eta_2}(\eta),
+    \]
+    so
+    \begin{align*}
+      I_{X}(\eta_0)_{1,1} = -n\frac{\partial^2 \log K(\eta)}{\partial^2 \eta_1}\bigg|_{\eta_0} & = -n\left( \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial
+          \eta_1^{2}}(\eta_0)\right] - 
+      \left[ \frac{\partial K}{\partial \eta_1}(\eta_0) \right]^{2}}{\left[ K(\eta_0) \right]^{2}}\right) \\
+      I_{X}(\eta_0)_{2,2} = -n\frac{\partial^2 \log K(\eta)}{\partial^2 \eta_2}\bigg|_{\eta_0} & = -n\left( \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial
+          \eta_2^{2}}(\eta_0)\right] - 
+      \left[ \frac{\partial K}{\partial \eta_2}(\eta_0) \right]^{2}}{\left[ K(\eta_0) \right]^{2}}\right) \ \text{ and } \\
+    I_{X}(\eta_0)_{1,2} = I_{X}(\eta_0)_{2,1} = -n\frac{\partial^2 \log K(\eta)}{\partial \eta_1 \partial \eta_2} \bigg|_{\eta_0}& = -n\left(
+        \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial \eta_1\partial \eta_2}(\eta_0)\right] - 
+      \left[ \frac{\partial K}{\partial \eta_1}(\eta_0) \right]\left[ \frac{\partial K}{\partial \eta_2}(\eta_0) \right]}{\left[ K(\eta_0) \right]^{2}}\right).
+    \end{align*}
+  \end{Solution}
+
+
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}
