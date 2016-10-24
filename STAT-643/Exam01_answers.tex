@@ -153,7 +153,7 @@ Set $X=(X_1,\ldots,X_n)$.
       \[ E_{\t}(X_i - \theta) = \int_{-\infty}^{\theta}(x - \theta) 2\pi^{-1/2}\exp\left\{ -(x -\theta^2) \right\}dm(x) = -\pi^{-1/2}\exp\left\{
           -(x-\theta)^2
       \right\}\bigg|_{-\infty}^{\theta} = \pi^{-1/2}. \]
-      Hence $EX_i = \pi^{-1/2} + \theta$.
+      Hence $E_{\t}X_i = \pi^{-1/2} + \theta$.
     \end{claimproof}
 
     \begin{claim}
@@ -162,7 +162,7 @@ Set $X=(X_1,\ldots,X_n)$.
     \begin{claimproof}
       Let $F_{\theta}(x) = \int_{-\infty}^{\theta}f_{\theta}(x)dm(x)$. Using integration by parts,
       \[
-        E\left[ \max_i X_i \right] = \int_{-\infty}^{\theta}nxf_{\theta}(x)\left[ F_{\theta}(x) \right]^{n-1}dm(x) = x\left[ F_{\theta}(x)
+        E_{\t}\left[ \max_i X_i \right] = \int_{-\infty}^{\theta}nxf_{\theta}(x)\left[ F_{\theta}(x) \right]^{n-1}dm(x) = x\left[ F_{\theta}(x)
         \right]^{n}\bigg|_{-\infty}^{\theta} - \underbrace{\int_{-\infty}^{\theta}\left[ F_{\theta}(x) \right]^{n}dm(x)}_{\text{constant as a function
         of }\t}  = \theta - K.
       \]
