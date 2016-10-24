@@ -70,7 +70,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \bf STAT 643  \\   Fall 2016 - Nordman \\
 \vspace{.2cm}  Midterm Exam \\}
 \vspace{.2cm} {\large {\bf 10/19/16}  \\
-  \vspace{2cm} STUDENT NAME (PRINTED): Evan Pete Walsh \\
+  \vspace{2cm} STUDENT NAME (PRINTED):\underline{ Evan Pete Walsh \hspace{5mm}}\\
 \vspace{1.5cm} {\em I have neither given nor received any unauthorized aid on this exam.}\\
 \vspace{1cm} Student
 Signature:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ Date:\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
@@ -109,7 +109,7 @@ with respect to the Lebesgue measure on $\mathbb{R}$ and parameter $\theta \in \
 Set $X=(X_1,\ldots,X_n)$.
 
 \begin{enumerate}[leftmargin=0cm, itemindent=0cm]
-\item Find a minimal sufficient statistic $T(X)$ for $\theta$.  Be sure to carefully justify your response.
+\item Find a minimal sufficient statistic $T(X)$ for $\theta$.  Be sure to carefully justify your response. \\
 
   \begin{Solution}
 
@@ -122,7 +122,7 @@ Set $X=(X_1,\ldots,X_n)$.
     & = \left( \frac{2}{\sqrt{\pi}} \right)^{n} \exp\left[ -\sum_{i=1}^{n}x_i^2 \right]\exp\left[ 2\theta\sum_{i=1}^{n}x_i - n\theta^2 \right]I(\max_i
     x_i \leq \t) \ \ \text{ a.e. } \mu.
   \end{align*}
-  Hence $T(X) := \left( \sum_{i=1}^{n}X_i, \max_i X_i \right)$ is sufficient for $\theta$. We will now show that $T$ is minimal sufficient by way
+  Hence $T(X) := \left( \sum_{i=1}^{n}X_i, \max_i X_i \right)$ is sufficient for $\theta$ by the Factorization Theorem. We will now show that $T$ is minimal sufficient by way
   of Theorem 06. Well, let $\bm{x}, \bm{y} \in \mathbb{R}^{n}$ and suppose 
   \begin{equation}
     p_{\theta}(\bm{x}) = p_{\theta}(\bm{y}) \exp\left[ \sum_{i=1}^{n}y_i - \sum_{i=1}^{n}x_i \right] \ \ \text{ for all } \theta \in \mathbb{R}.
@@ -146,18 +146,18 @@ Set $X=(X_1,\ldots,X_n)$.
     Let $m$ denote the Lebesgue measure on $\mathbb{R}$.
 
     \begin{claim}
-      For $i = 1, \dots, n$, $EX_i = \pi^{-1/2} + \theta$.
+      For $i = 1, \dots, n$, $E_{\t}X_i = \pi^{-1/2} + \theta$.
     \end{claim}
     \begin{claimproof}
       By a simple $u$-substitution,
-      \[ E(X_i - \theta) = \int_{-\infty}^{\theta}(x - \theta) 2\pi^{-1/2}\exp\left\{ -(x -\theta^2) \right\}dm(x) = -\pi^{-1/2}\exp\left\{
+      \[ E_{\t}(X_i - \theta) = \int_{-\infty}^{\theta}(x - \theta) 2\pi^{-1/2}\exp\left\{ -(x -\theta^2) \right\}dm(x) = -\pi^{-1/2}\exp\left\{
           -(x-\theta)^2
       \right\}\bigg|_{-\infty}^{\theta} = \pi^{-1/2}. \]
       Hence $EX_i = \pi^{-1/2} + \theta$.
     \end{claimproof}
 
     \begin{claim}
-      $E[\max_i X_i] = \theta - K$ for some constant $K > 0$.
+      $E_{\t}[\max_i X_i] = \theta - K$ for some constant $K > 0$.
     \end{claim}
     \begin{claimproof}
       Let $F_{\theta}(x) = \int_{-\infty}^{\theta}f_{\theta}(x)dm(x)$. Using integration by parts,
@@ -166,13 +166,13 @@ Set $X=(X_1,\ldots,X_n)$.
         \right]^{n}\bigg|_{-\infty}^{\theta} - \underbrace{\int_{-\infty}^{\theta}\left[ F_{\theta}(x) \right]^{n}dm(x)}_{\text{constant as a function
         of }\t}  = \theta - K.
       \]
-      Hence $E[\max_i X_i] = \theta - K$ where $K := \int_{-\infty}^{\theta}\left[ F_{\theta}(x) \right]^{n}dm(x)$.
+      Hence $E_{\t}[\max_i X_i] = \theta - K$ where $K := \int_{-\infty}^{\theta}\left[ F_{\theta}(x) \right]^{n}dm(x)$.
     \end{claimproof}
 
     Now take $h(T(\bm{x})) := \frac{1}{n}\left( \sum_{i=1}^{n}x_i \right) - \pi^{-1/2} - K - \max_i x_i = \bar{x} - \pi^{-1/2} - K - \max_i x_i$.
     Then by claims 1 and 2,
     \[
-      E_{\theta}h\circ T(X) = E_{\theta}\bar{X} - \pi^{-1/2} - K - E\left[ \max_i X_i \right] = \pi^{-1/2} + \theta - \pi^{-1/2} - K - (\theta - K) =
+      E_{\theta}h\circ T(X) = E_{\theta}\bar{X} - \pi^{-1/2} - K - E_{\t}\left[ \max_i X_i \right] = \pi^{-1/2} + \theta - \pi^{-1/2} - K - (\theta - K) =
       0.
     \]
     However, clearly $h\circ T \neq 0$ on a set of positive measure, so $T$ is not complete.
@@ -201,11 +201,11 @@ conditions hold.) \\
 
   \begin{Solution} $I(P_{\t_0}, P_{\t_1}) = $
     \begin{align*}
-       & = E_{\theta_0}\log\left\{ \frac{f_{\theta_0}(X)}{f_{\theta_1}(X)} \right\} \\
+      & = E_{\theta_0}\log\left\{ \frac{f_{\theta_0}(X)}{f_{\theta_1}(X)} \right\} \\
       & = \sum_{x=1}^{9}\log\left\{ \frac{\theta_0(1
       - \theta_0)^{x-1}}{\theta_1(1 - \theta_1)^{x-1}}\right\}\theta_0(1-\theta_0)^{x-1} + \log\left\{ \frac{(1-\theta_0)^{9}}{(1-\theta_1)^{9}}
       \right\}(1-\theta_0)^{9} \\
-      & = \log\left( \frac{\theta_0}{\theta_1} \right)\theta_0\sum_{x=1}^{9}(1-\theta_0)^{x-1} + \theta_0\log\left( \frac{1-\theta_0}{1-\theta_1}
+      & = \log\left( \frac{\theta_0}{\theta_1} \right)\sum_{x=1}^{9}\t_0(1-\theta_0)^{x-1} + \theta_0\log\left( \frac{1-\theta_0}{1-\theta_1}
       \right)\sum_{x=1}^{9}(x-1)(1-\theta_0)^{x-1} + 9\log\left( \frac{1-\theta_0}{1-\theta_1} \right)(1-\theta_0)^{9} \\
       & = \log\left( \frac{\theta_0}{\theta_1} \right)(1-\theta_0)^{9} + \frac{1}{\theta_0}\log\left( \frac{1-\theta_0}{1-\theta_1} \right)\left\{
       (1-\theta_0) + 8(1-\theta_0)^{10} - 9(1-\theta_0)^{9} \right\} + 9\log\left( \frac{1-\theta_0}{1-\theta_1} \right)(1-\theta_0)^{9} \\
@@ -305,10 +305,10 @@ $\delta_c(X)$.  Show that $\delta(X)$ must match $\delta_c(X)$ for $X=(X_1,X_2)$
     \label{3.1}
   \end{equation}
   Now, by way of contradiction, suppose $\delta(0,0) = a \in (0,1]$, i.e. $\delta(0,0) \neq 0 = \delta_c(0,0)$. From \eqref{3.1} we see that $R(0,
-  \delta_c) = 0$, so we must have $R(0, \delta) = 0$. But $R(0,\delta) \geq |a-p|(1-p)^{2} = a > 0$. This is a contradiction. 
+  \delta_c) = 0$, so we must have $R(0, \delta) = 0$. But $R(0,\delta) \geq |a-0|(1-0)^{2} = a > 0$. This is a contradiction. 
 
   Similary, assume for a moment that $\delta(1,1) = a \in [0,1)$, i.e. $\delta(1,1) \neq 1 = \delta_c(1,1)$. By \eqref{3.1}, $R(1,\delta_c) = 0$, so
-  $R(1,\delta) = 0$. But $R(1,\delta) \geq \|a - p\|p^{2} = \|a - 1\| > 0$. This is a contradiction once again.
+  $R(1,\delta) = 0$. But $R(1,\delta) \geq \|a - 1\|1^{2} = \|a - 1\| > 0$. This is a contradiction once again.
 \end{Solution}
 
 \vspace{0.5cm}
@@ -321,10 +321,11 @@ of behavioral decision rules  (i.e., there can be no rule in $\mathcal{D}^*$ tha
   better than $\delta_c$. But by (b), $\delta(0,0) = \delta_c(0,0) = 0$, and $\delta(1,1) = \delta_c(1,1) = 1$. Thus we must have either $\delta(0,1)
   \neq \delta_c(0,1) = c$ or $\delta(1,0) \neq \delta_c(1,0) = c$. Without loss of generality assume $\delta(1,0) \neq c$.
   Similary to \eqref{3.1}, the risk of $\delta$ is given by 
-  \[
+  \begin{equation}
     R(p, \delta) = p(1-p)^{2} + (1-p)p^{2} + \|\delta(1,0) - p\|p(1-p) + \|\delta(0,1) - p\|p(1-p).
-  \]
-  So at $p = c$,
+    \label{3.2}
+  \end{equation}
+  So by \eqref{3.1} and \eqref{3.2}, at $p = c$,
   \[
     R(p,\delta) - R(p,\delta_c) = \|\delta(1,0) - p\|p(1-p) + \|\delta(0,1) - p\|p(1-p) \geq \|\delta(1,0) - c\|c(1-c) > 0.
   \]
@@ -336,7 +337,10 @@ of behavioral decision rules  (i.e., there can be no rule in $\mathcal{D}^*$ tha
 
 \newpage
 
-\item Let $\mathcal{P}\equiv \{P_\theta:\theta \in \Theta\}$ be a family of distributions on $(\mathcal{X},\mathcal{B})$ for a random observable $X$. Suppose $\mathcal{P}$ is dominated by a $\sigma$-finite measure $\mu$ and that $T:(\mathcal{X},\mathcal{B})\rightarrow (\mathcal{T},\mathcal{F})$ is  sufficient for $\mathcal{P}$, where $(\mathcal{T},\mathcal{F}) = (\mathbb{R}^k, \mathcal{B}(\mathbb{R}^k))$ for some $k\geq 1$.  Let $ \mathcal{P}_0 \subset \mathcal{P}$ be a subset of distributions on $(\mathcal{X},\mathcal{B})$
+\item Let $\mathcal{P}\equiv \{P_\theta:\theta \in \Theta\}$ be a family of distributions on $(\mathcal{X},\mathcal{B})$ for a random observable $X$. 
+  Suppose $\mathcal{P}$ is dominated by a $\sigma$-finite measure $\mu$ and that $T:(\mathcal{X},\mathcal{B})\rightarrow (\mathcal{T},\mathcal{F})$ is  
+  sufficient for $\mathcal{P}$, where $(\mathcal{T},\mathcal{F}) = (\mathbb{R}^k, \mathcal{B}(\mathbb{R}^k))$ for some $k\geq 1$.  Let $ \mathcal{P}_0 \subset \mathcal{P}$ 
+  be a subset of distributions on $(\mathcal{X},\mathcal{B})$.
 
     \begin{enumerate}
 
@@ -357,9 +361,8 @@ of behavioral decision rules  (i.e., there can be no rule in $\mathcal{D}^*$ tha
   \end{Solution}
 
 
-
-
-\item Prove or disprove:  If $T$ is  complete for $\mathcal{P}_0$, then $T$ is  minimal sufficient for $\mathcal{P}_0$.
+  \vspace{5mm}
+\item Prove or disprove:  If $T$ is  complete for $\mathcal{P}_0$, then $T$ is  minimal sufficient for $\mathcal{P}_0$.\\
 
   \begin{Solution}
     This is true. If $T$ is sufficient for $\mathcal{P}$, then clearly $T$ is sufficient for $\mathcal{P}_0$ (consider the Factorization Theorem).
@@ -378,10 +381,7 @@ the Lebesgue measure on $(0,2)$ (i.e., $\lambda$ assigns measure zero outside $(
  \[
    K(\eta) \equiv \int_{\mathbb{R}} \exp\left[  \eta_1 x I(x \in \mathbb{Z}_+) + \eta_2 x I(0<x<2)  \right] d\mu(x)<\infty,
  \]
-let
-\[
-f_\eta (x) = \frac{1}{K(\eta)}\exp\left[  \eta_1 x I(x \in \mathbb{Z}_+) + \eta_2 x I(0<x<2)  \right]
-\]
+let $f_\eta (x) = \frac{1}{K(\eta)}\exp\left[  \eta_1 x I(x \in \mathbb{Z}_+) + \eta_2 x I(0<x<2)  \right]$
 denote the corresponding density (with respect to $\mu$) of a distribution $P_\eta$ on $ \mathbb{R}$.
 
 
@@ -417,7 +417,7 @@ Hint: Consider first a complete statistic by exponential family properties. \\
   \[
     E_{\eta}h(S) = E_{\eta}h[\pi^{1}(T)] = 0 \ \ \text{ for all } \eta \in \Gamma,
   \]
-  where $\pi^{1}(T)$ is the projection of $T$ onto its first component. Then by the definition of completeness of $T$, $h[\pi^{1}(T)] = 0$ a.s.
+  where $\pi^{1}(T) = T_1$ is the projection of $T$ onto its first component. Then by the definition of completeness of $T$, $h[\pi^{1}(T)] = 0$ a.s.
   $P_{\eta}$ for all $\eta \in \Gamma$.
   So $h(S) = 0$ a.s. $P_{\eta}$ for all $\eta \in \Gamma$. Hence $S$ is complete.
 \end{Solution}
