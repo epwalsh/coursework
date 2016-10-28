@@ -325,9 +325,9 @@ of behavioral decision rules  (i.e., there can be no rule in $\mathcal{D}^*$ tha
     R(p, \delta) = p(1-p)^{2} + (1-p)p^{2} + \|\delta(1,0) - p\|p(1-p) + \|\delta(0,1) - p\|p(1-p).
     \label{3.2}
   \end{equation}
-  So by \eqref{3.1} and \eqref{3.2}, at $p = c$,
+  So by \eqref{3.1} and \eqref{3.2}, at $p = c$, $R(c, \delta_c) = c(1-c)^{2} + (1-c)c^{2}$, and thus
   \[
-    R(p,\delta) - R(p,\delta_c) = \|\delta(1,0) - p\|p(1-p) + \|\delta(0,1) - p\|p(1-p) \geq \|\delta(1,0) - c\|c(1-c) > 0.
+    R(c,\delta) - R(c,\delta_c) = \|\delta(1,0) - c\|c(1-c) + \|\delta(0,1) - c\|c(1-c) \geq \|\delta(1,0) - c\|c(1-c) > 0.
   \]
   Hence $\delta$ is not better than $\delta_c$. This is a contradiction.
 \end{Solution}
@@ -429,7 +429,7 @@ Hint: Consider first a complete statistic by exponential family properties. \\
   \begin{Solution}
     By Proposition 34 and independence,
     \[
-      I_{X}(\eta_0) = -n\left[ \frac{\partial^2 \log K(\eta)}{\partial \eta_i\partial \eta_j}\bigg|_{\eta_0} \right]_{i,j}, \ i,j = 1,2,
+      I_{X}(\eta_0) = n\left[ \frac{\partial^2 \log K(\eta)}{\partial \eta_i\partial \eta_j}\bigg|_{\eta_0} \right]_{i,j}, \ i,j = 1,2,
     \]
     where
     \[
@@ -438,13 +438,13 @@ Hint: Consider first a complete statistic by exponential family properties. \\
     \]
     so
     \begin{align*}
-      I_{X}(\eta_0)_{1,1} = -n\frac{\partial^2 \log K(\eta)}{\partial^2 \eta_1}\bigg|_{\eta_0} & = -n\left( \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial
-          \eta_1^{2}}(\eta_0)\right] - 
+      I_{X}(\eta_0)_{1,1} = n\frac{\partial^2 \log K(\eta)}{\partial^2 \eta_1}\bigg|_{\eta_0} & = n\left( \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial
+          \eta_1^{2}}(\eta_0\right] - 
       \left[ \frac{\partial K}{\partial \eta_1}(\eta_0) \right]^{2}}{\left[ K(\eta_0) \right]^{2}}\right) \\
-      I_{X}(\eta_0)_{2,2} = -n\frac{\partial^2 \log K(\eta)}{\partial^2 \eta_2}\bigg|_{\eta_0} & = -n\left( \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial
+      I_{X}(\eta_0)_{2,2} = n\frac{\partial^2 \log K(\eta)}{\partial^2 \eta_2}\bigg|_{\eta_0} & = n\left( \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial
           \eta_2^{2}}(\eta_0)\right] - 
       \left[ \frac{\partial K}{\partial \eta_2}(\eta_0) \right]^{2}}{\left[ K(\eta_0) \right]^{2}}\right) \ \text{ and } \\
-    I_{X}(\eta_0)_{1,2} = I_{X}(\eta_0)_{2,1} = -n\frac{\partial^2 \log K(\eta)}{\partial \eta_1 \partial \eta_2} \bigg|_{\eta_0}& = -n\left(
+    I_{X}(\eta_0)_{1,2} = I_{X}(\eta_0)_{2,1} = n\frac{\partial^2 \log K(\eta)}{\partial \eta_1 \partial \eta_2} \bigg|_{\eta_0}& = n\left(
         \frac{K(\eta_0)\left[\frac{\partial^2K}{\partial \eta_1\partial \eta_2}(\eta_0)\right] - 
       \left[ \frac{\partial K}{\partial \eta_1}(\eta_0) \right]\left[ \frac{\partial K}{\partial \eta_2}(\eta_0) \right]}{\left[ K(\eta_0) \right]^{2}}\right).
     \end{align*}

@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{bm}
+\usepackage{color}
+
+
+\setlength{\textwidth}{7.0in} \setlength{\oddsidemargin}{-.5in}
+\setlength{\evensidemargin}{-.5in} \setlength{\textheight}{9in}
+\setlength{\topmargin}{-0.5in}
+\newcommand{\E}{\mathrm{E}}
+\renewcommand{\baselinestretch}{1}
+
+\begin{document}
+
+\vspace{6cm}
+\begin{center}\Large \textbf{Homework 4 -- STAT 643} \\
+\normalsize \textbf{Due Friday, November 11 (in class)}
+\end{center}
+
+\begin{enumerate} \itemsep .3cm
+\item Consider the two-state decision problem with $\Theta=\{1,2\}$ and $P_1$ as the Bernoulli$(1/4)$ distribution and
+$P_2$ as the Bernoulli$(1/2)$ distribution. Let $\mathcal{A}=\Theta$ and $L(\theta,a)=I(\theta \neq a)$.
+\begin{enumerate}
+\item Find $\mathcal{S}^0$, the set of risk vectors (risk points in $\mathbb{R}^2$) for the four possible non-randomized decision rules here.  Plot these risk points in the plane and then sketch $\mathcal{S}$, the set of all randomized risk vectors.
+    \item Identify $A(\mathcal{S})$, the set of all admissible risk vectors.  Is there a minimal complete class for this decision problem? If there is one, what is it?  (Note: It can be shown through direct, but tedious, calculation that any element of $\mathcal{D}^*$ has a corresponding element of $\mathcal{D}_*$ with the same risk vector, and vice versa.  You may use this fact without proof. In the finite geometry decision framework, we used randomized rules $\mathcal{D}_*$ and, in discussing complete classes, we used behavioral rules $\mathcal{D}^*$; but this difference generally doesn't matter, in this problem in particular.)
+
+         \end{enumerate}
+         \item Consider the two-state decision problem with $\Theta=\{1,2\}$, where the observable $X=(X_1,X_2)$ has iid Bernoulli$(1/4)$
+         components when $\theta=1$ and  has iid Bernoulli$(1/2)$
+         components when $\theta=2$. Let $\mathcal{A}=\Theta$ and $L(\theta,a)=I(\theta \neq a)$.  Consider the behavioral decision rule $\phi$, with $\phi_x\equiv \phi_{(x_1,x_2)}$, defined as
+         \begin{eqnarray*}
+          \phi_x(\{1\})=1 &\mbox{if $x_1=0$}\\
+          \phi_x(\{1\})=1/2 &\mbox{if $x_1=1$}
+         \end{eqnarray*}
+
+\begin{enumerate}
+\item Show that $\phi$ is inadmissible by finding a decision rule with a better risk function.
+
+    \item Find a behavioral decision rule that is a function of the sufficient statistic $T(X)=X_1+X_2$ and is risk equivalent to $\phi$.
+
+\end{enumerate}
+\item Let $X_1,\ldots,X_n$ be iid binary random variables with $P_\theta(X_1=1)=\theta=1-P_\theta(X_1=0)$ for $\theta \in(0,1)$.  Consider estimating $\theta$ based on squared error loss and $X=(X_1,\ldots,X_n)$.  Derive the risk functions of the following estimators:
+    \begin{enumerate}
+    \item the non-randomized rules $\bar{X}$ (sample mean of $X$) and
+    \[
+    T_0(X) = \left\{\begin{array}{lcl}
+    0 && \mbox{if more than half of the $X_i$'s are 0}\\
+    1 && \mbox{if more than half of the $X_i$'s are 1}\\
+    0.5 && \mbox{if exactly half of the $X_i$'s are 0}
+    \end{array}\right.
+    \]
+    It suffices to express risks for $T_0(X)$ in terms of probabilities involving $\bar{X}$.
+    \item the decision rules (involving forms of randomization) given by
+      \[
+    T_1(X) = \left\{\begin{array}{lcl}
+    \bar{X} && \mbox{with probability $0.5$}\\
+    T_0(X) &&  \mbox{with probability $0.5$}
+    \end{array}\right. \quad \& \quad  T_2(X) = \left\{\begin{array}{lcl}
+    \bar{X} && \mbox{with probability $\bar{X}$}\\
+    0.5 &&  \mbox{with probability $1-\bar{X}$}
+    \end{array}\right.
+    \]
+    It again suffices to express risks for $T_1(X)$ in terms of probabilities involving $\bar{X}$.  The risk for $T_2(X)$ should be
+    \[
+    \frac{\theta (1-\theta)(1+\theta (n-2))}{n^2}+ (\theta-0.5)^2(1-\theta).
+    \]
+
+      \end{enumerate}
+
+\item Find decision rules that are better than $T_1(X)$ and $T_2(X)$, respectively, in Problem~3 for $n\geq 3$.  (Hint: Consider Lemma 51.)
+\item Can any of the rules in Problem~4 be improved by using the Rao-Blackwell theorem?  Explain why or why not.
+\item   Consider the two-state decision problem with $\Theta=\{1,2\}=\mathcal{A}$, where  $P_0$ and $P_1$ have densities $f_0(x)$ and $f_1(x)$
+with respect to a dominating $\sigma$-finite measure $\mu$.  Let the loss function be $L(\theta,a)$ for $a,\theta \in\{0,1\}$.
+
+\begin{enumerate}
+\item For an arbitrary prior distribution $G$, find a formal Bayes rule with respect to $G$.
+\item Specialize your result in (a) to the case where $L(\theta,a)=I(\theta\neq a)$.  What connection does the form of these Bayes rules have to the theory of simple-versus-simple hypothesis testing (i.e., $H_0:\theta=0$ vs $H_1:\theta=1$)?
+\end{enumerate}
+\end{enumerate}
+\end{document}
