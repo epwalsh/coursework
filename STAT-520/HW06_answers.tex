@@ -75,7 +75,105 @@ and variance
   \label{1.2}
 \end{equation}
 
-(b) 
+(b) We claim the mle of $\beta$ is given by 
+\begin{equation}
+  \hat{\beta}_{mle} = \frac{\sum_{i=1}^{n}x_i y_i}{\sum_{i=1}^{n}x_i^2}.
+  \label{1.3}
+\end{equation}
+Well, the log likelihood of $\beta$ is given by $\ell(\beta|\bm{y}) = -\frac{1}{2\sigma^{2}}\sum_{i=1}^{n}(y_i - \beta x_i)^{2} + C$, so 
+\[
+  \frac{d\ell(\beta|\bm{y})}{d\beta} = -\frac{1}{\sigma^{2}}\sum_{i=1}^{n}(y_i - \beta x_i)(-x_i) = \frac{1}{\sigma^{2}}\sum_{i=1}^{n}(x_i y_i - \beta
+x_i^{2}) \stackrel{\text{set}}{=} 0, \]
+for which $\hat{\beta}_{mle}$ from \eqref{1.3} is the solution. Now, we can rewrite the mean of the posterior from \eqref{1.1} as 
+\[
+  \frac{\tau_{\beta}^2\sum_{i=1}^{n}x_i y_i + \sigma^{2}\mu_{\beta}}{\tau_{\beta}^2\sum_{i=1}^{n}x_i^2 + \sigma^2} = 
+  \frac{\frac{\sum_{i=1}^{n}x_i^2}{\sigma^{2}} \hat{\beta}_{mle} + \frac{1}{\tau_{\beta}^2}\mu_{\beta}}{\frac{\sum_{i=1}^nx_i^2}{\sigma^{2}} +
+  \frac{1}{\tau_{\beta}^2}}.
+\]
+Thus, the mean of the posterior is a weighted average of $\hat{\beta}_{mle}$ and $\mu_{\beta}$, where the respective weights 
+are $\sigma^{-2}\sum_{i=1}^n x_i^2$ and $\tau_{\beta}^{-2}$. This should be intuitive since the smaller $\tau_{\beta}^2$, the more ``sure'' we are of the
+location of $\beta$ in our prior distribution, and thus the prior mean $\mu_{\beta}$ should carry more weight. On the other hand, if $\sigma^2$ is
+smaller or $\sum_{i=1}^n x_i^2$ is larger then the MLE of $\beta$, which coincides with the least squares estimate of $\beta$, should be more accurate.
+
+{\small (The influence of $\sum_{i=1}^{n} x_i^2$ on the accuracy of $\hat{\beta}_{mle}$ follows from the fact that the intercept of the regression line is
+fixed at $y = 0$, so that if we have observations corresponding to larger values of the covariate, then the least squares regression line should be
+more precise.)}
+
+
+\subsection*{2} (a) The posterior that would result from using this prior would be proper, since 
+\begin{align*}
+  \int_{0}^{\infty} f(\bm{y}|\lambda)\pi(\lambda)d\lambda = \int_{0}^{\infty}f(\bm{y}|\lambda)d\lambda & \propto
+  \int_{0}^{\infty}\lambda^{n\bar{y}}\exp\left\{ -n\lambda \right\}d\lambda \\
+  & = \int_{0}^{\infty}\lambda^{\alpha - 1}\exp\left\{ -\beta \lambda \right\}d\lambda < \infty,
+\end{align*}
+where $\alpha := n\bar{y} + 1$ and $\beta := n$, which is the finite since $\lambda^{\alpha-1}\exp\left\{ -\beta \lambda \right\}$ is the 
+kernel of a gamma distribution with mean $\alpha / \beta$.
+
+(b) To derive Jeffreys' prior, $\pi_0(\lambda)$, we first derive the Fisher information, which is given by 
+\begin{align*}
+  I(\lambda) = -\mathrm{E}\left[ \frac{d^{2}\log f(\bm{y}|\lambda)}{d\lambda^2} \right] = - \mathrm{E}\left[ \frac{d^2}{d\lambda^2}\left( 
+  n\bar{y}\log\lambda - n\lambda \right) \right] 
+  & = -\mathrm{E}\left[ \frac{d}{d\lambda}\left( \frac{n\bar{y}}{\lambda} - n \right) \right] \\
+  & = -\mathrm{E}\left[ -\frac{n\bar{y}}{\lambda^2} \right] \\
+  & = \frac{n}{\lambda}.
+\end{align*}
+Thus $\pi_0(\lambda) = \sqrt{n}\lambda^{-1/2}$, which is improper since $\int_{0}^{\infty}\lambda^{-1/2}d\lambda = \infty$.
+On the other hand, the posterior turns out to be proper since 
+\[
+  \int_{0}^{\infty} f(\bm{y}|\lambda)\pi_0(\lambda)d\lambda \propto \int_{0}^{\infty} \lambda^{\alpha' - 1}\exp\left\{ -\beta \lambda
+  \right\}d\lambda,
+\]
+where $\alpha' := \sum_{i=1}^{n}y_i + 1/2$ and $\beta$ is as above, which is finite since $\lambda^{\alpha' - 1}\exp\left\{ -\beta\lambda \right\}$ is
+the kernel of a gamma distribution with mean $\alpha' / \beta$.
+
+\subsection*{3} (a) Yes, the improper uniform prior in question 2 (a) can be found as the limit of gamma prior distributions. For instance, consider
+the sequence of priors $\pi_n(\lambda)$ where, for each $n \geq 1$,
+\[
+  \pi_n(\lambda) := \frac{\beta_n^{\alpha_n}}{\Gamma(\alpha_n)} \lambda^{\alpha_n - 1}\exp\left[ -\beta_n \lambda \right],
+\]
+where $\alpha_n := 1 - \frac{1}{n}$ and $\beta_n := \frac{1}{n}$. Then, as $n \rightarrow \infty$, $\alpha_n \rightarrow 1$ and $\beta_n \rightarrow
+0$. Thus, the kernel (of $\pi_n$),
+\[ \lambda^{\alpha_n - 1}\exp\left[ -\beta_n \lambda \right] \rightarrow 1. \]
+
+(b) Yes. Note that for priors of the form $\pi_n(\lambda)$ as above, the posterior, $p_n(\lambda | \bm{y})$, is of the form 
+\[
+  p_n(\lambda|\bm{y}) \propto \exp\left[ -n\lambda \right]\lambda^{n\bar{y}} \times \lambda^{\alpha -1}\exp\left[ -\beta\lambda \right]
+    = \lambda^{n\bar{y} + \alpha - 1}\exp\left[ -(\beta + n)\lambda \right] \longrightarrow \lambda^{n\bar{y}}\exp\left[ -n\lambda \right]
+\]
+as $n \rightarrow \infty$, which is the same form as the posterior found in 2 (a).
+
+\subsection*{4} We conducted a Monte Carlo study to examine the frequentist coverage of 90\% Bayesian central credible intervals for the Poisson data model of
+questions 2 and 3, considering the true parameter to be $\lambda = 9$ and the sample size to be $n = 20$. Note that the improper uniform prior from question 2 (a)
+results in a gamma posterior with parameters 
+\[ 
+  \alpha_0 = \sum_{i=1}^{n}y_i + 1 \qquad \text{and} \qquad \beta_0 = n, 
+\]
+while the proper gamma prior with parameters $\alpha_{\lambda} = 5$ and $\beta_{\lambda} = 0.5$ results in a gamma posterior with parameters 
+\[
+  \alpha_1 = \sum_{i=1}^{n}y_i + \alpha_{\lambda} = \sum_{i=1}^n y_i + 5 \qquad \text{and} \qquad \beta_1 = \beta_{\lambda} + n = 0.5 + n.
+\]
+We used a Monte Carlo sample of size $M = 2000$ and repeated the simulation 1000 times in order to obtain a 95\% interval for the Monte Carlo
+approximation of the coverage of the credible intervals formed from each prior. The results are displayed below.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lccc}
+    \hline
+    Prior & MC Approx. & MC Interval & Width \\
+    \hline
+    Improper & 0.899 & (0.886, 0.912) & 0.026 \\
+    Proper & 0.906 & (0.893, 0.919) & 0.026 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+According to a Monte Carlo approximation, the improper uniform prior results in a coverage rate that is almost exactly 90\%, while the proper gamma
+prior results in a coverage rate that is slightly larger than 90\%.
+
+
+\subsection*{5} The epistemic concept of probability is appropriate for the interpretation of the Bayesian credible intervals.
+On the other hand, the interpretation of the precision of the Monte Carlo approximation relies on the concept of probability that has to do with 
+\emph{long run} behavior, i.e. probability interpreted as a limiting quantity.
 
 \end{document}
 
