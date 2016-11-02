@@ -152,8 +152,8 @@ while the proper gamma prior with parameters $\alpha_{\lambda} = 5$ and $\beta_{
 \[
   \alpha_1 = \sum_{i=1}^{n}y_i + \alpha_{\lambda} = \sum_{i=1}^n y_i + 5 \qquad \text{and} \qquad \beta_1 = \beta_{\lambda} + n = 0.5 + n.
 \]
-We used a Monte Carlo sample of size $M = 2000$ and repeated the simulation 1000 times in order to obtain a 95\% interval for the Monte Carlo
-approximation of the coverage of the credible intervals formed from each prior. The results are displayed below.
+We used a Monte Carlo sample of size $M = 2000$ to obtain estimates of the coverage rate of the credible intervals formed from each prior. We then 
+used the central limit theorem to obtain approximate 95\% confidence intervals for the Monte Carlo estimates.
 
 \begin{table}[h]
   \centering
@@ -161,13 +161,13 @@ approximation of the coverage of the credible intervals formed from each prior. 
     \hline
     Prior & MC Approx. & MC Interval & Width \\
     \hline
-    Improper & 0.899 & (0.886, 0.912) & 0.026 \\
-    Proper & 0.906 & (0.893, 0.919) & 0.026 \\
+    Improper & 0.902 & (0.889, 0.915) & 0.026 \\
+    Proper & 0.913 & (0.900, 0.925) & 0.025 \\
     \hline
   \end{tabular}
 \end{table}
 
-According to a Monte Carlo approximation, the improper uniform prior results in a coverage rate that is almost exactly 90\%, while the proper gamma
+According to a Monte Carlo approximations, the improper uniform prior results in a coverage rate that is almost exactly 90\%, while the proper gamma
 prior results in a coverage rate that is slightly larger than 90\%.
 
 

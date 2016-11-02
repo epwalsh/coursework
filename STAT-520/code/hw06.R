@@ -3,7 +3,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-10-29
-# Last Modified: 2016-10-29 13:08:53
+# Last Modified: 2016-10-31 11:22:57
 # =============================================================================
 
 
@@ -34,6 +34,23 @@ sim_coverage_proper <- function() {
 }
 
 M <- 2000
+
+mc_impr <- sapply(seq(1, M), FUN = function(x) sim_coverage_improper())
+est_impr <- sum(mc_impr) / M
+mc_prop <- sapply(seq(1, M), FUN = function(x) sim_coverage_proper())
+est_prop <- sum(mc_prop) / M
+
+samp_var_impr <- sum((mc_impr - est_impr)^2) / (M * (M-1))
+est_impr
+est_impr - qnorm(0.975) * sqrt(samp_var_impr)
+est_impr + qnorm(0.975) * sqrt(samp_var_impr)
+2 * qnorm(0.975) * sqrt(samp_var_impr)
+
+samp_var_prop <- sum((mc_prop - est_prop)^2) / (M * (M-1))
+est_prop
+est_prop - qnorm(0.975) * sqrt(samp_var_prop)
+est_prop + qnorm(0.975) * sqrt(samp_var_prop)
+2 * qnorm(0.975) * sqrt(samp_var_prop)
 
 run_mc <- function(mc_func) {
   mc <- sapply(seq(1, M), FUN = function(x) mc_func())
