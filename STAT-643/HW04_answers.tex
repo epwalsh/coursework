@@ -51,6 +51,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 
 \newcommand{\E}{\mathrm{E}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\p}{\phi}
+\newcommand{\ta}{\theta}
 \renewcommand{\baselinestretch}{1}
 
 \subsection*{1}
@@ -66,7 +71,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\textwidth]{./figures/hw04.png}
-    \caption{Risk vectors. The bottom boundary of the polygon given by the thicker line representst the set of admissible rick vectors.}
+    \caption{Risk vectors. The bottom boundary of the polygon given by the thicker line represents the set of admissible risk vectors.}
     \label{fig:1}
   \end{figure}
 
@@ -106,6 +111,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   minimal complete. But $A(\mathcal{D}^*) = A(\mathcal{S})$.
 
 \end{Solution}
+
+\newpage
 
 \subsection*{2}
 \begin{tcolorbox}
@@ -207,27 +214,143 @@ Consider the two-state decision problem with $\Theta=\{1,2\}$, where the observa
 \begin{Solution}
   Let $Y := \sum_{i=1}^{n}X_{i}$ so that $Y$ is Binomial$(n, \theta)$. Let $\theta \in (0,1)$. Then 
   \begin{align*}
-    R(\theta, \bar{X}) = E_{\theta}(\theta - \bar{X})^{2} & = Var_{\theta}\left[ \bar{X} \right] + [\text{Bias}_{\theta}(\bar{X})]^{2} =
+    R(\theta, \bar{X}) = \E_{\theta}(\theta - \bar{X})^{2} & = \mathrm{Var}_{\theta}\left[ \bar{X} \right] + [\text{Bias}_{\theta}(\bar{X})]^{2} =
     \frac{\theta(1-\theta)}{n}.
   \end{align*}
   Define $q_1(\theta) := P_{\theta}\left( Y < \frac{n}{2} \right)$, $q_2(\theta) := P_{\theta}\left( Y > \frac{n}{2} \right)$, and $q_3(\theta) := 1 -
   q_{1}(\theta) - q_2(\theta)$. Then,
   \begin{align*}
-    R(\theta, T_0(X)) = E_{\theta}\left[ \theta - T_0(X) \right]^2 & = E_{\theta}\left[ \theta^2 - 2\theta T_0(X) + T_0(X)^2 \right] \\
-    & = 
+    R(\theta, T_0(X)) = \E_{\theta}\left[ \theta - T_0(X) \right]^2 & = \E_{\theta}\left[ \theta^2 - 2\theta T_0(X) + T_0(X)^2 \right] \\
+    & = \theta^2 - 2\theta \E_{\theta}T_0(X) + \E_{\theta}T_{0}(X)^{2} \\
+    & = \theta^2 - 2\theta\left[ q_2(\theta) + \frac{1}{2}q_3(\theta) \right] + \left[ q_2(\theta) + \frac{1}{4}q_3(\theta) \right].
+  \end{align*}
+
+  (b) Simply enough, the risk function for $T_1$ is just 
+  \[
+    R(\theta, T_1) = \E_{\theta}\left[ (\theta - \bar{X})^2(1/2) + (\theta - T_0)^2(1/2) \right] = \frac{1}{2}\left[R(\theta, \bar{X}) +
+    R(\theta, T_0)\right].
+  \]
+  On the other hand,
+  \begin{align*}
+    R(\theta, T_2) & = \E_{\theta}\left[ (\theta - \bar{X})^2(\bar{X}) + \left( \theta - 1/2 \right)^2(1 - \bar{X}) \right] \\
+    & = \E_{\theta}\left[ \frac{\theta^2}{n}Y - \frac{2\theta}{n^2}Y^2 + \frac{1}{n^3}Y^3 + \left( \theta - \frac{1}{2} \right)^2\left( 1 -
+        \frac{Y}{n}
+    \right) \right] \\
+    & = \frac{1}{n^2}\left[ n^2\theta^2 - 2\theta\left\{ n\theta(1-\theta) + n^2\theta^2 \right\} + \theta - 3\theta^2 + 3n\theta^2 + 2\theta^2 -
+    3n\theta^3 + n^2\theta^3 \right] + \left( \theta - \frac{1}{2} \right)^2(1 - \theta) \\
+    & = \frac{\ta}{n^2}\left[ \ta^2\left\{ 2 - n \right\} + \ta\left\{ n-3 \right\} + 1 \right] + \left( \ta - \frac{1}{2} \right)^2(1 - \ta) \\
+    & = \frac{\ta}{n^2}\left[ (1-\ta)(1 + \ta\left\{ n-2 \right\}) \right] + \left( \ta - \frac{1}{2} \right)^2(1 - \ta). \\
   \end{align*}
 \end{Solution}
 
-% \item Find decision rules that are better than $T_1(X)$ and $T_2(X)$, respectively, in Problem~3 for $n\geq 3$.  (Hint: Consider Lemma 51.)
-% \item Can any of the rules in Problem~4 be improved by using the Rao-Blackwell theorem?  Explain why or why not.
-% \item   Consider the two-state decision problem with $\Theta=\{1,2\}=\mathcal{A}$, where  $P_0$ and $P_1$ have densities $f_0(x)$ and $f_1(x)$
-% with respect to a dominating $\sigma$-finite measure $\mu$.  Let the loss function be $L(\theta,a)$ for $a,\theta \in\{0,1\}$.
+\subsection*{4}
+\begin{tcolorbox}
+  Find decision rules that are better than $T_1(X)$ and $T_2(X)$, respectively, in Problem~3 for $n\geq 3$.  (Hint: Consider Lemma 51.)
+\end{tcolorbox}
 
-% \begin{enumerate}
-% \item For an arbitrary prior distribution $G$, find a formal Bayes rule with respect to $G$.
-% \item Specialize your result in (a) to the case where $L(\theta,a)=I(\theta\neq a)$.  What connection does the form of these Bayes rules have to the theory of simple-versus-simple hypothesis testing (i.e., $H_0:\theta=0$ vs $H_1:\theta=1$)?
-% \end{enumerate}
-% \end{enumerate}
+\begin{Solution}
+  Note that $T_1$ and $T_2$ are risk equivalent to $\phi', \phi'' \in \mathcal{D}^*$, respectively, where 
+  \[ 
+    \phi_x'(A) := \frac{1}{2}I(\bar{X} \in A) + \frac{1}{2}I(T_0 \in A) \qquad \text{and} \qquad 
+    \phi_x''(A) := \bar{X}I(\bar{X} \in A) + (1-\bar{X})I\left( \frac{1}{2} \in A \right),
+  \]
+  for $A \in \mathcal{A}$. Also note that $\mathcal{A} = (0,1)$ is a convex subset of $\mathbb{R}$ and $L(\theta, \cdot)$ is a strictly convex
+  function of $a$ for any $\theta \in \Theta$. Further, since $n \geq 3$ by assumption, 
+  \[
+    P_{\theta}\left(\left\{ x \in \mathcal{X} : \phi_x' \text{ non-degenerate} \right\} \right) > 0 \text{ and }  
+    P_{\theta}\left(\left\{ x \in \mathcal{X} : \phi_x'' \text{ non-degenerate} \right\} \right) > 0.
+  \]
+  Then define 
+  \[
+    \delta_1(x) := \int_{\mathcal{A}}ad\phi_x'(a) = \frac{1}{2}\left( \bar{x} + T_0(x) \right) \text{ and } \delta_2(x) :=
+    \int_{\mathcal{A}}ad\phi_x''(a) = \bar{x}^2 + \frac{1}{2}(1-\bar{x}),
+  \]
+  for $x \in \mathcal{X}$. Then by Lemma 51, $R(\theta, \delta_1) < R(\theta, \phi') = R(\theta, T_1)$ and $R(\theta, \delta_2) < R(\theta, \phi'') =
+  R(\theta, T_2)$ for all $\theta \in \Theta$. Hence $\delta_1$ and $\delta_2$ are better than $T_1$ and $T_2$, respectively.
+\end{Solution}
+
+\newpage
+
+\subsection*{5}
+\begin{tcolorbox}
+  Can any of the rules in Problem~4 be improved by using the Rao-Blackwell theorem?  Explain why or why not.
+\end{tcolorbox}
+
+\begin{Solution}
+  It is easy to see by examining the canonical version of the joint distribution function of $X$ that $\bar{X}$ is a minimal sufficient statistic.
+  Thus, since $\delta_1$ and $\delta_2$ are functions of $\bar{X}$, they are functions of any other sufficient statistic $T$ because $\bar{X}$ is a
+  function of $T$. Hence conditioning $\delta_1$ or $\delta_2$ on any other sufficient statistic $T$ does not change anything, i.e.
+  $E_{\theta}[\delta_j|T] = \delta_j$ a.e. $c$, for $j = 1,2$, where $c$ is the counting measure on $\{0,1\}^n$. Therefore we cannot improve the
+  decision rules $\delta_1$ and $\delta_2$ by using the Rao-Blackwell Theorem.
+\end{Solution}
+
+\subsection*{6}
+\begin{tcolorbox}
+  Consider the two-state decision problem with $\Theta=\{0,1\}=\mathcal{A}$, where  $P_0$ and $P_1$ have densities $f_0(x)$ and $f_1(x)$
+  with respect to a dominating $\sigma$-finite measure $\mu$.  Let the loss function be $L(\theta,a)$ for $a,\theta \in\{0,1\}$.
+  \begin{enumerate}
+    \item For an arbitrary prior distribution $G$, find a formal Bayes rule with respect to $G$.
+    \item Specialize your result in (a) to the case where $L(\theta,a)=I(\theta\neq a)$.  What connection does the form of these Bayes rules have to the theory of simple-versus-simple hypothesis testing (i.e., $H_0:\theta=0$ vs $H_1:\theta=1$)?
+  \end{enumerate}
+\end{tcolorbox}
+
+\begin{Solution}
+  Let $g_j := G(\{j\})$ for $j = 0,1$. \\
+
+  (a) Let $\p \in \D^*$. Let $\alpha_0(x) := g_0L(0,0)f_0(x) + g_1L(1,0)f_1(x)$ and $\alpha_1(x) := g_0L(0,1)f_0(x) + g_1L(1,1)f_1(x)$
+  for $x \in \X$.
+  Then 
+  \begin{align*}
+    \text{BR}(G,\p) & = \int_{\Theta}R(\ta, \p)dG(\ta) \\
+    & = R(0,\p) g_0 + R(1,\p)g_1 \\
+    & = g_0 \int_{\X}\int_{\A}L(0,a)d\p_x(a)dP_0(x) + \int_{\X}\int_{\A}L(1,a)d\p_x(a)dP_1(x) \\
+    & = g_0 \int_{\X}\left[ L(0,0)\p_x(\left\{ 0 \right\}) + L(0,1)\p_x\left( \left\{ 1 \right\} \right) \right]f_0(x)d\mu(x) \\
+    & \qquad + 
+    g_1\int_{\X}\left[ L(1,0)\p_x\left( \left\{ 0 \right\} \right) + L(1,1)\p_x\left( \left\{ 1 \right\} \right) \right]f_1(x)d\mu(x) \\
+    & = \int_{\X}\phi_x\left( \left\{ 0 \right\} \right)\overbrace{\left[ g_0L(0,0)f_0(x) + g_1L(1,0)f_1(x) \right]}^{= \alpha_0(x)}d\mu(x) \\
+    & \qquad + \int_{\X}\p_x\left( \left\{ 1 \right\} \right)\underbrace{\left[ g_0L(0,1)f_0(x) + g_1L(1,1)f_1(x) \right]}_{=\alpha_1(x)}d\mu(x) \\
+    & = \int_{\X}\p_x\left( \left\{ 0 \right\} \right)\alpha_0(x)d\mu(x) + \int_{\X}\left[ 1 - \phi_x\left( \left\{ 0 \right\} \right)
+    \right]\alpha_1(x)d\mu(x) \\
+    & = \int_{\X}\alpha_1(x)d\mu(x) + \int_{\X}\left[ \alpha_0(x) - \alpha_1(x) \right]\phi_x\left( \left\{ 0 \right\} \right)d\mu(x).
+  \end{align*}
+  Thus, $\phi$ is a Bayes rule if and only if $BR(G,\phi) \leq BR(G,\phi')$ for all $\phi \in \D^*$, if and only if 
+  \begin{equation}
+    \int_{\X}\left[ \alpha_0(x) - \alpha_1(x) \right]\phi_x\left( \left\{ 0 \right\} \right)d\mu(x) \leq \int_{\X}\left[ \alpha_0(x) - \alpha_1(x)
+    \right]\phi_x'\left( \left\{ 0 \right\} \right)d\mu(x) \ \ \forall \phi' \in \D^*.
+    \label{eq:1}
+  \end{equation}
+  So in order \eqref{eq:1} to hold, $\phi$ must be defined by 
+  \[
+    \phi_x\left( \left\{ 0 \right\} \right) := \left\{ \begin{array}{cl}
+        1 & \text{ if } \alpha_0(x) \leq \alpha_1(x) \\
+        0 & \text{ if } \alpha_0(x) > \alpha_1(x) 
+    \end{array} \right. 
+  \]
+  in order to minimize the left-hand side of the inequality in \eqref{eq:1}.
+
+  (b) If we take $L(\theta, a)$ to be the indicator $I(\theta \neq a$, then the Bayes risk of $\phi$ simplifies to 
+  \begin{align*}
+    BR(G,\phi) & = g_0\int_{\X}\p_x\left( \left\{ 1 \right\} \right)f_0(x)d\mu(x) + g_1\int_{\X}\phi_x\left( \left\{ 0 \right\} \right)f_1(x)d\mu(x)
+    \\
+    & = g_0 \int_{\X}\left[ 1 - \phi_x\left( \left\{ 0 \right\} \right) \right]f_0(x)d\mu(x) + g_1\int_{\X}\p_x\left( \left\{ 0 \right\}
+    \right)f_1(x)d\mu(x) \\
+    & = g_0 + \int_{\X}\left[ g_1 f_1(x) - g_0f_0(x) \right]\phi_x\left( \left\{ 0 \right\} \right) d\mu(x),
+  \end{align*}
+  and so $\phi$ is a Bayes rule if we define 
+  \[
+    \phi_x\left( \left\{ 0 \right\} \right) := \left\{ \begin{array}{cl}
+        1 & \text{ if } g_1 f_1(x) \leq g_0f_0(x) \\
+        0 & \text{ if } g_1f_1(x) > g_0f_0(x) 
+    \end{array} \right. 
+  \]
+  in order to minimize $\int_{\X}\left[ g_1 f_1(x) - g_0f_0(x) \right]\phi_x\left( \left\{ 0 \right\} \right) d\mu(x)$.
+  Note that since the posterior 
+  \[
+    \pi(\theta) \propto g_{\theta}f_{\theta}(x) \ \ \text{for } \theta \in \{0,1\},
+  \]
+  the rule $\phi$ correspondes to the decision rule of a simple Bayes hypothesis test.
+\end{Solution}
+
 
 
 \end{document}
