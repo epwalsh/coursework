@@ -326,9 +326,11 @@ Consider the two-state decision problem with $\Theta=\{1,2\}$, where the observa
         0 & \text{ if } \alpha_0(x) > \alpha_1(x) 
     \end{array} \right. 
   \]
-  in order to minimize the left-hand side of the inequality in \eqref{eq:1}.
+  in order to minimize the left-hand side of the inequality in \eqref{eq:1}. In other words, $\phi$ is the rule that chooses $0$ if $\alpha_0 \leq
+  \alpha_1$ and $1$ otherwise. This is intuitive since $\alpha_0$ can be interpreted as the penalty for choosing $0$, while $\alpha_1$ can be
+  interpreted as the penalty for choosing $1$. \\
 
-  (b) If we take $L(\theta, a)$ to be the indicator $I(\theta \neq a$, then the Bayes risk of $\phi$ simplifies to 
+  (b) If we take $L(\theta, a)$ to be the indicator $I(\theta \neq a)$, then the Bayes risk of $\phi$ simplifies to 
   \begin{align*}
     BR(G,\phi) & = g_0\int_{\X}\p_x\left( \left\{ 1 \right\} \right)f_0(x)d\mu(x) + g_1\int_{\X}\phi_x\left( \left\{ 0 \right\} \right)f_1(x)d\mu(x)
     \\
