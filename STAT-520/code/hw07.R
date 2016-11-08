@@ -3,23 +3,15 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-11-07
-# Last Modified: 2016-11-07 11:15:27
+# Last Modified: 2016-11-08 17:26:58
 # =============================================================================
 
 df <- read.csv("../data/HW07.csv")
 x <- df$x
 y <- df$y
 
-loglik <- function(betas) {
-  b0 <- betas[1]
-  b1 <- betas[2]
-  l <- exp(b0 + b1 * x)
-  return(-sum(y * (b0 + b1 * x) - l))
-}
+log_y = log(y)
 
-loglik(c(0.525,0.5))
+library(ggplot2)
 
-optim(par=c(0,2), fn=loglik, hessian=T)
-
-
-l <- exp(0.525 + 0.5 * x)
+qplot(x = x, y = log_y, geom="point")

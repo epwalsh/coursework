@@ -4,18 +4,20 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-11-04
-# Last Modified: 2016-11-07 14:37:21
+# Last Modified: 2016-11-08 17:38:35
 # =============================================================================
 
 import sys
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 MU = 0
 TAU2 = 100
-COV_SCALE = 10000000
+COV_SCALE = 10000
 M = 11000
 BURN_IN = 1000
 
@@ -50,9 +52,9 @@ def acceptance_prob_rwalk(b_prev, b_next):
     '''
     Compute the acceptance probability.
     '''
-    log_num = np.sum(y * (b_next[0] + b_next[1]) - np.exp(b_next[0] + b_next[1]))
+    log_num = np.sum(y * (b_next[0] + x * b_next[1]) - np.exp(b_next[0] + x * b_next[1]))
     log_num = log_num - (b_next[0] ** 2) / (2 * TAU2) - (b_next[1] ** 2) / (2 * TAU2)
-    log_den = np.sum(y * (b_prev[0] + b_prev[1]) - np.exp(b_prev[0] + b_prev[1]))
+    log_den = np.sum(y * (b_prev[0] + x * b_prev[1]) - np.exp(b_prev[0] + x * b_prev[1]))
     log_den = log_den - (b_prev[0] ** 2) / (2 * TAU2) - (b_prev[1] ** 2) / (2 * TAU2)
     res = np.exp(log_num - log_den)
     return min(res, 1)
@@ -88,6 +90,13 @@ if __name__ == '__main__':
     
     print '\nAcceptance rate:', 1.0 * sum(accept_or_not[BURN_IN+1:]) / (M - BURN_IN)
     print '\n5 number summary for beta0:'
-    print np.percentile(beta0, [0, 0.25, 0.5, 0.75, 1])
+    print np.percentile(beta0, [0, 25, 50, 75, 100])
     print '5 number summary for beta1:'
-    print np.percentile(beta1, [0, 0.25, 0.5, 0.75, 1])
+    print np.percentile(beta1, [0, 25, 50, 75, 100])
+
+    print '\nShowing trace plots...'
+    sns.set_style("darkgrid")
+    plt.plot(beta0)
+    plt.show()
+    plt.plot(beta1)
+    plt.show()
