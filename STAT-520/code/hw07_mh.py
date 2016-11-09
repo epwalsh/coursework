@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # =============================================================================
-# File Name:     hw07.py
+# File Name:     hw07_mh.py
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-11-04
-# Last Modified: 2016-11-08 17:38:35
+# Last Modified: 2016-11-09 11:22:00
 # =============================================================================
 
 import sys
@@ -61,7 +61,7 @@ def acceptance_prob_rwalk(b_prev, b_next):
 
 
 if __name__ == '__main__':
-    beta0 = np.array([.5], dtype=np.float64)
+    beta0 = np.array([-.2], dtype=np.float64)
     beta1 = np.array([.5], dtype=np.float64)
     accept_or_not = []
     
