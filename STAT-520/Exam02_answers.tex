@@ -142,7 +142,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \end{table}
 
       \item We conducted a posterior predictive assessment of this model with $M = 10,000$ iterations 
-        using the the same characteristic $Q_1$ and $Q_2$ of part 1 (d). The posterior predictive p-value for
+        using the the same characteristics $Q_1$ and $Q_2$ of part 1 (d). The posterior predictive p-value for
         $Q_1(\bm{y})$ was $0.0032$ and for $Q_2(\bm{y})$ was $0.0047$, which indicates that the new model is a slight improvement over the model from
         part 1, yet still sucks.
 
@@ -153,10 +153,72 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \begin{enumerate}
       \item We now modify the model from part 2 to consist of two groups, $\bm{Y}_1$ and $\bm{Y}_2$, where group 1 consists of the states
         within Tornado Alley and Dixie Alley, and group 2 consists of the remaining states (out of the 47) that are not in group 1.
+        Let $n_1$ and $n_2$ be the number of states in group 1 and group 2, respectively. For $j = 1,2$, the pdf of the data model of group $j$ is 
+        \[
+          f(\bm{y}|\rho_j) = \prod_{i=1}^{n_j} e^{-\rho_j K_i}(\rho_j K_i)^{y_i} \frac{1}{y_i!} = e^{-\rho_j n_j\bar{y}}\rho_j^{n\bar{y}}
+          \prod_{i=1}^{n_j}\frac{K_i^{y_i}}{y_i!}.
+        \]
+
+      \item For $\rho_1$ and $\rho_2$ we use the same form of the prior given in part 2 (b), yet with $\alpha_0 = \beta_0 = 0.1$ so that the prior
+        expectation is 1 and the variance is 10. A summary of the posterior distribution of $\rho_j$ for each group is shown below in Table
+        \ref{tab:3}.
+
+        \begin{table}[h!]
+          \centering
+          \begin{tabular}{lcc}
+            & Group 1 & Group 2 \\
+            \hline
+            Posterior shape $\alpha$ & 363.1 & 610.1 \\
+            \hline
+            Posterior rate $\beta$ & 1286.0 & 5706.1  \\
+            \hline
+            Posterior expectation & 0.2824 & 0.1069 \\
+            \hline
+            90\% credible interval for $\rho_j$ & (0.2584, 0.3072) & (0.0999, 0.1141) \\
+            \hline
+          \end{tabular}
+          \caption{Summary of posterior distribution for the rate parameter $\rho_j$ of each group.}
+          \label{tab:3}
+        \end{table}
+
+      \item If we treat the posterior distributions as independent, then we can compute the probability that $\rho_1 > \rho_2$ as
+        \begin{align}
+          P(\rho_1 > \rho_2) & = \int_{0}^{\infty}\int_{0}^{\rho_1}p(\rho_1|\bm{y}_1)p(\rho_2|\bm{y}_2) d\mu(\rho_2)d\mu(\rho_1) \nonumber \\
+          & = \int_{0}^{\infty} F_{2}(\rho_1)p(\rho_1|\bm{y}_1) d\mu(\rho_1) \label{eq:1}
+        \end{align}
+        where $F_{2}(\rho_1)$ is the posterior cdf of $\rho_2$ evaluated at $\rho_1$.
+        In order to evaluate the integral in \eqref{eq:1}, we ran a Monte-Carlo simulation with a Monte-Carlo sample size of $10,000$. 
+        In particular, we simulated 10,000 random variables from the distribution of given by $p(\rho_1|\bm{y}_1)$ and then calculated the mean 
+        of $F_{2}$ evaluated at each of the simulated valeus. The resulting estimate was 1.
+        % \begin{align}
+          % P(\rho_1 > \rho_2) & = \int_{0}^{\infty}\int_{0}^{\rho_1}p(\rho_1|\bm{y}_1)p(\rho_2|\bm{y}_2) d\mu(\rho_2)d\mu(\rho_1) \nonumber \\
+          % & = \int_{0}^{\infty} \int_{0}^{\rho_1} \frac{\rho_1^{\alpha_1 - 1}\exp\{-\beta_1 \rho_1\}\rho_2^{\alpha_2 - 1}\exp\{-\beta_2 \rho_2\}}{
+          % \beta_1^{-\alpha_1} \Gamma(\alpha_1) \beta_2^{-\alpha_2} \Gamma(\alpha_2)} d\mu(\rho_2)d\mu(\rho_1) \nonumber \\
+          % & = \frac{\beta_1^{\alpha_1} \beta_2^{\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} \int_{0}^{\infty} \int_{0}^{\rho_1} 
+          % \rho_1^{\alpha_1 - 1}\exp\{-\beta_1 \rho_1\}\rho_2^{\alpha_2 - 1}\exp\{-\beta_2 \rho_2\} d\mu(\rho_2)d\mu(\rho_1),
+          % \label{eq:1}
+        % \end{align}
+        % where $(\alpha_1, \beta_1), (\alpha_2, \beta_2)$ are the parameters of the posterior distribution for $\rho_1$ and $\rho_2$, respectively, 
+        % as given in Table \ref{tab:3}.
+        % In order to evaluate the integral in \eqref{eq:1}, 
+
+      \item We conducted a posterior predictive assessment of this model with $M = 10,000$ iterations 
+        using the the same characteristics $Q_1$ and $Q_2$ of part 1 (d) for each group. For group 1, the posterior predictive p-values 
+        were $0.3528$ and $0.0684$ for $Q_1$ and $Q_2$, respectively, while for group 2, the posterior predictive p-values were
+        $0.0195$ and $0.0065$ for $Q_1$ and $Q_2$, respectively. This suggests that the model may adequate according to the first criteria $Q_1$,
+        although the p-value for group 2 is fairly small, but
+        is still definitely inadequate according to the second criteria $Q_2$.
+
+      \item Below is a plot of the posterior distributions of $\rho_j$ for each group.
+
+        \begin{figure}[h!]
+          \centering
+          \includegraphics[width=0.9\textwidth]{./figures/exam02.pdf}
+          \caption{Posterior distributions of the rate parameter $\rho_j$ from each group.}
+          \label{fig:1}
+        \end{figure}
     \end{enumerate}
 \end{enumerate}
 
 
-
 \end{document}
-
