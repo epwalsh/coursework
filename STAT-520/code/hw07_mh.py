@@ -4,7 +4,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-11-04
-# Last Modified: 2016-11-09 11:22:00
+# Last Modified: 2016-11-09 14:48:03
 # =============================================================================
 
 import sys
@@ -17,7 +17,7 @@ import seaborn as sns
 
 MU = 0
 TAU2 = 100
-COV_SCALE = 10000
+COV_SCALE = 30000
 M = 11000
 BURN_IN = 1000
 

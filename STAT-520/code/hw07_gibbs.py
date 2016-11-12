@@ -4,7 +4,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-11-04
-# Last Modified: 2016-11-09 11:55:01
+# Last Modified: 2016-11-09 13:50:55
 # =============================================================================
 
 import sys
@@ -17,7 +17,8 @@ import seaborn as sns
 
 MU = 0
 TAU2 = 100
-COV = 0.01
+B0_VAR = 0.12
+B1_VAR = 0.004
 M = 11000
 BURN_IN = 1000
 
@@ -26,7 +27,7 @@ y = d['y'].values
 x = d['x'].values
 
 
-def rand_walk_candidate(beta, v=COV):
+def rand_walk_candidate(beta, v):
     '''
     Propose new values from a random walk candidate distribution.
     '''
@@ -57,6 +58,24 @@ def acceptance_prob_b1(b0, b1_p, b1_n):
     return min(res, 1)
 
 
+def sim_new_b0(b0, b1, b0_acceptance):
+    new_b0 = rand_walk_candidate(b0, v=B0_VAR)
+    alpha = acceptance_prob_b0(b1, b0, new_b0)
+    accept = np.random.binomial(1, alpha)
+    b0_acceptance.append(accept)
+    new_b0 = new_b0 if accept else b0
+    return new_b0
+
+
+def sim_new_b1(b0, b1, b1_acceptance):
+    new_b1 = rand_walk_candidate(b1, v=B1_VAR)
+    alpha = acceptance_prob_b1(b0, b1, new_b1)
+    accept = np.random.binomial(1, alpha)
+    b1_acceptance.append(accept)
+    new_b1 = new_b1 if accept else b1
+    return new_b1
+
+
 if __name__ == '__main__':
     beta0 = np.array([0], dtype=np.float64)
     beta1 = np.array([.5], dtype=np.float64)
@@ -66,21 +85,13 @@ if __name__ == '__main__':
     print 'Executing sampling process'
     
     for i in xrange(1, M):
-        # Simulate new beta0 conditioned on old beta1
-        old_b0 = beta0[i-1]
-        new_b0 = rand_walk_candidate(old_b0)
-        alpha = acceptance_prob_b0(beta1[i-1], old_b0, new_b0)
-        accept = np.random.binomial(1, alpha)
-        new_b0 = new_b0 if accept else old_b0
-        b0_acceptance.append(accept)
-
-        # Simulate new beta1 conditioned on new beta0
-        old_b1 = beta1[i-1]
-        new_b1 = rand_walk_candidate(old_b1)
-        alpha = acceptance_prob_b1(new_b0, old_b1, new_b1)
-        accept = np.random.binomial(1, alpha)
-        new_b1 = new_b1 if accept else old_b1
-        b1_acceptance.append(accept)
+        rand = np.random.binomial(1, 0.5)
+        if rand:
+            new_b0 = sim_new_b0(beta0[i-1], beta1[i-1], b0_acceptance)
+            new_b1 = sim_new_b1(new_b0, beta1[i-1], b1_acceptance)
+        else:
+            new_b1 = sim_new_b1(beta0[i-1], beta1[i-1], b1_acceptance)
+            new_b0 = sim_new_b0(beta0[i-1], new_b1, b0_acceptance)
 
         beta0 = np.append(beta0, new_b0)
         beta1 = np.append(beta1, new_b1)
@@ -93,11 +104,11 @@ if __name__ == '__main__':
         sys.stdout.flush()
     
     
-    beta0 = beta0[BURN_IN+1:]
-    beta1 = beta1[BURN_IN+1:]
+    beta0 = beta0[BURN_IN:]
+    beta1 = beta1[BURN_IN:]
     
     print '\nAcceptance rate for beta0:', 1.0 * sum(b0_acceptance[BURN_IN:]) / (M - BURN_IN)
-    print '\nAcceptance rate for beta1:', 1.0 * sum(b1_acceptance[BURN_IN:]) / (M - BURN_IN)
+    print 'Acceptance rate for beta1:', 1.0 * sum(b1_acceptance[BURN_IN:]) / (M - BURN_IN)
     print '\n5 number summary for beta0:'
     print np.percentile(beta0, [0, 25, 50, 75, 100])
     print '5 number summary for beta1:'
