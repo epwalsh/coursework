@@ -54,6 +54,74 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 
 \newpage
+\subsection*{2}
+\begin{tcolorbox}
+  Suppose that $X\sim$Bernoulli$(p)$ and that one wishes to estimate $p\in[0,1]=\Theta=\mathcal{A}$ with the loss function $L(p,a)=|p-a|$.  
+  Consider the estimator $\delta$ with $\delta(0)=\frac{1}{4}$ and $\delta(1)=\frac{3}{4}$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Write out the risk function of $\delta$ and show that $R(p,\delta)\leq \frac{1}{4}$ for all $p\in[0,1]$.
+    \item Show that there exists a prior distribution placing all its mass on $\{0,\frac{1}{2},1\}$ with respect to which $\delta$ is Bayes.\\
+      Hint: Consider finding   prior probabilities on $\{0,\frac{1}{2},1\}$ so that $\delta$ is a median (in the STAT 642 sense) of the posterior distribution on $\{0,\frac{1}{2},1\}$.
+    \item Prove that $\delta$ is minimax in this problem and identify a least favorable prior.
+  \end{enumerate}
+\end{tcolorbox}
+\begin{Solution}
+  \begin{enumerate}[label=(\alph*), leftmargin=*]
+    \item For $p \in [0,1]$, the risk function of $\delta$ is given by
+      \begin{equation}
+        R(p, \delta) = E_p|p - \delta(X)| = p\left|p - \frac{3}{4}\right| + (1-p)\left|p - \frac{1}{4}\right|.
+        \label{2.1}
+      \end{equation}
+      Now, for $0 \leq p \leq 1/4$, $R(p, \delta) = p(3/4 - p) + (1-p)(1/4 - p)$ and $\frac{dR(p,\delta)}{dp} \equiv -1/2$. Thus, since $R(0,\delta) =
+      1/4$, it must be that $R(p, \delta) \leq 1/4$ for all $p \in [0,1/4]$. Similarly $R(p, \delta) \leq 1/4$ for all $p \in [3/4, 1]$. Now, for
+      $1/4 \leq p \leq 3/4$, $R(p, \delta) = p(3/4 - p) + (1-p)(p - 1/4)$, $\frac{dR(p,\delta)}{dp} = 2 - 4p$, and $\frac{d^2R(p,\delta)}{dp^2} \equiv
+      -4$. Thus $R$ is maximized at $p = 1/2$ on this subinterval. But $R(1/2, \delta) = 1/4$. Hence $R(p, \delta) \leq 1/4$ for all $p \in [0,1]$.
+
+    \item Suppose $G$ is a prior that places all of its mass on $\{0, \frac{1}{2}, 1\}$. Then the prior distribution is given by
+      \[
+        \pi^{p|X=x}(C) = \frac{ G(\{0\})I(x = 0)I(0 \in C) + G(\{1/2\})(1/2)I(1/2 \in C) + G(\{1\})I(x=1)I(1\in C) }{  G(\{0\})I(x = 0) +
+        G(\{1/2\})(1/2) + G(\{1\})I(x=1) }.
+      \]
+      Now take $G(\{0\}) = G(\{1\}) := 1/4$ and $G(\{1/2\}) = 1/2$.
+
+      \begin{claim}
+        $\delta$ is a median with respect to $\pi^{p|X=x}$ for all $x \in \{0,1\}$.
+      \end{claim}
+      \begin{claimproof}
+        In order to show that $\delta$ is a median with respect to $\pi^{p|X}$ we need to show that 
+        \begin{equation}
+          \pi^{p|X=x}\left( [0,\delta(x)) \right) \leq 1/2 \leq \pi^{p|X=x}\left( [0, \delta(x)] \right) \ \ \forall \ x \in \{0,1\}.
+          \label{2.2}
+        \end{equation}
+        Now, 
+        \[
+          \pi^{p|X=0}\left( [0,\delta(x)) \right) = \pi^{p|X=0}\left( [0,1/4) \right) = \pi^{p|X=0}\left( [0,1/4] \right) = \frac{1/4}{(1/4) +
+          (1/2)(1/2)} = \frac{1}{2},
+        \]
+        and
+        \[
+          \pi^{p|X=1}\left( [0,\delta(x)) \right) = \pi^{p|X=1}\left( [0,3/4) \right) = \pi^{p|X=1}\left( [0,3/4] \right) = \frac{(1/2)(1/2)}{(1/4) +
+          (1/2)(1/2)} = \frac{1}{2}.
+        \]
+        Thus \eqref{2.2} is verified.
+      \end{claimproof}
+
+      Since $\delta$ is a median with respect to the posterior distribution, $\delta$ is Bayes with respect to $G$ by the remarks on 33 of section
+      4.5.
+
+
+    \item Note that by part (b)
+      \begin{align*}
+        BR(G) = BR(G, \delta)& = \int_{\Omega}R(p, \delta)dG(p) \\
+        & = G(\left\{ 0 \right\}) R(0,\delta) + G(\left\{ 1/2 \right\})R(1/2, \delta) + G(\left\{ 1 \right\})R(1,\delta) \\
+        & = (1/4)(1/4) + (1/2)(1/4) + (1/4)(1/4) = 1/4.
+      \end{align*}
+      Further, by part (a) $R(p, \delta) \leq 1/4 = BR(G)$ for all $p \in [0,1]$. Thus $\delta$ is minimax by Corollary 87. It also follows by Theorem
+      89 that $G$ is least favorable.
+  \end{enumerate}
+\end{Solution}
+
+\newpage
 \subsection*{3}
 \begin{tcolorbox}
   Consider a decision problem where $P_\theta$ is the Normal$(\theta,1)$ distribution on $\mathcal{X}=\mathbb{R}$, $\mathcal{A}=\{0,1\}$, and $L(\theta,a)=I[a=0]I[\theta>5] + I[a=1]I[\theta \leq 5]$.  If $\Theta= (-\infty,5] \cup [6,\infty)$, guess what prior is least favorable, find the corresponding Bayes decision rule, and prove that it is minimax.
