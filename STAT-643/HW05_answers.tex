@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\newcommand{\E}{\mathrm{E}}
+\renewcommand{\baselinestretch}{1}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{STAT 643: HW 5}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{STAT 643: HW 5}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\newpage
+\subsection*{3}
+\begin{tcolorbox}
+  Consider a decision problem where $P_\theta$ is the Normal$(\theta,1)$ distribution on $\mathcal{X}=\mathbb{R}$, $\mathcal{A}=\{0,1\}$, and $L(\theta,a)=I[a=0]I[\theta>5] + I[a=1]I[\theta \leq 5]$.  If $\Theta= (-\infty,5] \cup [6,\infty)$, guess what prior is least favorable, find the corresponding Bayes decision rule, and prove that it is minimax.
+\end{tcolorbox}
+
+\begin{Solution}
+  Let $f_{\theta}(x)$ be the density of a $N(\theta, 1)$ distribution with respect the Lebesgue measure $\mu$ on $\mathbb{R}$.
+  Following the example on page 38 of section 4.6 in our notes, it makes sense that the prior $G$ defined by $G(\left\{ 5 \right\}) = G(\left\{ 6
+  \right\}) = 1/2$ is least favorable. Under $G$, the posterior distribution is given by 
+  \[
+    \pi^{\theta | X}(C) := \int_{C} \frac{f_{5}(x)I(\theta = 5) + f_{6}(x)I(\theta = 6)}{f_{5}(x) + f_{6}(x)} dc(\theta)
+  \]
+  where $c$ is the counting measure. Thus, by the result from Question 6 (b) on homework 5 or the remarks on page 33 of section 4.5, the Bayes rule with respect to $G$ is given by 
+  \[
+    \delta(x) := I\left\{ \pi^{\theta|X}(\{6\}) > \pi^{\theta |X}(\{5\}) \right\} = I\{f_{6}(x) > f_{5}(x)\} = I\{x > 5.5\}.
+  \]
+  \begin{claim}
+    $\delta$ is minimax.
+  \end{claim}
+  \begin{claimproof}
+    First note that for all $\theta \in \Theta$,
+    \begin{equation}
+      R(\theta, \delta) = E_{\theta}L(\theta, \delta) = I(\theta \leq 5)P_{\theta}(X > 5.5) + I(\theta > 5)P_{\theta}(X \leq 5.5).
+      \label{3.0}
+    \end{equation}
+    Further, the Bayes risk of $G$ is given by 
+    \begin{align}
+      BR(G) = BR(G, \delta) = \int_{\Theta}R(\theta, \delta)dG(\theta) & = \frac{1}{2}\left[ R(5, \delta) + R(6,\delta)  \right] \nonumber \\
+      & = \frac{1}{2}\left[ E_{\theta=5}L(5, \delta(X)) + E_{\theta=6}L(6,\delta(X)) \right] \nonumber\\
+      & = \frac{1}{2}\left[ P_{5}(X > 5.5) + P_{6}(X \leq 5.5) \right]\nonumber \\
+      & = P_{5}(X > 5.5) \label{3.1} \\
+      & = P_{6}(X \leq 5.5) \label{3.2}
+    \end{align}
+    Thus, if $\theta \leq 5$, then by \eqref{3.0} and \eqref{3.1}, 
+    \[
+      R(\theta, \delta) = P_{\theta}(X > 5.5) \leq P_{5}(X > 5.5) = BR(G),
+    \]
+    and if $\theta \geq 6$, then by \eqref{3.0} and \eqref{3.2},
+    \[
+      R(\theta, \delta) = P_{\theta}(X \leq 5.5) \leq P_{6}(X \leq 5.5) = BR(G).
+    \]
+    Hence $R(\theta, \delta) \leq BR(G)$ for all $\theta \in \Theta$. Thus $\delta$ is minimax by Corollary 87.
+  \end{claimproof}
+
+\end{Solution}
+
+
+\end{document}
+
+
+
+% \begin{enumerate} \itemsep .3cm
+% \item Suppose that $X \sim$Binomial$(n,p)$ and that one wishes to estimate $p\in(0,1)=\Theta$. Suppose first that $L(p,a)=p^{-1}(1-p)^{-1}(p-a)^2$ where $a\in[0,1]=\mathcal{A}$
+
+% \begin{enumerate}
+% \item Show that $X/n$ is Bayes with respect to the uniform prior on $(0,1)$.\\
+% Note: Technically, be careful in considering posterior risk (expected loss) when $x=0$ or $n$ because the posterior risk diverges to $\infty$ unless the action $a$ is chosen appropriately.
+ % \item Show that $X/n$ is admissible.
+ % \item Show that $X/n$ is minimax.
+% \item Now consider the ordinary squared error loss, $L^*(\theta,a)=(p-a)^2$.  By applying Problem~6 of Homework~3,
+% prove that
+ % $X/n$ is admissible under this loss function as well.
+         % \end{enumerate}
+         % \item Suppose that $X\sim$Bernoulli$(p)$ and that one wishes to estimate $p\in[0,1]=\Theta=\mathcal{A}$ with the loss function $L(p,a)=|p-a|$.  Consider the estimator $\delta$ with $\delta(0)=\frac{1}{4}$ and $\delta(0)=\frac{3}{4}$.
+
+
+% \begin{enumerate}
+% \item Write out the risk function of $\delta$ and show that $R(p,\delta)\leq \frac{1}{4}$ for all $p\in[0,1]$.
+% \item Show that there exists a prior distribution placing all its mass on $\{0,\frac{1}{2},1\}$ with respect to which $\delta$ is Bayes.\\
+% Hint: Consider finding   prior probabilities on $\{0,\frac{1}{2},1\}$ so that $\delta$ is a median (in the STAT 642 sense) of the posterior distribution on $\{0,\frac{1}{2},1\}$.
+% \item Prove that $\delta$ is minimax in this problem and identify a least favorable prior.
+         % \end{enumerate}
+
+             % \item Consider a decision problem where $P_\theta$ is the Normal$(\theta,1)$ distribution on $\mathcal{X}=\mathbb{R}$, $\mathcal{A}=\{0,1\}$, and $L(\theta,a)=I[a=0]I[\theta>5] + I[a=1]I[\theta \leq 5]$.  If $\Theta= (-\infty,5] \cup [6,\infty)$, guess what prior is least favorable, find the corresponding Bayes decision rule, and prove that it is minimax.
+
+             % \item Consdier estimation of $\lambda$, the mean of a Poisson distribution, with the (inverse-mean) weighted squared error loss.
+% That is, let $\Lambda=(0,\infty)$ be the parameter space, $\mathcal{A}=[0,\infty)$ be the action space, $P_\lambda$ be the Poisson distribution on $\mathcal{X}=\{0,1,2,3,\ldots\}$ and $L(\lambda,a)=
+% \lambda^{-1}(\lambda-a)^2$.  Let $\delta(X)=X$.
+% \begin{enumerate}
+% \item Show that $\delta$ is an equalizer rule.
+% \item Show that $\delta$ is generalized Bayes with respect to the Lebesgue measure on $\Lambda$.
+ % \item Find the Bayes estimator with respect to a gamma$(\alpha,\beta)$ prior on $\Lambda$ which has a density given by
+ % \[
+ % g(\lambda|\alpha,\beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha-1} e^{-\beta \lambda},\quad \lambda>0,
+ % \]
+ % for $\alpha,\beta>0$ and $\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t}dt$.\\[.2cm]
+ % Note: Different parameterizations of the gamma distribution exist and the above one has mean $\alpha/\beta$.
+ % \item Prove that $\delta$ is minimax for this problem.
+         % \end{enumerate}
+
+         % \item Let $X_1,\ldots,X_n$ be iid random variables, each having a distribution y7u$P_\lambda$, $\lambda>0$, with a density \[
+         % f_\lambda(x) = \frac{d P_\lambda}{d \mu}(x) =  \lambda\exp(-\lambda x)I[x\neq0] +(1-e^{-\lambda})I[x=0]  =  \left(\lambda\exp(-\lambda x)\right)^{I[x\neq0]} \left((1-e^{-\lambda})\right)^{I[x=0]}
+         % \]
+         % for $\mu=m+\nu$ with $m$ being the Lebesgue measure on $[1,\infty)$ and $\nu$ being the point mass measure at $0$. Let $\delta_i= I[X_i=0]$, $i=1,\ldots,n$ and $M_n = n- \sum_{i=1}^n \delta_i$.
+         % \begin{enumerate}
+% \item Show that there is no maximum likelihood estimate (MLE) of $\lambda$ when $M_n=n$, but there is a MLE of $\lambda$ when $M_n<n$.
+% \item  Show that, for any $\lambda>0$, with $\lambda$-probability tending to 1 as $n\rightarrow \infty$, the MLE of $\lambda$ exists.
+% \item Give  as a simple estimator of $\lambda$ based on $M_n$ alone and prove that this estimator is consistent.
+% \item Write down an explicit one-step Newton improvement of the estimator from (c) using the likelihood function from (a). (No need to simplify the expression).
+         % \end{enumerate}
+         % \item Suppose that $X_1,\ldots,X_n$ are iid with the distribution $P_\theta$ for $\theta \in \mathbb{R}$, where $P_\theta$ has the RN derivative with respect to the counting measure $\nu$ on $\mathcal{X}=\{0,1,2\}$ given by
+             % \[
+             % f_\theta(x)= \frac{\exp(x\theta)}{1+\exp(\theta)+\exp(2\theta)}.
+             % \]
+          % Find an estimator $T_n$ of $\theta$ based on $n_0\equiv \sum_{i=1}^n I[X_i=0]$ such that $\sqrt{n}(T_n-\theta)$ has a limiting normal distribution (implying that $\sqrt{n}(T_n-\theta)$  is bounded in probability or tight and so that $T_n$ is $\sqrt{n}$-consistent).\\
+          
+          % Note:  It may be helpful to recall the delta method.  Let  $T_n$ be a statistic such that $\sqrt{n}(T_n-c)\stackrel{d}{\rightarrow} N(0,\sigma^2)$ as $n\rightarrow \infty$ for some $c\in \mathbb{R}$ and variance $\sigma^2>0$.  Take a function any function $g$ where $g(t)$ is differentiable at $t=c$ and $g^\prime(c)\neq 0$ (the derivative of $g(t)$ at $t=c$ is not zero).  Then, as $n\rightarrow \infty$,
+% $\sqrt{n}(g(T_n)-g(c))\stackrel{d}{\rightarrow} N(0,[g^\prime(c)]^2\sigma^2)$. 
+% \end{enumerate}
