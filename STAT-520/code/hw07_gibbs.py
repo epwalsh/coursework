@@ -4,15 +4,15 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2016-11-04
-# Last Modified: 2016-11-09 13:50:55
+# Last Modified: 2016-11-16 13:16:19
 # =============================================================================
 
 import sys
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+#  import matplotlib.pyplot as plt
+#  import seaborn as sns
 
 
 MU = 0
@@ -114,9 +114,9 @@ if __name__ == '__main__':
     print '5 number summary for beta1:'
     print np.percentile(beta1, [0, 25, 50, 75, 100])
 
-    print '\nShowing trace plots...'
-    sns.set_style("darkgrid")
-    plt.plot(beta0)
-    plt.show()
-    plt.plot(beta1)
-    plt.show()
+    #  print '\nShowing trace plots...'
+    #  sns.set_style("darkgrid")
+    #  plt.plot(beta0)
+    #  plt.show()
+    #  plt.plot(beta1)
+    #  plt.show()
