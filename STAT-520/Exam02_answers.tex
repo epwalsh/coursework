@@ -95,8 +95,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \end{table}
 
       \item We conducted a posterior predictive assessment of this model with $M = 10,000$ iterations 
-        using the data characteristics of (1) the number of states with at least 50
-        tornados ($Q_1(\bm{y})$) and (2) the range in the number of tornados across all states ($Q_2(\bm{y})$). The posterior predictive p-value for
+        using the data characteristics of the number of states with at least 50
+        tornados ($Q_1(\bm{y})$) and the range in the number of tornados across all states ($Q_2(\bm{y})$). The posterior predictive p-value for
         both $Q_1(\bm{y})$ and $Q_2(\bm{y})$ were 0, which indicates that our model is drastically inadequate.
 
     \end{enumerate}
@@ -108,7 +108,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         expected number of tornados in state $i$ is given by $\rho K_i$, where $\rho > 0$ is a ``rate'' parameter\footnote{Not to be confused with the
         rate parameter of a gamma distribution.} which represents the average number of tornados per 1000 $km^2$.
         We assume independence once again.
-        Therefore the joint pdf of data model is given by 
+        Therefore the joint pdf of the data model is given by 
         \[
           f(\bm{y}|\rho) = \prod_{i=1}^{n} e^{-\rho K_i}(\rho K_i)^{y_i} \frac{1}{y_i!} = e^{-\rho n\bar{y}}\rho^{n\bar{y}}
           \prod_{i=1}^{n}\frac{K_i^{y_i}}{y_i!},
@@ -214,8 +214,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \item We conducted a posterior predictive assessment of this model with $M = 10,000$ iterations 
         using the same characteristics $Q_1$ and $Q_2$ of part 1 (d) for each group. For group 1, the posterior predictive p-values 
         were $0.3528$ and $0.0684$ for $Q_1$ and $Q_2$, respectively, while for group 2, the posterior predictive p-values were
-        $0.0195$ and $0.0065$ for $Q_1$ and $Q_2$, respectively. This suggests that the model may be adequate according to the first criteria $Q_1$,
-        although the p-value for group 2 is fairly small, but
+        $0.0195$ and $0.0065$ for $Q_1$ and $Q_2$, respectively. This suggests that the model may be adequate according to the first criteria $Q_1$
+        (although the p-value for group 2 is fairly small), but
         is still definitely inadequate according to the second criteria $Q_2$.
 
       \item Below is a plot of the posterior distributions of $\rho_j$ for each group.

@@ -53,6 +53,70 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \maketitle
 
 
+\subsection*{1}
+\begin{tcolorbox}
+  Suppose that $X \sim$Binomial$(n,p)$ and that one wishes to estimate $p\in(0,1)=\Theta$. Suppose first that $L(p,a)=p^{-1}(1-p)^{-1}(p-a)^2$ where $a\in[0,1]=\mathcal{A}$
+
+  \begin{enumerate}
+    \item Show that $X/n$ is Bayes with respect to the uniform prior on $(0,1)$.\\
+      Note: Technically, be careful in considering posterior risk (expected loss) when $x=0$ or $n$ because the posterior risk diverges to $\infty$ unless the action $a$ is chosen appropriately.
+    \item Show that $X/n$ is admissible.
+    \item Show that $X/n$ is minimax.
+    \item Now consider the ordinary squared error loss, $L^*(\theta,a)=(p-a)^2$.  By applying Problem~6 of Homework~3,
+      prove that
+      $X/n$ is admissible under this loss function as well.
+  \end{enumerate}
+\end{tcolorbox}
+
+\begin{Solution}
+  Let $\mu$ denote the Lebesgue measure on $(0,1)$.
+  \begin{enumerate}[label=(\alph*), leftmargin=*]
+    \item To show that $X / n$ is Bayes with respect to the uniform prior $G = \mu$ on $(0,1)$, we will show that $x / n$ minimizes
+      \begin{equation}
+        \int_{\Theta}L(p,a) \pi^{p|X=x}(p|X=x) = \int_{(0,1)} \frac{(p-a)^2}{p(1-p)}\pi^{p|X=x}(p|X=x)
+        \label{1.1}
+      \end{equation}
+      with respect to $a \in \mathcal{A} = [0,1]$ for each $x \in \mathcal{X} = \{0, \dots, n\}$, where $\pi^{p|X=x}$ is the posterior distribution of
+      $p$ given the data $X = x$. Note that $\frac{d\pi^{p|X=x}}{d\mu} \propto p^{x}(1-p)^{n-x}$. Thus
+      \begin{equation}
+        \int_{(0,1)} \frac{(p-a)^2}{p(1-p)}\pi^{p|X=x}(p|X=x) \propto \int_{(0,1)}(p-a)^2 p^{x-1}(1-p)^{n-x-1}d\mu(p).
+        \label{1.2}
+      \end{equation}
+      So minimizing \eqref{1.1} with respect to $a$ is equivalent to minimizing the right-hand side of \eqref{1.2}.
+      First consider the case when $x \neq 0$ and $x\neq n$, i.e. $x \in \{1, \dots, n-1\}$. Since $p^{x-1}(1-p)^{n-x-1}$ is the kernel of a beta
+      distribution in $p$ with parameters $\alpha = x$ and $\beta = n-x$, the integrand on the right side of \eqref{1.2} can be expressed as 
+      $E_{\alpha,\beta}(Y-a)^2$
+      where $Y \equiv p \sim$ Beta($\alpha, \beta$). This expectation is clearly minimized as by taking 
+      \[
+        a := E_{\alpha,\beta}Y = \frac{\alpha}{\alpha + \beta} = \frac{x}{n}.
+      \]
+      On the other hand, if $x = 0$ or $x = n$, the integral on the right side of \eqref{1.2} is finite if and only if $a = 0$ or $a = 1$,
+      respectively. So in either case, we must have $a := x / n$. Hence the non-randomized decision rule $X / n$ is Bayes with respect to the uniform
+      prior on $(0,1)$.
+
+    \item We will show that $X / n$ is admissible by way of Theorem 73. Note that $\Theta = (0,1)$ is open, $R(p, \phi)$ continuous in $p$ for all $\phi
+      \in \mathcal{D}^*$, and the support of the prior $G = \mu$ is $\Theta$. Thus, since by part (a) $X / n$ is Bayes with respect to 
+      $G$, it only remains to verify that $BR(G) < \infty$. But
+      \begin{align*} 
+        BR(G) = BR(G, X/n) & = \int_{\mathcal{X}} \int_{\Theta}L(p,x/n)\pi^{p|X=x}(p|X=x)d\pi^X(x) \\
+        & = \sum_{x=0}^n\int_{\Theta}L(p,x/n)\pi^{p|X=x}(p|X=x)d\pi^X(x),
+      \end{align*}
+      which is the finite sum of finite terms, and hence is finite. Therefore the conditions for Theorem 73 are satisfied, so $X / n$ is admissible.
+
+    \item We will show that $X / n$ is minimax by way of Theorem 84. Well, let $p \in (0,1)$. Then 
+      \[ 
+        R(p, X/n) = E_{p}\left\{ L(p,X/n) \right\} = E_{p}\left\{ \frac{(p-X/n)^2}{p(1-p)} \right\} = \frac{p(1-p)/n}{p(1-p)} = \frac{1}{n}.
+      \]
+      Hence $X / n$ is an equalizer rule since $R(p, X/n) \equiv n^{-1}$ for all $p \in (0,1)$. So by Theorem 84, $X / n$ is minimax.
+
+    \item Let $w(p) := p(1-p) > 0$ for all $p \in (0,1)$. So, since $L(p,a) \equiv w(p)L^*(p,a)$ and $X / n$ is admissible under $L(p,a)$ by part (b),
+      $X / n$ is admissible under $L^*(p,a)$ by the result on Problem 6 of Homework 3.
+
+  \end{enumerate}
+\end{Solution}
+
+
+
 \newpage
 \subsection*{2}
 \begin{tcolorbox}
