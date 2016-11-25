@@ -57,7 +57,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Suppose that $X \sim$Binomial$(n,p)$ and that one wishes to estimate $p\in(0,1)=\Theta$. Suppose first that $L(p,a)=p^{-1}(1-p)^{-1}(p-a)^2$ where $a\in[0,1]=\mathcal{A}$
 
-  \begin{enumerate}
+  \begin{enumerate}[label=(\alph*)]
     \item Show that $X/n$ is Bayes with respect to the uniform prior on $(0,1)$.\\
       Note: Technically, be careful in considering posterior risk (expected loss) when $x=0$ or $n$ because the posterior risk diverges to $\infty$ unless the action $a$ is chosen appropriately.
     \item Show that $X/n$ is admissible.
@@ -231,6 +231,97 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{claimproof}
 
 \end{Solution}
+
+
+\newpage
+\subsection*{4}
+\begin{tcolorbox}
+  Consdier estimation of $\lambda$, the mean of a Poisson distribution, with the (inverse-mean) weighted squared error loss.
+  That is, let $\Lambda=(0,\infty)$ be the parameter space, $\mathcal{A}=[0,\infty)$ be the action space, $P_\lambda$ be the Poisson distribution on $\mathcal{X}=\{0,1,2,3,\ldots\}$ and $L(\lambda,a)=
+  \lambda^{-1}(\lambda-a)^2$.  Let $\delta(X)=X$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Show that $\delta$ is an equalizer rule.
+    \item Show that $\delta$ is generalized Bayes with respect to the Lebesgue measure on $\Lambda$.
+    \item Find the Bayes estimator with respect to a gamma$(\alpha,\beta)$ prior on $\Lambda$ which has a density given by
+      \[
+        g(\lambda|\alpha,\beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha-1} e^{-\beta \lambda},\quad \lambda>0,
+      \]
+      for $\alpha,\beta>0$ and $\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t}dt$.\\[.2cm]
+      Note: Different parameterizations of the gamma distribution exist and the above one has mean $\alpha/\beta$.
+    \item Prove that $\delta$ is minimax for this problem.
+  \end{enumerate}
+\end{tcolorbox}
+\begin{Solution}
+\begin{enumerate}[label=(\alph*)]
+  \item Let $\lambda \in \Lambda$. Then 
+    \begin{equation}
+      R(\lambda, \delta) = \int_{\mathcal{X}}L(\lambda, \delta)dP_{\lambda} = \sum_{x=0}^{\infty}\frac{(\lambda - x)^2}{\lambda} \frac{\lambda^x
+      e^{-\lambda}}{x!} = \lambda^{-1}\text{Var}_{\lambda}(X) = 1.
+      \label{4.1}
+    \end{equation}
+    Hence $R(\lambda, \delta) \equiv 1$ for all $\lambda \in \Lambda$.
+
+  \item Let $\mu$ denote Lebesgue measure on $\Lambda$. Then for $a \in \mathcal{A}$,
+    \[
+      \int_{\Lambda}L(\lambda, a)f_{\lambda}(x)d\mu(x) = \int_{\Lambda}\frac{(\lambda-a)^2}{\lambda}\frac{\lambda^x e^{-\lambda}}{x!}d\mu(\lambda) =
+      \frac{1}{x!}\int_{0}^{\infty}(\lambda - a)^2 \lambda^{x-1}e^{-\lambda}d\mu(\lambda).
+    \]
+    Now, if $x \geq 1$, then $\lambda^{x-1}e^{-\lambda}$ is the kernel of a gamma distribution with expectation $x$. Hence choosing $a = x$ minimizes
+    the integral above. If $x = 0$, then the integral above is finite if and only if $a = 0 = x$. So in either case, $a = x$ minimizes the integral.
+
+  \item Let $G$ denote the gamma$(\alpha, \beta)$ prior on $\Lambda$. The posterior distribution can be found by noting that 
+    \[ \pi^{\lambda|X=x} \propto \lambda^{\alpha + x - 1}e^{-(\beta + 1)\lambda}, \]
+    which is the kernel of a gamma$(\alpha + x, \beta + 1)$ distribution. Now,
+    by the remarks on page 33 in section 4.5 of our notes, the Bayes estimator with
+    respect to $G$ is given by 
+    \begin{align}
+      \delta_{G}(x) := \frac{1}{E_{\lambda|X}[\lambda^{-1}|X=x]} & = \left\{ \int_{0}^{\infty}\lambda^{-1} \frac{(\beta + 1)^{\alpha +
+        x}}{\Gamma(\alpha + x)} \lambda^{\alpha + x - 1}\exp\left[ -(\beta + 1)\lambda \right]d\mu(\lambda) \right\}^{-1} \nonumber \\
+        & = \left\{ \frac{(\beta+1)^{\alpha + x}}{\Gamma(\alpha + x)} \int_{0}^{\infty} \lambda^{\alpha + x - 2}\exp\left[ -(\beta+1)\lambda
+        \right]d\mu(\lambda) \right\}^{-1}. \label{4.2}
+    \end{align}
+    If $x \geq 1$ or $\alpha > 1$, then $\lambda^{\alpha + x -2}\exp\left[ -(\beta + 1)\lambda \right]$ is the kernel of a gamma$(\alpha + x - 1,
+    \beta + 1)$ distribution, and therefore the integral in \eqref{4.2} is given by $\Gamma(\alpha + x - 1) * (\beta + 1)^{-\alpha - x + 1}$,
+    in which case 
+    \[
+      \delta_{G}(x) = \left\{ \frac{(\beta+1)^{\alpha + 1}}{\Gamma(\alpha + x)} \frac{\Gamma(\alpha + x - 1)}{(\beta + 1)^{\alpha + x - 1}}
+        \right\}^{-1} = \left\{ \frac{\beta + 1}{\alpha + x - 1} \right\}^{-1} = \frac{\alpha + x - 1}{\beta + 1}.
+    \]
+    On the
+    other hand, if $x = 0$ or $\alpha \leq 1$, then the integral in \eqref{4.2} is equal to $+\infty$. Hence 
+    \begin{equation}
+      \delta_{G}(x) := \left\{ \begin{array}{cl}
+          \frac{\alpha + x - 1}{\beta + 1} & \text{ if } x \geq 1 \text{ or } \alpha > 1 \\
+          0 & \text{ if } x = 0 \text{ and } \alpha \leq 1. 
+      \end{array}\right.
+      \label{4.3}
+    \end{equation}
+
+
+  \item For $n \geq 1$, let $G_n$ be the gamma$(1, \beta_n)$ prior, where $\beta_n := n^{-1}$.. By part (c), the Bayes rule with respect to $G_n$ is given by $\delta_{G_n}$ from
+    \eqref{4.3}. Thus,
+    \begin{align*}
+      BR(G_n) = BR(G_n, \delta_{G_n}) & = \int_{\Lambda}R(\lambda, \delta_{G_n})dG_n(\lambda) \\
+      & = \int_{0}^{\infty}\sum_{x=0}^{\infty} \frac{(\lambda - \delta_{G_n}(x))^2 \lambda^x e^{-\lambda}}{\lambda x!} \beta_n e^{-\beta_n \lambda}
+      d\mu(\lambda) \\
+      \text{(Tonelli's Thm)} \ & = \sum_{x=0}^{\infty} \frac{\beta_n}{x!} \int_{0}^{\infty}(\lambda - \delta_{G_n})^2 \lambda^{x - 1}e^{-(\beta_n +
+      1)\lambda}d\mu(\lambda) \\
+      & = \beta_n\int_{0}^{\infty}\lambda e^{-(\beta_n + 1)\lambda}d\mu(\lambda) +
+      \sum_{x=1}^{\infty}\frac{\beta_n}{x!}\int_{0}^{\infty}\left( \lambda - \frac{x}{\beta_n + 1}
+      \right)^2\lambda^{x-1}e^{-(\beta_n+1)\lambda}d\mu(\lambda) \\
+      & = \frac{\beta_n}{(\beta_n + 1)^2} + \beta_n\sum_{x=1}^{\infty}\frac{\Gamma(x) x}{(\beta_n + 1)^{2 + x}x!} \\
+      & = \frac{\beta_n}{(\beta_n + 1)^2} \sum_{x=0}^{\infty} \frac{1}{(\beta_n + 1)^2} \\
+      & = \frac{1}{\beta_n + 1} \longrightarrow 1 \ \text{ as } \ n \rightarrow \infty.
+    \end{align*}
+    Therefore, by \eqref{4.1} and Theorem 85, $\delta$ is minimax.
+
+
+\end{enumerate}
+\end{Solution}
+
+
+
+
 
 
 \end{document}
