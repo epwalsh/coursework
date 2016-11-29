@@ -70,7 +70,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \begin{Solution}
   Let $\mu$ denote the Lebesgue measure on $(0,1)$.
-  \begin{enumerate}[label=(\alph*), leftmargin=*]
+  \begin{enumerate}[label=(\alph*), leftmargin=6mm]
     \item To show that $X / n$ is Bayes with respect to the uniform prior $G = \mu$ on $(0,1)$, we will show that $x / n$ minimizes
       \begin{equation}
         \int_{\Theta}L(p,a) \pi^{p|X=x}(p|X=x) = \int_{(0,1)} \frac{(p-a)^2}{p(1-p)}\pi^{p|X=x}(p|X=x)
@@ -130,7 +130,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{enumerate}
 \end{tcolorbox}
 \begin{Solution}
-  \begin{enumerate}[label=(\alph*), leftmargin=*]
+  \begin{enumerate}[label=(\alph*), leftmargin=6mm]
     \item For $p \in [0,1]$, the risk function of $\delta$ is given by
       \begin{equation}
         R(p, \delta) = E_p|p - \delta(X)| = p\left|p - \frac{3}{4}\right| + (1-p)\left|p - \frac{1}{4}\right|.
@@ -252,7 +252,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{enumerate}
 \end{tcolorbox}
 \begin{Solution}
-\begin{enumerate}[label=(\alph*)]
+  \begin{enumerate}[label=(\alph*),leftmargin=6mm]
   \item Let $\lambda \in \Lambda$. Then 
     \begin{equation}
       R(\lambda, \delta) = \int_{\mathcal{X}}L(\lambda, \delta)dP_{\lambda} = \sum_{x=0}^{\infty}\frac{(\lambda - x)^2}{\lambda} \frac{\lambda^x
@@ -298,7 +298,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \end{equation}
 
 
-  \item For $n \geq 1$, let $G_n$ be the gamma$(1, \beta_n)$ prior, where $\beta_n := n^{-1}$.. By part (c), the Bayes rule with respect to $G_n$ is given by $\delta_{G_n}$ from
+  \item For $n \geq 1$, let $G_n$ be the gamma$(1, \beta_n)$ prior, where $\beta_n := n^{-1}$. By part (c), the Bayes rule with respect to $G_n$ is given by $\delta_{G_n}$ from
     \eqref{4.3}. Thus,
     \begin{align*}
       BR(G_n) = BR(G_n, \delta_{G_n}) & = \int_{\Lambda}R(\lambda, \delta_{G_n})dG_n(\lambda) \\
@@ -323,6 +323,100 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 
 
+
+\subsection*{5}
+\begin{tcolorbox}
+  Let $X_1,\ldots,X_n$ be iid random variables, each having a distribution $P_\lambda$, $\lambda>0$, with a density \[
+    f_\lambda(x) = \frac{d P_\lambda}{d \mu}(x) =  \left(\lambda\exp(-\lambda x)\right)^{I[x\neq0]} \left((1-e^{-\lambda})\right)^{I[x=0]}
+  \]
+  for $\mu=m+\nu$ with $m$ being the Lebesgue measure on $[1,\infty)$ and $\nu$ being the point mass measure at $0$. Let $\delta_i= I[X_i=0]$, $i=1,\ldots,n$ and $M_n = n- \sum_{i=1}^n \delta_i$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Show that there is no maximum likelihood estimate (MLE) of $\lambda$ when $M_n=0$, but there is a MLE of $\lambda$ when $M_n>0$.
+    \item  Show that, for any $\lambda>0$, with $\lambda$-probability tending to 1 as $n\rightarrow \infty$, the MLE of $\lambda$ exists.
+    \item Give  as a simple estimator of $\lambda$ based on $M_n$ alone and prove that this estimator is consistent.
+    \item Write down an explicit one-step Newton improvement of the estimator from (c) using the likelihood function from (a). (No need to simplify the expression).
+  \end{enumerate}
+\end{tcolorbox}
+\begin{Solution}
+  Let $\mathcal{X} := \{0\} \cup [1,\infty)$. Then for $\bm{x} \in \mathcal{X}^n$, the joint density function with respect to $\mu^n$ is 
+  \begin{equation}
+    f_{\lambda}^n(\bm{x}) = \lambda^{M_n}\{1 - \exp(-\lambda)\}^{n-M_n}\exp\{-\lambda n\bar{x}\} \ \ \text{a.e.} \ \mu^n.
+    \label{5.1}
+  \end{equation}
+  \begin{enumerate}[label=(\alph*),leftmargin=6mm]
+    \item Let $\bm{x} = (x_1, \dots, x_n) \in \mathcal{X}^n$. First suppose $M_n = 0$. Then the density in \eqref{5.1} becomes
+      \[
+        f_{\lambda}^n(\bm{x}) = \{1 - \exp(-\lambda)\}^n,
+      \]
+      which is strictly less than 1 for all $\lambda > 0$.
+      But as $\lambda \rightarrow \infty$, $f_{\lambda}^n(\bm{x}) \rightarrow 1$. Hence there is no MLE.
+      On the other hand, if $M_n > 0$, then from \eqref{5.1} we see that $f_{\lambda}^n(\bm{x}) \rightarrow 0$ and $\lambda \rightarrow 0$ or $\lambda
+      \rightarrow \infty$. So, since $f_{\lambda}^n(\bm{x})$ is continuous as a function of $\lambda$, there must be a point $\lambda_0 > 0$ that
+      $f_{\lambda_0}^n(\bm{x}) = \sup_{\lambda > 0}f_{\lambda}^n(\bm{x})$, i.e. an MLE exists.
+
+    \item Let $\lambda_0 > 0$. By part (a) and iid-ness,
+      \begin{align*}
+        P_{\lambda_0}^n\left( \text{MLE exists} \right) = P_{\lambda_0}^n(M_n > 0) = 1 - P_{\lambda_0}^n(M_n = 0) & = 1 - P_{\lambda_0}^n(X_i = 0 \
+        \forall \ i = 1,\dots, n) \\
+        & = 1 - \left[ P_{\lambda_0}(X_1 = 0) \right]^{n} \\
+        & = 1 - \left[ 1 - e^{-\lambda_0} \right]^{n} \longrightarrow 1
+      \end{align*}
+      as $n \rightarrow \infty$.
+
+    \item Note that $\delta_1, \dots, \delta_n$ are iid Ber$(1 - e^{-\lambda})$. Thus, by (Kolmogorov's) SLLN,
+      \[
+        \frac{1}{n}\sum_{i=1}^{n}\delta_i = \frac{n - M_n}{n} \longrightarrow 1 - e^{-\lambda} \ \ \text{a.s.} \ P_{\lambda}^{\infty} \ \text{ as } n \rightarrow \infty.
+      \]
+      Now let $\epsilon > 0$. Then we also have that 
+      \[
+        \frac{n - M_n}{n + \epsilon} \longrightarrow 1 - e^{-\lambda} \ \ \text{a.s.} \ P_{\lambda}^{\infty} \ \text{ as } n \rightarrow \infty,
+      \]
+      so by the continuous mapping theorem,
+      \[
+        T_n := -\log\left( 1 - \frac{n - M_n}{n + \epsilon}\right) = \log\left( \frac{n + \epsilon}{M_n + \epsilon} \right) \longrightarrow \lambda  \
+        \ \text{a.s.} \ P_{\lambda}^{\infty} \ \text{ as } n \rightarrow \infty.
+      \]
+
+    \item From \eqref{5.1}, the log-likelihood is given by 
+      \[
+        L_n(\lambda) = M_n \log(\lambda) + (n - M_n)\log\left\{ 1 - \exp(-\lambda) \right\} - \lambda n \bar{x}\ \ \text{ for } \ \lambda > 0.
+      \]
+      Thus,
+      \begin{align*}
+        L_n'(\lambda) & = \frac{M_n}{\lambda} + \frac{(n-M_n)\exp(-\lambda)}{1 - \exp(-\lambda)} - n\bar{x} \\
+        L_n''(\lambda) & = -\frac{M_n}{\lambda^2} + (n - M_n)\left\{ \frac{[1 - \exp(-\lambda)][-\exp(-\lambda)] - \exp(-\lambda)\exp(-\lambda)}{[1 -
+        \exp(-\lambda)]^2}\right\} \\
+        & = -\frac{M_n}{\lambda^2} - \frac{(n - M_n)\exp(-\lambda)}{[1 - \exp(-\lambda)]^{2}}.
+      \end{align*}
+      Hence, a one-step Newton improvement to the estimator $T_n$ from part (c) is given by 
+      \[
+        \hat{\lambda}_n := T_n - \frac{L_n'(T_n)}{L_n''(T_n)} = T_n - \frac{\left( \frac{M_n}{T_n} + \frac{(n-M_n)\exp(-T_n)}{1 - \exp(-T_n)} -
+        n\bar{x} \right)}{\left( -\frac{M_n}{T_n^2} - \frac{(n - M_n)\exp(-T_n)}{[1 - \exp(-T_n)]^2} \right)}.
+      \]
+  \end{enumerate}
+\end{Solution}
+
+
+\subsection*{6}
+\begin{tcolorbox}
+  Suppose that $X_1,\ldots,X_n$ are iid with the distribution $P_\theta$ for $\theta \in \mathbb{R}$, where $P_\theta$ has the RN derivative with respect to the counting measure $\nu$ on $\mathcal{X}=\{0,1,2\}$ given by
+  \[
+    f_\theta(x)= \frac{\exp(x\theta)}{1+\exp(\theta)+\exp(2\theta)}.
+  \]
+  Find an estimator $T_n$ of $\theta$ based on $n_0\equiv \sum_{i=1}^n I[X_i=0]$ such that $\sqrt{n}(T_n-\theta)$ has a limiting normal distribution (implying that $\sqrt{n}(T_n-\theta)$  is bounded in probability or tight and so that $T_n$ is $\sqrt{n}$-consistent).\\
+\end{tcolorbox}
+\begin{Solution}
+  For $i = 1, \dots, n$, let $Y_i := I[X_i = 0]$. Then $Y_1, \dots, Y_n$ are iid Ber$(p_\theta)$, where $p_\theta \equiv p(\theta) := [1 + \exp(\theta) +
+  \exp(2\theta)]^{-1}$. Then by the Central Limit Theorem,
+  \[
+    \sqrt{n}(\bar{Y} - p_{\theta}) = \sqrt{n}\left( \frac{n_0}{n} - p_{\theta} \right) \stackrel{d}{\longrightarrow} N\bigg(0, p_{\theta}(1 - p_{\theta})\bigg).
+  \]
+  Note that for $\theta > 0$, the inverse of $p(\theta)$ is $g(p) := \log\left\{ \sqrt{4p^{-1} - 3} - \frac{1}{2} \right\}$, $p \in (0,1)$, for which
+  the derivative $g'$ exists and is non-zero on $(0,1)$. Then let $T_n := g(\bar{Y})$. So by the delta method,
+  \[
+    \sqrt{n}\left( T_n - g(p_\theta) \right) \stackrel{d}{\longrightarrow} N\bigg(0, [g'(p_{\theta})]^2p_{\theta}(1-p_{\theta})\bigg).
+  \]
+\end{Solution}
 
 \end{document}
 
@@ -382,7 +476,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
              % f_\theta(x)= \frac{\exp(x\theta)}{1+\exp(\theta)+\exp(2\theta)}.
              % \]
           % Find an estimator $T_n$ of $\theta$ based on $n_0\equiv \sum_{i=1}^n I[X_i=0]$ such that $\sqrt{n}(T_n-\theta)$ has a limiting normal distribution (implying that $\sqrt{n}(T_n-\theta)$  is bounded in probability or tight and so that $T_n$ is $\sqrt{n}$-consistent).\\
-          
+
           % Note:  It may be helpful to recall the delta method.  Let  $T_n$ be a statistic such that $\sqrt{n}(T_n-c)\stackrel{d}{\rightarrow} N(0,\sigma^2)$ as $n\rightarrow \infty$ for some $c\in \mathbb{R}$ and variance $\sigma^2>0$.  Take a function any function $g$ where $g(t)$ is differentiable at $t=c$ and $g^\prime(c)\neq 0$ (the derivative of $g(t)$ at $t=c$ is not zero).  Then, as $n\rightarrow \infty$,
 % $\sqrt{n}(g(T_n)-g(c))\stackrel{d}{\rightarrow} N(0,[g^\prime(c)]^2\sigma^2)$. 
 % \end{enumerate}
