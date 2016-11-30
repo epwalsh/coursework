@@ -86,7 +86,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       First consider the case when $x \neq 0$ and $x\neq n$, i.e. $x \in \{1, \dots, n-1\}$. Since $p^{x-1}(1-p)^{n-x-1}$ is the kernel of a beta
       distribution in $p$ with parameters $\alpha = x$ and $\beta = n-x$, the integrand on the right side of \eqref{1.2} can be expressed as 
       $E_{\alpha,\beta}(Y-a)^2$
-      where $Y \equiv p \sim$ Beta($\alpha, \beta$). This expectation is clearly minimized as by taking 
+      where $Y \equiv p \sim$ Beta($\alpha, \beta$). This expectation is clearly minimized by taking 
       \[
         a := E_{\alpha,\beta}Y = \frac{\alpha}{\alpha + \beta} = \frac{x}{n}.
       \]
@@ -109,7 +109,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \]
       Hence $X / n$ is an equalizer rule since $R(p, X/n) \equiv n^{-1}$ for all $p \in (0,1)$. So by Theorem 84, $X / n$ is minimax.
 
-    \item Let $w(p) := p(1-p) > 0$ for all $p \in (0,1)$. So, since $L(p,a) \equiv w(p)L^*(p,a)$ and $X / n$ is admissible under $L(p,a)$ by part (b),
+    \item Let $w(p) := p^{-1}(1-p)^{-1} > 0$ for all $p \in (0,1)$. So, since $L(p,a) \equiv w(p)L^*(p,a)$ and $X / n$ is admissible under $L(p,a)$ by part (b),
       $X / n$ is admissible under $L^*(p,a)$ by the result on Problem 6 of Homework 3.
 
   \end{enumerate}
@@ -196,9 +196,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Following the example on page 38 of section 4.6 in our notes, it makes sense that the prior $G$ defined by $G(\left\{ 5 \right\}) = G(\left\{ 6
   \right\}) = 1/2$ is least favorable. Under $G$, the posterior distribution is given by 
   \[
-    \pi^{\theta | X}(C) := \int_{C} \frac{f_{5}(x)I(\theta = 5) + f_{6}(x)I(\theta = 6)}{f_{5}(x) + f_{6}(x)} dc(\theta)
+    \pi^{\theta | X}(C) := \frac{f_{5}(x)I(5\in C) + f_{6}(x)I(6\in C)}{f_{5}(x) + f_{6}(x)}, \ C \subseteq \Theta.
   \]
-  where $c$ is the counting measure. Thus, by the result from Question 6 (b) on homework 5 or the remarks on page 33 of section 4.5, the Bayes rule with respect to $G$ is given by 
+  Thus, by the result from Question 6 (b) on homework 5 or the remarks on page 33 of section 4.5, the Bayes rule with respect to $G$ is given by 
   \[
     \delta(x) := I\left\{ \pi^{\theta|X}(\{6\}) > \pi^{\theta |X}(\{5\}) \right\} = I\{f_{6}(x) > f_{5}(x)\} = I\{x > 5.5\}.
   \]
