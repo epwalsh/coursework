@@ -1,0 +1,286 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\la}{\lambda}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+% chktex-file 3
+
+\title{STAT 643: Final Exam}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{STAT 643: Final Exam}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\vspace{3cm}
+
+\begin{center}
+\textbf{\Huge Take Home Portion}
+\end{center}
+
+\newpage
+
+
+\subsection*{1}
+\begin{Solution}
+  Let $\mu$ denote the Lebesgue measure on $\mathbb{R}$.
+  \begin{enumerate}[label=(\alph*),leftmargin=*]
+    \item Let 
+      \[
+        \delta_{G}(X) := \left\{ \begin{array}{ll} 
+            1 & \text{ if } 0 < X < 2\log 2\\
+            \\
+            2 & \text{ if } 2\log 2 \leq X \leq 6\log(3 / 2) \\
+            \\
+            3 & \text{ if } 6\log(3/2) < X < \infty.
+        \end{array} \right.
+      \]
+
+      \begin{claim}
+        $\delta_{G}$ is a formal non-randomized Bayes rule with respect to $G$, and thus is Bayes.
+      \end{claim}
+      \begin{claimproof}
+        It suffices to show that for each $x \in \mathcal{X}$, 
+        \begin{align}
+          \delta_{G}(x) = \argmin_{a \in \mathcal{A}} \int_{\Theta}L(\theta, a)f_{\theta}(x)dG(\theta) & = \argmin_{a \in\mathcal{A}} \frac{1}{3}
+          \sum_{\theta \in \{1,2,3\}} I(\theta \neq a)\theta^{-1}\exp(-x/\theta) \nonumber \\
+          & = \argmax_{a \in \{1,2,3\}} a^{-1}\exp(-x / a). \label{1.1}
+        \end{align}
+        Now let 
+        \[ 
+          h_0(x) := \exp(-x) - (1/2)\exp(-x/2) \text{ and } h_1(x) := (1/2)\exp(-x/2) - (1/3)\exp(-x/3)
+        \]
+        for $x \in (0,\infty)$.
+        Then $h_0(x) > 0$ for $x < 2\log 2$ and $h_0(x) < 0$ for $x > 2\log 2$. Similarly, $h_1(x) > 0$ for $x < 6\log(3/2)$ and $h_1(x) < 0$ for $x >
+        6\log(3/2)$. Thus,
+        \[
+          \argmax_{a \in \{1,2,3\}} a^{-1}\exp(-x / a) = \left\{ \begin{array}{ll} 
+            1 & \text{ if } 0 < x < 2\log 2\\
+            \\
+            2 & \text{ if } 2\log 2 \leq x \leq 6\log(3 / 2) \\
+            \\
+            3 & \text{ if } 6\log(3/2) < x < \infty.
+        \end{array} \right. \qquad = \delta_{G}(x).
+      \]
+      \end{claimproof}
+
+    \item For each $\theta \in \Theta := \{1,2,3\}$, 
+      \[
+        R(\theta, \delta_{G}) = \int_{0}^{\infty}I(\theta \neq \delta_{G}(x))f_{\theta}(x)d\mu(x) \leq \int_{0}^{\infty}f_{\theta}(x)d\mu(x) = 1 < \infty.
+      \]
+      Thus 
+      \[
+        BR(G) = BR(G, \delta_{G}) = \sum_{\theta \in \Theta }R(\theta, \delta_{G})(1/3) \leq 1 < \infty.
+      \]
+      So, since the parameter space $\Theta$ is finite (and therefore countable), $BR(G) < \infty$, and $G(\{\theta\}) > 0$ for all 
+      $\theta \in \Theta$, $\delta$ is admissible by Theorem 72.
+
+    \item First not that by the same argument in part (b), $\delta$ is admissible. Thus, to show that $\delta$ is minimax by way of Theorem 84, it
+      suffices to show that $\delta$ is an equalizer rule. Well,
+      \begin{align*}
+        \text{if } \theta = 1, \ R(\theta, \delta) & = \int_{0.591}^{\infty}\exp(-x)d\mu(x) = \exp(-0.591) \approx 0.554, \\
+        \text{if } \theta = 2, \ R(\theta, \delta) & = \int_{0}^{0.591}(1/2)\exp(-x/2)d\mu(x) + \int_{2.421}^{\infty}(1/2)\exp(-x/2)d\mu(x) \\
+        & = 1 - \exp\left( -\frac{0.591}{2} \right) + \exp\left( -\frac{2.421}{2} \right) \approx 0.554, \text{ and } \\
+        \text{if } \theta = 3, \ R(\theta, \delta) & = \int_{0}^{2.421}(1/3)\exp(-x/3)d\mu(x) = 1 - \exp\left( -\frac{2.421}{3} \right) \approx 0.554.
+      \end{align*}
+      Hence $\delta$ is an admissible equalizer rule, so is minimax by Theorem 84.
+
+  \end{enumerate}
+\end{Solution}
+
+\subsection*{2}
+\begin{Solution}
+  \begin{enumerate}[label=(\alph*),leftmargin=*]
+    \item For $p \in \Theta$, let $P_{p}(X = x) = \binom{n}{x} p^x(1-p)^{n-x}$ for $x \in \{0, 1, \dots, n\}$. Now note that if $W = n + 1$, then $X$
+      must be $n$ since $X$ cannot be larger than $n$ and $Y \in \left\{ 0,1 \right\}$. Similarly, if $W = 0$, then $X = 0$ with conditional
+      probability 1. On the other hand, if $W = w \in \left\{ 1,\dots, n \right\}$ then $X$ can either be $w$ or $w - 1$ depending on $Y$. Hence 
+      \begin{align*}
+        \E_{p}[\delta(X) | W=w] & = \sum_{x=0}^{n}\delta(x)P_{p}(X = x|W = w) \\
+        & = \left\{ \begin{array}{ll} 
+            \delta(0) & \text{ if } w = 0, \\
+            \\
+            \delta(n) & \text{ if } w = n + 1, \\
+            \\
+            \frac{\delta(w-1)pP_{p}(X = w-1) + \delta(w)(1-p)P_{p}(X = w)}{pP_{p}(X = w-1) + (1-p)P_p(X = w)} & \text{ if } w \in \left\{ 1, \dots, n
+            \right\}.
+        \end{array} \right.
+      \end{align*}
+
+    \item Consider the set-up where $\mathcal{X} = \{0, \dots, n\} \times \{0, 1\}$ and $X^2 = (X, Y)$. Let $\delta(X^2) \equiv \delta(X)$ and assume the
+      action space is $\mathcal{A} = [0,1]$.
+      We will show that the conditions for the Rao-Blackwell Theorem part (i) are met. Namely, that (1) $\mathcal{A} \subseteq \mathbb{R}$ is
+      convex, (2) $\delta$ is a non-randomized decision rule with $\E_p|\delta(X^2)| < \infty$ for all $p \in \Theta$, (3) $W$ sufficient for $p$, and
+      (4) $L(p, a)$ convex in $a$ for all $p \in \Theta$.
+      Condition (1) is clearly met as we are assuming $\mathcal{A} = [0,1]$. Condition (2) is also met since 
+      \[
+        \E_{p}|\delta(X^2)| = \E_{p}|\delta(X)| \leq \E_{p}[1] = 1 < \infty.
+      \]
+      Further, since $W = X + Y$ is Binomial$(n + 1, p)$ by independence, $W$ is clearly a sufficient statistic for $p$. Hence condition (3) is
+      met, and since $L(p,a)$ is squared error loss, condition (4) is also met. Thus part (i) of the Rao-Blackwell Theorem states that the risk of
+      $\hat{p}^*$ is no greater than the risk of $\hat{p}$ for any $p \in \Theta$.
+
+    \item In order for $\hat{p}^*$ to be strictly better than $\hat{p}$ at some $p_0 \in \Theta$, the conditions for part (ii) of the Rao-Blackwell
+      Theorem must hold at $p_0$. Thus, by part (b), it must hold that 
+      \[
+        P_{p_0}(\hat{p}^* \neq \hat{p}) > 0.
+      \]
+      In other words, $\hat{p}^*$ and $\hat{p}$ must differ on a set of positive $P_{p_0}$ probability.
+
+  \end{enumerate}
+\end{Solution}
+
+\subsection*{3}
+\begin{Solution}
+  Let $\mathcal{X} := \mathbb{N}^2$, where $\mathbb{N} := \left\{ 0, 1, \dots \right\}$. 
+  \begin{enumerate}[label=(\alph*),leftmargin=*]
+    \item First suppose $S = s \in \{1, 2, \dots \}$. Note that $S \sim$ Poisson($2\lambda$). Thus, for $x_1 \leq s$,
+      \begin{align*}
+        P_{\lambda}(X_1=x_1 | S=s) = \frac{P_{\la}(X_1 = x_1, S = s)}{P_{\la}(S = s)} & = \frac{P_{\la}(X_1 = x_1, X_2 = s - x_1)}{P_{\la}(S = s)} \\
+        & = \frac{P_{\la}(X_1 = x_1) P_{\la}(X_2 = s - x_1)}{P_{\la}(S = s)} \\
+        & = \left( \frac{e^{-\la}\la^{x_1}}{x_1!} \right)\left( \frac{e^{-\la}\la^{s-x_1}}{(s-x_1)!} \right)\left( \frac{e^{-2\la}(2\la)^s}{s!} \right)^{-1} \\
+        & = \frac{s!}{x_1!(s-x_1)!}\left( \frac{1}{2} \right)^{s} = \binom{s}{x_1}\left( \frac{1}{2} \right)^{x_1} \left( 1 - \frac{1}{2} \right)^{s-x_1},
+      \end{align*}
+      which is the pmf of a Binomial$\left( s, 1/2 \right)$ distribution. Now, if $S = s = 0$, then clearly $X_1 | S = s$ is degenerately equal to 0
+      since $X_1, X_2 \geq 0$.
+
+    \item Let $\lambda \in \Theta$. Then 
+      \[ R(\lambda, \delta) = \E_{\lambda}\left\{ \frac{(\lambda - X_1)^2}{\la} \right\} = \lambda^{-1}\var_{\la}(X_1) = 1. \]
+      Hence $R(\la, \delta) \equiv 1$ for all $\la \in \Theta$, i.e. $\delta$ is an equalizer rule.
+
+    \item For $x \in \mathcal{X}$, let the behavorial decision rule $\phi'$ be defined by 
+      $\phi_x'\left( \left\{ \delta(x) \right\} \right) = \phi_x'\left( \left\{ x_1 \right\} \right) = 1$. Hence
+      \[
+        R(\lambda, \phi') = \E_{\la}\left[\int_{\mathcal{A}} L(\la, a) d\phi_x'(a)\right] = \E_{\la}L(\la, \delta(X)) = R(\la, \delta).
+      \]
+      Thus it remains to construct another estimator $\phi$ based on $S$ that has the same risk function as $\phi'$.
+      To that end, we define $\phi$ as follows. For $A \in \mathcal{E}$, $x \in \mathcal{X}$, let 
+      \begin{align*}
+        \phi_x(A) & := \int_{\mathcal{X}} \phi_y'(A) dP_{\la}(y|S)(x) \\
+        & = \int_{\mathcal{X}} I(y_1 \in A) dP_{\la}(y|S)(x) \\
+        & = \left\{ \begin{array}{ll}
+            I(0 \in A) & \text{ if } x = (0, 0) \\
+            \\
+            \sum_{y = (y_1, y_2) : y_1 \in A}\binom{x_1 + x_2}{y_1}\left(\frac{1}{2}\right)^{x_1 + x_2}I(y_1 \leq x_1 + x_2) & \text{ otherwise}
+        \end{array} \right.
+      \end{align*}
+      Intuitively, for a given $x = (x_1, x_2)$, $\phi_x$ is constructed by choosing $x'$ according to the conditional distribution of $X | S = x_1 + x_2$,
+      and then taking $\phi_x(A) = \phi_{x'}'(A)$.
+
+    \item Let $\la \in \Theta$. Then 
+      \begin{align*}
+        R(\la, \phi) = \E_{\la}\left\{ \int_{\mathcal{A}}L(\la, a)d\phi_X(a) \right\} & = \E_{\la}\left\{ \sum_{a=0}^{S}\frac{(\la -
+        a)^2}{\la}\binom{S}{a} \left( \frac{1}{2} \right)^{S} \right\} \\
+        & = \E_{\la}\left\{ \frac{1}{\la}\sum_{a=0}^{S}(\la^2 - 2a\la + a^2) \binom{S}{a}\left( \frac{1}{2} \right)^{S} \right\} \\
+        & = \E_{\la}\left\{ \frac{X_1^2 + 2X_1 X_2 + X_2^2 + X_1 + X_2}{4\la} - X_1 - X_2 - \la \right\} \\
+        & = \frac{1}{4\la}\left[ 4\la + 4\la^2 \right] - \la = 1.
+      \end{align*}
+      Hence $R(\la, \phi) \equiv R(\la, \delta)$ for all $\la \in \Theta$.
+
+    \item Let $\delta_2(X) := X_2$. Then $\delta, \delta_2$ are both non-randomized decision rules that map into $\mathcal{A} = [0,\infty]$, a convex
+      subset of $\mathbb{R}$, such that $\delta_0 = \frac{1}{2}(\delta + \delta_2)$. Further, for any $\lambda \in \Theta$, $L(\lambda, a)$ is convex
+      as a function of $a$ and clearly $P_{\lambda}(\delta \neq \delta_2) = P_{\la}(X_1 \neq X_2) > 0$ and $R(\lambda, \delta) \equiv R(\lambda,
+      \delta_2)$ by symmetry of the argument in part (b). Hence, by Lemma 66,
+      \[
+        R(\lambda, \delta_0) < R(\lambda, \delta) \qquad \text{for all $\la \in \Theta$.}
+      \] 
+
+    \item Denote the posterior distribution of $\lambda$ given $X = x = (x_1, x_2)$ by $\pi^{\lambda|X = x}(\lambda)$ and $\mu$ the Lebesgue measure on
+      $\mathbb{R}$. Further, let $f_{\la}(x)$ be the distribution function of $X$ with respect to the counting measure on $\mathcal{X}$. Let $\eta > 0$. Then 
+      \[
+        \frac{d \pi^{\lambda|X = x}}{d\mu}(\lambda) \propto f_{\la}(x) g_{\eta}(\la)  = \frac{e^{-2\la}\la^{x_1 + x_2}}{(x_1!)(x_2!)} \eta e^{-\eta
+        \la} \propto e^{-(\eta + 2)\la}\la^{(x_1 + x_2 + 1) - 1},
+      \]
+      which is the kernel of a gamma distribution with shape parameter $\alpha = \alpha(x) := x_1 + x_2 + 1$ and rate parameter $\beta = \beta(x) :=
+      \eta + 2$. Hence 
+      \[
+        \frac{d\pi^{\la|X=x}}{d\mu}(\la) = \frac{\beta^{\alpha}\la^{\alpha - 1}e^{-\eta \la}}{\Gamma(\alpha)} \ \text{a.e.} \ \mu.
+      \]
+
+    \item Note that $L(\la, a)$ is a weighted squared error loss function. Thus, by the result on page 33 of section 4.5 in our notes, the Bayes rule
+      with respect to $G_{\eta}$, $\eta > 0$, is given by 
+      \begin{align*}
+        \delta_{\eta}(X) := \frac{\E_{\la|X}[1 | X]}{\E_{\la|X}[\la^{-1}|X]} & = \left\{ E_{\la|X}[\la^{-1}|X] \right\}^{-1} \\
+        & = \left\{ \int_{0}^{\infty} \frac{\beta^{\alpha}\la^{\alpha - 2}e^{-\eta \la}}{\Gamma(\alpha)} d\mu(\la) \right\}^{-1} \\
+        & = \left\{ \begin{array}{ll}
+            0 & \text{ if } x_1 = x_2 = 0 \\ 
+            \\
+            \frac{\alpha - 1}{\beta} = \frac{x_1 + x_2}{\eta + 2} & \text{ otherwise } \\
+        \end{array} \right.
+      \end{align*}
+
+    \item We will proceed by way of Theorem 85. Let $\la \in \Theta$. Then 
+      \[
+        R(\la, \delta_0) = \la^{-1}\E_{\la}\left\{ \left( \la - \frac{X_1 + X_2}{2} \right)^{2} \right\} = \la^{-1}\var_{\la}\left( \frac{X_1 +
+        X_2}{2} \right)  = \frac{1}{2}, 
+      \]
+      since $\delta_0$ is unbiased for $\la$. Further, for $\eta > 0$,
+      \begin{align*}
+        R(\la, \delta_{\eta}) = \la^{-1}\E_{\la}\left\{ \left( \la - \frac{X_1 + X_2}{2 + \eta} \right)^{2} \right\} 
+        & = \la^{-1}\left[ \var_{\la}\left( \frac{X_1 + X_2}{2 + \eta} \right) + \left\{ \mathrm{Bias}_{\la}\left( \frac{X_1 + X_2}{2 + \eta}
+            \right) \right\}^{2} \right]  \\
+            & = \frac{2}{(2 + \eta)^{2}} + \la^{-1}\left( \frac{2\la}{2 + \eta} - \la \right)^{2}  \\
+        & = \frac{2 + \la\eta^2}{(2 + \eta)^2}.
+      \end{align*}
+      Thus, 
+      \begin{align}
+        BR(G_{\eta}) = BR(G_{\eta}, \delta_{\eta}) = \int_{\Theta}R(\lambda, \delta_{\eta}) dG(\la) & = \int_{0}^{\infty}\frac{2 + \la \eta^2}{(2 +
+        \eta)^2} \eta \exp(-\eta \la)d\mu(\la) \nonumber \\
+        & = \frac{2 + \eta}{(2 + \eta)^2} = \frac{1}{2 + \eta}.
+        \label{3.1}
+      \end{align}
+      Now, for $n \in \mathbb{N}$, let $\eta_n := 2^{-n}$. Then by \eqref{3.1},
+      \[
+        BR(G_{\eta_n}) = \frac{1}{2 + 2^{-n}} \rightarrow \frac{1}{2} \text{ as } n \rightarrow \infty.
+      \]
+      Hence, since $R(\la, \delta_0) \equiv \frac{1}{2}$ for all $\la \in \Theta$, $\delta_0$ is minimax by Theorem 85.
+
+
+  \end{enumerate}
+\end{Solution}
+
+
+\end{document}
+

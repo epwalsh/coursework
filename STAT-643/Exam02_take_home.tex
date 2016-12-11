@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\textheight 10.7in
+\textwidth 7.9in
+\oddsidemargin -.7in
+\evensidemargin -.7in
+\topmargin -.73in
+\headheight 0in
+\headsep 0in
+\pagestyle{empty}
+
+
+\usepackage{graphicx}
+\usepackage{epsfig, color}
+\usepackage{amsmath,amssymb}
+
+
+\newcommand{\var}{\mathrm{Var}}
+
+\newcommand{\E}{\mathrm{E}}
+\def\g{\gamma}
+\def\t{\theta}
+\def\al{\alpha}
+\def\T{\Theta}
+\def\X1{X_1,\ldots,X_n}
+\def\r{I\!\!R}
+\def\sumin{\sum_{i=1}^n}
+\def\bfx{{\bf x}}
+\def\bxn{{\bar{X}}_n}
+\def\e{\equiv}
+\def\ST{Show that~}
+\begin{document}
+
+\textbf{\hspace*{1cm} \hfill Page 1 of 2}
+\vspace*{3cm}
+\begin{center}{\Large
+
+
+\bf STAT 643  \\   Fall 2016 - Nordman \\
+\vspace{.2cm}  Final Exam - Take Home Portion\\}
+\vspace{.2cm} {\large {\bf 12/5/16}  \\ 
+}
+\end{center}
+
+\vspace*{2cm}
+\begin{center}{\large
+
+\begin{itemize} \itemsep .4cm
+\item This exam component is due in class (7:30 AM) on \textbf{Monday, December 12th.}
+\item You may use notes but you must work independently and alone.
+ \item You are not to discuss the exam with anyone during the exam process.
+
+\item Be sure to show work to receive  credit and submit solutions as you would with a homework assignment.
+ \item {\em On your honor, neither give nor receive  any unauthorized aid on this exam.}
+\item Relax and do your best.  GOOD LUCK!
+\end{itemize}
+
+
+
+ }
+\end{center}
+\newpage
+\textbf{\hspace*{1cm} \hfill Page 2 of 2}
+
+
+\begin{enumerate} \itemsep .6cm
+
+  \item Consider a simple decision problem with  $X\in \mathcal{X}\equiv (0,\infty)$ and $\Theta=\mathcal{A}=\{1,2,3\}$, where $P_\theta$ for $\theta=1,2,3$ denotes
+  the exponential distribution with mean $\theta$ (i.e., $P_\theta$ has a density $f_\theta(x) = \theta^{-1}\exp(-x/\theta)I[x>  0]$ with respect to the Lebesgue measure on $\mathbb{R}$) and the 0-1 loss function is
+  \[
+  L(\theta,a) = I[\theta \neq a].
+  \]
+  For a prior distribution $G$ on $\Theta$, let $g_\theta \equiv G(\{\theta\})$ denote probabilities for $\theta=1,2,3$.
+  \begin{enumerate}\itemsep .2cm
+  \item Find an explicit form for the Bayes rule under the uniform prior $G$ (i.e., $g_1=g_2=g_3=1/3$).
+   \item  Is the Bayes rule from $(a)$ admissible?  Carefully justify your answer.
+
+   \item Consider the non-randomized decision rule
+   \[
+   \delta(x) =\left\{\begin{array}{ccl}
+   1 && \mbox{if $x<0.591$}\\
+   2 && \mbox{if $ 0.591 < x <  2.421$}\\
+   3 & & \mbox{if $ x> 2.421$},\\
+   \end{array} \right.
+   \]
+    which is the Bayes rule with respect to the prior $g_1 = 0.251$, $g_2=0.374$ and $g_3=0.375$.  Show that $\delta$ is minimax.\\[.1cm]
+    {\it Note:} There may be some small ``approximation error" in the set-up of this question; you can assume that any  values of risk, or Bayes risk, are equal if these numerically match to three decimal places.
+
+  \end{enumerate}
+   \item Suppose that $X$ and $Y$ are independent random variables with $X\sim $Binomial$(n,p)$ and $Y\sim$Bernoulli$(p)$, for $p \in (0,1)\equiv \Theta$.  Consider squared error loss estimation of $p$ and an estimator $\hat{p} = \delta(X)$.  Let $W=X+Y$.
+
+       \begin{enumerate}\itemsep .2cm
+    \item Find the form of the estimator $\hat{p}^* = \E_p[\hat{p}|W] $ as a function of $W$.
+
+
+     \item Carefully explain why the estimator $\hat{p}^* $ may improve upon on the risk of $\hat{p}$.
+
+    \item In order for $\hat{p}^*$ to be strictly better than $\hat{p}$ at some $p\in(0,1)$, what must be true of the function $\delta(x)$, $x=0,1,\ldots,n$? (Provide the most explicit statement possible.)
+
+\end{enumerate}
+
+\item Suppose that $X=(X_1,X_2)$ for $X_1$ and $X_2$ as independent Poisson$(\lambda)$ random variables, with $\lambda \in \Theta = (0,\infty]$.
+Consider the loss function $L(\lambda,a) = \lambda^{-1}(\lambda -a)^2$, where $a \in \mathcal{A}\equiv [0,\infty]$.
+Let $S=X_1 + X_2$.
+
+
+       \begin{enumerate}\itemsep .2cm
+    \item Show that, conditional on $S=s \in\{1,2,3,\ldots,\}$, the distribution of $X_1|S=s$ is Binomial$(s, \frac{1}{2})$ and determine the distribution of $X_1|S=0$ as well.
+
+     \item Let $\delta(X)=X_1$ denote a non-randomized estimator of $\lambda$.  Show that $\delta(X)$ is an equalizer rule.
+
+
+     \item Describe a (possibly randomized) estimator $\phi$ of $\lambda$ that is a function of $S$ and has the same risk function as $\delta$ from part~(b).
+
+         \item Show that the risk function of $\phi$ (from part(c)) is the same as the risk function of $\delta$ (from part (b)).
+
+         \item  In addition to $\delta(X)=X_1$, consider the estimator $\delta_0(X) = (X_1+X_2)/2$ of $\lambda$.    Without evaluating risk functions directly, explain why $R(\lambda,\delta_0)< R(\lambda,\delta)$ must hold for any $\lambda>0$. 
+          \item For a given/fixed $\eta>0$ value, let  $G_\eta$ denote a prior for $\lambda$ on $\Theta=(0,\infty)$ having a density
+          function $g_\eta(\lambda) = \eta \exp[- \eta \lambda]I[\lambda>0]$ with respect to the Lebesgue measure on $\mathbb{R}$.  Given $X=x=(x_1,x_2)\in\{0,1,2,\ldots\}^2$, find the posterior density function of $\lambda$.
+             \item Find a Bayes rule $\tilde{\delta}_\eta(X)$ with respect to the prior $G_\eta$.
+             \item Show that  $\delta_0(X) = (X_1+X_2)/2$ is minimax.
+\end{enumerate}
+
+\end{enumerate}
+
+
+\end{document}
