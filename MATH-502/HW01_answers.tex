@@ -50,7 +50,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \maketitle
 
 \subsection*{1}
-\begin{Proof}
+\begin{Solution}
   We will show that $\phi \geq 0$ is necessary and sufficient for $\rho$ to be a semi-norm on $C[0,1]$, while $\phi \geq 0$ and vanishing on no
   subinterval of $[0,1]$ is necessary and sufficient for $\rho$ to be a norm.
 
@@ -59,7 +59,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \rho(g)$.
   \end{claim}
   \begin{claimproof}
-    Follows from the linearity of integration.
+    Follows from the linearity of integration and the triangle inequality on $\mathbb{F}$.
+
   \end{claimproof}
 
   \begin{claim}
@@ -71,8 +72,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $(\Leftarrow)$ Now suppose $\rho$ is a semi-norm. By way of contradiction suppose there exists $x_0 \in [0,1]$ such that $\phi(x_0) < 0$.
     Then take $f(x) := \phi(x) \cdot \chi_{\{x : \phi(x) < 0\}}(x)$. Then $f \in C[0,1]$ but 
     \[
-      \rho(f) = \int_{[0,1]}|f(x)|\phi(x)dx = \int_{\{x: \phi(x) < 0\}}-[\phi(x)]^2dx < 0.
+      \rho(f) = \int_{[0,1]}|f(x)|\phi(x)dx = \int_{\{x: \phi(x) < 0\}}-[\phi(x)]^2dx < 0,
     \]
+    since $\{x : \phi(x) < 0\}$ is open and non-empty.
     This is a contradiction.
   \end{claimproof}
 
@@ -102,11 +104,77 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       0 = \int_{[0,1]}|f(x)|\phi(x)dx \geq \int_{I}|f(x)|\phi(x)dx \geq 0.
       \label{1.1}
     \end{equation}
-    But since $|f(x)|\phi(x)$ is continuous, \eqref{1.1} implies that $|f(x)|\phi(x) \equiv 0$ on $I$. So $\phi \equiv 0$ on $I$, a contradiction.
+    But since $|f(x)|\phi(x)$ is continuous, \eqref{1.1} implies that $|f(x)|\phi(x) \equiv 0$ on $I$.\footnote{See Rudin, \emph{Principles of
+    Mathematical Analysis}, Page 138 Problem 2.} So $\phi \equiv 0$ on $I$, a contradiction.
   \end{claimproof}
 
-\end{Proof}
+\end{Solution}
+
+
+\subsection*{2}
+\begin{Solution}
+  We will show that $\rho$ is a semi-norm but not a norm.
+
+  \begin{claim}
+    $\rho$ is semi-norm.
+  \end{claim}
+  \begin{claimproof}
+    Clearly $\rho \geq 0$. Now let $f, g \in C^1[0,1]$ and $\alpha \in \alpha \in \mathbb{R}$. By the linearity of differentiation,
+    \[
+      \rho(\alpha f) = \max_{0\leq x \leq 1}|\alpha f'(x)| = |\alpha|\left[ \max_{0\leq x \leq 1}|f'(x)| \right] = |\alpha| \rho(f),
+    \]
+    and 
+    \[
+      \rho(f + g) = \max_{0\leq x\leq 1}|f'(x) + g'(x)| \leq \max_{0\leq x\leq 1}|f'(x)| + |g'(x)| \leq \max_{0\leq x\leq 1}|f'(x)| + \max_{0\leq x
+      \leq 1}|g'(x)| = \rho(f) + \rho(g).
+    \]
+    Hence $\rho$ is a semi-norm.
+  \end{claimproof}
+
+  \begin{claim}
+    $\rho$ is not a norm.
+  \end{claim}
+  \begin{claimproof}
+    Consider the function $f \in C^1[0,1]$ where $f \equiv 1$. Then clearly $\rho(f) = 0$, but $f \not\equiv 0$.
+    Hence $\rho$ is not a norm.
+  \end{claimproof}
+
+\end{Solution}
+
+
+\subsection*{3}
+\begin{Solution}
+  Let $d_1(x,y) := \sqrt{|x - y|}$, $d_2(x,y) := (x - y)^2$ for $x, y \in \mathbb{R}$, and $d_3(x,y) := |log(y/x)|$ for $x, y \in \mathbb{R}^+$.
+  We will show that $d_1$ and $d_3$ are metrics but $d_2$ is not.
+  Clearly $d_i$ satisfies $d_i(x,y) \geq 0$, $d_i(x,y) = d_i(y,x)$, and $d_i(x,y) = 0$ if and only if $x = y$, for each $i = 1,3$.
+  Therefore to show that each $d_1$ and $d_3$ are metrics, it remains to show that the triangle inequality holds.
+  First let $x, y, z \in \mathbb{R}$. Then
+  \[
+    d_1(x,z) = \sqrt{|x - z|} \leq \sqrt{|x-y| + |y-z|} \leq \sqrt{|z-y|} + \sqrt{|y-z|} = d_1(x,y) + d_1(y,z).
+  \]
+  Hence $d_1$ is a metric. Similarly, let $x,y,z \in \mathbb{R}^+$. Then
+  \[
+    d_3(x,z) = |\log(x) - \log(z)| \leq |\log(x) - \log(y)| + |\log(y) - \log(z)| = d_3(x,y) + d_3(y,z).
+  \]
+  So $d_3$ is also a metric. To show that $d_2$ is not a metric, let $x, y, z \in \mathbb{R}$ such that $z < y < x$. Then
+  \begin{align*}
+    d_2(x,z) = (z - z)^2 = (x - y + y - z)^2 & = (x - y)^2 + 2(x-y)(y-z) + (y-z)^2 \\
+    & > (x-y)^2 + (y-z)^2 \\
+    & = d_2(x,y) + d_2(y,z),
+  \end{align*}
+  since $2(x-y)(y-z) > 0$. Hence $d_2$ does not satisfy the triangle inequality, so is not a norm.
+\end{Solution}
+
+\subsection*{4}
+\begin{Solution}
+  \begin{description}
+    \item[Section 2.1 \#1:]
+    \item[Section 2.1 \#2:]
+    \item[Section 2.1 \#4:]
+  \end{description}
+\end{Solution}
+
+
 
 
 \end{document}
-
