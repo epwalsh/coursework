@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 502: HW 1}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 502: HW 1}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+\begin{Proof}
+  We will show that $\phi \geq 0$ is necessary and sufficient for $\rho$ to be a semi-norm on $C[0,1]$, while $\phi \geq 0$ and vanishing on no
+  subinterval of $[0,1]$ is necessary and sufficient for $\rho$ to be a norm.
+
+  \begin{claim}
+    If $\phi \geq 0$, then for all $f,g \in C[0,1]$ and $\alpha \in \mathbb{F}$, $\rho(\alpha f) = |\alpha|\rho(f)$ and $\rho(f + g) \leq \rho(f) +
+    \rho(g)$.
+  \end{claim}
+  \begin{claimproof}
+    Follows from the linearity of integration.
+  \end{claimproof}
+
+  \begin{claim}
+    $\phi \geq 0$ if and only if $\rho$ is a semi-norm.
+  \end{claim}
+  \begin{claimproof}
+    $(\Rightarrow)$ First suppose $\phi \geq 0$. Then clearly $\rho(f) \geq 0$. The rest follows from Claim 1.
+
+    $(\Leftarrow)$ Now suppose $\rho$ is a semi-norm. By way of contradiction suppose there exists $x_0 \in [0,1]$ such that $\phi(x_0) < 0$.
+    Then take $f(x) := \phi(x) \cdot \chi_{\{x : \phi(x) < 0\}}(x)$. Then $f \in C[0,1]$ but 
+    \[
+      \rho(f) = \int_{[0,1]}|f(x)|\phi(x)dx = \int_{\{x: \phi(x) < 0\}}-[\phi(x)]^2dx < 0.
+    \]
+    This is a contradiction.
+  \end{claimproof}
+
+  \begin{claim}
+    $\phi \geq 0$ and vanishes on no non-trivial subinterval interval if and only if $\rho$ is a norm.
+  \end{claim}
+  \begin{claimproof}
+    $(\Leftarrow)$ First suppose $\rho$ is a norm. Then $\rho$ is a semi-norm, so $\phi \geq 0$ by Claim 2. Now, by way of contradiction, suppose that
+    $\phi$ vanishes on some non-trivial subinterval $I \subseteq [0,1]$. Without loss of generality assume $I = (a,b)$. Define
+    \[
+      f(x) := \left\{ \begin{array}{cl}
+          0 & \text{ if } x \leq a \\
+          x - a & \text{ if } a < x < \frac{a+b}{2} \\
+          b - x & \text{ if } \frac{a + b}{2} \leq x < b \\
+          0 & \text{ if } x \geq b \\
+      \end{array} \right. .
+    \]
+    Then $f \in C[0,1]$ and $\rho(f) = 0$. But $f \not\equiv 0$. This contradicts the assumption that $\rho$ is a norm.
+
+    $(\Rightarrow)$ Now suppose $\phi \geq 0$ and vanishes and no non-trivial subinterval of $[0,1]$. By Claim 1, it suffices to show that $\rho(f) =
+    0$ implies $f \equiv 0$ for all $f \in C[0,1]$. By way contradiction, suppose there exists $f \in C[0,1]$ such that $\rho(f) = 0$ but $f \not\equiv 0$.
+    Then by continuity, 
+    \[ E := \{x \in [0,1]: |f(x)| > 0\} \] 
+    is open and non-empty, and thus there exists a non-empty open interval $I$ such that 
+    $|f(x)| > 0$ on $I$. So 
+    \begin{equation}
+      0 = \int_{[0,1]}|f(x)|\phi(x)dx \geq \int_{I}|f(x)|\phi(x)dx \geq 0.
+      \label{1.1}
+    \end{equation}
+    But since $|f(x)|\phi(x)$ is continuous, \eqref{1.1} implies that $|f(x)|\phi(x) \equiv 0$ on $I$. So $\phi \equiv 0$ on $I$, a contradiction.
+  \end{claimproof}
+
+\end{Proof}
+
+
+\end{document}
+
