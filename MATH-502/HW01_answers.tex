@@ -168,9 +168,38 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{4}
 \begin{Solution}
   \begin{description}
-    \item[Section 2.1 \#1:]
-    \item[Section 2.1 \#2:]
-    \item[Section 2.1 \#4:]
+    \item[Section 2.1 \#1:] Clearly $d(A,B) = d(B, A)$ for all $A, B \in X$. Now suppose $d(A,B) = 0$. Then
+      \[
+        |(A-B)\cup (B-A)| = 0
+      \]
+      and so $|(A-B)| = |(B-A)| = 0$, which implies $A-B = B-A = \emptyset$ and thus $A = B$. It remains to verify the triangle inequality. Let $A, B,
+      C \in X$. Then
+      \begin{align*}
+        d(A,C) & = |(A-B)\cup (C-D)| \\
+        & = \big| [(A-C)-B]\cup[(A-C)\cap B] \cup [(C-A)-B] \cup [(C-A)\cap B] \bigg| \\
+        & \leq \bigg| [(A-C)-B] \cup [(C-A)\cap B] \bigg| + \bigg| [(A-C)\cap B] \cup [(C-A) - B] \bigg| \\
+        & \leq \bigg| (A-B) \cup (B-A) \bigg| + \bigg| (B-C) \cup (C-B) \bigg| \\
+        & = d(A,B) + d(B,C).
+      \end{align*}
+      Hence $d$ is a metric.
+
+    \item[Section 2.1 \#2:] Let $f,g,h \in B(S,Y)$. Clearly $D(f,g) = D(g,f)$. Now let $y \in S$. Then 
+      \[
+        \sup_x d\left( f(x), g(x) \right) \leq \sup_x \left[ d\left( f(x),f(y) \right) + d\left( f(y),g(y) \right) + d\left( g(y), g(x) \right)\right] < \infty.
+      \]
+      Further, suppose $D(f,g) = 0$. Then $d\left( f(x),g(x) \right) = 0$ for all $x \in S$. Hence $f(x) = g(x)$.
+      Lastly, it remains to verify the triangle inequality. Well,
+      \begin{align*}
+        D(f,h) = \sup_x d\left( f(x),h(x) \right) & \leq \sup_x \left[ d\left( f(x),g(x) \right) + d\left( g(x),h(x) \right) \right] \\
+        & \leq \sup_x d\left( f(x),g(x) \right) + \sup_x d\left( g(x), h(x) \right) \\
+        & = D(f,g) + D(g,h).
+      \end{align*}
+
+    \item[Section 2.1 \#4:] No, $|||\cdot |||$ is not a norm. To see why, let $\alpha \in \mathbb{F}, \alpha\neq 0$, $x,y \in E$. Then
+      \[
+        |||\alpha x||| = \frac{ |\alpha| \cdot ||x||}{1 + |\alpha| \cdot ||x||} \neq \frac{ |\alpha| \cdot ||x||}{1 + ||x||} = |\alpha|\cdot |||x|||.
+      \]
+      Hence $|||\cdot |||$ is not a norm.
   \end{description}
 \end{Solution}
 
