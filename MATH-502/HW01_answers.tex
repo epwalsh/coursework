@@ -38,7 +38,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 % chktex-file 3
 
 \title{MATH 502: HW 1}
-\author{Evan P. Walsh}
+\author{Evan ``Pete'' Walsh}
 \makeatletter
 \makeatother
 \lhead{Evan P. Walsh}
@@ -92,13 +92,13 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
           0 & \text{ if } x \geq b \\
       \end{array} \right. .
     \]
-    Then $f \in C[0,1]$ and $\rho(f) = 0$. But $f \not\equiv 0$. This contradicts the assumption that $\rho$ is a norm.
+    Then $f \in C[0,1]$ and $\rho(f) = 0$. But $f \not\equiv 0$, which contradicts the assumption that $\rho$ is a norm.
 
     $(\Rightarrow)$ Now suppose $\phi \geq 0$ and vanishes and no non-trivial subinterval of $[0,1]$. By Claim 1, it suffices to show that $\rho(f) =
     0$ implies $f \equiv 0$ for all $f \in C[0,1]$. By way contradiction, suppose there exists $f \in C[0,1]$ such that $\rho(f) = 0$ but $f \not\equiv 0$.
     Then by continuity, 
     \[ E := \{x \in [0,1]: |f(x)| > 0\} \] 
-    is open and non-empty, and thus there exists a non-empty open interval $I$ such that 
+    is open (as a subset of $[0,1]$)and non-empty, and thus there exists a non-empty open subinterval interval $I$ such that 
     $|f(x)| > 0$ on $I$. So 
     \begin{equation}
       0 = \int_{[0,1]}|f(x)|\phi(x)dx \geq \int_{I}|f(x)|\phi(x)dx \geq 0.
@@ -144,7 +144,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{3}
 \begin{Solution}
-  Let $d_1(x,y) := \sqrt{|x - y|}$, $d_2(x,y) := (x - y)^2$ for $x, y \in \mathbb{R}$, and $d_3(x,y) := |log(y/x)|$ for $x, y \in \mathbb{R}^+$.
+  Let $d_1(x,y) := \sqrt{|x - y|}$, $d_2(x,y) := (x - y)^2$ for $x, y \in \mathbb{R}$, and $d_3(x,y) := |\log(y/x)|$ for $x, y \in \mathbb{R}^+$.
   We will show that $d_1$ and $d_3$ are metrics but $d_2$ is not.
   Clearly $d_i$ satisfies $d_i(x,y) \geq 0$, $d_i(x,y) = d_i(y,x)$, and $d_i(x,y) = 0$ if and only if $x = y$, for each $i = 1,3$.
   Therefore to show that each $d_1$ and $d_3$ are metrics, it remains to show that the triangle inequality holds.
