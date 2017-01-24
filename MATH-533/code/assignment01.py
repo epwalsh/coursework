@@ -4,7 +4,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2017-01-23
-# Last Modified: 2017-01-23 21:12:16
+# Last Modified: 2017-01-24 10:27:08
 # =============================================================================
 
 
@@ -43,7 +43,7 @@ IOC_ENGLISH = sum([(FRQ_ENGLISH[k] / 100)**2 for k in ALPHABET])
 IOC_ENGLISH
 
 import operator
-
+from pprint import pprint
 
 
 def dgrams(m):
@@ -63,14 +63,40 @@ def tgrams(m):
 
 digrams = dgrams(m)
 trigrams = tgrams(m)
-sorted(frequencies.items(), key=operator.itemgetter(1), reverse=True)
-sorted(digrams.items(), key=operator.itemgetter(1), reverse=True)[1:30]
-sorted(trigrams.items(), key=operator.itemgetter(1), reverse=True)[1:10]
+pprint(sorted(frequencies.items(), key=operator.itemgetter(1), reverse=True))
+pprint(sorted(digrams.items(), key=operator.itemgetter(1), reverse=True)[1:30])
+pprint(sorted(trigrams.items(), key=operator.itemgetter(1), reverse=True)[1:10])
 
 
 def try_partial_key(m, key):
     return ''.join([key[c] if c in key.keys() else c for c in m])
 
-key = {'E': 'T', 'I': 'H', 'C': 'E', 'Q': 'A'}
+key = {
+    'C': 'E', 
+    'E': 'T', 
+    'Q': 'T', 
+    'U': 'O',
+    'P': 'I',
+    'S': 'N',
+    'K': 'S',
+    'J': 'H',
+    'I': 'R',
+    'N': 'D',
+    'H': 'L',
+    'D': 'C',
+    'G': 'U',
+    'L': 'M',
+    'F': 'W',
+    'X': 'F',
+    'T': 'G',
+    'V': 'Y',
+    'Y': 'P',
+    'B': 'B',
+    'M': 'V',
+    'O': 'K',
+    'R': 'J',
+    'W': 'X',
+    'A': 'Q',
+    'Z': 'Z'}
 try_partial_key(m, key)
 frequencies['N']
