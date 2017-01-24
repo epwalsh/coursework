@@ -185,9 +185,131 @@ sum([(FRQ_ENGLISH[k] / 100)**2 for k in ALPHABET])
 \newpage
 
 
-
 \subsection*{3}
+
+In order to guess the correct key length, we computed the IOC corresponding the key lengths from 1 to 9 (see the code in Listing 2). The results are displayed below:
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{l|c|c|c|c|c|c|c|c|c|c}
+    Key length: & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+    \hline
+    IOC: & 0.0428 & 0.0438 & 0.0449 & 0.0459 & 0.0676 & 0.0475 & 0.0490 & 0.0492 & 0.0512 \\
+  \end{tabular}
+\end{table}
+
+Comparing the IOC above the IOC of the English language calculated in Part 2, a key length of 5 is the best choice.
+
+\begin{lstlisting}[language=Python, caption=Code for computing the key length from question 3]
+#!/usr/bin/env python
+
+m2 = "GPXNCESTGDEWTTVRLVFACTXKWBVTERBVXDCEMHGSEIMZCAEHLZQXKFQH"\
+     "ZXKVRANSGGIGTSJPBTVUIWISDCBISQIECHUQLCOOWKKVRMGXWAMXIAVF"\
+     "XUHUMGZHEQVRQVLPZHUBAVUYGVVFVVXNVVKACOGBXIVNLUVSAXKVJVWN"\
+     "JZLKHEQRVMIOGMWSMRDTGCEIMZCAQGRKNBXIPNBARBQEBKVBCMVACTHP"\
+     "WAOTEMSZXVNVVZDWKBNISBJMRWAMWDOAGIZBGAHWOAWBCMLMECCJTBHI"\
+     "VLMYWFTTJHBXXIOGQHEGZQMYVNLVFBQCVKSQIEFBRIMJCZMWZGGIGTSS"\
+     "ZHDHUMVYWZVXPGNAAVTRIKVRNVXODYWLZCAIGUKUMGYSEMMLFAMWNWGP"\
+     "TWZNOHECSBAZGYQJLWQBHYWFNKZSALLYSFQFGZLATZRUMKVWFAHDSAQM"\
+     "ICTTRTSEQGVWGETJWABKLHUBARHGMKIWOTXGFBLNTHJPHJSRFICCFQOV"\
+     "DBEXIWFXXIVNXLKSABBDSFILXFRIMRGGPTKCSONEDBEWVFNVWNVVKAYO"\
+     "FKTLGRLLFANVRRQPQWVBGATCHUWNXVFQGTSZMTEGUIOVPRMGWCHVWFTG"\
+     "ZTEGSWKDWAOBKWABHUMAIFZHRBARHVAHWAVFBEUVBPZHUKERMBZLLUNZ"\
+     "HIGBUXJCYQWJIOAMRBPMLLTSQVZSABEPDBZHLGGWAFZQQMKVRLTEURZH"\
+     "LGYQJLWQKTEPRCLVRJQMYABZXJOSMMPPHBWPBNUBKSJILECGSGFKAEAV"\
+     "BGPXTCYWGZGGAPVFRIMNCESHEZVVVFZAQLCOALTERVAMYOGAMLTSOHZB"\
+     "TBHSZBENGHUMKFQXATJYRLIVBPZHWTVVVISQCEFIFTRPSFURWFVMGUOA"\
+     "APVFRLMYSRVZZBRMKRBQQMNWYTWFOYTMYSOMMKSEABEQRBAVUEIGZHRQ"\
+     "LMSEGARFQIGUKVTEFDCWLVABZXISFQLKOAKXKCGPXVLCTHJWBVTERJPX"\
+     "EKVTENSFMXRZYBAZGFQKKCZWKICJEAVBJMARJRLKZZYMWRVBTXRBFEXI"\
+     "SQBAVSAOBESRZ"
+
+
+def ioc(m, key_len=None):
+    """Compute the index of coincidence given a key length"""
+    if not key_len:
+        n = 1.0 * len(m)
+        return sum([(m.count(k) / n)**2 for k in ALPHABET])
+    out = []
+    for i in range(key_len):
+        sub_message = [m[j] for j in range(i, len(m), key_len)]
+        n = 1.0 * len(sub_message)
+        out.append(sum([(sub_message.count(k) / n)**2 for k in ALPHABET]))
+    return sum(out) / len(out)
+
+for n in range(1,10):
+    print n, ioc(m2, n)
+\end{lstlisting}
+
+
+Code for decrypting the message is displayed on the next page.
+
+\newpage
+\begin{lstlisting}[language=Python, caption=Code for decrypting the message from question 3]
+#!/usr/bin/env python
+
+from operator import itemgetter
+
+def freq_vector(m):
+    """Compute the frequency vector of a message."""
+    n = 1.0 * len(m)
+    return [(m.count(k) / n) for k in ALPHABET]
+
+
+def shift_vector(m, offset):
+    """Shift a vector given an offset."""
+    return [m[(j-offset) % 26] for j in range(26)]
+
+
+def dot(u, v):
+    """Compute the dot product of two vectors."""
+    return sum([u * v for u, v in zip(u,v)])
+
+
+key_len = 5
+W = [FRQ_ENGLISH[c] for c in ALPHABET]
+
+key = []
+for i in range(key_len):
+    sub_message = [m2[j] for j in range(i, len(m2), key_len)]
+    dots = []
+    for k in range(0, 25):
+        F = freq_vector(sub_message)
+        Wk = shift_vector(W, k)
+        dots.append((k, dot(F, Wk)))
+    key.append(max(dots, key=itemgetter(1))[0])
+
+
+def decrypt(m, key):
+    """Decrypt the message given the key."""
+    n = len(key)
+    out = ""
+    for i in range(len(m)):
+        k = key[i % n]
+        out += ALPHABET[(ALPHABET.index(m[i]) - k) % 26]
+    return out
+
+decrypt(m2, key)
+\end{lstlisting}
+
+Here is the decrypted message:
+
+theworkapproachedcompletionandonemoreoperationwouldprocurethesubstancewhichhadrequired-
+allthislabortheengineermixedthenitricacidwiththeglycerinewhichlatterhadbeenpreviously
+concentratedbyevaporationinawaterbathandwithoutemployinganyfreezingmixtureobtainedmany
+pintsofanoilyyellowliquidthislastoperationsmithhadconductedaloneatsomedistancefromthe
+chimneysashefearedanexplosionandwhenhereturnedwithaflagonofthisliquidtohisfriendshesimply
+saidhereissomenitroglycerineitwasintruththatterribleproductwhoseexplosivepowerisperhapsten
+timesasgreatasthatofgunpowderandwhichhascausedsomanyaccidentsalthoughsincemeanshavebeen
+foundoftransformingitintodynamitethatisofmixingitwithclayorsugarorsomesolidsubstance
+sufficientlyporoustoholditthedangerousliquidcanbeusedwithmoresafetybutdynamitewasnot
+knownwhenthecolonistswereatworkonlincolnislandandisthatstuffgoingtoblowuptherocksasked
+pencroffincredulouslyyesmyfriendansweredtheengineeranditwilldoallthebettersincethegranite
+isveryhardandwillopposemoreresistancetotheexplosionandwhenwillweseeallthissirtomorrowwhen
+wehavedrilledaholeansweredtheengineer
+
+
+\subsection*{4}
 
 
 \end{document}
-

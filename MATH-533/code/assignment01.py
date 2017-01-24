@@ -4,7 +4,7 @@
 # Author:        Evan Pete Walsh
 # Contact:       epwalsh10@gmail.com
 # Creation Date: 2017-01-23
-# Last Modified: 2017-01-24 10:27:08
+# Last Modified: 2017-01-24 14:58:28
 # =============================================================================
 
 
@@ -64,24 +64,24 @@ def tgrams(m):
 digrams = dgrams(m)
 trigrams = tgrams(m)
 pprint(sorted(frequencies.items(), key=operator.itemgetter(1), reverse=True))
-pprint(sorted(digrams.items(), key=operator.itemgetter(1), reverse=True)[1:30])
-pprint(sorted(trigrams.items(), key=operator.itemgetter(1), reverse=True)[1:10])
+pprint(sorted(digrams.items(), key=operator.itemgetter(1), reverse=True)[0:30])
+pprint(sorted(trigrams.items(), key=operator.itemgetter(1), reverse=True)[0:10])
 
 
 def try_partial_key(m, key):
     return ''.join([key[c] if c in key.keys() else c for c in m])
 
 key = {
-    'C': 'E', 
-    'E': 'T', 
-    'Q': 'T', 
-    'U': 'O',
+    'C': 'T', 
+    'E': 'E', 
+    'Q': 'O', 
+    'U': 'A',
     'P': 'I',
     'S': 'N',
     'K': 'S',
     'J': 'H',
-    'I': 'R',
-    'N': 'D',
+    'I': 'D',
+    'N': 'R',
     'H': 'L',
     'D': 'C',
     'G': 'U',
@@ -99,4 +99,86 @@ key = {
     'A': 'Q',
     'Z': 'Z'}
 try_partial_key(m, key)
-frequencies['N']
+
+
+#  m2 = "GPXNCESTGDEWTTVRLVFACTXKWBVTERBVXDCEMHGSEIMZCAEHLZQXKFQHZXKVRANSGGIGTSJPBTVUIWISDCBISQIECHUQLCOOWKKVRMGXWAMXIAVFXUHUMGZHEQVRQVLPZHUBAVUYGVVFVVXNVVKACOGBXIVNLUVSAXKVJVWNJZLKHEQRVMIOGMWSMRDTGCEIMZCAQGRKNBXIPNBARBQEBKVBCMVACTHPWAOTEMSZXVNVVZDWKBNISBJMRWAMWDOAGIZBGAHWOAWBCMLMECCJTBHIVLMYWFTTJHBXXIOGQHEGZQMYVNLVFBQCVKSQIEFBRIMJCZMWZGGIGTSSZHDHUMVYWZVXPGNAAVTRIKVRNVXODYWLZCAIGUKUMGYSEMMLFAMWNWGPTWZNOHECSBAZGYQJLWQBHYWFNKZSALLYSFQFGZLATZRUMKVWFAHDSAQMICTTRTSEQGVWGETJWABKLHUBARHGMKIWOTXGFBLNTHJPHJSRFICCFQOVDBEXIWFXXIVNXLKSABBDSFILXFRIMRGGPTKCSONEDBEWVFNVWNVVKAYOFKTLGRLLFANVRRQPQWVBGATCHUWNXVFQGTSZMTEGUIOVPRMGWCHVWFTGZTEGSWKDWAOBKWABHUMAIFZHRBARHVAHWAVFBEUVBPZHUKERMBZLLUNZHIGBUXJCYQWJIOAMRBPMLLTSQVZSABEPDBZHLGGWAFZQQMKVRLTEURZHLGYQJLWQKTEPRCLVRJQMYABZXJOSMMPPHBWPBNUBKSJILECGSGFKAEAVBGPXTCYWGZGGAPVFRIMNCESHEZVVVFZAQLCOALTERVAMYOGAMLTSOHZBTBHSZBENGHUMKFQXATJYRLIVBPZHWTVVVISQCEFIFTRPSFURWFVMGUOAAPVFRLMYSRVZZBRMKRBQQMNWYTWFOYTMYSOMMKSEABEQRBAVUEIGZHRQLMSEGARFQIGUKVTEFDCWLVABZXISFQLKOAKXKCGPXVLCTHJWBVTERJPXEKVTENSFMXRZYBAZGFQKKCZWKICJEAVBJMARJRLKZZYMWRVBTXRBFEXISQBAVSAOBESRZ"
+m2 = "GPXNCESTGDEWTTVRLVFACTXKWBVTERBVXDCEMHGSEIMZCAEHLZQXKFQH"\
+     "ZXKVRANSGGIGTSJPBTVUIWISDCBISQIECHUQLCOOWKKVRMGXWAMXIAVF"\
+     "XUHUMGZHEQVRQVLPZHUBAVUYGVVFVVXNVVKACOGBXIVNLUVSAXKVJVWN"\
+     "JZLKHEQRVMIOGMWSMRDTGCEIMZCAQGRKNBXIPNBARBQEBKVBCMVACTHP"\
+     "WAOTEMSZXVNVVZDWKBNISBJMRWAMWDOAGIZBGAHWOAWBCMLMECCJTBHI"\
+     "VLMYWFTTJHBXXIOGQHEGZQMYVNLVFBQCVKSQIEFBRIMJCZMWZGGIGTSS"\
+     "ZHDHUMVYWZVXPGNAAVTRIKVRNVXODYWLZCAIGUKUMGYSEMMLFAMWNWGP"\
+     "TWZNOHECSBAZGYQJLWQBHYWFNKZSALLYSFQFGZLATZRUMKVWFAHDSAQM"\
+     "ICTTRTSEQGVWGETJWABKLHUBARHGMKIWOTXGFBLNTHJPHJSRFICCFQOV"\
+     "DBEXIWFXXIVNXLKSABBDSFILXFRIMRGGPTKCSONEDBEWVFNVWNVVKAYO"\
+     "FKTLGRLLFANVRRQPQWVBGATCHUWNXVFQGTSZMTEGUIOVPRMGWCHVWFTG"\
+     "ZTEGSWKDWAOBKWABHUMAIFZHRBARHVAHWAVFBEUVBPZHUKERMBZLLUNZ"\
+     "HIGBUXJCYQWJIOAMRBPMLLTSQVZSABEPDBZHLGGWAFZQQMKVRLTEURZH"\
+     "LGYQJLWQKTEPRCLVRJQMYABZXJOSMMPPHBWPBNUBKSJILECGSGFKAEAV"\
+     "BGPXTCYWGZGGAPVFRIMNCESHEZVVVFZAQLCOALTERVAMYOGAMLTSOHZB"\
+     "TBHSZBENGHUMKFQXATJYRLIVBPZHWTVVVISQCEFIFTRPSFURWFVMGUOA"\
+     "APVFRLMYSRVZZBRMKRBQQMNWYTWFOYTMYSOMMKSEABEQRBAVUEIGZHRQ"\
+     "LMSEGARFQIGUKVTEFDCWLVABZXISFQLKOAKXKCGPXVLCTHJWBVTERJPX"\
+     "EKVTENSFMXRZYBAZGFQKKCZWKICJEAVBJMARJRLKZZYMWRVBTXRBFEXI"\
+     "SQBAVSAOBESRZ"
+
+
+def ioc(m, key_len=None):
+    if not key_len:
+        n = 1.0 * len(m)
+        return sum([(m.count(k) / n)**2 for k in ALPHABET])
+    out = []
+    for i in range(key_len):
+        sub_message = [m[j] for j in range(i, len(m), key_len)]
+        n = 1.0 * len(sub_message)
+        out.append(sum([(sub_message.count(k) / n)**2 for k in ALPHABET]))
+    return sum(out) / len(out)
+
+
+ioc_m = ioc(m2)
+ioc(m2, 5)
+ioc(m2, 8)
+for n in range(1,10):
+    print n, ioc(m2, n)
+
+# Decrypt message 
+from operator import itemgetter
+
+def freq_vector(m):
+    n = 1.0 * len(m)
+    return [(m.count(k) / n) for k in ALPHABET]
+
+
+def shift_vector(m, offset):
+    return [m[(j-offset) % 26] for j in range(26)]
+
+
+def dot(u, v):
+    return sum([u * v for u, v in zip(u,v)])
+
+key_len = 5
+W = [FRQ_ENGLISH[c] for c in ALPHABET]
+
+key = []
+for i in range(key_len):
+    sub_message = [m2[j] for j in range(i, len(m2), key_len)]
+    dots = []
+    for k in range(0, 25):
+        F = freq_vector(sub_message)
+        Wk = shift_vector(W, k)
+        dots.append((k, dot(F, Wk)))
+    key.append(max(dots, key=itemgetter(1))[0])
+
+[ALPHABET[j] for j in key]
+
+
+def decrypt(m, key):
+    n = len(key)
+    out = ""
+    for i in range(len(m)):
+        k = key[i % n]
+        out += ALPHABET[(ALPHABET.index(m[i]) - k) % 26]
+    return out
+
+decrypt(m2, key)
