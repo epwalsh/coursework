@@ -38,7 +38,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 % chktex-file 3
 
 \title{MATH 502: HW 2}
-\author{Evan P. Walsh}
+\author{Evan ``Pete'' Walsh}
 \makeatletter
 \makeatother
 \lhead{Evan P. Walsh}
@@ -85,17 +85,93 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
       By Claim 1, any finite $E := \{x_0, x_1, \dots, x_n\} \subseteq X$ is closed since $E = \cup_{j=1}^{n}\{x_j\}$, a finite union of closed sets.
 
-    \item[Section 2.2 \#2:]
-    \item[Section 2.2 \#4:]
-    \item[Section 2.2 \#5:]
+    \item[Section 2.2 \#2:] Let $a_0 \in S + U$. Then there exists $x_0 \in S$, $y_0 \in U$ such that $a_0 = x_0 + y_0$. Hence there exists $r
+      > 0$ such that $B_r(y_0) \subset U$. Then 
+      \[
+        B_r(y_0) + x_0 := \{y + x_0 : y\in B_r(y_0)\} \subset S + U.
+      \]
+      Hence it remains to show that $B_r(y_0) + x_0$ is open. But 
+      \[
+        \{y + x_0 : y \in B_r(y_0)\} = \{y + x_0: \|y - y_0\| < r \} = \{y : \|y - y_0 - x_0\| < r\} = B_r(y_0 + x_0),
+      \]
+      which is an open ball.
+
+    \item[Section 2.2 \#4:] Let $x \in \bar{S}$. Then for each $r > 0$, $B_r(x) \cap S \neq \emptyset$. Hence, for each $r > 0$, there exists $y \in
+      S$ such that $d(x,y) < r$. So $0 = \inf\{d(x,y): y \in S\} = \text{dist}(x,S)$. Hence $\bar{S} \subseteq \{x \in X : \text{dist}(x,S) = 0\}$.
+
+      Similarly, let $x \in X$ such that $\text{dist}(x,S) = 0$. Then for each $r > 0$, there exists $y \in S$ such that $d(x,y) < r$, i.e. $B_r(x)
+      \cap S \neq \emptyset$. Hence $x \in \bar{S}$ by definition. So $\{x \in X: \text{dist}(x,S) = 0\} \subseteq \bar{S}$.
+
+      Hence we can conclude that $\bar{S} = \{x \in X: \text{dist}(x,S) = 0\}$.
+
+    \item[Section 2.2 \#5:] Let $S$ be the set of all functions $f : \mathbb{N} \rightarrow \mathbb{Q}$ such that all but a finite number of natural
+      numbers are mapped to 0. We will show that $S$ is countable and dense in $Y$.
+
+      \begin{claim}
+        $S$ is countable.
+      \end{claim}
+      \begin{claimproof}
+        Let for each $n \in \mathbb{N}$, let $S_n$ be the subset of $S$ consisting of no functions for which there exists $k > n$ such that $f(k) \neq
+        0$. Then there is clearly a bijection between $S_n$ and $\mathbb{Q}^{n}$, which is a countable set. Hence each $S_n$ is countable.
+        But $S = \cup_{n\in\mathbb{N}}S_n$, the countable union of countable sets. Hence $S$ is countable.
+      \end{claimproof}
+
+      \begin{claim}
+        $S$ is dense in $Y$.
+      \end{claim}
+      \begin{claimproof}
+        Let $f \in Y$ and $r > 0$. We need to show that there exists $g \in S$ such that $d(f,g) < r$. Now, by definition of $Y$, there exists $N \in
+        \mathbb{N}$ such that $|f(n)| < r/2$ for all $n > N$. We can then choose $g \in S_N$ such that $|g(n) - f(n)| < r/2$ for all $1 \leq n \leq
+        N$, since $\mathbb{Q}$ is dense in $\mathbb{R}$. Thus,
+        \[
+          d(f,g) = \sup_{n\in\mathbb{N}}|f(n) - g(n)| \leq r / 2 < r.
+        \]
+        So $S$ is dense in $Y$.
+      \end{claimproof}
+
+
+      By claims 2 and 3, $Y$ is separable.
   \end{description}
 \end{Solution}
 
 \subsection*{3}
 \begin{Solution}
   \begin{description}
-    \item[Section 2.3 \#1:]
-    \item[Section 2.3 \#3:]
+    \item[Section 2.3 \#1:] Let $\left\{ X^{(n)} \right\}_{n=1}^{\infty}$ be a sequence in $X$.
+
+      $(\Rightarrow)$ Suppose $\left\{ X^{(n)} \right\}_{n=1}^{\infty}$ converges to $x^{(0)} := (x_1^{(0)}, x_2^{(0)}, \dots) \in X$. By way of
+      contradiction suppose there exists $k_0 \in \mathbb{N}$ such that $\left\{ x_{k_0}^{(n)} \right\}_{n=1}^{\infty}$ does not converge to
+      $x_{k_0}^{(0)}$. Then there exists $r > 0$ such that for all $N \in \mathbb{N}$, there exists $n > N$ with $d_{k_0}(x_{k_0}^{(n)},
+      x_{k_0}^{(0)}) \geq r$, and thus 
+      \[
+        d(x^{(n)}, x^{(0)}) \geq \left( \frac{1}{2^{k_0}} \right)\left( \frac{r}{1 + r} \right) \ \ \text{infinitely often.}
+      \]
+      Hence $\left\{ X^{(n)} \right\}_{n=1}^{\infty}$ does not converge to $x^{(0)}$, a contradiction.
+
+      $(\Leftarrow)$ Now suppose $x_k^{(n)} \rightarrow x_k^{(0)}$ as $n \rightarrow \infty$, for each $k \in \mathbb{N}$. Let $r > 0$. Choose $K \in
+      \mathbb{N}$ such that $\sum_{k > K}2^{-k} < r / 2$. Now choose $N \in \mathbb{N}$ such that $d_k(x_k^{(n)}, x_k^{(0)}) < r/2$ for all $n \geq
+      N$, $0 \leq k \leq K$. Then for $n \geq N$,
+      \[
+        d(x^{(n)}, x^{(0)}) < \sum_{k=1}^{K}\left( \frac{1}{2^k} \right)\left( \frac{r/2}{1 + r/2} \right) + \frac{r}{2} <
+        \frac{r}{2}\sum_{k=1}^{\infty}\frac{1}{2^k} + \frac{r}{2} = r.
+      \]
+      Hence $\left\{ X^{(n)} \right\}_{n=1}^{\infty}$ converges to $x^{(0)}$.
+
+    \item[Section 2.3 \#3:] Let $f(x) := \text{dist}(x, S)$. We want to show that $f$ is continuous on $X$. To that end, let $x_0 \in X$ and $r > 0$.
+      Then for each $x \in X$ such that $d(x,x_0) < r/2$, and $y \in S$,
+      \[
+        d(x,y) \leq d(x,x_0) + d(x_0, y).
+      \]
+      So, taking the infimum over $y$ on both sides of the inequality above, we have 
+      \[
+        \text{dist}(x, S) \leq r/2 + \text{dist}(x_0, S), \ \text{ i.e. } f(x) \leq f(x_0) + r/2.
+      \]
+      By symmetry,
+      \[
+        \text{dist}(x_0, S) \leq r/2 + \text{dist}(x, S), \ \text{ i.e. } f(x) \geq f(x_0) - r/2.
+      \]
+      Hence $|f(x) - f(x_0)| \leq r / 2 < r$ for all $x \in X$ with $d(x,x_0) < r/2$. Thus $f$ continuous.
+        
   \end{description}
 \end{Solution}
 
