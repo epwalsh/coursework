@@ -1,0 +1,255 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+% \usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 502: Assignment III}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 502: Assignment III}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+\begin{Solution}
+  \begin{claim}
+    $f$ continuous at 0 and 1.
+  \end{claim}
+  \begin{claimproof}
+    First suppose $x_0, x_1, \dots \in \mathbb{R}$ such that $\lim x_n = 0$. Let $0 < \epsilon < 1$. Then choose $n_{\epsilon} \in \mathbb{N}$ such that
+    $|x_n| < \epsilon$ for all $n \geq n_{\epsilon}$. Then $|f(x_n)| \leq |x_n| < \epsilon$ for all $n \geq n_{\epsilon}$. Hence $f(x_n) \rightarrow 0
+    = f(0)$. So $f$ is continuous at $0$. Similarly, suppose $y_0, y_1, \dots \in \mathbb{R}$ such that $\lim y_n = 1$. Then $y_n^2 \rightarrow 1$ as
+    $n \rightarrow \infty$. Now let $0 < \epsilon < 1$. Then there exists $n_{\epsilon} \in \mathbb{N}$ such that for $n \geq n_{\epsilon}$,
+    \[
+      |f(x_n) - 1| \leq |x_n^2 - 1| < \epsilon.
+    \]
+    Hence $f(x_n) \rightarrow 1 = f(1)$ as $n \rightarrow \infty$. So $f$ is continuous at 1.
+  \end{claimproof}
+
+  \begin{claim}
+    For $0 < \epsilon < 1$, $f^{-1}[B_{\epsilon}(1)]$ is a neighborhood of 1 but not an open neighborhood.
+  \end{claim}
+  \begin{claimproof}
+    Note that 
+    \begin{align*}
+      f^{-1}[B_{\epsilon}(1)] & = \left\{ x \in \mathbb{R}:1 - \epsilon < f(x) < 1 + \epsilon \right\} \\
+      & = \left\{ x \in \mathbb{Q} : 1 - \epsilon < x < 1 + \epsilon \right\}\cup \left\{ x \in \mathbb{R} - \mathbb{Q} : \sqrt{1-\epsilon} < x <
+      \sqrt{1 + \epsilon} \right\} \\
+      & = \underbrace{\left\{ x \in \mathbb{R} : \sqrt{1-\epsilon} < x < \sqrt{1 + \epsilon} \right\}}_{=: A}\cup \underbrace{\left\{ x \in \mathbb{Q} : 1-\epsilon < x \leq \sqrt{1
+      -\epsilon} \right\}}_{=: B} \\ 
+      & \qquad \qquad \qquad\qquad \qquad\qquad \qquad\ \ \ \  \cup \underbrace{\left\{ x \in \mathbb{Q} : \sqrt{1+\epsilon} \leq x < 1 + \epsilon
+      \right\}}_{=: C}
+    \end{align*}
+    But $A = B_{\sqrt{\epsilon}}(1)$, and thus $B_{\epsilon}(1)$ is a neighborhood of 1. However, it is clearly not open since $B_{\delta}(x) \cap
+    \mathbb{R} - B_{\epsilon}(1) \neq \emptyset$ for all $x \in B\cup C$ and $\delta > 0$.
+  \end{claimproof}
+
+\end{Solution}
+
+
+\newpage
+
+\subsection*{2}
+\begin{Solution}
+\begin{enumerate}
+  \item[(i)] Suppose $x_1, x_2, \dots \in X$ such that $\lim x_n = x_0$. Denote 
+    \[
+      y_n := \left\{ \begin{array}{cl}
+          x_{(n+1)/2} & \text{ if $n$ is odd} \\
+          x_0 & \text{ if $n$ is even}
+      \end{array} \right. n \geq 1.
+    \]
+    We need to show that $\left\{ y_n \right\}$ is Cauchy. Well, let $\epsilon > 0$. Since $x_n \rightarrow x_0$, there exists $n_{\epsilon} \in
+    \mathbb{N}$ such that $|x_n - x_0| < \epsilon / 2$ for all $n \geq n_{\epsilon}$. Then for $n,m \geq 2n_{\epsilon}$,
+    \[
+      d(y_n,y_m) \leq d(y_n, x_0) + d(y_m, x_0) < \epsilon / 2 + \epsilon / 2 = \epsilon.
+    \]
+
+  \item[(ii)] Take $y_n$ as above. So the assumption is that $\left\{ y_n \right\}$ is Cauchy. Let $\epsilon > 0$. Then take $n_{\epsilon} \in
+    \mathbb{N}$ such that $n,m > n_{\epsilon}$ implies $d(y_n,y_m) < \epsilon$.
+    Then, if $n_{\epsilon}' := (n_{\epsilon} + 1) / 2$, $d(x_n, x_0) < \epsilon$ for all $n \geq n_{\epsilon}'$. Hence $x_n \rightarrow x_0$.
+
+  \item[(iii)] Let $\epsilon > 0$. Choose $n_{\epsilon} \in \mathbb{N}$ such that $n,m \geq n_{\epsilon}$ implies $d(x_n,x_m) < \epsilon$. By
+    assumption, there exists $m' \geq n_{\epsilon}$ such that $x_m' = x_0$. Thus $d(x_n,x_0) < \epsilon$ for all $n \geq n_{\epsilon}$. Hence $x_n
+    \rightarrow x_0$ as $n \rightarrow \infty$.
+\end{enumerate}
+\end{Solution}
+
+
+\subsection*{3}
+\begin{Solution}
+  \begin{enumerate}
+    \item[(i)] It is clear by their definitions that each form of equivalence is reflexive (for \emph{strong equivalence}, take $m = M = 1$).
+      Also, \emph{Cauchy equivalence} and \emph{equivalence} are obviously symmetric and transitive relations, so it only remains to verify symmetry
+      and transitivity for the notion of \emph{strong equivalence}. To that end, suppose $d, d'$ are metrics on $X$ such that there exists $m, M > 0$
+      with $md(x,y) \leq d'(x,y) \leq Md(x,y)$ for all $x,y \in X$. Then 
+      \[
+        \frac{1}{M} d'(x,y) \leq d(x,y) \leq \frac{1}{m}d'(x,y)
+      \]
+      for all $x,y \in X$. Hence the relation is symmetric. now suppose $d''$ is also a metric on $X$ for which there exists $m', M' > 0$ such that 
+      $m'd'(x,y) \leq d''(x,y) \leq M'd'(x,y)$ for all $x,y \in X$, i.e. $d', d''$ \emph{equivalent}. But then 
+      \[
+        mm' d(x,y) \leq m'd'(x,y) \leq d''(x,y) 
+      \]
+      and 
+      \[
+        MM'd(x,y) \geq M'd'(x,y) \geq d''(x,y)
+      \]
+      for all $x,y \in X$. Hence $d,d''$ are \emph{equivalent}. So the relation is also transitive.
+
+    \item[(ii)] Suppose $d, d'$ are \emph{strongly equivalent}. Let $m, M > 0$ such that 
+      \[
+        md'(x,y) \leq d(x,y) \leq Md'(x,y) \ \ \forall \ x,y \in X.
+      \]
+      Suppose $\left\{ x_n \right\}$ is a Cauchy sequence in $(x,d')$ and let $\epsilon > 0$. Take $n_{\epsilon} \in \mathbb{N}$ such that $n,m \geq
+      n_{\epsilon}$ implies $d'(x_n,x_m) < \epsilon / M$. Then for $n,m \geq n_{\epsilon}$,
+      \[
+        d(x_n,x_m) < M \frac{\epsilon}{M} = \epsilon.
+      \]
+      Hence $\left\{ x_n \right\}$ is Cauchy in $(X,d)$. By symmetry of the above argument, $d, d'$ are Cauchy equivalent.
+
+    \item[(iii)] Suppose $d,d'$ are Cauchy equivalent. Let $\left\{ x_n \right\}$ be a sequence in $X$ that converges to $x_0$ with respect to $d$.
+      Then by question 2 (i), the sequence $x_1, x_0, x_2, x_0, x_3, x_0, \dots$ is Cauchy with respect to $d$.
+      So by Cauchy equivalence, $x_1, x_0, x_2, x_0, \dots$ is Cauchy with respect to $d'$ as
+      well. Thus, by question 2 (ii), $\lim x_n = x_0$ in $(X, d')$.
+
+    \item[(iv)] 
+      \begin{claim}
+        $d, d'$ equivalent.
+      \end{claim}
+      \begin{claimproof}
+        Suppose $\left\{ x_n \right\}$ converges to $x_0 \in X$ with respect to $d$. Let $\epsilon > 0$. Since $\log : (X,d) \rightarrow (\mathbb{R},
+        |\cdot|)$ is continuous, there
+        exists $\delta > 0$ such that $d(x,y) < \delta$ implies $|\log(y) - \log(x)| = d'(x,y) < \epsilon$.
+        Now take $n_{\delta} \in \mathbb{N}$ such that for $n \geq n_{\delta}$, $d(x_n,x_0) < \delta$. Hence, for $n \geq n_{\delta}$,
+        \[
+          \big| \log(x_0) - \log(x_n)\big| = d'(x_0, x_n) < \epsilon.
+        \]
+        So $x_n \rightarrow x_0$ with respect to $d'$. Now suppose $\left\{ y_n \right\}$ converges to $y_0$ with respect to $d'$. Then the
+        same argument as above, but this time using the fact that $\exp : (\mathbb{R}, |\cdot|) \rightarrow (X,d)$ is continuous, shows that $\left\{
+        y_n \right\}$ converges to $y_0$ with respect to $d$.
+      \end{claimproof}
+
+      \begin{claim}
+        $d, d'$ not Cauchy equivalent.
+      \end{claim}
+      \begin{claimproof}
+        Let $x_n := 2^{-n}$ for all $n\geq 1$. So $\left\{ x_n \right\}$ is monotone decreasing and bounded below by $0$. Hence is Cauchy with respect
+        to $d$. But since $|\log(x_n)| \rightarrow \infty$ as $n \rightarrow \infty$,
+        $\left\{ x_n \right\}$ is not Cauchy with repect to $d'$, as $d'(x_n, x_m) \rightarrow \infty$ as $n \rightarrow \infty$, for any $m \in
+        \mathbb{N}$.
+      \end{claimproof}
+
+    \item[(v)]
+      \begin{claim}
+        $d,d'$ Cauchy equivalent.
+      \end{claim}
+      \begin{claimproof}
+        Suppose $\left\{ x_n \right\}$ Cauchy with respect to $d$. Let $\epsilon > 0$ and then take $n_{\epsilon} \in \mathbb{N}$ such that for $n,m
+        \geq n_{\epsilon}$, $d(x_n, x_m) < \epsilon^{2}$. Then for $n,m \geq n_{\epsilon}$,
+        $d(x_n, x_m) < \epsilon^{2}$, and thus $\sqrt{|x_n - x_m|} = d'(x_n,x_m) < \epsilon$. Hence $\left\{ x_n \right\}$ Cauchy with respect to
+        $d'$. On the other hand, suppose $\left\{ y_n \right\}$ is Cauchy with respect to $d'$. To see that $\left\{ y_n \right\}$ Cauchy with respect
+        to $d$, note that $d(y_n, y_m) \leq d'(y_n, y_m)$ whenever $d'(y_n, y_m) \leq 1$.
+      \end{claimproof}
+
+      \begin{claim}
+        $d,d'$ not strongly equivalent.
+      \end{claim}
+      \begin{claimproof}
+        Note that $d(1,1/2) > d'(1,1/2)$ but $d(0,1/2) < d'(0,1/2)$. Hence $d,d'$ cannot be strongly equivalent.
+      \end{claimproof}
+  \end{enumerate}
+\end{Solution}
+
+
+\subsection*{4}
+\begin{Solution}
+  Let $d(f,g) := \|f - g\|_{1}$ and $d'(f,g) := \|f-g\|_{\infty}$. Let $f_0 \equiv 0$ and 
+  \[
+    f_n(x) := \left\{ \begin{array}{cl}
+        \sqrt{n} & \text{ if } 0 \leq x \leq n^{-1} \\
+        0 & \text{ otherwise}
+    \end{array} \right. \text{ for } n\geq 1.
+  \]
+  Then $\|f_n - f_0\|_{1}  = \sqrt{n} / n \rightarrow 0$ as $n \rightarrow \infty$, but $\|f_n - f_0\|_{\infty} =\sqrt{n} \rightarrow \infty$ as
+  $n\rightarrow \infty$. Hence $f_n \rightarrow f_0$ with respect to $d$ but not $d'$.
+\end{Solution}
+
+
+\subsection*{5}
+\begin{Solution}
+  \begin{enumerate}
+    \item[(2)] Let $K := d(x_1, x_0)$. Then $d(x_2, x_1) \leq \theta K$, and so $d(x_3, x_2) \leq \theta d(x_2, x_1) \leq \theta^{2} K$. Continuing in
+      this manner, we see that for any $n \geq 1$, $d(x_{n+1}, x_{n}) \leq \theta^{n} K$. Hence, for $m > n$,
+      \begin{align*}
+        d(x_m, x_n) \leq \sum_{j=n}^{m-1}d(x_{j+1}, x_j) & \leq \sum_{j=n}^{m-1}\theta^{j}K \\
+        & \leq K\sum_{j=n}^{\infty}\theta^{j} \\
+        & = K\theta^{n}\sum_{j=0}^{\infty}\theta^{j} \\
+        & = K\frac{\theta^{n}}{1 - \theta} \rightarrow 0 \ \ \text{as } n \rightarrow \infty.
+      \end{align*}
+      Hence $\left\{ x_n \right\}$ is Cauchy, and thus convergent since $(X,d)$ is complete.
+
+    \item[(4)] Let $m := \inf\left\{ r > 0 : S\subset B_{r}(x) \forall x \in S \right\}$.
+
+      \begin{claim}
+        $\text{diam}(S) \leq m$.
+      \end{claim}
+      \begin{claimproof}
+        Without loss of generality assume $m < \infty$. Let $r > m$ so that $S \subset B_{r}(x)$ for all $x \in S$. Then $x,y \in B_{r}(x)$ for all
+        $x,y \in S$. Hence $d(x,y) < r$ for all $x,y \in S$, and so $\text{diam}(S) \leq r$. But since $r > m$ was arbitrary, $\text{diam}(S) \leq m$.
+      \end{claimproof}
+
+      \begin{claim}
+        $m \leq \text{diam}(S)$.
+      \end{claim}
+      \begin{claimproof}
+        Without loss of generality assume $\text{diam}(S) < \infty$. Let $r > \text{diam}(S)$. So $d(x,y) < r$ for all $x,y \in S$. Thus $B_{r}(x)
+        \supset S$ for all $x in S$. So $m \leq r$. But since $r > \text{diam}(S)$ was arbitrary, $m \leq \text{diam}(S)$.
+      \end{claimproof}
+
+      By claims 1 and 2, we have equality.
+  \end{enumerate}
+\end{Solution}
+
+
+
+\end{document}
