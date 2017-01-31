@@ -5,7 +5,7 @@
 \usepackage{amsthm}
 \usepackage{thmtools}
 \usepackage[headheight=15pt]{geometry}
-\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=20mm}
 % \usepackage{graphicx}
 \usepackage{bm} % for bold font in math mode - command is \bm{text}
 \usepackage{enumitem}
@@ -60,7 +60,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     = f(0)$. So $f$ is continuous at $0$. Similarly, suppose $y_0, y_1, \dots \in \mathbb{R}$ such that $\lim y_n = 1$. Then $y_n^2 \rightarrow 1$ as
     $n \rightarrow \infty$. Now let $0 < \epsilon < 1$. Then there exists $n_{\epsilon} \in \mathbb{N}$ such that for $n \geq n_{\epsilon}$,
     \[
-      |f(x_n) - 1| \leq |x_n^2 - 1| < \epsilon.
+      |x_n^2 - 1| < \epsilon, \text{ and so } |f(x_n) - 1| \leq |x_n^2 - 1| < \epsilon.
     \]
     Hence $f(x_n) \rightarrow 1 = f(1)$ as $n \rightarrow \infty$. So $f$ is continuous at 1.
   \end{claimproof}
@@ -79,8 +79,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       & \qquad \qquad \qquad\qquad \qquad\qquad \qquad\ \ \ \  \cup \underbrace{\left\{ x \in \mathbb{Q} : \sqrt{1+\epsilon} \leq x < 1 + \epsilon
       \right\}}_{=: C}
     \end{align*}
-    But $A = B_{\sqrt{\epsilon}}(1)$, and thus $B_{\epsilon}(1)$ is a neighborhood of 1. However, it is clearly not open since $B_{\delta}(x) \cap
-    \mathbb{R} - B_{\epsilon}(1) \neq \emptyset$ for all $x \in B\cup C$ and $\delta > 0$.
+    But $A$ is open and thus $f^{-1}[B_{\epsilon}(1)]$ is a neighborhood of 1. However, $f^{-1}[B_{\epsilon}(1)]$ is clearly not open since $B_{\delta}(x) \cap
+    \mathbb{R} - B_{\epsilon}(1) \neq \emptyset$ for all $x \in B\cup C$ and $\delta > 0$ by the density of $\mathbb{R} - \mathbb{Q}$ in $\mathbb{R}$.
+
   \end{claimproof}
 
 \end{Solution}
@@ -104,12 +105,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       d(y_n,y_m) \leq d(y_n, x_0) + d(y_m, x_0) < \epsilon / 2 + \epsilon / 2 = \epsilon.
     \]
 
-  \item[(ii)] Take $y_n$ as above. So the assumption is that $\left\{ y_n \right\}$ is Cauchy. Let $\epsilon > 0$. Then take $n_{\epsilon} \in
+  \item[(ii)] Take $y_n$ as above. So the assumption is that $\left\{ y_n \right\}$ is Cauchy. Let $\epsilon > 0$. Then take an odd $n_{\epsilon} \in
     \mathbb{N}$ such that $n,m > n_{\epsilon}$ implies $d(y_n,y_m) < \epsilon$.
     Then, if $n_{\epsilon}' := (n_{\epsilon} + 1) / 2$, $d(x_n, x_0) < \epsilon$ for all $n \geq n_{\epsilon}'$. Hence $x_n \rightarrow x_0$.
 
   \item[(iii)] Let $\epsilon > 0$. Choose $n_{\epsilon} \in \mathbb{N}$ such that $n,m \geq n_{\epsilon}$ implies $d(x_n,x_m) < \epsilon$. By
-    assumption, there exists $m' \geq n_{\epsilon}$ such that $x_m' = x_0$. Thus $d(x_n,x_0) < \epsilon$ for all $n \geq n_{\epsilon}$. Hence $x_n
+    assumption, there exists $m' \geq n_{\epsilon}$ such that $x_m' = x_0$. Thus $d(x_n, x_m) = d(x_n,x_0) < \epsilon$ for all $n \geq n_{\epsilon}$. Hence $x_n
     \rightarrow x_0$ as $n \rightarrow \infty$.
 \end{enumerate}
 \end{Solution}
@@ -134,7 +135,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \[
         MM'd(x,y) \geq M'd'(x,y) \geq d''(x,y)
       \]
-      for all $x,y \in X$. Hence $d,d''$ are \emph{equivalent}. So the relation is also transitive.
+      for all $x,y \in X$, i.e. $mm'd(x,y) \leq d''(x,y) \leq MM'd(x,y)$. Hence $d,d''$ are \emph{equivalent}. So the relation is also transitive.
 
     \item[(ii)] Suppose $d, d'$ are \emph{strongly equivalent}. Let $m, M > 0$ such that 
       \[
@@ -195,7 +196,13 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         $d,d'$ not strongly equivalent.
       \end{claim}
       \begin{claimproof}
-        Note that $d(1,1/2) > d'(1,1/2)$ but $d(0,1/2) < d'(0,1/2)$. Hence $d,d'$ cannot be strongly equivalent.
+        By way of contradiction suppose $d, d'$ strongly equivalent. Then there exists $m, M' > 0$ such that for all $x,y \in X$, $x \neq y$,
+        \begin{equation}
+          md'(x,y) \leq d(x,y) \leq Md'(x,y), \text{ i.e. } m \leq \frac{d(x,y)}{d'(x,y)} = |x-y|^{1/2} \leq M.
+          \label{2.1}
+        \end{equation}
+        But for fixed $y \in \mathbb{R}$, $|x-y|^{1/2} \rightarrow 0$ as $x \rightarrow y$ and $|x-y|^{1/2} \rightarrow \infty$ as $x \rightarrow
+        \infty$. This is a contradiction to \eqref{2.1}.
       \end{claimproof}
   \end{enumerate}
 \end{Solution}
@@ -210,7 +217,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         0 & \text{ otherwise}
     \end{array} \right. \text{ for } n\geq 1.
   \]
-  Then $\|f_n - f_0\|_{1}  = \sqrt{n} / n \rightarrow 0$ as $n \rightarrow \infty$, but $\|f_n - f_0\|_{\infty} =\sqrt{n} \rightarrow \infty$ as
+  Then $\|f_n - f_0\|_{1}  \equiv \sqrt{n} / n \rightarrow 0$ as $n \rightarrow \infty$, but $\|f_n - f_0\|_{\infty} \equiv \sqrt{n} \rightarrow \infty$ as
   $n\rightarrow \infty$. Hence $f_n \rightarrow f_0$ with respect to $d$ but not $d'$.
 \end{Solution}
 
@@ -224,9 +231,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         d(x_m, x_n) \leq \sum_{j=n}^{m-1}d(x_{j+1}, x_j) & \leq \sum_{j=n}^{m-1}\theta^{j}K \\
         & \leq K\sum_{j=n}^{\infty}\theta^{j} \\
         & = K\theta^{n}\sum_{j=0}^{\infty}\theta^{j} \\
-        & = K\frac{\theta^{n}}{1 - \theta} \rightarrow 0 \ \ \text{as } n \rightarrow \infty.
+        & = K\frac{\theta^{n}}{1 - \theta} \rightarrow 0 \ \ \text{as } n \rightarrow \infty \text{ since } 0 < \theta < 1.
       \end{align*}
-      Hence $\left\{ x_n \right\}$ is Cauchy, and thus convergent since $(X,d)$ is complete.
+      Hence $\left\{ x_n \right\}$ is Cauchy, and thus convergent, since $(X,d)$ is complete.
 
     \item[(4)] Let $m := \inf\left\{ r > 0 : S\subset B_{r}(x) \forall x \in S \right\}$.
 
@@ -243,7 +250,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \end{claim}
       \begin{claimproof}
         Without loss of generality assume $\text{diam}(S) < \infty$. Let $r > \text{diam}(S)$. So $d(x,y) < r$ for all $x,y \in S$. Thus $B_{r}(x)
-        \supset S$ for all $x in S$. So $m \leq r$. But since $r > \text{diam}(S)$ was arbitrary, $m \leq \text{diam}(S)$.
+        \supset S$ for all $x \in S$. So $m \leq r$. But since $r > \text{diam}(S)$ was arbitrary, $m \leq \text{diam}(S)$.
       \end{claimproof}
 
       By claims 1 and 2, we have equality.
