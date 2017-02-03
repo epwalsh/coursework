@@ -1,0 +1,302 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=20mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 502: Assignment IV}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 502: Assignment IV}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\subsection*{1}
+\begin{Solution}
+  \begin{enumerate}
+    \item[(i)] Let $Y := \left\{ f \in X : \lim_{x\rightarrow \infty}f(x) = 0 \right\}$.
+
+      Yes, this subspace is complete. To see this, let $\left\{ f_{n} \right\}$ be a Cauchy sequence in $Y$. Since $X$ is complete, there exists a limit $f
+      \in X$ such that $f(x) = \lim_{n\rightarrow \infty}f_{n}(x)$ for all $x \in \mathbb{R}$. We aim to show that $f \in Y$. By way of contradiction,
+      suppose $f \notin Y$, i.e. there exists $\epsilon > 0$ such that for each $M > 0$, there exists $x_{M} > M$ with 
+      \begin{equation}
+        |f(x_{M})| \geq \epsilon.
+        \label{1.1}
+      \end{equation}
+      Now, since $f_{n} \rightarrow f$, there exists $N_{\epsilon} \in \mathbb{N}$ such that for all $n \geq N_{\epsilon}$, 
+      \begin{equation}
+        D(f_n, f) < \epsilon /2.
+        \label{1.2}
+      \end{equation}
+      Now fix $n \geq N_{\epsilon}$> THen for each $M > 0$, $|f_{n}(x_{M}) - f(X_{M})| < \epsilon / 2$ by \eqref{1.1} and \eqref{1.2}. Hence, taking
+      $M \rightarrow \infty$, 
+      \[
+        \liminf_{M\rightarrow\infty} |f_{n}(x_{M})| \geq \epsilon / 2.
+      \]
+      This is a contradiction.
+
+    \item[(ii)] Let $Y := \left\{ f\in X : f \text{ differentiable} \right\}$.
+
+      No, this subspace is not complete. We will show this by constructing a sequence of differentiable functions that converge uniformly (i.e. w/
+      respect to the metric $D$) to a
+      function that is not differentiable. To that end, for each $n \geq 1$, let 
+      \[
+        f_{n}(x) := (x^{2} + n^{-1})^{1/2} - \left( \frac{x^2}{x^2 + 1} \right)\left( x^{2} + n^{-1} \right)^{1/2} \ \ x \in \mathbb{R}.
+      \]
+      Clearly this function is well-defined, continuous, and differentiable for each $n \geq 1$. To see that each $f_{n} \in X$, note that 
+      \[
+        \lim_{x\rightarrow+\infty}f_{n}(x) = \lim_{x\rightarrow -\infty}f_{n}(x) = \lim_{x\rightarrow\infty} \frac{(x^2 + n^{-1})^{1/2}}{x^2+1} = 0.
+      \]
+      To see that $f_{n} \rightarrow f$ uniformly, let $n > m \geq 1$. Then 
+      \begin{align*}
+        |f_{n}(x) - f_{m}(x)| & = \bigg| \frac{1}{x^2 + 1}\left[ (x^2 + n^{-1})^{1/2} - (x^{2} + m^{-1})^{1/2} \right]\bigg| \\
+        & \leq \bigg| \frac{1}{x^2 + 1}\left[ (x^2 + n^{-1})^{1/2} - |x| \right]\bigg| \\
+        & \leq n^{-1} \ \text{ for all } x \in \mathbb{R}.
+      \end{align*}
+      Hence the convergence is uniform.
+      However,
+      \[
+        \lim_{n\rightarrow \infty}f_{n}(x) = |x| - \frac{|x|^3}{x^2 + 1} \ \ \forall \ x\in \mathbb{R},
+      \]
+      which is not differentiable.
+
+    \item[(iii)] Let $Y := \left\{ f \in X : \int_{0}^{1}f(x)dx = 0 \right\}$.
+
+      Yes, $Y$ is a complete subspace. To see why, let $\left\{ f_{n} \right\}_{n=1}^{\infty}$ be a Cauchy sequence in $Y$. Let $f$ be the limit in
+      $X$ of $\left\{ f_{n} \right\}$. We need to show that $f \in Y$. Well, since $f_n \rightarrow f$ uniformly on $\mathbb{R}$, and hence uniformly
+      on $[0,1]$, there exists $N \in \mathbb{N}$ such that $D(f_n, f) \leq 1$ for all $n \geq N$. Hence 
+      \begin{equation}
+        |f_{n}(x)| \leq \sup_{x\in[0,1]}|f(x)| + 1
+        \label{1.3}
+      \end{equation}
+      for all $n \geq N$. Thus, since \eqref{1.3} is satisfied for all but finitely many $n$, it must hold that the entire sequence of functions is
+      bounded on $[0,1]$ (and also on $\mathbb{R}$) by some number $0 \leq M < \infty$. Hence, by the bounded convergence theorem (or dominated
+      convergence theorem),
+      \[
+        0 = \lim_{n\rightarrow\infty}\int_{0}^{\infty}f_{n}(x)dx = \int_{0}^{1}f(x)dx.
+      \]
+      So $f \in Y$.
+  \end{enumerate}
+\end{Solution}
+
+
+\subsection*{2}
+\begin{Solution}
+  \begin{claim}
+    $d, d'$ equivalent.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $\left\{ x_n \right\}$ converges to $x_0 \in X$ with respect to $d$. Let $\epsilon > 0$. Since $\log : (X,d) \rightarrow (\mathbb{R},
+    |\cdot|)$ is continuous, there
+    exists $\delta > 0$ such that $d(x,y) < \delta$ implies $|\log(y) - \log(x)| = d'(x,y) < \epsilon$.
+    Now take $n_{\delta} \in \mathbb{N}$ such that for $n \geq n_{\delta}$, $d(x_n,x_0) < \delta$. Hence, for $n \geq n_{\delta}$,
+    \[
+      \big| \log(x_0) - \log(x_n)\big| = d'(x_0, x_n) < \epsilon.
+    \]
+    So $x_n \rightarrow x_0$ with respect to $d'$. Now suppose $\left\{ y_n \right\}$ converges to $y_0$ with respect to $d'$. Then the
+    same argument as above, but this time using the fact that $\exp : (\mathbb{R}, |\cdot|) \rightarrow (X,d)$ is continuous, shows that $\left\{
+    y_n \right\}$ converges to $y_0$ with respect to $d$.
+  \end{claimproof}
+
+  \begin{claim}
+    $d, d'$ not Cauchy equivalent.
+  \end{claim}
+  \begin{claimproof}
+    Let $x_n := 2^{-n}$ for all $n\geq 1$. So $\left\{ x_n \right\}$ is monotone decreasing and bounded below by $0$. Hence is Cauchy with respect
+    to $d$. But since $|\log(x_n)| \rightarrow \infty$ as $n \rightarrow \infty$,
+    $\left\{ x_n \right\}$ is not Cauchy with repect to $d'$, as $d'(x_n, x_m) \rightarrow \infty$ as $n \rightarrow \infty$, for any $m \in
+    \mathbb{N}$.
+  \end{claimproof}
+
+\end{Solution}
+
+
+\subsection*{3}
+\begin{Solution}
+  \begin{claim}
+    $(X,d')$ complete and Cauchy sequences in $(X,d')$ are also Cauchy in $(X,d)$.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $\left\{ x_n \right\}_{n=0}^{\infty}$ is Cauchy with respect to $d'$. Then $\left\{ y_n := \log(x_n) \right\}_{n=0}^{\infty}$ is Cauchy in
+    $(\mathbb{R}, |\cdot|)$, and thus there exists $y \in \mathbb{R}$ such that $y \lim y_n$. Now take $x := \exp(y) \in \mathbb{R}_{+}$. Thus,
+    \[
+      0 = \lim_{n\rightarrow\infty}|y_n - y| = \lim_{n\rightarrow \infty}|\log(x_n) - \log(x)| = \lim_{n\rightarrow \infty}d'(x_n, x).
+    \]
+    Hence $\left\{ x_n \right\}$ converges in $(X, d')$, so $(X, d')$ Cauchy. It remains to show that $\left\{ x_n \right\}$ Cauchy in $(X,d)$. Well,
+    by continuity of $\exp(\cdot)$ with respect to the metric induced by $|\cdot|$,
+    \begin{equation}
+      0 = \lim_{n\rightarrow\infty}|\exp(y_n) - \exp(y)| = \lim_{n\rightarrow\infty}|x_n - x|.
+      \label{3.1}
+    \end{equation}
+    Also, by continuity of $g(t) := t^{-1}$ on $\mathbb{R}_{+}$,
+    \begin{equation}
+      0 = \lim_{n\rightarrow\infty}|1/x_n - 1/x|.
+      \label{3.2}
+    \end{equation}
+    So by \eqref{3.1} and \eqref{3.2},
+    \[
+      0 \lim_{n\rightarrow\infty}|x_n - x| + |1/x_n - 1/x| = \lim_{n\rightarrow\infty}d(x_n, x).
+    \]
+    So $\left\{ x_n \right\}$ is convergent in $(X,d)$ and therefore Cauchy.
+  \end{claimproof}
+
+  \begin{claim}
+    $(X,d)$ is complete and Cauchy sequences in $(X,d)$ are also Cauchy in $(X,d')$.
+  \end{claim}
+  \begin{claimproof}
+    The fact that $(X,d)$ is complete immediately follows from Proposition 2.4.7. Now suppose $\left\{ x_n \right\}_{n=0}^{\infty}$ is Cauchy in
+    $(X,d)$. Let $x := \lim x_n$. Thus, 
+    \[
+      \lim_{n\rightarrow\infty}|x_n - x| \leq \lim_{n\rightarrow\infty}d(x_n, x) = 0. 
+    \]
+    Then by continuity of
+    $\log(\cdot)$ with repsect to $|\cdot|$, 
+    \[
+      \lim_{n\rightarrow\infty}|\log(x_n) - \log(x)| = \lim_{n\rightarrow\infty}d'(x_n,x) = 0.
+    \]
+    Hence $\left\{ x_n \right\}$ is convergent in $(X, d')$ and hence Cauchy.
+  \end{claimproof}
+
+  By claims 1 and 2, $d, d'$ are Cauchy equivalent.
+
+  \begin{claim}
+    $d,d'$ are not strongly equivalent.
+  \end{claim}
+  \begin{claimproof}
+    By way of contradiction suppose $d, d'$ are strongly equivalent. Then there exists $m, M > 0$ such that for each $x,y \in X$,
+    \[
+      md(x,y) \leq d'(x,y) \leq Md(x,y),
+    \]
+    which implies 
+    \[
+      m \leq \frac{d'(x,y)}{d(x,y)} = \frac{|\log(x) - \log(y)|}{|x - y| + |1/x - 1/y|} \leq M
+    \]
+    whenever $x \neq y$. However,
+    \[
+      \frac{d'(x,1)}{d(x,1)} = \frac{|\log(x)|}{|x| + |1/x|} \rightarrow 0 \ \ \text{as } x \rightarrow\infty.
+    \]
+    This is a contradiction.
+  \end{claimproof}
+
+\end{Solution}
+
+
+\subsection*{4}
+\begin{Solution}
+  No, $(Y,d_{Y})$ is not necessarily complete. Consider $(X, d_{X}) := (\mathbb{R}, |\cdot|)$ and $(Y,d_{Y}) := \big( (0,1), |\cdot|\big)$.
+  Then take $f : X \rightarrow Y$ as $f(x) := e^{x} / (e^{x} + 1)$. So $f$ is a continuous bijection but clearly $(Y, d_{Y})$ is not complete.
+\end{Solution}
+
+
+\subsection*{5}
+\begin{Solution}
+  It is clear from the definition of each $f_{n}$ that 
+  \[
+    \lim_{n\rightarrow\infty} f_{n}(x) = f(x) := \left\{ \begin{array}{cl}
+        0 & \text{ if } x = 0 \\
+        0 & \text{ if } x \in [0,1] - \mathbb{Q} \\
+        \frac{1}{q} & \text{ if } x = \frac{p}{q}
+    \end{array} \right.,\ \  x \in [0,1].
+  \]
+  \begin{claim}
+    The convergence is uniform.
+  \end{claim}
+  \begin{claimproof}
+    Note that for any $n \in \mathbb{N}$, $|f_n(x) - f(x)| > 0$ if and only if $x = \frac{p}{q}$ where $q > n$, in which case $|f_n(x) - f(x)| =
+    \frac{1}{q} < \frac{1}{n}$.
+    Hence
+    \[
+      \sup_{x\in[0,1]}|f_n(x) - f(x)| \leq \frac{1}{n} \rightarrow 0
+    \]
+    as $n\rightarrow\infty$, i.e. $f_{n}$ converges to $f$ uniformly.
+  \end{claimproof}
+
+  \begin{claim}
+    $f$ continuous at $0$ and every irrational in $[0,1]$.
+  \end{claim}
+  \begin{claimproof}
+    First we will show that $f$ is continuous at 0. Let $x_0, x_1, x_2, \dots \in (0,1]$ such that $x_n \rightarrow 0$. 
+    Without loss of generality we can assume $x_n \in \mathbb{Q}$ for all $n \in \mathbb{N}$.
+    It suffices to
+    show that $f(x_n) \rightarrow 0$. For each $n \in \mathbb{N}$, let $q_n, p_{n} \geq 1$ such that $x_n = \frac{p_n}{q_n}$. Then clearly $q_n \rightarrow
+    \infty$ as $n \rightarrow \infty$. But this means precisely that $f(x_n) \rightarrow 0$.
+
+    Now suppose $x \in [0,1] - \mathbb{Q}$. Let $x_0, x_1, \dots \in (0,1]$ such that $x_n \rightarrow x$. Again, assume $x_n \in \mathbb{Q}$ for each
+    $n \in \mathbb{N}$ and write $x_n = \frac{p_n}{q_n}$ where $q_n, p_n \geq 1$. Then it suffices to show that $q_n \rightarrow \infty$. So, by way
+    of contradiction suppose not, i.e. suppose there exists $N \in \mathbb{N}$ such that $q_n \leq N$ infinitely often. But since $p_n \leq q_n$,
+    there are only finitely many different values that $x_n$ can take on if $q_n \leq N$. Hence the sequence has repeats a certain value infinitely
+    often. But this repeated value cannot possibly be $x$ itself, since $x$ is irrational. Hence $\left\{ x_n \right\}$ does not converge to $x$. This
+    is a contradiction.
+  \end{claimproof}
+
+\end{Solution}
+
+\newpage
+\subsection*{6}
+\begin{Solution}
+  \begin{enumerate}
+    \item[(5)] Consider $\mathbb{R}$ with the usual metric induced by $|\cdot|$. For $n\geq 1$, let $F_n := [n, \infty)$. Then clearly each $F_n$ is
+      closed and $F_1 \supset F_2 \supset \dots$. However, $\text{diam}(F_n) = \infty$ for all $n \in \mathbb{N}$, and 
+      \[
+        \bigcap_{n=1}^{\infty}F_{n} = \emptyset.
+      \]
+
+    \item[(7)] Let $\theta > 0$ and define $F_n := \left\{ t \in [0,1]: |f_n(t) - f_k(t)| \leq \theta \text{ for all } k \geq n \right\}$.
+      \begin{enumerate}
+        \item Note that 
+          \begin{align*}
+            F_n & = \bigcap_{k\geq n}\left\{ t : |f_n(t) - f_k(t)| \leq \theta \right\}\\
+            & = \bigcap_{k\geq n}\left\{ t : f_n(t) - f_k(t)\leq \theta \right\} \cap \left\{ t : f_k(t) - f_n(t) \leq \theta \right\}\\
+            & = \bigcap_{k\geq n}(f_n - f_k)^{-1}\big[(-\infty,\theta]\big] \cap  (f_k - f_n)^{-1}\big[(-\infty,\theta]\big] \\
+          \end{align*}
+          which is closed as the countable intersection of closed sets, since $f_n - f_k$ and $f_k - f_n$ are continuous. Therefore it remains to show
+          that $[0,1] = \cup_{n=1}^{\infty}F_n$. By way of contradiction suppose there exists $x' \in [0,1]$ such that $x \notin
+          \cup_{n=1}^{\infty}F_n$. Then $x \notin F_n$ for all $n \in \mathbb{N}$, which implies that for all $n \in \mathbb{N}$, there exists $k \geq
+          n$ such that $|f_n(x') - f_k(x')| > \theta$. Therefore $\left\{ f_n(x') \right\}_{n=1}^{\infty}$ is not Cauchy, and thus not convergent.
+          This is a contradiction.
+
+        \item
+      \end{enumerate}
+  \end{enumerate}
+\end{Solution}
+
+
+\end{document}
