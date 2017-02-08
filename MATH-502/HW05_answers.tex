@@ -129,4 +129,79 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Solution}
 
 
+
+\subsection*{3}
+\begin{Solution}
+  Since Lipschitz continuity is a stronger condition than uniform continuity, and thus continuity, $\text{Lip}[a,b] \subset C[a,b]$. 
+
+  \begin{claim}
+    $\text{Lip}[a,b]$ is a subspace of $C[a,b]$.
+  \end{claim}
+  \begin{claimproof}
+    Clearly the zero-function $f(x) \equiv 0$ is in $\text{Lip}[a,b]$ since any $M > 0$ is a Lipschitz constant for $f$. Now suppose $f$ and $g$ and
+    any function in $\text{Lip}[a,b]$ and $c \in \mathbb{R}$. Let $M_f$ and $M_g$ be Lipschitz constants for $f$ and $g$, respectively. Let $h := f +
+    g$. Then for all
+    $x, y \in [a,b]$,
+    \[
+      |h(y) - h(x)| \leq |f(y) - f(x)| + |g(y) - g(x)| \leq M_f |y - x| + M_g |y - x| = (M_f + M_g) |y - x|,
+    \]
+    and thus $M_f + M_g$ is a Lipschitz constant for $h$, so $h \in \text{Lip}[a,b]$. Further,
+    \[
+      |cf(y) - cf(x)| = |c| \cdot |f(y) - f(x)| \leq |c| M_f |y - x|,
+    \]
+    and so $|c|\cdot M_f$ is a Lipschitz constant for $cf$, and thus $cf \in \text{Lip}[a,b]$.
+  \end{claimproof}
+
+  Now let $M_0 > 0$ and set $A := \left\{ f \in \text{Lip}[a,b] : M_0\text{ is a Lipschitz constant for $f$ and }|f(x)| \leq M_0 \right\}$.
+
+  \begin{claim}
+    $A$ is compact in $C[a,b]$.
+  \end{claim}
+
+\end{Solution}
+
+\subsection*{4}
+\begin{Solution}
+  For $f \in C^{1}[0,1]$, let $\|f\| := \sup_{0\leq x \leq 1}|f(x)| + \sup_{0\leq x\leq 1}|f'(x)|$.
+
+  \begin{claim}
+    $C^{1}[0,1]$ is a complete metric space.
+  \end{claim}
+  \begin{claimproof}
+    Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a Cauchy sequence in $C^{1}[0,1]$. Then, by definition of $\|\cdot\|$, $\left\{ f_{n}
+    \right\}_{n=0}^{\infty}$ and $\left\{ f_{n}' \right\}_{n=0}^{\infty}$ are Cauchy in $C[0,1]$. Hence there exists $f, g \in C[0,1]$ such that $f$
+    is the limit of $\left\{ f_n \right\}$ is $C[0,1]$ and $g$ is the limit of $\left\{ f_n' \right\}$ in $C[0,1]$. Hence, if we can show that $f'
+    \equiv g$, then 
+    \[
+      \|f_n - f\| = \sup_{0\leq x\leq 1}|f_n(x) - f(x)| + \sup_{0\leq x \leq 1}|f_n'(x) - g'(x)| \longrightarrow 0
+    \]
+    as $n\rightarrow \infty$, and thus $f_n \rightarrow f \in C^{1}[0,1]$, which proves that $C^{1}[0,1]$ is complete. To that end, note that by the
+    Fundemantal Theorem of Calculus,
+    \begin{equation}
+      f_{n}(x) = \int_{0}^{x}f_{n}'(t)dt
+      \label{4.1}
+    \end{equation}
+    for each $n \in \mathbb{N}$ and $x \in [0,1]$. Also, since $f_{n}' \rightarrow g$ uniformly, the sequence $\left\{ f_n' \right\}$ is bounded, i.e.
+    there exists $M > 0$ such that $f_{n} \leq M$ for all $n \in \mathbb{N}$. Hence,
+    \[
+      f(x) = \lim_{n\rightarrow\infty} f_{n}(x) = \lim_{n\rightarrow\infty}\int_{0}^{x}f_{n}'(t)dt = \int_{0}^{x} \lim_{n\rightarrow\infty}f_{n}'(t)dt
+      = \int_{0}^{x}g(t)dt,
+    \]
+    for all $x \in [0,1]$ by \eqref{4.1} and the Dominated Convergence Theorem. Hence, since $g \in C[0,1]$, $f' \equiv g$ by the Fundemantal Theorem
+    of Calculus once again.
+  \end{claimproof}
+
+  Now let $B_1 := \left\{ f \in C^{1} : \|f\| \leq 1 \right\}$.
+
+  \begin{claim}
+    $B_1$ is compact in $C^{1}[0,1]$.
+  \end{claim}
+  \begin{claimproof}
+    
+  \end{claimproof}
+
+\end{Solution}
+
+
+
 \end{document}
