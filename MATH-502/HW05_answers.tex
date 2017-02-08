@@ -53,10 +53,51 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{1}
 \begin{Solution}
   \begin{enumerate}
-    \item[5.]
+    \item[3.] Let $(X,d)$ be a metric space and suppose $F \subseteq X$ is closed and $K \subseteq X$ is compact.
+      
+      \begin{claim}
+        $F\cap K \neq \emptyset$ if and only if $m := \inf\left\{ d(x,y) : x \in F, y \in K \right\} = 0$.
+      \end{claim}
+      \begin{claimproof}
+        $(\Rightarrow)$ Trivial.
+
+        $(\Leftarrow)$ Suppose $m = 0$. Then there exists a sequence $\{(x_n, y_n)\}_{n=0}^{\infty}$ such that $x_n \in F, y_n \in K$ for all $n \in
+        \mathbb{N}$ and $d(x_n, y_n) \rightarrow 0$. Since $K$ is compact, there exists a subsequence $\{y_{n_k}\}_{k=0}^{\infty}$ that converges to
+        some $y \in K$. Thus $d(x_n, y) \leq d(x_n, y_n) + d(y_n, y) \rightarrow 0$ as $n \rightarrow \infty$, so $x_n \rightarrow y$. But since $F$
+        is closed, $y \in F$. Hence $F \cap K \supseteq \{y\}$.
+      \end{claimproof}
+
+      If we replace the assumption that $K$ is compact with the looser assumption that $K$ is closed, then the above claim fails. To see this,
+      consider the metric space $\mathbb{R}$ with the usual metrix induced by $|\cdot |$. Let $F := \mathbb{N}$ and let $K := \{n + 2^{-n}: n \in
+      \mathbb{N}\}$. So both $F$ and $K$ are closed, $F \cap K = \emptyset$, but $m \leq \lim_{n\rightarrow\infty}|n - (n+2^{-n})| = 0$.
+
+    \item[4.] Let $K := K_1 \times \dots \times K_{n}$ and let $D := D_1$ be the metric on $K$.
+
+      \begin{claim}
+        $K$ equiped with the metric $D$ is compact.
+      \end{claim}
+      \begin{claimproof}
+        Let $\left\{ x_k \right\}_{k=0}^{\infty}$ be a sequence in $K$, where $x_k := (x_{k,1}, \dots, x_{k,n})$ for each $k \in \mathbb{N}$.
+        Since $K_1$ is compact, there exists a subsequence $\{x_{k_j, 1}\}_{j=0}^{\infty}$ of $\{x_{k,1}\}_{k=0}^{\infty}$ that
+        converges in $K_1$. But since $K_2$ is compact, there exists a convergent subsequence
+        $\{x_{k_{j_i},2}\}_{i=0}^{\infty}$ of $\{x_{k_j,2}\}_{j=0}^{\infty}$ that converges in $K_2$. Continuing in this manner, we can construct a
+        subsequence $\{x_{k}'\}_{k=0}^{\infty}$ of $\{x_{k}\}_{k=0}^{\infty}$, where $x_{k}' = (x_{k,1}', \dots, x_{k,n}')$, 
+        such that $\{x_{k,m}'\}_{k=0}^{\infty}$ converges in $K_m$ for each $m = 1, \dots, n$. Let $y_{m}$ be the limit of
+        $\{x_{k,m}'\}_{k=0}^{\infty}$ be each $m = 1, \dots, n$. Let $y := (y_1, \dots, y_n) \in K$. Then 
+        \[
+          \lim_{k\rightarrow\infty} d(x_{k}', y) = \lim_{k\rightarrow\infty} \sum_{m=1}^{n}d_{m}(x_{k,m}', y_{m}) =
+          \sum_{m=1}^{n}\lim_{k\rightarrow\infty} d_{m}(x_{k,m}', y_{m}) = 0.
+        \]
+        Hence $\left\{ x_{k}' \right\}_{k=0}^{\infty}$ converges in $K$.
+      \end{claimproof}
+
+
+    \item[6.]
 
   \end{enumerate}
 \end{Solution}
+
+\newpage
 
 \subsection*{2}
 \begin{Solution}
