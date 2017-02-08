@@ -66,7 +66,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         D(f_n, f) < \epsilon /2.
         \label{1.2}
       \end{equation}
-      Now fix $n \geq N_{\epsilon}$> THen for each $M > 0$, $|f_{n}(x_{M}) - f(X_{M})| < \epsilon / 2$ by \eqref{1.1} and \eqref{1.2}. Hence, taking
+      Now fix $n \geq N_{\epsilon}$. Then for each $M > 0$, $|f_{n}(x_{M})|\geq \epsilon / 2$ by \eqref{1.1} and \eqref{1.2}. Hence, taking
       $M \rightarrow \infty$, 
       \[
         \liminf_{M\rightarrow\infty} |f_{n}(x_{M})| \geq \epsilon / 2.
@@ -83,9 +83,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \]
       Clearly this function is well-defined, continuous, and differentiable for each $n \geq 1$. To see that each $f_{n} \in X$, note that 
       \[
-        \lim_{x\rightarrow+\infty}f_{n}(x) = \lim_{x\rightarrow -\infty}f_{n}(x) = \lim_{x\rightarrow\infty} \frac{(x^2 + n^{-1})^{1/2}}{x^2+1} = 0.
+        \lim_{x\rightarrow+\infty}f_{n}(x) = \lim_{x\rightarrow -\infty}f_{n}(x) = \lim_{x\rightarrow\infty} \frac{(x^2 + n^{-1})^{1/2}}{x^2+1} = 0,
       \]
-      To see that $f_{n} \rightarrow f$ uniformly, let $n > m \geq 1$. Then 
+      and hence each $f_n$ is bounded. To see that $f_{n} \rightarrow f$ uniformly, let $n > m \geq 1$. Then 
       \begin{align*}
         |f_{n}(x) - f_{m}(x)| & = \bigg| \frac{1}{x^2 + 1}\left[ (x^2 + n^{-1})^{1/2} - (x^{2} + m^{-1})^{1/2} \right]\bigg| \\
         & \leq \bigg| \frac{1}{x^2 + 1}\left[ (x^2 + n^{-1})^{1/2} - |x| \right]\bigg| \\
@@ -121,42 +121,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{2}
 \begin{Solution}
   \begin{claim}
-    $d, d'$ equivalent.
-  \end{claim}
-  \begin{claimproof}
-    Suppose $\left\{ x_n \right\}$ converges to $x_0 \in X$ with respect to $d$. Let $\epsilon > 0$. Since $\log : (X,d) \rightarrow (\mathbb{R},
-    |\cdot|)$ is continuous, there
-    exists $\delta > 0$ such that $d(x,y) < \delta$ implies $|\log(y) - \log(x)| = d'(x,y) < \epsilon$.
-    Now take $n_{\delta} \in \mathbb{N}$ such that for $n \geq n_{\delta}$, $d(x_n,x_0) < \delta$. Hence, for $n \geq n_{\delta}$,
-    \[
-      \big| \log(x_0) - \log(x_n)\big| = d'(x_0, x_n) < \epsilon.
-    \]
-    So $x_n \rightarrow x_0$ with respect to $d'$. Now suppose $\left\{ y_n \right\}$ converges to $y_0$ with respect to $d'$. Then the
-    same argument as above, but this time using the fact that $\exp : (\mathbb{R}, |\cdot|) \rightarrow (X,d)$ is continuous, shows that $\left\{
-    y_n \right\}$ converges to $y_0$ with respect to $d$.
-  \end{claimproof}
-
-  \begin{claim}
-    $d, d'$ not Cauchy equivalent.
-  \end{claim}
-  \begin{claimproof}
-    Let $x_n := 2^{-n}$ for all $n\geq 1$. So $\left\{ x_n \right\}$ is monotone decreasing and bounded below by $0$. Hence is Cauchy with respect
-    to $d$. But since $|\log(x_n)| \rightarrow \infty$ as $n \rightarrow \infty$,
-    $\left\{ x_n \right\}$ is not Cauchy with repect to $d'$, as $d'(x_n, x_m) \rightarrow \infty$ as $n \rightarrow \infty$, for any $m \in
-    \mathbb{N}$.
-  \end{claimproof}
-
-\end{Solution}
-
-
-\subsection*{3}
-\begin{Solution}
-  \begin{claim}
     $(X,d')$ complete and Cauchy sequences in $(X,d')$ are also Cauchy in $(X,d)$.
   \end{claim}
   \begin{claimproof}
     Suppose $\left\{ x_n \right\}_{n=0}^{\infty}$ is Cauchy with respect to $d'$. Then $\left\{ y_n := \log(x_n) \right\}_{n=0}^{\infty}$ is Cauchy in
-    $(\mathbb{R}, |\cdot|)$, and thus there exists $y \in \mathbb{R}$ such that $y \lim y_n$. Now take $x := \exp(y) \in \mathbb{R}_{+}$. Thus,
+    $(\mathbb{R}, |\cdot|)$, and thus there exists $y \in \mathbb{R}$ such that $y = \lim y_n$. Now take $x := \exp(y) \in \mathbb{R}_{+}$. Thus,
     \[
       0 = \lim_{n\rightarrow\infty}|y_n - y| = \lim_{n\rightarrow \infty}|\log(x_n) - \log(x)| = \lim_{n\rightarrow \infty}d'(x_n, x).
     \]
@@ -219,14 +188,14 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Solution}
 
 
-\subsection*{4}
+\subsection*{3}
 \begin{Solution}
   No, $(Y,d_{Y})$ is not necessarily complete. Consider $(X, d_{X}) := (\mathbb{R}, |\cdot|)$ and $(Y,d_{Y}) := \big( (0,1), |\cdot|\big)$.
   Then take $f : X \rightarrow Y$ as $f(x) := e^{x} / (e^{x} + 1)$. So $f$ is a continuous bijection but clearly $(Y, d_{Y})$ is not complete.
 \end{Solution}
 
 
-\subsection*{5}
+\subsection*{4}
 \begin{Solution}
   It is clear from the definition of each $f_{n}$ that 
   \[
@@ -260,17 +229,17 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \infty$ as $n \rightarrow \infty$. But this means precisely that $f(x_n) \rightarrow 0$.
 
     Now suppose $x \in [0,1] - \mathbb{Q}$. Let $x_0, x_1, \dots \in (0,1]$ such that $x_n \rightarrow x$. Again, assume $x_n \in \mathbb{Q}$ for each
-    $n \in \mathbb{N}$ and write $x_n = \frac{p_n}{q_n}$ where $q_n, p_n \geq 1$. Then it suffices to show that $q_n \rightarrow \infty$. So, by way
+    $n \in \mathbb{N}$ and write $x_n = \frac{p_n}{q_n}$ where $q_n, p_n \geq 1$. Then it suffices to show that $q_n \rightarrow \infty$ to show that
+    $f(x_n) \rightarrow 0$. So, by way
     of contradiction suppose not, i.e. suppose there exists $N \in \mathbb{N}$ such that $q_n \leq N$ infinitely often. But since $p_n \leq q_n$,
-    there are only finitely many different values that $x_n$ can take on if $q_n \leq N$. Hence the sequence has repeats a certain value infinitely
+    there are only finitely many different values that $x_n$ can take on if $p_n \leq q_n \leq N$. Hence the sequence repeats a certain value infinitely
     often. But this repeated value cannot possibly be $x$ itself, since $x$ is irrational. Hence $\left\{ x_n \right\}$ does not converge to $x$. This
     is a contradiction.
   \end{claimproof}
 
 \end{Solution}
 
-\newpage
-\subsection*{6}
+\subsection*{5}
 \begin{Solution}
   \begin{enumerate}
     \item[(5)] Consider $\mathbb{R}$ with the usual metric induced by $|\cdot|$. For $n\geq 1$, let $F_n := [n, \infty)$. Then clearly each $F_n$ is
@@ -293,7 +262,66 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
           n$ such that $|f_n(x') - f_k(x')| > \theta$. Therefore $\left\{ f_n(x') \right\}_{n=1}^{\infty}$ is not Cauchy, and thus not convergent.
           This is a contradiction.
 
-        \item
+        \item Let $\epsilon > 0$ and define $F_n' := \left\{ t \in I: |f_n(t) - f_k(t)| \leq \epsilon / 3 \text{ for all } k \geq n \right\}$, $n\geq
+          1$.
+          By the work done in part (a), each $F_n'$ is closed and $\cup_{n=1}^{\infty}F_n' = I$. Thus, since $I$ is non-trivial and therefore has a
+          nonempty interior $\mathring{I}$, there exists an $n_0 \geq 1$ such that $F_{n_0}'$ has a nonempty interior. Hence there exists a
+          non-trivial open subinterval $O \subseteq \mathring{F_{n_0}'}$ by Corollary 2.4.17, since $\mathring{F_{n_0}'}$ is open and open sets in
+          $\mathbb{R}$ are composed of
+          the union of countable many open intervals. Now let $x_0 \in O$. 
+          Since $f_{n_0}$ is continuous, we can choose $\delta > 0$ small enough such that $f_{n_0}[B_{\delta}(x_0)] \subset B_{\epsilon / 6}(f_{n_0}(x_0))$.
+          Now let $J := [x_0 - \delta / 2, x_0 + \delta / 2] \subset \mathring{F_{n_0}} \subset \mathring{I}$. Then for each $s, t \in J$,
+          \begin{equation}
+            |f_{n_0}(s) - f_{n_0}(t)| < 2\times \frac{\epsilon}{6} = \frac{\epsilon}{3}.
+            \label{6.1}
+          \end{equation}
+
+          \begin{claim}
+            $|f(s) - f(t)| < \epsilon$ for all $s,t \in J$.
+          \end{claim}
+          \begin{claimproof}
+            Note that since $f_{n}(s) \rightarrow f(s)$ for each $s \in J$, 
+            \begin{equation}
+              |f_{n_0}(s) - f(s)| = \lim_{k\rightarrow\infty}|f_{n_0}(s) - f_{k}(s)| \leq \epsilon / 6
+              \label{6.2}
+            \end{equation}
+            since $s \in F_{n_{0}}$. Thus, by \eqref{6.1} and \eqref{6.2},
+            \[
+              |f(s) - f(t)| \leq |f(s) - f_{n_0}(s)| + |f_{n_0}(s) - f_{n_0}(t)| + |f_{n_0}(t) - f(t)| \leq 3\times \frac{\epsilon}{3} =
+              \epsilon.
+            \]
+          \end{claimproof}
+
+        \item This follows directly from applying the result in part (b) inductively. By part (b), we can choose a closed subinterval $I_1 \subset
+          \mathring{I}$ such that
+          $|f(t) - f(s)| \leq 1$ for all $s, t \in I_1$ and so that $\text{len}(I_1) \leq 1$. Note that since $I_1 \subseteq [0,1]$, it is trivial
+          that $\text{len}(I_1) \leq 1$. However, given the construction in part (b), it is clear that we can make these sets arbitrarily small, which
+          is important for the next step. Now, by way of induction, suppose $I_n \subset \mathring{I}_{n-1}$, for some $n\geq 1$, has been chosen such that $|f(t) - f(s)| \leq
+          \frac{1}{n}$ for all $s,t \in I_n$ and $\text{len}(I_n) \leq \frac{1}{n}$. Then apply part (b) with $I_n$ as the ``reference set $I$'' and $\epsilon :=
+          \frac{1}{n+1}$, and ensure that the resulting set $J \equiv I_{n+1}$ has length less than $\frac{1}{n+1}$.
+
+          In this way we now have a sequence $I_1, I_2, \dots$ satisfying the conditions that we wished to achieve. But by Cantor's intersection
+          theorem, $\cap_{n=1}^{\infty}F_{n}$ contains precisily one point $x_0 \in [0,1]$, and at $x_0$, we claim that $f$ is continuous.
+
+          \begin{claim}
+            $f$ continuous at $x_0$.
+          \end{claim}
+          \begin{claimproof}
+            Let $\epsilon > 0$. Then choose $n' \geq 1$ such that $\frac{1}{n'} < \epsilon$. Since $x_0 \in F_n$ for all $n \geq 1$,
+            $x_0 \in I_{n'+1} \subset \mathring{I}_{n'}$. Hence there exists $\delta > 0$ such that $B_{\delta}(x_0) \subset \mathring{I}_{n'}$.
+            Thus, if $x \in B_{\delta}(x_0)$, then $x \in I_{n'}$. So by definition of $I_{n'}$,
+            \[
+              |f(x) - f(x_0)| \leq \frac{1}{n'} < \epsilon.
+            \]
+            So $f$ continuous at $x_0$.
+          \end{claimproof}
+
+        \item By way of contradiction suppose that the set of points at which $f$ is continuous is not dense in $[0,1]$. Then there exists $x_0 \in
+          [0,1]$ and $r > 0$ such that $f$ is discontinuous for all points in $I := B_{r}(x_0)$. Let $\epsilon > 0$. Now, by part (c), there exists a
+          sequence $I\supset I_1 \supset \mathring{I_1} \supset I_2 \supset \mathring{I_2} \dots$ of closed subintervals of $I$ such that $|f(t) -
+          f(s)| \leq \frac{1}{n}$ for all $s, t, \in I_n$. But then by Claim 2, if $x_0 \in I$ such that $\{x_0\} = \cap_{n=1}^{\infty}I_n$, then $f$
+          is continuous at $x_0$. This is a contradiction.
+
       \end{enumerate}
   \end{enumerate}
 \end{Solution}
