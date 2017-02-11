@@ -77,6 +77,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         $K$ equiped with the metric $D$ is compact.
       \end{claim}
       \begin{claimproof}
+        Since $K$ is a metric space, it suffices to show that $K$ is sequentially compact.
         Let $\left\{ x_k \right\}_{k=0}^{\infty}$ be a sequence in $K$, where $x_k := (x_{k,1}, \dots, x_{k,n})$ for each $k \in \mathbb{N}$.
         Since $K_1$ is compact, there exists a subsequence $\{x_{k_j, 1}\}_{j=0}^{\infty}$ of $\{x_{k,1}\}_{k=0}^{\infty}$ that
         converges in $K_1$. But since $K_2$ is compact, there exists a convergent subsequence
@@ -92,12 +93,26 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \end{claimproof}
 
 
-    \item[6.]
+    \item[6.] Let $E$ be a normed space and let $K, L \subseteq E$ be compact.
+
+      \begin{claim}
+        $K + L$ is compact.
+      \end{claim}
+      \begin{claimproof}
+        It suffices to show that $K + L$ is sequentially compact. Thus, let $\left\{ z_n \right\}_{n=0}^{\infty}$ be a sequence in $K + L$.  
+        By the previous question, $K\times L$ equipped with the $D$ metric, which is induced by the norm $\|\cdot \|$ restricted to $K$ and $L$, is
+        compact. Hence there exists a subsequence $\left\{ (x_{n_k}, y_{n_k}) \right\}_{k=0}^{\infty}$ of $\left\{ (x_n, y_n) \right\}_{n=0}^{\infty}$
+        that converges to $(x, y) \in K\times L$ with respect to $D$. But then $\left\{ x_{n_k} \right\}_{k=0}^{\infty}$ converges to $x$ and 
+        $\left\{ y_{n_k} \right\}_{k=0}^{\infty}$ converges to $y$ with respect to the metric induced by $\|\cdot \|$. Let $z := x + y \in K + L$.  
+        Then
+        \[
+          \limsup_{k\rightarrow\infty}\|z_k - z\| \leq \limsup_{k\rightarrow\infty}\|x_k - x\| + \|y_k - y\| = 0.
+        \]
+        Thus $\left\{ z_{n_k} \right\}_{k=0}^{\infty}$ converges to $z \in K + L$. Hence $K + L$ is compact.
+      \end{claimproof}
 
   \end{enumerate}
 \end{Solution}
-
-\newpage
 
 \subsection*{2}
 \begin{Solution}
@@ -198,6 +213,46 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{claim}
     $A$ is compact in $C[a,b]$.
   \end{claim}
+  \begin{claimproof}
+    We will proceed by way of the Arzel{\`a}-Ascoli Theorem. To that end, we need to show that $A$ is uniformly bounded and equicontinuous. Note that the
+    condition of $A$ being uniformly bounded is equivalent to the condition that $\left\{ f(x) : x \in [a,b], f \in A \right\}$ is relatively compact
+    in $\mathbb{R}$.
+
+    \begin{subclaim}
+      $A$ is uniformly bounded by $M_0(b - a + 1)$.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Let $f \in A$. Note that $f(a) \leq M_0$ and 
+      \[
+        |f(x) - f(a)| \leq M_0 |x - a| \leq M_0 |b - a|. 
+      \]
+      Hence $|f(x)| \leq |f(x)| + M_0(b - a) \leq M_0 + M_0(b-a)$.
+    \end{subclaimproof}
+
+    \begin{subclaim}
+      $A$ is equicontinuous.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Let $\epsilon > 0$. Take $\delta := \frac{\epsilon}{M_0}$. Then if $x,y \in [a,b]$ such that $|x - y| < \delta$, then
+      \[
+        |f(x) - f(y)| \leq M_0|x - y| < \epsilon
+      \]
+      for all $f \in A$.
+    \end{subclaimproof}
+
+    By subclaims 2.1 and 2.2 and the Arzel{\`a}-Ascoli Theorem, $A$ is relatively compact in $C[a,b]$. Thus it remains to show that $A$ is closed.
+    Well, if $\left\{ f_n \right\}_{n=0}^{\infty}$ is a sequence in $A$ that converges uniformly to some $f \in C[a,b]$, then clearly 
+    \begin{equation}
+      |f(a)| = \lim_{n\rightarrow\infty}|f_{n}(a)| \leq M_0,
+      \label{3.1}
+    \end{equation}
+    and for any $x, y \in [a,b]$,
+    \begin{equation}
+      |f(x) - f(y)| = \lim_{n\rightarrow\infty}|f_n(x) - f_n(y)| \leq M_0 |x - y|.
+      \label{3.2}
+    \end{equation}
+    So by \eqref{3.1} and \eqref{3.2}, $f \in A$ and hence $A$ is closed.
+  \end{claimproof}
 
 \end{Solution}
 
@@ -235,10 +290,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Now let $B_1 := \left\{ f \in C^{1} : \|f\| \leq 1 \right\}$.
 
   \begin{claim}
-    $B_1$ is compact in $C^{1}[0,1]$.
+    $B_1$ is NOT compact in $C^{1}[0,1]$.
   \end{claim}
   \begin{claimproof}
-    
+    $B_1$ is just the closed unit ball, and since $C^{1}[0,1]$ is infinite dimensional, Riesz's Lemma says that $B_1$ is not compact.
   \end{claimproof}
 
 \end{Solution}
