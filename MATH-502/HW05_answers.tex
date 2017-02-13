@@ -62,19 +62,20 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         $(\Rightarrow)$ Trivial.
 
         $(\Leftarrow)$ Suppose $m = 0$. Then there exists a sequence $\{(x_n, y_n)\}_{n=0}^{\infty}$ such that $x_n \in F, y_n \in K$ for all $n \in
-        \mathbb{N}$ and $d(x_n, y_n) \rightarrow 0$. Since $K$ is compact, there exists a subsequence $\{y_{n_k}\}_{k=0}^{\infty}$ that converges to
+        \mathbb{N}$ and $d(x_n, y_n) \rightarrow 0$. Since $K$ is compact, there exists a subsequence $\{y_{n_k}\}_{k=0}^{\infty}$ of $\left\{ 
+        y_{n} \right\}_{n=0}^{\infty}$ that converges to
         some $y \in K$. Thus $d(x_n, y) \leq d(x_n, y_n) + d(y_n, y) \rightarrow 0$ as $n \rightarrow \infty$, so $x_n \rightarrow y$. But since $F$
-        is closed, $y \in F$. Hence $F \cap K \supseteq \{y\}$.
+        is closed, $y \in F$. Hence $F \cap K \supseteq \{y\} \neq \emptyset$.
       \end{claimproof}
 
-      If we replace the assumption that $K$ is compact with the looser assumption that $K$ is closed, then the above claim fails. To see this,
+      If we replace the assumption that $K$ is compact with the less restrictive assumption that $K$ is closed, then the above claim fails. To see this,
       consider the metric space $\mathbb{R}$ with the usual metrix induced by $|\cdot |$. Let $F := \mathbb{N}$ and let $K := \{n + 2^{-n}: n \in
       \mathbb{N}\}$. So both $F$ and $K$ are closed, $F \cap K = \emptyset$, but $m \leq \lim_{n\rightarrow\infty}|n - (n+2^{-n})| = 0$.
 
     \item[4.] Let $K := K_1 \times \dots \times K_{n}$ and let $D := D_1$ be the metric on $K$.
 
       \begin{claim}
-        $K$ equiped with the metric $D$ is compact.
+        $K$ equipped with the metric $D$ is compact.
       \end{claim}
       \begin{claimproof}
         Since $K$ is a metric space, it suffices to show that $K$ is sequentially compact.
@@ -82,14 +83,14 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         Since $K_1$ is compact, there exists a subsequence $\{x_{k_j, 1}\}_{j=0}^{\infty}$ of $\{x_{k,1}\}_{k=0}^{\infty}$ that
         converges in $K_1$. But since $K_2$ is compact, there exists a convergent subsequence
         $\{x_{k_{j_i},2}\}_{i=0}^{\infty}$ of $\{x_{k_j,2}\}_{j=0}^{\infty}$ that converges in $K_2$. Continuing in this manner, we can construct a
-        subsequence $\{x_{k}'\}_{k=0}^{\infty}$ of $\{x_{k}\}_{k=0}^{\infty}$, where $x_{k}' = (x_{k,1}', \dots, x_{k,n}')$, 
-        such that $\{x_{k,m}'\}_{k=0}^{\infty}$ converges in $K_m$ for each $m = 1, \dots, n$. Let $y_{m}$ be the limit of
-        $\{x_{k,m}'\}_{k=0}^{\infty}$ be each $m = 1, \dots, n$. Let $y := (y_1, \dots, y_n) \in K$. Then 
+        subsequence $\{x_{k_l}\}_{l=0}^{\infty}$ of $\{x_{k}\}_{k=0}^{\infty}$, where $x_{k_l} = (x_{k_l,1}, \dots, x_{k_l,n})$, 
+        such that $\{x_{k_l,m}\}_{l=0}^{\infty}$ converges in $K_m$ for each $m = 1, \dots, n$. Let $y_{m}$ be the limit of
+        $\{x_{k_l,m}\}_{l=0}^{\infty}$ be each $m = 1, \dots, n$. Let $y := (y_1, \dots, y_n) \in K$. Then 
         \[
-          \lim_{k\rightarrow\infty} d(x_{k}', y) = \lim_{k\rightarrow\infty} \sum_{m=1}^{n}d_{m}(x_{k,m}', y_{m}) =
-          \sum_{m=1}^{n}\lim_{k\rightarrow\infty} d_{m}(x_{k,m}', y_{m}) = 0.
+          \lim_{l\rightarrow\infty} d(x_{k_l}, y) = \lim_{l\rightarrow\infty} \sum_{m=1}^{n}d_{m}(x_{k_l,m}, y_{m}) =
+          \sum_{m=1}^{n}\lim_{l\rightarrow\infty} d_{m}(x_{k_l,m}, y_{m}) = 0.
         \]
-        Hence $\left\{ x_{k}' \right\}_{k=0}^{\infty}$ converges in $K$.
+        Hence $\left\{ x_{k_l} \right\}_{l=0}^{\infty}$ converges in $K$.
       \end{claimproof}
 
 
@@ -100,9 +101,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \end{claim}
       \begin{claimproof}
         It suffices to show that $K + L$ is sequentially compact. Thus, let $\left\{ z_n \right\}_{n=0}^{\infty}$ be a sequence in $K + L$.  
-        By the previous question, $K\times L$ equipped with the $D$ metric, which is induced by the norm $\|\cdot \|$ restricted to $K$ and $L$, is
+        Then for each $n \in \mathbb{N}$, we can write $z_n = x_n + y_n$ where $x_n \in K$ and $y_n \in L$.
+        By the previous question, $K\times L$ equipped with the $D_1$ metric (where the metric on both $K$ and $L$ is induced by the norm $\|\cdot \|$
+        restricted to $K$ and $L$), is
         compact. Hence there exists a subsequence $\left\{ (x_{n_k}, y_{n_k}) \right\}_{k=0}^{\infty}$ of $\left\{ (x_n, y_n) \right\}_{n=0}^{\infty}$
-        that converges to $(x, y) \in K\times L$ with respect to $D$. But then $\left\{ x_{n_k} \right\}_{k=0}^{\infty}$ converges to $x$ and 
+        that converges to $(x, y) \in K\times L$ with respect to $D_1$. But then $\left\{ x_{n_k} \right\}_{k=0}^{\infty}$ converges to $x$ and 
         $\left\{ y_{n_k} \right\}_{k=0}^{\infty}$ converges to $y$ with respect to the metric induced by $\|\cdot \|$. Let $z := x + y \in K + L$.  
         Then
         \[
@@ -158,7 +161,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     Let $x \in [0, 1) \cap \mathbb{Q}$. Then there exists $n_x \in \mathbb{N}$ such that $x = r_{n_x}$. Then for any $\delta > 0$,
     $f(x + \delta) - f(x) \geq 2^{-n_x}$, and therefore 
     \[
-      \lim_{t\rightarrow x^{+}}f(t) \geq 2^{-n_x} > f(x).
+      \liminf_{t\rightarrow x^{+}}f(t) \geq 2^{-n_x} > f(x).
     \]
     Hence $f$ discontinuous from the right at $x$.
   \end{claimproof}
@@ -169,17 +172,22 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $F$ is not differentiable at the rationals in $(0,1)$.
   \end{claim}
   \begin{claimproof}
-    Let $x \in (0,1) \cap \mathbb{Q}$. Then there exists $n_{x} \in \mathbb{N}$ such that $x = r_{n_x}$. Thus, for any $h > 0$,
+    Let $x \in (0,1) \cap \mathbb{Q}$.
+    Then there exists $n_{x} \in \mathbb{N}$ such that $x = r_{n_x}$. Thus, for any $h > 0$,
     \begin{equation}
-      \frac{F(x+h) - F(x)}{h} = \frac{1}{h}\int_{x}^{x+h}f(t)dt \geq \frac{1}{h} \int_{x}^{x+h}2^{-n_x}dt \equiv 2^{-n_x},
+      \frac{F(x+h) - F(x)}{h} = \frac{1}{h}\int_{x}^{x+h}f(t)dt \geq \frac{1}{h} \int_{x}^{x+h}(f(x) + 2^{-n_x})dt = f(x) + 2^{-n_x},
         \label{2.1}
     \end{equation}
-    since $f(t) \geq 2^{-n_x}$ for all $t \in (x, x+h)$. However,
+    since $f(t) \geq f(x) + 2^{-n_x}$ for all $t \in (x, x+h)$. However,
     \begin{equation}
-      \frac{F(x) - F(x-h)}{h} = \frac{1}{h}\int_{x-h}^{x}f(t)dt \leq \frac{1}{h}\int_{x-h}^{x}f(x)dt < 2^{-n_x}.
+      \frac{F(x) - F(x-h)}{h} = \frac{1}{h}\int_{x-h}^{x}f(t)dt \leq \frac{1}{h}\int_{x-h}^{x}f(x)dt = f(x).
       \label{2.2}
     \end{equation}
-    So by \eqref{2.1} and \eqref{2.2}, $f$ is not differentiable at $x$.
+    So by \eqref{2.1} and \eqref{2.2}, 
+    \[
+      \limsup_{h\rightarrow 0^{+}}\frac{F(x) - F(x-h)}{h} \leq f(x) < f(x) + 2^{-n_x} \leq \liminf_{h\rightarrow 0^{+}}\frac{F(x+h) - F(x)}{h},
+    \]
+    and hence $f$ is not differentiable at $x$.
   \end{claimproof}
 
 \end{Solution}
@@ -194,8 +202,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $\text{Lip}[a,b]$ is a subspace of $C[a,b]$.
   \end{claim}
   \begin{claimproof}
-    Clearly the zero-function $f(x) \equiv 0$ is in $\text{Lip}[a,b]$ since any $M > 0$ is a Lipschitz constant for $f$. Now suppose $f$ and $g$ and
-    any function in $\text{Lip}[a,b]$ and $c \in \mathbb{R}$. Let $M_f$ and $M_g$ be Lipschitz constants for $f$ and $g$, respectively. Let $h := f +
+    Clearly the zero-function $f(x) \equiv 0$ is in $\text{Lip}[a,b]$ since any $M > 0$ is a Lipschitz constant for $f$. Now suppose $f$ and $g$
+    are any functions in $\text{Lip}[a,b]$ and $c \in \mathbb{R}$. Let $M_f$ and $M_g$ be Lipschitz constants for $f$ and $g$, respectively. Let $h := f +
     g$. Then for all
     $x, y \in [a,b]$,
     \[
@@ -214,9 +222,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $A$ is compact in $C[a,b]$.
   \end{claim}
   \begin{claimproof}
-    We will proceed by way of the Arzel{\`a}-Ascoli Theorem. To that end, we need to show that $A$ is uniformly bounded and equicontinuous. Note that the
-    condition of $A$ being uniformly bounded is equivalent to the condition that $\left\{ f(x) : x \in [a,b], f \in A \right\}$ is relatively compact
-    in $\mathbb{R}$.
+    We will proceed by way of the Arzel{\`a}-Ascoli Theorem. To that end, we need to show that $A$ is uniformly bounded 
+    (i.e. $\left\{ f(x) : x \in [a,b], f \in A \right\}$ is relatively compact in $\mathbb{R}$)
+    and equicontinuous. 
 
     \begin{subclaim}
       $A$ is uniformly bounded by $M_0(b - a + 1)$.
@@ -233,11 +241,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       $A$ is equicontinuous.
     \end{subclaim}
     \begin{subclaimproof}
-      Let $\epsilon > 0$. Take $\delta := \frac{\epsilon}{M_0}$. Then if $x,y \in [a,b]$ such that $|x - y| < \delta$, then
+      Let $\epsilon > 0$. Take $\delta := \frac{\epsilon}{M_0}$. Let $f \in A$ and $x,y \in [a,b]$ such that $|x - y| < \delta$. Then
       \[
-        |f(x) - f(y)| \leq M_0|x - y| < \epsilon
+        |f(x) - f(y)| \leq M_0|x - y| < \epsilon.
       \]
-      for all $f \in A$.
     \end{subclaimproof}
 
     By subclaims 2.1 and 2.2 and the Arzel{\`a}-Ascoli Theorem, $A$ is relatively compact in $C[a,b]$. Thus it remains to show that $A$ is closed.
@@ -256,6 +263,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \end{Solution}
 
+\newpage
 \subsection*{4}
 \begin{Solution}
   For $f \in C^{1}[0,1]$, let $\|f\| := \sup_{0\leq x \leq 1}|f(x)| + \sup_{0\leq x\leq 1}|f'(x)|$.
@@ -266,7 +274,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{claimproof}
     Let $\left\{ f_{n} \right\}_{n=0}^{\infty}$ be a Cauchy sequence in $C^{1}[0,1]$. Then, by definition of $\|\cdot\|$, $\left\{ f_{n}
     \right\}_{n=0}^{\infty}$ and $\left\{ f_{n}' \right\}_{n=0}^{\infty}$ are Cauchy in $C[0,1]$. Hence there exists $f, g \in C[0,1]$ such that $f$
-    is the limit of $\left\{ f_n \right\}$ is $C[0,1]$ and $g$ is the limit of $\left\{ f_n' \right\}$ in $C[0,1]$. Hence, if we can show that $f'
+    is the limit of $\left\{ f_n \right\}$ in $C[0,1]$ and $g$ is the limit of $\left\{ f_n' \right\}$ in $C[0,1]$. Hence, if we can show that $f'
     \equiv g$, then 
     \[
       \|f_n - f\| = \sup_{0\leq x\leq 1}|f_n(x) - f(x)| + \sup_{0\leq x \leq 1}|f_n'(x) - g'(x)| \longrightarrow 0
