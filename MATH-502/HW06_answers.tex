@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+\usepackage{eufrak}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\title{MATH 502: Assignment VI}
+\author{Evan P. Walsh}
+\makeatletter
+\makeatother
+\lhead{Evan P. Walsh}
+\chead{MATH 502: Assignment VI}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{1}
+\begin{Solution}
+  Let $A := \left\{ f \in X : f(0) = 1 \text{ and } V(f) \leq 1 \right\}$.
+
+  \begin{claim}
+    $A$ is complete.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $\left\{ f_n \right\}_{n=0}^{\infty}$ is Cauchy in $X$ such that $f_n \in A$ for all $n \in \mathbb{N}$. Let $f =
+    \lim_{n\rightarrow\infty}f_n$. Then clearly $f(0) = 1$ and for any partition $P = (x_0, x_1, \dots, x_k)$ of $[0,1]$,
+    \[
+      V(f,P) = \sum_{j=1}^{k}|f(x_j) - f(x_{j-1})| = \lim_{n\rightarrow\infty}\sum_{j=1}^{k}|f(x_j) - f(x_{j-1})| \leq 1,
+    \]
+    so $V(f) \leq 1$. Hence $f \in A$, and so $A$ is complete.
+  \end{claimproof}
+
+  \begin{claim}
+    $A$ is not compact.
+  \end{claim}
+  \begin{claimproof}
+    Consider the sequence of functions $\left\{ f_n \right\}_{n=0}^{\infty}$ where 
+    \[
+      f_{n}(x) := \left\{ \begin{array}{cl}
+          1 & \text{ if } x = 0 \\
+          1 - 2^{n}x & \text{ if } 0 \leq x \leq 2^{-n} \\
+          0 & \text{ if } 2^{-n} < x \leq 1.
+      \end{array} \right.
+    \]
+    Then clearly $f_n \in A$ for all $n \in \mathbb{N}$. However, the $\left\{ f_n : n \in \mathbb{N} \right\} \subset A$ is not equicontinuous since for all $x \in (0,1]$,
+    \[
+      |f_n(0) - f_n(x)| = 1
+    \]
+    whenever $n \in \mathbb{N}$ such that $2^{-n} \leq x$. Hence $A$ is not equicontinuous. So by Corollary C.3 (p. 167), $A$ is not compact.
+  \end{claimproof}
+
+\end{Solution}
+
+
+\newpage
+\subsection*{2}
+\begin{Solution}
+  Let $A := \overline{V(B_1[0])}$.
+
+  \begin{claim}
+    $A$ is bounded.
+  \end{claim}
+  \begin{claimproof}
+    Let $f \in A$. Then there exists a sequence of functions $\left\{ f_n \right\}_{n=0}^{\infty}$ in $V(B_1[0])$ such that $f_n \rightarrow f$. Now, for each
+    $n \in \mathbb{N}$, there exists $g_n \in B_1[0]$ such that $f(x) = \int_{0}^{x}g_n(t)dt$. Thus, for all $x \in [0,1]$,
+    \[
+      |f(x)| = \lim_{n\rightarrow\infty}|f_n(x)| \leq \limsup_{n\rightarrow\infty}\int_{0}^{x}|g_n(t)|dt \leq 1.
+    \]
+    Hence $A$ is bounded.
+  \end{claimproof}
+
+  \begin{claim}
+    $A$ is equicontinuous.
+  \end{claim}
+  \begin{claimproof}
+    Let $\epsilon > 0$ and $x \in [0,1]$. Then let $\delta := \epsilon$. Now suppose $f \in A$ and $y \in [0,1]$ such that $|x - y| < \delta$. 
+    
+    Then there exists a sequence of functions $\left\{
+    f_n \right\}_{n=0}^{\infty}$ in $V(B_1[0])$ such that $f_n \rightarrow f$, and for each $n \in \mathbb{N}$, there exists $g_n \in B_1[0]$ such that 
+    $f_n(x) = \int_{0}^{x}g_n(t)dt$. Without loss of generality assume $x < y$. Then
+    \begin{align*}
+      |f(x) - f(y)| = \lim_{n\rightarrow\infty}|f_n(x) - f_n(y)| & = \lim_{n\rightarrow\infty}\left|\int_{x}^{y}g_n(t)dt\right| \\
+      & \leq \limsup_{n\rightarrow\infty} \int_{x}^{y}|g_n(t)|dt \\
+      & \leq \limsup_{n\rightarrow\infty} |x-y| < \delta = \epsilon.
+    \end{align*}
+    Thus, since $x \in [0,1]$ was arbitrary, $A$ is equicontinuous.
+  \end{claimproof}
+
+  By claims 1 and 2 and Corollary C.3 (p. 167), $A$ is compact.
+\end{Solution}
+
+\subsection*{3}
+\begin{Solution}
+  \begin{enumerate}
+    \item[2.] Let $x \in \overline{S\cup T}$. Let $F_1, F_2$ be closed such that $F_1$ contains $S$ and $F_2$ contains $T$. Then $F_1 \cup F_2
+      \supseteq S\cup T$ is closed, and thus $x \in F_1 \cup F_2$. Hence $x \in F_1$ or $x \in F_2$. So $x \in \overline{S}$ or $x \in \overline{T}$. Thus 
+      $\overline{S\cup T} \subseteq \overline{S} \cup \overline{T}$.
+
+      Now suppose $x \in \overline{S} \cup \overline{T}$. Let $F \supseteq S\cup T$ be closed. So $F \supseteq S$ and $F \supseteq T$. Hence $x \in
+      F$, and so $x \in \overline{S\cup T}$. Therefore $\overline{S\cup T} = \overline{S} \cup \overline{T}$.
+
+      Now let $x \in \overline{S} - \overline{T}$. By way of contradiction suppose $x \notin \overline{S - T}$. Then there exists open $U$ such that
+      $x \in U$ and
+      \begin{equation}
+        U \cap (S - T) = \emptyset.
+        \label{3.1}
+      \end{equation}
+      But $x \in \overline{S} - \overline{T} \subseteq \overline{S}$. So $u \cap S \neq \emptyset$. Thus, by \eqref{3.1}, $U \subseteq T$, and so $x
+      \in T \subseteq \overline{T}$. This is a contradiction.
+
+    \item[4.] (a) Suppose $(X, \tau)$ is second countable. Let $\left\{ U_n \right\}_{n=0}^{\infty}$ be a base for $\tau$. Let $x \in X$. Then let
+      $\mathcal{B}_{x} := \left\{ U_{n} : x \in U_n \right\}$. Then clearly $\mathcal{B}_x \subseteq \mathcal{N}_{x}$ and is countable.
+
+      (b) Suppose $(X, d)$ is a separable metric space. Let $\left\{ r_n \right\}_{n=0}^{\infty}$ be an enumeration of a countable, dense subset of
+      $X$. Let $\mathcal{B} := \{\emptyset\} \cup \left\{ B_{2^{-k}}(r_n) : n, k \in \mathbb{N} \right\}$. Clearly $\mathcal{B}$ is countable, so it remains to show that
+      $\mathcal{B}$ is actually a base. Let $U \in \tau$. We need to show that $U$ can be expressed as the union of sets in $\mathcal{B}$. If $U =
+      \emptyset$, this is trivial. Otherwise, let
+      \[
+        A := \bigcup \left\{ B_{2^{-k}}(x) : \exists k, n \in \mathbb{N} \text{ such that } x  = r_n \in U \text{ and } B_{2^{-k}}(x) \subseteq
+        U\right\}.
+      \]
+      We claim that $A = U$. Clearly $A \subseteq U$. Now let $x \in U$. Then there exists $\epsilon > 0$ such that $B_{\epsilon}(x) \subset U$.
+      Now let $k_{0} \in \mathbb{N}$ such that $2^{-k_0} < \epsilon / 4$.
+      Since $\left\{ r_n \right\}$ dense in $X$, there exists $n_0 \in \mathbb{N}$ such that $r_{n_0} \in B_{2^{-k_0}}(x)$.
+      Then $x \in B_{2^{-k_0}}(r_{n_0}) \subseteq B_{\epsilon}(x) \subset U$. Thus $B_{2^{-k_0}}(r_{n_0}) \subseteq A$ by definition, and so $x \in
+      A$. Hence $U \subseteq A$.
+
+    \item[6.] (a) Let $a \in \mathbb{Z}$. Then for any $N \in \mathfrak{N}_a$, there exists $b \in \mathbb{Z^+}$ such that $N_{a,b} \subseteq N$. But $x
+      \in N_{a,b}$ so $x \in N$. It is also clear by the definition that $M \in \mathfrak{N}_{a}$ for any $M \supseteq N$. Hence (a) and (b) of
+      Theorem 3.1.10 are satisfied. Further, $U := N_{a,b} \in \mathfrak{N}_a$ and for each $y \in U$, $y \in N_{y,b} = U \in \mathfrak{N}_{y}$. So
+      (d) is also satisfied.
+      Now suppose $N_1, N_2 \in \mathfrak{N}_a$. Then there exists $b_1, b_2 \in \mathbb{Z^+}$ such that $N_1 \supseteq N_{a,b_1}$ and $N_2\supseteq
+      N_{a,b_2}$. But then $N_{a,b_1\times b_2} \subseteq N_{a,b_1}\cap N_{a,b_2} \subseteq N_1\cap N_2$, and so $N_1\cap N_2 \in \mathfrak{N}_a$.
+      Thus (c) is satisfied.
+
+      (b) Suppose $U \neq \emptyset$ is open. Then by Theorem 3.1.10, for any $a \in U$, $U \in \mathfrak{N}_{a}$ and thus there exists $b \in
+      \mathbb{Z}^+$ such that
+      $N_{a,b} \subseteq U$. But $N_{a,b}$ is infinite, and therefore $U$ is infinite.
+
+      (c)
+  \end{enumerate}
+\end{Solution}
+
+
+\end{document}
