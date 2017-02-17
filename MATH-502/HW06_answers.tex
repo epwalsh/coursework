@@ -174,9 +174,69 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \mathbb{Z}^+$ such that
       $N_{a,b} \subseteq U$. But $N_{a,b}$ is infinite, and therefore $U$ is infinite.
 
-      (c)
+      (c) Clearly each $N_{a,b}$ is open since $N_{a,b} \in \mathfrak{N}_{y}$ for each $y \in N_{a,b}$. But then
+      \[
+        \mathbb{Z} - N_{a,b} = \bigcup_{y=a+1}^{a+|b|-1}N_{y,b}
+      \]
+      is open as well.
+
+      (d) Let $a \in \mathbb{Z} - \{-1,1\}$. If $a = 0$, then $a \in N_{0,p}$ for all prime $p$, so $a \in \bigcup \left\{ N_{0,p} : p \text{ prime}
+      \right\}$.
+      If $a$ prime, then $a \in N_{0,a} \subseteq \bigcup \left\{ N_{0,p} : p \text{ prime} \right\}$. If $a$ not
+      prime, then there exists a prime $p'$ such that $a$ is divisible by $p'$, i.e. $a = np'$ for some $n \in \mathbb{Z} - \{0, 1\}$.
+      Thus $a \in N_{0,p'} \subseteq \bigcup\left\{ N_{0,p} : p \text{ prime} \right\}$. Therefore $\mathbb{Z} - \left\{ -1,1 \right\} = \bigcup
+      \left\{ N_{0,p} : p \text{ prime} \right\}$.
+
+      (e) By way of contradiction suppose there are only finitely many primes, i.e. 
+      \[
+        \mathbb{Z} - \left\{ -1,1 \right\} = \bigcup_{i=1}^{n}N_{0,p_i}
+      \]
+      where $p_1, \dots, p_n$ are all of the primes.
+      By part (b), $\left\{ -1,1 \right\}$ is not open, and therefore $\mathbb{Z} - \left\{ -1,1 \right\}$ is not closed.
+      But by part (c), $\bigcup_{i=1}^{n}N_{0,p_i}$ is closed. This is a contradiction.
   \end{enumerate}
 \end{Solution}
 
+\newpage
+\subsection*{4}
+\begin{Solution}
+  Yes, this topological space is Hausdorff. Let $x \neq y \in \mathbb{Z}$. Let $b := |x-y| + 1$. Then we claim that $N_{x,b} \cap N_{y,b} =
+  \emptyset$. By way of contradiction suppose not. Then there exists $n,k \in \mathbb{Z}$ such that
+  \[
+    x + nb = y + kb \qquad \Leftrightarrow \qquad x + n|x-y| + n = y + k|x-y| + k.
+  \]
+  Without loss of generality assume $x > y$. Then we have 
+  \[
+    (1 + n-k)(x-y) = k - n.
+  \]
+  So clearly $n - k \neq -1$. Thus 
+  \[
+    x - y = \frac{k-n}{1 + n-k} \in \mathbb{Z}^+.
+  \]
+  Hence $|k-n| > |1 + n-k|$. But if $k - n > 0$, then $1 + n-k < 0$. This contradicts $x - y > 0$. If $k - n = 0$, then $x - y = 0$, also a
+  contradiction. Lastly, if $k - n < 0$, then $1 + n - k > 0$, which also contradicts $x - y > 0$.
+  Thus every case leads to a contradiction.
+
+  Hence $N_{x,b} \cap N_{y,b} = \emptyset$, and since $N_{x,b}, N_{y,b} \in \tau$, the space is Hausdorff.
+\end{Solution}
+
+
+\subsection*{5}
+\begin{Solution}
+  (a) No, this space is not Hausdorff. Consider $(a_1, b_1), (a_2, b_2) \in \mathbb{R}^2$. Then 
+  \[
+    B_{a_1,b_1} \cap B_{a_2,b_2} = B_{c,d} \neq \emptyset
+  \]
+  where $c := \max\left\{ a_1,a_2 \right\}$ and $d := \max\left\{ b_1,b_2 \right\}$. So every finite collection of sets in the base $\mathcal{B}$ have
+  nonempty intersection. Therefore the space cannot be Hausdorff.
+
+  (b) First note that since any open set in $\tau$ is the union of sets in $\mathcal{B}$, every closed subset of $\mathbb{R}^2$ is the intersection of
+  sets of the form $E_{x,y} := \mathbb{R}^2 - B_{x,y}$. Hence $F := \overline{\left\{ (a,b) \right\}}$ is the intersection of sets of the form
+  $E_{x,y}$ with $(a,b) \in E_{x,y}$. But 
+  \[
+    \bigcap \left\{ E_{x,y} : x,y \in \mathbb{R}, (a,b) \in E_{x,y} \right\} = \left\{ (x,y) \in \mathbb{R} : x \leq a, y \leq b \right\}.
+  \]
+  So $F = \left\{ (x,y) \in \mathbb{R} : x \leq a, y \leq b \right\}$.
+\end{Solution}
 
 \end{document}
