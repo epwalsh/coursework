@@ -99,7 +99,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{claim}
   \begin{claimproof}
     Let $f \in A$. Then there exists a sequence of functions $\left\{ f_n \right\}_{n=0}^{\infty}$ in $V(B_1[0])$ such that $f_n \rightarrow f$. Now, for each
-    $n \in \mathbb{N}$, there exists $g_n \in B_1[0]$ such that $f(x) = \int_{0}^{x}g_n(t)dt$. Thus, for all $x \in [0,1]$,
+    $n \in \mathbb{N}$, there exists $g_n \in B_1[0]$ such that $f_n(x) = \int_{0}^{x}g_n(t)dt$. Thus, for all $x \in [0,1]$,
     \[
       |f(x)| = \lim_{n\rightarrow\infty}|f_n(x)| \leq \limsup_{n\rightarrow\infty}\int_{0}^{x}|g_n(t)|dt \leq 1.
     \]
@@ -142,7 +142,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         U \cap (S - T) = \emptyset.
         \label{3.1}
       \end{equation}
-      But $x \in \overline{S} - \overline{T} \subseteq \overline{S}$. So $u \cap S \neq \emptyset$. Thus, by \eqref{3.1}, $U \subseteq T$, and so $x
+      But $x \in \overline{S} - \overline{T} \subseteq \overline{S}$. So $U \cap S \neq \emptyset$. Thus, by \eqref{3.1}, $U \subseteq T$, and so $x
       \in T \subseteq \overline{T}$. This is a contradiction.
 
     \item[4.] (a) Suppose $(X, \tau)$ is second countable. Let $\left\{ U_n \right\}_{n=0}^{\infty}$ be a base for $\tau$. Let $x \in X$. Then let
@@ -223,12 +223,14 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{5}
 \begin{Solution}
-  (a) No, this space is not Hausdorff. Consider $(a_1, b_1), (a_2, b_2) \in \mathbb{R}^2$. Then 
+  (a) No, this space is not Hausdorff. By way of contradiction suppose it is Hausdorff. Let $z_1 = (x_1, y_1), z_2 = (x_2, y_2) \in \mathbb{R}^2$,
+  $z_1 \neq z_2$. Then there exists $U, T \in \tau$ such that $z_1 \in U$, $z_2 \in T$ and $U \cap T = \emptyset$.
+  But since $\mathcal{B}$ is the base for $\tau$, $U$ and $T$ are the union of basic sets. Hence, there exists 
+  $(a_1, b_1), (a_2, b_2) \in \mathbb{R}^2$ such that $z_1 \in B_{a_1,b_1} \subset U$ and $z_2 \in B_{a_2,b_2}\subset T$. But
   \[
     B_{a_1,b_1} \cap B_{a_2,b_2} = B_{c,d} \neq \emptyset
   \]
-  where $c := \max\left\{ a_1,a_2 \right\}$ and $d := \max\left\{ b_1,b_2 \right\}$. So every finite collection of sets in the base $\mathcal{B}$ have
-  nonempty intersection. Therefore the space cannot be Hausdorff.
+  where $c := \max\left\{ a_1,a_2 \right\}$ and $d := \max\left\{ b_1,b_2 \right\}$. This is a contradiction.
 
   (b) First note that since any open set in $\tau$ is the union of sets in $\mathcal{B}$, every closed subset of $\mathbb{R}^2$ is the intersection of
   sets of the form $E_{x,y} := \mathbb{R}^2 - B_{x,y}$. Hence $F := \overline{\left\{ (a,b) \right\}}$ is the intersection of sets of the form
