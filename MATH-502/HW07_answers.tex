@@ -97,4 +97,56 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Solution}
 
 
+\subsection*{2}
+\begin{Solution}
+  Let $\tau$ be defined by $U \in \tau$ if $U = \emptyset$ or $\mathbb{R} - U$ countable.
+  \begin{enumerate}
+    \item[(a)] Yes, $f$ is continuous. Note that if $F$ closed in $\tau$, then $F$ countable. Therefore $f^{-1}[F]$ is clearly also countable, and
+      thus is closed in $\tau$ as well.
+
+    \item[(b)] No. Note that $[0,1]$ is closed in $|\cdot|$, but $f^{-1}([0,1]) = [-1,1]$ is not closed in $\tau$ since it is uncountable.
+
+    \item[(c)] No. Let $F := f[\mathbb{Q}]$, which is countable and therefore closed in $\tau$. But $f^{-1}[F] = \mathbb{Q}$ is not closed in
+      $|\cdot|$.
+  \end{enumerate}
+\end{Solution}
+
+
+\subsection*{3}
+\begin{Solution}
+  Let $I$ be a proper ideal in $\mathcal{R}$. Let $\mathcal{S}$ be the set of all proper ideals in $\mathcal{R}$ containing $I$. Then $\mathcal{S}$ is an ordered
+  set with the ordering of set inclusion, i.e. we say $I_1 \preceq I_2$ iff $I_1 \subseteq I_2$. Now let $\mathcal{A}$ be a totally ordered subset of
+  $\mathcal{S}$.
+
+  \begin{claim}
+    $\mathcal{A}$ has an upper bound.
+  \end{claim}
+  \begin{claimproof}
+    Let $\tilde{I} := \cup_{I\in \mathcal{A}}I$. 
+
+    \begin{subclaim}
+      $\tilde{I}$ is an ideal. 
+    \end{subclaim}
+    \begin{subclaimproof}
+      Let $a \in \tilde{I}$. Then $a \in I_a$ for some $I_a \in \mathcal{A}$. Hence $ra \in I_a \subseteq \tilde{I}$ for all $r \in \mathcal{R}$. Now
+      take any $a, b \in \tilde{I}$. Then there exists $I_a, I_b \in \mathcal{A}$ such that $a \in I_a$ and $b \in I_b$. Since $\mathcal{A}$ is
+      totally ordered, either $I_a \subseteq I_b$ or $I_b \subseteq I_a$. Without loss of generality assume $I_a \subseteq I_b$. Then $a, b \in I_b$,
+      and thus $a - b \in I_b \subseteq \tilde{I}$.
+    \end{subclaimproof}
+    
+    To see that $\tilde{I}$ is a proper ideal, assume not. Then $1 \in
+    \tilde{I}$ and hence
+    $1 \in I_0$ for some $I_0 \in \mathcal{A}$. But then $I_0$ is not a proper ideal. This is a contradiction. Thus $\tilde{I}$ is proper.
+    Also clearly $I \subseteq \tilde{I}$.
+    Hence $\tilde{I} \in \mathcal{A}$, and since
+    $I' \preceq \tilde{I}$ for
+    all $I' \in \mathcal{A}$, we have that $\tilde{I}$ is an upper bound for $\mathcal{A}$.
+
+  \end{claimproof}
+
+  By Claim 1, the conditions for Zorn's Lemma apply to $\mathcal{S}$. Hence $\mathcal{S}$ has a maximal element, i.e. $I$ is contained in a maximal
+  ideal.
+\end{Solution}
+
+
 \end{document}
