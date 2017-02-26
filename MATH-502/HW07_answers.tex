@@ -149,4 +149,102 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{Solution}
 
 
+
+\newpage
+\subsection*{4}
+\begin{Solution}
+  \begin{enumerate}
+    \item[4.] Let $S' := \left\{ x \in X : x \text{ is the limit of a sequence in }S \right\}$.
+
+      First we will show that $\overline{S} \subseteq S'$. 
+      Let $x \in \overline{S}$ and let $\mathcal{B}_x = \left\{ B_k \right\}_{k=0}^{\infty}$ be a countable base for $\mathcal{N}_x$. Then for
+      each $n \in \mathbb{N}$, there exists 
+      \[
+        x_n \in \left( \bigcap_{k=0}^{n}B_k \right) \cap S
+      \]
+      by Proposition 3.1.18. We claim then that $x_n \rightarrow x$. Thus, we need to show that for any $N \in \mathcal{N}_x$, there exists $n_{N} \in
+      \mathbb{N}$ such that if $n \geq n_{N}$, then $x_n \in N$. Well, since $\mathcal{B}_x$ is a base, there exists $n_{N} \in \mathbb{N}$ such that
+      $B_{n_N} \subseteq N$, and therefore $x_n \in \cap_{k=0}^{n}B_{k} \subseteq \cap_{k=0}^{n_{N}}B_k \subseteq N$ for all $n \geq n_{N}$.
+      So $x = \lim x_n$. Hence $\overline{S} \subseteq S'$.
+
+      Now let $x \in S'$ so that there exists a sequence $\left\{ x_n \right\}_{n=0}^{\infty}$ in $S$ converging to $x$. By way of contradiction
+      suppose $x \in U:= X - \overline{S}$. Then there exists $n_{U} \in \mathbb{N}$ such that if $n \geq n_{U}$ then $x_n \in U$. But this is a
+      contradiction since $x_n \in S \subseteq \overline{S}$ for all $n \in \mathbb{N}$. Thus $x \in \overline{S}$, and so $S' \subseteq
+      \overline{S}$.
+
+    \item[5.] (a) Let $I$ be an ideal of $S$. Then for $a,b \in \phi^{-1}[I]$ and $r \in R$, $\phi(a) - \phi(b) \in I$ and $\phi(r)\phi(a) \in I$, so
+      $a - b, ra \in \phi^{-1}[I]$ since $\phi$ is a homomorphism. Further, if $I$ is proper, then $1 \notin I$, and therefore $1 \notin \phi^{-1}[I]$
+      since $\phi$ is unital. Hence $\phi^{-1}[I]$ proper when $I$ is proper. Lastly, if $I$ is prime, then for $a, b \in R$, if $ab \in
+      \phi^{-1}[I]$, then $\phi(ab) = \phi(a)\phi(b) \in I$, and so either $\phi(a) \in I$ or $\phi(b) \in I$. Without loss of generality assume
+      $\phi(a) \in I$. Then clearly $a \in \phi^{-1}[I]$. Hence $\phi^{-1}[I]$ is prime when $I$ is prime.
+
+      (b) Let $F$ be closed in in Spec$(\mathcal{R})$. Then there exists an ideal $I$ of $\mathcal{R}$ such that $F = V(I)$. Note that since
+      $\phi^{-1}$ is also a unital homomorphism, $\phi(I)$ is an ideal of $\mathcal{S}$ by part (a). Thus,
+      \begin{align*}
+        (\phi^*)^{-1}[F] & = \left\{ p \in \text{Spec}(\mathcal{S}) : \phi^*(p) \in F \right\} \\
+        & = \left\{ p \in \text{Spec}(\mathcal{S}) : \phi^{-1}[p] \in F \right\} \\
+        & = \left\{ p \in \text{Spec}(\mathcal{S}) : \phi^{-1}[p] \in \text{Spec}(\mathcal{R}) \wedge \phi^{-1}[p] \supseteq I \right\} \\
+        \text{(by part (a), since $\phi^{-1}[p]$ is a prime ideal)}\  & = \left\{ p \in \text{Spec}(\mathcal{S}) : \phi^{-1}[p] \supseteq I \right\} \\
+        & = V(\phi(I)),
+      \end{align*}
+      which by definition is closed in Spec$(\mathcal{S})$. Hence $\phi^*$ is continuous.
+
+    \item[11.] Let $C[0,1]:=C([0,1], \mathbb{F})$.
+      Let $f : [0,1] \rightarrow \mathcal{F}$ and $N \in N_f$. Thus there exists $C = \{x_1, \dots, x_n\} \in
+      \mathcal{F}$ and $\epsilon > 0$ with $N_{f,C,\epsilon} \subseteq N$. But since $\{x_1, \dots, x_n\}$ is a finite set of points in $[0,1]$,
+      there is a polynomial $p$ such that $\sup_{1\leq k \leq n}|f(x_k) - p(x_k)| < \epsilon$. Thus there exists a continuous function $p \in
+      N_{f,C,\epsilon}$. So $N \cap C[0,1] \supseteq N_{f,C,\epsilon}\cap C[0,1] \neq \emptyset$, i.e. $C[0,1]$ is dense in
+      $(F([0,1],\mathbb{F}),\mathcal{T}_{\mathcal{F}})$.
+
+      Now define $f : [0,1] \rightarrow \mathcal{F}$ by
+      \[
+        f(x) := \left\{ \begin{array}{cl}
+            1 & \text{ if } t \notin [0,1] \cap \mathbb{Q}, \\
+            0 & \text{ if } t \in [0,1] \cap \mathbb{Q}.
+        \end{array} \right.
+      \]
+      We claim that there is no sequence of continuous functions from $[0,1]$ to $\mathbb{F}$ that converges in $\mathcal{T}_{\mathcal{F}}$ to $f$.
+      Well, from Example 3.2.13(b), we know that convergence with respect to $\mathcal{T}_{\mathcal{F}}$ is pointwise convergence. However, by
+      Exercise 2.4.7, if $f$ is the limit of continuous functions in $C[0,1]$, then $f$ is continuous on a dense set in $[0,1]$.
+      However, this is clearly not the case since $f$ is nowhere continuous.
+  \end{enumerate}
+\end{Solution}
+
+\subsection*{5}
+\begin{Solution}
+  Let $\mathcal{B} := \left\{ U_{a,b} := [a,b) : a \leq b \wedge a,b\in \mathbb{R} \right\}$ and let $\tau$ be the topology associated with the base $\mathcal{B}$.
+  Also let $|\cdot|$ denote the usual topology on $\mathbb{R}$.
+
+  (a) Let $U \in |\cdot|$. Then $U$ is the union of a countable number of open intervals. Hence, to show that $U \in \tau$, it suffices to show that
+  any open interval $(a,b)$, $a,b \in \mathbb{R}$, can be expressed as the union of basic sets from $\mathcal{B}$, which clearly holds since 
+  \[
+    (a,b) = \bigcup_{n=0}^{\infty}[a + 2^{-n}, b) \in \tau.
+  \]
+
+  (b) By part (c) and Exercise 3.1.4(a), $\tau$ is first countable.
+
+  (c) Yes, $\tau$ is second countable. Consider the collection of open sets $\mathcal{B}' := \left\{ U_{a,b} : a \leq b \wedge a,b \in \mathbb{Q} \right\}$. Clearly
+  $\mathcal{B}'$ is countable and whenever $a < b$, $a,b \in \mathbb{R}$, there exists sequences $\left\{ r_{a,n} \right\}_{n=0}^{\infty}$ and 
+  $\left\{ r_{b,n} \right\}_{n=0}^{\infty}$ in $\mathbb{Q}$ such that $r_{a,n} \leq a < r_{b,n} < b$ for all $n \in \mathbb{N}$ since $\mathbb{Q}$ is
+  dense in $\mathbb{R}$ with respect to $|\cdot|$. Thus $U_{r_{a,n},r_{b,n}} \in \mathcal{B}'$ for all $n \in \mathbb{N}$ and 
+  \[
+    U_{a,b} = \bigcup_{n=0}^{\infty}U_{r_{a,n},r_{b,n}}.
+  \]
+  Hence, since any basic set $U_{a,b} \in \mathcal{B}$ can be expressed as the union of open sets in $\mathcal{B}'$, $\mathcal{B}'$ serves as a base
+  as well. So $\tau$ is second countable since $\mathcal{B}'$ is countable.
+
+  (d) Yes, $\tau$ is separable. We claim that $\mathbb{Q}$ is dense in $\tau$. By Exercise 3.2.4 and part (b), it suffices to show that for any $x \in
+  \mathbb{R}$, $x$ is the limit of a sequence of rationals with respect to $\tau$. Let $N \in \mathcal{N}_x$. Then there exists $a < b$ such that $x \in U_{a,b} \subset N$.
+  Since $\mathbb{Q}$ is dense with respect to $|\cdot|$, there exists a sequence of rationals $\left\{ r_n \right\}_{n=0}^{\infty}$ such that $r_n
+  \rightarrow x$ and $r_n > x$ for all $n \in \mathbb{N}$. Hence there exists $n_{a,b} \in\mathbb{N}$ such that for $|r_n - x| < |b - x|$,
+  and therefore $x < r_n < b$, for all $n
+  \geq n_{a,b}$. Hence $r_n \in U_{a,b}$ for all $n \geq n_{a,b}$. So $x = \lim r_n$ with respect to $\tau$.
+\end{Solution}
+
+\subsection*{6}
+\begin{Solution}
+  By the work done in 5(c), $\tau' \supseteq \tau$. But since $\mathcal{B}' \subseteq \mathcal{B}$, we also clearly have $\tau' \subseteq \tau$.
+  Hence the answers to this problem are the same as to problem 5.
+\end{Solution}
+
 \end{document}
