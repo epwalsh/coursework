@@ -215,23 +215,21 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Let $\mathcal{B} := \left\{ U_{a,b} := [a,b) : a \leq b \wedge a,b\in \mathbb{R} \right\}$ and let $\tau$ be the topology associated with the base $\mathcal{B}$.
   Also let $|\cdot|$ denote the usual topology on $\mathbb{R}$.
 
-  (a) Let $U \in |\cdot|$. Then $U$ is the union of a countable number of open intervals. Hence, to show that $U \in \tau$, it suffices to show that
+  (a) Let $U \in |\cdot|$. Then $U$ is the union of a countable number of open (with respect to $|\cdot|$) intervals. Hence, to show that $U \in \tau$, it suffices to show that
   any open interval $(a,b)$, $a,b \in \mathbb{R}$, can be expressed as the union of basic sets from $\mathcal{B}$, which clearly holds since 
   \[
     (a,b) = \bigcup_{n=0}^{\infty}[a + 2^{-n}, b) \in \tau.
   \]
 
-  (b) By part (c) and Exercise 3.1.4(a), $\tau$ is first countable.
+  (b) Yes. For each $x \in \mathbb{R}$, the collection $B_x := \left\{ U_{x,x+2^{-n}} : n \in \mathbb{N} \right\}$ is a countable neighborhood base at
+  $x$.
 
-  (c) Yes, $\tau$ is second countable. Consider the collection of open sets $\mathcal{B}' := \left\{ U_{a,b} : a \leq b \wedge a,b \in \mathbb{Q} \right\}$. Clearly
-  $\mathcal{B}'$ is countable and whenever $a < b$, $a,b \in \mathbb{R}$, there exists sequences $\left\{ r_{a,n} \right\}_{n=0}^{\infty}$ and 
-  $\left\{ r_{b,n} \right\}_{n=0}^{\infty}$ in $\mathbb{Q}$ such that $r_{a,n} \leq a < r_{b,n} < b$ for all $n \in \mathbb{N}$ since $\mathbb{Q}$ is
-  dense in $\mathbb{R}$ with respect to $|\cdot|$. Thus $U_{r_{a,n},r_{b,n}} \in \mathcal{B}'$ for all $n \in \mathbb{N}$ and 
+  (c) No. By way of contradiction suppose there exists a countable base $\tilde{\mathcal{B}}$ of $\tau$. Then since $\mathbb{R}$ is uncountable, there must
+  exist some $a_0 \in \mathbb{R}$ such that every set of the form $U_{a_0,b} \cup O$, where $a_0 < b$ and $O$ is open and disjoint from $U_{a_0,b}$, is NOT a basic set with respect to
+  $\tilde{\mathcal{B}}$. But this is a contradiction since for any $b > a_0$, $U_{a_0,b}$ cannot be expressed as the union of sets in $\tilde{\mathcal{B}}$, for 
   \[
-    U_{a,b} = \bigcup_{n=0}^{\infty}U_{r_{a,n},r_{b,n}}.
+    \bigcup \{B \in \tilde{\mathcal{B}} : B\subset U_{a_0,b}\} \subseteq (a_0, b) \neq U_{a_0,b}.
   \]
-  Hence, since any basic set $U_{a,b} \in \mathcal{B}$ can be expressed as the union of open sets in $\mathcal{B}'$, $\mathcal{B}'$ serves as a base
-  as well. So $\tau$ is second countable since $\mathcal{B}'$ is countable.
 
   (d) Yes, $\tau$ is separable. We claim that $\mathbb{Q}$ is dense in $\tau$. By Exercise 3.2.4 and part (b), it suffices to show that for any $x \in
   \mathbb{R}$, $x$ is the limit of a sequence of rationals with respect to $\tau$. Let $N \in \mathcal{N}_x$. Then there exists $a < b$ such that $x \in U_{a,b} \subset N$.
@@ -243,8 +241,31 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{6}
 \begin{Solution}
-  By the work done in 5(c), $\tau' \supseteq \tau$. But since $\mathcal{B}' \subseteq \mathcal{B}$, we also clearly have $\tau' \subseteq \tau$.
-  Hence the answers to this problem are the same as to problem 5.
+  Let $\mathcal{B}' := \left\{ U_{a,b} := [a,b) : a \leq b \wedge a,b\in \mathbb{Q} \right\}$ and let $\tau'$ be the topology associated with the base 
+  $\mathcal{B}'$.
+  Also let $|\cdot|$ denote the usual topology on $\mathbb{R}$.
+
+  (a) Let $U \in |\cdot|$. Then $U$ is the union of a countable number of open (with respect to $|\cdot|$) intervals. Hence, to show that $U \in \tau'$, it suffices to show that
+  any open interval $(a,b)$, $a,b \in \mathbb{R}$, can be expressed as the union of basic sets from $\mathcal{B}'$. Well, since $\mathbb{Q}$ is dense
+  in $\mathbb{R}$ with respect to $|\cdot|$, there exists sequences $\left\{ r_{a,n} \right\}_{n=0}^{\infty}$ and $\left\{ r_{b,n}
+  \right\}_{n=0}^{\infty}$ is $\mathbb{Q}$ such that $a < r_{a,n} < r_{b,n} < b$ for all $n \in \mathbb{N}$ and $|r_{a,n} - a|, |r_{b,n} - b|
+  \rightarrow 0$ as $n\rightarrow\infty$. Then $U_{r_{a,n},r_{b,n}} \in \mathcal{B}'$ for each $n \in \mathbb{N}$ and 
+  \[
+    (a,b) = \bigcup_{n=0}^{\infty}U_{r_{a,n},r_{b,n}} \in \tau.
+  \]
+
+  (b) By part (c) and Exercise 3.1.4(a), $\tau'$ is first countable.
+
+  (c) Yes, $\tau'$ is second countable since $\mathcal{B}'$ is countable.
+
+  (d) Yes, $\tau'$ is separable. We claim that $\mathbb{Q}$ is dense in $\tau'$. By Exercise 3.2.4 and part (b), it suffices to show that for any $x \in
+  \mathbb{R}$, $x$ is the limit of a sequence of rationals with respect to $\tau'$. Let $N \in \mathcal{N}_x$. Then there exists $a < b$ with $a,b \in
+  \mathbb{Q}$ such that $x \in U_{a,b} \subset N$.
+  Since $\mathbb{Q}$ is dense with respect to $|\cdot|$, there exists a sequence of rationals $\left\{ r_n \right\}_{n=0}^{\infty}$ such that 
+  $|r_n - x| \rightarrow 0$ and $r_n > x$ for all $n \in \mathbb{N}$. Hence there exists $n_{a,b} \in\mathbb{N}$ such that for $|r_n - x| < |b - x|$,
+  and therefore $x < r_n < b$, for all $n
+  \geq n_{a,b}$. Hence $r_n \in U_{a,b}$ for all $n \geq n_{a,b}$. So $x = \lim r_n$ with respect to $\tau'$.
+
 \end{Solution}
 
 \end{document}
