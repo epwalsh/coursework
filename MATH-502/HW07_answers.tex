@@ -99,7 +99,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{2}
 \begin{Solution}
-  Let $\tau$ be defined by $U \in \tau$ if $U = \emptyset$ or $\mathbb{R} - U$ countable.
+  Let $\tau$ be defined by $U \in \tau$ if and only if $U = \emptyset$ or $\mathbb{R} - U$ countable.
   \begin{enumerate}
     \item[(a)] Yes, $f$ is continuous. Note that if $F$ closed in $\tau$, then $F$ countable. Therefore $f^{-1}[F]$ is clearly also countable, and
       thus is closed in $\tau$ as well.
@@ -226,10 +226,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
   (c) No. By way of contradiction suppose there exists a countable base $\tilde{\mathcal{B}}$ of $\tau$. Then since $\mathbb{R}$ is uncountable, there must
   exist some $a_0 \in \mathbb{R}$ such that every set of the form $U_{a_0,b} \cup O$, where $a_0 < b$ and $O$ is open and disjoint from $U_{a_0,b}$, is NOT a basic set with respect to
-  $\tilde{\mathcal{B}}$. But this is a contradiction since for any $b > a_0$, $U_{a_0,b}$ cannot be expressed as the union of sets in $\tilde{\mathcal{B}}$, for 
+  $\tilde{\mathcal{B}}$. But this leads to a contradiction, since for every $b > a_0$,
   \[
-    \bigcup \{B \in \tilde{\mathcal{B}} : B\subset U_{a_0,b}\} \subseteq (a_0, b) \neq U_{a_0,b}.
+    \bigcup \{B \in \tilde{\mathcal{B}} : B\subset U_{a_0,b}\} \subseteq (a_0, b) \subsetneq U_{a_0,b}
   \]
+  by the way in which $a_0$ was chosen. Thus $U_{a_0,b}$ cannot be expressed as the union of sets in $\tilde{\mathcal{B}}$, a contradiction.
 
   (d) Yes, $\tau$ is separable. We claim that $\mathbb{Q}$ is dense in $\tau$. By Exercise 3.2.4 and part (b), it suffices to show that for any $x \in
   \mathbb{R}$, $x$ is the limit of a sequence of rationals with respect to $\tau$. Let $N \in \mathcal{N}_x$. Then there exists $a < b$ such that $x \in U_{a,b} \subset N$.
@@ -238,6 +239,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   and therefore $x < r_n < b$, for all $n
   \geq n_{a,b}$. Hence $r_n \in U_{a,b}$ for all $n \geq n_{a,b}$. So $x = \lim r_n$ with respect to $\tau$.
 \end{Solution}
+
+\newpage
 
 \subsection*{6}
 \begin{Solution}
