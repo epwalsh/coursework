@@ -1,0 +1,132 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+\usepackage{eufrak}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 502: Assignment VIII}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 502 -- ASSIGNMENT VIII -- spring 2017} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+
+\subsection*{1 [Sec. 3.3 \#2, 4, 7, and 8]}
+\begin{Solution}
+  \begin{enumerate}
+    \item[\# 2.] The forward direction of the proof is trivial by the definition of compactness. For the reverse direction, suppose that each open
+      cover of $X$ consisting of basic sets has a finite subcover. Let $\mathcal{O}$ be an open cover of $X$. Let 
+      \[
+        \mathcal{U} := \left\{ U \in \mathcal{B} : \exists\ O \in \mathcal{O} \text{ s.t. } U \subseteq O \right\}.
+      \]
+      Then since $\mathcal{B}$ is a base, 
+      \[
+        \bigcup_{O \in \mathcal{O}}O = \bigcup_{O \in \mathcal{O}}\left(\bigcup_{U\in \mathcal{U}, U \subseteq O}U \right)= \bigcup_{U\in \mathcal{U}}U.
+      \]
+      Thus $\mathcal{U}$ is a cover of $X$, so by assumption there exists $U_1, \dots, U_n \in \mathcal{U}$ such that 
+      \[ U_1 \cup \dots \cup U_n = X. \]
+      Now, for each $j = 1,\dots, n$, there exists $O_j \in \mathcal{O}$ such that $O_j \supseteq U_j$ Therefore 
+      \[ O_1 \cup \dots \cup O_n = X. \]
+      Hence $\mathcal{O}$ has a finite subcover. Since $\mathcal{O}$ was arbitrary, $X$ is compact.
+
+    \item[\# 4.] $(\Rightarrow)$ First suppose $f$ is continuous. Let $i \in \mathbb{I}$. We will show that $\pi_i \circ f$ is continuous by
+      showing that the pre-image of any open set in $Y_i$ is open in $X$.
+      To that end, let $U \in \tau_{i}$. Then by definition of $\tau_{Y}$,
+      $\pi_i^{-1}[U] \in \tau_Y$. Thus, since $f$ is continuous $f^{-1}\circ \pi_{i}^{-1}[U] \in \tau_X$. Hence $\pi_i \circ f$ is continuous.
+
+      $(\Leftarrow)$ Now suppose $\pi_i \circ f : X \rightarrow Y_i$ is continuous for all $i \in \mathbb{I}$. We will show that $f$ is continuous by
+      showing that the pre-image of any open set in $Y$ is open in $X$. To that end, let $U \in \tau_Y$. Then by Proposition 3.2.7, we may express $U$
+      as 
+      \[
+        U = \bigcup\left\{ \pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n] : U_{j} \in \tau_{i_j} \forall j = 1,\dots, n \wedge \pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n]
+        \subseteq U \right\},
+      \]
+      i.e. $U$ is the union of sets of the form $\pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n]$, where $U_j \in \tau_{i_j}$ for each $j =
+      1,\dots, n$. Now, by assumption $f^{-1}\circ \pi_{i_j}^{-1}[U_{j}] \in \tau_X$ whenever $U_j \in \tau_{i_j}$, and therefore 
+      \[
+        f^{-1}\left[ \cap_{j=1}^{n}\pi_{i_j}^{-1}[U_j] \right] = \bigcap_{j=1}^{n}f^{-1}\circ \pi_{i_j}^{-1}[U_j] \in \tau_X
+      \]
+      since the finite intersection of open sets is open. Hence
+      \begin{align*}
+        f^{-1}[U] & = f^{-1}\left[ \bigcup\left\{ \cap_{j=1}^{n} \pi_{i_j}^{-1}[U_j] : U_{j} \in \tau_{i_j} \forall j = 1,\dots,
+            n \wedge \cap_{j=1}^{n}\pi_{i_j}^{-1}[U_j]\subseteq U \right\} \right] \\
+            & = \bigcup \left\{ f^{-1}\left[ \cap_{j=1}^{n}\pi_{i_j}^{-1}[U_j] \right] : U_{j} \in \tau_{i_j} \forall j = 1,\dots, n
+          \wedge \cap_{j=1}^{n}\pi_{i_j}^{-1}[U_j]\subseteq U \right\}  \\
+          & = \bigcup \left\{ \bigcap_{j=1}^{n}f^{-1}\circ \pi_{i_j}^{-1}[U_{j}] : U_{j} \in \tau_{i_j} \forall j = 1,\dots, n \wedge \cap_{j=1}^n \pi_{i_j}^{-1}[U_j]\subseteq U \right\} 
+          \in \tau_X
+      \end{align*}
+      since the arbitrary union of open sets is open. Thus, since $U$ was arbitrary $f$ is continuous.
+
+    \item[\# 7.] $(\Rightarrow)$ First suppose $(X, \tau)$ is Hausdorff. Let $i_0 \in \mathbb{I}$. Without loss of generality assume $X_{i_0}$ has at
+      least two elements, otherwise we are done.
+      Let $x_{i_0}, y_{i_0} \in X_{i_0}$ such that $x_{i_0} \neq y_{i_0}$. Then for each $i \neq i_{0}$, choose $x_i \equiv y_i \in X_i$ so that 
+      $x := \left( x_i \right)_{i\in\mathbb{I}}, y := \left( y_i \right)_{i\in\mathbb{I}} \in X$ agree on every coordinate except $i_0$.
+      So, since $(X, \tau)$ is Hausdorff, there exists open $U,V \in \tau$ such that $x \in U$, $y \in V$ and $U \cap V = \emptyset$. Then by Proposition
+      3.2.7, $U$ and $V$ can be expressed as the union of sets of the form
+      \begin{equation}
+        \pi_{i_0}^{-1}[U_{0}] \cap \bigcap_{j=1}^{n} \pi_{i_j}^{-1}[U_j]   \ \text{ and }\ 
+        \pi_{i_0}^{-1}[V_{0}] \cap \bigcap_{k=1}^{m} \pi_{i_k}^{-1}[V_k]
+        \label{1.0}
+      \end{equation}
+      respectively, where $x_{i_j} \in U_j \in \tau_{i_j}, y_{i_k} \in V_{k} \in \tau_{i_k}$ for each $j = 0,\dots, n$, $k = 1,\dots,m$.
+      But since $x_{i_j} \equiv y_{i_j}$, $x_{i_k} \equiv y_{i_k}$ for all $j = 1, \dots, n$ and $k = 1,\dots, m$, 
+      \[
+        \left( \bigcap_{j=1}^{n}\pi_{i_j}^{-1}[U_j] \right) \cap \left( \bigcap_{k=1}^{m}\pi_{i_k}^{-1}[V_k] \right) \neq \emptyset.
+      \]
+      Thus it must be that the $U_0$ and $V_0$ in \eqref{1.0} are disjoint in $X_{i_0}$.
+      Hence $U_0$ is an open neighborhood of $x_{i_0}$ and $V_0$ is an open neighborhood of $y_{i_0}$ in $X_{i_0}$ with $U_0$, $V_0$ disjoint.
+      So since $i_0 \in \mathbb{I}$ and $x_{i_0}, y_{i_0}$ in $X_{i_0}$ were arbitrary, $(X_i, \tau_i)$ is Hausdorff for all $i \in \mathbb{I}$.
+
+      $(\Leftarrow)$ Now suppose $(X_i, \tau_i)$ is Hausdorff for each $i \in \mathbb{I}$. Let $x := (x_i)_{i\in\mathbb{I}} \neq y := \left( y_i
+      \right)_{i\in\mathbb{I}} \in X$. Then there exists $i_0 \in \mathbb{I}$ such that $x_{i_0} \neq y_{i_0}$. Now, since $(X_{i_0}, \tau_{i_0})$ is
+      Hausdorff, there exists $U_{0}, V_{0} \in \tau_{i_0}$ such that $x_{i_0} \in U_{0}, y_{i_0} \in V_0$ and $U_0 \cap V_0 = \emptyset$.
+      Then set $U := \pi_{i_0}^{-1}[U_0]$ and $V := \pi_{i_0}^{-1}[V_0]$. Then $U,V \in \tau$ by Proposition 3.2.7 and clearly $x \in U$, $y \in V$,
+      $U\cap V = \emptyset$. Hence $(X,\tau)$ is Hausdorff.
+
+    \item[\# 8.]
+  \end{enumerate}
+\end{Solution}
+
+
+
+\end{document}
