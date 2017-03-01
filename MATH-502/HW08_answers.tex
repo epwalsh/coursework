@@ -117,14 +117,41 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       Hence $U_0$ is an open neighborhood of $x_{i_0}$ and $V_0$ is an open neighborhood of $y_{i_0}$ in $X_{i_0}$ with $U_0$, $V_0$ disjoint.
       So since $i_0 \in \mathbb{I}$ and $x_{i_0}, y_{i_0}$ in $X_{i_0}$ were arbitrary, $(X_i, \tau_i)$ is Hausdorff for all $i \in \mathbb{I}$.
 
-      $(\Leftarrow)$ Now suppose $(X_i, \tau_i)$ is Hausdorff for each $i \in \mathbb{I}$. Let $x := (x_i)_{i\in\mathbb{I}} \neq y := \left( y_i
-      \right)_{i\in\mathbb{I}} \in X$. Then there exists $i_0 \in \mathbb{I}$ such that $x_{i_0} \neq y_{i_0}$. Now, since $(X_{i_0}, \tau_{i_0})$ is
+      $(\Leftarrow)$ Now suppose $(X_i, \tau_i)$ is Hausdorff for each $i \in \mathbb{I}$. Let $x := (x_i)_{i\in\mathbb{I}}, y := \left( y_i
+      \right)_{i\in\mathbb{I}} \in X$ such that $x \neq y$. Then there exists $i_0 \in \mathbb{I}$ such that $x_{i_0} \neq y_{i_0}$. Now, since $(X_{i_0}, \tau_{i_0})$ is
       Hausdorff, there exists $U_{0}, V_{0} \in \tau_{i_0}$ such that $x_{i_0} \in U_{0}, y_{i_0} \in V_0$ and $U_0 \cap V_0 = \emptyset$.
       Then set $U := \pi_{i_0}^{-1}[U_0]$ and $V := \pi_{i_0}^{-1}[V_0]$. Then $U,V \in \tau$ by Proposition 3.2.7 and clearly $x \in U$, $y \in V$,
       $U\cap V = \emptyset$. Hence $(X,\tau)$ is Hausdorff.
 
-    \item[\# 8.]
+    \item[\# 8.] $(\Rightarrow)$ Suppose $\left\{ (x,x) : x \in X \right\}$ is closed. Let $x_0, y_0 \in X$ such that $x_0 \neq y_0$.
+      Then 
+      \[
+        (x_0, y_0) \in X \times X - \left\{ (x,x) : x \in X \right\}, 
+      \]
+      which is open. So there exists an open $O \subseteq X \times X$ such that 
+      \[(x_0, y_0) \in O \subseteq X \times X - \left\{ (x,x) : x \in X \right\}.\] So by Proposition 3.2.7, $O$ can be expressed as the union of sets
+      of the form $U \times V$ where $U, V \in \tau$. Let $U_0, V_0$ be any such sets. So $x_0 \in U_0$ and $y_0 \in V_0$, and since 
+      \[
+        U_0 \times V_0 \subseteq X \times X - \left\{ (x,x) : x \in X \right\},
+      \]
+      it must be that $x \neq y$ for all $x \in U_0$ and $y \in V_0$. Hence $U_0 \cap V_0 = \emptyset$. So since $x_0, y_0 \in X$ were arbitrary, 
+      $(X, \tau)$ is Hausdorff.
+
+      $(\Leftarrow)$ Suppose $X$ is Hausdorff. Let
+      \[
+        (x_0,y_0) \in X\times X - \left\{ (x,x) : x \in X\right\}.
+      \]
+      Then $x_0 \neq y_0$, so
+      there exists open $U, V \subseteq X$ such that $x_0 \in U$, $y_0 \in V$ and $U \cap V = \emptyset$.
+      Then let $O := U \times V$, which is open in the topological product by Proposition 3.2.7.
+      Further, $(x_0, y_0) \in O$, and since $x \neq y$ for all $x \in U, y \in V$, $O \subseteq X\times X - \left\{ (x,x) : x \in X\right\}$.
+      Hence $X\times X - \left\{ (x,x) : x \in X\right\}$ is open, and so $\left\{ (x,x) : x \in X\right\}$ is closed.
   \end{enumerate}
+\end{Solution}
+
+\subsection*{2}
+\begin{Solution}
+  In problem 6 of the last homework we showed that $\tau$ second countable and finer than the usual topology on $\mathbb{R}$.
 \end{Solution}
 
 
