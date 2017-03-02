@@ -152,8 +152,71 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{2}
 \begin{Solution}
   In problem 6 of the last homework we showed that $\tau$ second countable and finer than the usual topology on $\mathbb{R}$.
+
+  \begin{claim}
+    $[0,1]$ is compact.
+  \end{claim}
+  \begin{claimproof}
+    Let $\mathcal{U}$ be an open cover of $[0,1]$ with respect to $\tau$.
+    By the result from Sec. 3.2 Exercise 2, we may assume without loss of generality that $\mathcal{U} \subseteq \mathcal{B}$.
+    Since $[0,1] \subseteq \bigcup_{U \in \mathcal{U}}U$, there exists $U_0 \equiv [a_0,b_0) \in \mathcal{U}$ such that $0 \in U_0$. Hence $a_0 \leq 0 \leq
+    b_0$. Now let $0 < \epsilon < b$, and set $I := [\epsilon, 1]$. Let $\mathcal{B}' := \{(a,b) : [a,b) \in \mathcal{B}\}$ so that $\mathcal{B}'$ is
+    an open cover of $I$ under the usual topology of $\mathbb{R}$. Hence there exists $(a_1, b_1), \dots, (a_n, b_n) \in \mathcal{B}'$ such that 
+    \[
+      I \subseteq \cup_{i=1}^{n}(a_i, b_i)
+    \]
+    since $I$ is compact under the usual topology. But then 
+    \[
+      [0,1] = [0,\epsilon) \cup [\epsilon, 1] \subseteq [a_0, b_0) \cup \bigcup_{i=1}^{n}(a_i, b_i) \subseteq [a_0, b_0) \cup \bigcup_{i=1}^{n}[a_i,
+      b_i),
+    \]
+    so $[a_0, b_0), [a_1, b_1), \dots, [a_n, b_n) \in \mathcal{B}$ is a finite subcover of $[0,1]$. Hence $[0,1]$ is compact in $\tau$.
+
+  \end{claimproof}
+
+  \begin{claim}
+    $\mathbb{R}$ is locally compact with respect to $\tau$.
+  \end{claim}
+  \begin{claimproof}
+    Let $x \in \mathbb{R}$. The work done in Claim 1 shows that any interval of the form $[a,b]$ is compact in $\tau$. Thus $[x,x+1]$ is compact and
+    is a neighborhood of $x$ since $[x,x+1]\supset [x,x+1) \in \tau$.
+    Since $x$ was arbitrary, $\mathbb{R}$ is locally compact with respect to $\tau$.
+  \end{claimproof}
+
 \end{Solution}
 
+\subsection*{3}
+\begin{Solution}
+  Let $\left\{ r_n \right\}_{n=0}^{\infty}$ be an enumeration of the rationals and define $f, g: (\mathbb{R}, \tau) \rightarrow (\mathbb{R}, |\cdot|)$
+  by
+  \[
+    f(x) := \sum_{r_n < x}2^{-n} \ \text{ and } \ g(x) := \sum_{r_n \leq x}2^{-n},
+  \]
+  where $\tau$ is as in Problem 2. We will show that $g$ is continuous and $f$ is not continuous. 
+
+  \begin{claim}
+    $g$ is continuous
+  \end{claim}
+  \begin{claimproof}
+    Since $g$ viewed as a function from $(\mathbb{R}, |\cdot|) \rightarrow (\mathbb{R}, |\cdot|)$ is continuous from the right at every point $x \in
+    \mathbb{R}$ and continuous at each irrational, it follows that $g^{-1}[I]$ is either an open interval $(a,b)$ or a interval of the form $[a,b)$,
+    with $a \in \mathbb{Q}$, for any open interval $I \in |\cdot|$. In both cases, the pre-image of $I$ under $g$ is open in $\tau$.
+    Hence $g$ is continuous.
+  \end{claimproof}
+
+  \begin{claim}
+    $f$ is not continuous.
+  \end{claim}
+  \begin{claimproof}
+    Note that since $0 \in \mathbb{Q}$, $f$ has a jump discontinuity at $O$. Let $y := f(O)$ and let $n_0 \in \mathbb{N}$ such that $r_{n_0} = 0$.
+    Then 
+    \[
+      f^{-1}[(-1, y + 2^{-n_0-1})] = (-\infty, 0],
+    \]
+    which is not open in $\tau$. Hence $f$ is not continuous.
+  \end{claimproof}
+
+\end{Solution}
 
 
 \end{document}
