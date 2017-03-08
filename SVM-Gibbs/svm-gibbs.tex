@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+\usepackage{eufrak}
+
+% \declaretheoremstyle[headfont=\normalfont]{normal}
+% \declaretheorem[style=normal]{Theorem}
+% \declaretheorem[style=normal]{Proposition}
+% \declaretheorem[style=normal]{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Notes on Geometric Ergodicity of a Gibbs Sampler for Bayesian SVM}
+\chead{}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{notes -- GIBBS FOR BAYESIAN SVM -- spring 2017} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+We attempt to prove geometric ergodic via a drift condition for a Gibbs sampler from a Bayesian SVM.
+
+\section{Full Conditional Distributions}
+
+Let $p(x|\cdot)$ generically denote the conditional density of $x$ given all other random variables involved. Then, for $\beta \in \mathbb{R}^{k}$,
+$\lambda \in \mathbb{R}_{+}^{n}$, and $\omega \in \mathbb{R}_{+}^{k}$, we have by \cite{svm}
+\[
+  p(\beta|\cdot) \sim N(\mu_{\beta}, \Sigma_{\beta}),
+\]
+where 
+\begin{align*}
+  \Sigma_{\beta} & := [\nu^{-2}\Sigma^{-1}\Omega^{-1} + X^{T}\Lambda^{-1} X]^{-1} \in \mathbb{R}^{k\times k}, \\
+  \mu_{\beta} & := \Sigma_{\beta}X^{T}(\bm{1} + \lambda^{-1}) \in \mathbb{R}^{k}, \\
+  \Sigma & := \text{diag}(\sigma_1^2,\dots, \sigma_k^2) \in \mathbb{R}^{k\times k}, \\
+  \Omega & := \text{diag}(\omega_1, \dots, \omega_k) \in \mathbb{R}^{k\times k}, \\
+  \Lambda & := \text{diag}(\lambda_1, \dots, \lambda_n) \in \mathbb{R}^{n\times n}, \\
+  \bm{1} & := (1, \dots, 1)^T \in \mathbb{R}^{n}, \\
+  X & := \begin{bmatrix}
+    y_1 x_1^T \\
+    \vdots \\
+    y_n x_n^T 
+  \end{bmatrix} \in \mathbb{R}^{n\times k}.
+\end{align*}
+Further,
+\[
+  p(\lambda_i|\cdot) \sim \left\{ \begin{array}{cl}
+      \mathcal{GIG}\left( \frac{1}{2}, 1, [1 - y_i x_i^T\beta]^2 \right) & \text{ if } 1-y_i x_i^T \beta \neq 0 \\ \\
+      \text{Gamma}\left( \frac{1}{2}, 2 \right) & \text{ if } 1 - y_ix_i^T\beta = 0
+  \end{array} \right., \text{ for } i=1,\dots, n,
+\]
+and 
+\[
+  p(\omega_j|\cdot) \sim \left\{ \begin{array}{cl}
+      \mathcal{GIG}\left( \frac{1}{2}, 1, \frac{B_j^2}{\nu^2\sigma_j^2} \right) & \text{ if } \beta_j \neq 0 \\ \\
+      \text{Gamma}\left( \frac{1}{2}, 2 \right) & \text{ if } \beta_j = 0
+  \end{array} \right.,
+  \text{ for } j=1,\dots,k,
+\]
+where $\mathcal{GIG}(p, a, b)$ denotes a generalized inverse Gaussian distribution with parameters $p \in \mathbb{R}, a > 0, b > 0$ and density
+\[
+  p(x|p, a, b) = \frac{a^{p/2}}{2b^{p/2}K_{p}(\sqrt{ab})}x^{p - 1}\exp\left( -\frac{1}{2}\left[ ax + \frac{b}{x} \right] \right) \ \text{ for } x > 0.
+\]
+The expectation is
+\[
+  E[X] = \frac{\sqrt{b}K_{p+1}(\sqrt{ab})}{\sqrt{a}K_{p}(\sqrt{ab})},
+\]
+where $K_{p}(y)$ is a modified Bessel function of the second kind. In particular, 
+\[
+  K_p(y) = \frac{1}{2} \int_{0}^{\infty} t^{p-1}\exp\left( -\frac{1}{2}\left[yt + \frac{y}{t}\right] \right) dt.
+\]
+Gamma$(a,b)$ denotes a Gamma distribution with expectation $ab$.
+
+
+\section{Preliminary Results}
+
+The following lemmas will be helpful in our construction of the drift condition. \\
+
+\begin{lemma}
+  $v^2 \Omega \Sigma - \Sigma_{\beta} \succeq 0$ and $[X^T \Lambda^{-1}X]^{-1} - \Sigma_{\beta} \succeq 0$.
+  \label{l1}
+\end{lemma}
+\begin{Proof}
+  Follows directly from the definition of $\Sigma_{\beta}$ and the Woodbury matrix identity.
+\end{Proof} \\
+
+\begin{lemma}
+  $\Lambda - X[X^T \Lambda^{-1} X]^{-1} X^T \succeq 0$.
+  \label{l2}
+\end{lemma}
+\begin{Proof}
+  First note that 
+  \[
+    \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2} = \Lambda^{-1/2}X[X^T \Lambda^{-1/2}\Lambda^{-1/2} X]^{-1} X^T \Lambda^{-1/2}
+  \]
+  is the perpendicular projection operator onto the column space of $\Lambda^{-1/2}X$. Thus, 
+  \[
+    I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2}  \succeq 0,
+  \]
+  i.e. for all $b \in \mathbb{R}^{n}$, $b^T(I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2})b \geq 0$,
+  where $I_n$ is the $n\times n$ identity matrix. But this implies that 
+  \[
+    b^{T}\Lambda^{1/2} (I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2}) \Lambda^{1/2}b \geq 0
+  \]
+  for all $b \in \mathbb{R}^{n}$. So
+  $\Lambda^{1/2}(I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2})\Lambda^{1/2} = \Lambda - X[X^T \Lambda^{-1} X]^{-1}X^T \succeq 0$.
+\end{Proof} \\
+
+
+
+\newpage
+
+\begin{thebibliography}{9}
+  \bibitem{svm}
+    Polson, N. G. and Scott, S. L. (2011). Data Augmentation for Support Vector Machines. \emph{Bayesian Analysis}, \textbf{6}, 1-24.
+\end{thebibliography}
+
+
+
+\end{document}
