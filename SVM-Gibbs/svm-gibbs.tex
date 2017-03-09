@@ -175,16 +175,24 @@ The following lemmas will be helpful in our construction of the drift condition.
 
 \section{The Drift Condition}
 
-Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
+For a given drift function $V$, we will attempt to prove the following. \\
 
 \begin{theorem}
   There exists some $0 < r < 1$ and $M < \infty$ such that 
   \[
-    \int_{\mathbb{R}^{k}} V(\beta)k(\beta|\beta_0)d\beta \leq r V(\beta_0) + M,
+    \int_{\mathcal{X}} V(x)k(x|x_0)\ dx \leq r V(x_0) + M,
   \]
-  for all $\beta_0 \in \mathbb{R}^{k}$.
+  for all $x_0 \in \mathcal{X}$. Here $x$ may represent $\beta, \lambda, \omega$, or any combination, and $\mathcal{X}$ the corresponding state space.
   \label{thm1}
 \end{theorem}
+
+Remark: We have such freedom in how we define $x$ and $\mathcal{X}$ since the convergence rate of any marginal part of the chain is equal to the convergence rate
+of the joint chain by \cite{jointvmarg}.
+
+\section{First Attempt}
+
+Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
+
 
 \begin{Proof}
   Note that 
@@ -255,9 +263,16 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
   \end{align*}
   for $i = 1,\dots, n$ and $j = 1,\dots,k$, where $\beta_0 = (\beta_{0,1}, \dots, \beta_{0,k})^T$.
 
-
-
+  {\Large THIS WILL NOT WORK}
 \end{Proof}
+
+NOTES: We cannot have $\lambda^2$ unless it has a constant out front that is less than 1.
+
+\newpage
+
+\section{Second Attempt}
+
+Let $V(\beta) := \sum_{i=j}^{k}|\beta_j|$.
 
 
 \newpage
@@ -268,6 +283,10 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
 
   \bibitem{svm}
     Polson, N. G. and Scott, S. L. (2011). Data augmentation for support vector machines. \emph{Bayesian Analysis}, \textbf{6}, 1-24.
+
+  \bibitem{jointvmarg}
+    Roberts, G.O. and Rosenthal, J.S. (2001). Markov chains and de-initialising processes. \emph{Scandinavian Journal of Statistics}, \textbf{28},
+    489-504.
 
   \bibitem{bessel}
     Segura, J. (2011). Bounds for ratios of modified Bessel functions and associated Turan-type inequalities. \emph{Journal of Mathematical Analysis
