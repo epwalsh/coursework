@@ -24,6 +24,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
 \newcounter{ProofCounter}
 \newcounter{ClaimCounter}[ProofCounter]
 \newcounter{SubClaimCounter}[ClaimCounter]
@@ -100,9 +101,10 @@ The expectation is
   E[X] = \frac{\sqrt{b}K_{p+1}(\sqrt{ab})}{\sqrt{a}K_{p}(\sqrt{ab})},
 \]
 where $K_{p}(y)$ is a modified Bessel function of the second kind. In particular, 
-\[
+\begin{equation}
   K_p(y) = \frac{1}{2} \int_{0}^{\infty} t^{p-1}\exp\left( -\frac{1}{2}\left[yt + \frac{y}{t}\right] \right) dt.
-\]
+  \label{eq1}
+\end{equation}
 Gamma$(a,b)$ denotes a Gamma distribution with expectation $ab$.
 
 
@@ -140,13 +142,136 @@ The following lemmas will be helpful in our construction of the drift condition.
   $\Lambda^{1/2}(I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2})\Lambda^{1/2} = \Lambda - X[X^T \Lambda^{-1} X]^{-1}X^T \succeq 0$.
 \end{Proof} \\
 
+\begin{lemma}
+  (Pal \& Khare, Proposition A7)
+  For $p, x > 0$, $2K_p(x) \leq \left( \frac{2}{x} \right)^{p}\Gamma(p)$, where $\Gamma$ is the Gamma function.
+  \label{l3}
+\end{lemma}
+\begin{Proof}
+  By \eqref{eq1}, 
+  \[
+    2K_p(x) = \int_{0}^{\infty} t^{p-1} \exp\left( -\frac{x}{2}\left[ t + \frac{1}{t} \right] \right)dt 
+    \leq \int_{0}^{\infty} t^{p-1}\exp\left( -\frac{xt}{2} \right) = \left( \frac{2}{x} \right)^{p}\Gamma(p).
+  \]
+\end{Proof} \\
+
+\begin{lemma}
+  (Segura 2011, Theorem 2)
+  For $p, x > 0$, 
+  \[
+    \frac{K_{p+1/2}(x)}{K_{p-1/2}(x)} \leq \frac{p + \sqrt{p^2 + x^2}}{x}.
+  \]
+  \label{l4}
+\end{lemma} 
+
+\begin{corollary}
+  For $x > 0, p > 1/2$,
+  \[
+    \frac{K_{p+1}(x)}{K_{p-1}(x)} \leq \frac{\left[(p+1/2) + \sqrt{(p+1/2)^2 + x^2}\right]\times\left[(p-1/2) + \sqrt{(p-1/2)^2 + x^2}\right]}{x^2}.
+  \]
+  \label{c1}
+\end{corollary}
+
+
+\section{The Drift Condition}
+
+Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
+
+\begin{theorem}
+  There exists some $0 < r < 1$ and $M < \infty$ such that 
+  \[
+    \int_{\mathbb{R}^{k}} V(\beta)k(\beta|\beta_0)d\beta \leq r V(\beta_0) + M,
+  \]
+  for all $\beta_0 \in \mathbb{R}^{k}$.
+  \label{thm1}
+\end{theorem}
+
+\begin{Proof}
+  Note that 
+  \begin{align}
+    \int_{\mathbb{R}^{k}} V(\beta) k(\beta|\beta_0)d\beta & = \int_{\mathbb{R}^{k}}V(\beta) \int_{\mathbb{R}^{n}_+\times \mathbb{R}^{k}_+}
+    p(\beta|\lambda,\omega, \cdot)p(\lambda|\beta_0, \cdot)p(\omega|\beta_0, \cdot)\ d(\lambda, \omega)\ d\beta \nonumber \\
+    \text{(by Tonelli's Theorem)} \ & = \int_{\mathbb{R}^{n}_+\times\mathbb{R}^{k}_+} \left( \int_{\mathbb{R}^{k}} V(\beta)p(\beta|\lambda, \omega,
+    \cdot)\ d\beta \right) p(\lambda|\beta_0,\cdot)p(\omega|\beta_0, \cdot)\ d(\lambda, \omega).
+    \label{eq0}
+  \end{align}
+  We first consider the inner integral, which is simply a version of the conditional expectation $E[V(\beta)|\lambda,\omega,\cdot]$.
+  But note that 
+  \begin{equation*}
+    1 - y_ix_i^T\beta | \lambda, \omega, \cdot \sim N\left( 1 - y_ix_i^T\mu_{\beta}, y_i^2 x_i^T \Sigma_{\beta}x_i\right).
+    \label{eq2}
+  \end{equation*}
+  Thus,
+  \begin{equation}
+    E[V(\beta)|\lambda,\omega,\cdot] = \sum_{i=1}^{n}\left[(1 - y_ix_i^T\mu_{\beta})^2 + y_i^2 x_i^T \Sigma_{\beta} x_i\right] = \sum_{i=1}^{n}
+    (1 - y_ix_i^T\mu_{\beta})^2 + \sum_{i=1}^{n}y_i^2x_i^T\Sigma_{\beta}x_i.
+    \label{eq3}
+  \end{equation}
+  Focusing on the first term in \eqref{eq3}, we have 
+  \begin{equation}
+    \sum_{i=1}^{n}(1 - y_i x_i^T \mu_{\beta})^2 \leq 4n + 4\sum_{i=1}^{n}(y_ix_i^T \mu_{\beta})^2 = 4n + 4(X\mu_{\beta})^T (X\mu_{\beta}) 
+    = 4n + 4\mu_{\beta}^T X^T X \mu_{\beta},
+    \label{eq4}
+  \end{equation}
+  since $(a + b)^2 \leq 4|a| + 4|b|$. Further, by Lemma \ref{l1} and Lemma \ref{l2},
+  \begin{align}
+    \mu_{\beta}^T X^T X \mu_{\beta} & = (\bm{1} + \lambda^{-1})^T X \Sigma_{\beta}X^T X\Sigma_{\beta} X^T (\bm{1} + \lambda^{-1}) \nonumber \\
+    \text{(by Lemma \ref{l1})}\ & \leq (\bm{1} + \lambda^{-1})^T X[X^T\Lambda^{-1}X]^{-1}X^T X[X^T\Lambda^{-1}X]^{-1}X^T (\bm{1} + \lambda^{-1}) \nonumber \\
+    \text{(by Lemma \ref{l2})}\ & \leq (\bm{1} + \lambda^{-1})^T \Lambda^{2} (\bm{1} + \lambda^{-1})\nonumber \\
+    & = \sum_{i=1}^{n}(\lambda_i^2 + \lambda_i)(1 + \lambda_i^{-1}) \nonumber \\
+    & = \sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1).
+    \label{eq5}
+  \end{align}
+  Applying Lemma \ref{l1} again, for the second term in \eqref{eq3} we have 
+  \begin{align}
+    \sum_{i=1}^{n}y_i^2 x_i^T\Sigma_{\beta} x_i^T \leq \sum_{i=1}^{n}y_i^2 x_i^T[v^{-2}\Sigma^{-1}\Omega^{1}]^{-1}x_i & \leq \nu^2\sum_{i=1}^{n} y_i^2
+    x_i^T \Omega \Sigma x_i \nonumber \\
+    & = \nu^2 \sum_{i=1}^{n}y_i^2 \sum_{j=1}^{k}x_{i,j}^2 \sigma_{j}^2 \omega_j.
+    \label{eq6}
+  \end{align}
+  Thus, by \eqref{eq3}, \eqref{eq5}, and \eqref{eq6}, 
+  \[
+    E[V(\beta)|\lambda, \omega, \cdot] \leq 4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n}y_i^2 \sum_{j=1}^{k}x_{i,j}^2
+    \sigma_j^2 \omega_j.
+  \]
+  Hence 
+  \begin{align}
+    & \int_{\mathbb{R}^{k}} V(\beta) k(\beta|\beta_0)\ d\beta \nonumber \\
+    & \leq \int_{\mathbb{R}^{n}_+ \times \mathbb{R}^{k}_+}
+    \left(4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n}y_i^2 \sum_{j=1}^{k}x_{i,j}^2 \sigma_j^2 \omega_j \right)
+    p(\lambda|\beta_0, \cdot) p(\omega|\beta_0,\cdot)\ d(\lambda \times \omega) \nonumber \\
+    & = 4n + 4\sum_{i=1}^{n}E[\lambda_i^2 + 2\lambda_i + 1|\beta_0, \cdot] + \nu^2\sum_{i=1}^{n}y_i^2\sum_{j=1}^{k}x_{i,j}^2\sigma_j^2
+    E[\omega_j|\beta_0,\cdot].
+    \label{eq7}
+  \end{align}
+  Now,
+  \begin{align*}
+    E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_ix_i^T\beta_0]^2 \frac{K_{5/2}\left( |1 - y_ix_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_ix_i^T\beta_0|
+    \right)}, \\
+    E[\lambda_i|\beta_0, \cdot] & = |1 - y_ix_i^T\beta_0| \frac{K_{3/2}\left( |1 - y_ix_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_ix_i^T\beta_0|
+    \right)}, \text{ and } \\
+    E[\omega_j|\beta_0, \cdot] & = \frac{|\beta_{0,j}|}{\nu\sigma_j} \frac{K_{3/2}\left( |\beta_{0,j}| / (\nu\sigma_j) \right)}{ 
+    K_{1/2}\left( |\beta_{0,j}| / (\nu \sigma_{j}) \right)},
+  \end{align*}
+  for $i = 1,\dots, n$ and $j = 1,\dots,k$, where $\beta_0 = (\beta_{0,1}, \dots, \beta_{0,k})^T$.
+
+
+
+\end{Proof}
 
 
 \newpage
 
 \begin{thebibliography}{9}
+  \bibitem{shrinkage}
+    Pal, S. and Khare, K. (2014). Geometric ergodicity for Bayesian shrinkage models. \emph{Electronic Journal of Statistics}, \textbf{8}, 604-645.
+
   \bibitem{svm}
-    Polson, N. G. and Scott, S. L. (2011). Data Augmentation for Support Vector Machines. \emph{Bayesian Analysis}, \textbf{6}, 1-24.
+    Polson, N. G. and Scott, S. L. (2011). Data augmentation for support vector machines. \emph{Bayesian Analysis}, \textbf{6}, 1-24.
+
+  \bibitem{bessel}
+    Segura, J. (2011). Bounds for ratios of modified Bessel functions and associated Turan-type inequalities. \emph{Journal of Mathematical Analysis
+    and Applications}, \textbf{374}, 516-528.
 \end{thebibliography}
 
 
