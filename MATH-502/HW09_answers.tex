@@ -1,0 +1,160 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+\usepackage{eufrak}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 502: Assignment IX}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 502 -- ASSIGNMENT IX -- spring 2017} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+
+\subsection*{1 [Sec. 3.4 \#2, 4, 6, and 8]}
+\begin{Solution}
+  \begin{enumerate}
+    \item[\# 2.] $(\Rightarrow)$ For the forward direction, first assume the $(X,\tau)$ is path connected. Let $i_0 \in \mathbb{I}$ and $x_{i_0},
+      y_{i_0} \in X_{i_0}$. Then choose $x_i, y_i \in X_i$ arbitrarily for $i \neq i_0$. By assumption, there exists continuous $\gamma : [0,1]
+      \rightarrow X$ such that $\gamma(0) = x := (x_i)_{i\in\mathbb{I}}$ and $\gamma(1) = y := (y_i)_{i\in\mathbb{I}}$.
+      But by definition of $(X, \tau)$, the coordinate projection $\pi_{i_0} : X \rightarrow X_{i_0}$ is continuous. Thus, $\pi_{i_0} \circ \gamma :
+      [0,1] \rightarrow (X_{i_0}, \tau_{i_0})$ is continuous and $\pi_{i_0} \circ \gamma(0) = x_{i_0}$, $\pi_{i_0} \circ \gamma(1) = y_{i_0}$. Hence
+      $(X_{i_0}, \tau_{i_0})$ is path connected.
+
+      $(\Leftarrow)$ Now assume that $(X_i, \tau_i)$ is path connected for each $i \in \mathbb{I}$. Let $x := \left( x_i \right)_{i\in\mathbb{I}}$, 
+      $\left( y_i \right)_{i\in\mathbb{I}} \in X$. Then by assumption, for each $i \in \mathbb{I}$, there exists continuous $\gamma_i : [0,1]
+      \rightarrow X_i$ such that $\gamma_i(0) = x_i$ and $\gamma_i(1) = y_i$. So let $\gamma : [0,1] \rightarrow X$ be defined by $\gamma(t) := \left(
+      \gamma_i(t) \right)_{i\in\mathbb{I}}$. Since $\gamma(0) = x$ and $\gamma(1) = y$ by definition, it remains to show that $\gamma$ is continuous.
+      To that end, let $U \in \tau$. We want to show that $\gamma^{-1}[U]$ is open in $[0,1]$. However, any open set in $\tau$ can be written as
+      the union of sets of the form 
+      \begin{equation}
+        \pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n]
+        \label{eq1}
+      \end{equation}
+      where $i_1, \dots, i_n \in \mathbb{I}$ and $U_j \in \tau_{i_j}$ for each $j = 1, \dots, n$. Thus we may assume without loss of generality
+      that $U$ is of the form in \eqref{eq1}. Hence
+      \begin{align*}
+        \gamma^{-1}[U] = \gamma^{-1}\bigg[\pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n]\bigg] & =
+        \bigcap_{j=1}^{n}\gamma^{-1}\bigg[\pi_{i_j}^{-1}[U_j]\bigg] \\
+        & = \bigcap_{j=1}^{n} \gamma_{i_j}^{-1}\bigg[ \pi_{i_j}^{-1}[U_j] \bigg],
+      \end{align*}
+      which is open in $[0,1]$ by the continuity of $\pi_{i_j} \circ \gamma_{i_j}$. Hence $\gamma$ is continuous, and so $(X,\tau)$ is path connected.
+
+    \item[\# 4.] Fix $y \in Y$ and consider the family $\mathcal{G} := \left\{ (X \times \{x\}) \cup (\{x\} \times Y) : x \in X \right\}$.
+
+      \begin{claim}
+        For each $x \in X$, $(X \times \{y\}) \cup (\{x\} \times Y)$ is a connected subspace.
+      \end{claim}
+      \begin{claimproof}
+        Let $f(x) : X \rightarrow X \times Y$ be defined by $f(x) := (x,y)$. To show that $f$ is continuous, let $V$ be open in
+        the product space $X \times Y$. Without loss of generality we can assume $V =
+        \pi_{X}^{-1}[V_x] \cap \pi_{Y}^{-1}[V_y]$, where $\pi_{X}, \pi_{Y}$ are the coordinate projections from $X\times Y \rightarrow X$ and $X\times
+        Y \rightarrow Y$, respectively, and $V_x \in \tau_{X}, V_y \in \tau_{Y}$. Thus,
+        \[
+          f^{-1}[U] = f^{-1}[V \cap X \times \{y\}] = f^{-1}\big[\pi_{X}^{-1}[V_x] \cap \pi_{Y}^{-1}[V_y] \cap X \times \{y\}\big] = f^{-1}[V_x] = V_x
+          \in \tau_X.
+        \]
+        Hence $f$ is continuous. Thus, by Proposition 3.4.11, $f[X] = X\times \{y\}$ is a connected subspace of $X \times Y$. The same argument shows
+        that $\{x\} \times Y$ is connected for each $x \in X$. Thus, since $(X \times \{y\}) \cap (\{x\} \times Y) = \{(x,y)\} \neq \emptyset$, 
+        \[
+          (X \times \{y\}) \cap (\{x\} \times Y)
+        \]
+        is connected for each $x \in X$ by Proposition 3.4.16.
+      \end{claimproof}
+
+      By Claim 1 and since for each $x_0 \neq x_1 \in X$, 
+      \[
+        (X \times \{y\}) \cup (\{x_0\} \times Y) \cap (X \times \{y\}) \cup (\{x_1\} \times Y) = X \times \{y\} \neq \emptyset,
+      \]
+      we can apply Proposition 3.4.16 to the family $\mathcal{G}$. Hence 
+      \[
+        \bigcup_{x \in X} (X \times \{y\}) \cup (\{x\} \times Y) = X \times Y
+      \]
+      is connected.
+
+    \item[\# 6.] Since $G_0$ is a component, it is closed. Thus it remains to show that $G_0$ is a normal subgroup.
+
+      \begin{claim}
+        $ab \in G_0$ for all $a,b \in G_0$.
+      \end{claim}
+      \begin{claimproof}
+        Let $a', b' \in G_0$. By definition of the topology on $G$, $(a,b) \mapsto ab$ is continuous. Thus, since the image of a connected set under a continuous function
+        is connected, and since $(e,e) = ee = e \in G_0$, it must be that $a'b' \in G_0$.
+      \end{claimproof}
+
+      \begin{claim}
+        For each $a \in G_0$, $a^{-1} \in G_0$.
+      \end{claim}
+      \begin{claimproof}
+        Similary to Claim 2, this follows from the fact that $a \mapsto a^{-1}$ is continuous and $e = e^{-1} \in G_0$.
+      \end{claimproof}
+
+      So by Claim 2 and Claim 3, $G_0$ is a subgroup. The following claim establishes that $G_0$ is normal.
+
+      \begin{claim}
+        For each $g \in G$, $gG_0 g^{-1} \subseteq G_0$.
+      \end{claim}
+      \begin{claimproof}
+        Let $g \in G$. Then by Exercise \# 4 above, $\{g\} \times G_0$ is connected in the product topology since $\{g\}$ is connected in $G$.
+        Therefore $gG_0$ is connected in $G$ since $(a,b) \mapsto ab$ is continuous. Reusing this logic, $gG_0 \times \{g^{-1}\}$ is
+        connected in the product topology, so $gG_0g^{-1}$ is connected in $G$. Therefore, since $e \in G_0$ and $geg^{-1} = e$, it must be that
+        $gG_0g^{-1} \subseteq G_0$.
+      \end{claimproof}
+
+    \item[\# 8.] $(\Leftarrow)$ Suppose $(X_i, \tau_i)$ totally disconnected for each $i \in \mathbb{I}$.
+      Let $C \subseteq X$ be any connected subset. 
+      By way of contradiction suppose there exists distinct $x = (x_i)_{i\in\mathbb{I}}, y = (y_i)_{i\in\mathbb{I}} \in C$.
+      Then there exists $i_0 \in \mathbb{I}$ such that $x_{i_0} \neq y_{i_0}$.
+      Since $\pi_{i_0}$ continuous, $\pi_{i_0}[C]$ is connected in $(X_{i_0}, \tau_{i_0})$ and contains $x_{i_0}, y_{i_0}$. This is a contradiction.
+
+      $(\Rightarrow)$ Now suppose $(X, \tau)$ is totally disconnected. By way of contradiction suppose there exists $i_0 \in \mathbb{I}$ such that
+      $(X_{i_0}, \tau_{i_0})$ is not totally
+      disconnected. Then there exists connected $C_0 \subseteq X_{i_0}$ which contains two distinct points $x_{i_0}, y_{i_0}$.
+      For $i \neq i_{0}$, choose $x_i \equiv y_i$ arbitrarily. Let $x := (x_i)_{i\in\mathbb{I}}$, $y := (y_i)_{i\in\mathbb{I}}$. Then by Exercise \#
+      5, the product 
+      \[ F := \{ (w_i)_{i\in\mathbb{I}} : w_i = x_i, i \neq i_0 \wedge  w_{i_0} \in C\} \subseteq X \]
+      is connected. But this is a contradiction since $x, y \in F$ are distinct.
+  \end{enumerate}
+\end{Solution}
+
+\end{document}

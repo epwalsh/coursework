@@ -53,8 +53,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \vspace{5mm}
   \large Evan Pete Walsh
 \end{center}
+\vspace{1cm}
 
-We attempt to prove geometric ergodic via a drift condition for a Gibbs sampler from a Bayesian SVM.
+We attempt to prove geometric ergodic via a drift condition for a Gibbs sampler from a Bayesian SVM. 
 
 \section{Full Conditional Distributions}
 
@@ -72,16 +73,16 @@ where
   \Lambda & := \text{diag}(\lambda_1, \dots, \lambda_n) \in \mathbb{R}^{n\times n}, \\
   \bm{1} & := (1, \dots, 1)^T \in \mathbb{R}^{n}, \\
   X & := \begin{bmatrix}
-    y_1 x_1^T \\
+    y_1 \bm{x}_1^T \\
     \vdots \\
-    y_n x_n^T 
+    y_n \bm{x}_n^T 
   \end{bmatrix} \in \mathbb{R}^{n\times k}.
 \end{align*}
 Further,
 \[
   p(\lambda_i|\cdot) \sim \left\{ \begin{array}{cl}
-      \mathcal{GIG}\left( \frac{1}{2}, 1, [1 - y_i x_i^T\beta]^2 \right) & \text{ if } 1-y_i x_i^T \beta \neq 0 \\ \\
-      \text{Gamma}\left( \frac{1}{2}, 2 \right) & \text{ if } 1 - y_ix_i^T\beta = 0
+      \mathcal{GIG}\left( \frac{1}{2}, 1, [1 - y_i \bm{x}_i^T\beta]^2 \right) & \text{ if } 1-y_i \bm{x}_i^T \beta \neq 0 \\ \\
+      \text{Gamma}\left( \frac{1}{2}, 2 \right) & \text{ if } 1 - y_i\bm{x}_i^T\beta = 0
   \end{array} \right., \text{ for } i=1,\dots, n,
 \]
 and 
@@ -96,9 +97,9 @@ where $\mathcal{GIG}(p, a, b)$ denotes a generalized inverse Gaussian distributi
 \[
   p(x|p, a, b) = \frac{a^{p/2}}{2b^{p/2}K_{p}(\sqrt{ab})}x^{p - 1}\exp\left( -\frac{1}{2}\left[ ax + \frac{b}{x} \right] \right) \ \text{ for } x > 0.
 \]
-The expectation is
+The first two moments are
 \[
-  E[X] = \frac{\sqrt{b}K_{p+1}(\sqrt{ab})}{\sqrt{a}K_{p}(\sqrt{ab})},
+  E[X] = \frac{\sqrt{b}K_{p+1}(\sqrt{ab})}{\sqrt{a}K_{p}(\sqrt{ab})}, \qquad E[X^2] = \frac{bK_{p+2}(\sqrt{ab})}{aK_{p}(\sqrt{ab})}
 \]
 where $K_{p}(y)$ is a modified Bessel function of the second kind. In particular, 
 \begin{equation}
@@ -110,7 +111,7 @@ Gamma$(a,b)$ denotes a Gamma distribution with expectation $ab$.
 
 \section{Preliminary Results}
 
-The following lemmas will be helpful in our construction of the drift condition. \\
+The following results may be helpful in our construction of the drift condition. \\
 
 \begin{lemma}
   $v^2 \Omega \Sigma - \Sigma_{\beta} \succeq 0$ and $[X^T \Lambda^{-1}X]^{-1} - \Sigma_{\beta} \succeq 0$.
@@ -142,8 +143,18 @@ The following lemmas will be helpful in our construction of the drift condition.
   $\Lambda^{1/2}(I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2})\Lambda^{1/2} = \Lambda - X[X^T \Lambda^{-1} X]^{-1}X^T \succeq 0$.
 \end{Proof} \\
 
+\begin{corollary}
+  For each $i = 1,\dots, n$, we have $\lambda_i \geq y_i^2 \bm{x_i}^T \Sigma_{\beta} \bm{x}_i$.
+  \label{c0}
+\end{corollary}
+\begin{Proof}
+  First note that $\left( y_i^2 \bm{x}_i^T \Sigma_{\beta} \bm{x}_i \right)_{i=1}^{n}  = \left( (y_i \bm{x}_i)^T \Sigma_{\beta} (y_i \bm{x}_i) \right)_{i=1}^{n}$ are precisely
+  the diagonal entries of $X\Sigma_{\beta} X^T$. Thus, by Lemma \ref{l1}, Lemma \ref{l2}, and the fact that the diagonal entries of a positive
+  semi-definite matrix are non-negative, $\lambda_i \geq y_i^2 \bm{x}_i \Sigma_{\beta} x_i$ for each $i = 1, \dots, n$.
+\end{Proof} \\
+
 \begin{lemma}
-  (Pal \& Khare, Proposition A7)
+  (Pal \& Khare 2014, Proposition A7)
   For $p, x > 0$, $2K_p(x) \leq \left( \frac{2}{x} \right)^{p}\Gamma(p)$, where $\Gamma$ is the Gamma function.
   \label{l3}
 \end{lemma}
@@ -172,6 +183,32 @@ The following lemmas will be helpful in our construction of the drift condition.
   \label{c1}
 \end{corollary}
 
+\begin{lemma}
+  If $X \sim \mathcal{GIG}(p, a, b)$, then for each $q \in \mathbb{R}$,
+  \[
+    E[X^q] =\frac{b^{q/2}K_{p+q}(\sqrt{ab})}{a^{q/2}K_p(\sqrt{ab})}.
+  \]
+  \label{l5}
+\end{lemma}
+\begin{Proof}
+  Let $q \in \mathbb{R}$. Then 
+  \begin{align*}
+    E[X^q] & = \int_{0}^{\infty} \frac{a^{p/2}}{2b^{p/2}K_p(\sqrt{ab})} x^{p+q-1}\exp\left( -\frac{1}{2}\left[ ax + \frac{b}{x} \right] \right)dx \\
+    & = \frac{b^{q/2}K_{p+q}(\sqrt{ab})}{a^{q/2}K_p(\sqrt{ab})}
+    \int_{0}^{\infty}\frac{a^{(p+q)/2}}{2b^{(p+q)/2}K_{p+q}(\sqrt{ab})} x^{p+q-1} \exp\left( -\frac{1}{2}\left[ ax + \frac{b}{x} \right] \right)dx \\
+    & = \frac{b^{q/2}K_{p+q}(\sqrt{ab})}{a^{q/2}K_p(\sqrt{ab})}.
+  \end{align*}
+\end{Proof}
+
+\begin{lemma}
+  (Pal \& Khare 2014, Proposition A1)
+  Suppose $X \sim N(\mu, \gamma^2)$. Then for any $\delta \in (0,1)$, 
+  \[
+    E\left[ |X|^{-\delta} \right] \leq \frac{\Gamma\left( \frac{1-\delta}{2} \right) 2^{\frac{1-\delta}{2}}}{\gamma^\delta \sqrt{2\pi}}.
+  \]
+  \label{l6}
+\end{lemma}
+
 
 \section{The Drift Condition}
 
@@ -191,7 +228,7 @@ of the joint chain by \cite{jointvmarg}.
 
 \section{First Attempt}
 
-Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
+Let $V(\beta) := \sum_{i=1}^{n}(1 - y_i\bm{x}_i^T\beta)^2$. \\
 
 
 \begin{Proof}
@@ -206,22 +243,22 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
   We first consider the inner integral, which is simply a version of the conditional expectation $E[V(\beta)|\lambda,\omega,\cdot]$.
   But note that 
   \begin{equation*}
-    1 - y_ix_i^T\beta | \lambda, \omega, \cdot \sim N\left( 1 - y_ix_i^T\mu_{\beta}, y_i^2 x_i^T \Sigma_{\beta}x_i\right).
+    1 - y_i\bm{x}_i^T\beta | \lambda, \omega, \cdot \sim N\left( 1 - y_i\bm{x}_i^T\mu_{\beta}, y_i^2 \bm{x}_i^T \Sigma_{\beta}\bm{x}_i\right).
     \label{eq2}
   \end{equation*}
   Thus,
   \begin{equation}
-    E[V(\beta)|\lambda,\omega,\cdot] = \sum_{i=1}^{n}\left[(1 - y_ix_i^T\mu_{\beta})^2 + y_i^2 x_i^T \Sigma_{\beta} x_i\right] = \sum_{i=1}^{n}
-    (1 - y_ix_i^T\mu_{\beta})^2 + \sum_{i=1}^{n}y_i^2x_i^T\Sigma_{\beta}x_i.
+    E[V(\beta)|\lambda,\omega,\cdot] = \sum_{i=1}^{n}\left[(1 - y_i\bm{x}_i^T\mu_{\beta})^2 + y_i^2 \bm{x}_i^T \Sigma_{\beta} \bm{x}_i\right] = \sum_{i=1}^{n}
+    (1 - y_i\bm{x}_i^T\mu_{\beta})^2 + \sum_{i=1}^{n}y_i^2\bm{x}_i^T\Sigma_{\beta}\bm{x}_i.
     \label{eq3}
   \end{equation}
   Focusing on the first term in \eqref{eq3}, we have 
   \begin{equation}
-    \sum_{i=1}^{n}(1 - y_i x_i^T \mu_{\beta})^2 \leq 4n + 4\sum_{i=1}^{n}(y_ix_i^T \mu_{\beta})^2 = 4n + 4(X\mu_{\beta})^T (X\mu_{\beta}) 
+    \sum_{i=1}^{n}(1 - y_i \bm{x}_i^T \mu_{\beta})^2 \leq 4n + 4\sum_{i=1}^{n}(y_i\bm{x}_i^T \mu_{\beta})^2 = 4n + 4(X\mu_{\beta})^T (X\mu_{\beta}) 
     = 4n + 4\mu_{\beta}^T X^T X \mu_{\beta},
     \label{eq4}
   \end{equation}
-  since $(a + b)^2 \leq 4|a| + 4|b|$. Further, by Lemma \ref{l1} and Lemma \ref{l2},
+  since $(a + b)^2 \leq 4|a|^2 + 4|b|^2$. Further, by Lemma \ref{l1} and Lemma \ref{l2},
   \begin{align}
     \mu_{\beta}^T X^T X \mu_{\beta} & = (\bm{1} + \lambda^{-1})^T X \Sigma_{\beta}X^T X\Sigma_{\beta} X^T (\bm{1} + \lambda^{-1}) \nonumber \\
     \text{(by Lemma \ref{l1})}\ & \leq (\bm{1} + \lambda^{-1})^T X[X^T\Lambda^{-1}X]^{-1}X^T X[X^T\Lambda^{-1}X]^{-1}X^T (\bm{1} + \lambda^{-1}) \nonumber \\
@@ -232,8 +269,8 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
   \end{align}
   Applying Lemma \ref{l1} again, for the second term in \eqref{eq3} we have 
   \begin{align}
-    \sum_{i=1}^{n}y_i^2 x_i^T\Sigma_{\beta} x_i^T \leq \sum_{i=1}^{n}y_i^2 x_i^T[v^{-2}\Sigma^{-1}\Omega^{1}]^{-1}x_i & \leq \nu^2\sum_{i=1}^{n} y_i^2
-    x_i^T \Omega \Sigma x_i \nonumber \\
+    \sum_{i=1}^{n}y_i^2 \bm{x}_i^T\Sigma_{\beta} \bm{x}_i^T \leq \sum_{i=1}^{n}y_i^2 \bm{x}_i^T[v^{-2}\Sigma^{-1}\Omega^{1}]^{-1}\bm{x}_i & = \nu^2\sum_{i=1}^{n} y_i^2
+    \bm{x}_i^T \Omega \Sigma \bm{x}_i \nonumber \\
     & = \nu^2 \sum_{i=1}^{n}y_i^2 \sum_{j=1}^{k}x_{i,j}^2 \sigma_{j}^2 \omega_j.
     \label{eq6}
   \end{align}
@@ -254,9 +291,9 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
   \end{align}
   Now,
   \begin{align*}
-    E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_ix_i^T\beta_0]^2 \frac{K_{5/2}\left( |1 - y_ix_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_ix_i^T\beta_0|
+    E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^2 \frac{K_{5/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
     \right)}, \\
-    E[\lambda_i|\beta_0, \cdot] & = |1 - y_ix_i^T\beta_0| \frac{K_{3/2}\left( |1 - y_ix_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_ix_i^T\beta_0|
+    E[\lambda_i|\beta_0, \cdot] & = |1 - y_i\bm{x}_i^T\beta_0| \frac{K_{3/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
     \right)}, \text{ and } \\
     E[\omega_j|\beta_0, \cdot] & = \frac{|\beta_{0,j}|}{\nu\sigma_j} \frac{K_{3/2}\left( |\beta_{0,j}| / (\nu\sigma_j) \right)}{ 
     K_{1/2}\left( |\beta_{0,j}| / (\nu \sigma_{j}) \right)},
@@ -266,13 +303,16 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_ix_i^T\beta)^2$. \\
   {\Large THIS WILL NOT WORK}
 \end{Proof}
 
-NOTES: We cannot have $\lambda^2$ unless it has a constant out front that is less than 1.
+NOTES: We cannot have $\lambda^2$ since the ratio $\frac{K_{5/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|\right)} > 1$.
+Even if we tighted or remove the inequality in \eqref{eq4}, it still won't work.
 
 \newpage
 
 \section{Second Attempt}
 
-Let $V(\beta) := \sum_{i=j}^{k}|\beta_j|$.
+Let $V(\lambda, \omega) := \sum_{i=1}^{n}[\lambda_i^2 + \lambda^{-\delta}] + \sum_{i=j}^{k}[\omega_j^2 + \omega^{-\delta}]$, $\delta \in (0,1)$.
+
+NOTES: This will not work either for the same reasons as in the first attempt.
 
 
 \newpage
