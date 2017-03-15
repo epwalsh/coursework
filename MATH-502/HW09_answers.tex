@@ -87,11 +87,15 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \end{claim}
       \begin{claimproof}
         Let $f(x) : X \rightarrow X \times Y$ be defined by $f(x) := (x,y)$. To show that $f$ is continuous, let $V$ be open in
-        the product space $X \times Y$. Without loss of generality we can assume $V =
-        \pi_{X}^{-1}[V_x] \cap \pi_{Y}^{-1}[V_y]$, where $\pi_{X}, \pi_{Y}$ are the coordinate projections from $X\times Y \rightarrow X$ and $X\times
-        Y \rightarrow Y$, respectively, and $V_x \in \tau_{X}, V_y \in \tau_{Y}$. Thus,
+        the product space $X \times Y$. Without loss of generality we can assume $V$ can be expressed as
+        \begin{equation}
+          V = \pi_{X}^{-1}[V_x] \cap \pi_{Y}^{-1}[V_y], 
+          \label{eq1.2}
+        \end{equation}
+        where $\pi_{X}, \pi_{Y}$ are the coordinate projections from $X\times Y \rightarrow X$ and $X\times
+        Y \rightarrow Y$, respectively, and $V_x \in \tau_{X}, V_y \in \tau_{Y}$ (otherwise $V$ would be a union of sets in the form of \eqref{eq1.2}). Thus,
         \[
-          f^{-1}[U] = f^{-1}[V \cap X \times \{y\}] = f^{-1}\big[\pi_{X}^{-1}[V_x] \cap \pi_{Y}^{-1}[V_y] \cap X \times \{y\}\big] = f^{-1}[V_x] = V_x
+          f^{-1}[U] = f^{-1}[V \cap X \times \{y\}] = f^{-1}\big[\pi_{X}^{-1}[V_x] \cap \pi_{Y}^{-1}[V_y] \cap (X \times \{y\})\big] = f^{-1}[V_x] = V_x
           \in \tau_X.
         \]
         Hence $f$ is continuous. Thus, by Proposition 3.4.11, $f[X] = X\times \{y\}$ is a connected subspace of $X \times Y$. The same argument shows
@@ -104,7 +108,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
       By Claim 1 and since for each $x_0 \neq x_1 \in X$, 
       \[
-        (X \times \{y\}) \cup (\{x_0\} \times Y) \cap (X \times \{y\}) \cup (\{x_1\} \times Y) = X \times \{y\} \neq \emptyset,
+        \big[(X \times \{y\}) \cup (\{x_0\} \times Y)\big] \cap \big[(X \times \{y\}) \cup (\{x_1\} \times Y)\big] = X \times \{y\} \neq \emptyset,
       \]
       we can apply Proposition 3.4.16 to the family $\mathcal{G}$. Hence 
       \[
@@ -154,6 +158,107 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       5, the product 
       \[ F := \{ (w_i)_{i\in\mathbb{I}} : w_i = x_i, i \neq i_0 \wedge  w_{i_0} \in C\} \subseteq X \]
       is connected. But this is a contradiction since $x, y \in F$ are distinct.
+  \end{enumerate}
+\end{Solution}
+
+\subsection*{2}
+\begin{Solution}
+  \begin{enumerate}
+    \item[(a)] We will show that $X$ is not compact. To that end, it suffices to show that $X$ is not sequentially compact. Thus we will construct a
+      sequence of functions for which there is no convergent subsequence. In particular, for $n \geq 1$, let 
+      \[
+        f_n(x) := x^n, \ \ x \in [0,1].
+      \]
+      Clearly $f_1, f_2, \dots \in X$ and yet for each $x \in [0,1)$, $f_n(x) \rightarrow 0$. Hence $\left\{ f_n \right\}_{n=1}^{\infty}$ converges
+      pointwise to the function $g : [0,1] \rightarrow [0,1]$ defined by
+      \[
+        g(x) := \left\{ \begin{array}{cl}
+            0 & \text{ if } 0 \leq x < 1, \\
+            1 & \text{ if } x = 1,
+          \end{array}
+        \right. \ \ \ x \in [0,1].
+      \]
+      Hence every subsequence of $\left\{ f_n \right\}_{n=1}^{\infty}$ also converges pointwise to $g$. But $g \notin X$. Thus $X$ is not
+      sequentially compact.
+
+    \item[(b)] 
+    \item[(c)] We will show that $X$ is not separable. So, by way of contradiction suppose $X$ is separable. Then there exists a countable, dense
+      subset of $\mathcal{S} \subset X$. 
+
+      \begin{claim}
+        There exists $x_0 \in (0,1)$ such that each function in $\mathcal{S}$ is continuous at $x_0$.
+      \end{claim}
+      \begin{claimproof}
+        It is well known that monotone functions can have at most countably many discontinuities (and any such
+        discontinuity is a ``jump'' discontinuity). Therefore, since $\mathcal{S}$ countable and each function in $\mathcal{S}$ has countably many
+        discontinuities, the set of all discontinuities of functions in $\mathcal{S}$ is countable. Hence, since $(0,1)$ is uncountable, there
+        exists $x_0 \in (0,1)$ such that no function in $\mathcal{S}$ has a discontinuity at $x_0$.
+      \end{claimproof}
+
+      With $x_0 \in (0,1)$ as in the claim above, let $f \in X$ be defined by
+      \[
+        f(x) := \left\{ \begin{array}{cl}
+            \frac{x}{4x_0} & \text{ if } 0 \leq x \leq x_0, \\ \\
+            \left( \frac{1-\frac{3}{4}}{1-x_0} \right)(x - x_0) + \frac{3}{4} & \text{ if } x_0 < x \leq 1,
+          \end{array}
+        \right. \ \ \  x \in [0,1].
+      \]
+      So $f$ has a jump of $1/2$ at $x_0$ and is continuous otherwise, and therefore 
+      \begin{equation}
+        |f(x) - f(x_0)| > \frac{1}{2}
+        \label{2.3}
+      \end{equation}
+      whenever $x > x_0$.
+      Now, since $\mathcal{S}$ is dense in $X$, there exists $g \in \mathcal{S}$ such
+      that $d(f,g) < 1/6$, i.e. 
+      \begin{equation}
+        \sup_{0\leq x\leq 1}|f(x) - g(x)| < \frac{1}{6}.
+        \label{2.1}
+      \end{equation}
+      Further, by the above claim and since $g \in \mathcal{S}$, $g$ is continuous at $x_0$. Hence there exists $x_1 > x_0$ such that 
+      \begin{equation}
+        |g(x_1) - g(x_0)| < \frac{1}{6}.
+        \label{2.2}
+      \end{equation}
+      So by \eqref{2.1} and \eqref{2.2}, 
+      \[
+        |f(x_1) - f(x_0)| \leq |f(x_1) - g(x_1)| + |g(x_1) - g(x_0)| + |g(x_0) - f(x_0)| < \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{1}{2}.
+      \]
+      But this contradicts \eqref{2.3}.
+      
+
+    \item[(d)] We will show that $X$ is path connected, and therefore connected as well. To that end, let $f, g \in X$. Define $\gamma : [0,1]
+      \rightarrow X$ by $\gamma(t) := t f + (1 - t) g$. We will show that $\gamma$ is a path connecting $f$ and $g$.
+
+      \begin{claim}
+        $\gamma$ is well-defined.
+      \end{claim}
+      \begin{claimproof}
+        To see that $\gamma$ is well-defined, note that for each $t \in [0,1]$, $t f$ and $(1 - t)g$
+        are strictly increasing since $f$ and $g$ are strictly increasing. Therefore $t f + (1-t) g$ is strictly increasing since the sum of strictly increasing
+        functions is strictly increasing. Further, 
+        \[
+          t f(0) + (1- t)g(0) = 0 \ \text{  and  }\ t f(1) + (1-t) g(1) = 1. 
+        \]
+        Hence $\gamma(t) \in X$ for all $t \in [0,1]$.
+      \end{claimproof}
+
+      \begin{claim}
+        $\gamma$ is continuous.
+      \end{claim}
+      \begin{claimproof}
+        Let $t_0 \in [0,1]$ and $\epsilon > 0$. We need to show that there exists $\delta > 0$ such that for all $t \in [0,1]$ with $|t - t_0| <
+        \delta$, it holds that $d(\gamma(t), \gamma(t_0)) < \epsilon$. To that end, let $\delta := \epsilon / 2$. Then if $|t - t_0| < \delta$,
+        \begin{align*}
+          d(\gamma(t), \gamma(t_0)) & = \sup_{0\leq x \leq 1} \big| t f(x) + (1-t)g(x) - t_0 f(x) - (1-t_0)g(x) \big| \\
+          & = \sup_{0\leq x \leq 1}\big| (t - t_0) f(x) + (t_0 - t)g(x) \big| \\
+          & \leq \sup_{0\leq x \leq 1} \big| t - t_0 \big| \big| f(x)\big| + \big| t - t_0\big| \big|g(x)\big| \\
+          & \leq 2 \big| t - t_0\big| < \epsilon.
+        \end{align*}
+        Hence $\gamma$ is continuous.
+      \end{claimproof}
+
+      By the above two claims, we are done.
   \end{enumerate}
 \end{Solution}
 
