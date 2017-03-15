@@ -164,7 +164,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{2}
 \begin{Solution}
   \begin{enumerate}
-    \item[(a)] We will show that $X$ is not compact. To that end, it suffices to show that $X$ is not sequentially compact. Thus we will construct a
+    \item[(a)] We will show that $X$ is not compact. Since $X$ is a metric space, it suffices to show that $X$ is not sequentially compact. Thus we will construct a
       sequence of functions for which there is no convergent subsequence. In particular, for $n \geq 1$, let 
       \[
         f_n(x) := x^n, \ \ x \in [0,1].
@@ -178,10 +178,35 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
           \end{array}
         \right. \ \ \ x \in [0,1].
       \]
-      Hence every subsequence of $\left\{ f_n \right\}_{n=1}^{\infty}$ also converges pointwise to $g$. But $g \notin X$. Thus $X$ is not
+      Hence every subsequence of $\left\{ f_n \right\}_{n=1}^{\infty}$ also converges pointwise to $g$. But $g \notin X$ since $g$ is not strictly
+      increasing. Thus $X$ is not
       sequentially compact.
 
-    \item[(b)] 
+    \item[(b)] We will show that $X$ is not locally compact. By way of contradiction suppose $X$ is locally compact. Let $f \in X$ be defined by
+      $f(x) := x$. Then since we are assuming that $X$ is locally compact, there exists a compact neighborhood $N_f$ of $f$. So since
+      $N_f$ is a neighborhood of $f$, there exists an $r > 0$ such that the open ball $B_r[f] := \{ g\in X : d(f,g) < r\}$ is contained in
+      $N_f$. Similar to part (a), we will derive a contradiction by constructing a sequence in $B_r[f]$, and thus in $N_f$, that converges pointwise to a
+      function that is not in $X$. In particular, for $n \geq 1$, let $f_n:[0,1]\rightarrow[0,1]$ be defined by 
+      \[
+        f_n(x) := \left\{ \begin{array}{cl} 
+            x^n & \text{ if } 0 \leq x \leq \frac{r}{2}, \\
+            x & \text{ if } \frac{r}{2} < x \leq 1,
+          \end{array}
+        \right. \ \ \ x \in [0,1].
+      \]
+      Then for each $n \geq 1$, $|f_n(x) - f(x)| = 0$ for $x > r / 2$, and $|f_n(x) - f(x)| \leq |f(x)| \leq r / 2$ for $0 \leq x \leq r/2$. Hence
+      $f_n \in B_r[f]$ for each $n \geq 1$. Further, $\left\{ f_n \right\}_{n=1}^{\infty}$ converges pointwise to the $g : [0,1] \rightarrow [0,1]$ defined
+      by 
+      \[
+        g(x) := \left\{ \begin{array}{cl}
+            0 & \text{ if } 0 \leq x \leq \frac{r}{2}, \\
+            x & \text{ if } \frac{r}{2} < x \leq 1, 
+          \end{array}
+        \right. \ \ \ x \in [0,1].
+      \]
+      But $g \notin X$ since $g$ is not strictly increasing. Thus we have found a sequence in $N_f$ that has no convergent subsequence.
+
+
     \item[(c)] We will show that $X$ is not separable. So, by way of contradiction suppose $X$ is separable. Then there exists a countable, dense
       subset of $\mathcal{S} \subset X$. 
 
