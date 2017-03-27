@@ -298,8 +298,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       there exists $\alpha_U \in \mathbb{A}$ such that $x_\alpha \in U$ whenever $\alpha_U \preceq \alpha$. Hence $x \in U$ since $x_\alpha \equiv x$. 
       This is a contradiction.
 
-      $(\Leftarrow)$ Now suppose every constant net converges to a unique limit, and by way of contradiction suppose $(X, \tau)$ is not $T_1$. Then
-      there exists $x, y \in X$ such that for all $U \in \tau$, either $x \notin U$ and $y \notin U$ or $x \in U$ and $y \in U$. Consider the constant
+      $(\Leftarrow)$ Next suppose every constant net converges to a unique limit, and by way of contradiction suppose $(X, \tau)$ is not $T_1$. Then
+      there exists $x, y \in X$, $x \neq y$, such that for all $U \in \tau$ with $y \in U$, it holds that $x \in U$ as well. Now consider the constant
       net (sequence) $(x_n)_{n\in\mathbb{N}}$, where $x_n \equiv x$ for all $n \in \mathbb{N}$. Then clearly $x_n \rightarrow x$. The contradiction
       arises by showing that $x_n$ necessarily converges to $y$ as well.
 
@@ -320,13 +320,27 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \begin{claimproof}
         Fix $i_0 \in \mathbb{I}$ and $x_{i_0} \neq y_{i_0} \in X_{i_0}$. Now, for $i \neq i_0$, choose $x_i \in X_i$ arbitrarily. Also let $y_i :=
         x_i$ for $i \neq i_0$. Since $(X, \tau)$ is
-        $T_1$, we can assume without loss of generality that there exists open $U \in \tau$ such that $x := (x_i)_{i\in\mathbb{I}} \in U$ and 
-        $y := \left( y_i \right)_{i\in\mathbb{I}} \notin U$. Since $U$ is open in $\tau$, $U$ is the union of sets of the form
-        \[
-          \pi_{i_0}^{-1}[U_0]\cap\pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n],
-        \]
-        where $i_1, \dots, i_n \in \mathbb{I}-\{i_0\}$ and $U_j$ open in $X_{i_j}$ for each $j = 0, \dots, n$. Then, in particular, there must exist
-        some $U_0 \in \tau_{i_0}$ such that $x_{i_0} \in U_0$ and $y_{i_0} \notin U_0$ since $\pi_i(x) = \pi_i(y)$ for all $i \neq i_0$.
+        $T_1$, there exists open $U,V \in \tau$ such that $x := (x_i)_{i\in\mathbb{I}} \in U$ but
+        $y := \left( y_i \right)_{i\in\mathbb{I}} \notin U$ and $y \in V$ but $x \notin V$. 
+        \begin{subclaim}
+          There exists open $U_0 \subseteq X_{i_0}$ such that $x_{i_0} \in U_0$ but $y_{i_0} \notin U_0$.
+        \end{subclaim}
+        \begin{subclaimproof}
+          Since $U$ is open in $\tau$, $U$ is the union of sets of the form
+          \[
+            \pi_{i_0}^{-1}[U_0]\cap\pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n],
+          \]
+          where $i_1, \dots, i_n \in \mathbb{I}-\{i_0\}$ and $U_j$ open in $X_{i_j}$ for each $j = 0, \dots, n$. Then, in particular, there must exist
+          some $U_0 \in \tau_{i_0}$ such that $x_{i_0} \in U_0$ and $y_{i_0} \notin U_0$ since $\pi_i(x) = \pi_i(y)$ for all $i \neq i_0$.
+        \end{subclaimproof}
+        \begin{subclaim}
+          There exists open $V_0 \subseteq X_{i_0}$ such that $y_{i_0} \in V_0$ but $x_{i_0} \notin V_0$.
+        \end{subclaim}
+        \begin{subclaimproof}
+          By symmetry of the argument in Subclaim 2.1.
+        \end{subclaimproof}
+
+        So by Subclaim 2.1 and 2.2, $(X_{i_0}, \tau_{i_0})$ is $T_1$.
       \end{claimproof}
 
       Now let $i_0 \in \mathbb{I}$, $x_{i_0} \in X_{i_0}$, and $F \subseteq X_{i_0}$ closed be arbitrary. By Claim 2, $(X_{i_0}, \tau_{i_0})$ is

@@ -78,7 +78,20 @@ where
     y_n \bm{x}_n^T 
   \end{bmatrix} \in \mathbb{R}^{n\times k}.
 \end{align*}
-Further,
+Also note that 
+\begin{equation}
+  X^T \Lambda^{-1} X = \begin{bmatrix}
+    \sum_{i=1}^{n}\frac{y_i^2 x_{i,1}x_{i,1}}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ y_i^2 x_{i,1}x_{i,k}}{\lambda_i} \\
+    \vdots & \ddots & \vdots \\
+    \sum_{i=1}^{n} \frac{y_i^2 x_{i,1}x_{i,k}}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{y_i^2 x_{i,k}x_{i,k}}{\lambda_i}
+  \end{bmatrix} = \begin{bmatrix}
+    \sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+    \vdots & \ddots & \vdots \\
+    \sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
+  \end{bmatrix},
+  \label{xtlx}
+\end{equation}
+since $y_i \in \{-1,1\}$ for all $i = 1,\dots, n$. Further,
 \[
   p(\lambda_i|\cdot) \sim \left\{ \begin{array}{cl}
       \mathcal{GIG}\left( \frac{1}{2}, 1, [1 - y_i \bm{x}_i^T\beta]^2 \right) & \text{ if } 1-y_i \bm{x}_i^T \beta \neq 0 \\ \\
@@ -286,7 +299,7 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_i\bm{x}_i^T\beta)^2$. \\
   Thus,
   \begin{equation}
     E[V(\beta)|\lambda,\omega,\cdot] = \sum_{i=1}^{n}\left[(1 - y_i\bm{x}_i^T\mu_{\beta})^2 + y_i^2 \bm{x}_i^T \Sigma_{\beta} \bm{x}_i\right] = \sum_{i=1}^{n}
-    (1 - y_i\bm{x}_i^T\mu_{\beta})^2 + \sum_{i=1}^{n}y_i^2\bm{x}_i^T\Sigma_{\beta}\bm{x}_i.
+    (1 - y_i\bm{x}_i^T\mu_{\beta})^2 + \sum_{i=1}^{n}\bm{x}_i^T\Sigma_{\beta}\bm{x}_i.
     \label{eq3}
   \end{equation}
   Focusing on the first term in \eqref{eq3}, we have 
@@ -306,23 +319,23 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_i\bm{x}_i^T\beta)^2$. \\
   \end{align}
   Applying Lemma \ref{l1} again, for the second term in \eqref{eq3} we have 
   \begin{align}
-    \sum_{i=1}^{n}y_i^2 \bm{x}_i^T\Sigma_{\beta} \bm{x}_i^T \leq \sum_{i=1}^{n}y_i^2 \bm{x}_i^T[v^{-2}\Sigma^{-1}\Omega^{1}]^{-1}\bm{x}_i & = \nu^2\sum_{i=1}^{n} y_i^2
+    \sum_{i=1}^{n} \bm{x}_i^T\Sigma_{\beta} \bm{x}_i^T \leq \sum_{i=1}^{n} \bm{x}_i^T[v^{-2}\Sigma^{-1}\Omega^{1}]^{-1}\bm{x}_i & = \nu^2\sum_{i=1}^{n} 
     \bm{x}_i^T \Omega \Sigma \bm{x}_i \nonumber \\
-    & = \nu^2 \sum_{i=1}^{n}y_i^2 \sum_{j=1}^{k}x_{i,j}^2 \sigma_{j}^2 \omega_j.
+    & = \nu^2 \sum_{i=1}^{n} \sum_{j=1}^{k}x_{i,j}^2 \sigma_{j}^2 \omega_j.
     \label{eq6}
   \end{align}
   Thus, by \eqref{eq3}, \eqref{eq5}, and \eqref{eq6}, 
   \[
-    E[V(\beta)|\lambda, \omega, \cdot] \leq 4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n}y_i^2 \sum_{j=1}^{k}x_{i,j}^2
+    E[V(\beta)|\lambda, \omega, \cdot] \leq 4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n} \sum_{j=1}^{k}x_{i,j}^2
     \sigma_j^2 \omega_j.
   \]
   Hence 
   \begin{align}
     & \int_{\mathbb{R}^{k}} V(\beta) k(\beta|\beta_0)\ d\beta \nonumber \\
     & \leq \int_{\mathbb{R}^{n}_+ \times \mathbb{R}^{k}_+}
-    \left(4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n}y_i^2 \sum_{j=1}^{k}x_{i,j}^2 \sigma_j^2 \omega_j \right)
+    \left(4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n}\sum_{j=1}^{k}x_{i,j}^2 \sigma_j^2 \omega_j \right)
     p(\lambda|\beta_0, \cdot) p(\omega|\beta_0,\cdot)\ d(\lambda \times \omega) \nonumber \\
-    & = 4n + 4\sum_{i=1}^{n}E[\lambda_i^2 + 2\lambda_i + 1|\beta_0, \cdot] + \nu^2\sum_{i=1}^{n}y_i^2\sum_{j=1}^{k}x_{i,j}^2\sigma_j^2
+    & = 4n + 4\sum_{i=1}^{n}E[\lambda_i^2 + 2\lambda_i + 1|\beta_0, \cdot] + \nu^2\sum_{i=1}^{n}\sum_{j=1}^{k}x_{i,j}^2\sigma_j^2
     E[\omega_j|\beta_0,\cdot].
     \label{eq7}
   \end{align}
