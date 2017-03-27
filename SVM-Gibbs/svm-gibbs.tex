@@ -183,6 +183,26 @@ The following results may be helpful in our construction of the drift condition.
   \label{c1}
 \end{corollary}
 
+\begin{corollary}
+  For $i = 1,\dots, n$ and $j = 1,\dots,k$, we have
+  \begin{align*}
+    E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^2 \frac{K_{5/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
+    \right)} \leq \left( 4 + |1 - y_i \bm{x}_i^T \beta_0| \right)^2, \\
+    E[\lambda_i|\beta_0, \cdot] & = |1 - y_i\bm{x}_i^T\beta_0| \frac{K_{3/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
+    \right)} \leq 2 + |1-y_i\bm{x}_i^T\beta_0|,  \\
+    E[\omega_j^2|\beta_0, \cdot] & = \frac{\beta_{0,j}^2}{\nu^2 \sigma_j^2} \frac{K_{5/2}\left( |\beta_{0,j}| / (\nu\sigma_j) \right)}{ 
+    K_{1/2}\left( |\beta_{0,j}| / (\nu \sigma_{j}) \right)} \leq \left( 4 + \frac{|\beta_{0,j}|}{\nu \sigma_j} \right)^2, \\
+    E[\omega_j|\beta_0, \cdot] & = \frac{|\beta_{0,j}|}{\nu\sigma_j} \frac{K_{3/2}\left( |\beta_{0,j}| / (\nu\sigma_j) \right)}{ 
+    K_{1/2}\left( |\beta_{0,j}| / (\nu \sigma_{j}) \right)} \leq 2 + \frac{|\beta_{0,j}|}{\nu \sigma_j},
+  \end{align*}
+  where $\beta_0 = (\beta_{0,1}, \dots, \beta_{0,k})^T$.
+  \label{c2}
+\end{corollary}
+\begin{Proof}
+  By Corollary \ref{c1} and since $\sqrt{a^2 + b^2} \leq |a| + |b|$ for all $a,b \in \mathbb{R}$.
+\end{Proof} \\
+
+
 \begin{lemma}
   If $X \sim \mathcal{GIG}(p, a, b)$, then for each $q \in \mathbb{R}$,
   \[
@@ -208,6 +228,23 @@ The following results may be helpful in our construction of the drift condition.
   \]
   \label{l6}
 \end{lemma}
+
+\begin{lemma}
+  For all $x,y \in \mathbb{R}^n \setminus \bm{0}$ and $c > 0$, 
+  \[
+    \|x + y\|_2^2 \leq (1 + c) \|x\|_2^2 + (1 + c^{-1})\|y\|_2^2.
+  \]
+  \label{l7}
+\end{lemma}
+\begin{Proof}
+  Let $x, y \in \mathbb{R}^n$, $x, y \neq \bm{0}$, and $c > 0$. Note that for each $k > 0$, $2 \leq k + \frac{1}{k}$. Hence, with $k := c \frac{\|x\|_2}{\|y\|_2}$, we have
+  \[
+    \|x + y\|_2^2 \leq \|x\|_2^2 + 2\|x\|_2 \|y\|_2 + \|y\|_2^2 \leq \|x\|_2^2 + \left( c\frac{\|x\|_2}{\|y\|_2} + \frac{1}{c}\frac{\|y\|_2}{\|x\|_2}
+    \right)\|x\|_2 \|y\|_2 + \|y\|_2^2,
+  \]
+  which gives us the result.
+\end{Proof}
+
 
 
 \section{The Drift Condition}
@@ -289,22 +326,10 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_i\bm{x}_i^T\beta)^2$. \\
     E[\omega_j|\beta_0,\cdot].
     \label{eq7}
   \end{align}
-  Now,
-  \begin{align*}
-    E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^2 \frac{K_{5/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
-    \right)}, \\
-    E[\lambda_i|\beta_0, \cdot] & = |1 - y_i\bm{x}_i^T\beta_0| \frac{K_{3/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
-    \right)}, \text{ and } \\
-    E[\omega_j|\beta_0, \cdot] & = \frac{|\beta_{0,j}|}{\nu\sigma_j} \frac{K_{3/2}\left( |\beta_{0,j}| / (\nu\sigma_j) \right)}{ 
-    K_{1/2}\left( |\beta_{0,j}| / (\nu \sigma_{j}) \right)},
-  \end{align*}
-  for $i = 1,\dots, n$ and $j = 1,\dots,k$, where $\beta_0 = (\beta_{0,1}, \dots, \beta_{0,k})^T$.
-
-  {\Large THIS WILL NOT WORK}
+  {\Large To be continued\dots}
 \end{Proof}
 
-NOTES: We cannot have $\lambda^2$ since the ratio $\frac{K_{5/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|\right)} > 1$.
-Even if we tighted or remove the inequality in \eqref{eq4}, it still won't work.
+NOTES: We need a tighter bound on $\Sigma_{\beta}$ than Lemma \ref{l1}.
 
 \newpage
 
@@ -312,17 +337,27 @@ Even if we tighted or remove the inequality in \eqref{eq4}, it still won't work.
 
 Let $V(\lambda, \omega) := \sum_{i=1}^{n}[\lambda_i^2 + \lambda^{-\delta}] + \sum_{i=j}^{k}[\omega_j^2 + \omega^{-\delta}]$, $\delta \in (0,1)$.
 
-NOTES: This will not work either for the same reasons as in the first attempt.
+NOTES: This will not work either for the same reasons as in the first attempt. In particular, we need a tighter bound on $\Sigma_{\beta}$.
 
+\section{Third Attempt}
+
+Let $V(\beta, \lambda, \omega) := (\bm{1} + \lambda - X\beta)^T (\bm{1} + \lambda - X\beta) + v^{-2} \beta^T \Omega^{-1}\Sigma^{-1}\beta +
+\omega^T \omega$.
+
+NOTES: This function $V$ is similar to what was used as the drift function in \cite{lasso}. A potential issue though is that $E[V|\beta_0,
+\lambda_0, \omega_0] \equiv E[V| \lambda_0, \omega_0]$, i.e. the conditional expectation of $V$ only depends on $\lambda_0$ and $\omega_0$.
 
 \newpage
 
 \begin{thebibliography}{9}
+  \bibitem{lasso}
+    Khare, K. and Hobert, J.P. (2013). Geometric ergodicity for the Bayesian lasso. \emph{Electronic Journal of Statistics}, \textbf{7}, 2150-5163.
+
   \bibitem{shrinkage}
     Pal, S. and Khare, K. (2014). Geometric ergodicity for Bayesian shrinkage models. \emph{Electronic Journal of Statistics}, \textbf{8}, 604-645.
 
   \bibitem{svm}
-    Polson, N. G. and Scott, S. L. (2011). Data augmentation for support vector machines. \emph{Bayesian Analysis}, \textbf{6}, 1-24.
+    Polson, N.G. and Scott, S.L. (2011). Data augmentation for support vector machines. \emph{Bayesian Analysis}, \textbf{6}, 1-24.
 
   \bibitem{jointvmarg}
     Roberts, G.O. and Rosenthal, J.S. (2001). Markov chains and de-initialising processes. \emph{Scandinavian Journal of Statistics}, \textbf{28},

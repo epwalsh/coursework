@@ -287,4 +287,94 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{enumerate}
 \end{Solution}
 
+
+\subsection*{3 [Sec. 3.5 \#1, 3, and 8]}
+\begin{Solution}
+  \begin{enumerate}
+    \item[\#1.] $(\Rightarrow)$ First suppose that $(X, \tau)$ is $T_1$. Let $(x_\alpha)_{\alpha\in\mathbb{A}}$ be a constant net in $X$, i.e.
+      there is some $x \in X$ such that $x_\alpha \equiv x$ for all $\alpha \in \mathbb{A}$. Then clearly $x_\alpha \rightarrow x$. To show that $x$
+      is the unique limit of $(x_\alpha)$, suppose for the sake of contradiction that there exists $X \ni y \neq x$ such that $x_\alpha \rightarrow y$.
+      Since $(X, \tau)$ is $T_1$, there exists $U \in \tau$ such that $y \in U$ and $x \notin U$. Then since $x_\alpha \rightarrow y$ by assumption,
+      there exists $\alpha_U \in \mathbb{A}$ such that $x_\alpha \in U$ whenever $\alpha_U \preceq \alpha$. Hence $x \in U$ since $x_\alpha \equiv x$. 
+      This is a contradiction.
+
+      $(\Leftarrow)$ Now suppose every constant net converges to a unique limit, and by way of contradiction suppose $(X, \tau)$ is not $T_1$. Then
+      there exists $x, y \in X$ such that for all $U \in \tau$, either $x \notin U$ and $y \notin U$ or $x \in U$ and $y \in U$. Consider the constant
+      net (sequence) $(x_n)_{n\in\mathbb{N}}$, where $x_n \equiv x$ for all $n \in \mathbb{N}$. Then clearly $x_n \rightarrow x$. The contradiction
+      arises by showing that $x_n$ necessarily converges to $y$ as well.
+
+      \begin{claim}
+        $x_n \rightarrow y$.
+      \end{claim}
+      \begin{claimproof}
+        Let $N$ be a neighborhood of $y$. Then there exists open $U \subseteq N$ such that $y \in U$. So, by assumption, $x \in U$ as well. Hence,
+        since $x_n \rightarrow x$, there exists $n_U \in \mathbb{N}$ such that $x_n \in U$ for all $n \geq n_U$. But then $x_n \in N$ for all $n \geq
+        n_U$. Since $N \in \mathcal{N}_y$ was arbitrary, $x_n \rightarrow y$.
+      \end{claimproof}
+
+    \item[\#3.] Let $(X, \tau)$ be the product topology.
+
+      \begin{claim}
+        $(X_{i}, \tau_{i})$ is $T_1$ for each $i \in \mathbb{I}$.
+      \end{claim}
+      \begin{claimproof}
+        Fix $i_0 \in \mathbb{I}$ and $x_{i_0} \neq y_{i_0} \in X_{i_0}$. Now, for $i \neq i_0$, choose $x_i \in X_i$ arbitrarily. Also let $y_i :=
+        x_i$ for $i \neq i_0$. Since $(X, \tau)$ is
+        $T_1$, we can assume without loss of generality that there exists open $U \in \tau$ such that $x := (x_i)_{i\in\mathbb{I}} \in U$ and 
+        $y := \left( y_i \right)_{i\in\mathbb{I}} \notin U$. Since $U$ is open in $\tau$, $U$ is the union of sets of the form
+        \[
+          \pi_{i_0}^{-1}[U_0]\cap\pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n],
+        \]
+        where $i_1, \dots, i_n \in \mathbb{I}-\{i_0\}$ and $U_j$ open in $X_{i_j}$ for each $j = 0, \dots, n$. Then, in particular, there must exist
+        some $U_0 \in \tau_{i_0}$ such that $x_{i_0} \in U_0$ and $y_{i_0} \notin U_0$ since $\pi_i(x) = \pi_i(y)$ for all $i \neq i_0$.
+      \end{claimproof}
+
+      Now let $i_0 \in \mathbb{I}$, $x_{i_0} \in X_{i_0}$, and $F \subseteq X_{i_0}$ closed be arbitrary. By Claim 2, $(X_{i_0}, \tau_{i_0})$ is
+      $T_1$. Therefore it remains to find a continuous function $f : X_{i_0} \rightarrow [0,1]$ such that $f(x_{i_0}) = 1$ and $f(x) \equiv 0$ for all
+      $x \in F$.
+
+      To that end, for $i \neq i_0$ choose $x_i \in X_i$ arbitrarily. By definition of the product topology, $\pi_{i_0}^{-1}[F]$ is closed in $X$. Thus, since $(X,
+      \tau)$ is completely regular and $x' := (x_i)_{i\in\mathbb{I}} \notin \pi^{-1}[F]$, there exists continuous $g : X \rightarrow [0,1]$ such that
+      $g(x') = 1$ and $g \equiv 0$ on $\pi_{i_0}^{-1}[F]$. Now define $f : X_i \rightarrow [0,1]$ by $f := g \circ \phi$, where $\phi : X_i \rightarrow X$
+      maps $x \in X_i$ to $\phi(x) \in X$ such that $\pi_i(\phi(x)) = x_i$, for all $i \neq i_0$, and $\pi_{i_0}(\phi(x)) = x$. Then clearly
+      $f(x_{i_0}) = 1$ and $f(x) \equiv 0$ for all $x \in F$ since $\phi(F) \subseteq \pi_{i_0}^{-1}[F]$. Thus it remains to show that $f$ is continuous.
+
+      \begin{claim}
+        $f$ is continuous.
+      \end{claim}
+      \begin{claimproof}
+        Let $E \subseteq [0,1]$ be closed. Then since $g$ is continuous, $g^{-1}[E]$ is closed in $X$. Hence $g^{-1}[E]$ is the intersection of sets
+        of the form 
+        \[
+          \pi_{i_1}^{-1}[E_1] \cup \dots \cup \pi_{i_n}^{-1}[E_n],
+        \]
+        where $i_1, \dots, i_n \in \mathbb{I}$ and $E_j$ is closed in $X_{i_j}$ for each $j = 1, \dots, n$.
+        Futher, by Claim 2 and Proposition 3.5.4, each $\{x_i\}$ is closed in $X_i$ for all $i \in \mathbb{I}$.
+        Thus, by definition of the product topology, $\pi_{i}^{-1}[\{x_i\}]$ is closed in $X$ for each $i \in \mathbb{I}$. Hence 
+        $g^{-1}[E] \cap \bigcap_{i\neq i_0}\pi_{i}^{-1}[\{x_i\}]$ is the intersection of sets of the form
+        \[
+          \left(\pi_{i_1}^{-1}[E_1] \cup \dots \cup \pi_{i_n}^{-1}[E_n]\right) \cap \bigcap_{i\neq i_0}\pi_{i}^{-1}[\{x_i\}],
+        \]
+        and thus we can write 
+        \[
+          g^{-1}[E] \cap \bigcap_{i\neq i_0}\pi_{i}^{-1}[\{x_i\}] = \pi_{i_0}^{-1}[E_0] \cap \bigcap_{i\neq i_0}\pi_{i}^{-1}[\{x_i\}],
+        \]
+        where $E_0 \in X_{i_0}$ is closed. Thus 
+        \begin{align*}
+          f^{-1}[E] = \phi^{-1} \circ g^{-1}[E] & = \phi^{-1}\left[ g^{-1}[E] \cap \bigcap_{i\neq i_0}\pi_{i}^{-1}[\{x_i\}] \right] \\
+          & = \phi^{-1}\left[ \pi_{i_0}^{-1}[E_0] \cap \bigcap_{i\neq i_0}\pi_{i}^{-1}[\{x_i\}]\right] \\
+          & = E_0.
+        \end{align*}
+        Hence $f$ is continuous.
+      \end{claimproof}
+
+    \item[\#8.] Let $Y$ be a closed subspace of $X$. To show that $Y$ is normal, let $F, G \subseteq Y$ be closed relative to $Y$ such that $F \cap G
+      = \emptyset$. Then there exists $\tilde{F}, \tilde{G} \subseteq X$ that are closed relative to $X$ such that $F = Y \cap \tilde{F}$ and $G = Y
+      \cap \tilde{G}$. But since $Y$ is closed, $F$ and $G$ are then also closed relative to $X$. Hence, since $X$ is normal, there exists $\tilde{U},
+      \tilde{V} \subset X$ that are open relative to $X$ such that $F \subset \tilde{U}$, $G \subset \tilde{V}$, and $\tilde{U} \cap \tilde{V} = \emptyset$.
+      Then let $U := Y \cap \tilde{U}$ and $V := Y \cap \tilde{V}$. So $U$ and $V$ are open in $Y$ and $F \subset U$, $G \subset V$, and $U \cap V
+      \subset \tilde{U} \cap \tilde{V} = \emptyset$. Hence $Y$ is normal.
+  \end{enumerate}
+\end{Solution}
+
 \end{document}
