@@ -272,16 +272,22 @@ The following results may be helpful in our construction of the drift condition.
     \right)\|x\|_2 \|y\|_2 + \|y\|_2^2,
   \]
   which gives us the result.
-\end{Proof}
+\end{Proof} \\
 
 \begin{lemma}
   (Chakraborty \& Khare 2016, Proposition A.1)
   For any matrix $B \in \mathbb{R}^{n\times k}$ with $B \neq 0_{n\times k}$, all eigenvalues of $B(B^T B + I_{k})^{-1}B^T$ lie within $[0,1)$, with at
-  least one eigenvalue strictly positive.
+  least one eigenvalue strictly positive. Further, as a porism to the proof in \cite{probit}, the non-zero eigenvalues are of the form 
+  \[
+    \frac{d_i^2}{1 + d_i^2}, \ \ i \in\{ 1, \dots, k\},
+  \]
+  where each $d_i$ corresponds the square root of an eigenvalue of $B^T B$.
   \label{l8}
 \end{lemma}
 
 
+
+\newpage
 
 \section{The Drift Condition}
 
@@ -333,7 +339,7 @@ This function of course may not be bounded off compact sets.
   \begin{align}
     \sum_{i=1}^{n}(1 - y_i \bm{x}_i^T \mu_{\beta})^2 = \|\mathbf{1} + X_{y}\mu_{\beta}\|_{2}^{2} 
     & \leq \left(1 + \frac{1}{c}\right) \|\mathbf{1}\|_{2}^{2} + \left( 1 + c \right)\|X_{y}\mu_{\beta}\|_{2}^{2} \nonumber \\
-    & = \left( 1 + \frac{1}{c} \right) n^2 + (1 + c)\|X_y \mu_\beta \|_2^2,
+    & = \left( 1 + \frac{1}{c} \right) n + (1 + c)\|X_y \mu_\beta \|_2^2,
     \label{eq4}
   \end{align}
   for any $c > 0$ by Lemma \ref{l7}. Further, with $\tilde{X} := \Lambda^{-1/2}X_{y}(\nu^{-2}\Omega^{-1}\Sigma^{-1})^{-1/2}$ and 
@@ -345,34 +351,82 @@ This function of course may not be bounded off compact sets.
     & \leq \| \Lambda^{1/2} (\ell_{\max}I_{n}) \Lambda^{1/2}  (\mathbf{1} + \lambda^{-1})\|_{2}^{2} \nonumber \\
     & = \ell_{\max}^2 \| \Lambda (\mathbf{1} + \lambda^{-1})\|_{2}^{2} \nonumber \\
     & = \ell_{\max}^2 \| \lambda + 1\|_{2}^{2} \nonumber \\
-    & \leq \ell_{\max}^2 \left[ \left( 1 + \frac{1}{c} \right)\| \|1\|_{2}^{2} + (1 + c) \|\lambda \|_{2}^{2}\right] \nonumber \\
-    & = \ell_{\max}^2 \left[ \left( 1 + \frac{1}{c} \right) n^2 + (1 + c) \|\lambda \|_{2}^{2}\right].
+    & \leq \ell_{\max}^2 \left[ \left( 1 + \frac{1}{c} \right) \|1\|_{2}^{2} + (1 + c) \|\lambda \|_{2}^{2}\right] \nonumber \\
+    & = \ell_{\max}^2 \left[ \left( 1 + \frac{1}{c} \right) n + (1 + c) \|\lambda \|_{2}^{2}\right].
     \label{eq5}
   \end{align}
   So by \eqref{eq4} and \eqref{eq5}, we have 
   \[
-    \sum_{i=1}^{n} ( 1 - y_i \bm{x}_i^T \mu_\beta )^2 \leq \left( 1 + \frac{1}{c} \right)n^2 + \ell_{\max}^2(1 + c)\left( 1 + \frac{1}{c}\right) n^2 
+    \sum_{i=1}^{n} ( 1 - y_i \bm{x}_i^T \mu_\beta )^2 \leq \left( 1 + \frac{1}{c} \right)n + \ell_{\max}^2(1 + c)\left( 1 + \frac{1}{c}\right) n 
     + \ell_{\max}^2 (1 + c)^2 \|\lambda\|_2^2.
   \]
   Now, by Lemma \ref{l8}, $0 < \ell_{\max} < 1$, so
   \begin{align}
-    \sum_{i=1}^{n} ( 1 - y_i \bm{x}_i^T \mu_\beta )^2 & \leq (2 + c)\left( 1 + \frac{1}{c} \right)n^2 + \ell_{\max}^2 (1 + c)^2 \|\lambda\|_2^2
+    \sum_{i=1}^{n} ( 1 - y_i \bm{x}_i^T \mu_\beta )^2 & \leq (2 + c)\left( 1 + \frac{1}{c} \right)n + \ell_{\max}^2 (1 + c)^2 \|\lambda\|_2^2
     \nonumber \\
     & = A(c) + \ell_{\max}^2(1 + c)^2 \sum_{i=1}^{n} \lambda_i^2,
     \label{eq6}
   \end{align}
-  where $A(c) := (2 + c)\left( 1 + \frac{1}{c} \right) n^2 \in \mathbb{R}_{+}$.
+  where $A(c) := (2 + c)\left( 1 + \frac{1}{c} \right) n \in \mathbb{R}_{+}$.
   For the second term in \eqref{eq3}, using the same tricks as in \eqref{eq5}, we get
   \begin{equation}
     \text{trace}(X_y \Sigma_\beta X_{y}^T) \leq \text{trace}(\ell_{\max} \Lambda) = \ell_{\max} \sum_{i=1}^{n} \lambda_i.
     \label{eq7}
   \end{equation}
-  Hence we now have a bound on the inner expectation given by 
-  \begin{equation}
-    E[V(\beta) | \lambda, \omega, \cdot] \leq A(c) + \ell_{\max}^2(1 + c)^2 \sum_{i=1}^{n} \lambda_i^2 + \ell_{\max} \sum_{i=1}^{n} \lambda_i.
+  Hence by \eqref{eq6} and \eqref{eq7} we now have a bound on the inner expectation given by 
+  \begin{align}
+    E[V(\beta) | \lambda, \omega, \cdot] & \leq A(c) + \ell_{\max}^2(1 + c)^2 \sum_{i=1}^{n} \lambda_i^2 + \ell_{\max} \sum_{i=1}^{n} \lambda_i
+    \nonumber \\
+    & \leq A(c) + \ell_{\max}(1 + c)^2 \sum_{i=1}^{n}\lambda_i^2 + \ell_{\max}(1 + c)^2 \sum_{i=1}^{n}\lambda_i \nonumber \\
+    & \leq A(c) + \ell_{\max}(1 + c)^2 \sum_{i=1}^{n}\lambda_i^2 + \ell_{\max}(1 + c)^2 \sum_{i=1}^{n}2\lambda_i  + \ell_{\max}(1 + c)^2 n \nonumber \\
+    & = A(c) + \ell_{\max}(1 + c)^2 \sum_{i=1}^{n}(\lambda_i + 1)^2 \nonumber \\
+    \text{(by Lemma \ref{l7}) } \ & \leq A(c) + \ell_{\max}(1 + c)^2 \left[ \left( 1 + \frac{1}{c} \right)n + (1 + c)\sum_{i=1}^{n}\lambda_i^2 \right] \nonumber \\
+    & \leq A(c) + (1 + c)^2\left( 1 + \frac{1}{c} \right)n + \ell_{\max}(1 + c)^3 \sum_{i=1}^{n} \lambda_i^2 \nonumber \\
+    & = A'(c) + \ell_{\max}(1 + c)^3 \sum_{i=1}^{n} \lambda_i^2,
     \label{eq9}
+  \end{align}
+  where $A'(c) := A(c) + (1 + c)^2\left( 1 + \frac{1}{c} \right)n$. By Lemma \ref{l8} again, $\ell_{\max}$ is of the form 
+  \begin{equation}
+    \ell_{\max} = \frac{d}{1 + d}, 
+    \label{eq10}
+  \end{equation}
+  where $d$ is the square root of the maximum eigenvalue of $\tilde{X}^T
+  \tilde{X}$. Further, note that 
+  \begin{align*}
+    \tilde{X}^T \tilde{X} & = \nu^{-2} \Omega^{-1/2}\Sigma^{-1/2} X_y^T \Lambda^{-1} X_y \Sigma^{-1/2}\Omega^{-1/2} \\
+    & = \nu^{-2} \Omega^{-1/2}\Sigma^{-1/2} \begin{bmatrix}
+      \sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+      \vdots & \ddots & \vdots \\
+      \sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
+    \end{bmatrix} \Sigma^{-1/2} \Omega^{-1/2} \\
+    & = \nu^{-2} \Omega^{-1/2}\Sigma^{-1/2} \begin{bmatrix}
+      \frac{1}{\sigma_1 \sqrt{\omega_1}}\sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \frac{1}{\sigma_k\sqrt{\omega_k}}\sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+      \vdots & \ddots & \vdots \\
+      \frac{1}{\sigma_1 \sqrt{\omega_1}}\sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \frac{1}{\sigma_k\sqrt{\omega_k}}\sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
+    \end{bmatrix}  \\
+    & = \nu^{-2} \begin{bmatrix}
+      \frac{1}{\sigma_1^2 \omega_1}\sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \frac{1}{\sigma_1\sigma_k\sqrt{\omega_1\omega_k}}\sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+      \vdots & \ddots & \vdots \\
+      \frac{1}{\sigma_1\sigma_k \sqrt{\omega_1\omega_k}}\sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \frac{1}{\sigma_k^2\omega_k}\sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
+    \end{bmatrix}.  \\
+  \end{align*}
+  Thus, since the trace of a symmetric matrix is equal to the sum of the eigenvalues, 
+  \begin{equation*}
+    d^2 \leq \frac{1}{\nu^{2}} \sum_{j=1}^{k} \frac{1}{\sigma_j^2 \omega_j} \sum_{i=1}^{n} \frac{x_{i,j}^2}{\lambda_i},
+  \end{equation*}
+  and so 
+  \begin{equation}
+    d \leq \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}},
+    \label{eq11}
+  \end{equation}
+  since $\sqrt{a + b} \leq \sqrt{a} + \sqrt{b}$ for all $a, b > 0$. So by \eqref{eq10} and \eqref{eq11}, we have
+  \begin{equation}
+    \ell_{\max} \leq \frac{ \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}} }{ 1 + 
+    \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}} }.
+    \label{eq12}
   \end{equation}
 \end{Proof}
+
 
 
 \newpage
@@ -381,15 +435,11 @@ This function of course may not be bounded off compact sets.
 
 Let $V(\lambda, \omega) := \sum_{i=1}^{n}[\lambda_i^2 + \lambda^{-\delta}] + \sum_{i=j}^{k}[\omega_j^2 + \omega^{-\delta}]$, $\delta \in (0,1)$.
 
-NOTES: This will not work either for the same reasons as in the first attempt. In particular, we need a tighter bound on $\Sigma_{\beta}$.
-
 \section{Third Attempt}
 
 Let $V(\beta, \lambda, \omega) := (\bm{1} + \lambda - X_{y}\beta)^T (\bm{1} + \lambda - X_{y}\beta) + v^{-2} \beta^T \Omega^{-1}\Sigma^{-1}\beta +
 \omega^T \omega$.
 
-NOTES: This function $V$ is similar to what was used as the drift function in \cite{lasso}. A potential issue though is that $E[V|\beta_0,
-\lambda_0, \omega_0] \equiv E[V| \lambda_0, \omega_0]$, i.e. the conditional expectation of $V$ only depends on $\lambda_0$ and $\omega_0$.
 
 \newpage
 
