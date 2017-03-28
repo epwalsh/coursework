@@ -66,21 +66,26 @@ $\lambda \in \mathbb{R}_{+}^{n}$, and $\omega \in \mathbb{R}_{+}^{k}$, we have b
 \]
 where 
 \begin{align*}
-  \Sigma_{\beta} & := [\nu^{-2}\Sigma^{-1}\Omega^{-1} + X^{T}\Lambda^{-1} X]^{-1} \in \mathbb{R}^{k\times k}, \\
-  \mu_{\beta} & := \Sigma_{\beta}X^{T}(\bm{1} + \lambda^{-1}) \in \mathbb{R}^{k}, \\
+  \Sigma_{\beta} & := [\nu^{-2}\Sigma^{-1}\Omega^{-1} + X_{y}^{T}\Lambda^{-1} X_{y}]^{-1} \in \mathbb{R}^{k\times k}, \\
+  \mu_{\beta} & := \Sigma_{\beta}X_{y}^{T}(\bm{1} + \lambda^{-1}) \in \mathbb{R}^{k}, \\
   \Sigma & := \text{diag}(\sigma_1^2,\dots, \sigma_k^2) \in \mathbb{R}^{k\times k}, \\
   \Omega & := \text{diag}(\omega_1, \dots, \omega_k) \in \mathbb{R}^{k\times k}, \\
   \Lambda & := \text{diag}(\lambda_1, \dots, \lambda_n) \in \mathbb{R}^{n\times n}, \\
   \bm{1} & := (1, \dots, 1)^T \in \mathbb{R}^{n}, \\
-  X & := \begin{bmatrix}
+  X_{y} & := \begin{bmatrix}
     y_1 \bm{x}_1^T \\
     \vdots \\
     y_n \bm{x}_n^T 
+  \end{bmatrix} \in \mathbb{R}^{n\times k}, \\
+  X & := \begin{bmatrix}
+    \bm{x}_1^T \\
+    \vdots \\
+    \bm{x}_n^T 
   \end{bmatrix} \in \mathbb{R}^{n\times k}.
 \end{align*}
 Also note that 
 \begin{equation}
-  X^T \Lambda^{-1} X = \begin{bmatrix}
+  X_{y}^T \Lambda^{-1} X_{y} = \begin{bmatrix}
     \sum_{i=1}^{n}\frac{y_i^2 x_{i,1}x_{i,1}}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ y_i^2 x_{i,1}x_{i,k}}{\lambda_i} \\
     \vdots & \ddots & \vdots \\
     \sum_{i=1}^{n} \frac{y_i^2 x_{i,1}x_{i,k}}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{y_i^2 x_{i,k}x_{i,k}}{\lambda_i}
@@ -91,7 +96,9 @@ Also note that
   \end{bmatrix},
   \label{xtlx}
 \end{equation}
-since $y_i \in \{-1,1\}$ for all $i = 1,\dots, n$. Further,
+since $y_i \in \{-1,1\}$ for all $i = 1,\dots, n$. Here $\Sigma_{\beta}$ is well-defined since $\nu^{-2}\Sigma^{-1}\Omega^{-1} \succ 0$ and $X_{y}^T
+\Lambda^{-1} X_{y} \succeq 0$, and so $\nu^{-2}\Sigma^{-1}\Omega^{-1} + X_{y}^T \Lambda^{-1} X_{y} \succ 0$, which implies that $\nu^{-2}\Sigma^{-1}\Omega^{-1} +
+X_{y}^T \Lambda^{-1} X_{y}$ is invertible. Further,
 \[
   p(\lambda_i|\cdot) \sim \left\{ \begin{array}{cl}
       \mathcal{GIG}\left( \frac{1}{2}, 1, [1 - y_i \bm{x}_i^T\beta]^2 \right) & \text{ if } 1-y_i \bm{x}_i^T \beta \neq 0 \\ \\
@@ -127,7 +134,7 @@ Gamma$(a,b)$ denotes a Gamma distribution with expectation $ab$.
 The following results may be helpful in our construction of the drift condition. \\
 
 \begin{lemma}
-  $v^2 \Omega \Sigma - \Sigma_{\beta} \succeq 0$ and $[X^T \Lambda^{-1}X]^{-1} - \Sigma_{\beta} \succeq 0$.
+  If $X_{y}$ has full column rank, then $v^2 \Omega \Sigma - \Sigma_{\beta} \succeq 0$ and $[X_{y}^T \Lambda^{-1}X_{y}]^{-1} - \Sigma_{\beta} \succeq 0$.
   \label{l1}
 \end{lemma}
 \begin{Proof}
@@ -135,35 +142,35 @@ The following results may be helpful in our construction of the drift condition.
 \end{Proof} \\
 
 \begin{lemma}
-  $\Lambda - X[X^T \Lambda^{-1} X]^{-1} X^T \succeq 0$.
+  If $X_{y}$ has full column rank, then $\Lambda - X_{y}[X_{y}^T \Lambda^{-1} X_{y}]^{-1} X_{y}^T \succeq 0$.
   \label{l2}
 \end{lemma}
 \begin{Proof}
   First note that 
   \[
-    \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2} = \Lambda^{-1/2}X[X^T \Lambda^{-1/2}\Lambda^{-1/2} X]^{-1} X^T \Lambda^{-1/2}
+    \Lambda^{-1/2}X_{y}[X_{y}^T \Lambda^{-1} X_{y}]^{-1} X_{y}^T \Lambda^{-1/2} = \Lambda^{-1/2}X_{y}[X_{y}^T \Lambda^{-1/2}\Lambda^{-1/2} X_{y}]^{-1} X_{y}^T \Lambda^{-1/2}
   \]
-  is the perpendicular projection operator onto the column space of $\Lambda^{-1/2}X$. Thus, 
+  is the perpendicular projection operator onto the column space of $\Lambda^{-1/2}X_{y}$. Thus, 
   \[
-    I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2}  \succeq 0,
+    I_n - \Lambda^{-1/2}X_{y}[X_{y}^T \Lambda^{-1} X_{y}]^{-1} X_{y}^T \Lambda^{-1/2}  \succeq 0,
   \]
-  i.e. for all $b \in \mathbb{R}^{n}$, $b^T(I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2})b \geq 0$,
+  i.e. for all $b \in \mathbb{R}^{n}$, $b^T(I_n - \Lambda^{-1/2}X_{y}[X_{y}^T \Lambda^{-1} X_{y}]^{-1} X_{y}^T \Lambda^{-1/2})b \geq 0$,
   where $I_n$ is the $n\times n$ identity matrix. But this implies that 
   \[
-    b^{T}\Lambda^{1/2} (I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2}) \Lambda^{1/2}b \geq 0
+    b^{T}\Lambda^{1/2} (I_n - \Lambda^{-1/2}X_{y}[X_{y}^T \Lambda^{-1} X_{y}]^{-1} X_{y}^T \Lambda^{-1/2}) \Lambda^{1/2}b \geq 0
   \]
   for all $b \in \mathbb{R}^{n}$. So
-  $\Lambda^{1/2}(I_n - \Lambda^{-1/2}X[X^T \Lambda^{-1} X]^{-1} X^T \Lambda^{-1/2})\Lambda^{1/2} = \Lambda - X[X^T \Lambda^{-1} X]^{-1}X^T \succeq 0$.
+  $\Lambda^{1/2}(I_n - \Lambda^{-1/2}X_{y}[X_{y}^T \Lambda^{-1} X_{y}]^{-1} X_{y}^T \Lambda^{-1/2})\Lambda^{1/2} = \Lambda - X_{y}[X_{y}^T \Lambda^{-1} X_{y}]^{-1}X_{y}^T \succeq 0$.
 \end{Proof} \\
 
 \begin{corollary}
-  For each $i = 1,\dots, n$, we have $\lambda_i \geq y_i^2 \bm{x_i}^T \Sigma_{\beta} \bm{x}_i$.
+  If $X_{y}$ has full column rank, then for each $i = 1,\dots, n$, we have $\lambda_i \geq \bm{x_i}^T \Sigma_{\beta} \bm{x}_i$.
   \label{c0}
 \end{corollary}
 \begin{Proof}
-  First note that $\left( y_i^2 \bm{x}_i^T \Sigma_{\beta} \bm{x}_i \right)_{i=1}^{n}  = \left( (y_i \bm{x}_i)^T \Sigma_{\beta} (y_i \bm{x}_i) \right)_{i=1}^{n}$ are precisely
-  the diagonal entries of $X\Sigma_{\beta} X^T$. Thus, by Lemma \ref{l1}, Lemma \ref{l2}, and the fact that the diagonal entries of a positive
-  semi-definite matrix are non-negative, $\lambda_i \geq y_i^2 \bm{x}_i \Sigma_{\beta} x_i$ for each $i = 1, \dots, n$.
+  First note that $\left( \bm{x}_i^T \Sigma_{\beta} \bm{x}_i \right)_{i=1}^{n}  = \left( (y_i \bm{x}_i)^T \Sigma_{\beta} (y_i \bm{x}_i) \right)_{i=1}^{n}$ are precisely
+  the diagonal entries of $X_{y}\Sigma_{\beta} X_{y}^T$. Thus, by Lemma \ref{l1}, Lemma \ref{l2}, and the fact that the diagonal entries of a positive
+  semi-definite matrix are non-negative, $\lambda_i \geq y_i^2 x_i \Sigma_{\beta} x_i = x_i \Sigma_{\beta} x_i$ for each $i = 1, \dots, n$.
 \end{Proof} \\
 
 \begin{lemma}
@@ -183,22 +190,34 @@ The following results may be helpful in our construction of the drift condition.
   (Segura 2011, Theorem 2)
   For $p, x > 0$, 
   \[
-    \frac{K_{p+1/2}(x)}{K_{p-1/2}(x)} \leq \frac{p + \sqrt{p^2 + x^2}}{x}.
+    \frac{K_{p+1/2}(x)}{K_{p-1/2}(x)} \leq \frac{p + \sqrt{p^2 + x^2}}{x} \leq \frac{2p + x}{x}.
   \]
   \label{l4}
 \end{lemma} 
 
 \begin{corollary}
   For $x > 0, p > 1/2$,
-  \[
-    \frac{K_{p+1}(x)}{K_{p-1}(x)} \leq \frac{\left[(p+1/2) + \sqrt{(p+1/2)^2 + x^2}\right]\times\left[(p-1/2) + \sqrt{(p-1/2)^2 + x^2}\right]}{x^2}.
-  \]
+  \begin{align*}
+    \frac{K_{p+1}(x)}{K_{p-1}(x)} & \leq \frac{\left[(p+1/2) + \sqrt{(p+1/2)^2 + x^2}\right]\times\left[(p-1/2) + \sqrt{(p-1/2)^2 + x^2}\right]}{x^2}
+    \\
+    & \leq \frac{(2(p + 1/2) + x)^2}{x^2}.
+  \end{align*}
   \label{c1}
+\end{corollary}
+
+\begin{corollary}
+  For $x > 0, p > 3/2$,
+  \[
+    \frac{K_{p+2}(x)}{K_{p-2}(x)} \leq \frac{(2(p + 3/2) + x)^4}{x^4}.
+  \]
+  \label{c3}
 \end{corollary}
 
 \begin{corollary}
   For $i = 1,\dots, n$ and $j = 1,\dots,k$, we have
   \begin{align*}
+    E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^4 \frac{K_{9/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
+    \right)} \leq \left( 8 + |1 - y_i \bm{x}_i^T \beta_0| \right)^4, \\
     E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^2 \frac{K_{5/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
     \right)} \leq \left( 4 + |1 - y_i \bm{x}_i^T \beta_0| \right)^2, \\
     E[\lambda_i|\beta_0, \cdot] & = |1 - y_i\bm{x}_i^T\beta_0| \frac{K_{3/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
@@ -211,9 +230,6 @@ The following results may be helpful in our construction of the drift condition.
   where $\beta_0 = (\beta_{0,1}, \dots, \beta_{0,k})^T$.
   \label{c2}
 \end{corollary}
-\begin{Proof}
-  By Corollary \ref{c1} and since $\sqrt{a^2 + b^2} \leq |a| + |b|$ for all $a,b \in \mathbb{R}$.
-\end{Proof} \\
 
 
 \begin{lemma}
@@ -234,10 +250,10 @@ The following results may be helpful in our construction of the drift condition.
 \end{Proof}
 
 \begin{lemma}
-  (Pal \& Khare 2014, Proposition A1)
-  Suppose $X \sim N(\mu, \gamma^2)$. Then for any $\delta \in (0,1)$, 
+  (Pal \& Khare 2014, Proposition A.1)
+  Suppose $X_{y} \sim N(\mu, \gamma^2)$. Then for any $\delta \in (0,1)$, 
   \[
-    E\left[ |X|^{-\delta} \right] \leq \frac{\Gamma\left( \frac{1-\delta}{2} \right) 2^{\frac{1-\delta}{2}}}{\gamma^\delta \sqrt{2\pi}}.
+    E\left[ |X_{y}|^{-\delta} \right] \leq \frac{\Gamma\left( \frac{1-\delta}{2} \right) 2^{\frac{1-\delta}{2}}}{\gamma^\delta \sqrt{2\pi}}.
   \]
   \label{l6}
 \end{lemma}
@@ -258,6 +274,13 @@ The following results may be helpful in our construction of the drift condition.
   which gives us the result.
 \end{Proof}
 
+\begin{lemma}
+  (Chakraborty \& Khare 2016, Proposition A.1)
+  For any matrix $B \in \mathbb{R}^{n\times k}$ with $B \neq 0_{n\times k}$, all eigenvalues of $B(B^T B + I_{k})^{-1}B^T$ lie within $[0,1)$, with at
+  least one eigenvalue strictly positive.
+  \label{l8}
+\end{lemma}
+
 
 
 \section{The Drift Condition}
@@ -276,10 +299,13 @@ For a given drift function $V$, we will attempt to prove the following. \\
 Remark: We have such freedom in how we define $x$ and $\mathcal{X}$ since the convergence rate of any marginal part of the chain is equal to the convergence rate
 of the joint chain by \cite{jointvmarg}.
 
+\newpage
+
 \section{First Attempt}
 
 Let $V(\beta) := \sum_{i=1}^{n}(1 - y_i\bm{x}_i^T\beta)^2$. \\
 
+This function of course may not be bounded off compact sets.
 
 \begin{Proof}
   Note that 
@@ -297,52 +323,57 @@ Let $V(\beta) := \sum_{i=1}^{n}(1 - y_i\bm{x}_i^T\beta)^2$. \\
     \label{eq2}
   \end{equation*}
   Thus,
-  \begin{equation}
-    E[V(\beta)|\lambda,\omega,\cdot] = \sum_{i=1}^{n}\left[(1 - y_i\bm{x}_i^T\mu_{\beta})^2 + y_i^2 \bm{x}_i^T \Sigma_{\beta} \bm{x}_i\right] = \sum_{i=1}^{n}
-    (1 - y_i\bm{x}_i^T\mu_{\beta})^2 + \sum_{i=1}^{n}\bm{x}_i^T\Sigma_{\beta}\bm{x}_i.
-    \label{eq3}
-  \end{equation}
-  Focusing on the first term in \eqref{eq3}, we have 
-  \begin{equation}
-    \sum_{i=1}^{n}(1 - y_i \bm{x}_i^T \mu_{\beta})^2 \leq 4n + 4\sum_{i=1}^{n}(y_i\bm{x}_i^T \mu_{\beta})^2 = 4n + 4(X\mu_{\beta})^T (X\mu_{\beta}) 
-    = 4n + 4\mu_{\beta}^T X^T X \mu_{\beta},
-    \label{eq4}
-  \end{equation}
-  since $(a + b)^2 \leq 4|a|^2 + 4|b|^2$. Further, by Lemma \ref{l1} and Lemma \ref{l2},
   \begin{align}
-    \mu_{\beta}^T X^T X \mu_{\beta} & = (\bm{1} + \lambda^{-1})^T X \Sigma_{\beta}X^T X\Sigma_{\beta} X^T (\bm{1} + \lambda^{-1}) \nonumber \\
-    \text{(by Lemma \ref{l1})}\ & \leq (\bm{1} + \lambda^{-1})^T X[X^T\Lambda^{-1}X]^{-1}X^T X[X^T\Lambda^{-1}X]^{-1}X^T (\bm{1} + \lambda^{-1}) \nonumber \\
-    \text{(by Lemma \ref{l2})}\ & \leq (\bm{1} + \lambda^{-1})^T \Lambda^{2} (\bm{1} + \lambda^{-1})\nonumber \\
-    & = \sum_{i=1}^{n}(\lambda_i^2 + \lambda_i)(1 + \lambda_i^{-1}) \nonumber \\
-    & = \sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1).
+    E[V(\beta)|\lambda,\omega,\cdot] = \sum_{i=1}^{n}\left[(1 - y_i\bm{x}_i^T\mu_{\beta})^2 + y_i^2 \bm{x}_i^T \Sigma_{\beta} \bm{x}_i\right] & = \sum_{i=1}^{n}
+    (1 - y_i\bm{x}_i^T\mu_{\beta})^2 + \sum_{i=1}^{n}(y_i\bm{x}_i^T)\Sigma_{\beta}(y_i \bm{x}_i). \nonumber \\
+    & = \sum_{i=1}^{n} (1 - y_i\bm{x}_i^T\mu_{\beta})^2 + \text{trace}(X_{y} \Sigma_{\beta} X_{y}^T).
+    \label{eq3}
+  \end{align}
+  Focusing on the first term in \eqref{eq3}, we have 
+  \begin{align}
+    \sum_{i=1}^{n}(1 - y_i \bm{x}_i^T \mu_{\beta})^2 = \|\mathbf{1} + X_{y}\mu_{\beta}\|_{2}^{2} 
+    & \leq \left(1 + \frac{1}{c}\right) \|\mathbf{1}\|_{2}^{2} + \left( 1 + c \right)\|X_{y}\mu_{\beta}\|_{2}^{2} \nonumber \\
+    & = \left( 1 + \frac{1}{c} \right) n^2 + (1 + c)\|X_y \mu_\beta \|_2^2,
+    \label{eq4}
+  \end{align}
+  for any $c > 0$ by Lemma \ref{l7}. Further, with $\tilde{X} := \Lambda^{-1/2}X_{y}(\nu^{-2}\Omega^{-1}\Sigma^{-1})^{-1/2}$ and 
+  $\ell_{\max} :=$ the maximum eigenvalue of $\tilde{X}[\mathbb{I}_k + \tilde{X}^T \tilde{X}]^{-1} \tilde{X}^T$, we have
+  \begin{align}
+    \| X_{y} \mu_{\beta}\|_{2}^{2} = \|X_{y}\Sigma_{\beta} X_{y}^T (\bm{1} + \lambda^{-1})\|_{2}^{2} 
+    & = \| \Lambda^{1/2}\Lambda^{-1/2} X_{y}\Sigma_{\beta}X_{y}^T \Lambda^{-1/2} \Lambda^{1/2} (\bm{1} + \lambda^{-1})\|_{2}^{2} \nonumber \\
+    & = \| \Lambda^{1/2} \tilde{X}[ \mathbb{I}_{k} + \tilde{X}^T \tilde{X} ]^{-1} \tilde{X}^T \Lambda^{1/2} (\mathbf{1} + \lambda^{-1})\|_{2}^{2} \nonumber \\
+    & \leq \| \Lambda^{1/2} (\ell_{\max}I_{n}) \Lambda^{1/2}  (\mathbf{1} + \lambda^{-1})\|_{2}^{2} \nonumber \\
+    & = \ell_{\max}^2 \| \Lambda (\mathbf{1} + \lambda^{-1})\|_{2}^{2} \nonumber \\
+    & = \ell_{\max}^2 \| \lambda + 1\|_{2}^{2} \nonumber \\
+    & \leq \ell_{\max}^2 \left[ \left( 1 + \frac{1}{c} \right)\| \|1\|_{2}^{2} + (1 + c) \|\lambda \|_{2}^{2}\right] \nonumber \\
+    & = \ell_{\max}^2 \left[ \left( 1 + \frac{1}{c} \right) n^2 + (1 + c) \|\lambda \|_{2}^{2}\right].
     \label{eq5}
   \end{align}
-  Applying Lemma \ref{l1} again, for the second term in \eqref{eq3} we have 
+  So by \eqref{eq4} and \eqref{eq5}, we have 
+  \[
+    \sum_{i=1}^{n} ( 1 - y_i \bm{x}_i^T \mu_\beta )^2 \leq \left( 1 + \frac{1}{c} \right)n^2 + \ell_{\max}^2(1 + c)\left( 1 + \frac{1}{c}\right) n^2 
+    + \ell_{\max}^2 (1 + c)^2 \|\lambda\|_2^2.
+  \]
+  Now, by Lemma \ref{l8}, $0 < \ell_{\max} < 1$, so
   \begin{align}
-    \sum_{i=1}^{n} \bm{x}_i^T\Sigma_{\beta} \bm{x}_i^T \leq \sum_{i=1}^{n} \bm{x}_i^T[v^{-2}\Sigma^{-1}\Omega^{1}]^{-1}\bm{x}_i & = \nu^2\sum_{i=1}^{n} 
-    \bm{x}_i^T \Omega \Sigma \bm{x}_i \nonumber \\
-    & = \nu^2 \sum_{i=1}^{n} \sum_{j=1}^{k}x_{i,j}^2 \sigma_{j}^2 \omega_j.
+    \sum_{i=1}^{n} ( 1 - y_i \bm{x}_i^T \mu_\beta )^2 & \leq (2 + c)\left( 1 + \frac{1}{c} \right)n^2 + \ell_{\max}^2 (1 + c)^2 \|\lambda\|_2^2
+    \nonumber \\
+    & = A(c) + \ell_{\max}^2(1 + c)^2 \sum_{i=1}^{n} \lambda_i^2,
     \label{eq6}
   \end{align}
-  Thus, by \eqref{eq3}, \eqref{eq5}, and \eqref{eq6}, 
-  \[
-    E[V(\beta)|\lambda, \omega, \cdot] \leq 4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n} \sum_{j=1}^{k}x_{i,j}^2
-    \sigma_j^2 \omega_j.
-  \]
-  Hence 
-  \begin{align}
-    & \int_{\mathbb{R}^{k}} V(\beta) k(\beta|\beta_0)\ d\beta \nonumber \\
-    & \leq \int_{\mathbb{R}^{n}_+ \times \mathbb{R}^{k}_+}
-    \left(4n + 4\sum_{i=1}^{n}(\lambda_i^2 + 2\lambda_i + 1) + \nu^2 \sum_{i=1}^{n}\sum_{j=1}^{k}x_{i,j}^2 \sigma_j^2 \omega_j \right)
-    p(\lambda|\beta_0, \cdot) p(\omega|\beta_0,\cdot)\ d(\lambda \times \omega) \nonumber \\
-    & = 4n + 4\sum_{i=1}^{n}E[\lambda_i^2 + 2\lambda_i + 1|\beta_0, \cdot] + \nu^2\sum_{i=1}^{n}\sum_{j=1}^{k}x_{i,j}^2\sigma_j^2
-    E[\omega_j|\beta_0,\cdot].
+  where $A(c) := (2 + c)\left( 1 + \frac{1}{c} \right) n^2 \in \mathbb{R}_{+}$.
+  For the second term in \eqref{eq3}, using the same tricks as in \eqref{eq5}, we get
+  \begin{equation}
+    \text{trace}(X_y \Sigma_\beta X_{y}^T) \leq \text{trace}(\ell_{\max} \Lambda) = \ell_{\max} \sum_{i=1}^{n} \lambda_i.
     \label{eq7}
-  \end{align}
-  {\Large To be continued\dots}
+  \end{equation}
+  Hence we now have a bound on the inner expectation given by 
+  \begin{equation}
+    E[V(\beta) | \lambda, \omega, \cdot] \leq A(c) + \ell_{\max}^2(1 + c)^2 \sum_{i=1}^{n} \lambda_i^2 + \ell_{\max} \sum_{i=1}^{n} \lambda_i.
+    \label{eq9}
+  \end{equation}
 \end{Proof}
 
-NOTES: We need a tighter bound on $\Sigma_{\beta}$ than Lemma \ref{l1}.
 
 \newpage
 
@@ -354,7 +385,7 @@ NOTES: This will not work either for the same reasons as in the first attempt. I
 
 \section{Third Attempt}
 
-Let $V(\beta, \lambda, \omega) := (\bm{1} + \lambda - X\beta)^T (\bm{1} + \lambda - X\beta) + v^{-2} \beta^T \Omega^{-1}\Sigma^{-1}\beta +
+Let $V(\beta, \lambda, \omega) := (\bm{1} + \lambda - X_{y}\beta)^T (\bm{1} + \lambda - X_{y}\beta) + v^{-2} \beta^T \Omega^{-1}\Sigma^{-1}\beta +
 \omega^T \omega$.
 
 NOTES: This function $V$ is similar to what was used as the drift function in \cite{lasso}. A potential issue though is that $E[V|\beta_0,
@@ -363,6 +394,10 @@ NOTES: This function $V$ is similar to what was used as the drift function in \c
 \newpage
 
 \begin{thebibliography}{9}
+  \bibitem{probit}
+    Chakraborty, S. and Khare, K. (2016) Convergence properties of Gibbs samplers for Bayesian probit regression with proper priors.
+    \emph{Submitted somewhere}.
+
   \bibitem{lasso}
     Khare, K. and Hobert, J.P. (2013). Geometric ergodicity for the Bayesian lasso. \emph{Electronic Journal of Statistics}, \textbf{7}, 2150-5163.
 
