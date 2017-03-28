@@ -47,6 +47,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \rhead{\thepage}
 \cfoot{}
 
+\numberwithin{equation}{section}
 \begin{document}\thispagestyle{empty}
 \begin{center}
   \Large \textsc{notes -- GIBBS FOR BAYESIAN SVM -- spring 2017} \\ 
@@ -99,20 +100,22 @@ Also note that
 since $y_i \in \{-1,1\}$ for all $i = 1,\dots, n$. Here $\Sigma_{\beta}$ is well-defined since $\nu^{-2}\Sigma^{-1}\Omega^{-1} \succ 0$ and $X_{y}^T
 \Lambda^{-1} X_{y} \succeq 0$, and so $\nu^{-2}\Sigma^{-1}\Omega^{-1} + X_{y}^T \Lambda^{-1} X_{y} \succ 0$, which implies that $\nu^{-2}\Sigma^{-1}\Omega^{-1} +
 X_{y}^T \Lambda^{-1} X_{y}$ is invertible. Further,
-\[
+\begin{equation}
   p(\lambda_i|\cdot) \sim \left\{ \begin{array}{cl}
       \mathcal{GIG}\left( \frac{1}{2}, 1, [1 - y_i \bm{x}_i^T\beta]^2 \right) & \text{ if } 1-y_i \bm{x}_i^T \beta \neq 0 \\ \\
       \text{Gamma}\left( \frac{1}{2}, 2 \right) & \text{ if } 1 - y_i\bm{x}_i^T\beta = 0
   \end{array} \right., \text{ for } i=1,\dots, n,
-\]
+  \label{lcondit}
+\end{equation}
 and 
-\[
+\begin{equation}
   p(\omega_j|\cdot) \sim \left\{ \begin{array}{cl}
       \mathcal{GIG}\left( \frac{1}{2}, 1, \frac{B_j^2}{\nu^2\sigma_j^2} \right) & \text{ if } \beta_j \neq 0 \\ \\
       \text{Gamma}\left( \frac{1}{2}, 2 \right) & \text{ if } \beta_j = 0
   \end{array} \right.,
   \text{ for } j=1,\dots,k,
-\]
+  \label{wcondit}
+\end{equation}
 where $\mathcal{GIG}(p, a, b)$ denotes a generalized inverse Gaussian distribution with parameters $p \in \mathbb{R}, a > 0, b > 0$ and density
 \[
   p(x|p, a, b) = \frac{a^{p/2}}{2b^{p/2}K_{p}(\sqrt{ab})}x^{p - 1}\exp\left( -\frac{1}{2}\left[ ax + \frac{b}{x} \right] \right) \ \text{ for } x > 0.
@@ -216,7 +219,7 @@ The following results may be helpful in our construction of the drift condition.
 \begin{corollary}
   For $i = 1,\dots, n$ and $j = 1,\dots,k$, we have
   \begin{align*}
-    E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^4 \frac{K_{9/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
+    E[\lambda_i^4|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^4 \frac{K_{9/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
     \right)} \leq \left( 8 + |1 - y_i \bm{x}_i^T \beta_0| \right)^4, \\
     E[\lambda_i^2|\beta_0, \cdot] & = [1 - y_i\bm{x}_i^T\beta_0]^2 \frac{K_{5/2}\left( |1 - y_i\bm{x}_i^T\beta_0| \right)}{K_{1/2}\left( |1 - y_i\bm{x}_i^T\beta_0|
     \right)} \leq \left( 4 + |1 - y_i \bm{x}_i^T \beta_0| \right)^2, \\
@@ -425,7 +428,35 @@ This function of course may not be bounded off compact sets.
     \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}} }.
     \label{eq12}
   \end{equation}
+  Now, since $x \mapsto \frac{x}{1 + x}$ is concave, we can apply the reverse of Jensen's inequality to get 
+  \begin{align}
+    E[ \ell_{\max}|\beta_0, \cdot] \leq \frac{ E\left[\frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n}
+    \frac{|x_{i,j}|}{\sqrt{\lambda_i}}\ \big|\ \beta_0, \cdot\right] }{ 1 + E\left[
+    \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}}\ \big|\ \beta_0, \cdot\right] }.
+    \label{eq13}
+  \end{align}
+  Further, by Lemma \ref{l5} and \eqref{lcondit}, \eqref{wcondit}, it holds that
+  \begin{align*}
+    E[\lambda_i^{-1/2}|\beta_0,\cdot] & \leq \max\left\{ 1, \frac{I(|1-y_ix_i^T\beta_0| = 0)}{|1 - y_ix_i^T\beta_0|} \frac{K_0(|1-y_ix_i^T\beta_0|)}{K_{1/2}(|1-y_ix_i^T\beta_0|)}
+    \right\} \\
+    & \leq \max\left\{ 1, \frac{I(|1-y_ix_i^T\beta_0| = 0)}{|1 - y_ix_i^T\beta_0|} \right\} \\
+    E[\omega_j^{-1/2}|\beta_0,\cdot] & \leq \max\left\{ 1, \frac{I(|\beta_{0,j}| = 0)}{|\beta_{0,j}|} \frac{K_0(|\beta_{0,j}|)}{K_{1/2}(|\beta_{0,j}|)}
+    \right\} \\
+    & \leq \max\left\{ 1, \frac{I(|\beta_{0,j}| = 0)}{|\beta_{0,j}|} \right\}.
+  \end{align*}
+  Hence by \eqref{eq0}, \eqref{eq9}, and \eqref{eq12},
+  \begin{align}
+    \int_{\mathbb{R}^{k}} V(\beta) k(\beta|\beta_0)d\beta & \leq A'(c) + (1 + c)^3 \sum_{i=1}^{n} E[ \ell_{\max}\ \lambda_i^2 | \beta_0,
+    \cdot]\nonumber \\
+    \text{(By Cauchy-Schwarz) } & \leq A'(c) + (1 + c)^3 \sum_{i=1}^{n} \left(E[\ell_{\max}^2|\beta_0, \cdot]\right)^{1/2} \left(
+    E[\lambda_i^4|\beta_0, \cdot] \right)^{1/2} \nonumber \\
+    \text{(since $\ell_{max} > \ell_{\max}^2$) } & \leq A'(c) + (1 + c)^3 \sum_{i=1}^{n} \left(E[\ell_{\max}|\beta_0, \cdot]\right)^{1/2} \left(
+    E[\lambda_i^4|\beta_0, \cdot] \right)^{1/2} \nonumber \\
+  \end{align}
 \end{Proof}
+
+NOTES: The problem here is that $\ell_{\max}$ depends on $\lambda$ and $\omega$, so that $E[\ell_{\max}|\beta_0]$ is a function of $\beta_0$, and
+$E[\ell_{\max}|\beta_0] \rightarrow 0$ as any of the components of $\beta_0$ go to 0.
 
 
 
@@ -433,12 +464,57 @@ This function of course may not be bounded off compact sets.
 
 \section{Second Attempt}
 
-Let $V(\lambda, \omega) := \sum_{i=1}^{n}[\lambda_i^2 + \lambda^{-\delta}] + \sum_{i=j}^{k}[\omega_j^2 + \omega^{-\delta}]$, $\delta \in (0,1)$.
-
-\section{Third Attempt}
-
 Let $V(\beta, \lambda, \omega) := (\bm{1} + \lambda - X_{y}\beta)^T (\bm{1} + \lambda - X_{y}\beta) + v^{-2} \beta^T \Omega^{-1}\Sigma^{-1}\beta +
 \omega^T \omega$.
+
+\begin{Proof}
+  Note that 
+  \begin{equation}
+    E[V(\beta, \lambda, \omega)|\beta_0, \lambda_0, \omega_0] = E[ E[ V(\beta, \lambda, \omega) | \lambda, \omega] | \beta_0]. 
+    \label{e2.1}
+  \end{equation}
+  We first evaluate the inner expectation. So,
+  \begin{align}
+    E[ V(\beta, \lambda, \omega | \lambda, \omega] & = E[ (\bm{1} + \lambda - X_{y}\beta)^T (\bm{1} + \lambda - X_{y}\beta) + v^{-2} \beta^T
+      \Omega^{-1}\Sigma^{-1}\beta | \lambda, \omega] + \omega^T \omega \nonumber \\
+      & = \big\| \bm{1} + \lambda\big\|_2^2 + E[ \beta^TX_y^T X_y \beta + \nu^{-2}\beta^T \Omega^{-1}\Sigma^{-1}\beta | \lambda, \omega]\nonumber \\
+      & \qquad - 2(\bm{1} + \lambda)^T X_yE[\beta|\lambda, \omega]\nonumber \\
+      & \qquad + \omega^T \omega \nonumber\\
+      & = \big\| \bm{1} + \lambda\big\|_2^2 + E[ \beta^T\Sigma_{\beta}^{-1}\beta | \lambda, \omega] \nonumber\\
+      & \qquad - 2(\bm{1} + \lambda)^T X_yE[\beta|\lambda, \omega] \nonumber\\
+      & \qquad + \omega^T \omega \nonumber\\
+      & = \big\| \bm{1} + \lambda\big\|_2^2 + \big\|\Sigma_{\beta}^{-1/2}\mu_{\beta}\big\|_2^2  
+      + \text{trace}\left( \Sigma_{\beta}^{-1/2}\Sigma_{\beta}\Sigma_{\beta}^{-1/2} \right) \nonumber\\
+      & \qquad - 2(\bm{1} +\lambda)^T X_y\mu_{\beta} \nonumber\\
+      & \qquad + \omega^T \omega \nonumber\\
+      & = \big\| \bm{1} + \lambda\big\|_2^2 + \big\|\Sigma_{\beta}^{-1/2}\Sigma_{\beta}X_y^T(\bm{1} + \lambda)\big\|_2^2  
+      + \text{trace}\left( \Sigma_{\beta}^{-1/2}\Sigma_{\beta}\Sigma_{\beta}^{-1/2} \right) \nonumber\\
+      & \qquad - 2(\bm{1} +\lambda)^T X_y\Sigma_{\beta}X_y^T(\bm{1} + \lambda) \nonumber\\
+      & \qquad + \omega^T \omega \nonumber\\
+      & = \big\| \bm{1} + \lambda\big\|_2^2 + (\bm{1} + \lambda)^T X_y \Sigma_{\beta} X_y^T (\bm{1} + \lambda) + k \nonumber\\  
+      & \qquad - 2(\bm{1} +\lambda)^T X_y\Sigma_{\beta}X_y^T(\bm{1} + \lambda) \nonumber\\
+      & \qquad + \omega^T \omega \nonumber\\
+      & = \big\| \bm{1} + \lambda\big\|_2^2 - (\bm{1} + \lambda)^T X_y \Sigma_{\beta} X_y^T (\bm{1} + \lambda) + k + \omega^T \omega \nonumber\\
+      & \leq \big\| \bm{1} + \lambda\big\|_2^2 + k + \omega^T \omega. 
+      \label{e2.2}
+  \end{align}
+  Now, by Lemma \ref{l7}, for any $c > 0$,
+  \[
+    \big\| \bm{1} + \lambda \big\|_2^2 \leq \left( 1 + \frac{1}{c} \right)\|\bm{1}\|_2^2 + (1 + c)\|\lambda\|_2^2 = \left( 1 + \frac{1}{c} \right)n +
+    (1 + c) \sum_{i=1}^{n}\lambda_i^2.
+  \]
+  Hence, by \eqref{e2.1} and \eqref{e2.2},
+  \begin{align*}
+    E[ V(\beta, \lambda, \omega) | \beta_0, \lambda_0, \omega_0] & \leq k + \left( 1 + \frac{1}{c} \right)n + (1 + c) \sum_{i=1}^{n}E[\lambda_i^2 |
+    \beta_0] + \sum_{j=1}^{k} E[\omega_j^2 | \beta_0] \\
+    \text{(Corollary \ref{c2}) } \ & \leq k + \left( 1 + \frac{1}{c} \right)n + (1 + c) \sum_{i=1}^{n}\left( 4 + |1 - y_i \bm{x}_i^T \beta_0| \right)^2 + 
+    \sum_{j=1}^{k} \left( 4 + \frac{|\beta_{0,j}|}{\nu \sigma_j} \right)^2 \\
+    \text{(Lemma \ref{l7}) } \ & \leq k + \left( 1 + \frac{1}{c} \right)n + (1 + c)\left(1 + \frac{1}{c}\right) 8n + (1+c)^2\sum_{i=1}^{n}|1 -
+    y_i\bm{x}_i^T\beta_0|^2 \\
+    & \qquad + \left( 1 + \frac{1}{c} \right)8n + (1 + c)\sum_{j=1}^{k} \frac{\beta_{0,j}^2}{\nu^2\sigma_j^2} \\
+    & = A(c) + (1 + c)^2 \big\| \bm{1} - X_y^T \beta_0 \big\|_2^2 + (1 + c) \nu^{-2} \beta_0^T \Sigma^{-1} \beta_0
+  \end{align*}
+\end{Proof}
 
 
 \newpage
