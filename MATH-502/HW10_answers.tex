@@ -1,0 +1,118 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+\usepackage{eufrak}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{\textsc{Math 502 Assignment X}}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 502 -- ASSIGNMENT X -- spring 2017} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+
+\subsection*{1}
+\begin{tcolorbox}
+  Prove that if $(X, \tau)$ is regular and $Y \subseteq X$ is a subspace, then $Y$ is regular.
+\end{tcolorbox}
+\begin{Solution}
+  Let $(X, \tau)$ be a regular topological space and $Y \subseteq X$ a subspace. Let $y \in Y$ and $F \subseteq Y$ closed in the subspace topology.
+
+  By definition of the subspace topology, there exists $G \subseteq X$ such that $G$ is closed in the $\tau$ topology and $F = G \cap Y$.
+  Also, since $y \in Y - F$, $y \in Y - G$. Hence by the regularity of $X$, there exists open $\tilde{U}, \tilde{V} \in \tau$ such that $y \in
+  \tilde{U}$, $G \subseteq \tilde{V}$, and $\tilde{U} \cap \tilde{V} = \emptyset$.
+
+  Now let $U := \tilde{U} \cap Y$ and $V := \tilde{V} \cap Y$, which are both open in the subspace topology. Then $x \in U$, $F \subseteq V$, and 
+  $U \cap V = (\tilde{U} \cap Y)  \cap ( \tilde{V} \cap Y) = \tilde{U} \cap \tilde{V} \subseteq \emptyset$. Hence $Y$ is regular.
+\end{Solution}
+
+\subsection*{2}
+\begin{tcolorbox}
+  Suppose $g, h : [0,1] \rightarrow \mathbb{R}$ are continuous functions such that $g(0) = h(0)$. Prove by direct construction and then using the
+  Tietze Extension Theorem that there exists a continuous $f : [0,1] \times [0,1] \rightarrow \mathbb{R}$ such that $f(x,0) \equiv g(x)$ for all $x \in
+  [0,1]$ and $f(0,y) \equiv h(y)$ for all $y \in [0,1]$.
+\end{tcolorbox}
+\begin{Solution}
+  
+\end{Solution}
+
+\subsection*{3 [Sec. 4.1 \#2, 3, 4, and 7]}
+\begin{Solution}
+  \begin{enumerate}
+    \item[\#1.] 
+  \end{enumerate}
+\end{Solution}
+
+\subsection*{4} 
+\begin{tcolorbox}
+  Show that the product of two regular topological spaces is regular.
+\end{tcolorbox}
+\begin{Solution}
+  Suppose $(X_1, \tau_1)$ and $(X_2, \tau_2)$ are regular topological spaces. Let $(X, \tau)$ be the topological product corresponding to $X_1 \times
+  X_2$. Let $x := (x_1, x_2) \in X$ and $F \subseteq X$ closed such that $x \notin F$. We need to show that there exists open $U, V \subseteq X$ such
+  that $x \in U$, $F \subseteq V$, and $U \cap V = \emptyset$. 
+  
+  To that end, first note that $F$ is the intersection of sets of the form 
+  \[
+    \pi_1^{-1}[F_1] \cup \pi_2^{-1}[F_2]
+  \]
+  where $F_1 \subseteq X_1$ and $F_2 \subseteq X_2$ are closed in $\tau_1, \tau_2$, respectively. Thus there must exist some closed $F_1' \subseteq X_1$ and
+  closed $F_2' \subseteq X_2$ such that $F \subseteq \pi_1^{-1}[F_1'] \cup \pi_2{-1}[F_2']$ and $x \notin \pi_1^{-1}[F_1'] \cup \pi_2^{-1}[F_2']$.
+  Then $x_1 \notin F_1'$ and $x_2 \notin F_2'$. 
+  
+  Now, since $X_1$ and $X_2$ are regular, there exist disjoint, open $U_1, V_1 \subseteq X_1$ 
+  such that $x_1 \in U_1$ and $F_1' \subseteq V_1$, and disjoint, open $U_2, V_2 \subseteq X_2$ such that 
+  $x_2 \in U_2$ and $F_2' \subseteq V_2$. 
+
+  Define the $\tau$-open sets $U$ and $V$ by $U := \pi_1^{-1}[U_1] \cap \pi_2^{-1}[U_2]$ and 
+  $V := \pi_1^{-1}[V_1] \cup \pi_2^{-1}[V_2]$. We claim that $U$ and $V$ satisfy the conditions needed for regularity of $X$. 
+  
+  Indeed, clearly $x \in
+  U$ and $F \subseteq \pi_{1}^{-1}[F_1'] \cup \pi_2^{-1}[F_2'] \subseteq \pi_1^{-1}[V_1] \cup \pi_2^{-1}[V_2] = V$. Hence it remains to show that $U
+  \cap V = \emptyset$.
+
+  Well, if there exists $y := (y_1, y_2) \in U \cap V$, then $y_1 \in U_1$, $y_2 \in U_2$, and either $y_1 \in V_1$ or $y_2 \in V_2$. In either case,
+  we have a contradiction since $U_1 \cap V_1 = \emptyset$ and $U_2 \cap V_2 = \emptyset$.
+\end{Solution}
+
+\end{document}

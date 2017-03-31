@@ -154,10 +154,33 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       $(\Rightarrow)$ Now suppose $(X, \tau)$ is totally disconnected. By way of contradiction suppose there exists $i_0 \in \mathbb{I}$ such that
       $(X_{i_0}, \tau_{i_0})$ is not totally
       disconnected. Then there exists connected $C_0 \subseteq X_{i_0}$ which contains two distinct points $x_{i_0}, y_{i_0}$.
-      For $i \neq i_{0}$, choose $x_i \equiv y_i$ arbitrarily. Let $x := (x_i)_{i\in\mathbb{I}}$, $y := (y_i)_{i\in\mathbb{I}}$. Then by Exercise \#
-      5, the product 
-      \[ F := \{ (w_i)_{i\in\mathbb{I}} : w_i = x_i, i \neq i_0 \wedge  w_{i_0} \in C\} \subseteq X \]
-      is connected. But this is a contradiction since $x, y \in F$ are distinct.
+      For $i \neq i_{0}$, choose $x_i \equiv y_i$ arbitrarily. Let $x := (x_i)_{i\in\mathbb{I}}$, $y := (y_i)_{i\in\mathbb{I}}$. Then 
+      define $F \subseteq X$ by 
+      \[ F := \{ (w_i)_{i\in\mathbb{I}} : w_i = x_i, i \neq i_0 \wedge  w_{i_0} \in C\}. \]
+      If we can show that $F$ is connected in $X$, then we have found a contradiction since $x, y \in F$ are distinct. To that end, let $f : X_{i_0}
+      \rightarrow F$ be such that for all $w_{i_0} \in X_{i_0}$, $\pi_i(f(w_{i_0})) = x_i$ if $i \neq i_0$ and $\pi_{i_0}(f(w_{i_0})) = w_{i_0}$.
+
+      \begin{claim}
+        $f : X_{i_0} \rightarrow F$ is continuous.
+      \end{claim}
+      \begin{claimproof}
+        Let $U \subseteq F$ be open. Then $U$ is the union of sets of the form 
+        \[
+          \pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n],
+        \]
+        where for each $j = 1, \dots, n$, $i_j \in \mathbb{I}$ and $\emptyset \neq U_j \in \pi_{i_j}[F]$ is open  
+        in the relative topology of $pi_{i_j}[F]$.
+        But for $i \neq i_0$, $\pi_{i}[F] = \{x_i\}$, so the only non-empty open set
+        is the singleton $\{x_i\}$. Thus, $U$ is actually just the union of sets of the $\pi_{i_0}^{-1}[U_0]$ for some open $U \subseteq F$ (open in the relative
+        topology of $F$, that is). Hence $f^{-1}[U]$ is the union of sets of the form 
+        \[
+          f^{-1}[\pi_{i_0}^{-1}[U_0]] = \pi_{i_0}[\pi_{i_0}^{-1}[U_0]] = U_0
+        \]
+        where $U_0$ open in $F$. Hence $f^{-1}[U]$ is open in $F$, so $f$ is continuous.
+      \end{claimproof}
+
+      So by Claim 5 and since the image of a connected set under a continuous function is connected, $f[X_{i_0}] = F$ is connected. This is a
+      contradiction, so we are done.
   \end{enumerate}
 \end{Solution}
 
