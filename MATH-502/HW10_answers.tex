@@ -73,13 +73,77 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   [0,1]$ and $f(0,y) \equiv h(y)$ for all $y \in [0,1]$.
 \end{tcolorbox}
 \begin{Solution}
-  
+  First we will proceed by direct construction. Note that $h(y) \equiv h(x,y)$ and $g(x) \equiv g(x,y)$ are continuous on $[0,1] \times [0,1]$.
+  Thus, as the sum and product of continuous functions, 
+  \[
+    f(x,y) := g(x) + (1-x)[h(y) - h(0)] + (1-y)[g(x) - g(0)]
+  \]
+  is continuous and satisfies the desired conditions.
+
+  On the other hand, the set $Y := \{(x,y) \subseteq [0,1]\times [0,1] : x = 0 \text{ or } y = 0\}$ is closed in $[0,1] \times [0,1]$ and 
+  \[
+    \tilde{f}(x,y) := \left\{ \begin{array}{cl}
+        g(x) & \text{ if } y = 0 \\
+        h(y) & \text{ if } x = 0 \\
+    \end{array} \right. \ (x,y) \in Y
+  \]
+  is continuous on $Y$ since $g(0) = h(0)$. Further, the image of $Y$ under $\tilde{f}$ is compact in $\mathbb{R}$ since 
+  \[
+    \tilde{f}[Y] = g([0,1]) \cup h([0,1])
+  \]
+  and $g([0,1]), h([0,1])$ are both compact in $\mathbb{R}$. Hence $\tilde{f} \in C_b(Y, \mathbb{R})$. So, since $[0,1] \times [0,1]$ is a metric space, and
+  thus is normal, there exists $f \in C_b([0,1]\times[0,1], \mathbb{R})$ such that $f\big|_{Y} \equiv \tilde{f}$ by the Tietze Extension
+  Theorem.
 \end{Solution}
 
 \subsection*{3 [Sec. 4.1 \#2, 3, 4, and 7]}
 \begin{Solution}
   \begin{enumerate}
-    \item[\#1.] 
+    \item[\#2.] 
+      \begin{claim}
+        An open subset of a compact Hausdorff space is locally compact.
+      \end{claim}
+      \begin{claimproof}
+        Let $X$ be a compact Hausdorff space and $Y$ an open subspace. Now let $y \in Y$ be arbitrary. We need to show that $\mathcal{N}_y$ contains a
+        compact subset of $Y$.
+
+        Since $X$ is compact and Hausdorff, $X$ is normal, and since $X$ is $T_1$, $\{y\}$ is closed.
+        Thus, by Lemma 4.1.1, there exists $V$ open in $X$ such that $\{y\} \subseteq V \subseteq \bar{V} \subseteq Y$.
+        So $F := \bar{V}$ is compact since it is a closed subset of the compact space $X$, and $F \in \mathcal{N}_y$ since $y \in F \subseteq Y$.
+
+      \end{claimproof} 
+
+      \begin{claim}
+        For a locally compact Hausdorff space $(X, \tau)$, the neighborhood system $\mathcal{N}_x$ has a base consisting of compact sets for each $x
+        \in X$.
+      \end{claim}
+      \begin{claimproof}
+        Let $x \in X$. We need to show that for each $N \in \mathcal{N}_x$ there exists a compact set $K \in \mathcal{N}_x$ such that $K \subseteq N$. 
+
+        Well, by the local compactness of $X$, there exists some compact $E \in \mathcal{N}_x$. Then if 
+        $N \in \mathcal{N}_x$, $E \cap N \in \mathcal{N}_x$, and so there exists open $U \subseteq E \cap N$ with $x \in U$. 
+        
+        Thus by Claim 1, since $U \subseteq E$, $U$
+        is a locally compact subspace of $E$. Hence there exists a compact $K$ which is in the neighborhood system of $x$ relative to $U$. 
+        So $K$ contains a set $U'$ which contains $x$ and is open in the relative topology of $U$. 
+        
+        Of course $U'$ must also be open in $\tau$, and so $K \in \mathcal{N}_x$. Thus, since $K \subseteq U \subseteq N$, we are done.
+      \end{claimproof}
+
+    \item[\#4.] We could define $f : X \rightarrow \mathbb{R}$ by 
+      \[
+        f(x) := \frac{d(x, F)}{d(x, F) + d(x, G)}, \ x \in X.
+      \]
+      Since $F$ and $G$ are closed, $d(x, F) > 0$ if $x \notin F$ and $d(x, G) > 0$ if $x \notin G$. Thus, since $F$ and $G$ are disjoint, $d(x, F) +
+      d(x, G) > 0$ for all $x \in X$. Hence $f$ is well-defined and also continuous since $d(x, F)$ and $d(x, G)$ are continuous. 
+
+      Further, clearly $f[X] \subseteq [0,1]$, and
+      since $d(x, F) \equiv 0$ for all $x \in F$ and $d(x, G) \equiv 0$ for all $x \in G$,
+      \[
+        f\big|_{F}(x) \equiv 0 \ \ \text{ and } \ \ f\big|_{G}(x) = \frac{d(x, F)}{d(x, F) + 0} \equiv 1.
+      \]
+
+    \item[\#4.]
   \end{enumerate}
 \end{Solution}
 
