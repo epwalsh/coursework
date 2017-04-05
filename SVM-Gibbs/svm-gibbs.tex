@@ -314,7 +314,7 @@ of the joint chain by \cite{jointvmarg}.
 
 Let $V(\beta) := \sum_{i=1}^{n}(1 - y_i\bm{x}_i^T\beta)^2$. \\
 
-This function of course may not be bounded off compact sets.
+This function of course may not be unbounded off compact sets.
 
 \begin{Proof}
   Note that 
@@ -345,7 +345,7 @@ This function of course may not be bounded off compact sets.
     & = \left( 1 + \frac{1}{c} \right) n + (1 + c)\|X_y \mu_\beta \|_2^2,
     \label{eq4}
   \end{align}
-  for any $c > 0$ by Lemma \ref{l7}. Further, with $\tilde{X} := \Lambda^{-1/2}X_{y}(\nu^{-2}\Omega^{-1}\Sigma^{-1})^{-1/2}$ and 
+  for any $c > 0$ by Lemma \ref{l7}. Further, with $\tilde{X} := \Lambda^{-1/2}X_{y}(\nu^{2}\Omega\Sigma)^{1/2}$ and 
   $\ell_{\max} :=$ the maximum eigenvalue of $\tilde{X}[\mathbb{I}_k + \tilde{X}^T \tilde{X}]^{-1} \tilde{X}^T$, we have
   \begin{align}
     \| X_{y} \mu_{\beta}\|_{2}^{2} = \|X_{y}\Sigma_{\beta} X_{y}^T (\bm{1} + \lambda^{-1})\|_{2}^{2} 
@@ -390,60 +390,53 @@ This function of course may not be bounded off compact sets.
   \end{align}
   where $A'(c) := A(c) + (1 + c)^2\left( 1 + \frac{1}{c} \right)n$. By Lemma \ref{l8} again, $\ell_{\max}$ is of the form 
   \begin{equation}
-    \ell_{\max} = \frac{d}{1 + d}, 
+    \ell_{\max} = \frac{d^2}{1 + d^2}, 
     \label{eq10}
   \end{equation}
   where $d$ is the square root of the maximum eigenvalue of $\tilde{X}^T
   \tilde{X}$. Further, note that 
   \begin{align*}
-    \tilde{X}^T \tilde{X} & = \nu^{-2} \Omega^{-1/2}\Sigma^{-1/2} X_y^T \Lambda^{-1} X_y \Sigma^{-1/2}\Omega^{-1/2} \\
-    & = \nu^{-2} \Omega^{-1/2}\Sigma^{-1/2} \begin{bmatrix}
+    \tilde{X}^T \tilde{X} & = \nu^{2} \Omega^{1/2}\Sigma^{1/2} X_y^T \Lambda^{-1} X_y \Sigma^{1/2}\Omega^{1/2} \\
+    & = \nu^{2} \Omega^{1/2}\Sigma^{1/2} \begin{bmatrix}
       \sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+      \\
       \vdots & \ddots & \vdots \\
+      \\
       \sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
-    \end{bmatrix} \Sigma^{-1/2} \Omega^{-1/2} \\
-    & = \nu^{-2} \Omega^{-1/2}\Sigma^{-1/2} \begin{bmatrix}
-      \frac{1}{\sigma_1 \sqrt{\omega_1}}\sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \frac{1}{\sigma_k\sqrt{\omega_k}}\sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+    \end{bmatrix} \Sigma^{1/2} \Omega^{1/2} \\
+    & = \nu^{2} \Omega^{1/2}\Sigma^{1/2} \begin{bmatrix}
+      \sigma_1 \sqrt{\omega_1}\sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \sigma_k\sqrt{\omega_k}\sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+      \\
       \vdots & \ddots & \vdots \\
-      \frac{1}{\sigma_1 \sqrt{\omega_1}}\sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \frac{1}{\sigma_k\sqrt{\omega_k}}\sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
+      \\
+      \sigma_1 \sqrt{\omega_1}\sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \sigma_k\sqrt{\omega_k}\sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
     \end{bmatrix}  \\
-    & = \nu^{-2} \begin{bmatrix}
-      \frac{1}{\sigma_1^2 \omega_1}\sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \frac{1}{\sigma_1\sigma_k\sqrt{\omega_1\omega_k}}\sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+    & = \nu^{2} \begin{bmatrix}
+      \sigma_1^2 \omega_1\sum_{i=1}^{n}\frac{x_{i,1}^2}{\lambda_i} & \dots & \sigma_1\sigma_k\sqrt{\omega_1\omega_k}\sum_{i=1}^{n}\frac{ x_{i,1}x_{i,k}}{\lambda_i} \\
+      \\
       \vdots & \ddots & \vdots \\
-      \frac{1}{\sigma_1\sigma_k \sqrt{\omega_1\omega_k}}\sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \frac{1}{\sigma_k^2\omega_k}\sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
+      \\
+      \sigma_1\sigma_k \sqrt{\omega_1\omega_k}\sum_{i=1}^{n} \frac{x_{i,1}x_{i,k}}{\lambda_i} & \dots & \sigma_k^2\omega_k\sum_{i=1}^{n}\frac{ x_{i,k}^2}{\lambda_i}
     \end{bmatrix}.  \\
   \end{align*}
   Thus, since the trace of a symmetric matrix is equal to the sum of the eigenvalues, 
   \begin{equation*}
-    d^2 \leq \frac{1}{\nu^{2}} \sum_{j=1}^{k} \frac{1}{\sigma_j^2 \omega_j} \sum_{i=1}^{n} \frac{x_{i,j}^2}{\lambda_i},
+    d^2 \leq \nu^{2} \sum_{j=1}^{k} \sigma_j^2 \omega_j \sum_{i=1}^{n} \frac{x_{i,j}^2}{\lambda_i}.
   \end{equation*}
-  and so 
+  So by \eqref{eq10} we have
   \begin{equation}
-    d \leq \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}},
-    \label{eq11}
-  \end{equation}
-  since $\sqrt{a + b} \leq \sqrt{a} + \sqrt{b}$ for all $a, b > 0$. So by \eqref{eq10} and \eqref{eq11}, we have
-  \begin{equation}
-    \ell_{\max} \leq \frac{ \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}} }{ 1 + 
-    \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}} }.
+    \ell_{\max} \leq \frac{ \nu^2 \sum_{j=1}^{k} \sigma_j^2 \omega_j \sum_{i=1}^{n} \frac{x_{i,j}^2}{\lambda_i} }{ 1 + 
+    \nu^2 \sum_{j=1}^{k} \sigma_j^2 \omega_j \sum_{i=1}^{n} \frac{x_{i,j}^2}{\lambda_i} }.
     \label{eq12}
   \end{equation}
   Now, since $x \mapsto \frac{x}{1 + x}$ is concave, we can apply the reverse of Jensen's inequality to get 
   \begin{align}
-    E[ \ell_{\max}|\beta_0, \cdot] \leq \frac{ E\left[\frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n}
-    \frac{|x_{i,j}|}{\sqrt{\lambda_i}}\ \big|\ \beta_0, \cdot\right] }{ 1 + E\left[
-    \frac{1}{\nu} \sum_{j=1}^{k} \frac{1}{\sigma_j \sqrt{\omega_j}} \sum_{i=1}^{n} \frac{|x_{i,j}|}{\sqrt{\lambda_i}}\ \big|\ \beta_0, \cdot\right] }.
+    E[ \ell_{\max}|\beta_0, \cdot] & \leq \frac{ E\left[\nu^2 \sum_{j=1}^{k} \sigma_j^2 \omega_j \sum_{i=1}^{n}
+    \frac{x_{i,j}^2}{\lambda_i}\ \big|\ \beta_0, \cdot\right] }{ 1 + E\left[
+    \nu^2 \sum_{j=1}^{k} \sigma_j^2 \omega_j \sum_{i=1}^{n} \frac{x_{i,j}^2}{\lambda_i}\ \big|\ \beta_0, \cdot\right] } \nonumber \\
+    & = \dots
     \label{eq13}
   \end{align}
-  Further, by Lemma \ref{l5} and \eqref{lcondit}, \eqref{wcondit}, it holds that
-  \begin{align*}
-    E[\lambda_i^{-1/2}|\beta_0,\cdot] & \leq \max\left\{ 1, \frac{I(|1-y_ix_i^T\beta_0| = 0)}{|1 - y_ix_i^T\beta_0|} \frac{K_0(|1-y_ix_i^T\beta_0|)}{K_{1/2}(|1-y_ix_i^T\beta_0|)}
-    \right\} \\
-    & \leq \max\left\{ 1, \frac{I(|1-y_ix_i^T\beta_0| = 0)}{|1 - y_ix_i^T\beta_0|} \right\} \\
-    E[\omega_j^{-1/2}|\beta_0,\cdot] & \leq \max\left\{ 1, \frac{I(|\beta_{0,j}| = 0)}{|\beta_{0,j}|} \frac{K_0(|\beta_{0,j}|)}{K_{1/2}(|\beta_{0,j}|)}
-    \right\} \\
-    & \leq \max\left\{ 1, \frac{I(|\beta_{0,j}| = 0)}{|\beta_{0,j}|} \right\}.
-  \end{align*}
   Hence by \eqref{eq0}, \eqref{eq9}, and \eqref{eq12},
   \begin{align}
     \int_{\mathbb{R}^{k}} V(\beta) k(\beta|\beta_0)d\beta & \leq A'(c) + (1 + c)^3 \sum_{i=1}^{n} E[ \ell_{\max}\ \lambda_i^2 | \beta_0,

@@ -130,7 +130,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         Of course $U'$ must also be open in $\tau$, and so $K \in \mathcal{N}_x$. Thus, since $K \subseteq U \subseteq N$, we are done.
       \end{claimproof}
 
-    \item[\#4.] We could define $f : X \rightarrow \mathbb{R}$ by 
+    \item[\#3.] We could define $f : X \rightarrow \mathbb{R}$ by 
       \[
         f(x) := \frac{d(x, F)}{d(x, F) + d(x, G)}, \ x \in X.
       \]
@@ -143,7 +143,101 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         f\big|_{F}(x) \equiv 0 \ \ \text{ and } \ \ f\big|_{G}(x) = \frac{d(x, F)}{d(x, F) + 0} \equiv 1.
       \]
 
-    \item[\#4.]
+    \item[\#4.] Let $(X,\tau)$ be completely regular, let $K \subseteq X$ be compact and $F \subseteq X$ closed such that $K \cap F = \emptyset$.
+
+      \begin{claim}
+        For each open $U \subseteq X$ such that $K \subset U$, there exists an open subset $V$ of $X$ such that 
+        \[
+          K \subseteq V \subseteq \bar{V} \subseteq U.
+        \]
+      \end{claim}
+      \begin{claimproof}
+        Let $G := X - U$.
+        Since $X$ is completely regular, for each $x \in K$ there exists disjoint open sets $\tilde{U}$ and $\tilde{V}$ such that $x \in \tilde{V}$
+        and $G \subseteq \tilde{U}$. Now let 
+        \[
+          \mathcal{V} := \left\{ \tilde{V} : \text{$\tilde{V}$ open and $\exists \ x \in K$ with $x \in \tilde{V}$ and open $\tilde{U} \supseteq G$
+          with $\tilde{V} \cap \tilde{U} = \emptyset$} \right\}.
+        \]
+        Then $\mathcal{V}$ is an open cover of $K$. Hence, by the compactness of $K$ there exists a finite subcover 
+        $V_1, \dots, V_n \in \mathcal{V}$ with corresponding sets $U_1, \dots, U_n$ such that $U_i \supseteq G$ and $V_i \cap U_i = \emptyset$ for
+        each $i = 1, \dots, n$.
+
+        Now let $V := V_1 \cap \dots \cap V_n$. Thus $V$ is open and $V \subseteq X - (U_1 \cup \dots \cup U_n)$, so
+        \[
+          \bar{V} \subseteq X - (U_1 \cap \dots \cap U_n) \subseteq X - (X - G) = U.
+        \]
+        Therefore we have $K \subseteq V \subseteq \bar{V} \subseteq U$, so we are done.
+      \end{claimproof}
+
+      By Claim 3 we can now apply the exact same argument as in the proof of Urysohn's lemma to derive a continuous function $\tilde{f} : X \rightarrow [0,1]$
+      such that $\tilde{f}\big|_{K} \equiv 0$ and $\tilde{f}\big|_{F} \equiv 1$. Then by taking $f := 1 - \tilde{f}$, we are done.
+
+    \item[\#7.] Let $(X, \tau)$ be a Hausdorff space.
+
+      $(\Rightarrow)$ First suppose $(X, \tau)$ has a base $\mathcal{B}$ consisting of clopen sets. Let $\mathbb{I} := \mathcal{B}$ be the index set,
+      and define $\iota : X \rightarrow \{0,1\}^{\mathbb{I}}$ by $\iota(x) := \left( \chi_{B}(x) \right)_{B\in\mathbb{I}}$, where $\chi_{A}$ is the
+      characteristic function for the set $A$.
+
+      \begin{claim}
+        $\iota$ is injective.
+      \end{claim}
+      \begin{claimproof}
+        Let $x \neq y \in X$. Then by the Hausdorff property, there exists $B_x, B_y \in \mathcal{B}$ such that $x \in B_x, y \in B_y$ and $B_x \cap
+        B_y = \emptyset$. Thus $\pi_{B_x}\circ\iota(x) = 1 \neq 0 = \pi_{B_x}\circ \iota(y)$. So $\iota(x) \neq \iota(y)$.
+      \end{claimproof}
+
+      \begin{claim}
+        $\iota$ continuous.
+      \end{claim}
+      \begin{claimproof}
+        Let $B \in \mathbb{I}$. Then $\iota^{-1} \circ \pi_{B}^{-1}[\{1\}] = B$ and $\iota^{-1} \circ \pi_{B}^{-1}[\{0\}] = X - B$ are both open since $B$ is clopen.
+        Thus $\iota^{-1}\circ\pi_{B}^{-1}[V]$ is open in $X$ for any $V \subseteq \{0,1\}$. Now, if $U \subseteq \{0,1\}^{\mathbb{I}}$ is open in the product
+        topology, then $U$ is the union of sets of the form 
+        \[
+          \pi_{B_1}^{-1}[U_1] \cap \dots \pi_{B_n}^{-1}[U_n],
+        \]
+        where for each $j = 1, \dots, n$, $B_j \in \mathbb{I}$ and $U_j \subseteq \{0,1\}$.  Hence $\iota^{-1}[U]$ is open in $X$ for any open $U \subseteq
+        \{0,1\}^{\mathbb{I}}$.
+      \end{claimproof}
+
+      Let $Y := \iota[X]$.
+
+      \begin{claim}
+        $\iota$ is an open mapping onto the subspace $Y$.
+      \end{claim}
+      \begin{claimproof}
+        It suffices to show that $\iota[B]$ is open in the subspace $Y$ for each $B \in \mathcal{B}$.
+        But 
+        \[
+          \iota[B] = \pi_{B}^{-1}[\{1\}] \cap Y,
+        \]
+        which is open in $Y$ since $\pi_B^{-1}[\{1\}]$ is open in $\{0,1\}^{\mathbb{I}}$ by the definition of the product topology.
+      \end{claimproof}
+
+      So by Claims 4, 5, and 6, $\iota$ is a homeomorphism from $X$ into $Y$.
+
+      $(\Leftarrow)$ Now suppose that $(X, \tau)$ is homeomorphic to a subspace $Y$ of $\{0, 1\}^{\mathbb{I}}$ for some index set $\mathbb{I}$.
+      If we can show that a base for $\{0,1\}^{\mathbb{I}}$ consists of clopen sets, then clearly the corresponding base for the subspace $Y$ consists 
+      of clopen sets. It then follows that since $Y$ is homeomorphic to $X$, $X$ has a base consisting of clopen sets. Well\dots
+
+      \begin{claim}
+        $\{0,1\}^{\mathbb{I}}$ has a base consisting of clopen sets.
+      \end{claim}
+      \begin{claimproof}
+        Consider the usual base $\mathcal{B}_{\mathbb{I}}$ of the product space $\{0,1\}^{\mathbb{I}}$, consisting of sets of the form
+        \[
+          \pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n],
+        \]
+        where $i_j \in \mathbb{I}$ and $U_j \subseteq \{0,1\}$ for each $j = 1, \dots, n$. Since $\pi_{i}^{-1}[U]$ is open in $\{0,1\}^{\mathbb{I}}$ 
+        for any $i \in \mathbb{I}$ and $U \subseteq \{0,1\}$, it follows that $\pi_{i}^{-1}[\{0,1\}-U]$ open for any $U \subseteq \{0,1\}$.
+        Thus, with $i_j$ and $U_j$ as above,
+        \[
+          \{0,1\}^{\mathbb{I}} - \left(\pi_{i_1}^{-1}[U_1] \cap \dots \cap \pi_{i_n}^{-1}[U_n]\right) = \pi_{i_1}^{-1}[\{0,1\}-U_1] \cup \dots \cup
+          \pi_{i_n}^{-1}[\{0,1\} - U_n]
+        \]
+        is open. Hence $\mathcal{B}_{\mathbb{I}}$ consists of clopen sets.
+      \end{claimproof}
   \end{enumerate}
 \end{Solution}
 
