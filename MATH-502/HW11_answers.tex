@@ -60,14 +60,15 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       By the Stone-\v{C}ech compactification there exists a continuous function $\hat{\kappa} : \beta \mathbb{N} \rightarrow K$ such that $\kappa(n) =
       \hat{\kappa}\circ \iota(n)$ for each $n \in \mathbb{N}$. Thus it remains to show that $\hat{\kappa}$ is a surjection.
 
-      Let $y \in K$. Since $D$ is dense in $K$, there exists a sequence $\left\{ y_n \right\}_{n=0}^{\infty}$ in $D$ such that $y_n \rightarrow y$.
+      Let $y \in K$. Since $D$ is dense in $K$, there exists a net $\left\{ y_\alpha \right\}_{\alpha\in\mathbb{A}}$ in $D$ such that $y_\alpha \rightarrow y$.
 
-      For each $n \in \mathbb{N}$, let $x_n := \iota \circ \kappa^{-1}(y_n) \in \beta X$. Since $\beta X$ is compact, there exists a subsequence $\left\{
-      x_{n_k} \right\}_{k=0}^{\infty}$ such that $x_{n_k}$ converges. So let $x := \lim x_{n_k}$.
+      For each $\alpha \in \mathbb{N}$, let $x_\alpha:= \iota \circ \kappa^{-1}(y_\alpha) \in \beta X$. Since $\beta X$ is compact, there exists a
+      subnet $\left\{ x_{\alpha_\beta} \right\}_{\beta\in\mathbb{B}}$ such that $x_{\alpha_\beta}$ converges. So let $x := \lim x_{\alpha_\beta}$.
 
       Then by the continuity of $\hat{\kappa}$,
       \[
-        \hat{\kappa}(x) = \lim \hat{\kappa}(x_{n_k}) = \lim \hat{\kappa} \circ \iota \circ \kappa^{-1}(y_{n_k}) = \lim y_{n_k} = y.
+        \hat{\kappa}(x) = \lim \hat{\kappa}(x_{\alpha_\beta}) = \lim \hat{\kappa} \circ \iota \circ \kappa^{-1}(y_{\alpha_\beta}) = \lim
+        y_{\alpha_\beta} = y.
       \]
       Hence $\hat{\kappa}$ is surjective.
 
@@ -236,16 +237,17 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   We claim that $\hat{\kappa}(\omega)$ is the unique point in $X_{\infty} - X$.
 
   By way of contradiction suppose $\hat{\kappa}(\omega) \in X$.
-  Since $\iota(X)$ is dense in $\beta X$, we can find a sequence $\left\{ \omega_{n} \right\}_{n=0}^{\infty}$ in $\iota(X)$ converging to $\omega$.
+  Since $\iota(X)$ is dense in $\beta X$, we can find a net $\left\{ \omega_{\alpha} \right\}_{\alpha\in\mathbb{A}}$ in $\iota(X)$ converging to $\omega$.
   Then
   \[
-    \hat{\kappa}(\omega) \stackrel{(a)}{=} \lim_{n\rightarrow\infty}\hat{\kappa}(\omega_n) \stackrel{(b)}{=} \lim_{n\rightarrow\infty}\kappa\circ
-    \iota^{-1}(\omega_n) \stackrel{(c)}{=}
-    \lim_{n\rightarrow\infty}\iota^{-1}(\omega_n) \in X,
+    \hat{\kappa}(\omega) \stackrel{(a)}{=} \lim \hat{\kappa}(\omega_\alpha) \stackrel{(b)}{=} \lim\kappa\circ
+    \iota^{-1}(\omega_\alpha) \stackrel{(c)}{=}
+    \lim\iota^{-1}(\omega_\alpha) \in X,
   \]
-  where (a) follows from the continuity of $\hat{\kappa}$, (b) follows from the definition of $\hat{\kappa}$ and since $\omega_n \in \iota(X)$, and
-  (c) follows by definition of $\kappa$.
-  So $\omega = \lim_{n\rightarrow\infty} \omega_n = \iota(X)$ by the continuity of $\iota$. This is a contradiction.
+  where (a) follows from the continuity of $\hat{\kappa}$, (b) follows from the definition of $\hat{\kappa}$ and since $\omega_\alpha \in \iota(X)$
+  for all $\alpha \in \mathbb{A}$, and
+  (c) follows by the definition of $\kappa$.
+  So $\omega = \lim \omega_\alpha \in \iota(X)$ by the continuity of $\iota$. This is a contradiction.
 \end{Solution}
 
 \end{document}
