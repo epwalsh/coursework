@@ -67,7 +67,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
       Then by the continuity of $\hat{\kappa}$,
       \[
-        \hat{\kappa}(x) = \lim \hat{\kappa}(x_{n_k}) = \lim y_{n_k} = y.
+        \hat{\kappa}(x) = \lim \hat{\kappa}(x_{n_k}) = \lim \hat{\kappa} \circ \iota \circ \kappa^{-1}(y_{n_k}) = \lim y_{n_k} = y.
       \]
       Hence $\hat{\kappa}$ is surjective.
 
@@ -77,8 +77,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         functions 0 and 1).
       \end{claim}
       \begin{claimproof}
+        First note that $f \in C_b(X, \mathbb{F})$ is idempotent if and only if $f(x) \in \{0,1\}$ for all $x \in X$.
+
         $(\Rightarrow)$ We will prove the contrapositive. Suppose there exists $f \in C_b(X, \mathbb{F})$ such that $f^2 \equiv f$ but $f \not\equiv
-        0$ and $f \not\equiv 1$. Then $f(x) \in \{0,1\}$ for all $x \in X$ and $U := f^{-1}[\{1\}], V := f^{-1}[\{0\}]$ is a disconnection of $X$.
+        0$ and $f \not\equiv 1$. Then $U := f^{-1}[\{1\}]$ and $V := f^{-1}[\{0\}]$ are non-empty, open, and cover $X$. Hence $(U, V)$ is a disconnection of $X$.
 
         $(\Leftarrow)$ We prove the contrapositive again. Suppose $U, V$ is a disconnection of $X$. Then let 
         \[
@@ -87,15 +89,14 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
               0 & \text{ if } x \in V
           \end{array} \right. .
         \]
-        Then clearly $f$ is continuous and idempotent and non-constant.
+        Then clearly $f$ is continuous, idempotent, and non-constant.
       \end{claimproof}
 
       \begin{claim}
         A completely regular space is connected if and only if its Stone-\v{C}ech compactification is.
       \end{claim}
       \begin{claimproof}
-        Identify $X$ with $\iota(X)$.
-        Let $(X, \tau)$ be a completely regular topological space and $X \beta$ the Stone-\v{C}ech compactification of $X$. 
+        Let $(X, \tau)$ be a completely regular topological space and $X \beta$ the Stone-\v{C}ech compactification of $X$. Identify $X$ with $\iota(X)$.
         By the previous claim it suffices to show that $C_b(X, \mathbb{F})$ contains a non-constant idempotent function if and only if $C(\beta X,
         \mathbb{F})$ contains a non-constant idempotent function.
 
@@ -108,9 +109,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         is idempotent and non-constant. 
         
         On the other hand, if $\tilde{f} \in C(\beta X, \mathbb{F})$ is idempotent and non-constant, then clearly its restriction to
-        $X$ is idempotent. Thus it remains to show that $f := \tilde{f}\big|_{X}$ is non-constant. But by \eqref{1} with $g \equiv 0$,
+        $X$ is idempotent. Thus it remains to show that $f := \tilde{f}\big|_{X}$ is non-constant. But by \eqref{1} 
         \[
-          1 = \sup_{x \in \beta X}|\tilde{f}(x) - g(x)| = \sup_{x \in X}|f(x) - g(x)|.
+          1 = \sup_{x \in \beta X}|\tilde{f}(x) - 0| = \sup_{x \in X}|f(x) - 0|\  \text{ and } \
+          1 = \sup_{x \in \beta X}|\tilde{f}(x) - 1| = \sup_{x \in X}|f(x) - 1|.
         \]
         Hence $f$ is non-constant.
       \end{claimproof}
@@ -123,7 +125,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         E_n := \{ x \in X : (n - 1)\epsilon / 2 < f(x) \leq n \epsilon / 2\} \text{ and } E_{-n} := \{x \in X : -n \epsilon / 2 \leq f(x) <
         (n-1)\epsilon / 2 \}.
       \]
-      Then all of the $E_n$'s and $E_{-n}$'s are disjoint and cover $X$.
+      Then all of the $E_n$'s together with the $E_{-n}$'s are pairwise disjoint and cover $X$.
 
       Further, note that for any characteristic function $\chi_A$, $A \subseteq X$, $\chi_A[X] \subseteq
       \{0,1\}$. Hence every characteristic function is idempotent. Now let 
@@ -147,11 +149,20 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \[
           \sup_{x \in X}|g(x) - f(x)| < \epsilon.
         \]
-        Let $\tilde{g} : \beta X \rightarrow \mathbb{F}$ be the unique extension of $g$ to $\beta X$. Then, since $X$ is dense in $\beta X$,
-        \[
-          \sup_{x \in \beta X}|\tilde{g}(x) - \tilde{g}(x)^2| = \sup_{x \in X}|g(x) - g(x)^2| = 0,
-        \]
-        i.e. $\tilde{g}$ is in the linear span of idempotents on $\beta X$, and
+        Let $\tilde{g} : \beta X \rightarrow \mathbb{F}$ be the unique extension of $g$ to $\beta X$. 
+        \begin{subclaim}
+          $\tilde{g}$ is in the linear span of idempotents on $\beta X$.
+        \end{subclaim}
+        \begin{subclaimproof}
+          Note that by \eqref{1}, if $h$ is idempotent on $X$, then the unique extension of $h$ to $\beta X$ is idempotent on $\beta X$.
+          Hence if $g = \sum_{i=1}^{n}a_i h_i$, where $a_i \in \mathbb{F}$ and $h_i$ is idempotent on $X$ for each $i = 1, \dots, n$, then by \eqref{1} again,
+          \[
+            \tilde{g} \equiv \sum_{i=1}^{n}a_i \tilde{h}_i,
+          \]
+          where $\tilde{h}_i$ is the idempotent extension of $h_i$ for each $i = 1,\dots, n$.
+        \end{subclaimproof}
+
+        Now, using \eqref{1} for a third time,
         \[
           \sup_{x \in \beta X}|\tilde{f}(x) - \tilde{g}(x)| = \sup_{x \in X}|f(x) - g(x)| < \epsilon.
         \]
@@ -168,9 +179,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \[
         U := g^{-1}[\{0\}] \text{ and } V := g^{-1}[\{1\}]
       \]
-      are closed non-empty, disjoint, and cover $\beta X$ with $x \in U$ and $y \in V$. Hence $\beta X$ is
+      are closed (and open), non-empty, disjoint, and cover $\beta X$ with $x \in U$ and $y \in V$. Hence $\beta X$ is
       zero-dimensional.
-
   \end{enumerate}
 \end{Solution}
 
@@ -183,10 +193,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   metrizable?
 \end{tcolorbox}
 \begin{Solution}
-  (a) No, $(\mathbb{R}, \tau)$ is not metrizable. If it was metrizable, then the Sorgenfrey plane would also be metrizable. But Example 3.5.14 shows
+  (a) \textbf{No, $(\mathbb{R}, \tau)$ is not metrizable.} If it was metrizable, then the Sorgenfrey plane would also be metrizable since the Sorgenfrey plane
+  is the topological product of $(\mathbb{R}, \tau)$ with itself. But Example 3.5.14 shows
   that the Sorgenfrey plane is not metrizable.
 
-  (b) Yes, $(\mathbb{R}, \tau')$ is metrizable. To prove this, we will construct a metric $d$ that induces $\tau'$.
+  (b) \textbf{Yes, $(\mathbb{R}, \tau')$ is metrizable.} To prove this, we will construct a metric $d$ that induces $\tau'$.
 
   Consider the function $g$ defined in Assignment VIII Question 3 for some enumeration $\{q_0, q_1, \dots \}$ of the rationals. 
   Recall that $g$ was shown to be continuous as a function from $(\mathbb{R}, \tau')$ to
@@ -194,7 +205,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \[
     d(x,y) := |\tilde{g}(x) - \tilde{g}(y)|.
   \]
-  Clearly $d(x,y) = d(y,x)$ and $d(x,z) \leq d(x,y) + d(y,z)$ for all $x, y, z \in \mathbb{R}$. Also $d(x, y) = 0$ if and only if $x = y$.
+  Clearly $d(x,y) = d(y,x)$ and $d(x,z) \leq d(x,y) + d(y,z)$ for all $x, y, z \in \mathbb{R}$. Also $d(x, y) = 0$ if and only if $x = y$ since
+  $\tilde{g}$ is strictly increasing on $\mathbb{R}$.
   Hence $d$ is a valid metric.
 
   Since $x \mapsto x$ is continuous as a function from  $(\mathbb{R}, |\cdot|)
@@ -221,16 +233,19 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   such that $\hat{\kappa} \circ \iota \equiv \kappa$. Let $\omega$ be a point of $\beta X - \iota(X)$. What is $\hat{\kappa}(\omega)$?
 \end{tcolorbox}
 \begin{Solution}
-  We claim that $\hat{\kappa}(\omega) = \infty$ is the unique point in $X_{\infty} - X$.
+  We claim that $\hat{\kappa}(\omega)$ is the unique point in $X_{\infty} - X$.
 
   By way of contradiction suppose $\hat{\kappa}(\omega) \in X$.
   Since $\iota(X)$ is dense in $\beta X$, we can find a sequence $\left\{ \omega_{n} \right\}_{n=0}^{\infty}$ in $\iota(X)$ converging to $\omega$.
   Then
   \[
-    \hat{\kappa}(\omega) = \lim_{n\rightarrow\infty}\hat{\kappa}(\omega_n) = \lim_{n\rightarrow\infty}\kappa\circ \iota^{-1}(\omega_n) =
-    \lim_{n\rightarrow\infty}\iota^{-1}(\omega_n) \in X.
+    \hat{\kappa}(\omega) \stackrel{(a)}{=} \lim_{n\rightarrow\infty}\hat{\kappa}(\omega_n) \stackrel{(b)}{=} \lim_{n\rightarrow\infty}\kappa\circ
+    \iota^{-1}(\omega_n) \stackrel{(c)}{=}
+    \lim_{n\rightarrow\infty}\iota^{-1}(\omega_n) \in X,
   \]
-  So $\omega = \lim_{n\rightarrow\infty} \omega_n = \iota(X)$. This is a contradiction.
+  where (a) follows from the continuity of $\hat{\kappa}$, (b) follows from the definition of $\hat{\kappa}$ and since $\omega_n \in \iota(X)$, and
+  (c) follows by definition of $\kappa$.
+  So $\omega = \lim_{n\rightarrow\infty} \omega_n = \iota(X)$ by the continuity of $\iota$. This is a contradiction.
 \end{Solution}
 
 \end{document}
