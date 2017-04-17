@@ -106,7 +106,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{Solution}
   \begin{enumerate}
     \item[\#2.] $(\Rightarrow)$ Suppose $K$ is zero-dimensional. Note for any $f : K \rightarrow \mathbb{F}$, $f$ is idempotent if and only if $f[K]
-      \subset \{0, 1\}$. Hence $f g$ is idempotent whenever $f$ and $g$ are idempotent. Thus if $g$ and $g$ are both linear combinations of
+      \subset \{0, 1\}$. Hence $f g$ is idempotent whenever $f$ and $g$ are idempotent. Thus if $f$ and $g$ are both linear combinations of
       idempotents, then $f g$ is also a linear combination of idempotents. So the linear span of idempotents is actually an algebra. Let's call this
       algebra $\mathcal{A}$.
 
@@ -165,7 +165,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       This establishes the first direction of the proof.
 
       $(\Leftarrow)$ Now suppose the linear span of idempotents is dense in $C(K, \mathbb{F})$. Let $x, y \in K$ such that $x \neq y$. Since $K$ is
-      compact Hausdorff, $K$ is normal, and thus completely regular. Hence there exists continuous $f : K \rightarrow [0,1]$ such that $f(x) = 1$ and
+      compact and Hausdorff, $K$ is normal, and thus completely regular. Hence there exists continuous $f : K \rightarrow [0,1]$ such that $f(x) = 1$ and
       $f(y) = 0$.
 
       Then since $f \in C(K, \mathbb{F})$, there exists $g \in \mathcal{A}$, the linear span of idempotents, such that $\|f - g\|_{\infty} < 1$.
@@ -173,17 +173,91 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \[
         g = \sum_{j=1}^{n}a_j \chi_{A_j},
       \]
-      where $0 \neq a_j \in \mathbb{F}$ and $\emptyset \neq A_j \subset K$ for each $j = 1, \dots, n$. Let $r := \frac{1}{2}\min \{|a_j|, \dots, |a_n|\}$.
+      where $0 \neq a_j \in \mathbb{F}$ and $\emptyset \neq A_j \subset K$ for each $j = 1, \dots, n$. Let $r := \frac{1}{2}\min \{1, |a_j|, \dots, |a_n|\}$.
       Then by the continuity of $g$ and definition of $r$,
       \[
         V := g^{-1}[B_r] = g^{-1}[\overline{B}_r] 
       \]
-      is clopen and $y \in V$. Then set $U = K - V$. Hence $U, V \in \tau$ are disjoint with $x \in U$, $y \in V$ and $U \cup V = K$. Since $x$ and
+      is clopen and $y \in V, x \notin V$. Then set $U := K - V$. Hence $U, V \in \tau$ are disjoint with $x \in U$, $y \in V$ and $U \cup V = K$. Since $x$ and
       $y$ were arbitrary, $K$ is zero-dimensional.
 
       \vspace{1cm}
 
-    \item[\#5.]
+    \item[\#5.] $(\Rightarrow)$ Suppose $X$ is compact. Let $\epsilon > 0$ and $K := X$. Since $X - K = \emptyset$ and $K$ compact, the condition for
+      $1 \in C_0(X, \mathbb{F})$ is  trivially satisfied. \\
+
+      $(\Leftarrow)$ Now suppose $1 \in C_0(X, \mathbb{F})$. Then for $\epsilon := 1/2$, there exists a compact set $K \subset X$ such that for all $x
+      \in X - K$, $|1(x)| \equiv 1 < \epsilon$. But since $\epsilon < 1$, $X - K = \emptyset$. Hence $X = K$ is compact.
+
+      \vspace{1cm}
+
+    \item[\#6.] $(\Rightarrow)$ Suppose $X$ is $\sigma$-compact. Then there exists a sequence of compact sets $K_0, K_1, K_2, \dots \subset X$ such
+      that $X = \cup_{n=0}^{\infty}K_n$. Without loss of generality we can assume $K_0 \subset K_1 \subset K_2 \subset \dots$ (otherwise take $K_n :=
+      \cup_{j \leq n} K_j$). 
+      
+      Now, since $X$ is locally compact and Hausdorff, we can let $X_{\infty}$ be the one-point compactification of $X$. Identify $X$ with $\iota[X]$.
+      Note that $X_{\infty}$ is
+      normal since it is compact and Hausdorff. Thus by Urysohn's lemma, for each $n \in \mathbb{N}$, we can find a continuous function $f_{n} :
+      X_{\infty} \rightarrow [0,2^{-(n+1)}]$ such that $f_{n}\big|_{\{\infty\}} \equiv 0$ and $f_{n}\big|_{K_n} \equiv 2^{-n}$. Now let $f : X \rightarrow
+      \mathbb{R}$ be defined by 
+      \[
+        f(x) := \sum_{n=0}^{\infty} f_{n}\big|_{X}(x).
+      \]
+      \begin{claim}
+        $0 < f(x) \leq 1$ for all $x \in X$.
+      \end{claim}
+      \begin{claimproof}
+        Let $x \in X$. Then there exists $N \in \mathbb{N}$ such that $x \in K_N$. Hence 
+        \[
+          0 < 2^{-(N+1)} < f(x) \leq \sum_{n=0}^{\infty}2^{-(n+1)} = 1.
+        \]
+      \end{claimproof}
+
+      \begin{claim}
+        $f$ is continuous.
+      \end{claim}
+      \begin{claimproof}
+        It suffices to show that $f^{-1}[(a,\infty)]$ is open for any $a \in \mathbb{R}$. Let $g_{N}(x) :=  \sum_{n=0}^{N}f_n\big|_{X}(x)$, $n \in
+        \mathbb{N}$. Clearly each $g_N$ is continuous, so for each $a \in \mathbb{R}$,
+        \begin{align*}
+          f^{-1}[(a,\infty)] & = \left\{ x \in X : \exists N \in \mathbb{N} \text{ s.t. } \sum_{n=0}^{N}f_{n}\big|_{X}(x) > a \right\} \\
+          & = \left\{ x \in X : \exists N \in \mathbb{N} \text{ s.t. } g_{N}(x) > a \right\} \\
+          & = \bigcup_{n=0}^{\infty}g_{N}^{-1}[(a,\infty)]
+        \end{align*}
+        is open in $X$.
+      \end{claimproof}
+
+      \begin{claim}
+        For each $n \in \mathbb{N}$, $f_n\big|_{X}$ vanishes at $\infty$.
+      \end{claim}
+      \begin{claimproof}
+        Since $f_n(\infty) = 0$.
+      \end{claimproof}
+
+      \begin{claim}
+        $f$ vanishes at infinity.
+      \end{claim}
+      \begin{claimproof}
+        Let $\epsilon > 0$. Then let $N \in\mathbb{N}$ such that $2^{-N} < \epsilon / 2$. By Claim 7, for each $0 \leq n \leq N - 1$ we can find a compact
+        set $K_n'$ such that $f(x) < \epsilon / (2N)$ for all $x \in X - K_{n}'$. Then let $K := \cup_{n=0}^{N-1}K_n'$. So for $x \in X - K$,
+        \[
+          f(x) = \sum_{n=0}^{N-1}f_n\big|_{X}(x) + \sum_{n=N}^{\infty}f_n\big|_{X}(x) \leq N \frac{\epsilon}{2N} + \sum_{n=N}^{\infty}2^{-(n+1)} = 
+          \frac{\epsilon}{2} + 2^{-N} < \epsilon.
+        \]
+      \end{claimproof}
+
+      By claims 5 - 8, we have established the first direction of the proof. \\
+
+      $(\Leftarrow)$ Suppose there exists $f \in C_0(X, \mathbb{R})$ with $0 < f(x) \leq 1$ for all $x \in X$. Then for each $n \in \mathbb{N}$, there
+      exists compact $K_n \subset X$ such that $|f(x)| < 2^{-n}$ for all $x \in X - K_n$. We claim that $X = \cup_{n=0}^{\infty} K_n$. 
+      
+      Let $x \in X$
+      be arbitrary. Since $f(x) > 0$, there exists $n_x \in \mathbb{N}$ such that $2^{-n} < f(x)$ for all $n \geq n_x$. Then for $n \geq n_x$, $x \in
+      K_n$ since $f(y) < 2^{-n} < f(x)$ for all $y \in X - K_n$. Hence $x \in \cup_{n=0}^{\infty}K_n$.
+
+      \vspace{1cm}
+
+    \item[\#8.]
 
   \end{enumerate}
 \end{Solution}
