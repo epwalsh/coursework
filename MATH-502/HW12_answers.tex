@@ -217,21 +217,19 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         $f$ is continuous.
       \end{claim}
       \begin{claimproof}
-        It suffices to show that $f^{-1}[(a,\infty)]$ is open for any $a \in \mathbb{R}$. Let $g_{N}(x) :=  \sum_{n=0}^{N}f_n\big|_{X}(x)$, $n \in
-        \mathbb{N}$. Clearly each $g_N$ is continuous, so for each $a \in \mathbb{R}$,
-        \begin{align*}
-          f^{-1}[(a,\infty)] & = \left\{ x \in X : \exists N \in \mathbb{N} \text{ s.t. } \sum_{n=0}^{N}f_{n}\big|_{X}(x) > a \right\} \\
-          & = \left\{ x \in X : \exists N \in \mathbb{N} \text{ s.t. } g_{N}(x) > a \right\} \\
-          & = \bigcup_{n=0}^{\infty}g_{N}^{-1}[(a,\infty)]
-        \end{align*}
-        is open in $X$.
+        Let $g_{N}(x) :=  \sum_{n=0}^{N}f_n\big|_{X}(x)$, $N \in \mathbb{N}$. Clearly each $g_N$ is continuous, and
+        \[
+          \big\| f - g_N \big\| = \left\|\sum_{n=N+1}^{\infty} f_n\big|_{X}\right\| \leq \sum_{n=N+1}^{\infty}\big\|f_n\big|_{X}\big\|
+          \leq \sum_{n=N+1}^{\infty} 2^{-(n+1)} = 2^{-(N+1)} \rightarrow 0 \text{ as } N \rightarrow \infty.
+        \]
+        Hence $g_N \rightarrow f$ uniformly, so $f$ is continuous.
       \end{claimproof}
 
       \begin{claim}
         For each $n \in \mathbb{N}$, $f_n\big|_{X}$ vanishes at $\infty$.
       \end{claim}
       \begin{claimproof}
-        Since $f_n(\infty) = 0$.
+        Since $f_n(\infty) = 0$ and by Proposition 4.3.12.
       \end{claimproof}
 
       \begin{claim}
@@ -257,8 +255,92 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
       \vspace{1cm}
 
-    \item[\#8.]
+    \item[\#8.] Let $(X, \tau_X)$ and $(Y, \tau_Y)$ be locally compact Hausdorff spaces.
 
+      \begin{claim}
+        $X \times Y$ with the product topology is locally compact.
+      \end{claim}
+      \begin{claimproof}
+        Let $(x, y) \in X \times Y$. Since $X$ and $Y$ are both locally compact, there exists a compact $K_1 \in \mathcal{N}_x$ and compact $K_2 \in
+        \mathcal{N}_y$. Then clearly $K_1 \times K_2 \in \mathcal{N}_{(x,y)}$ and is compact by Tychonoff's theorem.
+      \end{claimproof}
+
+      Let 
+      \[
+        \hspace{-8mm} \mathcal{A} := \left\{ f \in C_0(X\times Y, \mathbb{F}) : f = \sum_{j=1}^{n}g_j h_j, \text{ where } g_1, \dots, g_n \in C_{00}(X,
+        \mathbb{F}) \text{ and } h_1, \dots, h_n \in C_{00}(Y, \mathbb{F}) \right\}.
+      \]
+      \begin{claim}
+        $\mathcal{A}$ is a subalgebra of $C_0(X\times Y, \mathbb{F})$.
+      \end{claim}
+      \begin{claimproof}
+        Clearly $0 \in \mathcal{A}$. Now suppose $f_1, f_2 \in \mathcal{A}$. Since $a g \in C_{00}(X, \mathbb{F})$ and $a h \in C_{00}(Y,
+        \mathbb{F})$ for all $a \in \mathbb{F}$, $g \in C_{00}(X, \mathbb{F})$, and $h \in C_{00}(Y, \mathbb{F})$, it follows that $a f_1 + f_2
+        \in \mathcal{A}$ for all $a \in \mathbb{F}$. Hence $\mathcal{A}$ is a linear subspace of $C_0(X \times Y, \mathbb{F})$.
+
+        Further, since $g_1 \cdot g_2 \in C_{00}(X, \mathbb{F})$ and $h_1 \cdot h_2 \in C_{00}(Y, \mathbb{F})$ for all $g_1, g_2 \in C_{00}(X,
+        \mathbb{F})$, $h_1, h_2 \in C_{00}(Y, \mathbb{F})$, it follows that $f_1 \cdot f_2 \in \mathcal{A}$.
+
+        Therefore $\mathcal{A}$ is a subring of $C_0(X \times Y, \mathbb{F})$.
+      \end{claimproof}
+
+      We now proceed to verify conditions (a) - (c) of Theorem 4.3.13.
+
+      \begin{claim}
+        For any $(x_1, y_1), (x_2, y_2) \in X \times Y$ with $(x_1, y_1) \neq (x_2, y_2)$, there exists $f \in \mathcal{A}$
+        such that $f(x_1, y_1) = 1$ and $f(x_2, y_2) = 0$.
+      \end{claim}
+      \begin{claimproof}
+        Let $(x_1, y_1), (x_2, y_2) \in X \times Y$ such that $(x_1, y_1) \neq (x_2, y_2)$. Then without loss of generality we can assume $x_1 \neq
+        x_2$ (since either $x_1 \neq x_2$ or $y_1 \neq y_2$). 
+        
+        Since $X$ is locally compact, there exists a compact $K \in \mathcal{N}_{x_1}$. Then since $K$ is a neighborhood of $x_1$ and $X$ is
+        Hausdorff, we can find an open $U \subset X$ such that $x_1 \in U \subset K$ and $x_2 \notin U$.
+
+        Now let $X_{\infty}$ be the one-point compactification of $X$, and identify $X$ with $\iota[X]$. Let $F := X_{\infty} - U$.
+
+        Then by Urysohn's lemma there exists a continuous funtion $\tilde{g} : X_{\infty} \rightarrow [0,1]$ such that $\tilde{g}\big|_{\{x_1\}} \equiv 1$ and
+        $\tilde{g}\big|_{F} \equiv 0$. Let $g := g\big|_{X}$. 
+
+        It follows that $g : X \rightarrow \mathbb{F}$ is continuous and $g\big|_{X-U} \equiv 0$. In particular, $g\big|_{X-K} \equiv 0$ and $f(x_2) =
+        0$ since $x_2 \notin U$. Hence $g \in C_{00}(X, \mathbb{F})$ and $g(x_1) \neq g(x_2)$.
+
+        By similar methods we can find $h \in C_{00}(Y, \mathbb{F})$ such that $h(y_1) = h(y_2) = 1$. Then let $f : X \times Y \rightarrow \mathbb{F}$
+        be defined by $f(x,y) := g(x)\cdot h(y)$. So $f \in \mathcal{A}$ and $f(x_1, y_1) = g(x_1) \neq g(x_2) = f(x_2, y_2)$.
+      \end{claimproof}
+
+      \begin{claim}
+        (a) For all $(x,y) \in X \times Y$, there exists $f \in \mathcal{A}$ such that $f(x,y) \neq 0$.
+      \end{claim}
+      \begin{claimproof}
+        Let $(x_1,y_1) \in X \times Y$. If $X \times Y$ consists of one point, the result is trivial by taking $f \equiv 1$. Otherwise let $(x_2, y_2)$ be
+        any other point in $X \times Y$ with $(x_1,y_1) \neq (x_2, y_2)$. Now apply Claim 11.
+      \end{claimproof}
+
+      \begin{claim}
+        (b) $\mathcal{A}$ separates points in $X \times Y$.
+      \end{claim}
+      \begin{claimproof}
+        Apply Claim 11.
+      \end{claimproof}
+
+      \begin{claim}
+        (c) If $f \in \mathcal{A}$, $\bar{f} \in \mathcal{A}$.
+      \end{claim}
+      \begin{claimproof}
+        Suppose $f = \sum_{j=1}^{n}g_j \cdot h_j \in \mathcal{A}$, with $g_1, \dots, g_n \in C_{00}(X, \mathbb{F})$ and $h_1, \dots, h_n \in C_{00}(Y,
+        \mathbb{F})$. Then clearly $\bar{g}_j \in C_{00}(X, \mathbb{F})$ and $\bar{h}_j \in C_{00}(Y, \mathbb{F})$ for each $j = 1, \dots, n$. Thus
+        \[
+          \bar{f} = \sum_{j=1}^{n} \bar{g}_j \cdot \bar{h}_j \in \mathcal{A}.
+        \]
+      \end{claimproof}
+
+      So by claims 12 - 14, Proposition 4.3.13 applies. Thus $\mathcal{A}$ is dense in $C_{0}(X \times Y, \mathbb{F})$. Hence for all $\epsilon > 0$
+      and $f \in C_{0}(X \times Y, \mathbb{F})$, there exists $g_1, \dots, g_n \in C_{00}(X, \mathbb{F})$ and $h_1, \dots, h_n \in C_{00}(Y,
+      \mathbb{F})$ such that 
+      \[ 
+        \sup_{x,y}\left| f(x,y) - \sum_{j=1}^{n} g_j(x) h_j(y) \right| < \epsilon.
+      \]
   \end{enumerate}
 \end{Solution}
 
