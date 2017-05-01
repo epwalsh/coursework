@@ -187,7 +187,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \[
           V_y := \bigcap \left\{ V_{x,y} : x \in A  \right\}.
         \]
-        Then $V_y \subset K - A$ and since each $V_{x,y}$ clopen, $V_y$ is necessarily clopen as well. Now let 
+        Then $V_y \subset K - A$ and since each $V_{x,y}$ is clopen, $V_y$ is necessarily clopen as well. Now let 
         \[
           V := \bigcup_{y \in K-A}V_y.
         \]
@@ -228,7 +228,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       This establishes the first direction of the proof.
 
       $(\Leftarrow)$ Now suppose the linear span of idempotents is dense in $C(K, \mathbb{F})$. Let $x, y \in K$ such that $x \neq y$. Since $K$ is
-      compact and Hausdorff, $K$ is normal, and thus completely regular. Hence there exists continuous $f : K \rightarrow [0,1]$ such that $f(x) = 1$ and
+      compact and Hausdorff, $K$ is normal, and thus completely regular. Hence there exists a continuous function $f : K \rightarrow [0,1]$ such that $f(x) = 1$ and
       $f(y) = 0$.
 
       Then since $f \in C(K, \mathbb{F})$, there exists $g \in \mathcal{A}$, the linear span of idempotents, such that $\|f - g\|_{\infty} < 1$.
@@ -239,7 +239,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       where $0 \neq a_j \in \mathbb{F}$ and $\emptyset \neq A_j \subset K$ for each $j = 1, \dots, n$. Let $r := \frac{1}{2}\min \{1, |a_j|, \dots, |a_n|\}$.
       Then by the continuity of $g$ and definition of $r$,
       \[
-        V := g^{-1}[B_r] = g^{-1}[\overline{B}_r] 
+        V := g^{-1}[B_r(0)] = g^{-1}\left[\overline{B_r(0)}\right]
       \]
       is clopen and $y \in V, x \notin V$. Then set $U := K - V$. Hence $U, V \in \tau$ are disjoint with $x \in U$, $y \in V$ and $U \cup V = K$. Since $x$ and
       $y$ were arbitrary, $K$ is zero-dimensional.
@@ -280,12 +280,12 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         $f$ is continuous.
       \end{claim}
       \begin{claimproof}
-        Let $g_{N}(x) :=  \sum_{n=0}^{N}f_n\big|_{X}(x)$, $N \in \mathbb{N}$. Clearly each $g_N$ is continuous, and
+        Let $g_{N}(x) :=  \sum_{n=0}^{N}f_n\big|_{X}(x)$, $N \in \mathbb{N}$. Clearly each $g_N$ is continuous. Furthermore,
         \[
           \big\| f - g_N \big\| = \left\|\sum_{n=N+1}^{\infty} f_n\big|_{X}\right\| \leq \sum_{n=N+1}^{\infty}\big\|f_n\big|_{X}\big\|
           \leq \sum_{n=N+1}^{\infty} 2^{-(n+1)} = 2^{-(N+1)} \rightarrow 0 \text{ as } N \rightarrow \infty.
         \]
-        Hence $g_N \rightarrow f$ uniformly, so $f$ is continuous.
+        Hence $g_N \rightarrow f$ uniformly. So $f$ is the uniform limit of continuous functions, and thus is continuous.
       \end{claimproof}
 
       \begin{claim}
@@ -386,7 +386,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         Condition (b) $\mathcal{A}$ separates points in $X \times Y$.
       \end{claim}
       \begin{claimproof}
-        Apply Claim 11.
+        Apply Claim 11 once again.
       \end{claimproof}
 
       \begin{claim}
