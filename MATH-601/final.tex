@@ -1,0 +1,204 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+% \usepackage{eufrak}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 601: Final Exam}
+\rhead{\thepage}
+\cfoot{}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 601 -- Final Exam -- fall 2017} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+\subsection*{1}
+\begin{tcolorbox}
+  Suppose $A \subseteq \mathbb{N}$. Prove that $A$ is recursive if and only if the increasing enumeration of $A$ is recursive.
+\end{tcolorbox}
+
+\begin{Solution}
+  Let $w : \mathbb{N} \rightarrow \mathbb{N}$ be the increasing enumeration of $A$.
+
+  $(\Rightarrow)$ Suppose $A$ is recursive. Then note that 
+  \begin{align*}
+    w(0) & = \mu y [ y \in A ] \\
+    w(n + 1) & = \mu y [ y > w(n) \wedge y \in A ] \text{ for all } n \geq 0.
+  \end{align*}
+  Hence, by the theorem of sequential recursion, $w$ is recursive.
+
+  $(\Leftarrow)$ Now suppose $w$ is recursive. We need to show that $A$ is recursive. But note that 
+  \[ x \in A \Leftrightarrow (\exists n \leq x) w(n) = x. \]
+  Hence $A$ is recursive by closure under bounded quantification.
+\end{Solution}
+
+
+\newpage
+\subsection*{2}
+\begin{tcolorbox}
+  A \emph{completion} of Peano Arithmetic is a complete theory $T$ in $\mathcal{L}_{PA}$ that includes the axioms of Peano Arithmetic. Prove there are
+  uncountable many completions of Peano Arithmetic.
+\end{tcolorbox}
+
+\begin{Solution}
+  Let $\{\Phi_0, \Phi_1, \dots\}$ be an enumeration of Wff.
+  We will show that given any $\nu \in \{0,1\}^{\omega}$, we can construct a unique completion $T_\nu$ of $PA$. From there it
+  follows that there are an uncountable number of completions of $PA$ since $\{0,1\}^{\omega}$ is of course uncountable.
+  The following claim will be helpful.
+
+  \begin{claim}
+    Suppose $T_0 \subseteq \text{Wff}$ is finite and $PA \cup T_0$ is consistent. Then $PA \cup T_0$ is incomplete.
+  \end{claim}
+  \begin{claimproof}
+    Let $T_1 := PA \cup T_0$.
+    It suffices to show that the conditions for Theorem 8.2 hold for $T_1$. Well, since $T_1$ is finite, $T_1$ is recursive. Therefore $T_1$ is
+    recursively enumerable.
+
+    Also, since (1) - (6) in the statement of Theorem 8.2 are all consequences of $PA$, they are also consequences of $T_1$ by monotonicity.
+  \end{claimproof}
+
+  Now let $\nu \in \{0, 1\}^{\omega}$. We will now recursively construct $T_\nu$ as follows. Set $T_{\nu,0} := PA = PA \cup \emptyset$.
+  So $T_{\nu,0}$ is consistent and finite. Hence, by Claim 1, there exists a minimal $k_0 \geq 0$ such that $T_{\nu,0} \not \vdash \ulcorner \Phi_{k_0} \urcorner$ and
+  $T_{\nu,0} \not \vdash \ulcorner \neg \Phi_{k_0} \urcorner$. Then let $T_{\nu,1}'$ be such that for all $0 \leq k < k_0$, 
+  $\ulcorner \Phi_k \urcorner \in T_{\nu,1}'$
+  if $T_{\nu,0} \vdash \ulcorner \Phi_k \urcorner$ or $\ulcorner \neg \Phi_k \urcorner \in T_{\nu,1}'$ if $T_{\nu,0} \vdash \ulcorner \neg \Phi_k \urcorner$.
+  Let 
+  \[
+    T_{\nu,1}'' := \left\{ \begin{array}{cl}
+        PA \cup \{ \ulcorner \Phi_{k_0} \urcorner \} & \text{ if } \nu(0) = 0, \\
+        PA \cup \{ \ulcorner \neg \Phi_{k_0} \urcorner \} & \text{ if } \nu(0) = 1.
+    \end{array} \right.
+  \]
+  Let $T_{\nu,1} := T_{\nu,1}' \cup T_{\nu,1}''$.
+  In either case, $T_{\nu,1}$ is consistent and finite. 
+  
+  Now, by way of induction, suppose that for $n > 0$, $T_{\nu,n}$ has been constructed. Then by Claim 1 we can find a minimal $k_n \geq 0$ such that 
+  $T_{\nu,n} \not \vdash \ulcorner \Phi_{k_n} \urcorner$ and $T_{\nu,n} \not \vdash \ulcorner \neg \Phi_{k_n} \urcorner$. Then let $T_{\nu,n+1}'$ be such that for 
+  all $0 \leq k < k_n$, $\ulcorner \Phi_k \urcorner \in T_{\nu,n+1}'$
+  if $T_{\nu,n} \vdash \ulcorner \Phi_k \urcorner$ or $\ulcorner \neg \Phi_k \urcorner \in T_{\nu,n+1}'$ if $T_{\nu,n} \vdash \ulcorner \neg \Phi_k \urcorner$.
+  Let 
+  \[
+    T_{\nu,n+1}'' := \left\{ \begin{array}{cl}
+        PA \cup \{ \ulcorner \Phi_{k_n} \urcorner \} & \text{ if } \nu(n) = 0, \\
+        PA \cup \{ \ulcorner \neg \Phi_{k_n} \urcorner \} & \text{ if } \nu(n) = 1.
+    \end{array} \right.
+  \]
+  Then set $T_{\nu,n+1} := T_{\nu,n+1}' + T_{\nu,n+1}''$. Clearly $T_{\nu,n+1}$ is consistent by its construction.
+
+  Now let $T_{\nu} := \cup_{n\geq 0} T_{\nu,n}$.
+
+  \begin{claim}
+    For all $\nu \in \{0, 1\}^{\omega}$, $T_{\nu}$ is consistent.
+  \end{claim}
+  \begin{claimproof}
+    By way of contradiction suppose not. Then by compactness, there exists a finite set $T \subset T_{\nu}$ that is inconsistent. But since $T$ is
+    finite, there exists $n_0 \in \mathbb{N}$ such that $T \subseteq T_{\nu,n_0}$. So by monotonicity, $T_{\nu,n_0}$ is inconsistent. This is a
+    contradiction.
+  \end{claimproof}
+
+  \begin{claim}
+    For all $\nu \in \{0, 1\}^{\omega}$, $T_{\nu}$ is maximally consistent.
+  \end{claim}
+  \begin{claimproof}
+    This is trivial since, by construction, for every wff $\Phi$, either $\ulcorner\Phi\urcorner \in T_{\nu}$ or $\ulcorner \neg \Phi \urcorner \in T_{\nu}$.
+  \end{claimproof}
+
+  \begin{claim}
+    If $\nu \neq \nu'$, then $T_{\nu} \neq T_{\nu'}$.
+  \end{claim}
+  \begin{claimproof}
+    Let $n \in \mathbb{N}$ be the minimal natural number such that $\nu(n) \neq \nu'(n)$. Without loss of generality assume $\nu(n) = 0$ and $\nu'(n)
+    = 1$.
+    Let $k_n$ be the minimal natural number such that both
+    $T_{\nu,n}$ and $T_{\nu',n}$ do not prove $\Phi_{k_n}$ nor its negation. Then, by definition, $\ulcorner \Phi_{k_n} \urcorner \in T_{\nu,n}$ and 
+    $\ulcorner \neg \Phi_{k_n} \urcorner \in T_{\nu',n}$. So $\ulcorner \Phi_{k_n} \urcorner \in T_{\nu}$ and
+    $\ulcorner \neg \Phi_{k_n} \urcorner \in T_{\nu'}$. Hence $T_{\nu} \neq T_{\nu'}$.
+  \end{claimproof}
+
+  By the above claims, $\{ T_\nu : \nu \in \{0,1\}^{\omega} \}$ is an uncountable collections of completions of PA.
+\end{Solution}
+
+
+\newpage
+\subsection*{3}
+\begin{tcolorbox}
+  Prove the G\"odel-Henkin completeness theorem for uncountable theories.
+\end{tcolorbox}
+\begin{Solution}
+  
+\end{Solution}
+
+\newpage
+\subsection*{4}
+\begin{tcolorbox}
+  Give an example of two countable models of the same language that are not elementarily equivalent.
+\end{tcolorbox}
+\begin{Solution}
+  Consider $\mathcal{A} := (\mathbb{Q}, \leq)$ and $\mathcal{B} := (\mathbb{Q} \cap [0,1], \leq)$ as interpretations of the language $\mathcal{L} :=
+  \{`\leq'\}$. Let $\Phi := `(\forall x_0)(\exists x_1)(\leq (x_0, x_1) \wedge \neg (x_0 = x_1))'$.
+
+  \begin{claim}
+    $\mathcal{A} \models \Phi$.
+  \end{claim}
+  \begin{claimproof}
+    $\mathcal{A} \models \Phi$ if and only if for all $a \in \mathbb{Q}$, 
+    \[ \mathcal{A} \models `(\exists x_1)(\leq(x_0, x_1) \wedge \neg (x_0 =x_1))'[\{(x_0, a)\}], \] 
+    if and only if for all $a \in \mathbb{Q}$, there is some $b \in \mathbb{Q}$ such that 
+    \[ \mathcal{A} \models `(\leq(x_0, x_1) \wedge \neg (x_0 =x_1))'[\{(x_0, a), (x_1, b)\}], \] 
+    if and only if for all $a \in \mathbb{Q}$, there is some $b \in \mathbb{Q}$ such that $a \leq b$ and $a \neq b$, which of course holds since we
+    can always take $b := a + 1$.
+  \end{claimproof}
+
+  \begin{claim}
+    $\mathcal{B} \not \models \Phi$.
+  \end{claim}
+  \begin{claimproof}
+    Similarly to Claim 1, we have $\mathcal{B} \models \Phi$ 
+    if and only if for all $a \in \mathbb{Q} \cap [0,1]$, there is some $b \in \mathbb{Q} \cap [0,1]$ such that $a \leq b$ and $a \neq b$.
+    But clearly this does not hold for $a := 1$.
+
+  \end{claimproof}
+
+  By claims 2 and 3, $\mathcal{A}$ and $\mathcal{B}$ are not elementarily equivalent.
+
+\end{Solution}
+
+\end{document}
