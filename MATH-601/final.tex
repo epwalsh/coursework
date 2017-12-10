@@ -95,7 +95,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     Also, since (1) - (6) in the statement of Theorem 8.2 are all consequences of $PA$, they are also consequences of $T_1$ by monotonicity.
   \end{claimproof}
 
-  Now let $\nu \in \{0, 1\}^{\omega}$. We will now recursively construct $T_\nu$ as follows. Set $T_{\nu,0} := PA = PA \cup \emptyset$.
+  Now let $\nu \in \{0, 1\}^{\omega}$. We will now recursively construct $T_\nu$ as follows. Set $T_{\nu,0} := PA$.
   So $T_{\nu,0}$ is consistent and finite. Hence, by Claim 1, there exists a minimal $k_0 \geq 0$ such that $T_{\nu,0} \not \vdash \ulcorner \Phi_{k_0} \urcorner$ and
   $T_{\nu,0} \not \vdash \ulcorner \neg \Phi_{k_0} \urcorner$. Then let $T_{\nu,1}'$ be such that for all $0 \leq k < k_0$, 
   $\ulcorner \Phi_k \urcorner \in T_{\nu,1}'$
@@ -154,7 +154,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $\ulcorner \neg \Phi_{k_n} \urcorner \in T_{\nu'}$. Hence $T_{\nu} \neq T_{\nu'}$.
   \end{claimproof}
 
-  By the above claims, $\{ T_\nu : \nu \in \{0,1\}^{\omega} \}$ is an uncountable collections of completions of PA.
+  By the above claims, $\{ T_\nu : \nu \in \{0,1\}^{\omega} \}$ is an uncountable collection of completions of PA.
 \end{Solution}
 
 
@@ -173,13 +173,13 @@ We first need the following Lemma. \vspace{.5cm}
       T' := T \cup \{ \ulcorner ((\exists \alpha) \Phi \Rightarrow \Phi') \urcorner : \Psi = \ulcorner (\exists \alpha) \Phi \urcorner \text{ is an
       existential sentence of $\mathcal{L}$ and $\Phi' = \Phi[\alpha / \kappa_{\Psi}]$} \}
     \]
-    is a consistent theory in the language $\mathcal{L}'$ consisting of the new constants $\{ \kappa_{\beta} \}$ added on to $\mathcal{L}$.
+    is a consistent theory in the language $\mathcal{L}'$ consisting of the new constants $\{ \kappa_{\Psi} \}$ added on to $\mathcal{L}$.
   }
 \end{Lemma}
 \begin{Proof}
   Let $\ulcorner (\exists \alpha_0) \Phi_0 \urcorner, \ulcorner (\exists \alpha_1)
   \Phi_1 \urcorner, \dots$ be an enumeration of the existential sentences of $\mathcal{L}$ (possibly invoking the Well Ordering Theorem if the set
-  of existential sentences is uncountable), and $\kappa_0, \kappa_1, \dots$ the corresponds new constants. 
+  of existential sentences is uncountable), and $\kappa_0, \kappa_1, \dots$ the corresponding new constants. 
   Now set $T_0 := T \cup \{ \ulcorner((\exists \alpha_0) \Phi_0 \Rightarrow \Phi_0')\urcorner \}$, where $\Phi_0' := \Phi_0[\alpha_0 / \kappa_{0}]$.
   Let $\mathcal{L}_0$ be the result of adding the constant $\kappa_0$ to $\mathcal{L}$.
   \begin{claim}
@@ -190,7 +190,7 @@ We first need the following Lemma. \vspace{.5cm}
     \[ T \vdash \ulcorner \neg ((\exists \alpha_0) \Phi_0 \Rightarrow \Phi_0') \urcorner. \]
     So $T \vdash \ulcorner ((\exists \alpha_0) \Phi_0 \wedge \neg \Phi_0') \urcorner$. Hence $T \vdash \ulcorner (\exists \alpha_0) \Phi_0 \urcorner$ and 
     $T \vdash \ulcorner \neg \Phi_0'\urcorner$. But then, by Lemma 4.12 in Chapter 4 and generalization, $T \vdash \ulcorner (\forall \alpha_0) \neg
-    \Phi_0 \urcorner$, i.e. $T \vdash \ulcorner \neg (\exists \alpha_0) \Phi_0 \urcorner$. This is a contradiction. Hence $T_0$ is consistent in the
+    \Phi_0 \urcorner$, i.e. $T \vdash \ulcorner \neg (\exists \alpha_0) \Phi_0 \urcorner$. This is a contradiction since $T$ is consistent. Hence $T_0$ is consistent in the
     lanuage $\mathcal{L}_0$.
   \end{claimproof}
 
@@ -205,7 +205,7 @@ We first need the following Lemma. \vspace{.5cm}
     $T_\beta$ is consistent in $\mathcal{L}_\beta$.
   \end{claim}
   \begin{claimproof}
-    In the case that $\beta$ is a successor ordinal, the proof is exactly like in Claim 1. So without loss of generality suppose $\beta$ is a limit
+    In the case that $\beta$ is a successor ordinal, the proof is exactly like in Claim 1. So suppose $\beta$ is a limit
     ordinal. By way of contradiction assume $T_\beta$ is inconsistent. Then it must be that 
     \[ \cup_{\gamma < \beta}T_\gamma \vdash \ulcorner \neg ((\exists \alpha_\beta) \Phi_\beta \Rightarrow \Phi_\beta') \urcorner. \]
     So by monotonicity, there exists $\gamma' < \beta$ such that 
@@ -219,13 +219,9 @@ We first need the following Lemma. \vspace{.5cm}
     $T'$ consistent.
   \end{claim}
   \begin{claimproof}
-    By way of contradiction suppose not. Let $\Phi$ be a well-formed forumla in the language of $\mathcal{L}'$. So $T' \vdash \Phi$ and $T' \vdash
-    \ulcorner \neg \Phi \urcorner$.
-    But note that $T' = T_0 \cup T_1 \cup \dots$.
-    Hence, by monotonicity, there exists $\beta_0, \beta_1$ such that $T_{\beta_0} \vdash \Phi$ and $T_{\beta_1} \vdash \ulcorner \neg \Phi
-    \urcorner$. Let $\gamma$ be the greater of $\beta_0$ and $\beta_1$. Then $T_{\gamma} \vdash \Phi$ and $T_{\gamma} \vdash \ulcorner \neg \Phi
-    \urcorner$. Hence $T_{\gamma}$ is inconsistent. This is a contradiction.
-
+    By way of contradiction suppose not. Then by compactness, there exists a finite subset $T''$ of $T'$ that is inconsistent.
+    But since $T_0 \subset T_1 \subset \dots$, there is an ordinal $\beta$ such that $T'' \subset T_\beta$. So $T_\beta$ inconsistent by monotonicity.
+    This is a contradiction.
   \end{claimproof}
 
 \end{Proof}
@@ -294,7 +290,7 @@ We first need the following Lemma. \vspace{.5cm}
     if and only if for all $a \in \mathbb{Q}$, there is some $b \in \mathbb{Q}$ such that 
     \[ \mathcal{A} \models `(\leq(x_0, x_1) \wedge \neg (x_0 =x_1))'[\{(x_0, a), (x_1, b)\}], \] 
     if and only if for all $a \in \mathbb{Q}$, there is some $b \in \mathbb{Q}$ such that $a \leq b$ and $a \neq b$, which of course holds since we
-    can always take $b := a + 1$.
+    can always take $b = a + 1$.
   \end{claimproof}
 
   \begin{claim}
@@ -303,12 +299,11 @@ We first need the following Lemma. \vspace{.5cm}
   \begin{claimproof}
     Similarly to Claim 1, we have $\mathcal{B} \models \Phi$ 
     if and only if for all $a \in \mathbb{Q} \cap [0,1]$, there is some $b \in \mathbb{Q} \cap [0,1]$ such that $a \leq b$ and $a \neq b$.
-    But clearly this does not hold for $a := 1$.
+    But clearly this does not hold for $a = 1$.
 
   \end{claimproof}
 
   By claims 1 and 2, $\mathcal{A}$ and $\mathcal{B}$ are not elementarily equivalent.
-
 \end{Solution}
 
 \newpage
@@ -321,7 +316,7 @@ We first need the following Lemma. \vspace{.5cm}
 \end{tcolorbox}
 \begin{Solution}
   We will construct a model $\mathcal{A}$ of $T$ using a similar process as the Henkin construction used in the proof of the Completeness Theorem.
-  To do so, we will make use of the following claim.
+  To do so, we will make use of the following claim:
 
   \begin{claim}
     For each $n \in \mathbb{N}$, $T \vdash \ulcorner (\exists \alpha_n) \Phi \urcorner$ for every $\Phi \in S_n$.
@@ -360,12 +355,12 @@ We first need the following Lemma. \vspace{.5cm}
   Completeness Theorem (the fact that $\mathcal{A}$ is countable follows from the fact that $\mathcal{L}'$ is countable and the Henkin construction in
   the Completeness Theorem produces a model for which all of its elements correspond to constants in $\mathcal{L}'$).
 
-  Now, since $\mathcal{A} \models T'$ in $\mathcal{L}'$ and $T \subset T'$, $\mathcal{A} \models T$ in $\mathcal{L}'$. Further, it also holds that 
+  Now, since $\mathcal{A} \models T'$ in $\mathcal{L}'$ and $T \subset T'$, $\mathcal{A} \models T$ in $\mathcal{L}'$. Hence 
   $\mathcal{A} \models T$ in $\mathcal{L}$ since $\mathcal{L}$ is a sublanguage of $\mathcal{L}'$. Therefore it remains to show that $\mathcal{A}$
   satisfies the desired condition:
 
   \begin{claim}
-    For each $n \in \mathbb{N}$, there is some $a \in |\mathcal{A}|$ such that $\mathcal{A} \models \Phi[\{(\alpha_n, a)\}]$ for each $\Phi \in S_n$.
+    For each $n \in \mathbb{N}$, there is some $a \in |\mathcal{A}|$ such that $\mathcal{A} \models \Phi[\{(\alpha_n, a)\}]$ for every $\Phi \in S_n$.
   \end{claim}
   \begin{claimproof}
     Let $n \in \mathbb{N}$. Since $\mathcal{A} \models T'$, $\mathcal{A} \models \Phi[\alpha_n / \kappa_n]$ for each $\Phi \in S_n$. 
