@@ -79,7 +79,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{tcolorbox}
 
 \begin{Solution}
-  Let $\{\Phi_0, \Phi_1, \dots\}$ be an enumeration of Wff.
+  Let $\{\Phi_0, \Phi_1, \dots\}$ be an enumeration of the sentences of $\mathcal{L}_{PA}$.
   We will show that given any $\nu \in \{0,1\}^{\omega}$, we can construct a unique completion $T_\nu$ of $PA$. From there it
   follows that there are an uncountable number of completions of $PA$ since $\{0,1\}^{\omega}$ is of course uncountable.
   The following claim will be helpful.
@@ -135,10 +135,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{claimproof}
 
   \begin{claim}
-    For all $\nu \in \{0, 1\}^{\omega}$, $T_{\nu}$ is maximally consistent.
+    For all $\nu \in \{0, 1\}^{\omega}$, $T_{\nu}$ is complete.
   \end{claim}
   \begin{claimproof}
-    This is trivial since, by construction, for every wff $\Phi$, either $\ulcorner\Phi\urcorner \in T_{\nu}$ or $\ulcorner \neg \Phi \urcorner \in T_{\nu}$.
+    By construction, for every sentence $\Phi$, either $\ulcorner\Phi\urcorner \in T_{\nu}$ or $\ulcorner \neg \Phi \urcorner \in T_{\nu}$.
+    Hence $T_{\nu}$ is complete by Proposition 5.18 in Chapter 3.
   \end{claimproof}
 
   \begin{claim}
@@ -162,9 +163,74 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Prove the G\"odel-Henkin completeness theorem for uncountable theories.
 \end{tcolorbox}
-\begin{Solution}
-  
-\end{Solution}
+We first need the following Lemma. \vspace{.5cm}
+
+\begin{Lemma}
+  \emph{
+    Suppose $T$ is a consistent theory in a language $\mathcal{L}$. For each existential sentence $\Psi = \ulcorner (\exists \alpha) \Phi \urcorner$
+    of $\mathcal{L}$, let $\kappa_{\Psi}$ be a unique new constant symbol that is not in $\mathcal{L}$. Then 
+    \[
+      T' := T \cup \{ \ulcorner ((\exists \alpha) \Phi \Rightarrow \Phi') \urcorner : \Psi = \ulcorner (\exists \alpha) \Phi \urcorner \text{ is an
+      existential sentence of $\mathcal{L}$ and $\Phi' = \Phi[\alpha / \kappa_{\Psi}]$} \}
+    \]
+    is a consistent theory in the language $\mathcal{L}'$ consisting of the new constants $\{ \kappa_{\beta} \}$ added on to $\mathcal{L}$.
+  }
+\end{Lemma}
+\begin{Proof}
+  Let $\ulcorner (\exists \alpha_0) \Phi_0 \urcorner, \ulcorner (\exists \alpha_1)
+  \Phi_1 \urcorner, \dots$ be an enumeration of the existential sentences of $\mathcal{L}$ (possibly invoking the Well Ordering Theorem if the set
+  of existential sentences is uncountable), and $\kappa_0, \kappa_1, \dots$ the corresponds new constants. 
+  Now set $T_0 := T \cup \{ \ulcorner((\exists \alpha_0) \Phi_0 \Rightarrow \Phi_0')\urcorner \}$, where $\Phi_0' := \Phi_0[\alpha_0 / \kappa_{0}]$.
+  Let $\mathcal{L}_0$ be the result of adding the constant $\kappa_0$ to $\mathcal{L}$.
+  \begin{claim}
+    $T_0$ is consistent is the language $\mathcal{L}_0$.
+  \end{claim}
+  \begin{claimproof}
+    By way of contradiction suppose not. Then it must be that 
+    \[ T \vdash \ulcorner \neg ((\exists \alpha_0) \Phi_0 \Rightarrow \Phi_0') \urcorner. \]
+    So $T \vdash \ulcorner ((\exists \alpha_0) \Phi_0 \wedge \neg \Phi_0') \urcorner$. Hence $T \vdash \ulcorner (\exists \alpha_0) \Phi_0 \urcorner$ and 
+    $T \vdash \ulcorner \neg \Phi_0'\urcorner$. But then, by Lemma 4.12 in Chapter 4 and generalization, $T \vdash \ulcorner (\forall \alpha_0) \neg
+    \Phi_0 \urcorner$, i.e. $T \vdash \ulcorner \neg (\exists \alpha_0) \Phi_0 \urcorner$. This is a contradiction. Hence $T_0$ is consistent in the
+    lanuage $\mathcal{L}_0$.
+  \end{claimproof}
+
+  Now, for $\beta > 0$, we will define $T_{\beta}$ and $\mathcal{L}_\beta$ inductively as follows. If $\beta$ is a successor ordinal, let 
+  \[ T_\beta := T_{\beta - 1} \cup \{ \ulcorner((\exists \alpha_\beta) \Phi_\beta \Rightarrow \Phi_\beta')\urcorner \}, \]
+  and $\beta$ is a limit ordinal, let 
+  \[ T_\beta := (\cup_{\gamma < \beta} T_{\gamma} )\cup \{ \ulcorner((\exists \alpha_\beta) \Phi_\beta \Rightarrow \Phi_\beta')\urcorner \}, \]
+  where $\Phi_\beta' := \Phi[\alpha_\beta / \kappa_{\beta}]$. Let $\mathcal{L}_\beta$ be the language consisting of adding $\{ \kappa_{\gamma} : \gamma \leq
+  \beta \}$ to $\mathcal{L}$.
+
+  \begin{claim}
+    $T_\beta$ is consistent in $\mathcal{L}_\beta$.
+  \end{claim}
+  \begin{claimproof}
+    In the case that $\beta$ is a successor ordinal, the proof is exactly like in Claim 1. So without loss of generality suppose $\beta$ is a limit
+    ordinal. By way of contradiction assume $T_\beta$ is inconsistent. Then it must be that 
+    \[ \cup_{\gamma < \beta}T_\gamma \vdash \ulcorner \neg ((\exists \alpha_\beta) \Phi_\beta \Rightarrow \Phi_\beta') \urcorner. \]
+    So by monotonicity, there exists $\gamma' < \beta$ such that 
+    \[ T_{\gamma'} \vdash \ulcorner \neg ((\exists \alpha_\beta) \Phi_\beta \Rightarrow \Phi_\beta') \urcorner. \]
+    But by the inductive assumption, $T_{\gamma'}$ is consistent. So we can now proceed as in Claim 1 to derive a contradiction.
+  \end{claimproof}
+
+  It remains to show that $T'$ is consistent. 
+
+  \begin{claim}
+    $T'$ consistent.
+  \end{claim}
+  \begin{claimproof}
+    By way of contradiction suppose not. Let $\Phi$ be a well-formed forumla in the language of $\mathcal{L}'$. So $T' \vdash \Phi$ and $T' \vdash
+    \ulcorner \neg \Phi \urcorner$.
+    But note that $T' = T_0 \cup T_1 \cup \dots$.
+    Hence, by monotonicity, there exists $\beta_0, \beta_1$ such that $T_{\beta_0} \vdash \Phi$ and $T_{\beta_1} \vdash \ulcorner \neg \Phi
+    \urcorner$. Let $\gamma$ be the greater of $\beta_0$ and $\beta_1$. Then $T_{\gamma} \vdash \Phi$ and $T_{\gamma} \vdash \ulcorner \neg \Phi
+    \urcorner$. Hence $T_{\gamma}$ is inconsistent. This is a contradiction.
+
+  \end{claimproof}
+
+\end{Proof}
+
+\textbf{Now for the proof of the completeness theorem.}
 
 \newpage
 \subsection*{4}
@@ -197,7 +263,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
   \end{claimproof}
 
-  By claims 2 and 3, $\mathcal{A}$ and $\mathcal{B}$ are not elementarily equivalent.
+  By claims 1 and 2, $\mathcal{A}$ and $\mathcal{B}$ are not elementarily equivalent.
 
 \end{Solution}
 
