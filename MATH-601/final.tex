@@ -110,7 +110,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Let $T_{\nu,1} := T_{\nu,1}' \cup T_{\nu,1}''$.
   In either case, $T_{\nu,1}$ is consistent and finite. 
   
-  Now, by way of induction, suppose that for $n > 0$, $T_{\nu,n}$ has been constructed. Then by Claim 1 we can find a minimal $k_n \geq 0$ such that 
+  Now, by way of recursion, suppose that for $n > 0$, $T_{\nu,n}$ has been constructed. Then by Claim 1 we can find a minimal $k_n \geq 0$ such that 
   $T_{\nu,n} \not \vdash \ulcorner \Phi_{k_n} \urcorner$ and $T_{\nu,n} \not \vdash \ulcorner \neg \Phi_{k_n} \urcorner$. Then let $T_{\nu,n+1}'$ be such that for 
   all $0 \leq k < k_n$, $\ulcorner \Phi_k \urcorner \in T_{\nu,n+1}'$
   if $T_{\nu,n} \vdash \ulcorner \Phi_k \urcorner$ or $\ulcorner \neg \Phi_k \urcorner \in T_{\nu,n+1}'$ if $T_{\nu,n} \vdash \ulcorner \neg \Phi_k \urcorner$.
@@ -237,10 +237,11 @@ We first need the following Lemma. \vspace{.5cm}
   wff. Then $T \vdash \Phi$ and $T \vdash \ulcorner \neg \Phi \urcorner$. So by the Soundness Theorem, $\mathcal{A} \models \Phi$ and $\mathcal{A}
   \models \ulcorner \neg \Phi \urcorner$, i.e. $\mathcal{A} \not \models \Phi$. This is a contradiction.
 
-  $(\Rightarrow)$ Let $T$ be a consistent theory in a language $\mathcal{L}$. We will inductively construct a "maximal" theory $T'$ which is
+  $(\Rightarrow)$ Let $T$ be a consistent theory in a language $\mathcal{L}$. We will inductively construct a larger theory $T'$ which is
   consistent and has witnesses.
-  Let $T_0 = T$ and $\mathcal{L}_0 = \mathcal{L}$. By way of induction, for $n > 0$ let $\kappa_{n,\Psi}$ be a new unique constant not in $\mathcal{L}_n$
-  for each existential sentence $\Psi$ of $\mathcal{L}_n$. Let $\mathcal{L}_{n+1}$ be the language formed by adding $\{ \kappa_{n,\Psi} \}$ to
+  Let $T_0 = T$ and $\mathcal{L}_0 = \mathcal{L}$. By way of recursion, for $n > 0$ let $\kappa_{n,\Psi}$ be a new unique constant not in $\mathcal{L}_n$
+  for each existential sentence $\Psi$ of $\mathcal{L}_n$. Let $\mathcal{L}_{n+1}$ be the language formed by adding the set 
+  \[ \{ \kappa_{n,\Psi}: \text{ $\Psi$ an existential sentence of $\mathcal{L}_n$} \} \] to
   $\mathcal{L}_n$, and set
   \[
     T_{n+1} := T_n \cup \{ \ulcorner ((\exists \alpha) \Phi \Rightarrow \Phi') \urcorner : \Psi = \ulcorner (\exists \alpha) \Phi \urcorner \text{ is an
@@ -248,7 +249,10 @@ We first need the following Lemma. \vspace{.5cm}
   \]
   Then by Lemma 1, $T_{n+1}$ is
   a consistent theory in the language $\mathcal{L}_{n+1}$. Now let $T' := \cup_{n=0}^{\infty} T_{n}$ and $\mathcal{L}'$ be the ``sum" of all the languages
-  $\mathcal{L}_n$.
+  $\mathcal{L}_n$, i.e. the language consisting of $\mathcal{L}$ together with all of the new constants 
+  \[ 
+    \bigcup_{n=0}^{\infty} \{ \kappa_{n,\Psi} : \text{ $\Psi$ an existential sentence of $\mathcal{L}_{n}$} \}.
+  \]
 
   \begin{claim}
     $T'$ is consistent.
@@ -268,7 +272,7 @@ We first need the following Lemma. \vspace{.5cm}
   \end{claimproof}
 
   By claims 1 and 2 and Theorem 4.7 of Chapter 4, $T'$ has a model $\mathcal{A}$. Let $\mathcal{B}$ be the reduct of $\mathcal{A}$ to $\mathcal{L}$.
-  Then $\mathcal{B} \models T$.
+  Hence $\mathcal{B} \models T$, so we are done.
   
 \end{Proof}
 
@@ -306,5 +310,70 @@ We first need the following Lemma. \vspace{.5cm}
   By claims 1 and 2, $\mathcal{A}$ and $\mathcal{B}$ are not elementarily equivalent.
 
 \end{Solution}
+
+\newpage
+\subsection*{5}
+\begin{tcolorbox}
+  Let $T$ be a complete theory in a countable language $\mathcal{L}$. Suppose that for each $n \in \mathbb{N}$, $S_n$ is a set of wff's of
+  $\mathcal{L}$ and $\alpha_n$ is a variable so that for each $\Phi \in S_n$, $\alpha_n$ is the only free variable of $\Phi$ and so that $S_n \cup T$
+  is consistent. Suppose further than $\alpha_n \neq \alpha_m$ whenever $m \neq n$. Prove that there is a countable model $\mathcal{A}$ of $T$ so that
+  for each $n \in \mathbb{N}$, there is an $a \in |\mathcal{A}|$ such that $\mathcal{A} \models \Phi[\{(\alpha_n, a)\}]$ for each $\Phi \in S_n$.
+\end{tcolorbox}
+\begin{Solution}
+  We will construct a model $\mathcal{A}$ of $T$ using a similar process as the Henkin construction used in the proof of the Completeness Theorem.
+  To do so, we will make use of the following claim.
+
+  \begin{claim}
+    For each $n \in \mathbb{N}$, $T \vdash \ulcorner (\exists \alpha_n) \Phi \urcorner$ for every $\Phi \in S_n$.
+  \end{claim}
+  \begin{claimproof}
+    By way of contradiction suppose there is some $n \in \mathbb{N}$ and $\Phi \in S_n$ such that $T \not\vdash \ulcorner (\exists \alpha_n) \Phi
+    \urcorner$. Then, since $T$ is complete and $\ulcorner (\exists \alpha_n) \Phi \urcorner$ is a sentence of $\mathcal{L}$, 
+    $T \vdash \ulcorner \neg (\exists \alpha_n) \Phi \urcorner$, i.e. $T \vdash \ulcorner (\forall \alpha_n) \neg \Phi \urcorner$.
+    So $T \vdash \ulcorner \neg \Phi \urcorner$ by the first quantifier axiom. Hence, by the monotonicity, $T \cup \{ \Phi \} \vdash \ulcorner \neg
+    \Phi \urcorner$. So $T \cup \{ \Phi \}$ is inconsistent, and thus $T \cup S_n$ is inconsistent. But this is a contradiction.
+  \end{claimproof}
+
+  Now, let $C := \{ \kappa_0, \kappa_1, \dots \}$ be a set of new constants that do not appear in $\mathcal{L}$. Let $\mathcal{L}'$ be the language
+  consisting of $\mathcal{L}$ together with the set of new constants $C$.
+  Set $T_0 := T$, and for each $n \geq 0$, let 
+  \[ 
+    T_{n+1} := T_n \cup \{ \Phi[\alpha_n / \kappa_n] : \Phi \in S_n \}.
+  \]
+
+  \begin{claim}
+    $T_{n+1}$ is consistent in $\mathcal{L}'$.
+  \end{claim}
+  \begin{claimproof}
+    By way of contradiction suppose not. Then it must be that $T_n \vdash \ulcorner \neg \Phi \urcorner[\alpha_n / \kappa_n]$ for some $\Phi \in S_n$.
+    So by Lemma 4.12 and generalization, $T_n \vdash \ulcorner ((\forall \alpha_n) \neg \Phi) \urcorner$, i.e. 
+    \[
+      T_n \vdash \ulcorner \neg (\exists \alpha_n) \Phi \urcorner.
+    \]
+    But by Claim 1, $T \vdash \ulcorner (\exists \alpha_n) \Phi \urcorner$, and so $T_n \vdash \ulcorner (\exists \alpha_n) \Phi \urcorner$ by
+    monotonicity. Hence $T_n$ is inconsistent. But this is a contradiction to the inductive assumption.
+
+    \vspace{-8mm}
+  \end{claimproof}
+
+  Let $T' := \cup_{n=0}^{\infty}T_n$. Since each $T_n$ is consistent, $T'$ is consistent. Hence $T'$ has a countable model $\mathcal{A}$ by the
+  Completeness Theorem (the fact that $\mathcal{A}$ is countable follows from the fact that $\mathcal{L}'$ is countable and the Henkin construction in
+  the Completeness Theorem produces a model for which all of its elements correspond to constants in $\mathcal{L}'$).
+
+  Now, since $\mathcal{A} \models T'$ in $\mathcal{L}'$ and $T \subset T'$, $\mathcal{A} \models T$ in $\mathcal{L}'$. Further, it also holds that 
+  $\mathcal{A} \models T$ in $\mathcal{L}$ since $\mathcal{L}$ is a sublanguage of $\mathcal{L}'$. Therefore it remains to show that $\mathcal{A}$
+  satisfies the desired condition:
+
+  \begin{claim}
+    For each $n \in \mathbb{N}$, there is some $a \in |\mathcal{A}|$ such that $\mathcal{A} \models \Phi[\{(\alpha_n, a)\}]$ for each $\Phi \in S_n$.
+  \end{claim}
+  \begin{claimproof}
+    Let $n \in \mathbb{N}$. Since $\mathcal{A} \models T'$, $\mathcal{A} \models \Phi[\alpha_n / \kappa_n]$ for each $\Phi \in S_n$. 
+    Therefore $\mathcal{A} \models \Phi[\{(\alpha_n, \kappa_n^{\mathcal{A}})\}]$ for each $\Phi \in S_n$.
+  \end{claimproof}
+
+\end{Solution}
+
+(NOTE: I don't think the assumption that $\alpha_n \neq \alpha_m$ is needed.)
 
 \end{document}
