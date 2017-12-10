@@ -232,6 +232,46 @@ We first need the following Lemma. \vspace{.5cm}
 
 \textbf{Now for the proof of the completeness theorem.}
 
+\begin{Proof}
+  $(\Leftarrow)$ Suppose $T$ is a theory and $\mathcal{A}$ is a model for $T$. By way of contradiction suppose $T$ is inconsistent. Let $\Phi$ be a
+  wff. Then $T \vdash \Phi$ and $T \vdash \ulcorner \neg \Phi \urcorner$. So by the Soundness Theorem, $\mathcal{A} \models \Phi$ and $\mathcal{A}
+  \models \ulcorner \neg \Phi \urcorner$, i.e. $\mathcal{A} \not \models \Phi$. This is a contradiction.
+
+  $(\Rightarrow)$ Let $T$ be a consistent theory in a language $\mathcal{L}$. We will inductively construct a "maximal" theory $T'$ which is
+  consistent and has witnesses.
+  Let $T_0 = T$ and $\mathcal{L}_0 = \mathcal{L}$. By way of induction, for $n > 0$ let $\kappa_{n,\Psi}$ be a new unique constant not in $\mathcal{L}_n$
+  for each existential sentence $\Psi$ of $\mathcal{L}_n$. Let $\mathcal{L}_{n+1}$ be the language formed by adding $\{ \kappa_{n,\Psi} \}$ to
+  $\mathcal{L}_n$, and set
+  \[
+    T_{n+1} := T_n \cup \{ \ulcorner ((\exists \alpha) \Phi \Rightarrow \Phi') \urcorner : \Psi = \ulcorner (\exists \alpha) \Phi \urcorner \text{ is an
+    existential sentence of $\mathcal{L}_n$ and $\Phi' = \Phi[\alpha / \kappa_{n,\Psi}]$} \}.
+  \]
+  Then by Lemma 1, $T_{n+1}$ is
+  a consistent theory in the language $\mathcal{L}_{n+1}$. Now let $T' := \cup_{n=0}^{\infty} T_{n}$ and $\mathcal{L}'$ be the ``sum" of all the languages
+  $\mathcal{L}_n$.
+
+  \begin{claim}
+    $T'$ is consistent.
+  \end{claim}
+  \begin{claimproof}
+    This follows since each $T_{n}$ is consistent and $T_0 \subset T_1 \subset T_2 \subset \dots$.
+  \end{claimproof}
+
+  \begin{claim}
+    $T'$ has witnesses.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $\Psi = \ulcorner (\exists \alpha) \Phi \urcorner$ is a theorem of $T'$. Then $\Psi$ is a theorem of $T_n$ for some $n \in \mathbb{N}$.
+    But then $\ulcorner ((\exists \alpha) \Phi \Rightarrow \Phi') \urcorner \in T_{n+1}$, where $\Phi' = \Phi[\alpha / \kappa_{n,\Psi}]$. Hence
+    $T_{n+1} \vdash \Phi'$, so $T' \vdash \Phi'$.
+
+  \end{claimproof}
+
+  By claims 1 and 2 and Theorem 4.7 of Chapter 4, $T'$ has a model $\mathcal{A}$. Let $\mathcal{B}$ be the reduct of $\mathcal{A}$ to $\mathcal{L}$.
+  Then $\mathcal{B} \models T$.
+  
+\end{Proof}
+
 \newpage
 \subsection*{4}
 \begin{tcolorbox}
