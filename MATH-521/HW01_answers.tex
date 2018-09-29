@@ -1,0 +1,215 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 502: Assignment VIII}
+\rhead{\thepage}
+\cfoot{}
+
+% Custom commands.
+\newcommand\toinfty{\rightarrow\infty}
+\newcommand\toinf{\rightarrow\infty}
+\newcommand{\sinf}[1]{\sum_{#1=0}^{\infty}}
+\newcommand{\linf}[1]{\lim_{#1\rightarrow\infty}}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 521 -- ASSIGNMENT I -- fall 2018} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 1
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1}
+\begin{tcolorbox}
+  Consider the following assumptions.
+  \begin{enumerate}
+    \item $\mu(\Omega) = 1$
+    \item $0\leq \mu(A) \leq 1$ for all $A \in \mathcal{F}$.
+    \item If $A_0, A_1, \dots \in \mathcal{F}$ and $A_i \cap A_j = \emptyset$ for all $i \neq j$, then
+      \[
+        \mu( \cup_{k=0}^{\infty} A_k ) = \sum_{k=0}^{\infty} \mu(A_k).
+      \]
+    \item If $A_k \uparrow A$, then $\lim_{k\rightarrow \infty} \mu(A_k) = \mu(A)$.
+    \item If $A_{k} \downarrow A$, then $\lim_{k \rightarrow \infty} \mu(A_{k}) = \mu(A)$.
+    \item If $A_0, A_1, \dots \in \mathcal{F}$, then
+      \[
+        \mu( \cup_{k=0}^{\infty} A_k ) \leq \sum_{k=0}^{\infty} \mu(A_k).
+      \]
+  \end{enumerate}
+  Let 3.a be the assumption of finite additivity. Then show that 1 - 3 imply 4 - 6, that 1, 2, 3.a, and 4 imply 3, that 1, 2, 3.a, and 5 imply 3, and that 1, 2, 3.a, and 6 imply 3.
+\end{tcolorbox}
+
+\begin{Solution}
+  \begin{claim}
+    1 - 3 $\Rightarrow$ 4.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $A_k \uparrow A$. Define $B_0 := A_0$ and $B_k := A_k - A_{k-1}$ for $k \geq 1$. Thus $B_0, B_1, \dots$ are pairwise disjoint and $\cup_{i=0}^{k}B_k = A_k$ for all $k$. Further, $\cup_{k=0}^{\infty} B_k = A$, so
+    \begin{align*}
+      \mu(A) = \sum_{k=0}^{\infty}\mu(B_k) & = \lim_{k\toinf} \sum_{i=0}^{k}\mu(B_k) \\
+      & = \lim_{k\toinf} \mu(A_k).
+    \end{align*}
+  \end{claimproof}
+
+  \begin{claim}
+    1 - 3 $\Rightarrow$ 5.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $A_k \downarrow A$. For each $k \in \mathbb{N}$, define $B_k := A_k - A_{k+1}$. Then $A, B_0, B_1, \dots$ are pairwise disjoint with $A_0 = A \cup B_0 \cup B_1 \cup \dots$, so
+    \[
+      \mu(A_0) = \mu(A \cup B_0 \cup B_1 \cup \dots) = \mu(A) + \sum_{k=0}^{\infty}\mu(B_k).
+    \]
+    Since $\mu(\Omega) = 1 < \infty$, $\sum_{k=0}^{\infty}\mu(B_k) < \infty$. Hence, we can write
+    \begin{align*}
+      \mu(A) = \mu(A_0) - \sinf{k}\mu(B_k) & = \mu(A_0) - \linf{k} \sum_{i=0}^{k}[\mu(A_i) - \mu(A_{i+1})] \\
+      & = \linf{k} \mu(A_{k+1}) \\
+      & = \linf{k} \mu(A_k).
+    \end{align*}
+  \end{claimproof}
+
+  \begin{claim}
+    1 - 3 $\Rightarrow$ 6.
+  \end{claim}
+  \begin{claimproof}
+    Let $A_0, A_1, \dots \in \mathcal{F}$. Then for any $n \geq 1$,
+    \[
+      \mu(\cup_{k=0}^{n} A_k) \leq \sum_{k=0}^{n} \mu(A_k) \leq \sinf{k} \mu(A_k).
+    \]
+    Since the right side does not depend on $n$, $\mu(\cup_{k=0}^{\infty}A_k) \leq \sinf{k} \mu(A_k)$.
+  \end{claimproof}
+
+  \begin{claim}
+    1, 2, 3.a, and 4 $\Rightarrow$ 3.
+  \end{claim}
+  \begin{claimproof}
+    Let $A_0, A_1, \dots \in \mathcal{F}$ be pairwise disjoint, and set $A = \cup_{k=0}^{\infty}A_k$. Recursively define $B_0 := A_0$, and $B_k := B_{k-1} \cup A_k$ for $k \geq 1$. Then clearly $B_k \uparrow A$. So,
+    \begin{align*}
+      \mu(\cup_{k=0}^{\infty}A_k) = \mu(\cup_{k=0}^{\infty} B_k) & \stackrel{4}{=} \lim_{k\rightarrow\infty}\mu(B_k) \\
+      & = \lim_{k\rightarrow\infty} \mu(\cup_{i=0}^{k}A_k) \\
+      & \stackrel{3.a}{=} \lim_{k\toinfty} \sum_{i=0}^{k} \mu(A_k) = \sum_{k=0}^{\infty} \mu(A_k).
+    \end{align*}
+  \end{claimproof}
+
+  \begin{claim}
+    1, 2, 3.a, and 5 $\Rightarrow$ 3.
+  \end{claim}
+  \begin{claimproof}
+    Let $A_0, A_1, \dots \in \mathcal{F}$ be pairwise disjoint, and set $A = \cup_{k=0}^{\infty}A_k$. Recursively definte $B_0 := A - A_0$, and $B_k := B_{k-1} - A_k = A - (A_0 \cup \dots \cup A_k)$. So $B_k \downarrow \emptyset$, and so by 5, we have $\lim_{k\toinfty} \mu(B_k) = 0$. Hence,
+    \begin{align*}
+      \mu(A) = \mu(A) - 0 & \stackrel{5}{=} \mu(A) - \lim_{k\toinfty} \mu(B_k) \\
+      & = \lim_{k\toinf} \mu(A) - \mu(B_k) \\
+      & = \lim_{k\toinf} \mu(A) - \mu(A) + \mu(A_0 \cup \dots \cup A_k) \\
+      & \stackrel{3.a}{=} \lim_{k\toinf} \sum_{i=0}^{k} \mu(A_i) \\
+      & = \sum_{k=0}^{\infty} \mu(A_k).
+    \end{align*}
+  \end{claimproof}
+
+  \begin{claim}
+    1, 2, 3.a, and 6 $\Rightarrow$ 3.
+  \end{claim}
+  \begin{claimproof}
+    Let $A_0, A_1, \dots \in \mathcal{F}$ be pairwise disjoint, and set $A = \cup_{k=0}^{\infty}A_k$. It suffices to show that $\mu(A) \geq \sum_{k=0}^{\infty}\mu(A_k)$.
+    Now, by monotonicity and finite additivity
+    \[
+      \mu(\cup_{k=0}^{\infty} A_k) \geq \mu( \cup_{k=0}^{n} A_k ) \stackrel{3.a}{=} \sum_{k=0}^{n}\mu(A_k)
+    \]
+    for any $n$. But since the left side is independent of $n$, we have $\mu(\cup_{k=0}^{\infty}A_k) \geq \sum_{k=0}^{\infty} \mu(A_k)$.
+
+  \end{claimproof}
+
+\end{Solution}
+
+
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{2}
+\begin{tcolorbox}
+  Let $D$ be the unit ball in $\mathbb{R}^3$. Let $X$ be Brownian motion starting uniformly on the boundary of $D$, that is, on the unit sphere. The process $X$ is assumed to run for an infinite amount of time. For a compact set $K \subset D$, we define the capacity $\mu(K)$ as the probability that the trajectory of $X$ will intersect $K$. Prove that $\mu$ is subadditive.
+\end{tcolorbox}
+
+
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{3}
+\begin{tcolorbox}
+  Let $\mathcal{A}$ be the algebra consisting of all finite unions of sets of the form $(a,b]$ or $(b, \infty)$, for $-\infty \leq a, b < \infty$.
+  Let $\mu : \mathcal{A} \rightarrow \mathbb{R}$ be the set function that is equal to the sum of the lengths of the disjoint intervals that make up $A$.
+  Show that if $A_0, A_1, \dots \in \mathcal{A}$ are pairwise disjoint, then $\mu( \cup A_k ) = \sum_k \mu(A_k)$.
+\end{tcolorbox}
+\begin{Solution}
+  By Claim 6 from question 1, it suffices to show that $\mu$ has finite additivity and countable subadditivity (when it is well-defined).
+
+  \begin{claim}
+    $\mu$ is finitely additive.
+  \end{claim}
+  \begin{claimproof}
+    This is trivial by the definition of $\mu$.
+  \end{claimproof}
+
+  \begin{claim}
+    $\mu$ is countably subadditive.
+  \end{claim}
+  \begin{claimproof}
+    Let $A_0, A_1, \dots \in \mathcal{A}$ be pairwise disjoint, and suppose $A := \cup_{k=0}^{\infty} A_k \in \mathcal{A}$. For each $A_k$, let $I_{k,0}, \dots, I_{k,n_k}$ be the disjoint intervals that make up $A_k$. Since $A \in \mathcal{A}$, $A$ is also the union of a finite set of disjoint intervals, $I_0, \dots, I_n$.
+    Then,
+    \begin{align*}
+      \mu(A) & = \sum_{i=0}^{n} \ell(I_i) \ \ \text{(where $\ell$ is the length)}\\
+      & \leq \sum_{i=0}^{n} \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \ell( I_i \cap I_{k,j}) \\ 
+      & = \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \sum_{i=0}^{n} \ell( I_i \cap I_{k,j}) \\ 
+      & \leq \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \sum_{i=0}^{n} \ell( I_i \cap I_{k,j}) \\ 
+      & = \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \ell( I_{k,j}) \\ 
+      & = \sum_{k=0}^{\infty} \mu(A_k). \\ 
+    \end{align*}
+  \end{claimproof}
+
+  Hence, by Claim 1 and 2, we are done.
+\end{Solution}
+
+\end{document}
