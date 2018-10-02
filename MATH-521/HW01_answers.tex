@@ -159,6 +159,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{claimproof}
 
 \end{Solution}
+\newpage
 
 
 
@@ -170,6 +171,31 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Let $D$ be the unit ball in $\mathbb{R}^3$. Let $X$ be Brownian motion starting uniformly on the boundary of $D$, that is, on the unit sphere. The process $X$ is assumed to run for an infinite amount of time. For a compact set $K \subset D$, we define the capacity $\mu(K)$ as the probability that the trajectory of $X$ will intersect $K$. Prove that $\mu$ is subadditive.
 \end{tcolorbox}
+\begin{Solution}
+  For compact $K \subset D$, we have
+  \begin{align*}
+    \mu(K) & = P(\{ \omega : \exists t \geq 0 \text{ such that } X_t(\omega) \in K \}) \\
+    & = P(\{ \omega : \sup_{t\geq 0} \chi_{K}(X_t(\omega)) = 1 \}) \\
+    & = E\left( \sup_{t \geq 0} \chi_K(X_t) \right).
+  \end{align*}
+  Now suppose $K_1, K_2, \dots \subset D$ are compact and $K := \cup_{j=1}^{\infty} K_j$ is also compact. Note that for any $t \geq 0$ and $\omega \in \Omega$,
+  \[
+    \sum_{j=0}^{\infty} \chi_{K_j} (X_t(\omega)) \leq \sum_{j=0}^{\infty} \sup_{s \geq 0} X_{K_j}(X_s).
+  \]
+  Since the right side is independent of $t$,
+  \begin{equation}
+    \sup_{t\geq 0}\sum_{j=0}^{\infty} \chi_{K_j} (X_t(\omega)) \leq \sum_{j=0}^{\infty} \sup_{s \geq 0} X_{K_j}(X_s).
+    \label{2.1}
+  \end{equation}
+  Thus,
+  \begin{align*}
+    \mu(K) = E\left( \sup_{t \geq 0} \chi_K(X_t) \right) & = E \left( \sup_{t\geq 0} \chi_{\cup_j K_j}(X_t) \right) \\
+    & \leq E \left( \sup_{t \geq 0} \sum_{j=0}^{\infty} \chi_{K_j}(X_t) \right) \\
+    & \leq E \left( \sum_{j=0}^{\infty} \sup_{t\geq 0} \chi_{K_j}(X_t) \right) \ \ \text{( by \eqref{2.1} )} \\
+    & = \sum_{j=0}^{\infty} E \left( \sup_{t\geq 0} \chi_{K_j}(X_t) \right) \\
+    & = \sum_{j=0}^{\infty} \mu(K_j).
+    \end{align*}
+\end{Solution}
 
 
 
@@ -184,32 +210,24 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   Show that if $A_0, A_1, \dots \in \mathcal{A}$ are pairwise disjoint, then $\mu( \cup A_k ) = \sum_k \mu(A_k)$.
 \end{tcolorbox}
 \begin{Solution}
-  By Claim 6 from question 1, it suffices to show that $\mu$ has finite additivity and countable subadditivity (when it is well-defined).
-
-  \begin{claim}
-    $\mu$ is finitely additive.
-  \end{claim}
-  \begin{claimproof}
-    This is trivial by the definition of $\mu$.
-  \end{claimproof}
-
-  \begin{claim}
-    $\mu$ is countably subadditive.
-  \end{claim}
-  \begin{claimproof}
-    Let $A_0, A_1, \dots \in \mathcal{A}$ be pairwise disjoint, and suppose $A := \cup_{k=0}^{\infty} A_k \in \mathcal{A}$. For each $A_k$, let $I_{k,0}, \dots, I_{k,n_k}$ be the disjoint intervals that make up $A_k$. Since $A \in \mathcal{A}$, $A$ is also the union of a finite set of disjoint intervals, $I_0, \dots, I_n$.
-    Then,
-    \begin{align*}
-      \mu(A) & = \sum_{i=0}^{n} \ell(I_i) \ \ \text{(where $\ell$ is the length)}\\
-      & \leq \sum_{i=0}^{n} \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \ell( I_i \cap I_{k,j}) \\ 
-      & = \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \sum_{i=0}^{n} \ell( I_i \cap I_{k,j}) \\ 
-      & \leq \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \sum_{i=0}^{n} \ell( I_i \cap I_{k,j}) \\ 
-      & = \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \ell( I_{k,j}) \\ 
-      & = \sum_{k=0}^{\infty} \mu(A_k). \\ 
-    \end{align*}
-  \end{claimproof}
-
-  Hence, by Claim 1 and 2, we are done.
+  Let $A_0, A_1, \dots \in \mathcal{A}$ be pairwise disjoint, and suppose $A := \cup_{k=0}^{\infty} A_k \in \mathcal{A}$. For each $A_k$, let $I_{k,0}, \dots, I_{k,n_k}$ be the disjoint intervals that make up $A_k$. Since $A \in \mathcal{A}$, $A$ is also the union of a finite set of disjoint intervals, $I_0, \dots, I_n$.
+  Further, since $A_0, A_1, \dots$ are pairwise disjoint, the family $\{ I_{k,j} : k \geq 0, j = 0, \dots, n_k \}$ is also pairwise disjoint.
+  Hence,
+  \begin{equation}
+    \ell(I_i) = \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \ell(I_i \cap I_{k,j}) \ \forall \ i = 0, \dots, n,
+    \label{3.1}
+  \end{equation}
+  where $\ell$ is the length of an interval, and
+  \begin{equation}
+    \ell(I_{k,j}) = \sum_{i=0}^{n} \ell(I_{k,j} \cap I_i) \ \forall \ k \geq 0, j = 0, \dots, n_k.
+    \label{3.2}
+  \end{equation}
+  Thus,
+  \begin{align*}
+    \mu(A) = \sum_{i=0}^{n} \ell(I_i) \stackrel{\eqref{3.1}}{=} \sum_{i=0}^{n} \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \ell( I_i \cap I_{k,j}) & = \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \sum_{i=0}^{n} \ell( I_i \cap I_{k,j}) \\ 
+    & \stackrel{\eqref{3.2}}{=} \sum_{k=0}^{\infty} \sum_{j=0}^{n_k} \ell( I_{k,j}) \\ 
+    & = \sum_{k=0}^{\infty} \mu(A_k). \\ 
+  \end{align*}
 \end{Solution}
 
 \end{document}
