@@ -128,5 +128,51 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \end{Solution}
 
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1.2.7}
+\begin{tcolorbox}
+  (i) Suppose $X$ has density function $f$. Compute the distribution function of $X^2$ and then differentiate to find its density function. (ii) Work out the answer when $X$ has a standard normal distribution to find the density of the chi-square distribution.
+\end{tcolorbox}
+\begin{Solution}
+  For $y \geq 0$, the distribution function of $Y$ can be derived as follows:
+  \begin{align*}
+    P(Y \leq y) = P(X^2 \leq y) & = P(- \sqrt{y} \leq X \leq \sqrt{y})  \\
+    & = P(X \leq \sqrt{y}) - P(X \leq -\sqrt{y}) + \underbrace{P(X = -\sqrt{y})}_{= 0 \text{ since $X$ continuous}} \\
+    & = F(\sqrt{y}) - F(-\sqrt{y}).
+  \end{align*}
+  We can then differentiate the above to find the density function of $Y$, for $y \geq 0$:
+  \[
+    f_{Y}(y) = \frac{d}{dy} [F(\sqrt{y}) - F(-\sqrt{y})] = \frac{1}{\sqrt{y}} f(\sqrt{y}).
+  \]
+  So altogether, the density of $Y$ is
+  \[
+    f_{Y}(y) = \begin{cases}
+        \frac{1}{\sqrt{y}} f(\sqrt{y}) & : y \geq 0 \\
+        0 & : \text{ otherwise }
+      \end{cases}
+  \]
+  Hence, if $X \sim N(0,1)$, then
+  \[
+    f_{Y}(y) = \frac{1}{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-y/2} = \frac{1}{2^{1/2}\Gamma(1/2)} y^{-1/2} e^{-y/2}, y \geq 0
+  \]
+  which is the canonical form of the density of a chi-square random variable with 1 degree of freedom.
+\end{Solution}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 3
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1.3.3}
+\begin{tcolorbox}
+  Show that if $f$ is continuous and $X_n \rightarrow X$ a.s. then $f(X_n) \rightarrow f(X)$ a.s.
+\end{tcolorbox}
+\begin{Solution}
+  Let $A := \{ \omega \in \Omega : X_n(\omega) \rightarrow X(\omega) \}$. Let $B := \{ \omega \in \Omega : f(X_n(\omega)) \rightarrow f(X(\omega)) \}$.
+  Since $f$ is continuous, $A \subset B$. Hence $1 \leq P(A) \leq P(B)$, so $P(B) = 1$, i.e. $f(X_n) \rightarrow f(X)$ almost surely.
+\end{Solution}
+
 
 \end{document}
