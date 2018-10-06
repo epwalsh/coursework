@@ -77,25 +77,24 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     For all $y \in [0, 1]$, $F(F^{-1}(y)) = y$.
   \end{claim}
   \begin{claimproof}
-    By way of contradiction suppose there exists $y_0 \in [0, 1]$ such that $F(F^{-1}(y_0)) \neq y_0$. Let $\{ x_n \}_{n=0}^{\infty}$ be a sequence in $\mathbb{R}$ converging to $F^{-1}(y)$, such that $F(x_n) = y$ for all $n \in \mathbb{N}$. So then $\linf{n} F(x_n) = y \neq F^{-1}(y)$. But this contradicts the continuity of $F$.
+    Suppose $y \in [0, 1]$. Let $\{ x_n \}_{n=0}^{\infty}$ be a (possibly degenerate) sequence in $\mathbb{R}$ converging to $F^{-1}(y)$ such that $F(x_n) \equiv y$ for all $n \in \mathbb{N}$. So by construction, $\linf{n} F(x_n) = y$, and by the continuity of $F$, $\linf{n} F(x_n) = F(F^{-1}(y))$. Hence $y = F(F^{-1}(y))$.
   \end{claimproof}
 
   \begin{claim}
     If $F(x) < y$, then $x < F^{-1}(y)$.
   \end{claim}
   \begin{claimproof}
-    Suppose $F(x) < y$. Then, similar to in Claim 1, it follows by continuity of $F$ that
-    \[
-      x < \inf\{ x' : F(x') = y\} = F^{-1}(y).
-    \]
+    By way of contradiction suppose there exists $x$ and $y$ such that $F(x) < y$ but $x \geq F^{-1}(y)$. Then by Claim 1, $F(x) \geq F(F^{-1}(y)) = y$, a contradiction.
   \end{claimproof}
 
   \begin{claim}
     If $y < F(x)$, then $F^{-1}(y) < x$.
   \end{claim}
   \begin{claimproof}
-    Suppose $y < F(x)$. Then $F^{-1}(y) = \inf\{ x' : F(x') = y \} < x$, since $y < F(x)$ and $F$ is non-decreasing.
+    Similar to Claim 2.
   \end{claimproof}
+
+  \vspace{5mm}
 
   Now, for any $\epsilon > 0$,
   \begin{align*}
@@ -117,7 +116,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     1 - P_Y(Y \leq y) & = P(F(X) > y) \\
     & \leq P(X > F^{-1}(y)) \text{ by Claim 3 } \\
     & = 1 - F(F^{-1}(y)) \\
-    & = 1 - y.
+    & = 1 - y \text{, by Claim 1 again.}
   \end{align*}
   Hence,
   \begin{equation}
@@ -125,7 +124,6 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \label{1.2}
   \end{equation}
   So by \eqref{1.1} and \eqref{1.2}, $P_Y(Y \leq y) = y$.
-
 \end{Solution}
 
 %------------------------------------------------------------------------------------------------------------------%
@@ -167,11 +165,11 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{1.3.3}
 \begin{tcolorbox}
-  Show that if $f$ is continuous and $X_n \rightarrow X$ a.s. then $f(X_n) \rightarrow f(X)$ a.s.
+  Show that if $f$ is continuous and $X_n \rightarrow X$ a.s. then $f(X_n) \rightarrow f(X)$ a.s..
 \end{tcolorbox}
 \begin{Solution}
   Let $A := \{ \omega \in \Omega : X_n(\omega) \rightarrow X(\omega) \}$. Let $B := \{ \omega \in \Omega : f(X_n(\omega)) \rightarrow f(X(\omega)) \}$.
-  Since $f$ is continuous, $A \subset B$. Hence $1 \leq P(A) \leq P(B)$, so $P(B) = 1$, i.e. $f(X_n) \rightarrow f(X)$ almost surely.
+  Since $f$ is continuous, $A \subset B$. Hence $1 = P(A) \leq P(B)$, so $P(B) = 1$, i.e. $f(X_n) \rightarrow f(X)$ almost surely.
 \end{Solution}
 
 
