@@ -55,28 +55,84 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \large Evan Pete Walsh
 \end{center}
 
-
 %------------------------------------------------------------------------------------------------------------------%
 % Question 1
 %------------------------------------------------------------------------------------------------------------------%
 
 \subsection*{1}
 \begin{tcolorbox}
-  Show that the Dominated Convergence Theorem (DCT) still holds if we replace almost sure convergence with convergence in probability.
+  Suppose $X_n, n\geq 0$ are defined on the same probability space $(\Omega, \mathcal{F}, P)$. Consider the following conditions:
+  \begin{enumerate}[label=(\roman*)]
+    \item $X_n$ converges to $X$ a.s., as $n \rightarrow \infty$.
+    \item $X_n$ converges to $X$ in probability, as $n \toinf$.
+    \item $X_n$ converges to $X$ in $L^p$, as $n \toinf$.
+    \item $X_n$ converges to $X$ in distribution, as $n \toinf$.
+  \end{enumerate}
+  For each ordered pair of conditions, determine whether the first condition in the pair implies the other.
 \end{tcolorbox}
 \begin{Solution}
-  We will use the following 2 facts from real analysis.
+  \begin{claim}
+    (i) implies (ii).
+  \end{claim}
+  \begin{claimproof}
+    Suppose (i). Let $A$ be the subset of $\Omega$ on which $X_n$ does not converge to $X$. Equivelently, $A$ is the set of all $\omega \in \Omega$ such that there exists $k \geq 0$, where for all $n \geq 0$ there exists $j \geq n$ such that $|X_j(\omega) - X(\omega)| > 2^{-k}$, i.e.
+    \[
+      A = \bigcup_{k \geq 0} \bigcap_{n \geq 0} \bigcup_{j \geq n} A_{k, j},
+    \]
+    where $A_{k,j} := \{ \omega \in \Omega : |X_j(\omega) - X(\omega)| > 2^{-k} \}$. By (i), $P(A) = 0$, so clearly
+    \[
+      \bigcap_{n \geq 0} \bigcup_{j \geq n} A_{k, j} = 0 \ \forall k \geq 0.
+    \]
+    Now let $B_{k, n} := \bigcup_{j \geq n} A_{k, j}$ for each $k, n \geq 0$. So for fixed $k$, $B_{k, n} \downarrow \cap_{n \geq 0} \cup_{j \geq n} A_{k, j}$, and so, by the continuity of measure from above, $P(B_{k, n}) \rightarrow 0$ for all $k$.
 
-  \textbf{Fact 1:} If $f, f_0, f_1, \dots$ are measurable functions on a measure space $(\Omega, \mathcal{F}, \mu)$ and $f_n \rightarrow f$ in measure, then there exists a subsequence $\{ f_{n_k} \}_{k=0}^{\infty}$ of $\{ f_n \}_{n=0}^{\infty}$ that converges to $f$ almost surely.
+    Hence, if we fix $\epsilon > 0$, we can choose $k \geq 0$ such that $2^{-k} < \epsilon$.  Therefore,
+    \[
+      P(|X_n - X| > \epsilon) \leq P(|X_n - X| > 2^{-k}) \leq P(B_{k, n}) \longrightarrow 0
+    \]
+    as $n \rightarrow \infty$.
+  \end{claimproof}
 
-  \textbf{Fact 2:} If $\{ x_n \}_{n=0}^{\infty}$ is a sequence of real numbers such that every subsequence has a further subsequence that converges to the same real number $x$, then $x_n \rightarrow x$.
+  \begin{claim}
+    (i) does not imply (iii).
+  \end{claim}
+  \begin{claimproof}
+    Consider the Borel measure space on $[0, 1]$, and let $X \equiv 0$ and 
+    \[
+      X_n := 2^{n} * \bm{1}_{[0, 2^{-n}]}.
+    \]
+    Then $X_n(\omega) \rightarrow X$ for all $\omega \in (0, 1]$, but $\| X_n - X \|_{1} = EX_n \equiv 1$ for all $n$.
+  \end{claimproof}
 
-  Now suppose $Y, X, X_0, X_1, X_2, \dots$ are random variables on a probability space $(\Omega, \mathcal{F}, P)$ such that $X_n$ converges to $X$ in probability and $|X_n| \leq |Y|$ for $n \in \mathbb{N}$, where $Y$ is integrable. We need to show that $X$ is integrable and $EX_n \rightarrow EX$.
-  
-  Besides showing that $X$ is in fact integrable, Fact 2 says that it suffices to show that for any subsequence $\{ X_{n_k} \}_{k=0}^{\infty}$, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ such that $EX_{n_{k_j}} \rightarrow EX$.
+\end{Solution}
 
-  So let $\{ X_{n_k} \}_{k=0}^{\infty}$ be any subsequence. Since $X_n \rightarrow X$ in probability, clearly $X_{n_k} \rightarrow X$ in probability as well. Hence by Fact 1, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ of $\{ X_{n_k} \}_{k=0}^{\infty}$ such that $X_{n_{k_j}} \rightarrow X$ almost surely.
-  But since the assumptions of DCT hold for $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ (treated as its own sequence) with respect to $X$ and $Y$, we have that $X$ is integrable and $EX_{n_{k_j}} \rightarrow EX$.
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{2}
+\begin{tcolorbox}
+  Suppose that $X_n, n \geq 0$ and $X$ are defined on the same probability space $(\Omega, \mathcal{F}, P)$. For each condition (ii)-(iv) in Problem 1, determine whether the DCT and MCT hold if we replace the assumption (i) with the new assumption. Give a proof or counter-example for each one.
+\end{tcolorbox}
+
+\begin{Solution}
+    We will use the following 2 facts from real analysis.
+
+    \textbf{Fact 1:} If $f, f_0, f_1, \dots$ are measurable functions on a measure space $(\Omega, \mathcal{F}, \mu)$ and $f_n \rightarrow f$ in measure, then there exists a subsequence $\{ f_{n_k} \}_{k=0}^{\infty}$ of $\{ f_n \}_{n=0}^{\infty}$ that converges to $f$ almost surely.
+
+    \textbf{Fact 2:} If $\{ x_n \}_{n=0}^{\infty}$ is a sequence of real numbers such that every subsequence has a further subsequence that converges to the same real number $x$, then $x_n \rightarrow x$.
+
+  \begin{claim}
+    The DCT holds with assumption (ii).
+  \end{claim}
+  \begin{claimproof}
+    Suppose $X_n$ converges to $X$ in probability and $|X_n| \leq |Y|$ for $n \in \mathbb{N}$, where $Y$ is integrable. We need to show that $X$ is integrable and $EX_n \rightarrow EX$.
+
+    Besides showing that $X$ is in fact integrable, Fact 2 says that it suffices to show that for any subsequence $\{ X_{n_k} \}_{k=0}^{\infty}$, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ such that $EX_{n_{k_j}} \rightarrow EX$.
+
+    So let $\{ X_{n_k} \}_{k=0}^{\infty}$ be any subsequence. Since $X_n \rightarrow X$ in probability, clearly $X_{n_k} \rightarrow X$ in probability as well. Hence by Fact 1, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ of $\{ X_{n_k} \}_{k=0}^{\infty}$ such that $X_{n_{k_j}} \rightarrow X$ almost surely.
+    But since the assumptions of DCT hold for $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ (treated as its own sequence) with respect to $X$ and $Y$, we have that $X$ is integrable and $EX_{n_{k_j}} \rightarrow EX$.
+  \end{claimproof}
+
 \end{Solution}
 
 \end{document}
