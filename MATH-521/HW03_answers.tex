@@ -115,22 +115,163 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \end{tcolorbox}
 
 \begin{Solution}
+
+  %------------------------------------------------------------------------------------------------------------------%
+  % (ii) => MCT/DCT
+  %------------------------------------------------------------------------------------------------------------------%
+
+  \begin{claim}
+    The MCT and DCT hold with assumption (ii) instead of assumption (i).
+  \end{claim}
+  \begin{claimproof}
     We will use the following 2 facts from real analysis.
 
     \textbf{Fact 1:} If $f, f_0, f_1, \dots$ are measurable functions on a measure space $(\Omega, \mathcal{F}, \mu)$ and $f_n \rightarrow f$ in measure, then there exists a subsequence $\{ f_{n_k} \}_{k=0}^{\infty}$ of $\{ f_n \}_{n=0}^{\infty}$ that converges to $f$ almost surely.
 
-    \textbf{Fact 2:} If $\{ x_n \}_{n=0}^{\infty}$ is a sequence of real numbers such that every subsequence has a further subsequence that converges to the same real number $x$, then $x_n \rightarrow x$.
+    \textbf{Fact 2:} If $\{ x_n \}_{n=0}^{\infty}$ is a sequence of real numbers such that every subsequence has a further subsequence that converges to the same (extended) real number $x$, then $x_n \rightarrow x$.
+
+    \begin{subclaim}
+      The MCT holds.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Suppose $0 \leq X_0 \leq X_1 \leq \dots \leq X$ a.s. and $X_n$ converges to $X$ in distribution. We need to show that $EX_n \rightarrow EX$. Since $EX_n$ is just a sequence of real numbers, it suffices to show that for any subsequence $\{ X_{n_k} \}_{k=0}^{\infty}$, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ so that $EX_{n_{k_j}} \rightarrow EX$.
+
+      To that end, let $\{ X_{n_k} \}_{k=0}^{\infty}$ be any subsequence. Since $X_n \rightarrow X$ in probability, clearly $X_{n_k} \rightarrow X$ in probability as well. Hence by Fact 1, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ of $\{ X_{n_k} \}_{k=0}^{\infty}$ such that $X_{n_{k_j}} \rightarrow X$ almost surely.
+      So since the assumptions of MCT hold for $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ (treated as its own sequence) with respect to $X$, we have that $EX_{n_{k_j}} \rightarrow EX$.
+    \end{subclaimproof}
+
+    \begin{subclaim}
+      The DCT holds.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Suppose $X_n$ converges to $X$ in probability and $|X_n| \leq Y$ for $n \in \mathbb{N}$, where $Y \geq 0$ is integrable. We need to show that $X$ is integrable and $EX_n \rightarrow EX$.
+
+      Besides showing that $X$ is in fact integrable, similar to Subclaim 1.1, it suffices to show that for any subsequence $\{ X_{n_k} \}_{k=0}^{\infty}$, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ such that $EX_{n_{k_j}} \rightarrow EX$.
+
+      So, as in Subclaim 1.1, let $\{ X_{n_k} \}_{k=0}^{\infty}$ be any subsequence. Since $X_n \rightarrow X$ in probability, $X_{n_k} \rightarrow X$ in probability as well. Thus, by Fact 1, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ of $\{ X_{n_k} \}_{k=0}^{\infty}$ such that $X_{n_{k_j}} \rightarrow X$ almost surely.
+      But since the assumptions of DCT hold for $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ with respect to $X$ and $Y$, we have that $X$ is integrable and $EX_{n_{k_j}} \rightarrow EX$.
+
+    \end{subclaimproof}
+
+  \end{claimproof}
+
+  %------------------------------------------------------------------------------------------------------------------%
+  % (iii) => MCT/DCT
+  %------------------------------------------------------------------------------------------------------------------%<`0`>
 
   \begin{claim}
-    The DCT holds with assumption (ii).
+    The MCT and DCT hold with assumption (iii) instead of assumption (i).
   \end{claim}
   \begin{claimproof}
-    Suppose $X_n$ converges to $X$ in probability and $|X_n| \leq |Y|$ for $n \in \mathbb{N}$, where $Y$ is integrable. We need to show that $X$ is integrable and $EX_n \rightarrow EX$.
+    Suppose that for some $p \in [1, \infty)$, $X_n$ converges to $X$ in $\mathcal{L}^{p}$. Then of course $X_n$ converges to $X$ in $L^{1}$, i.e.
+    \begin{equation}
+      E|X_n - X| \rightarrow 0, \ n \rightarrow \infty.
+      \label{2.1}
+    \end{equation}
+    \begin{subclaim}
+      The MCT holds.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Suppose $0 \leq X_0 \leq X_1 \leq \dots \leq X$ almost surely. Consider first the case where all $X_n$ are integrable. Then for any $n \in \mathbb{N}$,
+      \[
+        E|X| = E|X - X_n + X_n| \leq E|X - X_n| + E|X_n| < \infty.
+      \]
+      Hence $X$ is integrable, and so
+      \[
+        \limsup_{n\rightarrow \infty} \bigg| EX_n - EX \bigg| \leq \limsup_{n\rightarrow\infty} E|X_n - X| = 0,
+      \]
+      that is, $\linf{n} EX_n = EX$. For the other case, suppose for some $n' \in \mathbb{N}$ that $X_{n'}$ is not integrable. By monotonicity of integration,
+      $X$ and $X_k$, for $k \geq n'$, are therefor not integrable as well. Then
+      \[
+        \linf{n} EX_n = \infty = EX.
+      \]
+      So in both cases the MCT holds.
+    \end{subclaimproof}
 
-    Besides showing that $X$ is in fact integrable, Fact 2 says that it suffices to show that for any subsequence $\{ X_{n_k} \}_{k=0}^{\infty}$, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ such that $EX_{n_{k_j}} \rightarrow EX$.
+    \begin{subclaim}
+      The DCT holds.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Suppose there exists an integrable $Y \geq 0$ such that $|X_n| \leq Y$ a.s. for all $n \in \mathbb{N}$. Then,
+      \[
+        E|X| = E|X - X_n + X_n| \leq E|X - X_n| + E|X_n| \leq E|X - X_n| + E|Y| < \infty.
+      \]
+      Hence $X$ is integrable, and so
+      \[
+        \limsup_{n\rightarrow \infty} \bigg| EX_n - EX \bigg| \leq \limsup_{n\rightarrow\infty} E|X_n - X| = 0.
+      \]
+      Therefore $\linf{n} EX_n = EX$.
+    \end{subclaimproof}
 
-    So let $\{ X_{n_k} \}_{k=0}^{\infty}$ be any subsequence. Since $X_n \rightarrow X$ in probability, clearly $X_{n_k} \rightarrow X$ in probability as well. Hence by Fact 1, there exists a further subsequence $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ of $\{ X_{n_k} \}_{k=0}^{\infty}$ such that $X_{n_{k_j}} \rightarrow X$ almost surely.
-    But since the assumptions of DCT hold for $\{ X_{n_{k_j}} \}_{j=0}^{\infty}$ (treated as its own sequence) with respect to $X$ and $Y$, we have that $X$ is integrable and $EX_{n_{k_j}} \rightarrow EX$.
+  \end{claimproof}
+
+  %------------------------------------------------------------------------------------------------------------------%
+  % (iv) => MCT/DCT
+  %------------------------------------------------------------------------------------------------------------------%<`0`>
+
+  \begin{claim}
+    The MCT and DCT hold with assumption (iv) instead of assumption (i).
+  \end{claim}
+  \begin{claimproof}
+    We will make use of Skorohod's embedding theorem, which says that if $X_n \rightarrow X$ in distribution, then there exists random variables $X_0', X_1', \dots$ and $X'$ defined on a common probability space such that each $X_n'$ has the same distribution as $X_n$, $X'$ has the same distribution as $X$, and $X_n' \rightarrow X'$ almost surely.
+
+    \begin{subclaim}
+      The MCT holds.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Suppose $0 \leq X_0 \leq X_1 \leq \dots \leq X$ almost surely. By the monotonicity of integration, $EX_n \leq EX$ for all $n \in \mathbb{N}$.
+      Hence,
+      \[
+        \limsup_{n\rightarrow \infty} EX_n \leq EX.
+      \]
+      Further, by Fatou's Lemma,
+      \[
+        \liminf_{n\rightarrow \infty} EX_n  = \liminf_{n\rightarrow \infty} EX_n' \geq E[ \liminf_{n\rightarrow \infty} X_n' ] = EX' = EX.
+      \]
+      Thus $\linf{n} EX_n = EX$.
+    \end{subclaimproof}
+
+    \begin{subclaim}
+      The DCT holds.
+    \end{subclaim}
+    \begin{subclaimproof}
+      Suppose there exists an integrable $Y \geq 0$ such that $|X_n| \leq Y$ almost surely for all $n \in \mathbb{N}$. Then by Fatou's Lemma,
+      \[
+        E|X| = E|X'| \leq \liminf_{n\rightarrow \infty} E|X_n'| = \liminf_{n\rightarrow \infty} E|X_n| \leq E|Y| < \infty,
+      \]
+      so $X$ and $X'$ are integrable. Thus, since
+      \[
+        |EX_n - EX| = |EX_n' - EX'| \leq E|X_n' - X'|,
+      \]
+      it suffices to show that $E|X_n' - X'| \rightarrow 0$ as $n \rightarrow \infty$. To that end, note that
+      \begin{align*}
+        \lim_{t \rightarrow \infty} \sup_{n} E\left( |X_n' - X'| \cdot \bm{1}_{|X_n' - X'| > t} \right) & \leq \lim_{t \rightarrow \infty} \sup_{n} E\left( Y \cdot \bm{1}_{Y > t}\right) \\
+          & = \lim_{t \rightarrow \infty} E\left( Y \cdot \bm{1}_{Y > t}\right) \\
+          & = 0
+      \end{align*}
+      by the DCT, since $Y \geq Y \cdot \bm{1}_{Y > t} \rightarrow 0$ almost surely. Now let $\epsilon > 0$. Then the inequality above tells us that there exists $t > 0$ such that
+      \begin{equation}
+        \sup_{n}E\left( |X_n' - X'| \cdot \bm{1}_{|X_n' - X'| > t} \right) \leq \epsilon.
+        \label{2.2}
+      \end{equation}
+      Further, by the DCT again,
+      \begin{equation}
+        \lim_{n\rightarrow\infty} E\left(|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| \leq t} \right) = 0
+        \label{2.3}
+      \end{equation}
+      since $|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| \leq t}$ is bounded above by $t$.
+      Therefore, we have
+      \begin{align*}
+        \limsup_{n\toinf} E|X_n' - X'| & = \limsup_{n\toinf} \left[ E\left(|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| > t} \right) + E\left(|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| \leq t} \right)\right] \\
+        & \leq \sup_{n}E\left( |X_n' - X'| \cdot \bm{1}_{|X_n' - X'| > t} \right) + \limsup_{n\toinf}E\left(|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| \leq t} \right) \\
+        & \leq \epsilon.
+      \end{align*}
+      Since $\epsilon > 0$ was arbitrary,
+      \[
+        \limsup_{n\toinf} E|X_n' - X'| = 0.
+      \]
+    \end{subclaimproof}
+    
   \end{claimproof}
 
 \end{Solution}
