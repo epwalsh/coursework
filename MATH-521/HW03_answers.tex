@@ -63,10 +63,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Suppose $X, X_n, n\geq 0$ are defined on the same probability space $(\Omega, \mathcal{F}, P)$. Consider the following conditions:
   \begin{enumerate}[label=(\roman*)]
-    \item $X_n$ converges to $X$ a.s., as $n \rightarrow \infty$.
-    \item $X_n$ converges to $X$ in probability, as $n \toinf$.
-    \item $X_n$ converges to $X$ in $L^p$, as $n \toinf$.
-    \item $X_n$ converges to $X$ in distribution, as $n \toinf$.
+    \item $X_n$ converge to $X$ a.s., as $n \rightarrow \infty$.
+    \item $X_n$ converge to $X$ in probability, as $n \toinf$.
+    \item $X_n$ converge to $X$ in $L^p$, as $n \toinf$.
+    \item $X_n$ converge to $X$ in distribution, as $n \toinf$.
   \end{enumerate}
   For each ordered pair of conditions, determine whether the first condition in the pair implies the other.
 \end{tcolorbox}
@@ -137,6 +137,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \[
       F_{X}(x) \leq \liminf_{n\toinf} F_{X_n}(x) \leq \limsup_{n\toinf} F_{X_n}(x) \leq F_{X}(x).
     \]
+    So $\linf{n} F_{X_n}(x) = F_X(x)$.
   \end{claimproof}
 
   %------------------------------------------------------------------------------------------------------------------%
@@ -182,7 +183,19 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     (ii) does not imply (i).
   \end{claim}
   \begin{claimproof}
-    Consider the Borel measure space on $[0, 1]$. Let $X \equiv 0$ and define $X_n$ as follows: $X_1 \equiv 1$, $X_2 = \bm{1}_{[0,1/2]}$, $X_3 = \bm{1}_{[1/2,1]}$, $X_4 = \bm{1}_{[0,1/4]}$, $X_5 = \bm{1}_{[1/4,1/2]}, \dots$. Then for all $0 < \epsilon \leq 1$,
+    Consider the Borel measure space on $[0, 1]$. Let $X \equiv 0$ and define the so-called ``typewriter" sequence $\{ X_n \}_{n=0}^{\infty}$ as follows:
+    \begin{align*}
+      & X_1 \equiv 1, \\
+      & X_2 = \bm{1}_{\left[0,\frac{1}{2}\right]}, \\
+      & X_3 = \bm{1}_{\left[\frac{1}{2},1\right]}, \\
+      & X_4 = \bm{1}_{\left[0,\frac{1}{4}\right]}, \\
+      & X_5 = \bm{1}_{\left[\frac{1}{4},\frac{1}{2}\right]}, \\
+      & X_6 = \bm{1}_{\left[\frac{1}{2},\frac{3}{4}\right]}, \\
+      & X_7 = \bm{1}_{\left[\frac{3}{4},1\right]}, \\
+      & X_8 = \bm{1}_{\left[0,\frac{1}{8}\right]}, \\
+      & \vdots 
+    \end{align*}
+    Then for all $0 < \epsilon \leq 1$,
     \[
       \lim_{n\rightarrow \infty} P(|X_n - X| \geq \epsilon) = \lim_{n\toinf} P(|X_n| > 0) = 0,
     \]
@@ -199,7 +212,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{claimproof}
     Consider the Borel measure space on $[0, 1]$, and let $X \equiv 0$ and 
     \[
-      X_n := 2^{n} * \bm{1}_{[0, 2^{-n}]}.
+      X_n := 2^{n} \cdot \bm{1}_{[0, 2^{-n}]}.
     \]
     Then $X_n(\omega) \rightarrow X$ for all $\omega \in (0, 1]$, but $\| X_n - X \|_{1} = EX_n \equiv 1$ for all $n$.
   \end{claimproof}
@@ -240,7 +253,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     (iii) implies (iv)
   \end{claim}
   \begin{claimproof}
-    Follows by Claims 2 and 3, i.e. that (ii) implies (iv) and (iii) implies (ii).
+    Follows by Claims 3 and 2, i.e. that (iii) implies (ii) and (ii) implies (iv).
 
   \end{claimproof}
 
@@ -274,7 +287,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     (ii) does not imply (iii)
   \end{claim}
   \begin{claimproof}
-    Follows by Claims 1 and 6, i.e. that (i) implies (ii) and (i) does not imply (iii), since if (ii) implied (iii) then (i) would imply (ii).
+    Follows by Claims 1 and 6, i.e. that (i) implies (ii) and (i) does not imply (iii).
   \end{claimproof}
 
 \end{Solution}
@@ -285,7 +298,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \subsection*{2}
 \begin{tcolorbox}
-  Suppose that $X_n, n \geq 0$ and $X$ are defined on the same probability space $(\Omega, \mathcal{F}, P)$. For each condition (ii)-(iv) in Problem 1, determine whether the DCT and MCT hold if we replace the assumption (i) with the new assumption. Give a proof or counter-example for each one.
+  Suppose that $X_n, n \geq 0$ and $X$ are defined on the same probability space $(\Omega, \mathcal{F}, P)$. For each condition (ii)-(iv) in Problem 1, determine whether the DCT and MCT hold if we replace assumption (i) with the new assumption. Give a proof or counter-example for each one.
 \end{tcolorbox}
 
 \begin{Solution}
@@ -300,7 +313,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{claimproof}
     We will use the following 2 facts from real analysis.
 
-    \textbf{Fact 1:} If $f, f_0, f_1, \dots$ are measurable functions on a measure space $(\Omega, \mathcal{F}, \mu)$ and $f_n \rightarrow f$ in measure, then there exists a subsequence $\{ f_{n_k} \}_{k=0}^{\infty}$ of $\{ f_n \}_{n=0}^{\infty}$ that converges to $f$ almost surely.
+    \textbf{Fact 1:} If $f, f_0, f_1, \dots$ are measurable functions on a measure space $(\Omega, \mathcal{F}, \mu)$ and $f_n \rightarrow f$ in measure, then there exists a subsequence $\{ f_{n_k} \}_{k=0}^{\infty}$ of $\{ f_n \}_{n=0}^{\infty}$ that converges to $f$ almost everywhere.
 
     \textbf{Fact 2:} If $\{ x_n \}_{n=0}^{\infty}$ is a sequence of real numbers such that every subsequence has a further subsequence that converges to the same (extended) real number $x$, then $x_n \rightarrow x$.
 
@@ -337,7 +350,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     The MCT and DCT hold with assumption (iii) instead of assumption (i).
   \end{claim}
   \begin{claimproof}
-    Suppose that for some $p \in [1, \infty)$, $X_n$ converges to $X$ in $\mathcal{L}^{p}$. Then of course $X_n$ converges to $X$ in $L^{1}$, i.e.
+    Suppose that for some $p \in [1, \infty)$, $X_n$ converges to $X$ in $\mathcal{L}^{p}$. Without loss of generality we can assume $p = 1$, i.e.
     \begin{equation}
       E|X_n - X| \rightarrow 0, \ n \rightarrow \infty.
       \label{2.1}
@@ -346,7 +359,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       The MCT holds.
     \end{subclaim}
     \begin{subclaimproof}
-      Suppose $0 \leq X_0 \leq X_1 \leq \dots \leq X$ almost surely. Consider first the case where all $X_n$ are integrable. Then for any $n \in \mathbb{N}$,
+      Suppose $0 \leq X_0 \leq X_1 \leq \dots \leq X$ almost surely. First consider the case where all $X_n$ are integrable. Then for any $n \in \mathbb{N}$,
       \[
         E|X| = E|X - X_n + X_n| \leq E|X - X_n| + E|X_n| < \infty.
       \]
@@ -355,7 +368,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \limsup_{n\rightarrow \infty} \bigg| EX_n - EX \bigg| \leq \limsup_{n\rightarrow\infty} E|X_n - X| = 0,
       \]
       that is, $\linf{n} EX_n = EX$. For the other case, suppose for some $n' \in \mathbb{N}$ that $X_{n'}$ is not integrable. By monotonicity of integration,
-      $X$ and $X_k$, for $k \geq n'$, are therefor not integrable as well. Then
+      $X$ and $X_k$, for $k \geq n'$, are therefore not integrable as well. Thus
       \[
         \linf{n} EX_n = \infty = EX.
       \]
@@ -434,7 +447,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
         \label{2.3}
       \end{equation}
       since $|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| \leq t}$ is bounded above by $t$.
-      Therefore, we have
+      Therefore, by \eqref{2.2} and \eqref{2.3}, we have
       \begin{align*}
         \limsup_{n\toinf} E|X_n' - X'| & = \limsup_{n\toinf} \left[ E\left(|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| > t} \right) + E\left(|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| \leq t} \right)\right] \\
         & \leq \sup_{n}E\left( |X_n' - X'| \cdot \bm{1}_{|X_n' - X'| > t} \right) + \limsup_{n\toinf}E\left(|X_n' - X'| \cdot \bm{1}_{|X_n' - X'| \leq t} \right) \\
