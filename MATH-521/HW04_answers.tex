@@ -149,4 +149,94 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
 \end{Solution}
 
+%------------------------------------------------------------------------------------------------------------------%
+% Question 3
+%------------------------------------------------------------------------------------------------------------------%
+
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 4
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{4}
+\begin{tcolorbox}
+  Suppose $(\Omega, \mathcal{F}, P)$ is a probability space where $\mathcal{F} = \sigma(\mathcal{A})$, for some algebra $\mathcal{A}$. Prove that for all $A, B \in \mathcal{F}$, there exists $\{ A_n \}_{n=0}^{\infty}$, $\{ B_n \}_{n=0}^{\infty}$, where $A_n, B_n \in \mathcal{A}$ for all $n \in \mathbb{N}$, such that $P(A \triangle B) \rightarrow 0$, $P(B\triangle B_n) \rightarrow 0$, and $P((A\cap B) \triangle (A_n \cap B_n)) \rightarrow 0$ as $n \rightarrow \infty$
+\end{tcolorbox}
+\begin{Solution}
+  Let
+  \[
+    \mathcal{L} = \{ A \in \mathcal{F} : \exists A_0, A_1, \dots \in \mathcal{A}, P(A \triangle A_n) \rightarrow 0 \}.
+  \]
+  The proof will proceed as follows: first we will show that $\mathcal{L}$ is a $\lambda$-system that of course contains $\mathcal{A}$ (Claim 1). Then, since $\mathcal{A}$ qualifies as a $\pi$-system, it follows by the $\pi-\lambda$ theorem that $\mathcal{F} \subset \mathcal{L}$ (Claim 2). Finally, in Claim 3, we will show that for any $A, B \in \mathcal{L}$ with corresponding sequences $\{ A_n \}_{n=0}^{\infty}$ and $\{ B_n \}_{n=0}^{\infty}$ in $\mathcal{A}$ satisfying $P(A \triangle A_n) \rightarrow 0$ and $P(B\triangle B_n) \rightarrow 0$ as $n \rightarrow \infty$, it follows that $P( (A \cap B) \triangle (A_n \cap B_n) ) \rightarrow 0$ as $n \rightarrow \infty$.
+
+  \begin{claim}
+    $\mathcal{L}$ is a $\lambda$-system containing $\mathcal{A}$.
+  \end{claim}
+  \begin{claimproof}
+    The fact that $\mathcal{L}$ contains $\mathcal{A}$ is trivial. To show that $\mathcal{L}$ is a $\lambda$-system, there are 3 properties we need to verify: that $\Omega \in \mathcal{L}$, $\mathcal{L}$ is closed under the set difference operation, and that $\mathcal{L}$ is closed under countable unions from below.
+    \begin{enumerate}
+      \item Clearly $\Omega \in \mathcal{L}$ since $\Omega \in \mathcal{A}$.
+      \item Now suppose $A, B \in \mathcal{L}$ and $A \subset B$. We need to show that $B - A \in \mathcal{L}$. Let $\{ A_n \}_{n=0}^{\infty}$ and $\{ B_n \}_{n=0}^{\infty}$ be sequences of sets in $\mathcal{A}$ such that $P(A \triangle A_n) \rightarrow 0$ and $P(B \triangle B_n) \rightarrow 0$. Let $C := B - A$ and $C_n := B_n - A_n$. Then $C_n \in \mathcal{A}$ for each $n \in \mathbb{N}$ since $\mathcal{A}$ is an algebra. Further,
+        \begin{align*}
+          P(C\triangle C_n) & = P((C - C_n) \cup (C_n - C)) \\
+          & = P(((B - A) \cap (B_n - A_n)^{c}) \cup ((B_n - A_n) - (B - A)^{c} )) \\
+          & = P( (B \cap A^{c} \cap (B_n^{c} \cup A_n)) \cup (B_n \cap A_n^c \cap (B^c \cup A)) ) \\
+          & = P( (B \cap B_n^c \cup A^c) \cup (B \cap A^c \cap A_n) \cup (B_n \cap B^c \cup A_n^c) \cup (B_n \cap A_n^c \cap A) ) \\
+          & \leq P( (B - B_n) \cup (A_n - A) \cup (B_n - B) \cup (A - A_n) ) \\
+          & \leq P( (B - B_n) \cup (B_n - B) ) + P( (A - A_n) \cup (A_n - A) ) \\
+          & = P(A \triangle A_n) + P(B \triangle B_n) \rightarrow 0.
+        \end{align*}
+        Thus $C \in \mathcal{L}$.
+      \item Now suppose $A_n \in \mathcal{L}$ for all $n \in \mathbb{N}$ an $A_n \uparrow A$. We need to show $A \in \mathcal{L}$. For each $n \in \mathbb{N}$, let $\{ A_{n,k} \}_{k=0}^{\infty}$ be a sequence of sets in $\mathcal{A}$ such that $P(A_n \triangle A_{n,k}) \rightarrow 0$ as $k \rightarrow \infty$. Then let $B_n := A_{n,k'}$, for some $k'$ such that 
+        \begin{equation}
+          P(A_n \triangle B_n) < 2^{-n}.
+          \label{4.1}
+        \end{equation}
+        
+        Now let $\epsilon > 0$. Then choose $n > 0$ large enough such that $2^{-n + 1} < \epsilon$ and 
+
+        \begin{equation}
+          P(A \triangle A_n) = P(A - A_n) < 2^{-n}
+          \label{4.2}
+        \end{equation}
+        
+        (we can do this, of course, by the continuity of measure from below). Thus,
+        \begin{align*}
+          P( A \triangle B_n ) & = P( (A - B_n) \cup (B_n - A) ) \\
+          & = P( (A \cap B_n^c) \cup (B_n \cap A^c) ) \\
+          & = P( (A \cap B_n^c \cap A_n) \cup (A \cap B_n^c \cap A_n^c) \cup (B_n \cap A^c \cap A_n) \cup (B_n \cap A^c \cap A_n^c) ) \\
+          & \leq P( (A - A_n) \cup (A_n - A) \cup (A_n - B_n) \cup (B_n - A_n) ) \\
+          & \leq P( (A - A_n) \cup (A_n - A) ) + P( (A_n - B_n) \cup (B_n - A_n) ) \\
+          & = P(A \triangle A_n) + P(A_n \triangle B_n) \\
+          \text{(by \eqref{4.1} and \eqref{4.2})} \ \ \ \ & \leq 2^{-n} + 2^{-n} \\
+          & = 2^{-n + 1} < \epsilon.
+        \end{align*}
+        Since $\epsilon > 0$ was arbitrary, $P(A \triangle B_n) \rightarrow 0$ as $n \rightarrow \infty$. Hence $A \in \mathcal{L}$.
+    \end{enumerate}
+  \end{claimproof}
+
+  \begin{claim}
+    $\mathcal{F} \subset \mathcal{L}$.
+  \end{claim}
+  \begin{claimproof}
+    Since $\mathcal{A}$ is $\pi$-system that generates $\mathcal{F}$ and $\mathcal{L}$ is a $\lambda$-system containing $\mathcal{A}$, the result follows from the $\pi-\lambda$ theorem.
+  \end{claimproof}
+
+  \begin{claim}
+    For any $A, B \in \mathcal{L}$ with corresponding sequences $\{ A_n \}_{n=0}^{\infty}$ and $\{ B_n \}_{n=0}^{\infty}$ in $\mathcal{A}$ satisfying $P(A \triangle A_n) \rightarrow 0$ and $P(B\triangle B_n) \rightarrow 0$ as $n \rightarrow \infty$, it follows that $P( (A \cap B) \triangle (A_n \cap B_n) ) \rightarrow 0$ as $n \rightarrow \infty$.
+  \end{claim}
+  \begin{claimproof}
+    We have
+    \begin{align*}
+      P((A \cap B) \triangle (A_n \cap B_n)) & = P( ((A \cap B) - (A_n \cap B_n)) \cup ((A_n \cap B_n) - (A \cap B))) \\
+      & = P( (A \cap B \cap (A_n^c \cup B_n^c)) \cup (A_n \cap B_n \cap (A^c \cup B^c)) ) \\
+      & = P( (A \cap B \cap A_n^c) \cup (A \cap B \cap B_n^c) \cup (A_n \cap B_n \cap A^c) \cup (A_n \cap B_n \cap B^c) ) \\
+      & \leq P( (A - A_n) \cup (A_n - A) \cup (B - B_n) \cup (B_n - B) ) \\
+      & \leq P(A \triangle A_n) + P(B \triangle B_n) \rightarrow 0 \text{ as $n\rightarrow \infty$}.
+    \end{align*}
+  \end{claimproof}
+
+  So by Claims 2 and 3, we are done.
+\end{Solution}
+
 \end{document}
