@@ -99,9 +99,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     $P(X_n = -1) = P(X_n = 1) = \frac{1}{2}$.
   \end{claim}
   \begin{claimproof}
-    We will proceed by induction on $n$. If $n = 1$, it is trivial. Now suppose the claim holds for $k \geq 1$. Let $n = k + 1$. By the inductive hypothesis,
+    We will proceed by induction on $n$. If $n = 2$, it is trivial. Now suppose the claim holds for $k \geq 2$. Let $n = k + 1$. By the inductive hypothesis,
     \[
-      P \left( \prod_{i=1}^{n-2}X_i = -1 \right) = P \left( \prod_{i=1}^{n-2}X_i = 1 \right) = \frac{1}{2}.
+      P \left( \prod_{i=1}^{n-2}X_i = -1 \right) = P \left( \prod_{i=1}^{k-1}X_i = -1 \right) = P \left( \prod_{i=1}^{k-1}X_i = 1 \right) = P \left( \prod_{i=1}^{n-2}X_i = 1 \right) = \frac{1}{2}.
     \]
     Therefore,
     \begin{align*}
@@ -121,7 +121,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       P(X_2 = a_2, \dots, X_{n-1} = a_{n-1}, X_n = a_n) = P(X_2 = a_2) \cdots P(X_{n-1} = a_{n-1}) P(X_n = a_n).
       \label{2.1}
     \end{equation}
-    Well, if $\text{sign}(\prod_{i=2}^{n-1}a_i) = \text{sign}(a_n)$, let $a_1 = 1$ and otherwise let $a_1 = -1$. Then 
+    Define $a_1 = 1$ if $\text{sign}(\prod_{i=2}^{n-1}a_i) = \text{sign}(a_n)$ and $a_1 = -1$ otherwise. Then 
     \[
       P(X_n = a_n | X_2 = a_2, \dots , X_{n-1} = a_{n-1}) = P(X_1 = a_1),
     \]
@@ -237,6 +237,76 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{claimproof}
 
   So by Claims 2 and 3, we are done.
+\end{Solution}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 5.
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{5}
+\begin{tcolorbox}
+  Suppose $X_1, X_2, \dots$ and $Y_1, Y_2, \dots$ are random variables defined on a common probability space $(\Omega, \mathcal{F}, P)$. Let $\mathcal{G} = \sigma(X_1, X_2, \dots)$ and $\mathcal{H} = \sigma(Y_1, Y_2, \dots)$. Assume that every finite family $(X_1, X_2, \dots, X_n)$ is independent of every finite family $(Y_1, Y_2, \dots, Y_m)$. Prove that $\mathcal{G}$ and $\mathcal{H}$ are independent.
+\end{tcolorbox}
+\begin{Solution}
+  Let 
+  \begin{align*}
+    \mathcal{A} & := \{ A \subset \Omega : A \in \sigma(X_1, \dots, X_n), n \geq 1 \}, \text{ and } \\
+    \mathcal{B} & := \{ B \subset \Omega : B \in \sigma(Y_1, \dots, Y_n), n \geq 1 \}.
+  \end{align*}
+
+  \begin{claim}
+    $\mathcal{A}$ and $\mathcal{B}$ are algebras.
+  \end{claim}
+  \begin{claimproof}
+    We will only give an argument for $\mathcal{A}$, as the argument for $\mathcal{B}$ follows by symmetry. Well, clearly $\Omega \in \mathcal{A}$ since $\Omega \in \sigma(X_1, \dots, X_n)$ for all $n \geq 1$. Further, if $A \in \mathcal{A}$, then there exists $n \geq 1$ such that $A \in \sigma(X_1, \dots, X_n)$. Thus $A^c \in \sigma(X_1, \dots, X_n)$, and so $A^c \in \mathcal{A}$. Hence $\mathcal{A}$ is closed under complementation. Lastly, suppose $A_1, A_2 \in \mathcal{A}$. Then there exists $k, m \geq 1$ such that $A_1 \in \sigma(X_1, \dots, X_k)$ and $A_2 \in \sigma(X_1, \dots, X_m)$. Now take $n := \max \{ k, m\}$. Then $A_1, A_2 \in \sigma(X_1, \dots, X_n)$ since $\sigma(X_1, \dots, X_k), \sigma(X_1, \dots, X_m) \subset \sigma(X_1, \dots, X_n)$. So then $A_1 \cup A_2 \in \sigma(X_1, \dots, X_n)$. Thus $A_1 \cup A_2 \in \mathcal{A}$, i.e. $\mathcal{A}$ is closed under finite unions. Hence $\mathcal{A}$ is an algebra.
+  \end{claimproof}
+
+  \begin{claim}
+    $\mathcal{G} \subset \sigma(\mathcal{A})$ and $\mathcal{H} \subset \sigma(\mathcal{B})$.
+  \end{claim}
+  \begin{claimproof}
+    By definition, $\mathcal{G}$ is the smallest $\sigma$-algebra containing all sets of the form $X_n^{-1}[A]$, where $A$ is a Borel set. But of course $X_n^{-1}[A] \in \sigma(X_1, \dots, X_n) \subset \mathcal{A}$. Hence $\mathcal{G} \subset \sigma(\mathcal{A})$. By symmetry, $\mathcal{H} \subset \sigma(\mathcal{B})$
+  \end{claimproof}
+
+  \begin{claim}
+    If $A, A_1, A_2, \dots \in \mathcal{F}$ and $P(A \triangle A_n) \rightarrow 0$, then $P(A_n) \rightarrow P(A)$.
+  \end{claim}
+  \begin{claimproof}
+    Note that since $P(A \triangle A_n) = P(A \cap A_n^c) + P(A_n \cap A^c) \rightarrow 0$ as $n \rightarrow \infty$,
+    \begin{equation}
+      P(A \cap A_n^c) \rightarrow 0 \ \ \ \text{ and  } \ \ \ P(A_n \cap A^c) \rightarrow 0 \ \ \ \text{ as $n \rightarrow \infty$ }.
+      \label{5.1}
+    \end{equation}
+    Now, for each $n \geq 1$, $A = (A \cap A_n) \cup (A \cap A_n^c) \subset A_n \cup (A \cap A_n^c)$, and therefore
+    \[
+      P(A) \leq P(A_n) + P(A \cap A_n^c).
+    \]
+    Thus, $P(A) \leq \liminf_{n\rightarrow \infty} [ P(A) + P(A \cap A_n^c) ]$, and so by \eqref{5.1},
+    \begin{equation}
+      \liminf_{n\rightarrow \infty} P(A_n) \geq P(A).
+      \label{5.2}
+    \end{equation}
+    Similarly, $A_n \subset A \cup (A_n \cap A^c)$, for any $n \geq 1$, and so
+    \[
+      \limsup_{n\rightarrow \infty} [P(A_n) - P(A_n \cap A^c)] \leq P(A).
+    \]
+    So by \eqref{5.1} again,
+    \begin{equation}
+      \limsup_{n\rightarrow\infty} P(A_n) \leq P(A).
+      \label{5.3}
+    \end{equation}
+    Hence, by \eqref{5.2} and \eqref{5.3}, $\lim_{n\rightarrow \infty} P(A_n) = P(A)$.
+  \end{claimproof}
+
+  Now suppose $A \in \mathcal{G}$ and $B \in \mathcal{H}$. By Claim 2, $A \in \sigma(\mathcal{A})$ and $B \in \sigma(\mathcal{H})$. Thus, by Claim 1 and the previous exercise, $A$ and $B$ can be approximated by sequences $A_1, A_2, \dots \in \mathcal{A}$ and $B_1, B_2, \dots \in \mathcal{B}$, respectively. That is, $P(A \triangle A_n) \rightarrow 0$, $P(B \triangle B_n) \rightarrow 0$, and
+  \[
+    P((A \cap B) \triangle (A_n \cap B_n)) \rightarrow 0
+  \]
+  as $n \rightarrow \infty$. So by Claim 3,
+  \[
+    P(A \cap B) = \linf{n} P(A_n \cap B_n) = \linf{n} P(A_n) P(B_n) = P(A) P(B).
+  \]
+  Therefore $\mathcal{G}$ and $\mathcal{H}$ are independent.
 \end{Solution}
 
 \end{document}

@@ -1,0 +1,171 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 521}
+\rhead{\thepage}
+\cfoot{}
+
+% Custom commands.
+\newcommand\toinfty{\rightarrow\infty}
+\newcommand\toinf{\rightarrow\infty}
+\newcommand{\sinf}[1]{\sum_{#1=0}^{\infty}}
+\newcommand{\linf}[1]{\lim_{#1\rightarrow\infty}}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 521 -- ASSIGNMENT V -- fall 2018} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 1
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1}
+\begin{tcolorbox}
+  Consider $F_1, F_2, \dots$ distribution functions. Construct independent random variables $X_1, X_2, \dots$ on the probability space $([0, 1], \mathcal{B}([0,1]), m)$, i.e. the Lebesgue measure space on $[0,1]$, such that $F_{X_i} = F$.
+\end{tcolorbox}
+\begin{Solution}
+  \begin{claim}
+    There exists a sequence $B_1, B_2, \dots$ of iid Bernoulli(1/2) random variables on $([0, 1], \mathcal{B}([0,1]), m)$.
+  \end{claim}
+  \begin{claimproof}
+    Define $B_1, B_2, \dots$ as follows:
+    \begin{align*}
+      B_1 & := \bm{1}_{[0,1/2]} \\
+      B_2 & := \bm{1}_{[0,1/4]} + \bm{1}_{[2/4,3/4]} \\
+      B_3 & := \bm{1}_{[0,1/8]} + \bm{1}_{[2/8,3/8]} + \bm{1}_{[4/8,5/8]} + \bm{1}_{[6/8,7/8]} \\
+      \vdots & \\
+      B_n & := \sum_{k=0}^{2^{n-1} - 1} \bm{1}_{[2k/2^n,(2k+1)/2^n]} \\
+      \vdots &
+    \end{align*}
+    Then clearly each $B_n$ is Bernoulli(1/2). So it remains to show that they are independent. First consider a collection of two of our random variables, $B_i$ and $B_j$. Without loss of generality assume $i < j$. By the way we defined the $B_n$'s, the events $\{ B_j = 0 \}$, $\{ B_j = 1 \}$ partition the event $\{ B_i = a \}$ into subevents with equal probability, for $a = 0, 1$. Hence
+    \[
+      P(B_i = a, B_j = 0) = \frac{1}{2}P(B_i = a) = \frac{1}{4} = P(B_i = a)P(B_j = 0),
+    \]
+    and similarly $P(B_i = a, B_j = 1) = P(B_i = a)P(B_j = 1)$. This demonstrates that the sequence $B_1, B_2, \dots$ are pairwise independent. However, we can easily extend this reasoning beyond a pair to an arbitrarily finite collection of $B_n$'s. In particular, suppose we have the collection $\{ B_{n_1}, \dots, B_{n_m} \}$, and assume $n_i < n_j$ for $1 \leq i < j \leq m$. Then for any $a_1, \dots, a_m \in \{0, 1\}$, we can say the following:
+    \begin{enumerate}
+      \item the event $\{ B_{n_2} = a_2 \}$ partitions $\{ B_{n_1} = a_1 \}$ in half,
+      \item the event $\{ B_{n_3} = a_3 \}$ partitions $\{ B_{n_1} = a_1, B_{n_2} = a_2 \}$ in half,
+      \item the event $\{ B_{n_4} = a_4 \}$ partitions $\{ B_{n_1} = a_1, B_{n_2} = a_2, B_{n_3} = a_3 \}$ in half,
+
+        $\vdots$
+    \end{enumerate}
+    and so on, so that the event $\{ B_{n_m} = a_m \}$ partitions $\{ B_{n_1} = a_1, \dots, B_{n_{m-1}} = a_{m-1} \}$ in half. In other words,
+    \begin{align*}
+      P(B_{n_1} = a_1, \dots, B_{n_m} = a_m) & = \frac{1}{2} P(B_{n_1} = a_1, \dots, B_{n_{m-1}} = a_{m-1}) \\
+      & = \frac{1}{2^2} P(B_{n_1} = a_1, \dots, B_{n_{m-1}} = a_{m-2}) \\
+      & \vdots \\
+      & = \frac{1}{2^{m-1}} P(B_{n_1} = a_1) \\
+      & = \frac{1}{2^{m}} \\
+      & = P(B_{n_1} = a_1) \cdots P(B_{n_m} = a_m).
+    \end{align*}
+    Hence $B_1, B_2, \dots$ are independent.
+  \end{claimproof}
+
+  By Claim 1, let $B_1, B_2, \dots$ be a sequence of iid Bernoulli(1/2) random variables on $([0, 1], \mathcal{B}([0,1]), m)$. Since $\{ 1, 2, \dots \}$ and $\{ 1, 2, \dots \}^2$ are both countable, there exists a bijection
+  \[
+    \varphi : \{1, 2, \dots \}^2 \rightarrow \{1, 2, \dots \}.
+  \]
+  For simplicity, we will write $B_{n,k} \equiv B_{\varphi(n,k)}$. Then let $Y_n = \sum_{k=1}^{\infty} 2^{-k} B_{n,k}$.
+
+  \begin{claim}
+    Each $Y_n$ is Uniform$[0,1]$.
+  \end{claim}
+  \begin{claimproof}
+    We show this by way of moment generating functions. That is, we'll show that $Ee^{tY_n} = \frac{e^t - 1}{t}$, the mgf of a Uniform$[0,1]$ random variable. Well, by the DCT and independence of $B_{n, 1}, B_{n, 2}, \dots$,
+    \begin{align*}
+      E[e^{tY_n}] & = E\left[ \lim_{k\rightarrow \infty} \exp\left\{ t\sum_{l=1}^{k}2^{-l}B_{n,l}\right\} \right] \\
+      & = E\left[ \lim_{k\rightarrow \infty} \prod_{l=1}^{k}\exp\left\{ t 2^{-l}B_{n,l}\right\} \right] \\
+      \text{(by the DCT)}\ \ \  & = \lim_{k\rightarrow\infty} E\left[ \prod_{l=1}^{k}\exp\left\{ t 2^{-l}B_{n,l}\right\} \right] \\
+      \text{(by independence)} \ \ \ & = \lim_{k\rightarrow\infty} \prod_{l=1}^{k} E\left[ \exp\left\{ t 2^{-l}B_{n,l}\right\} \right] \\
+      & = \lim_{k\rightarrow\infty} \prod_{l=1}^{k} \left( \frac{1 + e^{t/2^l}}{2} \right) \\
+      & = \lim_{k\rightarrow\infty} 2^{-k}\prod_{l=1}^{k} \left( 1 + e^{t/2^l} \right) \\
+      & = \lim_{k\rightarrow\infty} 2^{-k}\frac{(e^{t/2^k} - 1)}{(e^{t/2^k} - 1)}(e^{t/2^k} + 1) \prod_{l=1}^{k-1} \left( 1 + e^{t/2^l} \right) \\
+      & = \lim_{k\rightarrow\infty} 2^{-k}\frac{(e^{t/2^{k-1}} - 1)}{(e^{t/2^k} - 1)}\prod_{l=1}^{k-1} \left( 1 + e^{t/2^l} \right) \\
+      & = \lim_{k\rightarrow\infty} 2^{-k}\frac{(e^{t/2^{k-1}} - 1)}{(e^{t/2^k} - 1)}(e^{t/2^{k-1} - 1})\prod_{l=1}^{k-2} \left( 1 + e^{t/2^l} \right) \\
+      & = \lim_{k\rightarrow\infty} 2^{-k}\frac{(e^{t/2^{k-2}} - 1)}{(e^{t/2^k} - 1)}\prod_{l=1}^{k-2} \left( 1 + e^{t/2^l} \right) \\
+      & \vdots \\
+      & = \lim_{k\rightarrow\infty} 2^{-k}\frac{(e^{t} - 1)}{(e^{t/2^k} - 1)} \\
+      & = (e^{t} - 1) \lim_{k\rightarrow\infty} \frac{1}{2^k (e^{t/2^k} - 1)} \\
+      & = \frac{(e^{t} - 1)}{t} \lim_{k\rightarrow\infty} \frac{1}{(e^{t/2^k} - 1) / (t/2^k)} = \frac{(e^{t} - 1)}{t},
+    \end{align*}
+    where the last equality is because $\lim_{k\rightarrow\infty} \frac{e^{t/2^k} - 1}{t/2^k}$ is by definition the derivative of $e$ at $0$, which is 1.
+  \end{claimproof}
+
+  \begin{claim}
+    $Y_1, Y_2, \dots$ are independent.
+  \end{claim}
+  \begin{claimproof}
+    Consider any subcollection of $Y_1, Y_2, \dots$. Without loss of generality assume the subcollection is $Y_1, \dots, Y_n$. Then it suffices to show that for any $y_1, \dots, y_n \in \mathbb{R}$,
+    \[
+      P(Y_1 \leq y_1, \dots, Y_n \leq y_n) = P(Y_1 \leq y_1) \cdots P(Y_n \leq y_n).
+    \]
+    For convenience we'll write $S_{i,k} := \sum_{j=1}^{k}2^{-j}B_{i,j}$, for $i = 1, \dots, n$, $k \geq 1$. Then
+    \begin{align*}
+      P(Y_1 \leq y_1, \dots, Y_n \leq y_n) & = E[\bm{1}_{Y_1 \leq y_1} \cdots \bm{1}_{Y_n \leq y_n}] \\
+      & = E\left[ \linf{k} \bm{1}_{S_{1,k}\leq y_1} \cdots \bm{1}_{S_{n,k}\leq y_n} \right] \\
+      \text{(by the DCT)}\ \ \  & = \linf{k} E \left[ \bm{1}_{S_{1,k}\leq y_1} \cdots \bm{1}_{S_{n,k}\leq y_n} \right] \\
+      \text{(by independence of $B_1, B_2, \dots$)} \ \ \  & = \linf{k} E \left[ \bm{1}_{S_{1,k}\leq y_1} \right] \cdots E\left[\bm{1}_{S_{n,k}\leq y_n} \right] \\
+      \text{(by the DCT again)} \ \ \  & = E \left[ \bm{1}_{Y_1 \leq y_1} \right] \cdots E\left[\bm{1}_{Y_n \leq y_n} \right] \\
+      & = P(Y_1 \leq y_1) \cdots P(Y_n \leq y_n).
+    \end{align*}
+  \end{claimproof}
+
+  By the previous claims, we now have a sequence $Y_1, Y_2, \dots$ of iid Uniform$[0,1]$ random variables. Thus we can apply the Probability Integral Transformation (PIT) to $X_n := F_n^{-1}(Y_n)$, so that each $X_n$ has distribution $F_n$. Futher, by the independence of $Y_1, Y_2, \dots$, we have that $X_1, X_2, \dots$ are independent since each $X_n$ is just a function of $Y_n$.
+
+\end{Solution}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{2}
+\begin{tcolorbox}
+  Determine whether the following are true or false.
+  \begin{enumerate}
+    \item For each $0 < p < \infty$, there exists a random variable $X$ such that $E|X|^{q} < \infty$ for all $q \leq p$ and $E|X|^{q} = \infty$ for all $q > p$.
+    \item For each $0 < p < \infty$, there exists a random variable $Y$ such that $E|Y|^{q} < \infty$ for all $q < p$ and $|Y|^{q} = \infty$ for all $q \geq p$.
+  \end{enumerate}
+\end{tcolorbox}
+\begin{Solution}
+\end{Solution}
+\end{document}
