@@ -167,5 +167,37 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{enumerate}
 \end{tcolorbox}
 \begin{Solution}
+  We will show that both of these statements are true.
+
+  \begin{enumerate}
+    \item
+
+      Consider the Borel probability space on $(0, 1)$. Let $X(x) := x^{-1/p} (\log x)^{-2/p} \bm{1}_{(0, 1/2)}(x)$ for $x \in (0, 1)$. To show that $E|X|^{q} < \infty$ for all $q \leq p$, it suffices to show that $E|X|^{p} < \infty$. Well,
+      \begin{align*}
+        E|X|^{p} & = \int_{0}^{1/2} \frac{1}{x(\log x)^2} dx \\
+        \text{(Set $u = \log x$)}\ \ \ & = \int_{-\infty}^{\log (1/2)} \frac{1}{u^2} du \\
+        & = \int_{\log(1/2)}^{\infty} \frac{1}{u^2} du < \infty.
+      \end{align*}
+      On the other hand, suppose $q > p$. Let $\epsilon = \frac{q}{p} - 1$. Then, using the same change of variables as above,
+      \[
+        E|X|^{q} = \int_{0}^{1/2} x^{-(1 + \epsilon)} (\log x)^{-2(1+\epsilon)} dx = \int_{-\infty}^{\log(1/2)} e^{-\epsilon u} u^{-2(1+\epsilon)} du.
+      \]
+      But
+      \[
+        \int_{-\infty}^{\log(1/2)} e^{-\epsilon u} |u|^{-2(1+\epsilon)} du = \int_{-\log(1/2)}^{\infty} \frac{e^{\epsilon u}}{u^{2(1 + \epsilon)}} du = \infty
+      \]
+      since $\frac{e^{\epsilon u}}{u^{2(1 + \epsilon)}} \rightarrow \infty$ as $u \rightarrow \infty$.
+
+    \item
+
+      Consider again the Borel probability space on $(0, 1)$. Let $Y(x) := x^{-1/p}$, $x \in (0, 1)$. Then for all $0 < q < p$ we have $\frac{q}{p} < 1$. Thus
+      \[
+        E|Y|^{q} = \int_{0}^{1} x^{-\frac{q}{p}}dx < \infty.
+      \]
+      However, if $q \geq p$, then
+      \[
+        E|Y|^{q} = \int_{0}^{1} x^{-\frac{q}{p}}dx \geq \int_{0}^{1} x^{-1} dx = \infty.
+      \]
+  \end{enumerate}
 \end{Solution}
 \end{document}
