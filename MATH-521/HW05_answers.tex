@@ -180,7 +180,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \end{align*}
       On the other hand, suppose $q > p$. Let $\epsilon = \frac{q}{p} - 1$. Then, using the same change of variables as above,
       \[
-        E|X|^{q} = \int_{0}^{1/2} x^{-(1 + \epsilon)} (\log x)^{-2(1+\epsilon)} dx = \int_{-\infty}^{\log(1/2)} e^{-\epsilon u} u^{-2(1+\epsilon)} du.
+        E|X|^{q} = \int_{0}^{1/2} x^{-(1 + \epsilon)} |\log x|^{-2(1+\epsilon)} dx = \int_{-\infty}^{\log(1/2)} e^{-\epsilon u} |u|^{-2(1+\epsilon)} du.
       \]
       But
       \[
@@ -200,4 +200,55 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
       \]
   \end{enumerate}
 \end{Solution}
+
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 3
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{3}
+\begin{tcolorbox}
+  Construct random variables $X$ and $Y$ on a common probability space such that $X$ and $Y$ are both $N(0,1)$ but $(X, Y)$ is not Gaussian and for all $a, b, c \in \mathbb{R}$, $P(aX + bY + c = 0) = 0$.
+\end{tcolorbox}
+\begin{Solution}
+  Let $A = \{ (x,y) : x, y \leq 0 \}$ and $B = \{ (x,y) : x, y > 0 \}$, i.e. $A$ is the lower left quadrant and $B$ is the upper right quadrant of $\mathbb{R}^{2}$. Then let
+  \[
+    f(x,y) = 2 \varphi(x) \varphi(y) \bm{1}_{A\cup B}(x,y), \ x, y \in \mathbb{R},
+  \]
+  where $\varphi(\cdot)$ is the standard normal density function.
+  \begin{claim}
+    $f : \mathbb{R}^2 \rightarrow \mathbb{R}$ is a valid probability density function.
+  \end{claim}
+  \begin{claimproof}
+    Clearly $f \geq 0$ for all $(x, y) \in \mathbb{R}^2$. It remains to show that $f$ is properly normalized. Let $m(\cdot, \cdot)$ and $m(\cdot)$ denote Lebesgue measure on $\mathbb{R}^2$ and $\mathbb{R}$, respectively. Then
+    \begin{align*}
+      \int_{\mathbb{R}^2} f(x,y) dm(x,y) & = \int_{\mathbb{R}^2} 2\varphi(x) \varphi(y) \bm_{A\cup B}(x, y) dm(x,y) \\
+      \text{($A$ and $B$ are disjoint)} \ \ \ & = 2 \int_{A} \varphi(x) \varphi(y) dm(x, y) + 2 \int_{B} \varphi(x) \varphi(y) dm(x, y) \\
+      \text{(Tonelli's theorem)}\ \ \ & = 2 \int_{-\infty}^{0} \int_{-\infty}^{0} \varphi(x) \varphi(y) dm(x) dm(y) + 2 \int_{0}^{\infty} \int_{0}^{\infty} \varphi(x) \varphi(y) dm(x) dm(y) \\
+      & = 2 \int_{-\infty}^{0} \varphi(y) \int_{-\infty}^{0} \varphi(x) dm(x) dm(y) + 2 \int_{0}^{\infty}\varphi(y) \int_{0}^{\infty} \varphi(x) dm(x) dm(y) \\
+      & = \int_{-\infty}^{0} \varphi(y) dm(y) + \int_{0}^{\infty} \varphi(y) dm(y) \\
+      & = 1.
+    \end{align*}
+  \end{claimproof}
+
+  So let $(X, Y)$ by a bivariate random vector on $\mathbb{R}^2$ such that
+  \[
+    P((X, Y) \in E) = \int_{E} f(x,y) dm(x, y),
+  \]
+  for any Borel set $E \subset \mathbb{R}^2$.
+  Since $f$ is not a Guassian density function, it remains to show that $X$ and $Y$ are marginally $N(0, 1)$ and that $P(a X + b Y + c = 0) = 0$ for all $a, b, c \in \mathbb{R}$.
+  
+  To show the latter, note that for any $a, b, c \in \mathbb{R}$, the set $\{ (x, y) \in \mathbb{R}^2 : ax + by + c = 0 \}$ is a line, and therefore has zero Lebesgue measure in $\mathbb{R}^2$. Thus, since $P_{(X, Y)}$ is absolutely continuous with respect to Lebesgue measure on $\mathbb{R}^2$, $P(a X + b Y + c = 0) = 0$.
+  
+  Finally, to show that $X$ and $Y$ are both marginally standard normal, we can just derive the marginal density functions $f_X$ and $f_Y$. So let $x \in \mathbb{R}$.
+  Then
+  \begin{align*}
+    f_X(x) = \int_{-\infty}^{\infty} f(x, y) dm(y) & = 2 \varphi(x) \bm{1}_{x \leq 0}\int_{-\infty}^{0} \varphi(y) dm(y) + 2\varphi(x) \bm{1}_{x > 0} \int_{0}^{\infty} \varphi(y)dm(y) \\
+    & = \varphi(x) \bm{1}_{x \leq 0} + \varphi(x) \bm{1}_{x > 0}  \\
+    & = \varphi(x).
+  \end{align*}
+  Similarly, $f_Y(y) = \varphi(y)$. Hence the marginal distribution of both $X$ and $Y$ is standard normal.
+  
+\end{Solution}
+
 \end{document}
