@@ -98,6 +98,31 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   But this is insane since $P(Y \leq 1) = 1$.
 \end{Solution}
 
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\newpage
+\subsection*{2}
+\begin{Solution}
+
+  \textbf{Part i.} Let $m_1 < \infty$. Then for $n$ such that $2^{n} > m_1$,
+  \begin{align*}
+    P(N_n \geq m_1) = 1 - P(N_n < m_1) & = 1 - \sum_{j=0}^{m_1 - 1}(2^{-n})^j(1 - 2^{-n})^{2^n - j} \\
+    & \geq 1 - m_1(1 - 2^{-n})^{2^n - m_1 + 1}.
+  \end{align*}
+  But $m_1(1 - 2^{-n})^{2^n - m_1 + 1} \rightarrow 0$ as $n \rightarrow \infty$. Thus
+  \[
+    P(N_n \geq m_1) \rightarrow 1 \ \ \text{as $n \rightarrow \infty$}.
+  \]
+  Hence we can actually give a slightly stronger statement than we are trying to prove. That is, for any $m_1 < \infty$ and \emph{any} $p_1 \in (0, 1)$, there exists $n_1 < \infty$ such that for all $n \geq n_1$,
+  \[
+    P(N_n \geq m_1) \geq p_1.
+  \]
+
+  \textbf{Part ii.}
+\end{Solution}
+
 \bibliographystyle{apalike}
 \begin{thebibliography}{9}
   \bibitem[RF, 2010]{RF}
