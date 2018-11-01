@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=plain]{Theorem}
+\declaretheorem[style=plain]{Proposition}
+\declaretheorem[style=plain]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 521}
+\rhead{\thepage}
+\cfoot{}
+
+% Custom commands.
+\newcommand\toinfty{\rightarrow\infty}
+\newcommand\toinf{\rightarrow\infty}
+\newcommand{\sinf}[1]{\sum_{#1=0}^{\infty}}
+\newcommand{\linf}[1]{\lim_{#1\rightarrow\infty}}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 521 -- Midterm 1 -- fall 2018} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 1
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1}
+\begin{Solution}
+  We will make use of the following results from Royden and Fitzpatrick's book on real analysis \cite{RF}. \\
+
+  \begin{Theorem}[Section 2.7, Proposition 20 \cite{RF}]
+    The Cantor-Lebesgue function is an increasing continuous function that maps $[0, 1]$ onto $[0, 1]$. Further, its derivative exists and is zero almost everywhere on $[0, 1]$ with respect to Lebesgue measure.
+  \end{Theorem}
+
+  \vspace{5mm}
+
+  \begin{Theorem}[Section 6.5, Theorem 14 \cite{RF}]
+    If $f$ is integrable over the closed, bounded interval $[a, b]$, then
+    \[
+      \frac{d}{dx} \int_{a}^{x} f = f(x) \ \ \text{for almost all $x \in (a, b)$}.
+    \]
+  \end{Theorem}
+
+  \vspace{5mm}
+
+  Now let $h$ be the Cantor-Lebesgue function and let $F(t) := \frac{1}{2}(h(t) + t)$, for $t \in [0, 1]$. By Theorem 1, $F$ is continuous, strictly increasing, and maps $[0, 1]$ onto $[0, 1]$. Therefore $F$ is a valid distribution function.
+  
+  Further, $f := F^{-1}$ is well-defined, continuous, and strictly increasing as well. Hence $f$ is also measurable. Therefore we can define the random variable $Y := f(X)$. By the Probability Integral Transformation (PIT), $Y$ has distribution function $F$.
+
+  We claim that $Y$ does not have a density. By way of contradiction suppose $Y$ has density $g$. Then for $y \in [0, 1]$,
+  \[
+    P(Y \leq y) = \int_{0}^{y} g(t) dt = F(y).
+  \]
+  Thus, by Theorem 2,
+  \[
+    \frac{d}{dy} F(y) = g(y) \ \text{for almost all $y \in [0, 1]$}.
+  \]
+  However, by Theorem 1, $\frac{d}{dy} F(y) \equiv \frac{1}{2}$ since the Cantor-Lebesgue function $h$ is singular. Hence $g \equiv \frac{1}{2}$ almost everywhere.
+  So,
+  \[
+    P(Y \leq 1) = \int_{0}^{1} \frac{1}{2} dt = \frac{1}{2}.
+  \]
+  But this is insane since $P(Y \leq 1) = 1$.
+\end{Solution}
+
+\bibliographystyle{apalike}
+\begin{thebibliography}{9}
+  \bibitem[RF, 2010]{RF}
+    H.L. Royden and P.M. Fitzpatrick.
+    \textit{Real Analysis}. Fourth edition.
+    Pearson Prentice Hall, 2010.
+\end{thebibliography}
+
+\end{document}
