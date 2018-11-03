@@ -106,21 +106,149 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{2}
 \begin{Solution}
 
-  \textbf{Part i.} Let $m_1 < \infty$. Then for $n$ such that $2^{n} > m_1$,
+  \textbf{Part i.} Let $m_1 < \infty$. Note that $N_n$ is just a Binomial$(2^n, p=2^{-2n})$ random variable. Then for $n$ such that $2^{n} > m_1$,
   \begin{align*}
     P(N_n \geq m_1) = 1 - P(N_n < m_1) & = 1 - \sum_{j=0}^{m_1 - 1}(2^{-n})^j(1 - 2^{-n})^{2^n - j} \\
-    & \geq 1 - m_1(1 - 2^{-n})^{2^n - m_1 + 1}.
+    & = 1 - (1 - 2^{-n})^{2^n} - \sum_{j=1}^{m_1 - 1}(2^{-n})^j(1 - 2^{-n})^{2^n - j} \\
+    & \geq 1 - (1 - 2^{-n})^{2^n} - 2^{-n}\sum_{j=1}^{m_1 - 1}(1 - 2^{-n})^{2^n - j} \\
+    & \geq 1 - (1 - 2^{-n})^{2^n} - 2^{-n}(m_1 - 1).
   \end{align*}
-  But $m_1(1 - 2^{-n})^{2^n - m_1 + 1} \rightarrow 0$ as $n \rightarrow \infty$. Thus
+  Now, as $n \rightarrow \infty$, $(1 - 2^{-n})^{2^n} \rightarrow e^{-1}$ and $2^{-n}(m_1 - 1) \rightarrow 0$. Thus,
   \[
-    P(N_n \geq m_1) \rightarrow 1 \ \ \text{as $n \rightarrow \infty$}.
+    \liminf_{n\rightarrow \infty} P(N_n \geq m_1) \geq 1 - e^{-1} \ \ \text{as $n \rightarrow \infty$}.
   \]
-  Hence we can actually give a slightly stronger statement than we are trying to prove. That is, for any $m_1 < \infty$ and \emph{any} $p_1 \in (0, 1)$, there exists $n_1 < \infty$ such that for all $n \geq n_1$,
+  So if we take $p_1 := 1 - e^{-1}$, then for any $m_1$, we can always find $n_1$ large enough so that $P(N_n \geq m_1) \geq p_1$ for all $n \geq n_1$.
+
+  \textbf{Part ii.} Note that
+  \begin{align*}
+    P(M_n = 0) = P(X_k \leq 2^{2n}, \forall 1 \leq k \leq 2^{n}) = P(X_1 \leq 2^{2n})^{2^n} & = \left( \sum_{j=1}^{n}2^{-j} \right)^{2^n} \\
+    & = \left( 1 - \sum_{j=n+1}^{\infty}2^{-j} \right)^{2^n} \\
+    & = \left( 1 - 2^{-n}\sum_{j=1}^{\infty} 2^{-j} \right)^{2^{n}} \\
+    & = (1 - 2^{-n})^{2^n}.
+  \end{align*}
+  But $(1 - 2^{-n})^{2^n} \rightarrow e^{-1}$ as $n \rightarrow \infty$. Thus for all $\epsilon > 0$, there exists $n_2 < \infty$ such that for each $n \geq n_2$,
   \[
-    P(N_n \geq m_1) \geq p_1.
+    P(M_n = 0) \geq p_2,
+  \]
+  where $p_2 := e^{-1} - \epsilon$.
+
+  \textbf{Part iii.} By Markov's inequality,
+  \begin{align*}
+    P(S_n^* \geq a 2^{2n}) \leq \frac{1}{a2^{2n}} ES_n^* & = \frac{1}{a2^{2n}} \sum_{k=1}^{2^{n}} EX_k\bm{1}_{X_k < 2^{2n}} \\
+    & = \frac{1}{a2^{2n}} \sum_{k=1}^{2^n}\sum_{j=1}^{n-1} 2^{-j} 2^{2j} \\
+    & = \frac{1}{a2^{2n}} 2^{n}\sum_{j=1}^{n-1} 2^{j} \\
+    & = \frac{1}{a2^{n}} \sum_{j=1}^{n-1}2^{j} \\
+    & = \frac{1}{a} \sum_{j=1}^{n-1} 2^{j-n} \\
+    \text{($\ell = n-j$)} \ \ \ & = \frac{1}{a} \sum_{\ell=1}^{n-1}2^{-l} \\
+    & = \frac{1}{a} \left( 1 - \sum_{\ell=n}^{\infty} 2^{-\ell} \right).
+  \end{align*}
+  But 
+  \[
+    \left( 1 - \sum_{\ell=n}^{\infty} 2^{-\ell} \right)  \leq 1
+  \]
+  provided $n > 1$. So for all $n > 1$,
+  \[
+    P(S_n^* \geq a 2^{2n})  \leq \frac{1}{a}.
+  \]
+  Thus we can choose any $a > 1$ and set $p_3 := \frac{1}{a}$, $n_3 := 2$. So for all $n \geq n_3$,
+  \[
+    P(S_n^* \geq a 2^{2n})  \leq p_3.
+  \]
+\end{Solution}
+
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 3
+%------------------------------------------------------------------------------------------------------------------%
+
+\newpage
+\subsection*{3}
+\begin{Solution}
+  \textbf{Part i.} Suppose $X$ and $Y$ are independent and $L_X(t)$, $L_Y(t)$ exist. Then by independence,
+  \[
+    L_{X + Y}(t) = Ee^{-t(X + Y)} = Ee^{-tX}e^{-tY} = Ee^{-tX}Ee^{-tY} = L_X(t) L_Y(t).
   \]
 
-  \textbf{Part ii.}
+  \textbf{Part ii.} Suppose $S_n$ is Binomial$(n, 1/2)$. Then
+  \begin{align*}
+    L_{X}(t) = Ee^{-tX} = \sum_{k=0}^{n} e^{-tk} \binom{n}{k} \left( \frac{1}{2} \right)^n & = \sum_{k=0}^{n} \binom{n}{k} e^{-tk} \left( \frac{1}{2} \right)^k \left( \frac{1}{2} \right)^{n-k} \\
+    & = \sum_{k=0}^{n} \binom{n}{k} \left( \frac{e^{-t}}{2} \right)^k \left( \frac{1}{2} \right)^{n-k} \\
+    \text{(by the binomial theorem)} \ \ \ & = \left( \frac{e^{-t}}{2} + \frac{1}{2} \right)^{n} \\
+    & = \frac{1}{2^{n}} \left( e^{-t} + 1 \right)^{n}.
+  \end{align*}
+
+  \textbf{Part iii.} Suppose $Z$ standard normal. Then
+  \begin{align*}
+    L_Z(t) = \int_{-\infty}^{\infty} e^{-tz} \frac{1}{\sqrt{2\pi}} e^{-z^2 / 2} dz & = \int_{\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(z^2 + 2tz + t^2 - t^2)} dz \\
+    & = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(z + t)^2 + t^2 / 2} dz \\
+    & = e^{t^2 / 2} \int_{-\infty}^{\infty}\underbrace{ \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}(z + t)^2} }_{\text{density of $N(-t, 1)$}} dz \\
+    & = e^{t^2 / 2}.
+  \end{align*}
+
+  \textbf{Part iv.} We will show that the result holds with $c = 2$. In doing so, we will make use of the following lemma. \\
+
+  \begin{Lemma}
+    If a sequence $b_n \rightarrow 0$ as $n \rightarrow \infty$, then
+    \[
+      \left( 1 + \frac{a + b_n}{n} \right)^{n} \rightarrow e^{a} \ \ \text{ as $n\toinf$. }
+    \]
+  \end{Lemma}
+  \begin{Proof}
+    Let $\epsilon > 0$. Then for large enough $n$, $|a + b_n| \leq a + \epsilon$. Therefore,
+    \[
+      \limsup_{n\rightarrow \infty} \left( 1 + \frac{a + b_n}{n} \right)^{n} \leq \limsup_{n\rightarrow \infty}\left( 1 + \frac{a + \epsilon}{n} \right)^{n} = e^{a + \epsilon},
+    \]
+    and similarly,
+    \[
+      \liminf_{n\rightarrow \infty} \left( 1 + \frac{a + b_n}{n} \right)^{n} \geq \liminf_{n\rightarrow \infty}\left( 1 + \frac{a - \epsilon}{n} \right)^{n} = e^{a - \epsilon}.
+    \]
+    Putting these together,
+    \[
+      e^{a - \epsilon} \leq \liminf_{n\rightarrow\infty}\left( 1 + \frac{a + b_n}{n} \right)^{n} \leq \limsup_{n\rightarrow \infty} \left( 1 + \frac{a + b_n}{n} \right)^{n} \leq e^{a + \epsilon}.
+    \]
+    But since $\epsilon > 0$ was arbitrary, $\left( 1 + \frac{a + b_n}{n} \right)^{n} \rightarrow e^{a}$ as $n\toinf$.
+  \end{Proof}
+
+  \vspace{5mm}
+
+  Now, note that for all $c \in \mathbb{R}$, we have
+  \begin{align*}
+    L_{cR_n}(t) = Ee^{-tcR_n} = Ee^{-tc(S_n - n/2) / \sqrt{n}} & = e^{tcn / 2\sqrt{n}} Ee^{-tcS_n / \sqrt{n}} \\
+    & = e^{tcn / 2\sqrt{n}} L_{S_n}(tc / \sqrt{n}).
+  \end{align*}
+  Thus, by Part ii. with $c = 2$,
+  \begin{equation}
+    L_{2R_n}(t) = e^{tn/\sqrt{n}} \left( \frac{e^{-t/\sqrt{n}}}{2} + \frac{1}{2} \right)^{n} = \left( \frac{e^{t/\sqrt{n}} + e^{-t/\sqrt{n}}}{2} \right)^{n}.
+    \label{3.4.1}
+  \end{equation}
+  Using the series definition of the exponential, we can write
+  \begin{align}
+    e^{t/\sqrt{n}} + e^{-t/\sqrt{n}} & = \sum_{k=0}^{\infty} \frac{(e^{t/\sqrt{n}})^k + (e^{-t/\sqrt{n}})^k}{k!} \nonumber \\
+    & = 2 + \frac{t^2}{n} + \sum_{k=3}^{\infty} \frac{(t/\sqrt{n})^k + (-t/\sqrt{n})^k}{k!} \nonumber \\
+    & = 2 + \frac{t^2}{n} + \sum_{j=2}^{\infty} \frac{(t/\sqrt{n})^{2j}}{(2j)!}.
+    \label{3.4.2}
+  \end{align}
+  Then if $b_n := n\sum_{j=2}^{\infty} \frac{(t/\sqrt{n})^{2j}}{(2j)!}$, we have
+  \begin{equation}
+    L_{2R_n}(t) = \left( 1 + \frac{t^2 / 2 + b_n}{n} \right)^{n},
+    \label{3.4.3}
+  \end{equation}
+  by \eqref{3.4.1} and \eqref{3.4.2}. Thus, provided we can show that $b_n \rightarrow 0$ as $n \rightarrow \infty$, Lemma 1 gives us
+  \[
+    \lim_{n\rightarrow\infty} L_{2R_n}(t) = e^{t^2/2} = L_{Z}(t).
+  \]
+  Well,
+  \begin{equation}
+    b_n = n\sum_{j=2}^{\infty} \frac{(t/\sqrt{n})^{2j}}{(2j)!} = n\sum_{j=2}^{\infty} \frac{(t^2 / n)^j}{(2j)!} \leq n\sum_{j=2}^{\infty} (t^2 / n)^j = n\sum_{j=1}^{\infty}(t^2 / n)^j - t^2.
+    \label{3.4.4}
+  \end{equation}
+  But for large enough $n$, $t^2 < n$, and so by standard results for geometric series
+  \begin{equation}
+    n\sum_{j=1}^{\infty}(t^2 / n)^j - t^2 = \frac{n(t^2/n)}{1 - t^2/n} - t^2 = \frac{nt^2}{n - t^2} - t^2 = \frac{nt^2 - (n-t^2)t^2}{n-t^2} = \frac{t^4}{n-t^2} \rightarrow 0
+    \label{3.4.5}
+  \end{equation}
+  as $n \rightarrow \infty$. So by \eqref{3.4.4} and \eqref{3.4.5}, we are done.
+
 \end{Solution}
 
 \bibliographystyle{apalike}
