@@ -106,18 +106,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \subsection*{2}
 \begin{Solution}
 
-  \textbf{Part i.} Let $m_1 < \infty$. Note that $N_n$ is just a Binomial$(2^n, p=2^{-2n})$ random variable. Then for $n$ such that $2^{n} > m_1$,
-  \begin{align*}
-    P(N_n \geq m_1) = 1 - P(N_n < m_1) & = 1 - \sum_{j=0}^{m_1 - 1}(2^{-n})^j(1 - 2^{-n})^{2^n - j} \\
-    & = 1 - (1 - 2^{-n})^{2^n} - \sum_{j=1}^{m_1 - 1}(2^{-n})^j(1 - 2^{-n})^{2^n - j} \\
-    & \geq 1 - (1 - 2^{-n})^{2^n} - 2^{-n}\sum_{j=1}^{m_1 - 1}(1 - 2^{-n})^{2^n - j} \\
-    & \geq 1 - (1 - 2^{-n})^{2^n} - 2^{-n}(m_1 - 1).
-  \end{align*}
-  Now, as $n \rightarrow \infty$, $(1 - 2^{-n})^{2^n} \rightarrow e^{-1}$ and $2^{-n}(m_1 - 1) \rightarrow 0$. Thus,
-  \[
-    \liminf_{n\rightarrow \infty} P(N_n \geq m_1) \geq 1 - e^{-1} \ \ \text{as $n \rightarrow \infty$}.
-  \]
-  So if we take $p_1 := 1 - e^{-1}$, then for any $m_1$, we can always find $n_1$ large enough so that $P(N_n \geq m_1) \geq p_1$ for all $n \geq n_1$.
+  \textbf{Part i.}
 
   \textbf{Part ii.} Note that
   \begin{align*}
@@ -154,6 +143,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \[
     P(S_n^* \geq a 2^{2n})  \leq p_3.
   \]
+
+  \textbf{Part iv.}
 \end{Solution}
 
 
@@ -194,7 +185,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \]
   \end{Lemma}
   \begin{Proof}
-    Let $\epsilon > 0$. Then for large enough $n$, $|a + b_n| \leq a + \epsilon$. Therefore,
+    Let $\epsilon > 0$. Then for large enough $n$, $a - \epsilon \leq a + b_n \leq a + \epsilon$. Therefore,
     \[
       \limsup_{n\rightarrow \infty} \left( 1 + \frac{a + b_n}{n} \right)^{n} \leq \limsup_{n\rightarrow \infty}\left( 1 + \frac{a + \epsilon}{n} \right)^{n} = e^{a + \epsilon},
     \]
@@ -242,7 +233,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     b_n = n\sum_{j=2}^{\infty} \frac{(t/\sqrt{n})^{2j}}{(2j)!} = n\sum_{j=2}^{\infty} \frac{(t^2 / n)^j}{(2j)!} \leq n\sum_{j=2}^{\infty} (t^2 / n)^j = n\sum_{j=1}^{\infty}(t^2 / n)^j - t^2.
     \label{3.4.4}
   \end{equation}
-  But for large enough $n$, $t^2 < n$, and so by standard results for geometric series
+  But for large enough $n$, $t^2 < n$, and so $\sum_{j=1}^{\infty}(t^2 / n)^j$ becomes a covergent geometric series. Hence
   \begin{equation}
     n\sum_{j=1}^{\infty}(t^2 / n)^j - t^2 = \frac{n(t^2/n)}{1 - t^2/n} - t^2 = \frac{nt^2}{n - t^2} - t^2 = \frac{nt^2 - (n-t^2)t^2}{n-t^2} = \frac{t^4}{n-t^2} \rightarrow 0
     \label{3.4.5}
