@@ -82,7 +82,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   
   Further, $f := F^{-1}$ is well-defined, continuous, and strictly increasing as well. Hence $f$ is also measurable. Therefore we can define the random variable $Y := f(X)$. By the Probability Integral Transformation (PIT), $Y$ has distribution function $F$.
 
-  We claim that $Y$ does not have a density. By way of contradiction suppose $Y$ has density $g$. Then for $y \in [0, 1]$,
+  We claim that $Y$ does not have a density. By way of contradiction suppose $Y$ has density $g$. Then for almost all $y \in [0, 1]$,
   \[
     P(Y \leq y) = \int_{0}^{y} g(t) dt = F(y).
   \]
@@ -90,10 +90,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \[
     \frac{d}{dy} F(y) = g(y) \ \text{for almost all $y \in [0, 1]$}.
   \]
-  However, by Theorem 1, $\frac{d}{dy} F(y) \equiv \frac{1}{2}$ since the Cantor-Lebesgue function $h$ is singular. Hence $g \equiv \frac{1}{2}$ almost everywhere.
+  However, by Theorem 1, $\frac{d}{dy} F(y) \equiv \frac{1}{2}$ almost everywhere since the Cantor-Lebesgue function $h$ is singular. Hence $g \equiv \frac{1}{2}$ almost everywhere.
   So,
   \[
-    P(Y \leq 1) = \int_{0}^{1} \frac{1}{2} dt = \frac{1}{2}.
+    P(Y \leq 1) = \int_{0}^{1}g(t)dt = \int_{0}^{1} \frac{1}{2} dt = \frac{1}{2}.
   \]
   But this is insane since $P(Y \leq 1) = 1$.
 \end{Solution}
@@ -164,8 +164,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \begin{align*}
     L_{X}(t) = Ee^{-tX} = \sum_{k=0}^{n} e^{-tk} \binom{n}{k} \left( \frac{1}{2} \right)^n & = \sum_{k=0}^{n} \binom{n}{k} e^{-tk} \left( \frac{1}{2} \right)^k \left( \frac{1}{2} \right)^{n-k} \\
     & = \sum_{k=0}^{n} \binom{n}{k} \left( \frac{e^{-t}}{2} \right)^k \left( \frac{1}{2} \right)^{n-k} \\
-    \text{(by the binomial theorem)} \ \ \ & = \left( \frac{e^{-t}}{2} + \frac{1}{2} \right)^{n} \\
-    & = \frac{1}{2^{n}} \left( e^{-t} + 1 \right)^{n}.
+    \text{(by the binomial theorem)} \ \ \ & = \left( \frac{e^{-t}}{2} + \frac{1}{2} \right)^{n}.
   \end{align*}
 
   \textbf{Part iii.} Suppose $Z$ standard normal. Then
@@ -178,13 +177,14 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 
   \textbf{Part iv.} We will show that the result holds with $c = 2$. In doing so, we will make use of the following lemma. \\
 
-  \begin{Lemma}
-    If a sequence $b_n \rightarrow 0$ as $n \rightarrow \infty$, then
+  \begin{Lemma}[A generalization of the limit definition of the exponential function]
+    If a sequence $b_n \rightarrow 0$ as $n \rightarrow \infty$, then for all $a \in \mathbb{R}$,
     \[
       \left( 1 + \frac{a + b_n}{n} \right)^{n} \rightarrow e^{a} \ \ \text{ as $n\toinf$. }
     \]
   \end{Lemma}
   \begin{Proof}
+    We will use without proof the limit definition of the exponential function, that is $e^x = \lim_{n\rightarrow \infty}(1 + x/n)^n$.
     Let $\epsilon > 0$. Then for large enough $n$, $a - \epsilon \leq a + b_n \leq a + \epsilon$. Therefore,
     \[
       \limsup_{n\rightarrow \infty} \left( 1 + \frac{a + b_n}{n} \right)^{n} \leq \limsup_{n\rightarrow \infty}\left( 1 + \frac{a + \epsilon}{n} \right)^{n} = e^{a + \epsilon},
@@ -214,7 +214,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
   \end{equation}
   Using the series definition of the exponential, we can write
   \begin{align}
-    e^{t/\sqrt{n}} + e^{-t/\sqrt{n}} & = \sum_{k=0}^{\infty} \frac{(e^{t/\sqrt{n}})^k + (e^{-t/\sqrt{n}})^k}{k!} \nonumber \\
+    e^{t/\sqrt{n}} + e^{-t/\sqrt{n}}  = \sum_{k=0}^{\infty} \frac{(t/\sqrt{n})^k}{k!} + \sum_{k=0}^{\infty} \frac{(-t/\sqrt{n})^k}{k!} & = \sum_{k=0}^{\infty} \frac{(t/\sqrt{n})^k + (-t/\sqrt{n})^k}{k!} \nonumber \\
     & = 2 + \frac{t^2}{n} + \sum_{k=3}^{\infty} \frac{(t/\sqrt{n})^k + (-t/\sqrt{n})^k}{k!} \nonumber \\
     & = 2 + \frac{t^2}{n} + \sum_{j=2}^{\infty} \frac{(t/\sqrt{n})^{2j}}{(2j)!}.
     \label{3.4.2}
