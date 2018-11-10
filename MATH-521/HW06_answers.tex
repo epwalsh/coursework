@@ -1,0 +1,139 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 521}
+\rhead{\thepage}
+\cfoot{}
+
+% Custom commands.
+\newcommand\toinfty{\rightarrow\infty}
+\newcommand\toinf{\rightarrow\infty}
+\newcommand{\sinf}[1]{\sum_{#1=0}^{\infty}}
+\newcommand{\linf}[1]{\lim_{#1\rightarrow\infty}}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 521 -- ASSIGNMENT VI -- fall 2018} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 1
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1}
+\begin{tcolorbox}
+  Suppose that $\{B_t, t \geq 0\}$ is Brownian motion (BM). Let $Y(t) := tB(1/t)$ for $t > 0$ and $Y_0 := 0$. Prove $\{ Y_t , t \geq 0 \}$ is BM.
+\end{tcolorbox}
+\begin{Solution}
+  It suffices to show that the paths $t \mapsto B_t$ are continuous almost surely and that for any $0 \leq t_1 < t_2 < \dots < t_n$, the joint distribution of $(Y_{t_1}, \dots, Y_{t_n})$ matches that of BM. We'll do so through the following claims.
+
+  \begin{claim}
+    For any $0 \leq t_1, t_2 < \infty$, $\text{Cov}(B_{t_1}, B_{t_2}) = \min\{t_1, t_2\}$.
+  \end{claim}
+  \begin{claimproof}
+    Let $0 \leq t_1, t_1 < \infty$. If $t_1 = t_2$, it is trivial. So without loss of generality assume $t_1 < t_2$. Let $t = t_1$ and $h = t_2 - t_1 = t_2 - t$. Then by definition of BM,
+    \[
+      h = \text{Var}(B_{t+h} - B_t) = (t + h) + (t) - 2\text{Cov}(B_t, B_{t+h}).
+    \]
+    Thus, $\text{Cov}(B_{t_1}, B_{t_2}) = \text{Cov}(B_t, B_{t+h}) = t = \min\{t_1, t_2\}$.
+  \end{claimproof}
+
+  \begin{claim}
+    $(Y_{t_1}, \dots, Y_{t_n})$ has the same distribution as $(B_{t_1}, \dots, B_{t_n})$ for any $0 \leq t_1 < t_2 < \dots < t_n$.
+  \end{claim}
+  \begin{claimproof}
+    Let $0 \leq t_1 < t_2 < \dots < t_n$. Clearly $(Y_{t_1}, \dots, Y_{t_n})$ is multivariate normal with expectation $\bm{0}$. Since normal distributions are uniquely determined by their mean and covariance matrices, it suffices to show that the covariance of $Y_{t_i}, Y_{t_j}$ matches that of $B_{t_i}, B_{t_j}$ for any $i, j \in \{1, \dots, n\}$. Without loss of generality assume $i \leq j$. Let $t = t_i$ and $h = t_j - t_i = t_j - t$. Then
+    \begin{align*}
+      \text{Cov}(Y_{t_i}, Y_{t_j}) = \text{Cov}(Y_t, Y_{t+h}) & = \text{Cov}\bigg(tB(1/t), (t+h)B(1/(t+h))\bigg) \\
+      & = E\bigg[tB(1/t)(t+h)B(1/(t+h))\bigg] \\
+      & = t(t+h) E\bigg[ B(1/t)B(1/(t+h)) \bigg] \\
+      & = t(t+h) \text{Cov}\bigg[ B(1/t),B(1/(t+h)) \bigg] \\
+      \text{(by Claim 1)} \ \ \ \ & = t(t+h)\frac{1}{t+h} \\
+      & = t = t_1 = \min\{t_1, t_2\}.
+    \end{align*}
+    So $\text{Cov}(Y_{t_i}, Y_{t_j}) = \min\{t_1, t_2\} \stackrel{\text{Claim 1}}{=} \text{Cov}(B_{t_i}, B_{t_j})$.
+  \end{claimproof}
+
+  \begin{claim}
+    For almost all $\omega$, the path $t \mapsto Y_t(\omega)$ is continuous.
+  \end{claim}
+  \begin{claimproof}
+    Clearly this holds for $t > 0$, so it remains to show that $\limsup_{t\rightarrow 0} |Y_t| = 0$ almost surely, i.e. that
+    \begin{equation}
+      P \left( \limsup_{t\rightarrow 0} |Y_t| = 0 \right) = 1.
+      \label{1.1}
+    \end{equation}
+    Since we already have that $t \mapsto Y_t$ is continuous almost surely for all $t > 0$, \eqref{1.1} is equivalent to
+    \begin{equation}
+      P \left( \limsup_{\mathbb{Q} \ni t\rightarrow 0} |Y_t| = 0 \right) = 1,
+      \label{1.2}
+    \end{equation}
+    where $\mathbb{Q}$ is the set of rational numbers, since $\mathbb{Q}$ is dense in $[0, \infty)$. By Claim 2, the distribution of any finite collection $(Y_{t_1}, \dots, Y_{t_n})$ has the same distribution as $(B_{t_1}, \dots, B_{t_n})$. Therefore the distribution of $\limsup_{\mathbb{Q}\ni t \rightarrow 0}|Y_t|$ has the same distribution as $\limsup_{\mathbb{Q}\ni t \rightarrow 0}|B_t|$, since the $\limsup$ is taken over a countable set. So by the almost sure continuity of $t \mapsto B_t$ at 0,
+    \[
+      1 = P \left( \limsup_{\mathbb{Q} \ni t\rightarrow 0} |B_t| = 0 \right) = P \left( \limsup_{\mathbb{Q} \ni t\rightarrow 0} |Y_t| = 0 \right).
+    \]
+    Hence \eqref{1.2} holds, and we are done.
+  \end{claimproof}
+\end{Solution}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{2}
+\begin{tcolorbox}
+\end{tcolorbox}
+\begin{Solution}
+\end{Solution}
+
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 3
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{3}
+\begin{tcolorbox}
+\end{tcolorbox}
+\begin{Solution}
+\end{Solution}
+
+\end{document}
