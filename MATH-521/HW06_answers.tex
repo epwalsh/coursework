@@ -16,7 +16,7 @@
 \usepackage{mathcomp}
 \usepackage{tcolorbox}
 
-\declaretheoremstyle[headfont=\normalfont]{normal}
+\declaretheoremstyle[]{normal}
 \declaretheorem[style=normal]{Theorem}
 \declaretheorem[style=normal]{Proposition}
 \declaretheorem[style=normal]{Lemma}
@@ -158,10 +158,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     P(\{Y_t^n \in A\} \cap E) = P(\{B_t \in A\})P(E) = P(\{Y_t^n \in A\})P(E).
     \label{2.2}
   \end{equation}
-  It follows by \eqref{2.1} that for any $n \geq 1$, $\{ Y_t^n, t \geq 0\}$ has the same distribution as $\{ B_t, t \geq 0\}$. Thus each $\{ Y_t^n, t \geq 0\}$ is Brownian motion.
-  Further, by \eqref{2.2}, we know that $\{ Y_t^n, t \geq 0\}$ is independent of $\{ Z_t, t \geq 0\}$.
-
-  Now, by the definition of $Y_t^n$, $\lim_{n\rightarrow \infty} Y_t^n = Y_t$ almost surely for all $t \geq 0$. Therefore $\{ Y_t , t \geq 0\}$ is Brownian motion and is independent of $\{Z_t, t \geq 0\}$.
+  It follows by \eqref{2.1} that $\{ Y_t^n, t \geq 0\}$ has the same distribution as $\{ B_t, t \geq 0\}$ and by \eqref{2.2} that $\{ Y_t^n, t \geq 0\}$ is independent of $\{ Z_t, t \geq 0\}$.
+  Thus each $\{ Y_t^n, t \geq 0\}$, $n \geq 1$, is Brownian motion independent of $\{Z_t, t \geq 0\}$. The fact that this holds for $\{ Y_t, t \geq 0\}$ is now apparent since
+  $\lim_{n\rightarrow \infty} Y_t^n = Y_t$ almost surely for all $t \geq 0$.
 \end{Solution}
 
 
@@ -172,8 +171,36 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \newpage
 \subsection*{3}
 \begin{tcolorbox}
+  Suppose that random variables $X_n$, $n \geq 1$, converge to $X$ in distribution as $n \rightarrow \infty$. Prove that there exists a probability space $(\Omega, \mathcal{F}, P)$ and random variables $Y_n, n \geq 1$, and $Y$ defined on this space such that for each $n$, $X_n$ and $Y_n$ have the same distribution and $\lim_{n\rightarrow\infty} Y_n = Y$ almost surely.
 \end{tcolorbox}
+\begin{Lemma}[Probability Integral Transformation]
+  If $F$ is a cdf and $F^{-1}(x) := \sup \{ t : F(t) < x \}$, $x \in [0, 1]$, then the random variable $Z := F^{-1}(x)$ on $[0, 1]$ has distribution function $F$.
+\end{Lemma}
+\begin{Proof}
+  
+\end{Proof}
+
 \begin{Solution}
+  Let $F_n$ be the CDF of $X_n$, for each $n \geq 1$. Let $(\Omega, \mathcal{F}, P)$ be the Borel space on $[0, 1]$, and define
+  \begin{align*}
+    Y_n(\omega) & := \sup\{ t : F(t) < \omega \},  \ \ n \geq 1 \\
+    Y(\omega) & := \sup\{ t : F(t) < \omega \}.
+  \end{align*}
+
+  \begin{claim}
+    $Y$ has the same distribution as $X$, and $Y_n$ has the same distribution as $X_n$ for each $n \geq 1$.
+  \end{claim}
+  \begin{claimproof}
+    This follows from Lemma 1 (the PIT).
+  \end{claimproof}
+
+  \begin{claim}
+    $Y_n \rightarrow Y$ almost surely.
+  \end{claim}
+  \begin{claimproof}
+    
+  \end{claimproof}
+
 \end{Solution}
 
 \end{document}
