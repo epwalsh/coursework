@@ -119,10 +119,49 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 % Question 2
 %------------------------------------------------------------------------------------------------------------------%
 
+\newpage
 \subsection*{2}
 \begin{tcolorbox}
+  Suppose $\{B_t, t \geq 0\}$ is BM. Let 
+  \begin{align*}
+    T & := \inf\{t \geq 0 : B_t = 1\}, \\
+    Z_t & := B(t \wedge T), t \geq 0, \\
+    Y_t & := B(T + t) - B(T), t \geq 0.
+  \end{align*}
+  Prove that $\{ Y_t, t \geq 0\}$ is BM independent of the $\sigma$-field $\sigma\{ Z_t, t \geq 0\}$.
 \end{tcolorbox}
 \begin{Solution}
+  By the lemma we proved in class, $T < \infty$ almost surely, and therefore $Z_t$ and $Y_t$, for $t \geq 0$, are well-defined almost surely. For $n \geq 1$, define
+  \begin{align*}
+    T_n & := \min_{k} \left\{ \frac{k}{n} : B\left( \frac{k}{n} \right) > 1 \right\}, \ \ \text{(well-defined provided $T$ is finite)} \\
+    Y_{t}^n & := B(T_n + t) - B(T_n), t \geq 0.
+  \end{align*}
+  Note that for fixed $k$, the process $\{B(k/n + t) - B(k/n), t \geq 0 \}$ is clearly BM and is independent of $\{ B_t, t  \leq k/n \}$ (by the independence of increments). In particular,
+  \[
+    \sigma\{B(k/n + t) - B(k/n), t \geq 0\}
+  \]
+  is independent of any event of the form $\{ T_n = k/n \} \cap E$, where $E \in \sigma\{Z_t, t \geq 0\}$.
+  Thus, for any Borel set $A$ and any event $E \in \sigma\{Z_t, t \geq 0\}$,
+  \begin{align*}
+    P(\{Y_t^n \in A\} \cap E) & = \sum_{k=1}^{\infty} P\left(\{Y_t^n \in A\} \cap E \cap \left\{T_n = \frac{k}{n}\right\}\right) \\
+    & = \sum_{k=1}^{\infty} P\bigg( \{B(k/n + t) - B(k/n) \in A\}\bigg)P\left(E \cap \left\{T_n = \frac{k}{n}\right\} \right) \\
+    \text{(by invariance)} \ \ \ & = P\bigg( \{B(t) \in A\}\bigg)\sum_{k=1}^{\infty} P\left(E \cap \left\{T_n = \frac{k}{n}\right\} \right) \\
+    & = P( \{B(t) \in A\})P(E).
+  \end{align*}
+  So with $E = \Omega$, we get
+  \begin{equation}
+    P(\{Y_t^n \in A\}) = P(\{B_t \in A\}),
+    \label{2.1}
+  \end{equation}
+  and then
+  \begin{equation}
+    P(\{Y_t^n \in A\} \cap E) = P(\{B_t \in A\})P(E) = P(\{Y_t^n \in A\})P(E).
+    \label{2.2}
+  \end{equation}
+  It follows by \eqref{2.1} that for any $n \geq 1$, $\{ Y_t^n, t \geq 0\}$ has the same distribution as $\{ B_t, t \geq 0\}$. Thus each $\{ Y_t^n, t \geq 0\}$ is Brownian motion.
+  Further, by \eqref{2.2}, we know that $\{ Y_t^n, t \geq 0\}$ is independent of $\{ Z_t, t \geq 0\}$.
+
+  Now, by the definition of $Y_t^n$, $\lim_{n\rightarrow \infty} Y_t^n = Y_t$ almost surely for all $t \geq 0$. Therefore $\{ Y_t , t \geq 0\}$ is Brownian motion and is independent of $\{Z_t, t \geq 0\}$.
 \end{Solution}
 
 
@@ -130,6 +169,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 % Question 3
 %------------------------------------------------------------------------------------------------------------------%
 
+\newpage
 \subsection*{3}
 \begin{tcolorbox}
 \end{tcolorbox}
