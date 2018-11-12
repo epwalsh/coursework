@@ -26,12 +26,12 @@
 \newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
 \newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
 \newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
-\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter \\}
 \newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
 % \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
 % $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
 \newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
-$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
 
 \allowdisplaybreaks{}
 
@@ -113,6 +113,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
     \]
     Hence \eqref{1.2} holds, and we are done.
   \end{claimproof}
+
 \end{Solution}
 
 %------------------------------------------------------------------------------------------------------------------%
@@ -173,34 +174,96 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}}
 \begin{tcolorbox}
   Suppose that random variables $X_n$, $n \geq 1$, converge to $X$ in distribution as $n \rightarrow \infty$. Prove that there exists a probability space $(\Omega, \mathcal{F}, P)$ and random variables $Y_n, n \geq 1$, and $Y$ defined on this space such that for each $n$, $X_n$ and $Y_n$ have the same distribution and $\lim_{n\rightarrow\infty} Y_n = Y$ almost surely.
 \end{tcolorbox}
+
+We will make use of the following lemma, which is a more general form of a result we have shown in a past homework. \\
+
 \begin{Lemma}[Probability Integral Transformation]
-  If $F$ is a cdf and $F^{-1}(x) := \sup \{ t : F(t) < x \}$, $x \in [0, 1]$, then the random variable $Z := F^{-1}(x)$ on $[0, 1]$ has distribution function $F$.
+  If $F$ is a CDF and $F^{-1}(u) := \sup \{ t : F(t) < u \}$, $u \in [0, 1]$, then the random variable $Z := F^{-1}(u)$ defined on the Borel probability space of $[0, 1]$ has distribution function $F$.
 \end{Lemma}
 \begin{Proof}
-  
+  It suffices to show that
+  \begin{equation}
+    F^{-1}(u) \leq t \text{ if and only if } u \leq F(t), \text{ for all  } u \in [0,1], t \in \mathbb{R}.
+    \label{3.1}
+  \end{equation}
+  For if \eqref{3.1} holds, then $P(Z \leq t) = P(F^{-1}(u) \leq t) = P(u \leq F(t)) = F(t)$.
+
+  \begin{claim}
+    $(\Rightarrow)$ If $F^{-1}(u) \leq t$, then $u \leq F(t)$.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $F^{-1}(u) \leq t$ for some $u \in [0, 1], t \in \mathbb{R}$. By the monotonicity of $F$,
+    \[
+      F(F^{-1}(u)) \leq F(t).
+    \]
+    Thus it remains to show that $u \leq F(F^{-1}(u))$. By the right-continuity of $F$,
+    \begin{equation}
+      F(F^{-1}(u)) = F\left(\lim_{x\downarrow F^{-1}(u)}x\right).
+      \label{3.2}
+    \end{equation}
+    But by definition of $F^{-1}(u)$, if $x \geq F^{-1}(u)$ then $F(x) \geq u$. So by right-continuity again,
+    \begin{equation}
+      F\left(\lim_{x\downarrow F^{-1}(u)}x\right) \geq u.
+      \label{3.3}
+    \end{equation}
+    So by \eqref{3.2} and \eqref{3.3}, we are done.
+  \end{claimproof}
+
+  \begin{claim}
+    $(\Leftarrow)$ If $u \leq F(t)$, then $F^{-1}(u) \leq t$.
+  \end{claim}
+  \begin{claimproof}
+    Suppose $u \leq F(t)$ for some $u \in [0, 1], t \in \mathbb{R}$, and by way of contradiction assume $F^{-1}(u) > t$. Then by definition $F^{-1}$, there exists $t_0 > t$ such that $F(t_0) < u$. So we have
+    \[
+      F(t_0) < F(t).
+    \]
+    But this contradicts the monotonicity of $F$.
+  \end{claimproof}
+
+  By Claims 1 and 2, \eqref{3.1} holds. Hence we are done.
 \end{Proof}
 
+\vspace{5mm}
+
+We will now prove the main result. \\
+
 \begin{Solution}
-  Let $F_n$ be the CDF of $X_n$, for each $n \geq 1$. Let $(\Omega, \mathcal{F}, P)$ be the Borel space on $[0, 1]$, and define
+  Let $F_n$ be the CDF of $X_n$, $n \geq 1$. Let $(\Omega, \mathcal{F}, P)$ be the Borel probability space on $[0, 1]$, and define
   \begin{align*}
-    Y_n(\omega) & := \sup\{ t : F(t) < \omega \},  \ \ n \geq 1 \\
+    Y_n(\omega) & := \sup\{ t : F_n(t) < \omega \},  \ \ n \geq 1 \\
     Y(\omega) & := \sup\{ t : F(t) < \omega \}.
   \end{align*}
 
-  \begin{claim}
-    $Y$ has the same distribution as $X$, and $Y_n$ has the same distribution as $X_n$ for each $n \geq 1$.
-  \end{claim}
-  \begin{claimproof}
-    This follows from Lemma 1 (the PIT).
-  \end{claimproof}
+  By Lemma 1 (the PIT), $Y$ has the same distribution as $X$, and $Y_n$ has the same distribution as $X_n$ for each $n \geq 1$. It remains to show that $Y_n \rightarrow Y$ almost surely. Note that since $Y$ is monotone, the number of discontinuities of $Y$ is countable, and therefore has measure 0. So it suffices to show that $Y_n(\omega) \rightarrow Y(\omega)$ for all $\omega$ at which $Y$ is continuous. Fix such an $\omega \in (0,1)$.
 
-  \begin{claim}
-    $Y_n \rightarrow Y$ almost surely.
-  \end{claim}
-  \begin{claimproof}
-    
-  \end{claimproof}
+  Let $y < Y(\omega)$ such that $F$ is continuous at $y$. Then $F(y) < \omega$ by the definition of $Y$, and $F_n(y) \rightarrow F(y)$ since $F$ is continuous at $y$. Hence $F_n(y) < \omega$ for large enough $n$, and so $y \leq Y_n(\omega)$ for large enough $n$. Thus
+  \[
+    y \leq \liminf_{n\rightarrow\infty} Y_n(\omega).
+  \]
+  However, since the set of continuity points of $F$ is dense in $\mathbb{R}$, we can make such a $y < Y(\omega)$ arbitrarily close to $Y(\omega)$. Thus
+  \begin{equation}
+    Y(\omega) \leq \liminf_{n\rightarrow\infty} Y_n(\omega).
+    \label{3.4}
+  \end{equation}
 
+  Now let $\epsilon > 0$ and let $y > Y(\omega + \epsilon)$ such that $F$ is continuous at $y$. Then $\omega + \epsilon \leq F(y)$, and so $\omega < F_n(y)$ for large enough $n$. Thus
+  \[
+    \limsup_{n\rightarrow\infty} Y_n(\omega) \leq y.
+  \]
+  But by the density of the continuity points of $F$ again, we can make $y > Y(\omega + \epsilon)$ arbitrarily close to $Y(\omega + \epsilon)$. Hence
+  \[
+    \limsup_{n\rightarrow\infty} Y_n(\omega) \leq Y(\omega + \epsilon).
+  \]
+  Finally, since $\omega$ was chosen so that $Y$ is continuous at $\omega$,
+  \begin{equation}
+    \limsup_{n\rightarrow\infty} Y_n(\omega) \leq Y(\omega).
+    \label{3.5}
+  \end{equation}
+  So by \eqref{3.4} and \eqref{3.5},
+  \[
+    Y(\omega) \leq \liminf_{n\toinf} Y_n(\omega) \leq \limsup_{n\toinf} Y_n(\omega) \leq Y(\omega).
+  \]
+  Hence we are done.
 \end{Solution}
 
 \end{document}
