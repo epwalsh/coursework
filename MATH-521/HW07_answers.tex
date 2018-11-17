@@ -83,4 +83,90 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
   \]
 \end{Solution}
 
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{2}
+\begin{tcolorbox}
+  \begin{enumerate}[label=(\roman*)]
+      \item Prove that the local Law of Iterated Logarithms holds at every fixed $s \geq 0$, that is, for every fixed $s \geq 0$,
+      \[
+        \limsup_{h\downarrow 0} \frac{B(s + h) - B(s)}{\sqrt{2h\log|\log h|}} = 1, \ \ \text{a.s.}
+      \]
+    \item Prove that for almost every $\omega$, the set of times $s \geq 0$ such that
+      \[
+        \limsup_{h\downarrow 0} \frac{B(s + h) - B(s)}{\sqrt{2h\log|\log h|}} \neq 1
+      \]
+      has Lebesgue measure 0.
+    \item Prove that for almost every $\omega$, the set of times $s \geq 0$ such that
+      \[
+        \limsup_{h\downarrow 0} \frac{B(s + h) - B(s)}{\sqrt{2h\log|\log h|}} \neq 1
+      \]
+      is dense in $[0, \infty)$.
+  \end{enumerate}
+\end{tcolorbox}
+\begin{Solution}
+
+  (i) Fix $s \geq 0$. Then let $Y(t) = B(s + t) - B(s)$, $t \geq 0$. So $ \left\{ Y_t, t \geq 0 \right\} $ is BM. Then let $X(t) = tY(1/t)$. So by invariance under time inversion, $ \left\{ X_t, t \geq 0 \right\}$ is also BM. Thus,
+  \begin{align*}
+  \limsup_{h\downarrow 0} \frac{B(s + h) - B(s)}{\sqrt{2h \log|\log h|}} = \limsup_{h\downarrow 0} \frac{Y(h)}{\sqrt{2h\log\log(1/h)}} & = \limsup_{t\rightarrow\infty} \frac{Y(1/t)}{\sqrt{2(1/t)\log\log t}} \\
+  & = \limsup_{t\rightarrow\infty} \frac{tY(1/t)}{\sqrt{2t\log\log t}} \\
+  & = \limsup_{t\toinf} \frac{X(t)}{\sqrt{2t\log\log t}} \\
+  & = 1,
+  \end{align*}
+  by the Law of Iterated Logarithms.
+
+  (ii) Let
+  \[
+    f_s(\omega) = \begin{cases}{}
+      1 & \text{ if } \limsup_{h\downarrow 0} \frac{B(s + h) - B(s)}{\sqrt{2h\log|\log h|}} \neq 1 \\
+      0 & \text{ otherwise }
+    \end{cases} \ \ \  \ \ \text{for} \ s \geq 0, \omega \in \Omega.
+  \]
+  For fixed $s \geq 0$, $f_s$ is measurable with respect to $(\Omega, \mathcal{F}, P)$ since it based on the limit of measurable functions. Similarly, for fixed $\omega \in \Omega$, $f_s(\omega)$ is measurable with respect to Lebesgue measure since it based on the limit of continuous functions. Thus $f_s(\omega)$ is measurable with respect to the product measure of $P$ and Lebesgue measure on $[0, \infty)$. Hence all of the integrals below are well-defined.
+
+  Now, by part (i), $f_s = 0$ almost surely $(P)$ for each $s \geq 0$. Therefore $Ef_s = 0$, $s \geq 0$. Hence
+  \[
+    \int_{0}^{\infty} (Ef_s) ds = 0.
+  \]
+  So by Fubini's / Tonelli's theorem,
+  \[
+    E \left( \int_{0}^{\infty} f_s ds \right) = 0.
+  \]
+  But this implies that for almost all $\omega \in \Omega$,
+  \[
+    \int_{0}^{\infty} f_s(\omega) ds = 0,
+  \]
+  since $f_s$ is non-negative. Thus, for almost all $\omega \in \Omega$ (with respect to $P$), $f_s = 0$ for almost all $s \geq 0$ (with respect to the Lebesgue measure).
+  In other words, for almost every $\omega$, the set of times $s \geq 0$ such that
+  \begin{equation}
+    \limsup_{h\downarrow 0} \frac{B(s + h) - B(s)}{\sqrt{2h\log|\log h|}} \neq 1
+    \label{2.1}
+  \end{equation}
+  has Lebesgue measure 0.
+
+  (iii) As a Corollary to part (ii), we can say that for almost every $\omega$, the set of times $s \geq 0$ such that
+  \begin{equation}
+    \liminf_{h\downarrow 0} \frac{B(s + h) - B(s)}{\sqrt{2h\log|\log h|}} \neq -1
+    \label{2.2}
+  \end{equation}
+  has Lebesgue measure 0. Now let $E$ be the set of all $\omega$ such that the set of times $s \geq 0$ for which both \eqref{2.1} or \eqref{2.2} holds has Lebesgue measure 0. So $E$ has probability 1, and for all $\omega \in E$, the local LIL for both the $\limsup$ and $\liminf$ hold at almost every time. We will use this to show that for all $\omega \in E$, the set of times such that \eqref{2.1} holds is dense.
+
+  Let $\omega \in E$ and $0 \leq s_1 < s_2$. It suffices to show that we can find $s^* \in (s_1, s_2)$ such that \eqref{2.1} holds (with respect to the given $\omega$). Well, by our construction of $E$, we can find $s_0 \in (s_1, s_2)$ such that
+  \[
+    \limsup_{h\downarrow 0} \frac{B(s_0 + h) - B(s_0)}{\sqrt{2h\log|\log h|}} = 1 \ \text{ and } \ \liminf_{h\downarrow 0} \frac{B(s_0 + h) - B(s_0)}{\sqrt{2h\log|\log h|}} = -1.
+  \]
+  So at $s_0$, the local BM process $\{ B(s_0 + h) - B(s_0), h \geq 0 \}$ crosses 0 infinitely often as $h \rightarrow 0$. Then let $h_0 > 0$ such that $s_0 + h_0 < s_2$ and $B(s_0 + h_0) - B(s_0) = 0$, and define
+  \[
+    s^* := s_0 + \text{argmax}_{0\leq h \leq h_0} \{ B(s_0 + h) - B(s_0) \}.
+  \]
+  That is, $s^*$ is the maximal point of $B(t)$ for $t \in [s_0, s_0 + h_0]$, and $B(s^*) > B(s_0 + h_0)$. Hence, for small $h$ such that $s^* + h < s_0 + h_0$, we have
+  $B(s^*) \geq B(s^* + h)$, and so
+  \[
+    \limsup_{h\downarrow 0} \frac{B(s^* + h) - B(s^*)}{\sqrt{2h\log|\log h|}} \leq 0.
+  \]
+  Therefore \eqref{2.1} holds at $s^* \in (s_1, s_2)$, so we are done.
+\end{Solution}
+
 \end{document}
