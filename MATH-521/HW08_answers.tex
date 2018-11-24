@@ -1,0 +1,136 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter \\}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 521}
+\rhead{\thepage}
+\cfoot{}
+
+% Custom commands.
+\newcommand\toinfty{\rightarrow\infty}
+\newcommand\toinf{\rightarrow\infty}
+\newcommand{\sinf}[1]{\sum_{#1=0}^{\infty}}
+\newcommand{\linf}[1]{\lim_{#1\rightarrow\infty}}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 521 -- ASSIGNMENT VII -- fall 2018} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 1
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1}
+\begin{tcolorbox}
+  Suppose $ \left\{ B_t, t \geq 0 \right\} $ is Brownian motion. Let
+  \[
+    T := \inf \left\{ t \geq 0 : |B_t| \geq 1 \right\}.
+  \]
+  Find $c  < \infty$ and $q < 1$ such that $P(T \geq t) \leq cq^t$, for all $t \geq 0$.
+\end{tcolorbox}
+\begin{Solution}
+
+  \textbf{Claim:} $P(T \geq t) \leq 2 q^t$, where
+  \[
+    q := \frac{2}{\sqrt{2\pi}} \int_{1}^{\infty}  s^{-3/2} e^{-2/s}ds.
+  \]
+
+  Let $t \geq 0$. For simplicity, first assume $t = n$ for some integer $n \geq 1$. Then
+  \begin{align}
+    P(T \geq n) & = \int_{-1}^{1} P(T \geq n, B(n-1) = x, T \geq n-1) dx \nonumber \\
+    & = \int_{-1}^{1} P(T \geq n | B(n-1) = x, T \geq n-1) P(B(n-1) = x, T \geq n-1) dx.
+    \label{1.1}
+  \end{align}
+  Now, by the strong Markov property,
+  \begin{equation}
+    P(T \geq n | B(n-1) = x, T \geq n-1) = P(T \geq n | B(n-1) = x), \ \ x \in (-1, 1).
+    \label{1.2}
+  \end{equation}
+  Further, if we let $T_a := \inf \left\{ t \geq 0 : B_t = a \right\}$, then for $x \in (-1, 1)$,
+  \begin{align}
+    P(T \geq n | B(n-1) = x) & = P( \text{min}\{T_{-1}, T_1 \} \geq n | B(n-1) = x)  \nonumber \\
+    & = P(T_{-1} \geq n, T_1 \geq n | B(n-1) = x) \nonumber \\
+    & \leq P(T_1 \geq n | B(n-1) = x) \nonumber \\
+    & \leq P(T_1 \geq n | B(n-1) = -1) \nonumber \\
+    & = P(T_2 \geq n | B(n-1) = 0) \nonumber \\
+    & = P(T_2 \geq 1).
+    \label{1.3}
+  \end{align}
+  So by \eqref{1.1}, \eqref{1.2}, and \eqref{1.3}, we have
+  \begin{align}
+    P(T \geq n) & = \int_{-1}^{1} P(T_2 \geq 1) P(B(n-1) = x, T \geq n-1) dx \nonumber \\
+    & = P(T_2 \geq 1) \int_{-1}^{1} P(B(n-1) = x, T \geq n-1) dx \nonumber \\
+    & = P(T_2 \geq 1) P(T \geq n-1).
+    \label{1.4}
+  \end{align}
+  Therefore, by induction, we have
+  \begin{equation}
+    P(T \geq n) = [P(T_2 \geq 1)]^n.
+    \label{1.5}
+  \end{equation}
+  However, by the last homework, $P(T_2 \geq 1) = q$. So all together, we have
+  \begin{equation}
+    P(T \geq n) = q^n.
+    \label{1.5b}
+  \end{equation}
+  Now take any $t \geq 0$. Let $u = t - \lfloor t \rfloor$. By similar steps to above, we can write
+  \begin{align}
+    P(T \geq t) & = \int_{-1}^{1} P(T \geq t | B(\lfloor t \rfloor) = x ) P(B(\lfloor t \rfloor ) = x, T \geq \lfloor t \rfloor ) dx \nonumber \\
+    & \leq P(T_2 \geq u) \int_{-1}^{1} P(B(\lfloor t \rfloor ) = x, T \geq \lfloor t \rfloor ) dx \nonumber \\
+    & = P(T_2 \geq u) P(T \geq \lfloor t \rfloor ) \nonumber \\
+    \text{(by \eqref{1.5b})} \ \ \ & = P(T_2 \geq u) q^{\lfloor t \rfloor}.
+    \label{1.6}
+  \end{align}
+  Further, by computational methods we can see that $q \approx 0.95$, and so it certainly holds that
+  \begin{equation}
+    P(T_2 \geq u) \leq 1 < 2 q^u.
+    \label{1.7}
+  \end{equation}
+  So by \eqref{1.6} and \eqref{1.7}, we have
+  \begin{equation}
+    P(T \geq  t) \leq 2q^{u}q^{\lfloor t \rfloor} = 2q^{t}.
+    \label{1.8}
+  \end{equation}
+  Hence we are done.
+\end{Solution}
+
+\end{document}
