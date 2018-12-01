@@ -1,0 +1,123 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[headheight=15pt]{geometry}
+\geometry{a4paper, left=20mm, right=20mm, top=30mm, bottom=30mm}
+\usepackage{graphicx}
+\usepackage{bm} % for bold font in math mode - command is \bm{text}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{amssymb} % for stacked arrows and other shit
+\pagestyle{fancy}
+\usepackage{changepage}
+\usepackage{mathcomp}
+\usepackage{tcolorbox}
+
+\declaretheoremstyle[]{normal}
+\declaretheorem[style=normal]{Theorem}
+\declaretheorem[style=normal]{Proposition}
+\declaretheorem[style=normal]{Lemma}
+\newcounter{ProofCounter}
+\newcounter{ClaimCounter}[ProofCounter]
+\newcounter{SubClaimCounter}[ClaimCounter]
+\newenvironment{Proof}{\stepcounter{ProofCounter}\textsc{Proof.}}{\hfill$\square$}
+\newenvironment{Solution}{\stepcounter{ProofCounter}\textbf{Solution:}}{\hfill$\square$}
+\newenvironment{claim}[1]{\vspace{1mm}\stepcounter{ClaimCounter}\par\noindent\underline{\bf Claim \theClaimCounter:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof of claim \theClaimCounter:}\space#1}{\hfill $\blacksquare$ Claim \theClaimCounter \\}
+\newenvironment{subclaim}[1]{\stepcounter{SubClaimCounter}\par\noindent\emph{Subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{}
+% \newenvironment{subclaimproof}[1]{\begin{adjustwidth}{2em}{0pt}\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+% $\blacksquare$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter}\vspace{5mm}\end{adjustwidth}}
+\newenvironment{subclaimproof}[1]{\par\noindent\emph{Proof of subclaim \theClaimCounter.\theSubClaimCounter:}\space#1}{\hfill
+$\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
+
+\allowdisplaybreaks{}
+
+% chktex-file 3
+
+\lhead{Evan P. Walsh}
+\chead{MATH 521}
+\rhead{\thepage}
+\cfoot{}
+
+% Custom commands.
+\newcommand\toinfty{\rightarrow\infty}
+\newcommand\toinf{\rightarrow\infty}
+\newcommand{\sinf}[1]{\sum_{#1=0}^{\infty}}
+\newcommand{\linf}[1]{\lim_{#1\rightarrow\infty}}
+
+\begin{document}\thispagestyle{empty}
+\begin{center}
+  \Large \textsc{math 521 -- ASSIGNMENT IX -- fall 2018} \\ 
+  \vspace{5mm}
+  \large Evan Pete Walsh
+\end{center}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 1
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{1}
+\begin{tcolorbox}
+  Prove that the invariance principle holds when the assumption that the $X_k$'s are bounded is relaxed to the assumption that $EX_k^2 < \infty$ (finite variance).
+\end{tcolorbox}
+\begin{Solution}
+  Let $\sigma^2 := \text{Var}X_k$. Let $S_n := \sum_{k=1}^n X_k$, and let $S_n(t)$ be the linear interpolation of $S_n$ for $t \geq 0$. Let 
+  \[
+    S_n^*(t) = \frac{S_n(nt)}{\sigma \sqrt{n}}, \ \ t \geq 0,  \ \ n \geq 1.
+  \]
+  We need to show that $\{ S_n^*(t) , t \geq 0 \} \rightarrow \{ B(t), t \geq 0 \}$ in distribution, where $\{ B(t), t \geq 0\}$ is standard Brownian motion.
+
+  Fix $\delta > 0$. Then for any $\epsilon \in (0, \sigma^2)$, we can find $M > 0$ such that, for $Y_k := X_k \bm{1}_{\{|X_k| \leq M\}}$ and $V_k := X_k - Y_k$, we have
+  \[
+    \sigma_M^2 := \text{Var} Y_k \in (\sigma^2 - \epsilon, \sigma^2] \ \ \text{ and } \ \ \text{Var}V_k < \epsilon.
+  \]
+  Let $S_n^{Y}(t)$ and $S_n^{V}(t)$ be defined analogous to $S_n$, i.e. as linear interpolations of the sums of the partial sums of the $Y_n$'s and $V_n$'s, respectively. Let 
+  \[
+    S_n^{Y*}(t) := \frac{S_n^Y(nt)}{\sigma_M \sqrt{n}},
+  \]
+  and
+  \[
+    S_n^{V*}(t) := \frac{S_n^V(nt)}{\sigma\sqrt{n}}.
+  \]
+  So $\{ S_n^{Y*}(t), t \geq 0\} \rightarrow \{ B(t), t \geq 0\}$ by the version of the invariance principle proved in class, and
+  \begin{equation}
+    S_n^*(t) = \frac{S_n^Y(nt)}{\sigma \sqrt{n}} + \frac{S_n^V(nt)}{\sigma\sqrt{n}} = \frac{\sigma_M}{\sigma} S_n^{Y*}(t) + S_n^{V*}(t).
+    \label{1.1}
+  \end{equation}
+  Further, by Markov's inequality,
+  \begin{align}
+    P \left( |S_n^{V*}(t)| \geq \delta \right) & = P \left( \frac{1}{\sigma\sqrt{n}}|S_n^V| \geq \delta \right) \nonumber \\
+    & \leq \frac{1}{\delta^2} E \left[ \left( \frac{1}{\sigma \sqrt{n}}|S_n^V| \right)^2 \right] \nonumber \\
+    & = \frac{1}{\sigma^2 n\delta^2} \text{Var} S_n^V \nonumber \\
+    & \leq \frac{\epsilon}{\sigma^2 \delta^2}.
+    \label{1.2}
+  \end{align}
+  Now let $x \in \mathbb{R}$. Then
+  \begin{align}
+    \limsup_{n\rightarrow\infty} P(S_n^*(t) \leq x) & = \limsup_{n\rightarrow\infty} P \left( S_n^*(t) \leq x, |S_n^{V*}(t)| \geq \delta \right) + P \left( S_n^*(t) \leq x, |S_n^{V*}(t)| < \delta \right)  \nonumber \\
+    & \leq \frac{\epsilon}{\sigma^2 \delta^2} \limsup_{n\rightarrow \infty} P \left( \frac{\sigma_M}{\sigma} S_n^{Y*}(t) - \delta \leq x \right) \nonumber \\
+    & = \frac{\epsilon}{\sigma^2 \delta^2} + P \left( B(t) \leq \frac{\sigma(x + \delta)}{\sigma_M} \right).
+    \label{1.3}
+  \end{align}
+  Similarly,
+  \begin{align}
+    \liminf_{n\rightarrow\infty} P(S_n^*(t) \leq x) \geq \liminf_{n\rightarrow \infty} P \left( \frac{\sigma_M}{\sigma} S_n^{Y*}(t) + \delta \leq x \right) = P \left( B(t) \leq \frac{\sigma(x - \delta)}{\sigma_M} \right).
+    \label{1.4}
+  \end{align}
+  But since $\epsilon > 0$ was arbitrary and the distribution function of $B(t)$ is continuous, we have
+  \begin{align}
+    \limsup_{n\rightarrow\infty} P(S_n^*(t) \leq x) & \leq P \left( B(t) \leq x + \delta \right), \ \ \text{ and } \label{1.5} \\
+    \liminf_{n\rightarrow\infty} P(S_n^*(t) \leq x) & \geq P \left( B(t) \leq x - \delta \right). \label{1.6}
+  \end{align}
+  Now let $\delta \rightarrow 0$ as well. Then
+  \begin{equation}
+    P( B(t) \leq x ) \leq \liminf_{n\rightarrow\infty} P(S_n^*(t) \leq x) \leq\limsup_{n\rightarrow\infty} P(S_n^*(t) \leq x) \leq P(B(t) \leq x).
+    \label{1.7}
+  \end{equation}
+  The results above can be extended to any finite collection $\{ S_n^*(t_1), \dots, S_n^*(t_k) \}$, and therefore $\{ S_n^*(t), t \geq 0 \} \rightarrow \{ B(t), t \geq 0\}$ in distribution.
+\end{Solution}
+
+\end{document}
