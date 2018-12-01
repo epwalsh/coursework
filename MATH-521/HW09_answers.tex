@@ -124,6 +124,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
 % Question 2
 %------------------------------------------------------------------------------------------------------------------%
 
+\newpage
 \subsection*{2}
 \begin{tcolorbox}
   Let $\lambda > 0$ and suppose $p_n \in (0, 1)$ for $n \geq 1$ such that $np_n \rightarrow \lambda$ as $n\toinf$. Suppose $X_n \sim \text{Binomial}(n, p_n)$ and $Y \sim \text{Poisson}(\lambda)$. Prove that $X_n \rightarrow Y$ in distribution.
@@ -160,6 +161,58 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
     \linf{n} P(X_n = k) = \frac{\lambda^k e^{-\lambda}}{k!} = P(Y = k).
     \label{2.6}
   \end{equation}
+\end{Solution}
+
+%------------------------------------------------------------------------------------------------------------------%
+% Question 3
+%------------------------------------------------------------------------------------------------------------------%
+
+\newpage
+\subsection*{3}
+\begin{tcolorbox}
+  Suppose $(D, \mathcal{G}, \mu)$ is a $\sigma$-finite measure space with disjoint $F_1, F_2, \dots \in \mathcal{G}$ such that
+  \[
+    \cup_{k\geq 1}F_k = D
+  \]
+  and $\mu(F_k) < \infty$ for all $k \geq 1$. Further, suppose that $Z_1, Z_2, \dots$ are independent and $Z_k$ is a Poisson Point Processes (PPP) on $F_k$ with intensity $\mu_k$ defined by
+  \[
+    \mu_k(A) = \mu(A \cap F_k), \ \ A \in \mathcal{G}, A \cup F_k.
+  \]
+  Show that $Z := \cup_{k\geq 1} Z_k$ is a PPP.
+\end{tcolorbox}
+\begin{Solution}
+  The key here is that a countable sum of Poisson random variables is also a Poisson random variable, with the convention that $\lambda = \infty$ implies that the random variable is degenerately infinite. We will prove this formally with the following claim.
+
+  \begin{claim}
+    Let $\lambda_1, \lambda_2, \dots \in \mathbb{R}$ and $X_1, X_2, \dots$ be independent random variables such that $X_k$ is Poisson with paramater $k$. Then $\sum_{k=1}^{\infty}X_k$ is Poisson with parameter $\sum_{k=1}^{\infty} \lambda_k$.
+  \end{claim}
+  \begin{claimproof}
+    Let $S_n = \sum_{k=1}^{n}X_k$ and $\Lambda_n = \sum_{k=1}^{n} \lambda_k$. Then for all $k < \infty$, we have
+    \[
+      P(S_n = k) = \frac{\Lambda_n^k e^{-\Lambda_n}}{k!}
+    \]
+    since $S_n$ is Poisson with parameter $\Lambda_n$. So if $\sum_{n=1}^{\infty}\lambda_n$ converges, then
+    \[
+      P(S_n = k) \rightarrow \frac{\lambda^k e^{-\lambda}}{k!} \ \ \text{ as } n\rightarrow \infty,
+    \]
+    where $\lambda := \sum_{n=1}^{\infty}\lambda_n$. On the other hand, if $\sum_{n=1}^{\infty}\lambda_n$ diverges, then
+    \[
+      P(S_n = k) \rightarrow 0 \ \ \text{ as } n \toinf
+    \]
+    for all $k < \infty$, in which case $\sum_{n=1}^{\infty}X_n$ must be degenerately infinite.
+  \end{claimproof}
+
+  Now, we need to show that for all $A \in \mathcal{G}$, $\#(Z \cap A)$ is Poisson$(\mu(A))$, and for disjoint $A_1, A_2 \in \mathcal{G}$, $\#(Z \cap A_1)$ and $\#(Z\cap A_2)$ are independent.
+  
+  Well, independence follows immediately from the assumption that the $Z_k$'s are independent and defined on disjoint subsets of $D$. And for any $A \in \mathcal{G}$, we have
+  \begin{align*}
+    \#(Z \cap A) = \sum_{k=1}^{\infty} \#(Z_k \cap A) = \sum_{k=1}^{\infty} \#(Z_k \cap A \cap F_k),
+  \end{align*}
+  which, since each $Z_k$ is a PPP, is the countable sum of independent Poisson random variables, each with parameter $\mu_k(A)$. So by Claim 1, $\#(Z \cap A)$ is Poisson with parameter
+  \[
+    \sum_{k=1}^{\infty} \mu_k(A) = \sinf{k} \mu(A \cap F_k) = \mu(A).
+  \]
+  
 \end{Solution}
 
 \end{document}
