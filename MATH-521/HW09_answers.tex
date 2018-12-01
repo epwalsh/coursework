@@ -120,4 +120,46 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
   The results above can be extended to any finite collection $\{ S_n^*(t_1), \dots, S_n^*(t_k) \}$, and therefore $\{ S_n^*(t), t \geq 0 \} \rightarrow \{ B(t), t \geq 0\}$ in distribution.
 \end{Solution}
 
+%------------------------------------------------------------------------------------------------------------------%
+% Question 2
+%------------------------------------------------------------------------------------------------------------------%
+
+\subsection*{2}
+\begin{tcolorbox}
+  Let $\lambda > 0$ and suppose $p_n \in (0, 1)$ for $n \geq 1$ such that $np_n \rightarrow \lambda$ as $n\toinf$. Suppose $X_n \sim \text{Binomial}(n, p_n)$ and $Y \sim \text{Poisson}(\lambda)$. Prove that $X_n \rightarrow Y$ in distribution.
+\end{tcolorbox}
+\begin{Solution}
+  Let $k \geq 0$. Then for $n \geq k$,
+  \begin{align}
+    P(X_n = k) = \binom{n}{k} p_n^k(1 - p_n)^{n-k} & = \frac{n!}{k!(n-k)!} p_n^k(1 - p_n)^{n-k} \nonumber \\
+    & = \underbrace{\frac{(np_n)^{k}}{k!}}_{A} \times \underbrace{\frac{(1-p_n)^n}{1}}_{B} \times \underbrace{\frac{1}{(1-p_n)^k}}_{C} \times \underbrace{\frac{n!}{n^k(n-k)!}}_{D}.
+    \label{2.1}
+  \end{align}
+  Now for term $A$, we have
+  \begin{equation}
+    \lim_{n\rightarrow\infty} \frac{(np_n)^{k}}{k!} = \frac{\lambda^k}{k!}.
+    \label{2.2}
+  \end{equation}
+  For term $B$,
+  \begin{equation}
+    \linf{n} (1 - p_n)^n = \linf{n} \left( 1 + \frac{-np_n}{n} \right)^n = e^{-\lambda}.
+    \label{2.3}
+  \end{equation}
+  For term $C$,
+  \begin{equation}
+    \linf{n} \frac{1}{(1 - p_n)^k} = 1.
+    \label{2.4}
+  \end{equation}
+  And for term $D$,
+  \begin{equation}
+    \linf{n} \frac{n!}{n^k(n-k)!} = 1.
+    \label{2.5}
+  \end{equation}
+  Therefore
+  \begin{equation}
+    \linf{n} P(X_n = k) = \frac{\lambda^k e^{-\lambda}}{k!} = P(Y = k).
+    \label{2.6}
+  \end{equation}
+\end{Solution}
+
 \end{document}
