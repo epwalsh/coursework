@@ -61,7 +61,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
 
 \subsection*{Problem 1(i)}
 \begin{Solution}
-  Fix $\theta \in \mathbb{R}$ and let $X_t := e^{i\theta}B_t$, for $t \geq 0$. Since continuity in $t$ is trivial, it suffices to show that components of each $X_t$ are independent normal with expectation 0 and that for any $t_1 < t_2$, the covariance of $X_{t_1}$ matches that of $X_{t_2}$. First note that we can rewrite $X_t$ as follows.
+  Fix $\theta \in \mathbb{R}$ and let $X_t := e^{i\theta}B_t$, for $t \geq 0$. Since continuity in $t$ is trivial, it suffices to show that components of each $X_t$ are independent normal with expectation 0 and that for any $t_1 < t_2$, the covariance component-wise of $(X_i(t_1), X_i(t_2))$ matches that of $(B_i(t_1), B_i(t_2))$, for $i = 1,2$. First note that we can rewrite $X_t$ as follows.
   \begin{align*}
     X_t = e^{i\theta}B_t & = e^{i\theta}(B_1(t) + i B_2(t)) \\
     & = (\cos \theta + i \sin \theta) (B_1(t) + B_2(t)) \\
@@ -108,8 +108,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
   \begin{align*}
     P(A_n) & = P \left( \max_{0\leq t \leq q^n} B_1(t)^2 + B_2(t)^2 \geq (1 + \epsilon)^2\psi(q^n)^2 \right) \\
     & \leq \sum_{i=1}^{2} P \left( \max_{0\leq t \leq q^n} |B_i(t)| \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
-    & \leq \sum_{i=1}^{2} P \left( \max_{0\leq t \leq q^n} B_i(t) \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) + P \left( \min_{0\leq t \leq q^n} B_i(t) \leq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
+    & \leq \sum_{i=1}^{2} P \left( \max_{0\leq t \leq q^n} B_i(t) \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) + P \left( \min_{0\leq t \leq q^n} B_i(t) \leq - \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
     & \leq \sum_{i=1}^{2} 2 P \left( \max_{0\leq t \leq q^n} B_i(t) \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
+  & = \sum_{i=1}^{2} 2 P \left( |B_i(q^n)| \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \ \ \ \text{(since $\max_{0\leq t \leq q^n}B_i(t) \stackrel{d}{=} |B_i(q^n)|$)} \\
     & = \sum_{i=1}^{2} 2 P \left( \frac{|B_i(q^n)|}{\sqrt{q^n}} \geq \frac{(1 + \epsilon)\psi(q^n)}{\sqrt{2q^n}} \right) \\
     & \leq 4 \exp\{ -(1 + \epsilon)^2 \log \log q^n \} \ \ \ \text{(Lemma 12.9 in appendix of Morters \& Peres)} \\
     & = \frac{4}{(n\log q)^{(1+\epsilon)^2}}.
@@ -141,9 +142,10 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
 \begin{Solution}
   Let $c := \left( \frac{2}{\sqrt{2\pi}} \right)^3$, $\alpha := \frac{1}{8}$, and $\beta := - \frac{9}{8}$. Then we have
   \begin{align*}
-    P(|B_n| \leq n^{\alpha}) & \leq P(|B_1(n)| \leq n^{\alpha}) P(|B_2(n)| \leq n^{\alpha}) P(|B_3(n)| \leq n^{\alpha}) \\
+    P(|B_n| \leq n^{\alpha}) & \leq P(|B_1(n)| \leq n^{\alpha}, |B_2(n)| \leq n^{\alpha}, |B_3(n)| \leq n^{\alpha}) \\
+    & = P(|B_1(n)| \leq n^{\alpha}) P(|B_2(n)| \leq n^{\alpha}) P(|B_3(n)| \leq n^{\alpha}) \\
     & = P(|B_1(n)| \leq n^{\alpha})^3 \\
-    & = P \left( \frac{|B_1(n)|}{\sqrt{n}} \leq n^{\alpha - 1/2} \right) \\
+    & = P \left( \frac{|B_1(n)|}{\sqrt{n}} \leq n^{\alpha - 1/2} \right)^3 \\
     & \leq \left( \frac{1}{\sqrt{2\pi}} 2n^{\alpha - 1/2} \right)^3 \\
     & = \left( \frac{2}{\sqrt{2\pi}} \right)^3 n^{3\alpha - 3/2} \\
     & = cn^{\beta}.
@@ -157,9 +159,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
     P(A_n) = P\left( \max_{0\leq t \leq 1} |B_t| \geq n^{\alpha} / 2\right) & = P \left( \max_{0\leq t \leq 1} \sqrt{B_1(t)^2 + B_2(t)^2 + B_3(t)^2} \geq n^{\alpha}/2 \right) \\
     & \leq \sum_{i=1}^{3} P \left( \max_{0\leq t \leq 1} |B_i(t)| \geq n^{\alpha}/ 6 \right) \\
     & \leq \sum_{i=1}^{3} P \left( \max_{0\leq t \leq 1} B_i(t) \geq n^{\alpha}/ 6 \right) \\
-    & \ \ \ \ \ + P \left( \min_{0\leq t \leq 1} B_i(t) \leq n^{\alpha}/ 6 \right) \\
+    & \ \ \ \ \ + P \left( \min_{0\leq t \leq 1} B_i(t) \leq - n^{\alpha}/ 6 \right) \\
     & = \sum_{i=1}^{3} 2P \left( \max_{0\leq t \leq 1} B_i(t) \geq n^{\alpha}/ 6 \right) \\
-    & = \sum_{i=1}^{3} 2P(|B_i(1)| \geq n^{\alpha}/2) \\
+    \text{(since $\max_{0\leq t \leq 1}B_i(t) \stackrel{d}{=} |B_i(1)|$)} \ \ & = \sum_{i=1}^{3} 2P(|B_i(1)| \geq n^{\alpha}/6) \\
     \text{(Lemma 12.9 in appendex of Morters \& Peres)} \ \ & \leq 6 \cdot 2 \cdot \exp \left\{ - \frac{n^{2\alpha}}{6^2\cdot 2} \right\}.
   \end{align*}
   Thus $\sinf{n} P(A_n) < \infty$. So by the Borel-Cantelli lemma, $P(A_n \text{ i.o.}) = 0$, i.e. 
@@ -186,5 +188,30 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
   \]
   Therefore with probability 1, $\liminf_{t\toinf} |B_t| = \infty$.
 \end{Solution}
+
+\subsection*{Problem 3(i)}
+\begin{Solution}
+  Since $(X(t_1), X(t_2), \dots, X(t_n))$ is just a linear combination of normal random variables, it is also has a Guassian distribution. Further,
+  \[
+    EX_t = Ee^{-t}B(e^{2t}) = e^{-t}EB(e^{2t}) = 0,
+  \]
+  and for all $s, t \in \mathbb{R}$,
+  \[
+    \text{Cov}(X_s, X_t) = e^{-(s + t)}\text{Cov}(B(e^{2s}), B(e^{2t})) = e^{-(s+t)}\min\{e^{2s}, e^{2t}\}.
+  \]
+\end{Solution}
+
+\subsection*{Problem 3(ii)}
+\begin{Solution}
+  Fix $s \in \mathbb{R}$. Then clearly $Y_t$ is also normal with $EY_t = 0$. Therefore it remains to show that for any $t_1, t_2 \in \mathbb{R}$, $\text{Cov}(Y_{t_1}, Y_{t_2}) = \text{Cov}(X_{t_1}, X_{t_2})$. Well, by Part (i),
+  \begin{align*}
+    \text{Cov}(Y_{t_1}, Y_{t_2}) = \text{Cov}(X_{s+t_1}, X_{s+t_2}) & = e^{-(s+t_1) - (s+t_2)}\min\{ e^{2(s+t_1)}, e^{2(s+t_2)}\} \\
+    & = e^{-(s+t_1) - (s+t_2)} e^{2s} \min\{ e^{2t_1}, e^{2t_2}\} \\
+    & = e^{-t_1 - t_2} \min\{ e^{2t_1}, e^{2t_2}\} \\
+    & = \text{Cov}(X_{t_1}, X_{t_2}).
+  \end{align*}
+\end{Solution}
+
+\subsection*{Problem 3(iii)}
 
 \end{document}
