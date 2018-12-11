@@ -112,7 +112,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
     & \leq \sum_{i=1}^{2} 2 P \left( \max_{0\leq t \leq q^n} B_i(t) \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
   & = \sum_{i=1}^{2} 2 P \left( |B_i(q^n)| \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \ \ \ \text{(since $\max_{0\leq t \leq q^n}B_i(t) \stackrel{d}{=} |B_i(q^n)|$)} \\
     & = \sum_{i=1}^{2} 2 P \left( \frac{|B_i(q^n)|}{\sqrt{q^n}} \geq \frac{(1 + \epsilon)\psi(q^n)}{\sqrt{2q^n}} \right) \\
-    & \leq 4 \exp\{ -(1 + \epsilon)^2 \log \log q^n \} \ \ \ \text{(Lemma 12.9 in appendix of Morters \& Peres)} \\
+    & \leq 4 \exp\{ -(1 + \epsilon)^2 \log \log q^n \} \ \ \ \text{(Lemma 12.9 in appendix of M\"{o}rters \& Peres)} \\
     & = \frac{4}{(n\log q)^{(1+\epsilon)^2}}.
   \end{align*}
   Thus $\sum_{n=1}^{\infty} P(A_n) < \infty$. So by Borel-Cantelli, $A$ occurs only a finite number of times with probability 1. Now, for large $t$ let $q^{n-1} \leq t < q^{n}$. Then
@@ -162,7 +162,7 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
     & \ \ \ \ \ + P \left( \min_{0\leq t \leq 1} B_i(t) \leq - n^{\alpha}/ 6 \right) \\
     & = \sum_{i=1}^{3} 2P \left( \max_{0\leq t \leq 1} B_i(t) \geq n^{\alpha}/ 6 \right) \\
     \text{(since $\max_{0\leq t \leq 1}B_i(t) \stackrel{d}{=} |B_i(1)|$)} \ \ & = \sum_{i=1}^{3} 2P(|B_i(1)| \geq n^{\alpha}/6) \\
-    \text{(Lemma 12.9 in appendex of Morters \& Peres)} \ \ & \leq 6 \cdot 2 \cdot \exp \left\{ - \frac{n^{2\alpha}}{6^2\cdot 2} \right\}.
+    \text{(Lemma 12.9 in appendex of M\"{o}rters \& Peres)} \ \ & \leq 6 \cdot 2 \cdot \exp \left\{ - \frac{n^{2\alpha}}{6^2\cdot 2} \right\}.
   \end{align*}
   Thus $\sinf{n} P(A_n) < \infty$. So by the Borel-Cantelli lemma, $P(A_n \text{ i.o.}) = 0$, i.e. 
   \[
@@ -211,7 +211,5 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
     & = \text{Cov}(X_{t_1}, X_{t_2}).
   \end{align*}
 \end{Solution}
-
-\subsection*{Problem 3(iii)}
 
 \end{document}
