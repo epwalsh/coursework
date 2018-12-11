@@ -138,6 +138,17 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
 \end{Solution}
 
 \subsection*{Problem 2(ii)}
+\begin{Solution}
+  Let $c := \left( \frac{2}{\sqrt{2\pi}} \right)^3$, $\alpha := \frac{1}{8}$, and $\beta := - \frac{9}{8}$. Then we have
+  \begin{align*}
+    P(|B_n| \leq n^{\alpha}) & \leq P(|B_1(n)| \leq n^{\alpha}) P(|B_2(n)| \leq n^{\alpha}) P(|B_3(n)| \leq n^{\alpha}) \\
+    & = P(|B_1(n)| \leq n^{\alpha})^3 \\
+    & = P \left( \frac{|B_1(n)|}{\sqrt{n}} \leq n^{\alpha - 1/2} \right) \\
+    & \leq \left( \frac{1}{\sqrt{2\pi}} 2n^{\alpha - 1/2} \right)^3 \\
+    & = \left( \frac{2}{\sqrt{2\pi}} \right)^3 n^{3\alpha - 3/2} \\
+    & = cn^{\beta}.
+  \end{align*}
+\end{Solution}
 
 \subsection*{Problem 2(iii)}
 \begin{Solution}
