@@ -109,8 +109,9 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
     P(A_n) & = P \left( \max_{0\leq t \leq q^n} B_1(t)^2 + B_2(t)^2 \geq (1 + \epsilon)^2\psi(q^n)^2 \right) \\
     & \leq \sum_{i=1}^{2} P \left( \max_{0\leq t \leq q^n} |B_i(t)| \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
     & \leq \sum_{i=1}^{2} P \left( \max_{0\leq t \leq q^n} B_i(t) \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) + P \left( \min_{0\leq t \leq q^n} B_i(t) \leq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
+    & \leq \sum_{i=1}^{2} 2 P \left( \max_{0\leq t \leq q^n} B_i(t) \geq \frac{1}{\sqrt{2}}(1 + \epsilon)\psi(q^n) \right) \\
     & = \sum_{i=1}^{2} 2 P \left( \frac{|B_i(q^n)|}{\sqrt{q^n}} \geq \frac{(1 + \epsilon)\psi(q^n)}{\sqrt{2q^n}} \right) \\
-    & \leq 4 \exp\{ -(1 + \epsilon)^2 \log \log q^n \} \ \ \ \text{(by Lemma 12.9 in the Appendix of Morters and Peres)} \\
+    & \leq 4 \exp\{ -(1 + \epsilon)^2 \log \log q^n \} \ \ \ \text{(Lemma 12.9 in appendix of Morters \& Peres)} \\
     & = \frac{4}{(n\log q)^{(1+\epsilon)^2}}.
   \end{align*}
   Thus $\sum_{n=1}^{\infty} P(A_n) < \infty$. So by Borel-Cantelli, $A$ occurs only a finite number of times with probability 1. Now, for large $t$ let $q^{n-1} \leq t < q^{n}$. Then
@@ -126,6 +127,53 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
     \limsup_{t\toinf} \frac{|B(t)|}{\psi(t)} \leq 1 \ \ \text{a.s.}
   \]
   Hence we are done.
+\end{Solution}
+
+\subsection*{Problem 2(i)}
+\begin{Solution}
+  The components of $B_t$ are iid normal random variables with expection 0 and variance $t$. Therefore the joint density with respect to three-dimensional Lebesgue measure is given by
+  \[
+    \frac{1}{(2\pi t)^{3/2}} \exp \left\{ - \frac{x_1^2 + x_2^2 + x_3^2}{2t} \right\}.
+  \]
+\end{Solution}
+
+\subsection*{Problem 2(ii)}
+
+\subsection*{Problem 2(iii)}
+\begin{Solution}
+  Let $\alpha > 0$. By invariance (compenent-wise), $|B_n - B_{n+t}| \stackrel{d}{=} |B_t|$. So
+  \begin{align*}
+    P(A_n) = P\left( \max_{0\leq t \leq 1} |B_t| \geq n^{\alpha} / 2\right) & = P \left( \max_{0\leq t \leq 1} \sqrt{B_1(t)^2 + B_2(t)^2 + B_3(t)^2} \geq n^{\alpha}/2 \right) \\
+    & \leq \sum_{i=1}^{3} P \left( \max_{0\leq t \leq 1} |B_i(t)| \geq n^{\alpha}/ 6 \right) \\
+    & \leq \sum_{i=1}^{3} P \left( \max_{0\leq t \leq 1} B_i(t) \geq n^{\alpha}/ 6 \right) \\
+    & \ \ \ \ \ + P \left( \min_{0\leq t \leq 1} B_i(t) \leq n^{\alpha}/ 6 \right) \\
+    & = \sum_{i=1}^{3} 2P \left( \max_{0\leq t \leq 1} B_i(t) \geq n^{\alpha}/ 6 \right) \\
+    & = \sum_{i=1}^{3} 2P(|B_i(1)| \geq n^{\alpha}/2) \\
+    \text{(Lemma 12.9 in appendex of Morters \& Peres)} \ \ & \leq 6 \cdot 2 \cdot \exp \left\{ - \frac{n^{2\alpha}}{6^2\cdot 2} \right\}.
+  \end{align*}
+  Thus $\sinf{n} P(A_n) < \infty$. So by the Borel-Cantelli lemma, $P(A_n \text{ i.o.}) = 0$, i.e. 
+  \[
+    P(A_n^c \text{ eventually}) = 1.
+  \]
+\end{Solution}
+
+\subsection*{Problem 2(iv)}
+\begin{Solution}
+  By Part (ii) and the Borel-Cantelli Lemma, there exists $\alpha > 0$ such that with probability 1,
+  \begin{equation}
+    |B_n| > n^{\alpha} \ \text{ eventually.}
+    \label{2(iv)(i)}
+  \end{equation}
+  By Part (iii), with probability 1
+  \begin{equation}
+    \max_{0\leq t \leq 1} |B_n - B_{n+t}| < n^{\alpha}/2 \ \text{ eventually.}
+    \label{2(iv)(ii)}
+  \end{equation}
+  So with probability 1 both \eqref{2(iv)(i)} and \eqref{2(iv)(ii)} hold, and for all such $\omega$ and large enough $t$,
+  \[
+    |B(t)| > (\lfloor t \rfloor)^\alpha - (\lfloor t \rfloor)^\alpha / 2 = (\lfloor t \rfloor)^{\alpha} / 2.
+  \]
+  Therefore with probability 1, $\liminf_{t\toinf} |B_t| = \infty$.
 \end{Solution}
 
 \end{document}
