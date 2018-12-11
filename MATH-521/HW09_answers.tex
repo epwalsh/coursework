@@ -97,8 +97,8 @@ $\Diamond$ \emph{Subclaim \theClaimCounter.\theSubClaimCounter \\}}
   \end{align}
   Now let $x \in \mathbb{R}$. Then
   \begin{align}
-    \limsup_{n\rightarrow\infty} P(S_n^*(t) \leq x) & = \limsup_{n\rightarrow\infty} P \left( S_n^*(t) \leq x, |S_n^{V*}(t)| \geq \delta \right) + P \left( S_n^*(t) \leq x, |S_n^{V*}(t)| < \delta \right)  \nonumber \\
-    & \leq \frac{\epsilon}{\sigma^2 \delta^2} \limsup_{n\rightarrow \infty} P \left( \frac{\sigma_M}{\sigma} S_n^{Y*}(t) - \delta \leq x \right) \nonumber \\
+    \limsup_{n\rightarrow\infty} P(S_n^*(t) \leq x) & = \limsup_{n\rightarrow\infty} \left[ P \left( S_n^*(t) \leq x, |S_n^{V*}(t)| \geq \delta \right) + P \left( S_n^*(t) \leq x, |S_n^{V*}(t)| < \delta \right) \right] \nonumber \\
+    & \leq \frac{\epsilon}{\sigma^2 \delta^2} + \limsup_{n\rightarrow \infty} P \left( \frac{\sigma_M}{\sigma} S_n^{Y*}(t) - \delta \leq x \right) \nonumber \\
     & = \frac{\epsilon}{\sigma^2 \delta^2} + P \left( B(t) \leq \frac{\sigma(x + \delta)}{\sigma_M} \right).
     \label{1.3}
   \end{align}
